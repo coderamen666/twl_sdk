@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>MB_StartParentFromIdle</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+<body>
+<h1 align="left">MB_StartParentFromIdle <IMG src="../../image/NTR.gif" width="24" height="12" border="0" align=middle><IMG src="../../image/TWL.gif" width="24" height="12" border="0" align=middle></h1>
+<h2>Syntax</h2>
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/mb.h&gt;</CODE><BR>
+  <BR>
+  <CODE>int MB_StartParentFromIdle(int channel);</CODE><br>
+  <br>
+  </dd>
+</dl>
+<h2>Arguments</h2>
+<p>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+      <TD width="13%"><EM><STRONG>channel</STRONG></EM></TD>
+      <TD width="87%">The channel on which the parent communicates.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</p>
+<h2>Return Values</h2>
+<p>Returns MB_SUCCESS if the start process completes successfully.</p>
+<H2>Description</H2>
+<P>This function starts a parent operation on the specified channel. Parent processing is run automatically and internally, and ends when the <CODE><A href="../common/MB_EndToIdle.html">MB_EndToIdle()</A></CODE> function is called.<BR>When the initialization is complete, the argument <SPAN class="argument">status</SPAN> is returned with the value of <code>MB_COMM_PSTATE_INIT_COMPLETE</code> as a callback of the <CODE><A href="./MB_CommSetParentStateCallback.html">MB_CommSetParentStateCallback</A></CODE> function. <BR>
+<h2>Internal Operation</h2>
+<p>
+<font color="#800000">This function must be called with the wireless library in the <a href="../../wm/wm/wm_state_diagram.html">IDLE state</a>. Also note that a corresponding call to the <CODE><A href="../common/MB_EndToIdle.html">MB_EndToIdle</A></CODE> function is required to shut down the library.</font><br> <br>Use the <a href="../parent/MB_StartParent.html"><code>MB_StartParent</code></a> function to run processes with the wireless library in the <a href="../../wm/wm/wm_state_diagram.html">pre-initialization state</a>.</p>
+<h2>See Also</h2>
+<p><code><a href="../common/MB_Init.html">MB_Init</a><BR> <a href="../common/MB_EndToIdle.html">MB_EndToIdle</a><BR> <a href="../common/MB_End.html">MB_End</a><BR> <a href="../parent/MB_StartParent.html">MB_StartParent</a><BR> <a href="MB_CommSetParentStateCallback.html">MB_CommSetParentStateCallback</a></code></P>
+<H2>Revision History</H2>
+<P>
+2004/10/24 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

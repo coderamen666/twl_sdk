@@ -1,0 +1,35 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>CAMERA_GetTransferLines</TITLE>
+<LINK rel="stylesheet" href="../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">CAMERA_GetTransferLines <IMG src="../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+<DL>
+  <DD>
+  <CODE>#include &lt;twl/camera.h&gt;</CODE><BR>
+  <BR>
+  <CODE>int CAMERA_GetTransferLines( void );</CODE>
+</DL>
+<H2>Arguments</H2>
+<P>None.</P>
+
+<H2>Return Values</H2>
+<P>Returns the number of lines to transfer to the buffer at once.</P>
+
+<H2>Description</H2>
+<P>
+This function gets the number of lines currently configured to be transferred to the buffer at once. If the <code><A href="CAMERA_SetTransferLines.html">CAMERA_SetTransferLines</A></code> function has been used to specify the number of lines to transfer to the buffer at once, that setting is obtained. If the aforementioned function has not been called, the default value is obtained.
+</P>
+
+<H2>See Also</H2>
+<P><CODE><A href="CAMERA_SetTransferLines.html">CAMERA_SetTransferLines</A></CODE></P>
+<H2>Revision History</H2>
+<P>2008/01/15 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

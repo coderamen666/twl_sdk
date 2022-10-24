@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>OS_SetAlarm</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">OS_SetAlarm <IMG src="../../image/NTR.gif" align="middle"><IMG src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+<DL>
+  <DD>
+<PRE><CODE>#include &lt;nitro/os.h&gt;</CODE></PRE>
+  <PRE><CODE>void OS_SetAlarm(
+             OSAlarm*       alarm,
+             OSTick         tick,
+             OSAlarmHandler handler,
+             void*          arg );
+  </CODE></PRE>
+</DL>
+<H2>Arguments</H2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="13%"><CODE>alarm</CODE></TD>
+<TD width="87%">Pointer to an alarm structure that is initialized for this alarm.</TD>
+    </TR>
+    <TR>
+<TD width="13%"><CODE>tick</CODE></TD>
+<TD width="87%">Tick count until the alarm goes off (the handler is called).</TD>
+    </TR>
+    <TR>
+<TD><CODE>handler</CODE></TD>
+<TD>Alarm handler.</TD>
+    </TR>
+    <TR>
+<TD><CODE>arg</CODE></TD>
+<TD>Argument when the handler is called.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>Return Values</H2>
+<P>None.</P>
+<H2>Description</H2>
+<P>Sets up a one-time alarm.</P>
+<P>A <code>handler</code> is called after the tick count that is specified by <code>tick</code>. The V-Count alarm handler <code>handler</code> is an <code>OSVAlarmHandler</code> function defined by the following.</P>
+<BLOCKQUOTE><CODE>typedef void (*OSAlarmHandler)( void* );</CODE></BLOCKQUOTE>
+<P>  When the <code>handler</code> is called, it takes <code>arg</code> as an argument. The <code>handler</code> argument is passed from the OS timer interrupt handler. Therefore, interrupts are prohibited.</P>
+<P>One tick count unit is 1/64 of the hardware system clock.</P>
+<P>If <code>alarm</code> is specified for the pointer to the <code>OSAlarm</code> structure in which the alarm has been set, it stops with <code>OS_Panic</code>.</P>
+<P>In the following example, by setting an alarm, the <CODE>handler</CODE> function is called 0.5 seconds later, and &quot;<code>handler called. arg=0x12345678</code>&quot; is displayed.</P>
+<BLOCKQUOTE style="background:#ffffcc;">Example:<BR>
+<PRE>#define COUNT &#x3000;OS_MilliSecondsToTicks( 500 )
+#define ARG&#x3000;0x12345678
+OSAlarm &#x3000;alarm;
+
+main()
+{
+		&#xFF1A;
+	OS_InitTick();
+	OS_InitAlarm();
+		&#xFF1A;
+	OS_CreateAlarm( &amp;alarm );
+	OS_SetAlarm( &amp;alarm, COUNT, handler, (void*)ARG );
+		:
+}
+
+void handler( void* arg )
+{
+	OS_Printf( &quot;handler called. arg=0x%x\n&quot;, arg );
+}</PRE></BLOCKQUOTE>
+<H2>See Also</H2>
+<P><A href="OS_InitAlarm.html"><CODE>OS_InitAlarm</CODE></A><BR>
+<A href="OS_CancelAlarm.html"><CODE>OS_CancelAlarm</CODE></A><BR>
+<A href="OS_SetPeriodicAlarm.html"><CODE>OS_SetPeriodicAlarm</CODE></A><BR>
+<A href="OS_SetAlarmTag.html"><CODE>OS_SetAlarmTag</CODE></A><BR>
+<A href="../time/OS_SecondsToTicks.html"><CODE>OS_*SecondsToTicks</CODE></A></P>
+<H2>Revision History</H2>
+<P>
+2005/03/08 Standardized the use of the term &quot;interrupt&quot; in Japanese.<BR>
+2004/12/22 Added a statement about the alarm handler's being called from the timer interrupt handler.<BR>
+2004/08/30 Added a statement about not being able to use the set alarm structure.<BR>
+2004/02/25 Changed <CODE>systemClock</CODE> to <CODE>tick</CODE>.<BR>
+2004/02/04 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

@@ -1,0 +1,114 @@
+-------------------------------------------------------------------------------
+Project:TWL-System
+File:SourceTreeMap.txt
+
+Copyright 2004-2009 Nintendo. All rights reserved.
+
+These coded instructions, statements, and computer programs contain
+proprietary information of Nintendo of America Inc. and/or Nintendo
+Company Ltd., and are protected by Federal copyright law. They may
+not be disclosed to third parties or copied or duplicated in any form,
+in whole or in part, without the prior written consent of Nintendo.
+
+$Revision: 1230 $
+-------------------------------------------------------------------------------
+
+Directory structure of the TWL-System package
+
+
+TwlSystem                  TWL-System Top
+ |
+ |--docs                   Documentation
+ |  |
+ |  |--ReleaseNotes.html                 -  TWL-System release documentation
+ |  |--QuickStart.pdf         -  TWL-System quick start documentation
+ |  |
+ |  |--Changelog              -  Update history of each library and tool
+ |  |--Overview               -  Overview for each development environment
+ |  |--TechnicalNotes         -  Technical documentation
+ |  |--Xerces-C++             -  License documentation for Xerces-C++
+ |  |--Foundation             -  Foundation library documentation
+ |  |--GraphicsFoundation     -  GraphicsFoundation library documentation
+ |  |--G2D                    -  2DGraphics library documentation
+ |  |--G3D                    -  3DGraphics library documentation
+ |  |--NitroComposer          -  NITRO-Composer documentation
+ |  |--mcs                    -  Multiple Channel Stream library documentation
+ |  |--3DFileFormat           -  3D file format documentation
+ |  |--3DMaterialEditor       -  NNS-3DMaterialEditor documentation
+ |  |--NitroSoundMaker        -  NITRO-SoundMaker documentation
+ |  |--NitroPlayer            -  NITRO-Player documentation
+ |  |--NitroViewer            -  NITRO-Viewer documentation
+ |  +--3DPlugins              -  Plugin documentation
+ |      |
+ |      |--Maya               -  -  MAYA plug-in documentation
+ |      |--3dsmax             -  -  3ds Max plug-in documentation
+ |      |--SoftimageXSI       -  -  Softimage|XSI plug-in documentation
+ |      +--Photoshop          -  -  Photoshop plug-in documentation
+ |
+ |
+ |--build            -   Build directory
+ |  |
+ |  |--buildtools     -  Files necessary for build
+ |  |
+ |  |--demos          -  Demo applications
+ |  |  |
+ |  |  |--fnd                -  -  Demos for the Foundation library
+ |  |  |--gfd                -  -  GraphicsFoundation library demos
+ |  |  |--g2d                -  -  2DGraphics library demos
+ |  |  |--g3d                -  -  3DGraphics library demos
+ |  |  |--snd                -  -  NITRO-Composer library demos
+ |  |  +--mcs                -  -  Multiple Channel Stream library demos
+ |  |
+ |  +--libraries              -  Library source
+ |     |
+ |     |--fnd                -  -  Foundation library source
+ |     |--gfd                -  -  GraphicsFoundation library source
+ |     |--g2d                -  -  2DGraphics library source
+ |     |--g3d                -  -  3DGraphics library source
+ |     |--snd                -  -  NITRO-Composer library source
+ |     +--mcs                -  -  Multiple Channel Stream library source
+ |
+ |
+ |__include                Include files
+ |  |
+ |  +--nnsys                  - TWL-System header files
+ |      |
+ |      |__fnd                -  -  Foundation header files
+ |      |__gfd                -  -  GraphicsFoundation header files
+ |      |__g2d                -  -  2DGraphics header files
+ |      |__g3d                -  -  3DGraphics header files
+ |      |__snd                -  -  NITRO-Composer header files
+ |      |__mcs                -  -  Multiple Channel Stream header files
+ |
+ |
+ |__man                    Reference manual (HTML)
+ |  |
+ |  +--en_US          -  English
+ |
+ |
+ |__lib            Directory in which the library is created
+ |  |  
+ |  +--ARM9-TS                -  Library for the main processor TS and later
+ |      |
+ |      |__Debug              -  -  Debug version
+ |      |__Release            -  -  Release version
+ |      |__Rom                -  -  Final ROM version
+ |
+ |
+ +--tools                  TWL-System tools
+    |
+    +-bin                -  -  Executable files, including converters
+    +-fontcvtr           -  -  Font converter
+    +-mcsserver          -  -  mcs server
+    +-NNS_3DMaterialEditor   -  NNS-3DMaterialEditor
+    +-NitroSoundMaker        -  NITRO-SoundMaker
+    +-SoundPlayer            -  Sound player
+    +-NitroPlayer            -  NITRO-Player
+    +-NitroViewer            -  NITRO-Viewer
+    +--3DPlugins              -  3D plug-ins
+         |
+         +-Maya               -  -  MAYA plug-ins
+         +-3dsmax             -  -  3ds Max plug-ins
+         +-SoftimageXSI       -  -  Softimage|XSI plug-ins
+         +-Photoshop          -  -  Photoshop plug-ins
+

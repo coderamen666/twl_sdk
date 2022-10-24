@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title>WFS_ReplaceRomArchive</title>
+<link rel="stylesheet" href="../../css/nitro.css" type="text/css" />
+</head>
+<body>
+
+<h1>WFS_ReplaceRomArchive&nbsp;<img src="../../image/NTR.gif"><img src="../../image/TWL.gif"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<code>#include &lt;nitro/wfs.h&gt;</code><br />
+  <br />
+  <code>void WFS_ReplaceRomArchive(WFSClientContext *context);</code><br />
+  <br />
+  </dd>
+</dl>
+<h2>Arguments</h2>
+<table border="1" width="100%">
+  <tbody>
+    <tr>
+      <td style="width:13%"><em><strong>context</strong></em></td>
+      <td style="width:87%">Pointer to the <CODE>WFSClientContext</CODE> structure.</td>
+    </tr>
+  </tbody>
+</table>
+<h2>Return Values</h2>
+<p>None.</p>
+
+<h2>Description</h2>
+<p>Re-mounts the FS library standard archive &quot;rom&quot; so that the server can be accessed via the WFS library. After this function is called, it is possible to use all file system operations on the &quot;rom&quot; archive. This function cannot be called until client preparations are complete and <a href="../WFSEventType.html" target="_self"><CODE>WFS_EVENT_CLIENT_READY</CODE></a> event notification has been issued. This function does nothing if called before these conditions are met.
+</p>
+<p>
+After this function is called, the library will start using <a href="WFS_RequestClientRead.html"><CODE>WFS_RequestClientRead</CODE></a> internally. If you want to call <a href="WFS_RequestClientRead.html"><CODE>WFS_RequestClientRead</CODE></a> directly from your application, you can't use this function too.
+</p>
+
+<h2>See Also</h2>
+<p><code><a href="../WFSEventType.html">WFS_EVENT_CLIENT_READY</a>, <br /> <a href="WFS_IsClientReady.html">WFS_IsClientReady</a>, <a href="WFS_RequestClientRead.html">WFS_RequestClientRead</a> <br /></code></p>
+
+<h2>Revision History</h2>
+<p>
+2007/06/11 Initial version.
+</p>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

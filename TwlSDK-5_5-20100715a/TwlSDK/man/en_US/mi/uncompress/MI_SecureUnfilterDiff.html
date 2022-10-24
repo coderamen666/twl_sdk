@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>MI_SecureUnfilterDiff</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">MI_SecureUnfilterDiff <IMG src="../../image/NTR.gif" align="middle"><IMG src="../../image/TWL.gif" align="middle"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/mi.h&gt;</CODE><BR>
+  <BR>
+  <CODE>s32 MI_SecureUnfilterDiff( register const void *srcp, u32 srcSize, register void *destp, u32 dstSize);</CODE><br>
+</dl>
+<h2>Arguments</h2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+      <TD width="13%"><EM><STRONG>srcp</STRONG></EM></TD>
+      <TD width="87%">The source address where difference filtered-data is stored.</TD>
+    </TR>
+    <TR>
+      <TD width="13%"><EM><STRONG>srcSize</STRONG></EM></TD>
+      <TD width="87%">Source data size.</TD>
+    </TR>
+    <TR>
+      <TD width="13%"><EM><STRONG>destp</STRONG></EM></TD>
+      <TD width="87%">The destination address where the data is expanded. Can be the same region as the source address.</TD>
+    </TR>
+    <TR>
+      <TD width="13%"><EM><STRONG>dstSize</STRONG></EM></TD>
+      <TD width="87%">Destination size for decompression.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<h2>Return Values</h2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+      <TD width="13%"><EM><STRONG>MI_ERR_SUCCESS</STRONG></EM></TD>
+      <TD width="87%">Function completed successfully.</TD>
+    </TR>
+    <TR>
+      <TD width="13%"><EM><STRONG>MI_ERR_UNSUPPORTED</STRONG></EM></TD>
+      <TD width="87%">Unsupported compression data type.</TD>
+    </TR>
+    <TR>
+      <TD width="13%"><EM><STRONG>MI_ERR_SRC_SHORTAGE</STRONG></EM></TD>
+      <TD width="87%">Source data size is too small.</TD>
+    </TR>
+    <TR>
+      <TD width="13%"><EM><STRONG>MI_ERR_SRC_REMAINDER</STRONG></EM></TD>
+      <TD width="87%">Source data size is too large.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<H2>Description</H2>
+<P>This function expands the data to which the difference filter was applied and writes it to the specified memory region. The source address must be aligned to a 4-byte boundary. The pointers to the source and destination addresses may point to the same region.</P>
+
+<h2>See Also</h2>
+<p><CODE><A href="MI_SecureUncompressHuffman.html">MI_SecureUncompressHuffman</A>, <A href="MI_SecureUncompressRL.html">MI_SecureUncompressRL</A>, <A href="MI_SecureUncompressLZ.html">MI_SecureUncompressLZ</A></CODE></p>
+
+<H2>Revision History</H2>
+<P>2008/05/22 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

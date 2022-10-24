@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>OS_SpinWait</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">OS_SpinWait* <img src="../../image/NTR.gif" align="middle"><img src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+<DL>
+<DD><CODE>#include &lt;nitro/os.h&gt;</CODE><BR> <BR> <CODE>void OS_SpinWait( u32 cycles );<BR> <BR> void OS_SpinWaitCpuCycles( u32 cycles );<BR> void OS_SpinWaitSysCycles( u32 cycles );</CODE>
+</DL>
+<H2>Arguments</H2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="13%"><CODE>cycles</CODE></TD>
+<TD width="87%">Number of cycles to wait.<BR><BR> With the <CODE>OS_SpinWait</CODE> function, this is based on a <FONT color="#ff0000">2x multiplier of the base cycle</FONT>.<BR>With the <CODE>OS_SpinWaitCpuCycles</CODE> function, this is based on <FONT color="#ff0000">CPU cycles</FONT>.<BR>With the <CODE>OS_SpinWaitSysCycles</CODE> function, this is based on the <FONT color="#ff0000">base cycles</FONT>.<BR>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>Return Values</H2>
+<P>None.</P>
+<H2>Description</H2>
+<P>Makes the CPU run empty loops for at least the number of cycles specified by <CODE>cycles</CODE>.</P>
+<P>This function only causes empty loop processing. Therefore, be aware that the return time from this function may be greatly delayed by interrupts that are generated during the loops.</P>
+<P>Because of function calls and other overhead, return from this function might be delayed slightly more than the specified number of cycles.</P>
+<P>The <CODE>OS_SpinWaitCpuCycles</CODE> function is based on the <FONT color="#ff0000">CPU cycles</FONT>.<BR></P>
+<P>The <CODE>OS_SpinWaitSysCycles</CODE> function is based on <FONT color="#ff0000">base cycles</FONT>. This is independent of mode (NITRO or TWL) or changes to the CPU frequency.</P>
+<P>The <CODE>OS_SpinWait</CODE> function is based on a fixed value that is unrelated to the operating frequency of the CPU. It was created for the sake of compatibility with NITRO. For the ARM9, it is based on a <FONT color="#ff0000">2x multiplier of the base cycle</FONT>. For the ARM7, it is based on the base cycles. On NITRO, the <CODE>OS_SpinWait</CODE> function was used as <I>empty looping based on CPU cycles</I>. Because the CPU frequency can be changed on TWL, however, it is set up this way for convenience when NITRO source code is used.</P>
+<P>The frequencies used as the basis for the the number of cycles (<CODE>cycles</CODE>) are shown below.</P>
+<BLOCKQUOTE><CODE><B>OS_SpinWait</B></CODE>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+<TH rowspan="2" width="50%">Platform</TH>
+<TH colspan="2" width="50%">Frequency Used as the Basis for <CODE>cycles</CODE></TH>
+    </TR>
+    <TR>
+<TH width="25%">ARM9</TH>
+<TH width="25%">ARM7</TH>
+    </TR>
+    <TR>
+<TD>NITRO <img src="../../image/NTR.gif" align="middle"></TD>
+<TD rowspan="2"><center>67.03 MHz</center></TD>
+<TD rowspan="2"><center>33.51 MHz</center></TD>
+    </TR>
+    <TR>
+<TD>TWL <img src="../../image/TWL.gif" align="middle"></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<BR> <CODE><B>OS_SpinWaitCpuCycles</B></CODE>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+<TH rowspan="2" width="50%">Platform</TH>
+<TH colspan="2" width="50%">Frequency Used as the Basis for <CODE>cycles</CODE></TH>
+    </TR>
+    <TR>
+<TH width="25%">ARM9</TH>
+<TH width="25%">ARM7</TH>
+    </TR>
+    <TR>
+<TD>NITRO <img src="../../image/NTR.gif" align="middle"></TD>
+<TD><center>67.03 MHz</center></TD>
+<TD rowspan="2"><center>33.51 MHz</center></TD>
+    </TR>
+    <TR>
+<TD>TWL <img src="../../image/TWL.gif" align="middle"></TD>
+<TD><center>67.03 MHz (When running at standard speed)<br>134.06 MHz (When running at 2x speed)</center></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<BR> <B><CODE>OS_SpinWaitSysCycles</CODE></B><BR>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+<TH rowspan="2" width="50%">Platform</TH>
+<TH colspan="2" width="50%">Frequency Used as the Basis for <CODE>cycles</CODE></TH>
+    </TR>
+    <TR>
+<TH width="25%">ARM9</TH>
+<TH width="25%">ARM7</TH>
+    </TR>
+    <TR>
+<TD>NITRO <img src="../../image/NTR.gif" align="middle"></TD>
+<TD colspan="2" rowspan="2"> <center>33.51 MHz</center></TD>
+    </TR>
+    <TR>
+<TD>TWL <img src="../../image/TWL.gif" align="middle"></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</BLOCKQUOTE>
+<H2>See Also</H2>
+<P><A href="../../svc/SVC_WaitByLoop.html"><CODE>SVC_WaitByLoop</CODE></A></P>
+<H2>Revision History</H2>
+<P>2007/09/27 Added descriptions of the <CODE>OS_SpinWaitCpuCycles</CODE> and <CODE>OS_SpinWaitSysCycles</CODE> functions.<BR>2004/02/27 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

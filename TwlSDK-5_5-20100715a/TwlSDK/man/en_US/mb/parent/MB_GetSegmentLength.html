@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>MB_GetSegmentLength</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">MB_GetSegmentLength <IMG src="../../image/NTR.gif" width="24" height="12" border="0" align=middle><IMG src="../../image/TWL.gif" width="24" height="12" border="0" align=middle></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/mb.h&gt;</CODE><BR> <BR> <CODE>u32 MB_GetSegmentLength(FSFile *file);</CODE><br> <br>
+  </dd>
+</dl>
+<h2>Arguments</h2>
+<p>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="13%"><EM><STRONG>file</STRONG></EM></TD>
+<TD width="87%">The <code>FSFile</code> structure that holds the program file handle. The seek position of this file must point to the top of the program binary. Also, the seek position holds the initial position when returned from this function. When NULL is specified for this pointer, the parent application is the download program file and the size is calculated.
+	  </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</p>
+
+<h2>Return Values</h2>
+<p>This function returns a byte size greater than 0 when the program completes successfully. Otherwise, it returns 0.</p>
+
+<H2>Description</H2>
+<P>This function returns the memory size necessary to register the specified program file to the multi-boot process. For more information, see the <CODE><A href="MB_ReadSegment.html">MB_ReadSegment</A></CODE> function.<br><BR> This function calls the <CODE><A href="../../fs/file/FS_ReadFile.html">FS_ReadFile</A></CODE> function internally.<br><br>
+</p>
+<h2>See Also</h2>
+<p>
+<code><A href="../mb_segment_buffer_min_const.html">MB_SEGMENT_BUFFER_MIN</A><BR> <A href="MB_ReadSegment.html">MB_ReadSegment</A><BR> <A href="MB_RegisterFile.html">MB_RegisterFile</A></code> 
+</p>
+<H2>Revision History</H2>
+<P>
+2004/11/11 Changed description to include the clone boot release and new read delay method.<br /> 2004/09/10 Added a description of the operation when specifying NULL for the file pointer.<br /> 2004/08/09 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

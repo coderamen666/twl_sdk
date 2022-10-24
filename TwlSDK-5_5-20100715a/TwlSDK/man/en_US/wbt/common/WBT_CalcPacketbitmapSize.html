@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>WBT_CalcPacketbitmapSize</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+<body>
+<h1 align="left">WBT_CalcPacketbitmapSize&nbsp;<img src="../../image/NTR.gif"><img src="../../image/TWL.gif"></h1>
+<h2>Syntax</h2>
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/wbt.h&gt;</CODE><BR>
+  <BR>
+  <CODE>int WBT_CalcPacketbitmapSize(int block_size);</CODE><br>
+  <br>
+  </dd>
+</dl>
+<h2>Arguments</h2>
+<p>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+      <TD width="13%"><CODE>block_size</CODE></TD>
+      <TD width="87%">Size of the data to be received.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</p>
+<h2>Return Values</h2>
+<p>Returns the receive archive record bitmap buffer size required to receive the corresponding amount of data.</p>
+<H2>Description</H2>
+<p>Calculates and acquires the size required for the bitmap buffer for receive history records when receiving a specified data size with the <A href="../command/WBT_GetBlock.html"><code>WBT_GetBlock</code></A> function.<br><br> Parents can only use this function after the <A href="../init/WBT_InitParent.html"><code>WBT_InitParent</code></A> function, and children can only use this function after the <A href="../command/WBT_RequestSync.html"><code>WBT_RequestSync</code></A> function. If the transmission packet size and the receive block data size are already known, the <A href="../wbt_packet_bitmap_size.html"><CODE>WBT_PACKET_BITMAP_SIZE</CODE></A> macro obtains the same results. <br>
+</p>
+<br>
+<H2>See Also</H2>
+<A href="../command/WBT_GetBlock.html"><code>WBT_GetBlock</code></A><br> <A href="../wbt_packet_bitmap_size.html"><code>WBT_PACKET_BITMAP_SIZE</code></A>
+<H2>Revision History</H2>
+<P>
+2005/02/18 Changed description of packet bitmap to &quot;receive archive record bitmap buffer.&quot;<br /> 2004/09/21 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

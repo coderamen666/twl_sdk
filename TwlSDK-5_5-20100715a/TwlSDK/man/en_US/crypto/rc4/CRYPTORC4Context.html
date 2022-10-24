@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>CRYPTORC4Context</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">CRYPTORC4Context <IMG src="../../image/NTR.gif" width="23" height="12" border="0" align="middle"><IMG src="../../image/TWL.gif" width="23" height="12" border="0" align="middle"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+  <pre><CODE>#include &lt;nitro/crypto.h&gt;
+
+typedef struct CRYPTORC4Context
+{
+    u8 i, j;
+    u8 padd[2];
+    u8 s[256];
+} CRYPTORC4Context;
+</CODE></pre><br>
+</dd>
+</dl>
+
+<H2>Elements</H2>
+<TABLE border="1" width="100%" class="members">
+  <TBODY>
+    <TR>
+      <TH>i</TH>
+      <TD>Variable for internal use</TD>
+    </TR>
+    <TR>
+      <TH>j</TH>
+      <TD>Variable for internal use</TD>
+    </TR>
+    <TR>
+      <TH>padd</TH>
+      <TD>Variable for internal use</TD>
+    </TR>
+    <TR>
+      <TH>s</TH>
+      <TD>Variable for internal use</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<H2>Description</H2>
+<P>
+Context structure that holds the internal information used for RC4 encryption and decryption.
+</P>
+
+<H2>Revision History</H2>
+<P>
+2008/02/25 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

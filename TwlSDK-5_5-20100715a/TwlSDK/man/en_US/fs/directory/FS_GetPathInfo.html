@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title>FS_GetPathInfo</title>
+<link rel="stylesheet" href="../../css/nitro.css" type="text/css" />
+</head>
+<body>
+
+<h1>FS_GetPathInfo <img src="../../image/NTR.gif"align="middle"><img src="../../image/TWL.gif" align="middle"></h1>
+<h2>Syntax</h2>
+<pre><code>
+#include &lt;nitro/fs.h&gt;
+
+BOOL FS_GetPathInfo(const char *path, <a href="../FSPathInfo.html">FSPathInfo</a> *info);
+</code></pre>
+
+<h2>Arguments</h2>
+<table style="width:100%">
+<tbody>
+<tr>
+<td style="width:13%"><CODE>path</CODE></td>
+<td style="width:87%">Path name of the file or directory that you want to get information about.</td>
+</tr>
+<tr>
+<td style="width:13%"><CODE>info</CODE></td>
+<td style="width:87%">Pointer to the <code><a href="../FSPathInfo.html">FSPathInfo</a></code> structure where the obtained data should be stored.</td>
+</tr>
+</tbody>
+</table>
+
+<h2>Return Values</h2>
+<p>Returns TRUE if the entry information for the specified path was obtained properly; returns FALSE otherwise. In case of failure, the error details can be obtained using <code><a href="../archive/FS_GetArchiveResultCode.html">FS_GetArchiveResultCode()</a></code>.</p>
+
+<h2>Description</h2>
+<p>Gets the entry information for the specified file or directory. If there is a file or directory at the specified path, this function gets the entry information and returns TRUE. <br />The function fails and returns FALSE in the following situations:
+</p>
+<ul>
+<li>When there is no file or directory at the specified path</li>
+</ul>
+<p>The entry information for TWL-only files is available even when the system is operating in NITRO mode. You can determine whether access to the file is actually possible by checking the <a href="../FSPathInfo.html">FS_ATTRIBUTE_IS_OFFLINE</a> flag of the <a href="../FSPathInfo.html">attributes</a> field. (For more information on the specification of TWL-only files, see the explanation about the <CODE>Put</CODE> parameter in <a href="../../tools/makerom.html">makerom.TWL</a>.)</p>
+
+<h2>Note</h2>
+<ul>
+<li>This function cannot be called from the interrupt handler (IRQ mode). Also note that in some cases processing may not end if interrupts are left prohibited.</li>
+</ul>
+
+<h2>See Also</h2>
+<p><code><a href="../FSPathInfo.html">FSPathInfo</a> <br /> <a href="../archive/FS_GetArchiveResultCode.html">FS_GetArchiveResultCode</a></code></p>
+
+<h2>Revision History</h2>
+<p>
+2009/01/08 Added an explanation about TWL-only files.<br />2007/12/13 Initial version.<br />
+</p>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

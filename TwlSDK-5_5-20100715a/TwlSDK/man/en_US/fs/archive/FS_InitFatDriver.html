@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title>FS_InitFatDriver</title>
+<link rel="stylesheet" href="../../css/nitro.css" type="text/css" />
+</head>
+<body>
+
+<h1 align="left">FS_InitFatDriver <img src="../../image/TWL.gif" align="middle"></h1>
+<h2>Syntax</h2>
+
+<pre><code>
+#include &lt;nitro/fs.h&gt;
+
+void FS_InitFatDriver(void);
+</code></pre>
+
+<h2>Arguments</h2>
+<p>None.</p>
+
+<h2>Return Values</h2>
+<p>None.</p>
+
+<h2>Description</h2>
+<p>Initializes the <a href="../overview/about_Archive.html#FAT">FAT driver</a>.<br /> The FAT driver is required to access <a href="../overview/about_Archive.html#NAND">console NAND memory</a> and <a href="../overview/about_Archive.html#SDMC">SD Memory Cards</a>. By calling this function you can mount and use the various archives supported by the FAT driver .<br /> Subsequent calls to this function do nothing.</p>
+<p>
+In the case of NAND applications this function is implicitly called inside the NA library, so the application does not need to initialize the FAT driver.</p>
+
+<h2>Notes</h2>
+<ul>
+<li>Before calling this function the FS library must be initialized with the <code><a href="../file/FS_Init.html">FS_Init</a></code> function.</li>
+<li>This function cannot be called from the interrupt handler (IRQ mode). Also note that in some cases processing may not end if interrupts are disabled.</li>
+</ul>
+
+<h2>See Also</h2>
+<p><code><a href="../file/FS_Init.html">FS_Init</a></code></p>
+
+<h2>Revision History</h2>
+<p>
+2009/01/30 Initial version.
+</p>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

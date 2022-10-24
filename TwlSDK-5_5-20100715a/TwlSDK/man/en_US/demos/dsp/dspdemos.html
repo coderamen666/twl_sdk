@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<LINK rel="stylesheet" type="text/css" href="../../css/nitro.css">
+<TITLE>DSP Demos</TITLE>
+</HEAD>
+<BODY>
+<H1>DSP Library (DSP) Sample Demos</H1>
+<H2>Location</H2>
+<P><CODE>$TwlSDK/build/demos.TWL/dsp</CODE></P>
+<H2>Compilation</H2>
+<P>Move to the <CODE>$TwlSDK/build/demos.TWL/dsp</CODE> directory and enter the following:</P>
+<BLOCKQUOTE><CODE>% make</CODE></BLOCKQUOTE>
+<P>&nbsp;Compiling will begin, and the <CODE>SRL</CODE> executable file and the <CODE>TEF</CODE> files having the binary information will be generated in:</P>
+<BLOCKQUOTE><CODE>$TwlSDK/build/demos.TWL/dsp/<I>(sample_name)</I>/bin/<I>(platform)</I>/<I>(target)</I>/</CODE></BLOCKQUOTE>
+<P>&nbsp;&nbsp;&nbsp;For example:</P>
+<BLOCKQUOTE><CODE>$TwlSDK/build/demos.TWL/dsp/simple-1/bin/ARM9-TS/Release/main.srl</CODE></BLOCKQUOTE>
+<P>will be the executable file for the <CODE>simple-1</CODE> demo.</P>
+
+<H2>Running the Tool</H2>
+<H3>For TWL/NITRO HYBRID ROMs:</H3>
+<P>If using IS-TWL-DEBUGGER:</P>
+<UL>
+<LI>Load and execute a TLF file with IS-TWL-DEBUGGER.
+<LI>Execute an SRL file with IS-TWL-DEBUGGER.
+<LI>Execute an SRL file with IS-TWL-DEBUGGER using the <CODE>loadrun.TWL.exe</CODE> tool from a command line.
+</UL>
+<H3>For TWL LIMITED ROMs:</H3>
+<P>If using IS-TWL-DEBUGGER:</P>
+<UL>
+<LI>Load and execute a TLF file with IS-TWL-DEBUGGER.
+<LI>Execute an SRL file with IS-TWL-DEBUGGER.
+<LI>Execute an SRL file with IS-TWL-DEBUGGER using the <CODE>loadrun.TWL.exe</CODE> tool from a command line.
+</UL>
+
+<H2>Description</H2>
+<BR>
+<TABLE width="720">
+  <TBODY>
+    <TR>
+<TH>Name</TH>
+<TH>Directories</TH>
+<TH>Operation</TH>
+    </TR>
+    <TR>
+<TD width="187"><CODE>g711</CODE></TD>
+<TD><CODE>demos.TWL</CODE></TD>
+<TD width="525">The demo uses the G.711 component.</TD>
+    </TR>
+    <TR>
+<TD width="187"><CODE>scaling-1</CODE></TD>
+<TD><CODE>demos.TWL</CODE></TD>
+<TD width="525">This demo scales images using the graphics component. It allows you to specify the scaling factor.</TD>
+    </TR>
+    <TR>
+<TD width="187"><CODE>scaling-2</CODE></TD>
+<TD><CODE>demos.TWL</CODE></TD>
+<TD width="525">This demo scales images using the graphics component. This demo allows you to specify the desired output size and uses a scaling factor obtained from that size.</TD>
+    </TR>
+    <TR>
+<TD width="187"><CODE>yuvToRgb</CODE></TD>
+<TD><CODE>demos.TWL</CODE></TD>
+<TD width="525">This demo uses the graphics component to continuously convert images captured from the camera in YUV422 format into RGB555, and displays them continuously.</TD>
+    </TR>
+    <TR>
+<TD width="187"><CODE>snd-mic</CODE></TD>
+<TD><CODE>demos.TWL</CODE></TD>
+<TD width="525">This demo performs sound playback and microphone sampling directly from the DSP.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>Operation</H2>
+<P>The DSP library demos works normally only in TWL mode.</P>
+<H2>See Also</H2>
+<P><A href="../../dsp/list_dsp.html"><CODE>DSP Function List</CODE></A></P>
+<H2>Revision History</H2>
+<P>
+2008/10/09 Deleted a JPEG-related demo.<br>2008/08/28 Added the <CODE>scaling-2</CODE> demo. <br>2008/06/13 Added the <CODE>snd-mic</CODE> demo. <br>2008/05/22 Added the <CODE>scaling-1</CODE> demo. <br>2008/03/13 Changed the available demos following the release of the DSP library. <br>2007/11/15 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

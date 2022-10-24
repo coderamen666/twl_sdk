@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+<meta name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title>CARD_SetCacheFlushFlag</title>
+<link rel="stylesheet" href="../../css/nitro.css" type="text/css" />
+</head>
+
+<body>
+
+<h1 align="left">CARD_SetCacheFlushFlag<img src="../../image/NTR.gif"align="middle"><img src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+
+<dl>
+  <dd>
+<code>#include &lt;nitro/card.h&gt;</code><br />
+  <br />
+  <code>void CARD_SetCacheFlushFlag(BOOL icache, BOOL dcache);</code><br />
+  <br />
+  </dd>
+</dl>
+<h2>Arguments</h2>
+<table border="1" width="100%">
+  <tbody>
+    <tr>
+      <td width="13%"><SPAN class="argument">icache</SPAN></td>
+      <td width="87%"><CODE>TRUE</CODE> to enable auto-invalidation of instruction cache.</td>
+    </tr>
+    <tr>
+      <td width="13%"><SPAN class="argument">dcache</SPAN></td>
+      <td width="87%"><CODE>TRUE</CODE> to enable auto-invalidation of data cache.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Return Values</h2>
+<p>None.</p>
+
+<h2>Description</h2>
+<p>Configures whether the invalidation process to flush the cache takes place automatically when a process to load ROM data occurs inside the library.</p>
+<p>
+When ROM data is loaded into memory, if the instruction cache is always invalidated for DMA transfers, the safest cache operation is to invalidate the data cache as well. However, if it is clear that the cache does not need to be considered, performing these operations becomes redundant. This function allows you to enable and disable the cache-invalidation process.
+</p>
+
+<p>When the CARD library loads ROM data into memory, it automatically handles the cache according to the settings configured here.<br /> The default settings are <CODE>icache = FALSE</CODE> and <CODE>dcache = TRUE</CODE>. With these settings, the data cache is invalidated, but the instruction cache is not.<br /> Unless you have a special reason, you do not need to change the default settings.</p>
+
+<p>Because the instruction cache is controlled the same way even in cases where higher-level libraries such as the FS library and the EL library control the execution code, there is no need to worry about data loads by the CARD library.</p>
+
+<p style='color:Red;'>
+As for the data cache, the default setting of <CODE>TRUE</CODE> should not be changed except in extreme situations because it would have a far-reaching impact on all of the higher-level libraries that handle VRAM, DMA, ARM7, and other external memory devices.</p>
+
+<h2>See Also</h2>
+<p><a href="CARD_GetCacheFlushFlag.html"><code>CARD_GetCacheFlushFlag</code></a></p>
+
+<h2>Revision History</h2>
+<p>
+2008/12/05 Initial version.
+</p>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

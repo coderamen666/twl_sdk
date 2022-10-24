@@ -1,0 +1,562 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>TWL-System SOFTIMAGE|XSI Plug-In Revision History</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta http-equiv="content-style-type" content="text/css" />
+<style type="text/css">
+<!--
+    
+H1
+{
+    font-weight         : bold;
+    font-size           : 250%;
+    text-align          : left;
+    color               : #46f;
+    margin              : 0em 0em 0.5em 0em;
+}
+
+H2
+{
+    font-weight         : bold;
+    font-size           : 150%;
+    text-align          : left;
+    margin              : 2em 0em 0.5em 0em;
+    padding-top         : 8pt;
+    border-top-style    : double;
+    border-top-width    : 3px;
+}
+
+H3
+{
+    font-weight         : bold;
+    font-size           : 120%;
+    margin              : 1em 0em 0.5em 0em;
+    padding-top         : 8pt;
+    border-top-style    : solid;
+    border-top-width    : 1px;
+}
+
+H4
+{
+    font-weight         : normal;
+    font-size           : 100%;
+    margin              : 0em 0em 0em 0.5em;
+}
+
+DIV.date
+{
+    font-size           : normal;
+    text-align          : right;
+    margin              : 0pt 0pt 12pt 0pt;
+}
+
+DIV.licence
+{
+    margin: 0em;
+    border-style : solid;
+    border-width : 1px;
+}
+
+P
+{
+    font-size           : normal;
+    margin              : 0em 1em 0.5em 1em;
+    line-height         : 150%;
+}
+
+PRE
+{
+    font-size           : normal;
+    margin              : 0em 0em 1em 2em;
+    line-height         : 120%;
+}
+
+DT
+{
+    margin              : 1em 0em 0em 1em;
+}
+DD
+{
+    margin-left         : 3em;
+}
+UL
+{
+    margin-top         : 0em;
+}
+
+-->
+</style>
+</head>
+<body>
+
+<h1>TWL-System SOFTIMAGE|XSI Plug-In Revision History</h1>
+
+<h2>Index</h2>
+
+<h3><a href="#version_2_1_1">2.1.1</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_82-I01">Note 82-I01: Support for Softimage 7.5 (Windows 32-bit version)</a></li>
+</ul>
+<h3><a href="#version_2_1_0">2.1.0</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_81-I01">Note 81-I01:  (Manual) Updated manuals </a></li>
+</ul>
+<h3><a href="#version_2_0_0_1">2.0.0 RC2</a></h3>
+<h4>Added and Modified Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_79-I01">Note 79-I01:  Updated for XSI 7.0</a></li>
+<li><a href="#note_79-I02">Note 79-I02:  Ended support for XSI 5.11</a></li>
+<li><a href="#note_79-I03">Note 79-I03:  (Manual) Revised in conjunction with NITRO-System name change</a></li>
+</ul>
+<h3><a href="#version_20080618">2008/06/18 Version</a></h3>
+<h4>Added and Modified Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_77-I01">Note 77-I01:  (Manual) Revised deficiencies in the manual</a></li>
+</ul>
+<h3><a href="#version_20080408">2008/04/08 Version</a></h3>
+<h4>Added and Modified Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_76-I01">Note 76-I01:  (Manual) Changed Revision History format; revised headings and subheadings</a></li>
+</ul>
+<h3><a href="#version_20080324">2008/03/24 Version</a></h3>
+<h4>Added and Modified Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_75-I01">Note 75-I01:  (Manual) Added List of Supported Features</a></li>
+</ul>
+<h3><a href="#version_20080123">2008/01/23 Version</a></h3>
+<h4>Problem Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_73-I01">Note 73-I01:  When material color and alpha components are set to values greater than 1.0, they are now output as 1.0</a></li>
+</ul>
+<h3><a href="#version_20071126">2007/11/26 Version</a></h3>
+<h4>Added and Modified Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_71-I01">Note 71-I01:  Added script to batch change texture paths saved in <CODE>NNS_TexPatternPSet</CODE></a></li>
+<li><a href="#note_71-I02">Note 71-I02:  Added plug-in menu to the XSI main menu</a></li>
+<li><a href="#note_71-I03">Note 71-I03:  (Manual) Added supplementary information for script command output</a></li>
+</ul>
+<h4>Problem Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_71-I04">Note 71-I04:  Fixed bug where character animation data was not correctly output</a></li>
+<li><a href="#note_71-I05">Note 71-I05:  Fixed bug where output option settings saved in the scene were not correctly applied</a></li>
+<li><a href="#note_71-I06">Note 71-I06:  Fixed bug where the order of the texture was not correctly output with the NITRO Set Texture Pattern Animation plug-in </a></li>
+</ul>
+<h3><a href="#version_20071010">2007/10/10 Version</a></h3>
+<h4>Added and Modified Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_70-I01">Note 70-I01:  Updated for XSI versions 6.02 and 6.5</a></li>
+</ul>
+<h3><a href="#version_20070910">2007/09/10 Version</a></h3>
+<h4>Added and Modified Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_69-I01">Note 69-I01:  Fixed bug where intermediate file output setting file version was saved in the wrong version</a></li>
+<li><a href="#note_69-I02">Note 69-I02:  Ended support for XSI versions 5.0 and 5.1</a></li>
+</ul>
+<h3><a href="#version_20070618">2007/06/18 Version</a></h3>
+<h4>Problem Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_68-I01">Note 68-I01:  Fixed bug where only 0 is output for <CODE>&lt;display&gt;</CODE> priority</a></li>
+</ul>
+<h3><a href="#version_20070518">2007/05/18 Version</a></h3>
+<h4>Problem Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_67-I01">Note 67-I01:  Fixed bug where <CODE>&lt;box_test&gt;</CODE> stored in the IMD file is not output properly</a></li>
+</ul>
+<h3><a href="#version_20070423">2007/04/23 Version</a></h3>
+<h4>Added and Modified Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_65-I01">Note 65-I01:  Updated for XSI version 6.0.1</a></li>
+</ul>
+<h3><a href="#version_20070129">2007/01/29 Version</a></h3>
+<h4>Added and Modified Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_63-I01">Note 63-I01:  Support for user normal output</a></li>
+<li><a href="#note_63-I02">Note 63-I02:  Ended support for XSI versions 4.0 and 4.2</a></li>
+</ul>
+<h4>Problem Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_63-I03">Note 63-I03:  Fixed bug where the IMD file's <CODE>&lt;polygon&gt;</CODE>, <CODE>&lt;node&gt; volume_min</CODE>, and <CODE>volume_max</CODE> were not correctly output</a></li>
+</ul>
+<h3><a href="#version_20061003">2006/10/03 Version</a></h3>
+<h4>Added and Modified Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_61-I01">Note 61-I01:  Support for XSI version 5.11 </a></li>
+</ul>
+<h4>Problem Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_61-I02">Note 61-I02:  Fixed bug where material color is not correctly obtained in XSI versions 5.1 or later</a></li>
+</ul>
+<h3><a href="#version_20060529">2006/05/29 Version</a></h3>
+<h4>Added and Modified Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_59-I01">Note 59-I01:  Updated for XSI versions 5.0 and 5.1</a></li>
+</ul>
+<h3><a href="#version_20060417">2006/04/17 Version</a></h3>
+<h4>Added and Modified Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_57-I01">Note 57-I01:  (Manual) Added precaution for when KeyFrame is set ahead of PlayControl's FrameIn</a></li>
+</ul>
+<h4>Problem Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_57-I02">Note 57-I02:  Fixed bug where FrameIn of PlayControl is rewritten when running a plug-in</a></li>
+</ul>
+<h3><a href="#version_20051128">2005/11/28 Version</a></h3>
+<h4>Problem Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_53-I01">Note 53-I01:  Revised such that <CODE>&lt;box_test&gt;</CODE> for the IMD file is correctly output</a></li>
+</ul>
+<h3><a href="#version_20051024">2005/10/24 Version</a></h3>
+<h4>Problem Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_52-I01">Note 52-I01:  Fixed bug where model was mis-positioned when the envelope model was exported</a></li>
+</ul>
+<h3><a href="#version_20050620">2005/06/20 Version</a></h3>
+<h4>Problem Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_47-I01">Note 47-I01:  Fixed bug where colors in some areas became darker when creating a 4x4 texel compressed texture</a></li>
+</ul>
+<h3><a href="#version_20050202">2005/02/02 Version</a></h3>
+<h4>Added and Modified Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_40-I01">Note 40-I01:  Updated for intermediate file format version 1.6.0</a></li>
+<li><a href="#note_40-I02">Note 40-I02:  Added the <CODE>NITRO_ExportCmd</CODE> command to run NITRO Export from a script</a></li>
+<li><a href="#note_40-I03">Note 40-I03:  Updated the NITRO Set Material Attribute plug-in</a></li>
+</ul>
+<h3><a href="#version_20050114">2005/01/14 Version</a></h3>
+<h4>Added and Modified Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_37-I01">Note 37-I01:  Updated for XSI version 4.2</a></li>
+<li><a href="#note_37-I02">Note 37-I02:  Added intermediate file batch export functionality</a></li>
+</ul>
+<h3><a href="#version_20041213">2004/12/13 Version</a></h3>
+<h4>Added and Modified Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_35-I01">Note 35-I01:  Updated for intermediate file format version 1.5.0</a></li>
+<li><a href="#note_35-I02">Note 35-I02:  Updated the NITRO Set Material Attribute plug-in</a></li>
+<li><a href="#note_35-I03">Note 35-I03:  Added NITRO Set Render Priority plug-in</a></li>
+<li><a href="#note_35-I04">Note 35-I04:  Added NITRO Show Render Priority plug-in</a></li>
+<li><a href="#note_35-I05">Note 35-I05:  Added warnings</a></li>
+<li><a href="#note_35-I06">Note 35-I06:  (Manual) Added section 2.2.5.4 Polygon Rendering Priority</a></li>
+<li><a href="#note_35-I07">Note 35-I07:  (Manual) Revised explanation of Unite and Combine Polygon in section 3.2.2 General Options</a></li>
+<li><a href="#note_35-I08">Note 35-I08:  (Manual) Revised explanation of interpolation in section 3.2.5 Animation Options </a></li>
+</ul>
+<h4>Problem Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_35-I09">Note 35-I09:  Fixed bug in intermediate file output plug-in</a></li>
+</ul>
+<h3><a href="#version_20041025">2004/10/25 Version</a></h3>
+<h4>Added and Modified Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_29-I01">Note 29-I01:  Updated the NITRO Set Material Attribute plug-in</a></li>
+<li><a href="#note_29-I02">Note 29-I02:  Updated the NITRO Show Lighting plug-in</a></li>
+<li><a href="#note_29-I03">Note 29-I03:  (Manual) Revised explanation in section 2.2.5.3 Vertex Color</a></li>
+<li><a href="#note_29-I04">Note 29-I04:  (Manual) Revised the description of the <B>Interpolation</B> option for the intermediate file output plug-in</a></li>
+</ul>
+<h3><a href="#version_20041006">2004/10/06 Version</a></h3>
+<h4>Added and Modified Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_24-I01">Note 24-I01:  Added NITRO Rename Over 16 Characters plug-in </a></li>
+</ul>
+<h3><a href="#version_20040927">2004/09/27 Version</a></h3>
+<h4>Added and Modified Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_22-I01">Note 22-I01:   Updated intermediate file output plug-in</a></li>
+<li><a href="#note_22-I02">Note 22-I02:  Added NITRO Set Texture Pattern Animation plug-in</a></li>
+<li><a href="#note_22-I03">Note 22-I03:  Added NITRO Set Hierarchical Scaling plug-in</a></li>
+<li><a href="#note_22-I04">Note 22-I04:  Added NITRO Select Polygon plug-in</a></li>
+<li><a href="#note_22-I05">Note 22-I05:  Added NITRO Replace Character plug-in</a></li>
+<li><a href="#note_22-I06">Note 22-I06:  (Manual) Added explanation to section 2.2.1 Nodes</a></li>
+<li><a href="#note_22-I07">Note 22-I07:  (Manual) Added explanation to section 2.4.5 UV Restrictions</a></li>
+<li><a href="#note_22-I08">Note 22-I08:  (Manual) Added explanation of section 2.8.3 Envelope Description in the Nintendo NITRO-System</a></li>
+<li><a href="#note_22-I09">Note 22-I09:  (Manual) Revised explanation in section 2.9 Loaded Scene/Model Created Using SI3D</a></li>
+<li><a href="#note_22-I10">Note 22-I10:  (Manual) Added explanation to section 2.10 Custom Parameters</a></li>
+</ul>
+
+
+<h2 id="version_2_1_1">Changes in 2.1.1</h2>
+<h3 id="note_82-I01">Note 82-I01: Support for Softimage 7.5 (Windows 32-bit version)</h3>
+<p>Support for Softimage 7.5 (Windows 32-bit version). The add-on file is not included in this update. Use the add-on file for XSI 7, in Softimage 7.5. 
+</p>
+<h2 id="version_2_1_0">Changes in 2.1.0</h2>
+<h3 id="note_81-I01">Note 81-I01:   (Manual) Updated manuals</h3>
+<p>Added supplementary information about XSI 7.01 to <CODE>NITRO_SoftimageXSI_Plugin.pdf</CODE> and to <CODE>Setup_SoftimageXSI_Plugin.pdf</CODE>.
+</p>
+<h2 id="version_2_0_0_1">Changes in 2.0.0 RC2</h2>
+<h3 id="note_79-I01">Note 79-I01:  Updated for XSI 7.0</h3>
+<p>Added support for XSI version 7.0.
+</p>
+<h3 id="note_79-I02">Note 79-I02:  Ended support for XSI 5.11</h3>
+<p>Support for XSI 5.11 has ended.
+</p>
+<h3 id="note_79-I03">Note 79-I03:  (Manual) Revised in conjunction with NITRO-System name change</h3>
+<p>Changed NITRO-System to TWL-System.
+</p>
+<h2 id="version_20080618">Changes in Version 2008/06/18</h2>
+<h3 id="note_77-I01">Note 77-I01:  (Manual) Revised deficiencies in the manual</h3>
+<p>Corrected deficiencies in the <CODE>NITRO_SoftimageXSI_Plugin.pdf</CODE> manual.
+</p>
+<h2 id="version_20080408">Changes in Version 2008/04/08</h2>
+<h3 id="note_76-I01">Note 76-I01:  (Manual) Changed Revision History format; revised headings and subheadings</h3>
+<p>Changed the Revision History format for <CODE>NITRO_SoftimageXSI_Plugin.pdf</CODE>. Also revised the document's headings and subheadings.
+</p>
+<h2 id="version_20080324">Changes in Version 2008/03/24</h2>
+<h3 id="note_75-I01">Note 75-I01:  (Manual) Added List of Supported Features</h3>
+<p>Added the List of Supported Features chapter.
+</p>
+<h2 id="version_20080123">Changes in Version 2008/01/23</h2>
+<h3 id="note_73-I01">Note 73-I01:  When material color and alpha components are set to values greater than 1.0, they are now output as 1.0</h3>
+<p>When material color and alpha components (Diffuse, Ambient, Specular, Alpha) are set to values greater than 1.0 on XSI, they are now output as 1.0.
+</p>
+<h2 id="version_20071126">Changes in Version 2007/11/26</h2>
+<h3 id="note_71-I01">Note 71-I01:  Added script to batch change texture paths saved in <CODE>NNS_TexPatternPSet</CODE></h3>
+<p>Added script to batch change texture paths saved in <CODE>NNS_TexPatternPSet</CODE>.
+</p>
+<h3 id="note_71-I02">Note 71-I02:  Added plug-in menu to the XSI main menu</h3>
+<p>Added plug-in menu to the XSI main menu.
+</p>
+<h3 id="note_71-I03">Note 71-I03:  (Manual) Added supplementary information for script command output</h3>
+<p>Added supplementary information to the plug-in manual for script command output.
+</p>
+<h3 id="note_71-I04">Note 71-I04:  Fixed bug where character animation data was not correctly output</h3>
+<p>Character animation data stored in ICA files was not correctly output. That bug has been fixed.
+</p>
+<h3 id="note_71-I05">Note 71-I05:  Fixed bug where output option settings saved in the scene were not correctly applied</h3>
+<p>Output option settings saved in the scene were not correctly applied when the output option window was opened. That bug has been fixed.
+</p>
+<h3 id="note_71-I06">Note 71-I06:  Fixed bug where the order of the texture was not correctly output with the NITRO Set Texture Pattern Animation plug-in </h3>
+<p>Texture order was not output correctly when creating an SCR file using NITRO Set Texture Pattern Animation. That bug has been fixed.
+</p>
+<h2 id="version_20071010">Changes in Version 2007/10/10</h2>
+<h3 id="note_70-I01">Note 70-I01:  Updated for XSI versions 6.02 and 6.5</h3>
+<p>Support for XSI versions 6.02 and 6.5 was added. Add-on files cannot be changed from earlier versions.
+</p>
+<h2 id="version_20070910">Changes in Version 2007/09/10</h2>
+<h3 id="note_69-I01">Note 69-I01:  Fixed bug where intermediate file output setting file version was saved in the wrong version</h3>
+<p>The intermediate file output setting file version was saved as the wrong version. That bug has been fixed.
+</p>
+<h3 id="note_69-I02">Note 69-I02:  Ended support for XSI versions 5.0 and 5.1</h3>
+<p>Ended support for XSI versions 5.0 and 5.1.
+</p>
+<h2 id="version_20070618">Changes in Version 2007/06/18</h2>
+<h3 id="note_68-I01">Note 68-I01:  Fixed bug where only 0 is output for <CODE>&lt;display&gt;</CODE> priority</h3>
+<p>Zero was always output for the <CODE>&lt;display&gt;</CODE> priority with material for which a vertex color was configured. That bug was fixed.
+</p>
+<h2 id="version_20070518">Changes in Version 2007/05/18</h2>
+<h3 id="note_67-I01">Note 67-I01:  Fixed bug where <CODE>&lt;box_test&gt;</CODE> stored in the IMD file is not output properly</h3>
+<p><CODE>&lt;box_test&gt;</CODE> stored in IMD files was not output properly. That bug has been fixed.
+</p>
+<h2 id="version_20070423">Changes in Version 2007/04/23</h2>
+<h3 id="note_65-I01">Note 65-I01:  Updated for XSI version 6.0.1</h3>
+<p>Support for XSI version 6.0.1.  Add-on files cannot be changed from earlier versions.
+</p>
+<h2 id="version_20070129">Changes in Version 2007/01/29</h2>
+<h3 id="note_63-I01">Note 63-I01:  Support for user normal output</h3>
+<p>Support for user normal output was added.
+</p>
+<h3 id="note_63-I02">Note 63-I02:  Ended support for XSI versions 4.0 and 4.2</h3>
+<p>Ended support for XSI versions 4.0 and 4.2.
+</p>
+<h3 id="note_63-I03">Note 63-I03:  Fixed bug where the IMD file's <CODE>&lt;polygon&gt;</CODE>, <CODE>&lt;node&gt; volume_min</CODE>, and <CODE>volume_max</CODE> were not correctly output</h3>
+<p>The IMD file's <CODE>&lt;polygon&gt;</CODE>, <CODE>&lt;node&gt; volume_min</CODE>, and <CODE>volume_max</CODE> were not correctly output with the envelope model. That bug has been fixed.
+</p>
+<h2 id="version_20061003">Changes in Version 2006/10/03</h2>
+<h3 id="note_61-I01">Note 61-I01:  Support for XSI version 5.11 </h3>
+<p>Support for XSI version 5.11.
+</p>
+<h3 id="note_61-I02">Note 61-I02:  Fixed bug where material color is not correctly obtained in XSI versions 5.1 or later</h3>
+<p>Material color is not correctly obtained when using version 5.1 or later versions of XSI.
+</p>
+<h2 id="version_20060529">Changes in Version 2006/05/29</h2>
+<h3 id="note_59-I01">Note 59-I01:  Updated for XSI versions 5.0 and 5.1</h3>
+<p>Added support for XSI versions 5.0 and 5.1. Add-on files cannot be changed from earlier versions.
+</p>
+<h2 id="version_20060417">Changes in Version 2006/04/17</h2>
+<h3 id="note_57-I01">Note 57-I01:  (Manual) Added precaution for when KeyFrame is set ahead of PlayControl's FrameIn</h3>
+<p>Added precaution for when KeyFrame is set ahead of PlayControl's FrameIn.
+</p>
+<h3 id="note_57-I02">Note 57-I02:  Fixed bug where FrameIn of PlayControl is rewritten when running a plug-in</h3>
+<p>PlayControl's FrameIn was rewritten when running a plug-in. That bug has been fixed.
+</p>
+<h2 id="version_20051128">Changes in Version 2005/11/28</h2>
+<h3 id="note_53-I01">Note 53-I01:  Revised such that <CODE>&lt;box_test&gt;</CODE> for the IMD file is correctly output</h3>
+<p>Revised such that <CODE>&lt;box_test&gt;</CODE> for the IMD file was correctly output.
+</p>
+<h2 id="version_20051024">Changes in Version 2005/10/24</h2>
+<h3 id="note_52-I01">Note 52-I01:  Fixed bug where model was mis-positioned when the envelope model was exported</h3>
+<p>Model was mis-positioned when envelope models using many constraint were exported.
+</p>
+<h2 id="version_20050620">Changes in Version 2005/06/20</h2>
+<h3 id="note_47-I01">Note 47-I01:  Fixed bug where colors in some areas became darker when creating a 4x4 texel compressed texture</h3>
+<p>Colors in some area became darker when creating a 4x4 texel compressed texture without added information whose filename ended in <CODE>_cmp4</CODE>. This bug has been fixed. There are cases in which the palette data amount increases more than in earlier versions.
+</p>
+<h2 id="version_20050202">Changes in Version 2005/02/02</h2>
+<h3 id="note_40-I01">Note 40-I01:  Updated for intermediate file format version 1.6.0</h3>
+<p>Added support for version 1.6.0 of the intermediate file format.
+</p>
+<h3 id="note_40-I02">Note 40-I02:  Added the <CODE>NITRO_ExportCmd</CODE> command to run NITRO Export from a script</h3>
+<p>Added the <CODE>NITRO_ExportCmd</CODE> command to run NITRO Export from a script.
+</p>
+<h3 id="note_40-I03">Note 40-I03:  Updated the NITRO Set Material Attribute plug-in</h3>
+<p>Updated the NITRO Set Material Attribute plug-in.
+</p>
+<ul><li> Added Texture Effect Matrix.
+</li>
+<li> Deleted TexGenSt.
+</li>
+</ul>
+<h2 id="version_20050114">Changes in Version 2005/01/14</h2>
+<h3 id="note_37-I01">Note 37-I01:  Updated for XSI version 4.2</h3>
+<p>Added support for XSI version 4.2. 
+</p>
+<h3 id="note_37-I02">Note 37-I02:  Added intermediate file batch export functionality</h3>
+<p>Added a feature for the batch export of intermediate files.
+</p>
+<h2 id="version_20041213">Changes in Version 2004/12/13</h2>
+<h3 id="note_35-I01">Note 35-I01:  Updated for intermediate file format version 1.5.0</h3>
+<p>Added support for intermediate file format version 1.5.0.
+</p>
+<h3 id="note_35-I02">Note 35-I02:  Updated the NITRO Set Material Attribute plug-in</h3>
+<p>Updated the NITRO Set Material Attribute plug-in.
+</p>
+<ul><li> Added configurable attributes.
+</li>
+</ul>
+<h3 id="note_35-I03">Note 35-I03:  Added NITRO Set Render Priority plug-in</h3>
+<p>Added plug-in for NITRO Set Render Priority.
+</p>
+<h3 id="note_35-I04">Note 35-I04:  Added NITRO Show Render Priority plug-in</h3>
+<p>Added plug-in for NITRO Set Render Priority.
+</p>
+<h3 id="note_35-I05">Note 35-I05:  Added warnings</h3>
+<p>Added warnings.
+</p>
+<h3 id="note_35-I06">Note 35-I06:  (Manual) Added section 2.2.5.4 Polygon Rendering Priority</h3>
+<p>Added section 2.2.5.4 Polygon Rendering Priority.
+</p>
+<h3 id="note_35-I07">Note 35-I07:  (Manual) Revised explanation of Unite and Combine Polygon in section 3.2.2 General Options</h3>
+<p>Revised the description of Unite and Combine Polygon in section 3.2.2 General Options.
+</p>
+<h3 id="note_35-I08">Note 35-I08:  (Manual) Revised explanation of interpolation in section 3.2.5 Animation Options </h3>
+<p>Revised the description of interpolation in section 3.2.5 Animation Options.
+</p>
+<h3 id="note_35-I09">Note 35-I09:  Fixed intermediate file output plug-in bugs</h3>
+<p>The precision at the decimal level and below for vertex coordinates when outputting a model with large vertex coordinates to an intermediate file (when the attribute <CODE>pos_scale</CODE> of the = IMD file is large) was lower than expected. This bug has been fixed.
+</p>
+<h2 id="version_20041025">Changes in Version 2004/10/25</h2>
+<h3 id="note_29-I01">Note 29-I01:  Updated the NITRO Set Material Attribute plug-in</h3>
+<p>Updated the NITRO Set Material Attribute plug-in.
+</p>
+<ul><li> Added configurable attributes.
+</li>
+<li> Changed Lighting to Light0.
+</li>
+</ul>
+<h3 id="note_29-I02">Note 29-I02:  Updated the NITRO Show Lighting plug-in</h3>
+<p>Updated the NITRO Show Lighting plug-in.
+</p>
+<ul><li> Changed to enable individual confirmation of four lights.
+</li>
+</ul>
+<h3 id="note_29-I03">Note 29-I03:  (Manual) Revised explanation in section 2.2.5.3 Vertex Color</h3>
+<p>Revised description in section 2.2.5.3 Vertex Color.
+</p>
+<h3 id="note_29-I04">Note 29-I04:  (Manual) Revised the description of the <B>Interpolation</B> option for the intermediate file output plug-in</h3>
+<p>Revised the description of the <B>Interpolation</B> option for the intermediate file output plug-in.
+</p>
+<h2 id="version_20041006">Changes in Version 2004/10/06</h2>
+<h3 id="note_24-I01">Note 24-I01:  Added NITRO Rename Over 16 Characters plug-in </h3>
+<p>Added the NITRO Rename Over 16 Characters plug-in.
+</p>
+<h2 id="version_20040927">Changes in Version 2004/09/27</h2>
+<h3 id="note_22-I01">Note 22-I01:   Updated intermediate file output plug-in</h3>
+<p>Updated the intermediate file output plug-in.
+</p>
+<ul><li> Now supports the output of IMA, ITP, and ITA files.
+</li>
+<li> Changed from an error to a warning when outputting a model to which a noIcon texture was applied.
+</li>
+<li> Fixed bug where nodes in a sibling relationship are not output in alphabetical order.
+</li>
+<li> Fixed bug where nodes are not output to an intermediate file normally when a texture is set in cluster units.
+</li>
+</ul>
+<h3 id="note_22-I02">Note 22-I02:  Added NITRO Set Texture Pattern Animation plug-in</h3>
+<p>Added the NITRO Set Texture Pattern Animation plug-in.
+</p>
+<h3 id="note_22-I03">Note 22-I03:  Added NITRO Set Hierarchical Scaling plug-in</h3>
+<p>Added the NITRO Set Hierarchical Scaling plug-in.
+</p>
+<h3 id="note_22-I04">Note 22-I04:  Added NITRO Select Polygon plug-in</h3>
+<p>Added the NITRO Select Polygon plug-in.
+</p>
+<h3 id="note_22-I05">Note 22-I05:  Added NITRO Replace Character plug-in</h3>
+<p>Added the NITRO Replace Character plug-in.
+</p>
+<h3 id="note_22-I06">Note 22-I06:  (Manual) Added explanation to section 2.2.1 Nodes</h3>
+<p>Added explanation to section 2.2.1 Nodes.
+</p>
+<h3 id="note_22-I07">Note 22-I07:  (Manual) Added explanation to section 2.4.5 UV Restrictions</h3>
+<p>Added explanation to section 2.4.5 UV Restrictions.
+</p>
+<h3 id="note_22-I08">Note 22-I08:  (Manual) Added explanation of section 2.8.3 Envelope Description in the Nintendo NITRO-System</h3>
+<p>Added description to section 2.8.3 Envelope Description with the Nintendo NITRO-System.
+</p>
+<h3 id="note_22-I09">Note 22-I09:  (Manual) Revised explanation in section 2.9 Loaded Scene/Model Created Using SI3D</h3>
+<p>Revised description in section 2.9 Loaded Scene/Model Created Using SI3D.
+</p>
+<h3 id="note_22-I10">Note 22-I10:  (Manual) Added explanation to section 2.10 Custom Parameters</h3>
+<p>Added explanation to section 2.10 Custom Parameters.
+</p>
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<hr><p>CONFIDENTIAL</p></body>
+</html>

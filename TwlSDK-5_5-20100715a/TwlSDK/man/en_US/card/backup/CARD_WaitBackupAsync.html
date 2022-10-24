@@ -1,0 +1,40 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>CARD_WaitBackupAsync</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">CARD_WaitBackupAsync <img src="../../image/NTR.gif"align="middle"><img src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/card.h&gt;</CODE><BR>
+  <BR>
+  <CODE>BOOL CARD_WaitBackupAsync(void);</CODE><br>
+  <br>
+  </dd>
+</dl>
+<h2>Arguments</h2>
+<p>None.</p>
+
+<h2>Return Values</h2>
+<p>The function returns a value of TRUE if the result of the last executed process is <code>CARD_RESULT_SUCCESS</code>. Otherwise, it returns a value of FALSE.</p>
+
+<H2>Description</H2>
+<P>The CARD backup device will remain blocked until the asynchronous process is complete. If an asynchronous process is not running, <code>CARD_WaitRomAsync</code> returns control immediately. If the result of the process is <code>CARD_RESULT_SUCCESS</code>, this function returns a value of TRUE. Otherwise, this function returns a value of FALSE. Call the <A href="../common/CARD_GetResultCode.html"><CODE>CARD_GetResultCode</CODE></A> function to obtain a detailed result value. <BR></P>
+<h2>See Also</h2>
+<p><CODE><A href="../common/CARD_GetResultCode.html">CARD_GetResultCode</A>, <A href="CARD_TryWaitBackupAsync.html">CARD_TryWaitBackupAsync</A> <BR></P></CODE>
+<H2>Revision History</H2>
+<P>
+2004/08/31 Added a description regarding the <code>CARD_GetResultCode</code> function. <br>2004/07/28 Initial version.<BR>
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

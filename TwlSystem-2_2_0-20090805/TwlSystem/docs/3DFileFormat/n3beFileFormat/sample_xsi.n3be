@@ -1,0 +1,17 @@
+# NNS_Batch_Export
+
+log    "D:/tmp/export_log.txt"
+
+# Export only part of the scene
+input_folder  "D:/data/xsi_data/XSIProject_A/scenes"
+output_folder "C:/nitro/game_data/"Å@
+n3es_folder   "C:/nitro/n3es"
+n3es   "field_imd_settings.n3es"Å@
+scene  "stage1_field" -name "s1_tower"  -root "tower"
+scene  "stage1_field" -name "s1_lake"   -root "lake"
+scene  "stage1_field" -name "s1_forest" -root "forest"
+scene  "stage1_field" -name "s1_ground" -root "ground"
+
+#Å@Export scene
+scene  "stage1_field"
+

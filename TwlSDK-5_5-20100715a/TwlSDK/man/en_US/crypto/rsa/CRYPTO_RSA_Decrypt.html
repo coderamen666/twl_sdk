@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!--==========================================================================
+  Copyright 2008 Nintendo.  All rights reserved.
+
+  These coded instructions, statements, and computer programs contain
+  proprietary information of Nintendo of America Inc. and/or Nintendo
+  Company Ltd., and are protected by Federal copyright law.  They may
+  not be disclosed to third parties or copied or duplicated in any form,
+  in whole or in part, without the prior written consent of Nintendo.
+ ==========================================================================-->
+<HTML>
+<HEAD>
+	<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+	<META http-equiv="Content-Style-Type" content="text/css">
+	<TITLE>CRYPTO_RSA_Decrypt</TITLE>
+	<LINK rel="stylesheet" href="../../css/nitro.css">
+	<BASE target="main">
+</HEAD>
+<BODY>
+<H1>CRYPTO_RSA_Decrypt <IMG src="../../image/BPT.gif" width="23" height="12" border="0" align="middle"><IMG src="../../image/TWL.gif" width="23" height="12" border="0" align="middle"></H1>
+
+<H2>Syntax</H2>
+<DL>
+	<DD>
+		<PRE><CODE>
+#include &lt;nitro/crypto.h&gt;
+
+s32 CRYPTO_RSA_Decrypt(<a href="CRYPTORSAContext.html">CRYPTORSAContext</a> *context, <a href="CRYPTORSADecryptParam.html">CRYPTORSADecryptParam</a> *param);
+		</CODE></PRE>
+	</DD>
+</DL>
+
+<H2>Arguments</H2>
+<TABLE border="1">
+	<TBODY>
+		<TR>
+			<TD width="25%"><EM><STRONG><CODE>context</CODE></STRONG></EM></TD>
+			<TD width="75%">Specifies the address of the <code>CRYPTORSAContext</code> structure that was initialized by the <code><a href="CRYPTO_RSA_DecryptInit.html">CRYPTO_RSA_DecryptInit</a></code> function.</TD>
+		</TR>
+		<TR>
+			<TD><EM><STRONG><CODE>param</CODE></STRONG></EM></TD>
+			<TD>Specifies the address of the structure for specifying strings and other data for RSA encryption.</TD>
+		</TR>
+	</TBODY>
+</TABLE>
+
+<H2>Return Values</H2>
+<P>
+	Returns one of the following process results.
+</P>
+<TABLE border="1">
+	<TBODY>
+		<TR>
+			<TD width="25%"><EM><STRONG><CODE>Positive number</CODE></STRONG></EM></TD>
+			<TD width="75%">Number of strings that were written to the output buffer (indicates that the decryption succeeded).</TD>
+		</TR>
+		<TR>
+			<TD><EM><STRONG><CODE>-1</CODE></STRONG></EM></TD>
+			<TD>Indicates that encryption failed.</TD>
+		</TR>
+	</TBODY>
+</TABLE>
+
+<H2>Description</H2>
+<P>
+	Performs decryption using the RSA algorithm. <BR>
+	The <code><a href="CRYPTO_RSA_DecryptInit.html">CRYPTO_RSA_DecryptInit</a></code> function must be run before running cryptography operations with this function. In addition, the <code><a href="CRYPTO_RSA_DecryptTerminate.html">CRYPTO_RSA_DecryptTerminate</a></code> function must be run when cryptography operations have completed.
+</P>
+<P>
+	The information required for decryption, such as the string to be decrypted and the output destination, must be specified in the members of the <CODE><STRONG><EM>param </EM></STRONG></CODE> argument. For details, refer to <a href="CRYPTORSADecryptParam.html">CRYPTORSADecryptParam</a>.
+</P>
+<P>
+	For detailed information on RSA encryption, see <A href="../overview/about_RSA.html">RSA Encryption Overview</A>.
+</P>
+
+<H2>See Also</H2>
+<P>
+	<CODE>
+		<A href="CRYPTO_RSA_DecryptInit.html">CRYPTO_RSA_DecryptInit</A>, <A href="CRYPTO_RSA_DecryptTerminate.html">CRYPTO_RSA_DecryptTerminate</A>
+	</CODE>
+</P>
+
+<H2>Revision History</H2>
+<P>
+	2008/04/02 Changed the return values (when successful, the function now returns the number of strings that were output).<BR>
+	2008/03/27 Initial version.
+</P>
+
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

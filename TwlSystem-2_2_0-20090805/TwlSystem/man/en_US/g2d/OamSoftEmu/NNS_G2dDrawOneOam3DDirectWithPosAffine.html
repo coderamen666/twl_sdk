@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>NNS_G2dDrawOneOam3DDirectWithPosAffine</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+<h1 align="left">NNS_G2dDrawOneOam3DDirectWithPosAffine</h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+		<pre><CODE>#include &lt;nnsys/g2d/g2d_OamSoftwareSpriteDraw.h&gt;</CODE></pre>
+  <pre><CODE>
+void    NNS_G2dDrawOneOam3DDirectWithPosAffine( 
+                            s16                             posX,
+                            s16                             posY,
+                            s16                             posZ,
+                            const GXOamAttr*                pOam, 
+                            const NNSG2dImageAttr*          pTexImageAttr,
+                            u32                             texBaseAddr,
+                            u32                             pltBaseAddr,
+                            const MtxFx22*                  pMtx );
+                            
+</CODE></pre>
+  </dd>
+</dl><h2>Arguments</h2>
+
+<table border="1" width="100%">
+  <tr>
+<td width="13%">posX</td>
+<td width="87%">[IN] X position</td>
+  </tr>
+  <tr>
+<td width="13%">posY</td>
+<td width="87%">[IN] Y position</td>
+  </tr>
+  <tr>
+<td width="13%">posZ</td>
+<td width="87%">[IN] Z position</td>
+  </tr>
+  <tr>
+<td width="13%">pOam</td>
+<td width="87%">[IN] OAM attribute</td>
+  </tr>
+  <tr>
+<td width="13%">pTexImageAttr</td>
+<td width="87%">[IN] Texture attribute</td>
+  </tr>
+  <tr>
+<td width="13%">texBaseAddr</td>
+<td width="87%">[IN] Texture base address</td>
+  </tr>
+  <tr>
+<td width="13%">pltBaseAddr</td>
+<td width="87%">[IN] Palette base address</td>
+  </tr>
+  <tr>
+<td width="13%">pMtx</td>
+<td width="87%">[IN] Affine matrix</td>
+  </tr>
+  </table>
+<h2>Return Values</h2>
+<p>None.
+</p>
+<H2>Description</H2>
+<P>
+Directly renders a single OBJ using the 3D Graphics Engine without using the internal buffer. This function can also specify the OAM position and the affine matrix to use for rendering the OBJ.<BR><BR> The arguments specify the information for setting the texture data and the palette data used by the 3D graphics engine. <BR>The camera must be configured ahead of time. Use the <code>NNS_G2dSetupSoftwareSpriteCamera</code> function to configure the camera. This function is called inside the <code>NNS_G2dApplyOamManagerToHWSprite</code> function.
+</p>
+
+<h2>See Also</h2>
+<p>
+<a href="../Oam/NNS_G2dApplyOamManagerToHWSprite.html"><code>NNS_G2dApplyOamManagerToHWSprite</code></a><BR> <a href="../SoftwareSprite/NNS_G2dSetupSoftwareSpriteCamera.html"><code>NNS_G2dSetupSoftwareSpriteCamera</code></a><BR> <a href="NNS_G2dDrawOneOam3DDirectXXXFast.html"><code>NNS_G2dDrawOneOam3DDirect*Fast</code></a>
+</p>
+<H2>Revision History</H2>
+<P>2004/05/28 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

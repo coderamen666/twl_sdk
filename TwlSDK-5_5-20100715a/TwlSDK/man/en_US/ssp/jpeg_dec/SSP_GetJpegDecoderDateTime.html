@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title>DSP_GetJpegDecoderDateTime</title>
+<link rel="stylesheet" href="../../css/nitro.css" type="text/css" />
+</head>
+<body>
+
+<h1>SSP_GetJpegDecoderDateTime <img src="../../image/NTR.gif" align="middle"><img src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+
+<pre><code>
+u16 SSP_GetJpegDecoderDateTime(u8 *buffer);
+</code></pre>
+
+<h2>Arguments</h2>
+<table style="width:100%">
+<tbody>
+<tr>
+<td style="width:13%"><SPAN class="argument">buffer</SPAN></td>
+<td style="width:87%">Buffer to store date and time information.<br/>The date and time can be obtained in the 20-character string format &quot;<CODE>YYYY:MM:DD HH:MM:DD</CODE>&quot;, terminated with <CODE>0x00</CODE>.</td>
+</tr>
+</tbody>
+</table>
+
+
+<h2>Return Values</h2>
+<p>Returns the size of the date and time information.</p>
+
+<h2>Description</h2>
+<p>Gets the date and time of a photo taken by the camera, as obtained from the image when it is decoded. This information is registered in the IFD0 <CODE>DateTime</CODE> tag.
+</p>
+
+<h2>See Also</h2>
+<p><a href="SSP_StartJpegDecoder.html"><CODE>SSP_StartJpegDecoder</CODE></a></p>
+
+<h2>Revision History</h2>
+<p>
+2008/09/15 Initial version.
+</p>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

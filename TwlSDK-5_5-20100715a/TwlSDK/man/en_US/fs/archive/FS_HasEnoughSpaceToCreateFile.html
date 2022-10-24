@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title>FS_HasEnoughSpaceToCreateFile</title>
+<link rel="stylesheet" href="../../css/nitro.css" type="text/css" />
+</head>
+<body>
+<h1>FS_HasEnoughSpaceToCreateFile <img src="../../image/NTR.gif"align="middle"><img src="../../image/TWL.gif" align="middle"></h1>
+<h2>Syntax</h2>
+
+<pre><code>
+#include &lt;nitro/fs.h&gt;
+
+BOOL FS_HasEnoughSpaceToCreateFile(<a href="../FSArchiveResource.html">FSArchiveResource</a> *resource, const char *path, u32 size);
+</code></pre>
+<h2>Arguments</h2>
+<table style="width:100%">
+<tbody>
+<tr>
+<td style="width:13%"><CODE>resource</CODE></td>
+<td style="width:87%">Archive information that was obtained beforehand using the <a href="FS_GetArchiveResource.html"><CODE>FS_GetArchiveResource</CODE></a> function.</td>
+</tr>
+<tr>
+<td style="width:13%"><CODE>path</CODE></td>
+<td style="width:87%">Pathname of the file you want to create. <br />If a directory is to be created, you must append a forward slash (/) to the end of the entry.<br />If you specify an empty string, it is taken to mean that the file already exists, and the pathname will be omitted.</td>
+</tr>
+<tr>
+<td style="width:13%"><CODE>size</CODE></td>
+<td style="width:87%">Size of the file to create. <br />Specify 0 when creating a directory.</td>
+</tr>
+</tbody>
+</table>
+
+<h2>Return Values</h2>
+<p>Returns <CODE>TRUE</CODE> if the file with the specified path and size can be created with certainty, and <CODE>FALSE</CODE> otherwise.</p>
+
+<h2>Description</h2>
+<p>Calculates a theoretical value to determine whether a file of the specified pathname and size can be created in the space available.<br />This function calculates the theoretically required size, taking into account the number of clusters consumed in media that contain FAT structures, such as <a href="../archive_nand_spec.html">NAND archives</a> and <a href="../archive_sdmc_spec.html">SD Card archives</a>. In making the calculation, this function always assumes that the directory levels in the specified path consume one cluster each, regardless of whether directories at the levels actually exist. </p>
+<p style='color:Red'>The purpose of this function is to quickly determine whether a file can definitely be created, without taking the time to check the actual internal status of the drive. Therefore, there will be times when it would be possible to create the file, but the function returns FALSE because the calculation did not yield 100% certainty. If you require an exact determination and time is not a factor, use this function in combination with the <a href="../directory/FS_GetPathInfo.html"><CODE>FS_GetPathInfo</CODE></a> function and omit the process of determining the size of existing directories.</p>
+
+<p>To determine the Save Data size of a NAND application, also see the information about the <a href="../../tools/SaveDataSize.html">Save Data Size List</a>.</p>
+
+<p>The archive information that is passed to this function as an argument must have been obtained in advance by calling the <a href="FS_GetArchiveResource.html"><CODE>FS_GetArchiveResource</CODE></a> function. If this function returns <CODE>TRUE</CODE>, the disk capacity that is expected based on the path and file size is reflected in the archive information, and the <CODE>availableSize</CODE> and <CODE>availableClusters</CODE> members are reduced. By reusing this archive information and repeatedly calling this function, you can determine whether an entire batch of multiple files can be created. An example of this usage is shown below.</p>
+<div style='width:80%;color:Black;border:solid 1px Black;padding: 20 0 20 20'><code><br /> <span style='color:#008000'>// First, get the current archive information. </span><br /> FSArchiveResource   resource[1];<br /> if (FS_GetArchiveResource(&quot;sdmc:/&quot;, resource))<br /> {<br /> <span style='color:#008000'>// Individually determine pathname and size of files you want to create.</span><br />BOOL    enough = TRUE;<br /> enough &amp;= FS_HasEnoughSpaceToCreateFile(resource, &quot;sdmc:/foo/file1.txt&quot;, 1000);<br /> enough &amp;= FS_HasEnoughSpaceToCreateFile(resource, &quot;sdmc:/bar/file2.txt&quot;, 10000);<br /> if (enough)<br /> {<br /> <span style='color:#008000'>// If completely successful, there is enough space to create all of the specified files.</span><br />}<br /> }<br /> return retval;<br /></code></div>
+
+<p>This function immediately calculates the size that would logically be sufficient, without actually accessing the archive. As a result, if a path that actually indicates the same directory is specified several times, the size required to create that directory is counted multiple times. Directories consume a single cluster of capacity for each level, so the duplicated size will be extremely large if a deep path is specified. To avoid this kind of error, the common path component should be collectively called only once. An example of this usage is shown below.</p>
+<div style='width:80%;color:Black;border:solid 1px Black;padding: 20 0 20 20'><code><br /> <span style='color:#008000'>// Specifying &quot;sdmc:/foo/bar&quot;, as follows, causes the size required to create it to be counted several times.</span><br /> <span style='color:#008000'>//      enough &amp;= FS_HasEnoughSpaceToCreateFile(resource, &quot;sdmc:/foo/bar/file1.txt&quot;, 1000);</span><br /> <span style='color:#008000'>//      enough &amp;= FS_HasEnoughSpaceToCreateFile(resource, &quot;sdmc:/foo/bar/file2.txt&quot;, 10000);</span><br /> <span style='color:#008000'>//      enough &amp;= FS_HasEnoughSpaceToCreateFile(resource, &quot;sdmc:/foo/bar/file3.txt&quot;, 10);</span><br /> <br /> <span style='color:#008000'>// To avoid duplicate size calculations, first test the common directory once.</span><br />enough &amp;= FS_HasEnoughSpaceToCreateFile(resource, &quot;sdmc:/foo/bar/&quot;, 0);<br /> <span style='color:#008000'>// The rest can be omitted, assuming sdmc:/foo/bar/ exists.</span><br /> enough &amp;= FS_HasEnoughSpaceToCreateFile(resource, &quot;file1.txt&quot;, 1000);<br /> enough &amp;= FS_HasEnoughSpaceToCreateFile(resource, &quot;file2.txt&quot;, 10000);<br /> enough &amp;= FS_HasEnoughSpaceToCreateFile(resource, &quot;file3.txt&quot;, 10);<br /></code></div>
+
+<h2>See Also</h2>
+<p><a href="../../tools/SaveDataSize.html">Save Data Size List</a><br /> <a href="../FSArchiveResource.html"><CODE>FSArchiveResource</CODE></a><br /> <a href="FS_GetArchiveResource.html"><CODE>FS_GetArchiveResource</CODE></a></p>
+
+<h2>Revision History</h2>
+<p>
+2009/02/12 Slightly adjusted the layout.<br />2009/01/13 Added supplemental information to <B>Description</B>. Added a link to the Save Data Size List.<br />2008/12/12 Explained that the returned value is not an exact result and gave an example of an alternate method.<br />2008/09/16 Added explanations and examples for avoiding duplicate calculations of the consumed size.<br />2008/02/21 Changed the specifications so that preparations will be made by the caller of <code>FSArchiveResource</code>.<br />2008/01/24 Initial version.
+</p>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

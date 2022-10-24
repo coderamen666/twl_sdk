@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>MI_FreeWram</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">MI_FreeWram* <IMG src="../../image/TWL.gif" align="middle"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;twl/mi.h&gt;</CODE><BR> <BR> <CODE>int MI_FreeWram( MIWramPos wram, MIWramProc proc );<br> int MI_FreeWramSlot( MIWramPos wram, int slot, MIWramSize size, MIWramProc proc );<br> <br> (define)<br> <font color="#7f7f7f">int MI_FreeWram_A( MIWramProc proc );</font><br> int MI_FreeWram_B( MIWramProc proc );<br> int MI_FreeWram_C( MIWramProc proc );<br> <font color="#7f7f7f">int MI_FreeWramSlot_A( int slot, MIWramSize size, MIWramProc proc );</font><br> int MI_FreeWramSlot_B( int slot, MIWramSize size, MIWramProc proc );<br> int MI_FreeWramSlot_C( int slot, MIWramSize size, MIWramProc proc );</CODE></dd>
+</dl>
+<h2>Arguments</h2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="13%"><EM><STRONG>wram</STRONG></EM></TD>
+<TD width="87%">WRAM region to be freed.</TD>
+    </TR>
+    <TR>
+<TD><B><I>slot</I></B></TD>
+<TD>Starting slot number.</TD>
+    </TR>
+    <TR>
+<TD><B><I>size</I></B></TD>
+<TD>Size.</TD>
+    </TR>
+    <TR>
+<TD><B><I>proc</I></B></TD>
+<TD>Master processor of the region to free.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<h2>Return Values</h2>
+<p>Returns the number of blocks that were freed. If 0, nothing was freed. If -1, an error occurred.</p>
+
+<H2>Description</H2>
+<P>Frees WRAM that was allocated with the <A href="MI_AllocWram.html"><CODE>MI_AllocWram*</CODE></A> function.</P>
+<P>The <SPAN class="argument">wram</SPAN> argument is the target WRAM.</P>
+<P>The <SPAN class="argument">slot</SPAN> argument is the starting slot number of the region to free.</P>
+<P>The <SPAN class="argument">size</SPAN> argument is the size of the region to free and is specified as &quot;<CODE>MI_WRAM_SIZE_xxxKB</CODE>.&quot;</P>
+<P>The <SPAN class="argument">proc</SPAN> argument is the master processor of the region to be freed.</P>
+<P>Even if a region is freed, the reservation information for that region is retained. (WRAM reservations are made using the <A href="MI_ReserveWram.html"><CODE>MI_ReserveWram*</CODE></A> functions.)</P>
+<P>The <CODE>MI_FreeWram</CODE> function frees all areas within the specified WRAM whose master processor is the specified processor.</P>
+<P>The <CODE>MI_FreeWramSlot</CODE> function attempts to free areas by specifying a region's <SPAN class="argument">slot</SPAN> and <SPAN class="argument">size</SPAN>. However, it does not free regions whose master processor is different from the specified processor.</P>
+<P><font color="#7f7f7f"><CODE>MI_FreeWram_A</CODE> is the #define directive of <CODE>MI_FreeWram( MI_WRAM_A, ... )</CODE>. </font><BR><CODE>MI_FreeWram_B</CODE> is the #define directive of <CODE>MI_FreeWram( MI_WRAM_B, ... )</CODE>. <BR><CODE>MI_FreeWram_C</CODE> is the #define directive of <CODE>MI_FreeWram( MI_WRAM_C, ... )</CODE>. <BR><font color="#7f7f7f"><CODE>MI_FreeWramSlot_A</CODE> is the #define directive of <CODE>MI_FreeWramSlot( MI_WRAM_A, ... )</CODE>. </font><BR><CODE>MI_FreeWramSlot_B</CODE> is the #define directive of <CODE>MI_FreeWramSlot( MI_WRAM_B, ... )</CODE>. <BR><CODE>MI_FreeWramSlot_C</CODE> is the #define directive of <CODE>MI_FreeWramSlot( MI_WRAM_C, ... )</CODE>. </P>
+<h2>See Also</h2>
+<P><A href="about_Wram.html">Overview: Work RAM</A><BR> <A href="../mi_constant.html">MI-Related Constants</A><BR> <A href="MI_AllocWram.html"><CODE>MI_AllocWram*</CODE></A><BR> <A href="MI_ReserveWram.html"><CODE>MI_ReserveWram*</CODE></A></P>
+
+<H2>Revision History</H2>
+<P>2007/08/22 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

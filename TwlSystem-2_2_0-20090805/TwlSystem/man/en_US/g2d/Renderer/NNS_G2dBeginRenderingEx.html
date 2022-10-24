@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>NNS_G2dBeginRenderingEx</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+<h1 align="left">NNS_G2dBeginRenderingEx</h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+		<pre><CODE>#include &lt;nnsys/g2d/g2d_Renderer.h&gt;</CODE></pre>
+  <pre><CODE>
+    void NNS_G2dBeginRenderingEx 
+    ( 
+        NNSG2dRendererInstance* pRendererInstance, 
+        u32                     opzHint 
+    );
+    
+  </CODE></pre>
+  </dd>
+</dl><h2>Arguments</h2>
+
+<table border="1" width="100%">
+  <tr>
+<td width="13%"><CODE>pRendererInstance</CODE></td>
+<td width="87%">[IN] Renderer entity</td>
+  </tr>
+  <tr>
+<td width="13%"><CODE>opzHint</CODE></td>
+<td width="87%">[IN] Optimization hint</td>
+  </tr>
+  </table>
+<h2>Return Values</h2>
+<p>None.
+</p>
+<H2>Description</H2>
+<P>
+Performs configurations (preprocessing) before rendering with the renderer.<BR>Call this function before calling the renderer rendering method. Do not call this function inside the <code>BeginRendering</code> &mdash; <code>EndRendering</code> block. It is possible to designate a hint flag for rendering optimization with this function.<BR> The hint is created with the logical OR of the <code>NNSG2dRendererOptimizeHint</code> enumerator.<BR> <BR> The definition of <code>NNSG2dRendererOptimizeHint</code> is as follows.<BR> <BR> <CODE>
+<pre>
+typedef enum NNSG2dRendererOptimizeHint
+{
+    NNS_G2D_RDR_OPZHINT_NONE              = 0x0,
+    NNS_G2D_RDR_OPZHINT_NOT_SR            = 0x1,  // Do not use SR (Scale Rotate) conversion
+    NNS_G2D_RDR_OPZHINT_LOCK_PARAMS       = 0x2   //  Lock the parameter
+
+}NNSG2dRendererOptimizeHint;
+</pre>
+</CODE> <BR> <code>NNS_G2D_RDR_OPZHINT_NOT_SR</code> indicates that SR (Scale Rotate) conversion is not used.<BR> <BR> <code>NNS_G2D_RDR_OPZHINT_LOCK_PARAMS</code> indicates that each parameter is locked.<BR> Specifically, the image proxy and the surface type are not alterable inside the renderer <code>BeginRendering</code> &mdash; <code>EndRendering</code> block. <BR>If there are multiple surfaces that are each registered, the surfaces must be switched inside the render function. Therefore, this option cannot be designated for the renderer. If this option is designated in such a case, execution fails in the assert.<BR><BR> The optimization hint flag is reset via the <a href="NNS_G2dEndRendering.html"><code>NNS_G2dEndRendering</code></a> function.<BR> In other words, the optimization hint flag is valid only inside the <code>BeginRendering</code> &mdash; <code>EndRendering</code> block of the renderer.<BR> <BR> After performing the optimization preprocessing, this function calls the normal <a href="NNS_G2dBeginRendering.html"><code>NNS_G2dBeginRendering</code></a> function.<BR>
+</p>
+
+<h2>See Also</h2>
+<p>
+<a href="NNS_G2dBeginRendering.html"><CODE>NNS_G2dBeginRendering</CODE></a><BR> <a href="NNS_G2dEndRendering.html"><CODE>NNS_G2dEndRendering</CODE></a></p>
+<H2>Revision History</H2>
+<P>2004/11/10 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

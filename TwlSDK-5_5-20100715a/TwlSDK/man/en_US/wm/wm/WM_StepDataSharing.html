@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 8.0.2.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>WM_StepDataSharing</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">WM_StepDataSharing&nbsp;<img src="../../image/NTR.gif"><img src="../../image/TWL.gif"></H1>
+<h2>Syntax</h2>
+<dl>
+  <dd><PRE><CODE>#include &lt;nitro/wm.h&gt;
+
+<A href="WMErrCode.html">WMErrCode</A> WM_StepDataSharing(
+        WMDataSharingInfo*  dsInfo ,
+        const u16*          sendData ,
+        <A href="WMDataSet.html">WMDataSet</A>*          receiveData
+);
+</CODE></PRE></dd>
+</dl>
+
+<h2>Arguments</h2>
+<table border="1" width="100%">
+  <tbody>
+    <TR>
+<TD width="200"><CODE>dsInfo</CODE></TD>
+<TD width="800">Pointer to the data sharing information structure. Specify the structure using the <a href="WM_StartDataSharing.html"><CODE>WM_StartDataSharing</CODE></a> function.</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>sendData</CODE></TD>
+<TD width="800">Pointer to the send data. The data length is the fixed share data length that is specified by <A href="WM_StartDataSharing.html"><CODE>WM_StartDataSharing</CODE></A>.</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>receiveData</CODE></TD>
+<TD width="800">Pointer to the buffer receiving the shared data.</TD>
+    </TR>
+   </tbody>
+</table>
+
+<h2>Return Values</h2>
+<p>Returns the results of the <A href="WMErrCode.html"><CODE>WMErrCode</CODE></A> enumerated type process.</p>
+
+<H2>Description</H2>
+<P>
+Advances data sharing synchronization by one. This function can be run in the <a href="WM_StartDataSharing.html"><CODE>WM_StartDataSharing</CODE></a> function when data sharing has begun. This is a synchronous function that immediately returns <code>WM_ERRCODE_SUCCESS</code> when the process succeeds. This function returns <code>WM_ERRCODE_NO_DATASET</code> when synchronization is delayed because another terminal in the data share group did not call this function. If a recoverable error was generated during communication, <code>WM_StepDataSharing</code> continues to return <code>WM_ERRCODE_FAILED</code>. Use <A href="WM_GetSharedDataAddress.html"><code>WM_GetSharedDataAddress</code></A> when you check the data of each terminal from the received data structure. By specifying different <code>dsInfo</code> arguments, data sharing can be performed with multiple groups. In such cases, you must call the function for each group and step the synchronization separately.
+</P>
+
+<P>To make the data sharing stable, you must call this API as soon as possible after <nobr>V-blank</nobr>.</P>
+
+<P>In the current implementation, the frame offset is corrected automatically only when data sharing is executed in every frame or every other frame. When you call this function at intervals of three or more frames, data sharing can be executed but the frame offset caused by some children in a shared period not being detected.</P>
+
+<h2>See Also</h2>
+<P><A href="WM_StartDataSharing.html"><CODE>WM_StartDataSharing</CODE></a><BR> <a href="WM_EndDataSharing.html"><CODE>WM_EndDataSharing</CODE></a><BR> <a href="WM_GetSharedDataAddress.html"><CODE>WM_GetSharedDataAddress</CODE></A></P>
+
+<H2>Revision History</H2>
+<P>
+2004/10/22 Changed return value type.<br /> 2004/09/25 Added <B>Description</B>.<br /> 2004/09/21 Deleted cautions because some restrictions were eliminated.<br /> 2004/08/11 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

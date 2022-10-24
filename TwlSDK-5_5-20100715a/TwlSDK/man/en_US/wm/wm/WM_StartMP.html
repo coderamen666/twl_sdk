@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 8.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>WM_StartMP</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">WM_StartMP <img src="../../image/NTR.gif"><img src="../../image/TWL.gif"></H1>
+<h2>Syntax</h2>
+<dl>
+  <dd><PRE><CODE>#include &lt;nitro/wm.h&gt;
+
+<A href="WMErrCode.html">WMErrCode</A> WM_StartMP(
+        <A href="WMCallbackFunc.html">WMCallbackFunc</A>  callback ,
+        u16*            recvBuf ,
+        u16             recvBufSize ,
+        u16*            sendBuf ,
+        u16             sendBufSize ,
+        u16             mpFreq
+);
+</CODE></PRE></dd>
+</dl>
+
+<h2>Arguments</h2>
+<table border="1" width="100%">
+  <tbody>
+    <TR>
+      <TD width="200"><EM><STRONG><FONT face="Courier New">callback</FONT></STRONG></EM></TD>
+      <TD width="800">Specifies the callback function to be called when the notification of the status for the asynchronous process is sent or when the asynchronous process completes. This callback is called from within the interrupt handler.</TD>
+    </TR>
+    <TR>
+      <TD width="200"><EM><STRONG><FONT face="Courier New">recvBuf</FONT></STRONG></EM></TD>
+      <TD width="800">Receive data storage buffer that the SDK uses internally.
+      This value must be aligned to the 32-byte boundary.
+      Because the ARM7 processor writes directly to the buffer, be careful of coherency with the cache.</TD>
+    </TR>
+    <TR>
+      <TD width="200"><EM><STRONG><FONT face="Courier New">recvBufSize</FONT></STRONG></EM></TD>
+      <TD width="800">Size of the buffer that stores received data.
+      This value must be larger than the return value of <a href="WM_GetMPReceiveBufferSize.html"><code>WM_GetMPReceiveBufferSize</code></a>. This value must also be in multiples of 64 bytes.</TD>
+    </TR>
+    <TR>
+      <TD width="200"><EM><STRONG><FONT face="Courier New">sendBuf</FONT></STRONG></EM></TD>
+      <TD width="800">Send data storage buffer that the SDK uses internally.
+      This value must be aligned to the 32-byte boundary.
+      Because the ARM7 processor writes directly to the buffer, be careful of coherency with the cache.</TD>
+    </TR>
+    <TR>
+      <TD width="200"><EM><STRONG><FONT face="Courier New">sendBufSize</FONT></STRONG></EM></TD>
+      <TD width="800">Send data storage buffer size that the SDK uses internally.
+      This value must be larger than the return value of <A href="WM_GetMPSendBufferSize.html"><code>WM_GetMPSendBufferSize</code></a>. This value must also be in multiples of 32 bytes.</TD>
+    </TR>
+    <TR>
+      <TD width="200"><EM><STRONG><FONT face="Courier New">mpFreq</FONT></STRONG></EM></TD>
+      <TD width="800">Specifies how many times to perform MP communications in one frame.
+      If &quot;0&quot; is specified, the device enters the continuous communication mode.</TD>
+    </TR>
+  </tbody>
+</table>
+
+<h2>Return Values</h2>
+<p>Returns the results of the <CODE><A href="WMErrCode.html">WMErrCode</A></CODE> enumerated type process.</p>
+
+<H2>Description</H2>
+<P>Begins the MP mode. This function can be executed only if the WM is in either the <A href="wm_state_diagram.html">PARENT</A> state or the <A href="wm_state_diagram.html">CHILD</A> state. If the return value is <CODE>WM_ERRCODE_OPERATING</CODE>, a callback is generated after the MP mode change process is complete. The WM state changes to the appropriate <A href="wm_state_diagram.html"><code>MP_PARENT</code></A> or <A href="wm_state_diagram.html"><code>MP_CHILD</code></A> state. A callback is also generated when data is received through MP communication or when MP communication is complete. After entering the MP communication mode, the V-Blank synchronization process is executed automatically between connected devices. MP communication is attempted in each frame for the number of times that is specified by <em><strong><code>mpFreq</code></strong></em>. The number of attempts is not guaranteed and is dependent on the communication status. The maximum number of MP communication attempts that occur during a each frame varies with each communication parameter. <A href="WM_StartMPEx.html"><code>WM_StartMPEx</code></A> is a function that has similar features to <code>WM_StartMP</code> function. However, the use of the <code>WM_StartMP</code> function should be sufficient under normal circumstances.</P>
+
+<P>
+When a child performs MP communication, call <A href="WM_StartMP.html"><code>WM_StartMP</code></A> soon after the child connects to a parent using <A href="WM_StartConnect.html"><code>WM_StartConnect</code></A>. From the time the connection is established until <A href="WM_StartMP.html"><code>WM_StartMP</code></A> is called, the child does not respond to messages sent by the parent. When this status exceeds the parent CAM lifetime set by <a href="WM_SetLifeTime.html"><code>WM_SetLifeTime</code></a>, the child is disconnected from the parent.
+</P>
+
+<P>
+Also, do not continually call the <A href="WM_EndMP.html">WM_EndMP</A> function and the WM_StartMP function while connected with the goal of changing the MP communications parameters. MP communications internal information, such as Sequential communications information, will be initialized, so the consistency of communications before and afterwards will be lost. In order to change specific MP communications parameters such as MP communication frequency during MP communications, it is possible to use functions such as <A href="WM_SetMPFrequency.html">WM_SetMPFrequency</A> and <A href="WM_SetMPParameter.html">WM_SetMPParameter</A>.
+</P>
+
+<h2>See Also</h2>
+<p><CODE><A href="WM_StartMPEx.html">WM_StartMPEx</A>, <A href="WM_EndMP.html">WM_EndMP</A>, <A href="WM_SetMPDataToPort.html">WM_SetMPDataToPort</A>, <A href="WM_SetPortCallback.html">WM_SetPortCallback</A>, <A href="WM_SetMPFrequency.html">WM_SetMPFrequency</A>, <A href="WM_SetMPParameter.html">WM_SetMPParameter</A></CODE></p>
+
+<H2>Revision History</H2>
+<P>
+2006/01/13 Added warnings related to changes in MP communications parameters during communications<BR> 2005/07/29 Corrected to reflect changes in conditions for generating a Null response<BR> 2005/06/08 Added text indicating the callback is called from the interrupt handler<br> 2004/11/09 Added explanation about Null response<BR> 2004/10/22 Changed return value types<BR> 2004/09/25 Added and revised descriptions<BR> 2004/08/18 Added sendBuf, sendBufSize, and mpFreq to arguments.<BR> 2004/08/11 Noted about callback when MP communications end<BR> 2004/08/02 Standardized structure names<BR> 2004/07/29 Added explanations etc.<BR> 2004/07/23 Initial Version<BR>
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

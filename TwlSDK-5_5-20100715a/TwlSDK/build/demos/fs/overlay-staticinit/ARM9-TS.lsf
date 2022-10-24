@@ -1,0 +1,68 @@
+#----------------------------------------------------------------------------
+# Project:  TwlSDK - demos - FS - overlay-staticinit
+# File:     ARM9-TS.lsf
+#
+# Copyright 2007 Nintendo.  All rights reserved.
+#
+# These coded insructions, statements, and computer programs contain
+# proprietary information of Nintendo of America Inc. and/or Nintendo
+# Company Ltd., and are protected by Federal copyright law.  They may
+# not be disclosed to third parties or copied or duplicated in any form,
+# in whole or in part, without the prior written consent of Nintendo.
+#
+# $Date:: 2007-12-05#$
+# $Rev: 2842 $
+# $Author: yosizaki $
+#----------------------------------------------------------------------------
+#
+#  TWL LCF SPEC FILE
+#
+
+Static $(TARGET_NAME)
+{
+	Address		$(ADDRESS_STATIC)
+	Object		$(OBJS_STATIC)
+	Library		$(LLIBS) $(GLIBS) $(CW_LIBS)
+}
+
+Autoload ITCM
+{
+	Address		$(ADDRESS_ITCM)
+	Object		*     		 (.itcm)
+	Object		$(OBJS_AUTOLOAD) (.text)
+	Object		$(OBJS_AUTOLOAD) (.rodata)
+}
+
+Autoload DTCM
+{
+	Address		$(ADDRESS_DTCM)
+	Object		*     		 (.dtcm)
+	Object		$(OBJS_AUTOLOAD) (.data)
+	Object		$(OBJS_AUTOLOAD) (.sdata)
+	Object		$(OBJS_AUTOLOAD) (.bss)
+	Object		$(OBJS_AUTOLOAD) (.sbss)
+}
+
+Overlay top_menu
+{
+	After		$(TARGET_NAME)
+	Object		$(OBJDIR)/top_menu.o
+}
+
+Overlay mode_1
+{
+	After		$(TARGET_NAME)
+	Object		$(OBJDIR)/mode_1.o
+}
+
+Overlay mode_2
+{
+	After		$(TARGET_NAME)
+	Object		$(OBJDIR)/mode_2.o
+}
+
+Overlay mode_3
+{
+	After		$(TARGET_NAME)
+	Object		$(OBJDIR)/mode_3.o
+}

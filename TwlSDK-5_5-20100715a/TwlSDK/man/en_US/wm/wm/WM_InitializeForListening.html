@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 8.0.2.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>WM_InitializeForListening</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">WM_InitializeForListening&nbsp;<img src="../../image/NTR.gif"><img src="../../image/TWL.gif"></H1>
+<h2>Syntax</h2>
+<dl>
+  <dd><PRE><CODE>#include &lt;nitro/wm.h&gt;
+
+<A href="WMErrCode.html">WMErrCode</A> WM_InitializeForListening(
+        void*           wmSysBuf ,
+        <A href="WMCallbackFunc.html">WMCallbackFunc</A>  callback ,
+        u16             dmaNo,
+        BOOL            blink
+);
+</CODE></PRE></dd>
+</dl>
+
+<h2>Arguments</h2>
+<table border="1" width="100%">
+  <tbody>
+    <TR>
+<TD width="200"><SPAN class="argument">wmSysBuf</SPAN></TD>
+<TD width="800">Pointer to the buffer allocated by the calling source. The buffer must have a size of <code>WM_SYSTEM_BUF_SIZE</code> and be 32-byte aligned.</TD>
+    </TR>
+    <TR>
+<TD width="200"><SPAN class="argument">callback</SPAN></TD>
+<TD width="800">Callback function to call when the asynchronous process completes. This callback is called from inside the interrupt handler.</TD>
+    </TR>
+    <TR>
+<TD width="200"><SPAN class="argument">dmaNo</SPAN></TD>
+<TD width="800">The DMA number that the WM uses. Use a valid DMA number (0-3).</TD>
+    </TR>
+    <TR>
+<TD width="200"><SPAN class="argument">blink</SPAN></TD>
+<TD width="800">Specifies <CODE>TRUE</CODE> whether the power LED is flashing at variable speed.<BR>(This setting is valid only on Nintendo DS, Nintendo DS Lite, and IS-NITRO-EMULATOR.)</TD>
+    </TR>
+  </tbody>
+</table>
+
+<h2>Return Values</h2>
+<p>Returns the results of the <A href="WMErrCode.html"><CODE>WMErrCode</CODE></A> enumerated type process.</p>
+
+<H2>Description</H2>
+<P>
+Initializes the WM library in receive-only mode and starts the wireless hardware. If the return value is <code>WM_ERRCODE_OPERATING</code>, a callback is generated after the initialization process is complete. This function changes the WM from the <code>READY</code> state to the <code>IDLE</code> state. Do not free <SPAN class="argument">wmSysBuf</SPAN> until <a href="WM_Finish.html"><code>WM_Finish</code></a> or <a href="WM_End.html"><code>WM_End</code></a> ends successfully. Note that this function consolidates the functionalities of <A href="WM_Init.html"><CODE>WM_Init</CODE></A>, <A href="WM_Enable.html"><CODE>WM_EnableForListening</CODE></A>, and <A href="WM_PowerOn.html"><CODE>WM_PowerOn</CODE></A>. Use these functions separately for low-level control of the initialization process.
+</P>
+<P>
+Unlike <a href="WM_Initialize.html"><code>WM_Initialize</code></a>, operations that require transmitting wireless signals will not be available if this function is used for initialization. In exchange, you can make the power LED stop flashing when run on Nintendo DS, Nintendo DS Lite, and IS-NITRO-EMULATOR. Scanning in passive mode and measuring channel availability are examples of operations that do not require transmitting wireless signals.
+</P>
+
+<h2>See Also</h2>
+<p><A href="WM_Initialize.html"><CODE>WM_Initialize</CODE></A><BR> <A href="WM_SetIndCallback.html"><CODE>WM_SetIndCallback</CODE></A><BR> <A href="WM_Reset.html"><CODE>WM_Reset</CODE></A><BR> <A href="WM_End.html"><CODE>WM_End</CODE></A><BR> <A href="WM_Init.html"><CODE>WM_Init</CODE></A><BR> <A href="WM_EnableForListening.html"><CODE>WM_EnableForListening</CODE></A><BR> <A href="WM_PowerOn.html"><CODE>WM_PowerOn</CODE></A></p>
+
+<H2>Revision History</H2>
+<P>
+2009/07/10 Explained the LED blinking specification.<BR> 2007/11/12 Initial version.<BR>
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

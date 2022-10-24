@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title>WFS_IsClientReady</title>
+<link rel="stylesheet" href="../../css/nitro.css" type="text/css" />
+</head>
+<body>
+
+<h1>WFS_IsClientReady&nbsp;<img src="../../image/NTR.gif"><img src="../../image/TWL.gif"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<code>#include &lt;nitro/wfs.h&gt;</code><br />
+  <br />
+  <code>BOOL WFS_IsClientReady(const WFSClientContext *context);</code><br />
+  <br />
+  </dd>
+</dl>
+<h2>Arguments</h2>
+<table border="1" width="100%">
+  <tbody>
+    <tr>
+      <td style="width:13%"><em><strong>context</strong></em></td>
+      <td style="width:87%">Pointer to the <CODE>WFSClientContext</CODE> structure.</td>
+    </tr>
+  </tbody>
+</table>
+<h2>Return Values</h2>
+<p>Returns TRUE if the all preparations have completed on the child (client) side; returns FALSE otherwise.</p>
+
+<h2>Description</h2>
+<p>Determines whether the WFS child (client) is ready. This function returns true once the ROM file table has been received from the server and a <a href="../WFSEventType.html"><CODE>WFS_EVENT_CLIENT_READY</CODE></a> event notification has been issued. Unless the preparation has completed, it is not possible to use functions like <a href="WFS_GetTableFormat.html"><CODE>WFS_GetTableFormat</CODE></a>, <a href="WFS_RequestClientRead.html"><CODE>WFS_RequestClientRead</CODE></a>, or <a href="WFS_ReplaceRomArchive.html"><CODE>WFS_ReplaceRomArchive</CODE></a>.</p>
+
+<h2>See Also</h2>
+<p><code><a href="../WFSEventType.html">WFSEventType</a>, <br /> <a href="WFS_GetTableFormat.html">WFS_GetTableFormat</a>, <a href="WFS_RequestClientRead.html">WFS_RequestClientRead</a>, <a href="WFS_ReplaceRomArchive.html">WFS_ReplaceRomArchive</a></code></p>
+
+<h2>Revision History</h2>
+<p>
+2007/06/11 Initial version.
+</p>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

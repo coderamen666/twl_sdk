@@ -1,0 +1,47 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title>TCLFavoriteType</title>
+<link rel="stylesheet" href="../css/nitro.css" type="text/css">
+</head>
+<body>
+<h1 align="left">TCLFavoriteType <img src="../image/TWL.gif" align="middle"></h1>
+
+<h2>Definition</h2>
+<dl>
+	<dd>
+	<code>#include &lt;twl/tcl.h&gt;</code><br/> <br/>
+	<pre><code>
+typedef enum
+{
+    TCL_FAVORITE_TYPE_NONE = 0 ,
+    TCL_FAVORITE_TYPE_1 ,
+    TCL_FAVORITE_TYPE_2 ,
+    TCL_FAVORITE_TYPE_3 ,
+    TCL_FAVORITE_TYPE_ALL ,
+    TCL_FAVORITE_TYPE_MAX = TCL_FAVORITE_TYPE_ALL
+} TCLFavoriteType;
+	</code></pre>
+</dl>
+
+<h2>Description</h2>
+<p>Use favorite types to group images.</p>
+<p>The types of favorites are explained in the following list.</p>
+<table>
+<tr><td>TCL_FAVORITE_TYPE_NONE<td>No favorite is specified.
+<tr><td>TCL_FAVORITE_TYPE_1<td>First favorite.
+<tr><td>TCL_FAVORITE_TYPE_2<td>Second favorite.
+<tr><td>TCL_FAVORITE_TYPE_3<td>Third favorite.
+<tr><td>TCL_FAVORITE_TYPE_ALL<td>All favorites. <code>TCLPictureInfo</code> does not hold this value with its favorite information. The favorite-type value is used internally by the library.
+</table>
+
+<h2>See Also</h2>
+
+<h2>Revision History</h2>
+<p>
+2008/10/07 Initial version.
+</p>
+
+<hr><p>CONFIDENTIAL</p></body>
+</html>

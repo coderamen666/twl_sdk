@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title>WFSTableFormat</title>
+<link rel="stylesheet" href="../css/nitro.css" type="text/css" />
+</head>
+
+<body>
+
+<h1>WFSTableFormat</h1>
+<h2>Definition</h2>
+
+<dl>
+  <dd>
+<code>#include &lt;nitro/wfs.h&gt;</code><br />
+  <br />
+<pre>
+<font color="#008000">/* WFS table format array order */</font>
+typedef enum WFSTableRegionType
+{
+    WFS_TABLE_REGION_FAT,
+    WFS_TABLE_REGION_FNT,
+    WFS_TABLE_REGION_OV9,
+    WFS_TABLE_REGION_OV7,
+    WFS_TABLE_REGION_MAX
+}
+WFSTableRegionType;
+
+<font color="#008000">/* ROM file table information */</font>
+typedef struct WFSTableFormat
+{
+    u32             origin;                       <font color="#008000">/* ROM image offset */</font>
+    u8             *buffer;                       <font color="#008000">/* Buffer used to store file table information */</font>
+    u32             length;                       <font color="#008000">/* buffer size */</font>
+    <a href="../card/card_rom_region_type.html">CARDRomRegion</a>   region[WFS_TABLE_REGION_MAX]; <font color="#008000">/* The storage locations of each FAT, FNT, and overlay table */</font>
+} PLATFORM_STRUCT_PADDING_FOOTER
+WFSTableFormat;
+</pre>
+  <br />
+  </dd>
+</dl>
+
+<h2>Elements</h2>
+<table border="1" width="100%">
+  <tbody>
+    <tr>
+      <td>origin</td>
+      <td>Offset value that indicates where address 0 of the ROM image is located within the actual ROM device from the perspective of the child (client).
+      Applications do not particularly need to consider this.</td>
+    </tr>
+    <tr>
+      <td>buffer</td>
+      <td>This memory is used to store information for each table pointed by the region member to be described later.</td>
+    </tr>
+    <tr>
+      <td>length</td>
+      <td>The buffer size.</td>
+    </tr>
+    <tr>
+      <td>region</td>
+      <td>This memory region stores information for each FAT, FNT, and overlay table stored in the buffer.<br />
+      For instance, FNT information can be accessed as described below.
+      <ul>
+      <li>Start Address = buffer + region[WFS_TABLE_REGION_FNT] offset</li>
+      <li>Table Size = region[WFS_TABLE_REGION_FNT].length</li>
+      </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<h2>Description</h2>
+<p>This structure represents file table information to be retrieved by children (clients) using <a href="client/WFS_GetTableFormat.html"><code>WFS_GetTableFormat</code></a>.</p>
+
+<h2>See Also</h2>
+<p><code>
+
+<a href="../card/card_rom_region_type.html">CARDRomRegion</a>, <a href="client/WFS_GetTableFormat.html">WFS_GetTableFormat</a></code></p>
+
+<h2>Revision History</h2>
+<p>
+2007/06/06 Initial version.
+</p>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

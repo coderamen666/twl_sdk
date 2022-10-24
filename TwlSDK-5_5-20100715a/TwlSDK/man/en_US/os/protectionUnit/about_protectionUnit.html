@@ -1,0 +1,332 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>Protection Units &mdash; Overview </TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">Protection Units &mdash; Overview <img src="../../image/NTR.gif" align="middle"><img src="../../image/TWL.gif" align="middle"></H1>
+<P>Protection units are a feature used for setting the usage status of the memory read/write attributes and the cache/write back, and for protecting the memory. Eight regions can be mapped in the memory space, and different attributes can be configured for each.</P>
+<P>Protection units can only be used on the ARM9 processor.</P>
+<H2>Enabling and Disabling Protection Units</H2>
+<P>The functions below enable or disable the protection units.</P>
+<P><a href="OS_EnableProtectionUnit.html"><code>OS_EnableProtectionUnit()</code></a><br /> <a href="OS_DisableProtectionUnit.html"><code>OS_DisableProtectionUnit()</code></a></P>
+<H2>Settings for Each Region</H2>
+<P>The following functions perform each of the protection region settings:<br /></P>
+<P><a href="OS_SetProtectionRegion.html"><code>OS_SetProtectionRegion()</code></a><br /> <a href="OS_SetProtectionRegion.html"><code>OS_SetProtectionRegionParam()</code></a></P>
+<P>The following functions get the settings:<br /></P>
+<P><a href="OS_GetProtectionRegion.html"><code>OS_GetProtectionRegionAddress()</code></a><br /> <a href="OS_GetProtectionRegion.html"><code>OS_GetProtectionRegionSize()</code></a><br /> <a href="OS_GetProtectionRegion.html"><code>OS_GetProtectionRegionParam()</code></a></P>
+<H2>Default Mapping in NITRO Mode <img src="../../image/NTR.gif" align="middle"></H2>
+<P>By default, each region is mapped as indicated below.<br />When the regions overlap, the higher region number has priority. <BR>
+</P>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+<TH width="55">Region Number</TH>
+<TH width="172">Usage</TH>
+<TH width="107">Base address</TH>
+<TH width="142">Size</TH>
+<TH width="45">Cache</TH>
+<TH width="45">Write Buffer</TH>
+
+<TH width="45">User Attribute (Command)</TH>
+<TH width="45">User Attribute (Data)</TH>
+    </TR>
+    <TR>
+      <TD width="55">-</TD>
+<TD width="172">Background</TD>
+<TD width="107">0x00000000</TD>
+<TD width="142">4GB<BR> ( 0x100000000 )</TD>
+      <TD align="center" width="47">X</TD>
+      <TD>X</TD>
+<TD width="63">NA</TD>
+<TD width="45">NA</TD>
+    </TR>
+    <TR>
+      <TD width="55">0</TD>
+<TD width="172">I/O register, VRAM, etc.</TD>
+<TD width="107"><code>HW_IOREG<br /> ( 0x04000000 )</code></TD>
+<TD width="142">64MB<BR> ( 0x4000000 )</TD>
+      <TD align="center" width="47">X</TD>
+      <TD>X</TD>
+<TD width="63">R/W</TD>
+<TD width="45">R/W</TD>
+    </TR>
+    <TR>
+      <TD width="55">1</TD>
+<TD width="172">Main memory, WRAM</TD>
+<TD width="107"><CODE>HW_MAIN_MEM_MAIN</CODE><BR> ( 0x02000000 )</TD>
+<TD width="142">4MB / 8MB<BR> ( 0x400000/0x800000 )<B><FONT color="#ff0033">(Caution 1)</FONT></B></TD>
+      <TD width="47">O</TD>
+      <TD>O</TD>
+<TD width="63">R/W</TD>
+<TD width="45">R/W</TD>
+    </TR>
+    <TR>
+      <TD width="55">2</TD>
+<TD width="172">Shared main memory image<BR> <FONT color="#ff0033"><B>(Caution 2)</B></FONT></TD>
+<TD width="107">HW_MAIN_MEM_IM_SHARED<BR> ( 0x027FF000 )</TD>
+<TD width="142">4KB <BR> ( 0x1000 )</TD>
+      <TD align="center" width="47">X</TD>
+      <TD>X</TD>
+<TD width="63">NA</TD>
+<TD width="45">R/W</TD>
+    </TR>
+    <TR>
+      <TD width="55">3</TD>
+<TD width="172">Game Pak</TD>
+<TD width="107"><CODE>HW_CTRDG_ROM</CODE><BR> ( 0x08000000 )</TD>
+<TD width="142">128MB<BR> ( 0x8000000 )</TD>
+      <TD align="center" width="47">X</TD>
+      <TD>X</TD>
+<TD width="63">NA</TD>
+<TD width="45">R/W</TD>
+    </TR>
+    <TR>
+      <TD width="55">4</TD>
+<TD width="172">DTCM</TD>
+<TD width="107">HW_DTCM<BR> ( 0x027E0000/0x2FE0000 ) <B><FONT color="#ff0033">(Caution 3)</FONT></B></TD>
+<TD width="142">16KB<BR> ( 0x4000 )</TD>
+      <TD align="center" width="47">X</TD>
+      <TD>X</TD>
+<TD width="63">NA</TD>
+<TD width="45">R/W</TD>
+    </TR>
+    <TR>
+      <TD width="55">5</TD>
+<TD width="172">ITCM</TD>
+<TD width="107"><CODE>HW_ITCM_IMAGE</CODE><BR> ( 0x01000000 ) <FONT color="#ff0033"><B>(Caution 4)</B></FONT></TD>
+<TD width="142">16MB<BR> ( 0x1000000 )</TD>
+      <TD align="center" width="47">X</TD>
+      <TD>X</TD>
+<TD width="63">R/W</TD>
+<TD width="45">R/W</TD>
+    </TR>
+    <TR>
+      <TD width="55">6</TD>
+<TD width="172">BIOS Reserved</TD>
+<TD width="107"><CODE>HW_BIOS</CODE><BR> ( 0xFFFF0000 )</TD>
+<TD width="142">32KB<BR> ( 0x8000 )</TD>
+      <TD align="center" width="47">O</TD>
+      <TD>X</TD>
+<TD width="63">R</TD>
+<TD width="45">R</TD>
+    </TR>
+    <TR>
+      <TD width="55">7</TD>
+<TD width="172">Shared Main Memory</TD>
+<TD width="107">HW_MAIN_MEM_SHARED<BR> ( 0x02FFF000 )</TD>
+<TD width="142">4KB <BR> ( 0x1000 )</TD>
+      <TD align="center" width="47">X</TD>
+      <TD>X</TD>
+<TD width="63">NA</TD>
+<TD width="45">R/W</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P><BR> <font color="red"><strong>(CAUTION 1)</strong></font><br /> When using debug hardware, the size of protection region 1 (used to protect the main memory) becomes 8 MB by specifying <a href="../arena/OS_EnableMainExArena.html"><code>OS_EnableMainExArena()</code></a> before <a href="../arena/OS_InitArena.html"><code>OS_InitArena()</code></a> or <a href="../init/OS_Init.html"><code>OS_Init()</code></a>. For the actual device, it will always be 4 MB regardless of the setting described above.</P>
+<P>For compatibility with previous versions, the size of protection region 1 will be 8 MB (when using debug hardware) instead of the above specification if you compile OS library set to <code>NITRO_MEMSIZE=8M</code>.</P>
+<P><FONT color="#ff0033"><B>(CAUTION 2)</B></FONT><BR> Although this Protection Region 2 was used to protect the ARM7-dedicated region in main memory with NITRO-SDK (the predecessor to TWL-SDK), this is used for a different purpose with TWL-SDK: it is a shared main memory image. As a result, the ARM7-dedicated region in main memory is not protected. This region is actually independent from shared main memory, rather than a shared main memory image, when a HYBRID ROM is running in NITRO mode.</P>
+<P><B><FONT color="#ff0033">(CAUTION 3)</FONT></B><BR> The starting position of the DTCM is specified by the <code>lsf</code> file. This address is decided by the ROM type rather than the operating mode. The default value is <CODE>0x027E0000</CODE> for a NITRO ROM and <CODE>0x02FE0000</CODE> for a LIMITED ROM.</P>
+<P><B><FONT color="#ff0033">(CAUTION 4)</FONT></B><BR> Because accessing a NULL pointer will cause an exception, do not start from <code>0x00000000</code>.</P>
+<P><BR> The memory map is shown together with how protection regions are established.</P>
+<UL>
+<LI>Cases are divided based on the distinction between a NITRO ROM and a HYBRID ROM, and the main memory size installed on the operating platform.<BR> <BR>
+<LI>The FINAL build of a ROM assumes that 4 MB of memory is installed, and treats <CODE>MEMSIZE</CODE> as <CODE>4MB</CODE>. <BR>
+<LI><CODE>MEMSIZE</CODE> is treated as <CODE>4MB</CODE> when running in NITRO mode on the TWL system to match NITRO system behavior. <BR>
+<LI>A NITRO ROM running in NITRO mode will have a different DTCM position, and hence a different Protection Region 4 covering that position, than a HYBRID ROM running in NITRO mode. <BR>
+<LI>One of the differences between when <CODE>MEMSIZE</CODE> is <CODE>4MB</CODE> and <CODE>8MB</CODE> is the existence of regions after <CODE>0x02400000</CODE>. Therefore, the size of Region 1, which protects main memory, is also different. It ranges from <CODE>0x02000000</CODE> to <CODE>0x023FFFFF</CODE> when <CODE>MEMSIZE</CODE> is <CODE>4MB</CODE> and from <CODE>0x02000000</CODE> to <CODE>0x027FFFFF</CODE> when <CODE>MEMSIZE</CODE> is <CODE>8MB</CODE>. A <CODE>MEMSIZE</CODE> of <CODE>32MB</CODE> is the same as a <CODE>MEMSIZE</CODE> of <CODE>8MB</CODE>.
+</UL>
+<BR>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+<TD colspan="3" style="background-color:#304080;"><B><FONT color="#ffffff">Operations in NITRO Mode</FONT></B></TD>
+    </TR>
+    <TR>
+<TH>ROM Type</TH>
+<TH>Operating Platform</TH>
+<TH>Corresponding Item</TH>
+    </TR>
+    <TR>
+<TD rowspan="3">NIRO ROM</TD>
+<TD>Nintendo DS<BR> Nintendo DSi<BR> All FINALROM builds</TD>
+<TD>NITRO MODE (NITRO ROM):MEMSIZE=4MB</TD>
+    </TR>
+    <TR>
+<TD>IS-NITRO-DEBUGGER<BR> ENSATA EMULATOR</TD>
+<TD>NITRO MODE (NITRO ROM):MEMSIZE=8MB</TD>
+    </TR>
+    <TR>
+<TD>IS-TWL-DEBUGGER</TD>
+<TD>NITRO MODE (NITRO ROM):MEMSIZE=32MB</TD>
+    </TR>
+    <TR>
+<TD rowspan="3">HYBRID ROM</TD>
+<TD>Nintendo DS<BR> All FINALROM builds</TD>
+<TD>NITRO MODE (HYBRID ROM):MEMSIZE=4MB</TD>
+    </TR>
+    <TR>
+<TD>IS-NITRO-DEBUGGER</TD>
+<TD>NITRO MODE (HYBRID ROM):MEMSIZE=8MB</TD>
+    </TR>
+    <TR>
+<TD>IS-TWL-DEBUGGER (forced NITRO operations)</TD>
+<TD>NITRO MODE (HYBRID ROM):MEMSIZE=32MB</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P><BR>
+<BLOCKQUOTE>
+<IMG src="image_NITRO_4M.gif" border="0"> <IMG src="image_NITRO_8M.gif" border="0"> <IMG src="image_NITRO_32M.gif" border="0"> <IMG src="image_HYBRIDNITRO_4M.gif" border="0"> <IMG src="image_HYBRIDNITRO_8M.gif" border="0"> <IMG src="image_HYBRIDNITRO_32M.gif" border="0">
+</BLOCKQUOTE>
+<P>The following figures show an enlarged representation of addresses between <CODE>0x02000000</CODE> and <CODE>0x03000000</CODE>, which includes main memory and extended main memory.</P>
+<BLOCKQUOTE>
+<IMG src="image_NITRO_4M_d.gif" border="0"> <IMG src="image_NITRO_8M_d.gif" border="0"> <IMG src="image_NITRO_32M_d.gif" border="0"> <IMG src="image_HYBRIDNITRO_4M_d.gif" border="0"> <IMG src="image_HYBRIDNITRO_8M_d.gif" border="0"> <IMG src="image_HYBRIDNITRO_32M_d.gif" border="0">
+</BLOCKQUOTE>
+<H2>Default Mapping in TWL Mode <img src="../../image/TWL.gif" align="middle"></H2>
+<P>By default, each region is mapped as indicated below.<br />When the regions overlap, the higher region number has priority. <BR>
+</P>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+<TH width="55">Region Number</TH>
+<TH width="172">Usage</TH>
+<TH width="107">Base address</TH>
+<TH width="142">Size</TH>
+<TH width="45">Cache</TH>
+<TH width="45">Write Buffer</TH>
+
+<TH width="45">User Attribute (Command)</TH>
+<TH width="45">User Attribute (Data)</TH>
+    </TR>
+    <TR>
+      <TD width="55">-</TD>
+<TD width="172">Background</TD>
+<TD width="107">0x00000000</TD>
+<TD width="142">4GB<BR> ( 0x100000000 )</TD>
+      <TD align="center" width="47">X</TD>
+      <TD>X</TD>
+<TD width="63">NA</TD>
+<TD width="45">NA</TD>
+    </TR>
+    <TR>
+      <TD width="55">0</TD>
+<TD width="172">I/O Register, VRAM, etc.</TD>
+<TD width="107"><code>HW_IOREG<br />( 0x04000000 )</code></TD>
+<TD width="142">64MB<BR>( 0x4000000 )</TD>
+      <TD align="center" width="47">X</TD>
+      <TD>X</TD>
+<TD width="63">R/W</TD>
+<TD width="45">R/W</TD>
+    </TR>
+    <TR>
+      <TD width="55">1</TD>
+<TD width="172">Main memory, WRAM</TD>
+<TD width="107"><CODE>HW_MAIN_MEM_MAIN</CODE><BR> ( 0x02000000 )</TD>
+<TD width="142">32MB <BR> ( 0x200000 )</TD>
+      <TD width="47">O</TD>
+      <TD>O</TD>
+<TD width="63">R/W</TD>
+<TD width="45">R/W</TD>
+    </TR>
+    <TR>
+      <TD width="55">2</TD>
+<TD width="172">ARM7-Dedicated Main Memory</TD>
+<TD width="107">HW_MAIN_MEM_SUB<BR> ( 0x02F80000)</TD>
+<TD width="142">512KB<BR> ( 0x80000 )</TD>
+      <TD align="center" width="47">X</TD>
+      <TD>X</TD>
+<TD width="63">NA</TD>
+<TD width="45">NA</TD>
+    </TR>
+    <TR>
+      <TD width="55">3</TD>
+<TD width="172">Extended main memory</TD>
+<TD width="107">HW_CTRDG_ROM<BR> ( 0x08000000 ) <B><FONT color="#ff0000">(Caution 5)</FONT></B></TD>
+<TD width="142">64MB / 128MB<BR> ( 0x4000000/0x8000000 )</TD>
+      <TD align="center" width="47">O</TD>
+      <TD>O</TD>
+<TD width="63">R/W</TD>
+<TD width="45">R/W</TD>
+    </TR>
+    <TR>
+      <TD width="55">4</TD>
+<TD width="172">DTCM</TD>
+<TD width="107">HW_DTCM<BR> ( 0x02FE0000 ) <B><FONT color="#ff0033">(Caution 6)</FONT></B></TD>
+<TD width="142">16KB<BR> ( 0x4000 )</TD>
+      <TD align="center" width="47">X</TD>
+      <TD>X</TD>
+<TD width="63">NA</TD>
+<TD width="45">R/W</TD>
+    </TR>
+    <TR>
+      <TD width="55">5</TD>
+<TD width="172">ITCM</TD>
+<TD width="107"><CODE>HW_ITCM_IMAGE</CODE><BR> ( 0x01000000 ) <FONT color="#ff0033"><B>(Caution 7)</B></FONT></TD>
+<TD width="142">16MB<BR> ( 0x1000000 )</TD>
+      <TD align="center" width="47">X</TD>
+      <TD>X</TD>
+<TD width="63">R/W</TD>
+<TD width="45">R/W</TD>
+    </TR>
+    <TR>
+      <TD width="55">6</TD>
+<TD width="172">BIOS Reserved</TD>
+<TD width="107">HW_TWL_BIOS<BR> ( 0xFFFF0000 )</TD>
+<TD width="142">32KB<BR> ( 0x8000 )</TD>
+      <TD align="center" width="47">O</TD>
+      <TD>X</TD>
+<TD width="63">R</TD>
+<TD width="45">R</TD>
+    </TR>
+    <TR>
+      <TD width="55">7</TD>
+<TD width="172">Shared Main Memory</TD>
+<TD width="107">HW_TWL_MAIN_MEM_SHARED<BR> ( 0x02FFC000 )</TD>
+<TD width="142">16KB<BR> ( 0x4000 )</TD>
+      <TD align="center" width="47">X</TD>
+      <TD>X</TD>
+<TD width="63">NA</TD>
+<TD width="45">R/W</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P><BR> <B><FONT color="#ff0033">(CAUTION 5)</FONT></B><BR> Extended main memory starts at <CODE>0x0C000000</CODE>, but <CODE>HW_CTRDG_ROM</CODE> will be used as a base because the NITRO Game Pak region (starting at <CODE>0x08000000</CODE>) will be accessed to check it. The size will always be 64 MB for the FINALROM build. In any other case, this will be either 128 MB when 32 MB of main memory is installed (when there is extended main memory) or 64 MB otherwise.</P>
+<P><B><FONT color="#ff0033">(CAUTION 6)</FONT></B><BR> The starting position of the DTCM is specified by the <code>lsf</code> file. The default value is <CODE>0x02FE0000</CODE>.</P>
+<P><B><FONT color="#ff0033">(CAUTION 7)</FONT></B><BR> Because accessing a NULL pointer will cause an exception, do not start from <code>0x00000000</code>.</P>
+<P>The memory map is shown together with how protection regions are established. There are no differences between a LIMITED ROM and a HYBRID ROM running in TWL mode. The installed memory size is divided into 16 MB and 32 MB, depending on the operating device. However, a FINALROM build assumes that it is operating with 16 MB of installed memory, so see the 16-MB recommendations.<BR>
+</P>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+<TD colspan="3" style="background-color:#304080;"><B><FONT color="#ffffff">Operations in TWL Mode</FONT></B></TD>
+    </TR>
+    <TR>
+<TH>ROM Type</TH>
+<TH>Operating Platform</TH>
+<TH>Corresponding Item</TH>
+    </TR>
+    <TR>
+<TD rowspan="2">HYBRID ROM<BR> LIMITED ROM</TD>
+<TD>Nintendo DSi<BR> All FINALROM builds</TD>
+<TD>TWL MODE :MEMSIZE=16MB</TD>
+    </TR>
+    <TR>
+<TD>IS-TWL-DEBUGGER</TD>
+<TD>TWL MODE :MEMSIZE=32MB</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P><BR> <IMG src="image_TWL_PR_2.gif" border="0"><IMG src="image_TWL_PR_1.gif" border="0"></P>
+<P>Below is an enlarged representation of the 0x2000000 - 0x3000000 region in main memory. This region is the same for both the 16 MB setting and the 32 MB setting.</P>
+<P><IMG src="image_TWL_PR_1b.gif" border="0"></P>
+<H2>See Also</H2>
+<P><A href="../list_os.html#ProtectionUnit">An Overview of OS Functions (Protection Units)</A></P>
+<H2>Revision History</H2>
+<P>2008/12/02 Adjusted the starting position of the TWL ROM's ARM9 program.<BR>2008/09/08 Split descriptions for NITRO mode into NITRO ROM and HYBRID ROM NITRO. <BR>2008/08/20 Revised Region 3 for the TWL system. <BR>2007/11/26 Made significant revisions to the figures. <BR>2007/10/08 Added TWL-related descriptions. <BR>2006/05/12 Revised the table of default mappings. <BR>2005/04/13 Changed the address for ARM7-dedicated DTCM regions. <BR>2004/12/14 Revised terminology and word endings. <BR>2004/11/17 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

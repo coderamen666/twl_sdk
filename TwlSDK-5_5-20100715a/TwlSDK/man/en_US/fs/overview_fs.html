@@ -1,0 +1,88 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<BASE target="main">
+<TITLE>File System</TITLE>
+<LINK rel="stylesheet" href="../css/nitro.css" type="text/css">
+<style type="text/css">
+td.supported   {border:solid 1px black;background-color:#FFFFF8}
+td.unsupported {border:solid 1px black;background-color:#C0C0C0}
+</style>
+</HEAD>
+<BODY>
+
+<H1>File System (FS) Overview</H1>
+
+<ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#file">Accessing Files and Directories</a></li>
+<li><a href="#archive">Archives</a></li>
+  <ul>
+<li><a href="overview/about_Archive.html" target="_self">Standard Archives</a></li>
+      <ul>
+<li><a href="overview/about_Archive.html#ROM" target="_self">ROM Archives</a></li>
+<li><a href="overview/about_Archive.html#MEM" target="_self">Memory File Archives</a></li>
+<li><a href="overview/about_Archive.html#NAND" target="_self">NAND Archives</a></li>
+<li><a href="overview/about_Archive.html#SDMC" target="_self">SD Card Archives</a></li>
+<li><a href="overview/about_Archive.html#format" target="_self">Internal Format</a></li>
+      </ul>
+      <ul>
+<li><a href="overview/about_Archive.html#NitroROM" target="_self">NitroROM Format</a></li>
+<li><a href="overview/about_Archive.html#FAT" target="_self">FAT Format</a></li>
+      </ul>
+  </ul>
+<li><a href="#overlay" target="_self">Overlay</a></li>
+</ul>
+
+
+<h2><a name="introduction">Introduction</a></h2>
+<p>The FS library provides various functions for using file systems and overlay modules.</p>
+<p><font color="Red"><code><a href="file/FS_Init.html">FS_Init</a></code> must be called before any FS library functions are used.</font>Note that it is not called automatically within <code><a href="../os/init/OS_Init.html">OS_Init</a></code>, because the application must explicitly specify which DMA channel the FS library can use internally.</p>
+<pre style="border:1px solid black"><code>
+(Example of initialization)
+void NitroMain(void)
+{
+    <font color="#008000">// Initialize OS immediately after startup.</font>
+    <a href="../os/init/OS_Init.html">OS_Init()</a>;
+    <font color="#008000">// Explicitly specify the DMA number and initialize the FS library.</font>
+    <a href="file/FS_Init.html">FS_Init(3)</a>;
+    <font color="#008000">// The FS library can be used from this point onward.</font>
+}
+</code></pre>
+
+
+<h2><a name="file">Accessing Files and Directories</a></h2>
+<p>The various file systems provided by TWL-SDK are implemented based on a common interface established by the FS library. This makes it unnecessary for game developers and library designers to write their own code to support various file systems with different specifications, thereby reducing the burden during development.</p>
+<p>
+When an application accesses a file system, in most cases file or directory handles must be opened. Prepare <code><a href="fs_file_type.html">FSFile structures</a></code> on the application side to store the opened handles, and note that they must be initialized using the <code><a href="file/FS_InitFile.html">FS_InitFile</a></code> function before use.</p>
+<p><a href="list_fs.html#file">File Access Function List</a><br /> <a href="list_fs.html#directory">Directory Access Function List</a></p>
+
+
+<h2><a name="archive">Archives</a></h2>
+<p>Individual file systems that are mounted by the FS library are referred to as &quot;archives.&quot; Conceptually, an archive is the same as a &quot;drive&quot; on a personal computer. Also, archives already prepared by the FS library are called &quot;standard archives.&quot;</p>
+<p>A single directory tree structure is always stored within the ROM region for programs that are booted from DS Game Cards. With the FS library, the archive that is used to access this directory tree is mounted by the system using the name &quot;<CODE>rom:</CODE>&quot;. This archive is called the &quot;<a href="overview/about_Archive.html#ROM">ROM Archive</a>,&quot; and is the most standard type of archive with regard to programs. Depending on the type of program, the FS library may also prepare several more archives. For details, see the description in <a href="NHTTPConnectionCallback.html">Standard Archives (Overview)</a>.</p>
+<p>In addition to the standard archives provided by the SDK, various APIs are available so that developers can freely implement and mount new archives as necessary.</p>
+<p><code><a href="list_fs.html#archive">Archive Function List</a><br /></code></p>
+
+
+<h2><a name="overlay">Overlay</a></h2>
+<p>Even for huge programs that cannot be completely resident during the boot, it is possible to load only the required parts at runtime by splitting up the individual modules as overlays. The FS library provides functions for the standard features required to load these overlay modules (getting overlay information, loading executable code, and starting constructors/destructors). Within the file system the overlay modules will be treated as a single nameless file, so if necessary, it is also possible to customize the load process with the same tweaks that can be applied when loading files normally.</p>
+<p>See <a href="../demos/fs/fsdemos.html">FS Library Sample Demos</a> and the description of the <a href="../tools/makelcf.html"><CODE>makelcf</CODE> tool</a> for information about the procedure for using overlays.</p>
+<p><code><a href="list_fs.html#overlay">Overlay Function List</a><br /></code></p>
+
+
+<h2>See Also</h2>
+<p><code><a href="list_fs.html">FS Function List</a><br /></code></p>
+
+<h2>Revision History</h2>
+<p>
+2009/12/11 Added the definition of a standard archive.<br />2008/09/26 Corrected an anchor tag formatting mistake.<br />2008/09/12 Initial version.<br />
+</p>
+
+<table border="0" height="100%"><tr><td style="background-color : white;"></td></tr></table>
+
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

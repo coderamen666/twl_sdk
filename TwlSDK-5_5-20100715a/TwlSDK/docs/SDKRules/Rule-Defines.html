@@ -1,0 +1,662 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=Unicode">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>SDK Build Switches</TITLE>
+<LINK rel="stylesheet" href="TwlSDKStandard.css" type="text/css">
+</HEAD>
+<BODY>
+<H1>Build Switches</H1>
+<H2 id="h2_content_1_0">Environment Variables Required When Building the SDK<a class="anchor_super" id="ufb8427e"></a></H2>
+Below are the environment variables you must set when building the TWL-SDK tree. The default values are used if a given setting is missing. For more information about the range in which each build switch can be set, see the <A href="#buildswitch_list">Build Switch Usage Table</A>.<BR><BR>
+<TABLE border="1" width="100%" cellspacing="0" cellpadding="2">
+  <COL span="1" width="160">
+  <TBODY>
+    <TR>
+      <TH valign="top" align="left">TWLSDK_ROOT<BR> (NITROSDK_ROOT)<BR> <FONT color="#ff0000">* Important</FONT></TH>
+      <TD valign="top" align="left">
+Directory where the TWL-SDK is installed (the directory into which <CODE>$TwlSDK</CODE> is extracted).<BR><BR><strong style="color:#FF6633">Default value: <CODE>C:/TwlSDK</CODE></strong>
+      </TD>
+    </TR>
+    <TR>
+      <TH valign="top" align="left">TWLSDK_PLATFORM<BR> <FONT color="#ff0000">* Important</FONT></TH>
+      <TD valign="top" align="left">
+      Platform to build for.<BR> By using this environment variable, you can compile for only the desired platform.<BR><BR> For example, if developing only TWL applications with TWL-SDK, set the environment variable to &quot;<CODE>TWLSDK_PLATFORM=TWL</CODE>&quot;. Doing so causes the compiler to generate code only for TWL, without generating any unnecessary NITRO code.<BR> <FONT color="#ff0000">When not specified, the build halts with an error.</FONT><BR>
+      <table class="style_table" cellspacing="1" border="1" bgcolor="#CCFFCC">
+        <COL span="1" width="120">
+        <TBODY>
+          <TR>
+<TD><strong>TWL</strong></TD>
+<TD>Generates code for TWL.</TD>
+          </TR>
+          <TR>
+<TD><strong>NITRO</strong></TD>
+<TD>Generates code for NITRO.</TD>
+          </TR>
+          <TR>
+<TD><strong>ALL</strong></TD>
+<TD rowspan="2">Generates code for both TWL and NITRO.</TD>
+          </TR>
+          <TR>
+<TD><strong>TWL NITRO</strong></TD>
+          </TR>
+        </TBODY>
+      </TABLE>
+<strong style="color:#FF6633">Default value: Unspecified</strong>
+      </TD>
+    </TR>
+    <TR>
+<TH valign="top" align="left">CWFOLDER_TWL<BR> (CWFOLDER_NITRO)<BR></TH>
+<TD valign="top" align="left">Directory where CodeWarrior is installed. <BR>If you install CodeWarrior for NITRO, <CODE>CWFOLDER_NITRO</CODE> is configured automatically.<BR>When making this setting with Cygwin bash, you must enclose the directory in single quotes as follows.<BR> <CODE>% export CWFOLDER_NITRO='D:/Program Files/Freescale/CW for NINTENDO DS V2.0'</CODE> <BR><BR>When making this setting with a Windows environment variable, the specification takes the form given below.<BR> <CODE>D:/Program Files/Freescale/CW for NINTENDO DS V2.0</CODE><BR>Both <CODE>/</CODE> and <CODE>\</CODE> work as path delimiters. <BR><BR><strong style="color:#FF6633">Default value: None (This value is normally set when CodeWarrior is installed.)</strong></TD>
+    </TR>
+    <TR>
+<TH valign="top" align="left">LM_LICENSE_FILE</TH>
+<TD valign="top" align="left">License file path for CodeWarrior. <BR><BR><strong style="color:#FF6633">Default value: None (This value is normally set when CodeWarrior is installed.)</strong></TD>
+    </TR>
+    <TR>
+<TH align="left" valign="top">IS_TWL_DEBUGGER_DIR<BR> (IS_NITRO_DIR)</TH>
+<TD valign="top" align="left">Installation folder for IS-TWL-DEBUGGER-related files. It is automatically set when IS-TWL-DEBUGGER is installed. If this environment variable exists, the IS-TWL-DEBUGGER-related libraries are linked automatically. <BR><BR><strong style="color:#FF6633">Default value: None (This value is normally set when CodeWarrior is installed.)</strong></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<H2 id="h2_content_1_0">Build Switches When Building the SDK<a class="anchor_super" id="ufb8427e"></a></H2>
+The build switches that change the build conditions for the TWL-SDK tree are shown below.<BR>Normally, these values are set by specifying them as parameters to the <CODE>make</CODE> command (for example, <CODE>make TWL_DEBUG=TRUE</CODE>) and including them in makefiles, though they can also be set with standard environment variables. The default values are used if a setting is missing. For more information about the ranges in which each build switch can be set, see the <A href="#buildswitch_list">Build Switch Usage Table</A>.<BR><BR>The values of the TWL environment variables (<CODE>TWL_*</CODE>) are given priority if changes are made to the environment variables below. (If <CODE>TWL_PROC=ARM9</CODE> and <CODE>NITRO_PROC=ARM7</CODE> are both listed in the makefile at the same time, <CODE>TWL_PROC</CODE> is set to <CODE>ARM9</CODE>.))<BR>
+<TABLE border="1" width="100%" cellspacing="0" cellpadding="2">
+  <COL span="1" width="160">
+  <TBODY>
+    <TR>
+<TH valign="top" align="left">TWL_PROC<BR>(NITRO_PROC)<BR> <FONT color="#a0a0a0">* No change necessary</FONT></TH>
+<TD align="left">Sets which processor to generate code for: the ARM9 (main processor), or the ARM7 (subprocessor).<BR><FONT color="#ff0000">Use the default value unchanged.</FONT><BR>
+      <table class="style_table" cellspacing="1" border="1" bgcolor="#CCFFCC">
+        <COL span="1" width="120">
+        <TBODY>
+          <TR>
+<TD><strong>ARM9</strong></TD>
+<TD>Generates code for the ARM9 (main processor). <strong style="color:#FF6633">Default Value</strong></TD>
+          </TR>
+          <TR>
+<TD><strong>ARM7</strong></TD>
+<TD>Generates code for the ARM7 (subprocessor).</TD>
+          </TR>
+        </TBODY>
+      </TABLE>
+    </TR>
+    <TR>
+<TH valign="top" align="left">TWL_ARCHGEN</TH>
+<TD align="left">For TWL code, sets whether to generate TWL-exclusive code or NITRO/TWL hybrid code.<BR><BR><FONT color="#ff0000">This build switch may be rewritten in the build system.<BR> Specifically, this sets whether limited or hybrid code is being built.<BR> If you want to reference this build switch in the makefile, do so after <CODE>commondefs</CODE>.</FONT><BR>
+<table class="style_table" cellspacing="1" border="1" bgcolor="#CCFFCC">
+        <COL span="1" width="140">
+        <TBODY>
+          <TR>
+<TD><strong>LIMITED</strong></TD>
+<TD>Generates TWL-exclusive code.</TD>
+          </TR>
+          <TR>
+<TD><strong>HYBRID</strong></TD>
+<TD>Generates NITRO/TWL hybrid code. <strong style="color:#FF6633">Default Value</strong></TD>
+          </TR>
+          <TR>
+<TD><strong>ALL</strong></TD>
+<TD rowspan=2>Generates both limited and hybrid code.</TD>
+          </TR>
+          <TR>
+<TD><strong>LIMITED HYBRID</strong></TD>
+          </TR>
+        </TBODY>
+      </TABLE>
+    </TR>
+    <TR>
+<TH valign="top" align="left">TWL_CODEGEN<BR> (NITRO_CODEGEN)</TH>
+<TD align="left">Sets whether binary code generated by the compiler and assembler should use the ARM or THUMB instruction set.<BR>If this is not set explicitly in the source code, the code is generated according to this setting.<BR><BR>If you want to reference the value set for this build switch in the makefile, do so after <CODE>commondefs</CODE>.<BR>
+      <table class="style_table" cellspacing="1" border="1" bgcolor="#CCFFCC">
+        <COL span="1" width="120">
+        <TBODY>
+          <TR>
+<TD><strong>ARM</strong></TD>
+<TD>Generates ARM code. <strong style="color:#FF6633">Default Value</strong></TD>
+          </TR>
+          <TR>
+<TD><strong>THUMB</strong></TD>
+<TD>Generates THUMB code.</TD>
+          </TR>
+          <TR>
+<TD><strong>ALL</strong></TD>
+<TD rowspan=2>Generates both ARM code and THUMB code.</TD>
+          </TR>
+          <TR>
+<TD><strong>ARM THUMB</strong></TD>
+          </TR>
+        </TBODY>
+      </TABLE>
+    </TR>
+    <TR>
+<TH valign="top" align="left">TWL_DEBUG<BR> (NITRO_DEBUG)<BR>TWL_RELEASE<BR> (NITRO_RELEASE)<BR>TWL_FINALROM<BR> (NITRO_FINALROM)<BR> <FONT color="#ff0000">* Important</FONT></TH>
+<TD align="left">Select from the following build types: DEBUG, RELEASE, and FINALROM.<BR>When the <CODE>make</CODE> command is executed, the compile options and the linked libraries change according to this setting.<BR>Unlike other variables, this variable is enabled by setting it to one of the three values (such as <CODE>TRUE</CODE>). <BR>See <CODE>$TwlSDK/man/en_US/information/compiletarget.html</CODE> (Description of Compile Targets) for more information about these three options.<BR><BR> <strong style="color:#FF6633">Default value: When not specified, the RELEASE version is built.</strong>
+    </TR>
+    <TR>
+<TH valign="top" align="left">TWL_STD_PCHDR<BR> (NITRO_STD_PCHDR)<BR> TWL_NO_STD_PCHDR<BR> (NITRO_NO_STD_PCHDR)</TH>
+      <TD valign="top" align="left">
+When a value is set for <CODE>TWL_STD_PCHDR</CODE>, the build system precompiles <CODE>$TwlSDK/include/twl.h</CODE> and loads the result during the file build. This should result in a faster build. <BR>To temporarily suppress this compile, set a value in <CODE>TWL_NO_STD_PCHDR</CODE>.<BR><BR> <strong style="color:#FF6633">Default value: <CODE>TWL_STD_PCHDR</CODE>=True</strong></TD>
+    </TR>
+    <TR>
+<TH valign="top" align="left">TWLSDK_LANG<BR>(NITROSDK_LANG)</TH>
+<TD valign="top" align="left">Switches the TWL-SDK compile options between Japanese and English.<BR>For Japanese, the <CODE>-enc SJIS</CODE> option is set. For English, the <CODE>-enc ascii</CODE> option is set.
+      <table class="style_table" cellspacing="1" border="1" bgcolor="#CCFFCC">
+        <COL span="1" width="120">
+        <TBODY>
+          <TR>
+<TD><strong>jp</strong></TD>
+<TD>Japanese<strong style="color:#FF6633"> [Default value]</strong></TD>
+          </TR>
+          <TR>
+<TD><strong>en</strong></TD>
+<TD>English</TD>
+          </TR>
+        </TBODY>
+      </TABLE>
+    </TR>
+    <TR>
+<TH valign="top" align="left">TWL_ROMSPEED<BR>(NITRO_ROMSPEED)</TH>
+      <TD valign="top" align="left">
+When you use the default RSF file, this assigns the specified value to the <CODE>RomSpeedType</CODE> parameter in the Property section. Specifically, the value of the <CODE>MAKEROM_ROMSPEED</CODE> symbol passed to the <CODE>makerom.TWL.exe</CODE> tool is used. When you use an original file instead of the default RSF file, this is ignored. For information on the <CODE>RomSpeedType</CODE> parameter, see the documentation for the <CODE>makerom.TWL.exe</CODE> tool.<FONT color="#ff0000">MROM cannot be used with TWL.</FONT>
+      <table class="style_table" cellspacing="1" border="1" bgcolor="#CCFFCC">
+        <COL span="1" width="120">
+        <TBODY>
+          <TR>
+<TD><strong>1TROM</strong></TD>
+<TD>One-time PROM</TD>
+          </TR>
+          <TR>
+<TD><strong>MROM</strong></TD>
+<TD>Mask ROM</TD>
+          </TR>
+          <TR>
+<TD><strong>UNDEFINED</strong></TD>
+<TD>None specified<strong style="color:#FF6633"> [Default value]</strong></TD>
+          </TR>
+        </TBODY>
+      </TABLE>
+      </TD>
+    </TR>
+    <TR>
+<TH valign="top" align="left">TWL_COMPRESS<BR>(NITRO_COMPRESS)<BR> <FONT color="#ff0000">* Important</FONT></TH>
+<TD valign="top" align="left">When some value is specified here, the STATIC and OVERLAY segments are compressed after linking.<BR><BR> <strong style="color:#FF6633">Default value: None (no compression)</strong></TD>
+    </TR>
+    <TR>
+<TH valign="top" align="left">TWL_DIGEST<BR>(NITRO_DIGEST)</TH>
+<TD valign="top" align="left">This build switch is enabled only for applications. It is ignored when building the SDK. If some value is set here, the application is built as a DS Download Play child program that uses overlays.<BR><BR> <strong style="color:#FF6633">Default value: None.</strong></TD>
+    </TR>
+    <TR>
+<TH valign="top" align="left">TWL_PROFILE<BR>(NITRO_PROFILE)</TH>
+<TD valign="top" align="left">If some value is set here, the <CODE>-profile</CODE> option is added when compiling. This is primarily used with DEBUG builds so that input and output of each function can be traced when the application runs.<BR>For details of use, see the <CODE>OS_DumpCallTrace</CODE> function.<BR><BR> <strong style="color:#FF6633">Default value: None (<CODE>-profile</CODE> option is disabled)</strong></TD>
+    </TR>
+    <TR>
+<TH valign="top" align="left">TWL_MEMSIZE<BR>(NITRO_MEMSIZE)<BR> <FONT color="#a0a0a0">* No change necessary</FONT></TH>
+      <TD valign="top" align="left">
+Specifies the main memory size of TWL compile targets. Specifying this with a build switch is the old method, which was retained for backward compatibility. The current, more convenient method is to use the <CODE>OS_EnableMainExArena</CODE> function instead. We recommend the current method because it does not require you to rebuild the SDK.<BR><FONT color="#ff0000">Use the default value unchanged.</FONT><BR>
+      <table class="style_table" cellspacing="1" border="1" bgcolor="#CCFFCC">
+        <COL span="1" width="120">
+        <tbody>
+          <tr>
+<td colspan="2"><strong>TWL_MEMSIZE</strong></td>
+          </tr>
+          <tr>
+<td><span class="wikicolor" style="color:Blue"><strong>16M</strong></span></td>
+<td>16 MB<strong style="color:#FF6633"> [Default value]</strong></td>
+          </tr>
+          <tr>
+<td><span class="wikicolor" style="color:Blue"><strong>32M</strong></span></td>
+<td>32 MB</td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="style_table" cellspacing="1" border="1" bgcolor="#CCFFCC">
+        <COL span="1" width="120">
+        <tbody>
+          <tr>
+<td colspan="2"><strong>NITRO_MEMSIZE</strong></td>
+          </tr>
+          <tr>
+<td><span class="wikicolor" style="color:Blue"><strong>4M</strong></span></td>
+<td>4 MB<strong style="color:#FF6633"> [Default value]</strong></td>
+          </tr>
+          <tr>
+<td><span class="wikicolor" style="color:Blue"><strong>8M</strong></span></td>
+<td>8 MB</td>
+          </tr>
+        </tbody>
+      </table>
+      </TD>
+    </TR>
+    <TR>
+<TH valign="top" align="left">TWL_NO_OPT_G<BR>(NITRO_NO_OPT_G)</TH>
+      <TD valign="top" align="left">
+When some value is set here, the <CODE>-g</CODE> option specified during normal compilation and linking is removed. Programmers can expect a reduction in linking times that become an issue in large projects. <BR><BR> <strong style="color:#FF6633">Default value: None (<CODE>-g</CODE> option enabled)</strong></TD>
+    </TR>
+    <TR>
+<TH valign="top" align="left">TWL_SVC_WAITVBLANK_COMPATIBLE<BR>(NITRO_SVC_WAITVBLANK_COMPATIBLE)<BR></TH>
+      <TD valign="top" align="left">
+Define this when you do not want to automatically replace <CODE>SVC_WaitVBlankIntr</CODE> function calls with <CODE>OS_WaitVBlankIntr</CODE> function calls. However, by specification the <CODE>SVC_WaitVBlankIntr</CODE> function does not release resources to low-priority threads, and that may cause problems depending on how the function is used. If you absolutely must use the old system calls, you should do so only after thorough verification.<BR><BR><B>Note:</B> This replacement is made using a <CODE>#define</CODE> statement inside a header file, so it is valid only after the TWL-SDK is rebuilt.<BR>If this environment variable is defined during <CODE>make</CODE>, <CODE>SDK_SVC_WAITVBLANK_COMPATIBLE</CODE> is defined, and you can find it in the source through <CODE>#ifdef</CODE>/<CODE>#endif</CODE> statements.<BR><BR>This switch is not defined by default, so <CODE>SVC_WaitVBlankIntr</CODE> function calls are automatically replaced with <CODE>OS_WaitVBlankIntr</CODE> function calls.<BR><BR><strong style="color:#FF6633">Default value: None</strong>
+      </TD>
+    </TR>
+    <TR>
+<TH valign="top" align="left">CW_LIBFP</TH>
+<TD align="left">Specify any one of the following floating-point libraries to the CodeWarrior compiler.<BR>If nothing is specified, the default value is used.<BR>For details on the differences in performance between the libraries, see the CodeWarrior reference.
+      <table class="style_table" cellspacing="1" border="1" bgcolor="#CCFFCC">
+        <COL span="1" width="120">
+        <TBODY>
+          <TR>
+<TD><strong>FP_fastI_v5t_LE.a</strong></TD>
+<TD>Fast IEEE<strong style="color:#FF6633"> [Default value]</strong></TD>
+          </TR>
+          <TR>
+<TD><strong>FP_fixedI_v5t_LE.a</strong></TD>
+<TD>Fixed-rounding IEEE</TD>
+          </TR>
+          <TR>
+<TD><strong>FP_fullI_v5t_LE.a</strong></TD>
+<TD>Full IEEE</TD>
+          </TR>
+          <TR>
+<TD><strong>FP_flush0_v5t_LE.a</strong></TD>
+<TD>Flush to zero (not IEEE compatible)</TD>
+          </TR>
+        </TBODY>
+      </TABLE>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<H2 id="h2_content_1_0">Build Switches Set in the SDK Makefiles<a class="anchor_super" id="ufb8427e"></a></H2>
+The following table shows the build switches that configure the build conditions for each directory in the TWL-SDK makefiles.<BR>These settings specify the locations in source code as well as the makefiles to concatenate.<BR>When not configured, the default value is used.
+<TABLE border="1" width="100%" cellspacing="0" cellpadding="2">
+  <COL span="1" width="160">
+  <TBODY>
+    <TR>
+<TH valign="top" align="left">TARGET_PLATFORM<BR> <FONT color="#ff0000">* Important</FONT></TH>
+<TD valign="top" align="left">In the makefile, sets whether to actually perform the build based on the build target platform.<BR><BR>For example, to create a demo that you want to build only in TWL mode, include <CODE>TARGET_PLATFORM=TWL</CODE> in the makefile for that demo. This builds the demo only in TWL mode, and prevents it from being built in NITRO mode.<BR><BR>If this setting is not present in a makefile, there are no restrictions on the platforms for which code is generated.<BR>
+      <table class="style_table" cellspacing="1" border="1" bgcolor="#CCFFCC">
+        <COL span="1" width="120">
+        <TBODY>
+          <TR>
+<TD><strong>TWL</strong></TD>
+<TD>Build only when the build target is TWL.</TD>
+          </TR>
+          <TR>
+<TD><strong>NITRO</strong></TD>
+<TD>Build only when the build target is NITRO.</TD>
+          </TR>
+          <TR>
+<TD><strong>ALL</strong></TD>
+<TD rowspan=2>Always build. (Build only when the build target is TWL or NITRO.) <strong style="color:#FF6633">[Default value]</strong></TD>
+          </TR>
+          <TR>
+<TD><strong>TWL NITRO</strong></TD>
+          </TR>
+        </TBODY>
+      </TABLE>
+      </TD>
+    </TR>
+    <TR>
+<TH valign="top" align="left">TWL_BUILD_TYPE<BR> NITRO_BUILD_TYPE<BR> <FONT color="#0000ff">Rewriting Prohibited</FONT><BR></TH>
+<TD align="left">The target build type is set here as DEBUG, RELEASE, or FINALROM.<BR>If you want to reference the build type in the makefile, reference this variable after <CODE>commondefs</CODE>.<BR>
+    </TR>
+    <TR>
+<TH valign="top" align="left">DEFAULT_COMP_ARM7<BR> <FONT color="#ff0000">* Important</FONT></TH>
+<TD valign="top" align="left">Sets in the makefile what ARM7 components to use.<BR>For more information on ARM7 components, see <CODE>$TwlSDK/docs/TechnicalNotes/AboutComponents.pdf</CODE>.
+      <table class="style_table" cellspacing="1" border="1" bgcolor="#CCFFCC">
+        <COL span="1" width="120">
+        <TBODY>
+          <TR>
+<TD><strong>mongoose</strong></TD>
+<TD>Uses the <CODE>mongoose</CODE> component for NITRO ROMs and the <CODE>mongoose.TWL</CODE> component for hybrid ROMs.</TD>
+          </TR>
+          <TR>
+<TD><strong>ichneumon</strong></TD>
+<TD>Uses the <CODE>ichneumon</CODE> component for NITRO ROMs and the <CODE>ichneumon.TWL</CODE> component for hybrid ROMs.</TD>
+          </TR>
+          <TR>
+<TD><strong>racoon</strong></TD>
+<TD>Uses the <CODE>racoon.TWL</CODE> component for limited ROMs.</TD>
+          </TR>
+          <TR>
+<TD><strong>ferret</strong></TD>
+<TD>Uses the <CODE>ferret.TWL</CODE> component for limited ROMs.</TD>
+          </TR>
+        </TBODY>
+      </TABLE>
+<strong style="color:#FF6633">Default value: <CODE>mongoose</CODE> for NITRO or hybrid ROMs, <CODE>racoon</CODE> for limited ROMs</strong>
+      </TD>
+    </TR>
+    <TR>
+<TH align="left" valign="top">SUBDIRS<BR> <FONT color="#ff0000">* Important</FONT></TH>
+<TD>Enumerates the directories you want the make process to concatenate. <BR><BR><strong style="color:#FF6633">Default value: None</strong></TD>
+    </TR>
+    <TR>
+<TH align="left" valign="top">SUBMAKES</FONT></TH>
+<TD>Enumerates the makefiles you want the make process to concatenate.<BR><BR><strong style="color:#FF6633">Default value: None</strong></TD>
+    </TR>
+    <TR>
+<TH align="left" valign="top">SRCS<BR> <FONT color="#ff0000">* Important</FONT></TH>
+<TD>Enumerates the source files you want to compile and assemble.<BR>The <CODE>make</CODE> command tries to generate an object file by the compiler or assembler of the programming language shown in the following table, according to the extension of each file.<BR>
+      <table class="style_table" cellspacing="1" border="1" bgcolor="#CCFFCC">
+        <COL span="1" width="120">
+        <TBODY>
+          <TR>
+<TD><strong>Extension</strong></TD>
+<TD><strong>Programming Language</strong></TD>
+          </TR>
+          <TR>
+<TD><strong>.c</strong></TD>
+<TD>C</TD>
+          </TR>
+          <TR>
+<TD><strong>.cpp</strong></TD>
+<TD>C++</TD>
+          </TR>
+          <TR>
+<TD><strong>.s</strong></TD>
+<TD>Assembler (assembly language)</TD>
+          </TR>
+        </TBODY>
+      </TABLE>
+<strong style="color:#FF6633">Default value: None</strong>
+      </TD>
+    </TR>
+    <TR>
+<TH align="left" valign="top">SRCS_OVERLAY<BR> <FONT color="#0000ff">For overlay</FONT></TH>
+<TD>Enumerates the source files you want to compile and assemble.<BR>The object files generated from the files specified here are registered as belonging to an OVERLAY group.</TD>
+    </TR>
+    <TR>
+<TH valign="top" align="left">SRCDIR</TH>
+<TD valign="top" align="left">Specifies the directory for source code files.<BR><BR><strong style="color:#FF6633">Default value: <CODE>./src</CODE> (This default value represents the directory specified by src as a relative path from the directory in which make was executed.)</strong></TD>
+    </TR>
+    <TR>
+<TH valign="top" align="left">INCDIR<BR>
+      </TH>
+<TD valign="top" align="left">Specifies the directory of any private include files (module-specific include files).<BR><BR> <strong style="color:#FF6633">Default value: <CODE>./include</CODE></strong></TD>
+    </TR>
+    <TR>
+<TH valign="top" align="left">OBJDIR<BR> BINDIR<BR> LIBDIR<BR> <FONT color="#0000ff">Rewriting Prohibited</FONT></TH>
+<TD valign="top" align="left">Specifies the directory where the <CODE>make</CODE> command outputs temporary files.<BR>Because this directory may change to accommodate the source tree, avoid overwriting this in the makefiles in individual directories.</TD>
+    </TR>
+    <TR>
+<TH valign="top" align="left">LCFILE</TH>
+<TD valign="top" align="left">Specify this to use your own link command file (LCF).<BR><BR> <strong style="color:#FF6633">Default value: <CODE>$TwlSDK/include/nitro/ARM9.TS.lcf</CODE></strong></TD>
+    </TR>
+    <TR>
+<TH align="left" valign="top">LCFILE_SPEC</TH>
+<TD>Specifies the configuration file to use as the base when automatically generating link command files with the <CODE>makelcf</CODE> command.<BR><BR><strong style="color:#FF6633">Default value: Not specified</strong></TD>
+    </TR>
+    <TR>
+<TH align="left" valign="top">ROM_SPEC</TH>
+<TD>Specifies the file that describes the contents of the ROM file.<BR>This file is passed to the <CODE>makerom</CODE> command, and the ROM is generated based on the configuration of this file.</TD>
+    </TR>
+    <TR>
+<TH valign="top" align="left">TARGET_BIN<BR> <FONT color="#ff0000">* Important</FONT></TH>
+<TD align="left">Specifies a target file in SRL or TEF format.<BR>It compiles or assembles the source files specified by <CODE>SRCS</CODE> and links the resulting object files, making them the target files. A TEF file is created automatically if an SRL file is specified as the target.<BR><FONT color="#ff0000">The following values cannot be set for this variable.
+<UL style="margin-top:0;margin-bottom:0" ><LI>Values that include hyphens (&quot;<CODE>-</CODE>&quot;)<LI>Values that begin with an underscore (&quot;<CODE>_</CODE>&quot;)<LI>Values that begin with a number</UL></FONT></TD>
+    </TR>
+    <TR>
+<TH valign="top" align="left">TARGET_LIB</TH>
+<TD align="left">Specify this to create a library file.<BR>It compiles or assembles the source files specified by <CODE>SRCS</CODE> and links the resulting object files, making them a library. Normally, <CODE>TARGET_BIN</CODE> and <CODE>TARGET_LIB</CODE> are not configured at the same time.</TD>
+    </TR>
+    <TR>
+<TH valign="top" align="left">TARGET_OBJ</TH>
+<TD align="left">Specify this to create an object file as a target.<BR>This is not normally used.<BR>In the library, this is used when <CODE>crt0.c</CODE> is compiled and installed as a library.</TD>
+    </TR>
+    <TR>
+<TH valign="top" align="left">TARGETS<BR><FONT color="#0000ff">Rewriting Prohibited</FONT></TH>
+<TD valign="top" align="left">When this is specified, items appended with relative paths are configured automatically in <CODE>TARGET_BIN</CODE> and <CODE>TARGET_LIB</CODE>.<BR>The storage directories for SRL and <CODE>.a</CODE> files change depending on the <CODE>TWL_PLATFORM</CODE> and <CODE>TWL_DEBUG/TWL_RELEASE/TWL_FINALROM</CODE> settings.<BR>This macro was prepared to absorb this change.</TD>
+    </TR>
+    <TR>
+<TH valign="top" align="left">INSTALL_TARGETS</TH>
+<TD valign="top" align="left">Enumerates the files you want to install.<BR>The <CODE>TARGETS</CODE> setting described above is valid to specify here.<BR><BR><strong style="color:#FF6633">Default value: None</strong></TD>
+    </TR>
+    <TR>
+<TH valign="top" align="left">INSTALL_DIR</TH>
+<TD align="left">Sets the installation directory.<BR><BR><strong style="color:#FF6633">Default value: None</strong></TD>
+    </TR>
+    <TR>
+<TH valign="top" align="left">LINCLUDES</TH>
+<TD valign="top" align="left">Specifies the directory of any other include files.<BR><BR><strong style="color:#FF6633">Default value: None</strong></TD>
+    </TR>
+    <TR>
+<TH valign="top" align="left">LLIBRARY_DIRS<BR> LLIBRARIES</TH>
+<TD align="left">If there are other library files, this enumerates their directories with <CODE>LLIBRARY_DIRS</CODE> and the library files with <CODE>LLIBRARIES</CODE>.</TD>
+    </TR>
+    <TR>
+<TH valign="top" align="left">LIBSYSCALL</TH>
+<TD align="left">Specifies the <CODE>libsyscall</CODE> to use.<BR><strong style="color:#FF6633">Default value: <CODE>$TwlSDK/lib/ARM9-TS/etc/libsyscall.a</CODE></strong></TD>
+    </TR>
+    <TR>
+<TH valign="top" align="left">LIBSYSCALL_TWL</TH>
+<TD align="left">Specifies the <CODE>libsyscall</CODE> to use for [HYBRID/LIMITED] ROM.<BR><strong style="color:#FF6633">Default value: <CODE>$TwlSDK/lib/ARM9-TS/etc/libsyscall.twl.a</CODE></strong></TD>
+    </TR>
+    <TR>
+<TH align="left" valign="top">LDIRT_CLEAN<BR> LDIRT_CLOBBER</TH>
+<TD>Specifies the file(s) to delete along with object files when executing the <CODE>make clean</CODE> or <CODE>make clobber</CODE> command.<BR>With <CODE>make clean</CODE>, all files specified with <CODE>LDIRT_CLEAN</CODE> are deleted. With <CODE>make clobber</CODE>, all files specified with <CODE>LDIRT_CLEAN</CODE> and <CODE>LDIRT_CLOBBER</CODE> are deleted.</TD>
+    </TR>
+    <TR>
+<TH align="left" valign="top">MAKELCF_FLAGS</TH>
+<TD>Define this build variable when you want to give your own additional run options to <CODE>makelcf</CODE>. <BR><strong style="color:#FF6633">Default value: None</strong></TD>
+    </TR>
+    <TR>
+<TH align="left" valign="top">MAKEROM_FLAGS</TH>
+<TD>Define this build variable when you want to give your own additional run options to <CODE>makerom</CODE>. <BR><strong style="color:#FF6633">Default value: None</strong></TD>
+    </TR>
+    <TR>
+<TH valign="top" align="left">FORCE_DISABLE_IS_NITRO_DEBUGGER</TH>
+      <TD valign="top" align="left">
+Although this option disables the IS-NITRO-DEBUGGER and IS-NITRO-EMULATOR debugging features, it conserves the amount of memory used. Define this when you will debug only with IS-TWL-DEBUGGER (software/hardware). This is not defined by default, so by default all debugging features of all debuggers installed on the build PC are available.<BR> <strong style="color:#FF6633">Default value: None.</strong>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<h2 id="h2_content_1_2">Build Switch Usage Table <a class="anchor_super" name="buildswitch_list" id="x542d3cc"></a></h2>
+This table indicates the ranges in which the SDK build switches can be set.<BR>It includes only the <CODE>TWL_*</CODE> build switches, but the same information applies to the <CODE>NITRO_*</CODE> switches as well.
+<h4>Environment Variables Required When Building the SDK</h4>
+<table class="style_table" cellspacing="1" border="1" bgcolor="#e8f4f4">
+<tbody><tr bgcolor="#CCFFCC">
+<td class="style_td"><p>Build Switch</p></td>
+<td class="style_td"><p>Command Line</p></td>
+<td class="style_td"><p>Makefile<BR>(Before <CODE>commondefs</CODE>)</p></td>
+<td class="style_td"><p>Makefile<BR>(After <CODE>commondefs</CODE>)</p></td>
+<td class="style_td"><p>Environmental Variables</p></td>
+<td class="style_td"><p>Default Value</p></td></tr><tr>
+<td class="style_td"><strong>TWLSDK_ROOT</strong></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+<td class="style_td"><p style="color:Green">R</p></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+<td class="style_td"><center>C:/TwlSDK</center></tr><tr>
+<td class="style_td"><strong>TWLSDK_PLATFORM</strong></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+<td class="style_td"><p style="color:Green">R</p></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+    <td class="style_td"><center>-</center></tr><tr>
+<td class="style_td"><strong>CWFOLDER_TWL</strong></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+<td class="style_td"><p style="color:Green">R</p></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+    <td class="style_td"><center>-</center></tr><tr>
+<td class="style_td"><strong>LM_LICENSE_FILE</strong></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+<td class="style_td"><p style="color:Green">R</p></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+    <td class="style_td"><center>-</center></tr><tr>
+<td class="style_td"><strong>IS_TWL_DEBUGGER_DIR</strong></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+<td class="style_td"><p style="color:Green">R</p></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+    <td class="style_td"><center>-</center></tr><tr>
+&quot;WR&quot; = Can be changed and referenced     &quot;W&quot; = Can be changed     &quot;R&quot; = Can be referenced     &quot;-&quot; = Cannot be used<tr>
+</tbody></table>
+
+<table class="style_table" cellspacing="1" border="1" bgcolor="#e8f4f4">
+<h4>Build Switches When Building the SDK</h4>
+<tbody><tr bgcolor="#CCFFCC">
+<td class="style_td"><p>Build Switches</p></td>
+<td class="style_td"><p>Command Line</p></td>
+<td class="style_td"><p>Makefile<BR>(Before <CODE>commondefs</CODE>)</p></td>
+<td class="style_td"><p>Makefile<BR>(After <CODE>commondefs</CODE>)</p></td>
+<td class="style_td"><p>Environment Variables</p></td>
+<td class="style_td"><p>Default Value</p></td></tr><tr>
+<td class="style_td"><strong>TWL_PROC</strong></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+    <td class="style_td"><p style="color:Red">-</p></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+<td class="style_td"><center>ARM9</center></tr><tr>
+<td class="style_td"><strong>TWL_ARCHGEN (TWL-exclusive)</strong></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+<td class="style_td"><p style="color:Purple">WR</p></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+<td class="style_td"><center>HYBRID</center></tr><tr>
+<td class="style_td"><strong>TWL_CODEGEN</strong></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+<td class="style_td"><p style="color:Purple">WR</p></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+<td class="style_td"><center>ARM</center></tr><tr>
+<td class="style_td"><strong>TWL_DEBUG</strong></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+    <td class="style_td"><p style="color:Red">-</p></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+    <td class="style_td"><center>-</center></tr><tr>
+<td class="style_td"><strong>TWL_RELEASE</strong></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+    <td class="style_td"><p style="color:Red">-</p></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+<td class="style_td"><center>TRUE</center></tr><tr>
+<td class="style_td"><strong>TWL_FINALROM</strong></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+    <td class="style_td"><p style="color:Red">-</p></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+    <td class="style_td"><center>-</center></tr><tr>
+<td class="style_td"><strong>TWL_STD_PCHDR</strong></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+    <td class="style_td"><p style="color:Red">-</p></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+<td class="style_td"><center>True</center></tr><tr>
+<td class="style_td"><strong>TWL_NO_STD_PCHDR</strong></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+    <td class="style_td"><p style="color:Red">-</p></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+    <td class="style_td"><center>-</center></tr><tr>
+<td class="style_td"><strong>TWLSDK_LANG</strong></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+<td class="style_td"><center>jp</center></tr><tr>
+<td class="style_td"><strong>TWL_ROMSPEED</strong></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+<td class="style_td"><center>UNDEFINED</center></tr><tr>
+<td class="style_td"><strong>TWL_COMPRESS</strong></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+    <td class="style_td"><center>-</center></tr><tr>
+<td class="style_td"><strong>TWL_DIGEST</strong></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+    <td class="style_td"><center>-</center></tr><tr>
+<td class="style_td"><strong>TWL_PROFILE</strong></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+    <td class="style_td"><center>-</center></tr><tr>
+<td class="style_td"><strong>TWL_PROFILE_TYPE</strong></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+    <td class="style_td"><center>-</center></tr><tr>
+<td class="style_td"><strong>TWL_MEMSIZE</strong></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+    <td class="style_td"><p style="color:Red">-</p></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+<td class="style_td"><center>16M</center></tr><tr>
+<td class="style_td"><strong>TWL_NO_OPT_G</strong></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+    <td class="style_td"><center>-</center></tr><tr>
+<td class="style_td"><strong>TWL_SVC_WAITVBLANK_COMPATIBLE</strong></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+    <td class="style_td"><center>-</center></tr><tr>
+<td class="style_td"><strong>CW_LIBFP</strong></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+<td class="style_td"><p style="color:Green">R</p></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+<td class="style_td"><center>FP_fastI_v5t_LE.a</center></tr>
+&quot;WR&quot; = Can be changed and referenced     &quot;W&quot; = Can be changed     &quot;R&quot; = Can be referenced     &quot;-&quot; = Cannot be used<tr>
+</tbody></table>
+
+<h4>Build Switches Set in the SDK Makefiles</h4>
+<table class="style_table" cellspacing="1" border="1" bgcolor="#e8f4f4">
+<tbody><tr bgcolor="#CCFFCC">
+<td class="style_td"><p>Build Switches</p></td>
+<td class="style_td"><p>Command Line</p></td>
+<td class="style_td"><p>Makefile<BR>(Before <CODE>commondefs</CODE>)</p></td>
+<td class="style_td"><p>Makefile<BR>(After <CODE>commondefs</CODE>)</p></td>
+<td class="style_td"><p>Environment Variables</p></td>
+<td class="style_td"><p>Default Value</p></td></tr><tr>
+<td class="style_td"><strong>TARGET_PLATFORM</strong></td>
+    <td class="style_td"><p style="color:Red">-</p></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+<td class="style_td"><p style="color:Green">R</p></td>
+    <td class="style_td"><p style="color:Red">-</p></td>
+<td class="style_td"><center>ALL</center></tr><tr>
+<td class="style_td"><strong>TWL_BUILD_TYPE</strong></td>
+    <td class="style_td"><p style="color:Red">-</p></td>
+    <td class="style_td"><p style="color:Red">-</p></td>
+<td class="style_td"><p style="color:Green">R</p></td>
+    <td class="style_td"><p style="color:Red">-</p></td>
+    <td class="style_td"><center>-</center></tr><tr>
+<td class="style_td"><strong>DEFAULT_COMP_ARM7</strong></td>
+    <td class="style_td"><p style="color:Red">-</p></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+<td class="style_td"><p style="color:Green">R</p></td>
+    <td class="style_td"><p style="color:Red">-</p></td>
+<td class="style_td"><center><CODE>mongoose</CODE> for NITRO or hybrid ROMs, <BR><CODE>racoon</CODE> for limited ROMs</center></tr><tr>
+<td class="style_td"><strong>FORCE_DISABLE_IS_NITRO_DEBUGGER</strong></td>
+    <td class="style_td"><p style="color:Red">-</p></td>
+<td class="style_td"><p style="color:#4169E1">W</p></td>
+<td class="style_td"><p style="color:Green">R</p></td>
+    <td class="style_td"><p style="color:Red">-</p></td>
+    <td class="style_td"><center>-</center></tr><tr>
+&quot;WR&quot; = Can be changed and referenced     &quot;W&quot; = Can be changed     &quot;R&quot; = Can be referenced     &quot;-&quot; = Cannot be used<tr>
+</tbody></table>
+
+
+<hr><p>TWL-06-0010-001-F<br>CONFIDENTIAL</p></body>
+</HTML>

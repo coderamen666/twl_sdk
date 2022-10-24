@@ -1,0 +1,36 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>CAMERA_Init</TITLE>
+<LINK rel="stylesheet" href="../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">CAMERA_Init <IMG src="../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+<DL>
+  <DD>
+  <CODE>#include &lt;twl/camera.h&gt;</CODE><BR>
+  <BR>
+  <CODE><a href="CAMERAResult.html">CAMERAResult</a> CAMERA_Init( void );</CODE>
+</DL>
+<H2>Arguments</H2>
+<P>None.</P>
+
+<H2>Return Values</H2>
+<P>Returns <CODE>CAMERA_RESULT_SUCCESS</CODE> when successful. Returns errors on failure.<BR> Be aware that this always fails when executed in CODEC-DS mode or when using a component that cannot use the camera feature.</P>
+
+<H2>Description</H2>
+<P>
+Initializes the Camera library. This must be called before any other function in the Camera library.<BR><BR>Before calling this function, you must call the <A href="../os/thread/OS_InitThread.html"><CODE>OS_InitThread</CODE></A>, <A href="../os/time/OS_InitTick.html"><CODE>OS_InitTick</CODE></A>, and <CODE><A href="../os/alarm/OS_InitAlarm.html">OS_InitAlarm()</A></CODE> functions to initialize the tick system and the alarm system because the Camera library makes use of threads and alarms after it is initialized.<BR><BR> Note that, as explained in the <a href="about_camera.html">Overview</a>, when this function is called in CODEC-DS mode there is no return. The camera library can only be used in CODEC-TWL mode.<br>See the section on default values in the <A href="about_camera.html">Overview</A> for more information on the camera settings that are configured after this function is called.
+</P>
+
+<H2>See Also</H2>
+<P><A href="CAMERA_End.html"><CODE>CAMERA_End</CODE></A><BR> <A href="CAMERACallback.html"><CODE>CAMERACallback</CODE></A></P>
+<H2>Revision History</H2>
+<P>
+2009/01/07 Added a note that the <code>OS_InitAlarm</code> function also must be called.<br> 2008/10/06 Added explanation of how behavior differs depending on CODEC mode.<br> 2008/06/26 Added mention that threads and ticks are used inside the library.<BR> 2008/04/17 Deleted the <code>CAMERA_InitAsync</code> function.<BR> 2008/04/08 Changed the specification for <B>Return Values</B>.<BR> 2008/01/15 Added the <code>CAMERA_InitAsync</code> function.<BR> 2007/11/14 Added explanation about initial settings.<BR> 2007/10/02 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

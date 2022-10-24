@@ -1,0 +1,33 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>OS_SetExceptionVectorLower</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">OS_SetExceptionVectorLower <img src="../../image/NTR.gif" align="middle"><img src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+<DL>
+  <DD>
+<PRE><CODE>#include &lt;nitro/os.h&gt;</CODE></PRE>
+<PRE><CODE>void OS_SetExceptionVectorLower( void );</CODE></PRE>
+</DL>
+<H2>Arguments</H2>
+<P>None.</P>
+<H2>Return Values</H2>
+<P>None.</P>
+<H2>Description</H2>
+<P>Moves the exception vector to the low-order address. The position of the exception vector can be moved from the normal address in the lower part of 32-bit address space (<code>0x00000000</code> to <code>0x0000001C</code>) to the high vector near the uppermost part of the address space (<code>0xFFFF0000</code> to <code>0xFFFF001C</code>). Nitro supports high vectors, but whether the high vector is supported or not depends on the implemented definitions. (This is supported by NITRO and TWL.) The <A href="OS_SetExceptionVectorLower.html"><code>OS_SetExceptionVectorLower</code></A> function moves the exception vector to the normal address.</P>
+
+<H2>Internal Operation</H2>
+<P>Modifies register 1 of the system control co-processor CP15.</P>
+
+<H2>See Also</H2>
+<P><A href="OS_SetExceptionVectorLower.html"><CODE>OS_SetExceptionVectorUpper</CODE></A><BR></P>
+<H2>Revision History</H2>
+<P>2008/05/23 Added descriptions for TWL. <BR>2004/01/15 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

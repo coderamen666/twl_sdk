@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>NA_UnloadOtherTitleArchive</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">NA_UnloadOtherTitleArchive <IMG src="../../image/TWL.gif" width="23" height="12" border="0" align="middle"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+  <pre><CODE>#include &lt;twl/na.h&gt;
+
+FSResult NA_UnloadOtherTitleArchive(void);
+</CODE></pre>
+</dd>
+</dl>
+
+<h2>Arguments</h2>
+<p>
+None.
+</p>
+
+<h2>Return Values</h2>
+<p>
+Returns <code>FS_RESULT_SUCCESS</code> if processing completed successfully. <br>Other values indicate an error. The following values, in particular, have specific meanings.
+</p>
+
+<table class="table">
+<tr><th>FS_RESULT_ALREADY_DONE<td>No save data is loaded.
+<tr><th>FS_RESULT_UNSUPPORTED<td>This is running on the Nintendo DS and cannot be used.
+</table>
+
+<H2>Description</H2>
+<P>
+Unloads save data that is currently loaded from another NAND application, removing it from the file system.
+</p>
+
+<h2>See Also</h2>
+<p><CODE><A href="NA_LoadOtherTitleArchive.html">NA_LoadOtherTitleArchive</A></CODE></p>
+
+<H2>Revision History</H2>
+<P>
+2009/05/13 Added link to <B>See Also</B>.<br>
+ 2008/09/16 Added <CODE>FS_RESULT_UNSUPPORTED</CODE> to the return values. <br>2008/07/14 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

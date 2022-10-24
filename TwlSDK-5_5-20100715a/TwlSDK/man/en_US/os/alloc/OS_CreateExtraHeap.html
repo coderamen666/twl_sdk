@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>OS_CreateExtraHeap</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">OS_CreateExtraHeap<IMG src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+<DL>
+  <DD>
+  <PRE><CODE>#include &lt;nitro/os.h&gt;</CODE></PRE>
+  <PRE><CODE>OSHeapHandle OS_CreateExtraHeap( OSArenaId id ); </CODE></PRE>
+</DL>
+<H2>Arguments</H2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="13%"><EM><STRONG>id</STRONG></EM></TD>
+<TD width="87%">Arena ID of an arena in which you are going to create a heap</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>Return Values</H2>
+<P>In the case that it was possible to create a heap, the handle to the heap is returned. This is a value greater than or equal to 0.<BR>When a heap could not be created, -1 is returned.</P>
+<H2>Description</H2>
+<P>Creates a heap in the specified arena. </P>
+<P>This function has special uses. (The heap region is fixed at 16 KB of the bottom of the main memory that is possible when a hybrid ROM is running in NITRO mode.) The heap creation function for ordinary use is <A href="OS_CreateHeap.html"><CODE>OS_CreateHeap</CODE></A>.</P>
+<P>With TWL ROM (both hybrid and limited ROM), a system reserved region of 16 KB is created at the bottom of the main memory. However, this region can be used only when running in TWL mode. In other words, when a hybrid ROM is running in NITRO mode on NITRO hardware, this 16 KB is not used at all.</P>
+<P>This function allocates the empty 16-KB region to the heap of the specified arena. <FONT color="#ff0000">This function cannot be called for NITRO ROM and TWL limited ROM.</FONT>(It exists only with hybrid ROM, so a compile error will be generated. Also, <FONT color="#ff0000">a heap is not created even if this function is called while a hybrid ROM is running on TWL hardware and in TWL mode, so -1 is returned to indicate an error.</FONT></P>
+<P>The arena is specified with the arena ID (<SPAN class="argument">id</SPAN>). For more information on this value, see the <a  href="../arena/OS_InitArena.html"><code>OS_InitArena</code></a> function. The arena must have memory allocated with the <CODE>OS_InitAlloc</CODE> function and have been initialized in advance. The region for the heap is 16 KB from <CODE>0x02000000</CODE> to <CODE>0x02003FFF</CODE> at the top of the main memory.</P>
+<P>Call the <a href="OS_DestroyHeap.html"><code>OS_DestroyHeap</code></a> function to destroy created heaps.</P>
+<P>Call the <A href="OS_ClearExtraHeap.html"><CODE>OS_ClearExtraHeap</CODE></A> function to reinitialize a heap.( Do not call the <A href="OS_ClearHeap.html"><CODE>OS_ClearHeap</CODE></A> function.)</P>
+<BLOCKQUOTE style="background-color:#ffffcc">
+<CODE><B>(Ex.)</B><BR> <BR> #define HEAP_NUM 2<BR> #define HEAP_SIZE 0x10000<BR> OSHeapHandle mainHeapHandle = -1;<BR> <BR> void NitroMain(void)<BR> {<BR> OS_Init();<BR> <BR> //---- Declare to use main memory heaps<BR> OS_InitAlloc( OS_ARENA_MAIN, OS_GetMainArenaLo(), OS_GetMainArenaHi(), HEAP_NUM );<BR> <BR> //---- Create main heap<BR> heapArea = OS_AllocFromArenaLo( OS_ARENA_MAIN, HEAP_SIZE, 32 );<BR> mainHeapHandle = OS_CreateHeap( OS_ARENA_MAIN, heapArea, (void*)((u32)heapArea + HEAP_SIZE) );<BR> <BR> //---- If NITRO MODE, create extra heap<BR> <FONT color="#ff0000">  if ( OS_IsRunOnTwl() == FALSE )<BR> {<BR> extraHeapHandle = OS_CreateExtraHeap( OS_ARENA_MAIN );<BR> }</FONT><BR> <BR> }</CODE></BLOCKQUOTE>
+<P>In this example, the <CODE>OS_CreateExtraHeap</CODE> function is called only when running in NITRO mode. This program presumes that a hybrid ROM will be built. A compile error is generated when a NITRO ROM or TWL limited ROM is built because the <CODE>OS_CreateExtraHeap</CODE> function is not defined.</P>
+<P>This function <FONT color="#ff0000">adds the 16-KB region as one heap.</FONT>When a heap enclave region has already been added, see the <A href="OS_AddExtraAreaToHeap.html"><CODE>OS_AddExtraAreaToHeap</CODE></A> function. Note that if a 16-KB region is created as a heap, it cannot be used as an added enclave region. If used as an added enclave region, it cannot be created as one heap.</P>
+<H2>See Also</H2>
+<P><A href="../arena/OS_InitArena.html"><CODE>OS_InitArena</CODE></A><BR> <A href="OS_InitAlloc.html"><CODE>OS_InitAlloc</CODE></A><BR> <A href="OS_DestroyHeap.html"><CODE>OS_DestroyHeap</CODE></A><BR> <A href="OS_ClearHeap.html"><CODE>OS_ClearHeap</CODE></A><BR> <A href="OS_ClearExtraHeap.html"><CODE>OS_ClearExtraHeap</CODE></A><BR> <A href="OS_CreateHeap.html"><CODE>OS_CreateHeap</CODE></A><BR> <A href="OS_AddExtraAreaToHeap.html"><CODE>OS_AddExtraAreaToHeap</CODE></A>
+</P>
+<H2>Revision History</H2>
+<P>2009/04/03 Added information on <A href="OS_AddExtraAreaToHeap.html"><CODE>OS_AddExtraAreaToHeap</CODE></A>.<BR> 2009/02/17 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

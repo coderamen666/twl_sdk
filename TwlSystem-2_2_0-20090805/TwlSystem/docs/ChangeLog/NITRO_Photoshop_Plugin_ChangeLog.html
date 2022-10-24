@@ -1,0 +1,297 @@
+<html>
+<head>
+<title>TWL-System Photoshop Plug-In Revision History</title>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="content-style-type" content="text/css" />
+<style type="text/css">
+<!--
+    
+H1
+{
+    font-weight         : bold;
+    font-size           : 250%;
+    text-align          : left;
+    color               : #46f;
+    margin              : 0em 0em 0.5em 0em;
+}
+
+H2
+{
+    font-weight         : bold;
+    font-size           : 150%;
+    text-align          : left;
+    margin              : 2em 0em 0.5em 0em;
+    padding-top         : 8pt;
+    border-top-style    : double;
+    border-top-width    : 3px;
+}
+
+H3
+{
+    font-weight         : bold;
+    font-size           : 120%;
+    margin              : 1em 0em 0.5em 0em;
+    padding-top         : 8pt;
+    border-top-style    : solid;
+    border-top-width    : 1px;
+}
+
+H4
+{
+    font-weight         : normal;
+    font-size           : 100%;
+    margin              : 0em 0em 0em 0.5em;
+}
+
+DIV.date
+{
+    font-size           : normal;
+    text-align          : right;
+    margin              : 0pt 0pt 12pt 0pt;
+}
+
+DIV.licence
+{
+    margin: 0em;
+    border-style : solid;
+    border-width : 1px;
+}
+
+P
+{
+    font-size           : normal;
+    margin              : 0em 1em 0.5em 1em;
+    line-height         : 150%;
+}
+
+PRE
+{
+    font-size           : normal;
+    margin              : 0em 0em 1em 2em;
+    line-height         : 120%;
+}
+
+DT
+{
+    margin              : 1em 0em 0em 1em;
+}
+DD
+{
+    margin-left         : 3em;
+}
+UL
+{
+    margin-top         : 0em;
+}
+
+-->
+</style>
+</head>
+<body>
+
+<h1>TWL-System Photoshop Plug-In Revision History</h1>
+
+<h2>Index</h2>
+
+<h3><a href="#version_2_2_0_0">2.2.0 PR</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_83-H01">Note 83-H01: Ended support for Adobe Photoshop CS</a></li>
+</ul>
+<h3><a href="#version_2_1_0">2.1.0</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_81-H01">Note 81-H01: Updated for the Windows 32-bit version of Adobe Photoshop CS4</a></li>
+</ul>
+<h3><a href="#version_2_0_0_1">2.0.0 RC2</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_79-H01">Note 79-H01: (Manual) Made corrections in step with NITRO-System name change</a></li>
+</ul>
+<h3><a href="#version_20080618">2008/06/18 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_77-H01">Note 77-H01: Ended support for Photoshop 7.0.1</a></li>
+</ul>
+<h4>Problem Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_77-H02">Note 77-H02: Corrected a problem occurring when the Windows screen DPI setting was larger than 96 DPI</a></li>
+</ul>
+<h3><a href="#version_20080408">2008/04/08 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_76-H01">Note 76-H01: (Manual) Changed the format of the Revision History and revised the subheadings</a></li>
+</ul>
+<h3><a href="#version_20070910">2007/09/10 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_69-H01">Note 69-H01: Added support for Windows version of Adobe Photoshop CS3</a></li>
+</ul>
+<h4>Problem Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_69-H02">Note 69-H02: Corrected the method for saving the palette name</a></li>
+</ul>
+<h3><a href="#version_20070129">2007/01/29 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_63-H01">Note 63-H01: Ended support for Windows version Photoshop 6.0.1</a></li>
+<li><a href="#note_63-H02">Note 63-H02: Ended support for Macintosh version of Photoshop 6.0.1, 7.0.1, and CS</a></li>
+<li><a href="#note_63-H03">Note 63-H03: (Manual) Revised section 4.1.3.4 Precautions Relating to the Alpha Channel</a></li>
+<li><a href="#note_63-H04">Note 63-H04: (Manual) Added section 4.1.3.8 Precautions Relating to the Color Settings</a></li>
+</ul>
+<h4>Problem Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_63-H05">Note 63-H05: Corrected processing when saving with <CODE>NNS_Tga</CODE> (or <CODE>NNS_Pic</CODE>) using Photoshop CS or later version</a></li>
+</ul>
+<h3><a href="#version_20051128">2005/11/28 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_53-H01">Note 53-H01: Supported Windows version of Adobe Photoshop CS2 (9.0)</a></li>
+<li><a href="#note_53-H02">Note 53-H02: (Manual) Added a note for Photoshop CS and later versions to section 4.1.3.6 Overwriting and Saving</a></li>
+</ul>
+<h3><a href="#version_20050620">2005/06/20 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_47-H01">Note 47-H01: Added preview feature and data volume display to <CODE>NNS_Tga</CODE> and <CODE>NNS_Pic</CODE></a></li>
+<li><a href="#note_47-H02">Note 47-H02: (Manual) Revised section 4.1.3.3 Palette Data</a></li>
+<li><a href="#note_47-H03">Note 47-H03: (Manual) Revised section 4.1.3.7 Maintaining Image Quality</a></li>
+</ul>
+<h4>Problem Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_47-H04">Note 47-H04: Corrected problem where colors in some areas became darker when creating a 4x4 texel compressed texture</a></li>
+</ul>
+<h3><a href="#version_20050324">2005/03/24 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_42-H01">Note 42-H01: (Manual) Revised section 4.1.3.2 Transparent Texels</a></li>
+<li><a href="#note_42-H02">Note 42-H02: (Manual) Revised section 4.1.3.3 Palette Data</a></li>
+</ul>
+<h3><a href="#version_20050228">2005/02/28 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_41-H01">Note 41-H01: Changed the dialog-box font for Windows version plug-ins</a></li>
+</ul>
+<h3><a href="#version_20040927">2004/09/27 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_22-H01">Note 22-H01: Corrected internal processing when creating 4x4 texel compressed textures</a></li>
+<li><a href="#note_22-H02">Note 22-H02: Released a Macintosh version plug-in</a></li>
+<li><a href="#note_22-H03">Note 22-H03: (Manual) Added caution relating to the Macintosh version plug-in memory</a></li>
+</ul>
+<h3><a href="#version_20040726">2004/07/26 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_14-H01">Note 14-H01: Changed processing when saving <CODE>NNS_Tga</CODE> (or <CODE>NNS_Pic</CODE>)</a></li>
+<li><a href="#note_14-H02">Note 14-H02: (Manual) Added a description of restrictions on texture palette names to the manual</a></li>
+</ul>
+<h3><a href="#version_20040628">2004/06/28 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_11-H01">Note 11-H01: Made internal corrections relating to reading/writing additional information</a></li>
+</ul>
+
+
+<h2 id="version_2_2_0_0">Changes in 2.2.0 PR</h2>
+<h3 id="note_83-H01">Note 83-H01: Ended support for Adobe Photoshop CS</h3>
+<p>Ended support for Adobe Photoshop CS.
+</p>
+<h2 id="version_2_1_0">Changes in 2.1.0</h2>
+<h3 id="note_81-H01">Note 81-H01: Updated for the Windows 32-bit version of Adobe Photoshop CS4</h3>
+<p>Updated for the Windows 32-bit version of Adobe Photoshop CS4.
+</p>
+<h2 id="version_2_0_0_1">Changes in 2.0.0 RC2</h2>
+<h3 id="note_79-H01">Note 79-H01: (Manual) Made corrections in step with NITRO-System name change</h3>
+<p>Changed NITRO-System to TWL-System.
+</p>
+<h2 id="version_20080618">Changes in Version 2008/06/18</h2>
+<h3 id="note_77-H01">Note 77-H01: Ended support for Photoshop 7.0.1 </h3>
+<p>Photoshop 7.0.1 is no longer supported.
+</p>
+<h3 id="note_77-H02">Note 77-H02: Corrected a problem occurring when the Windows screen DPI setting was larger than 96 DPI</h3>
+<p>When the Windows screen DPI was set larger than 96 DPI, the dialog boxes did not display in their entirety. That has been corrected.
+</p>
+<h2 id="version_20080408">Changes in Version 2008/04/08</h2>
+<h3 id="note_76-H01">Note 76-H01: (Manual) Changed the format of the Revision History and revised the subheadings</h3>
+<p>The format of the Revision History in the document <CODE>NITRO_PhotoshopPlugin.pdf</CODE> has been changed. Also, the document subheadings have been revised.
+</p>
+<h2 id="version_20070910">Changes in Version 2007/09/10</h2>
+<h3 id="note_69-H01">Note 69-H01: Added support for Windows version of Adobe Photoshop CS3</h3>
+<p>Added support for the Windows version of Adobe Photoshop CS3.
+</p>
+<h3 id="note_69-H02">Note 69-H02: Corrected the method for saving the palette name</h3>
+<p>The save process was revised so that, if any spaces exist before or after the name specified using the <B>Palette Name</B> option, the spaces are deleted before saving.
+</p>
+<h2 id="version_20070129">Changes in Version 2007/01/29</h2>
+<h3 id="note_63-H01">Note 63-H01: Ended support for Windows version Photoshop 6.0.1</h3>
+<p>Ended support for the Windows version of Photoshop 6.0.1.
+</p>
+<h3 id="note_63-H02">Note 63-H02: Ended support for Macintosh version Photoshop 6.0.1, 7.0.1, and CS</h3>
+<p>Ended support for the Macintosh versions of Photoshop 6.0.1, 7.0.1, and CS.
+</p>
+<h3 id="note_63-H03">Note 63-H03: (Manual) Revised section 4.1.3.4 Precautions Relating to the Alpha Channel</h3>
+<p>Revised section 4.1.3.4 Precautions Relating to the Alpha Channel.
+</p>
+<h3 id="note_63-H04">Note 63-H04: (Manual) Added section 4.1.3.8 Precautions Relating to Color Settings</h3>
+<p>Added section 4.1.3.8 Precautions Relating to Color Settings.
+</p>
+<h3 id="note_63-H05">Note 63-H05: Corrected processing when saving with <CODE>NNS_Tga</CODE> (or <CODE>NNS_Pic</CODE>) using Photoshop CS or later version</h3>
+<p>When overwrite-saving with <CODE>NNS_Tga</CODE> or <CODE>NNS_Pic</CODE> using Photoshop CS or later, a dialog box is no longer displayed if it is possible to save in the format used for the previous save.
+</p>
+<h2 id="version_20051128">Changes in Version 2005/11/28</h2>
+<h3 id="note_53-H01">Note 53-H01: Added support for Windows version of Adobe Photoshop CS2 (9.0)</h3>
+<p>Added support for the Windows version of Adobe Photoshop CS2 (9.0).
+</p>
+<h3 id="note_53-H02">Note 53-H02: (Manual) Added a note for Photoshop CS and later versions to section 4.1.3.6 Overwriting and Saving</h3>
+<p>(Manual) Added a note for Photoshop CS and later versions to section 4.1.3.6 Overwriting and Saving.
+</p>
+<h2 id="version_20050620">Changes in Version 2005/06/20</h2>
+<h3 id="note_47-H01">Note 47-H01: Added preview feature and data volume display to <CODE>NNS_Tga</CODE> and <CODE>NNS_Pic</CODE></h3>
+<p>Added preview feature and data volume display to <CODE>NNS_Tga</CODE> and <CODE>NNS_Pic</CODE>.
+</p>
+<h3 id="note_47-H02">Note 47-H02: (Manual) Revised section 4.1.3.3 Palette Data</h3>
+<p>Revised section 4.1.3.3 Palette Data.
+</p>
+<h3 id="note_47-H03">Note 47-H03: (Manual) Revised section 4.1.3.7 Maintaining Image Quality</h3>
+<p>Revised section 4.1.3.7 Maintaining Image Quality.
+</p>
+<h3 id="note_47-H04">Note 47-H04: Corrected problem where colors in some areas became darker when creating a 4x4 texel compressed texture</h3>
+<p>Corrected a problem where colors in some areas became darker if <B>Use Linear Interpolation</B> was OFF when creating a 4x4 texel compressed texture. When palette data is saved in 4x4 texel compressed texture format or when a 4x4 texel compressed texture filter is run on palette data, sometimes the amount of palette data increases compared to data from previous versions of the plug-in.
+</p>
+<h2 id="version_20050324">Changes in Version 2005/03/24</h2>
+<h3 id="note_42-H01">Note 42-H01: (Manual) Revised section 4.1.3.2 Transparent Texels</h3>
+<p>Revised section 4.1.3.2 Transparent Texels.
+</p>
+<h3 id="note_42-H02">Note 42-H02: (Manual) Revised section 4.1.3.3 Palette Data</h3>
+<p>Revised section 4.1.3.3 Palette Data.
+</p>
+<h2 id="version_20050228">Changes in Version 2005/02/28</h2>
+<h3 id="note_41-H01">Note 41-H01: Changed the dialog box font for Windows version plug-ins</h3>
+<p>Changed the dialog box font for Windows version plug-ins.
+</p>
+<h2 id="version_20040927">Changes in Version 2004/09/27</h2>
+<h3 id="note_22-H01">Note 22-H01: Corrected internal processing when creating 4x4 texel compressed textures</h3>
+<p>Corrected internal processing when creating 4x4 texel compressed textures. When palette data is saved in 4x4 texel compressed texture format or when a 4x4 texel compressed texture filter is run on palette data, sometimes the amount of palette data increases slightly compared to data from previous versions of the plug-in.
+</p>
+<h3 id="note_22-H02">Note 22-H02: Released a Macintosh version plug-in</h3>
+<p>Released a Macintosh version plug-in.
+</p>
+<h3 id="note_22-H03">Note 22-H03: (Manual) Added caution relating to the Macintosh version plug-in memory</h3>
+<p>Added a note relating to the Macintosh version plug-in memory.
+</p>
+<h2 id="version_20040726">Changes in Version 2004/07/26</h2>
+<h3 id="note_14-H01">Note 14-H01: Changed processing when saving <CODE>NNS_Tga</CODE> (or <CODE>NNS_Pic</CODE>)</h3>
+<p>Changed so that the default texture palette name is blank when saving a file with <CODE>NNS_Tga</CODE> or <CODE>NNS_Pic</CODE> that has never been saved with <CODE>NNS_Tga</CODE> or <CODE>NNS_Pic</CODE> before.
+</p>
+<h3 id="note_14-H02">Note 14-H02: (Manual) Added a description of restrictions on texture palette names to the manual</h3>
+<p>Added to the manual a description of restrictions on texture palette names when using the Nintendo NITRO-System library.
+</p>
+<h2 id="version_20040628">Changes in Version 2004/06/28</h2>
+<h3 id="note_11-H01">Note 11-H01: Made internal corrections relating to reading/writing additional information</h3>
+<p>Made internal corrections relating to reading/writing additional information.
+</p>
+
+
+<br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br>
+
+<hr><p>CONFIDENTIAL</p></body>
+</html>

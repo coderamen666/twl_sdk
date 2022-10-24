@@ -1,0 +1,41 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>OS_RebootSystem</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">OS_RebootSystem <img src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+<DL>
+<DD><CODE>#include &lt;nitro/os.h&gt;</CODE><BR> <BR> <code>BOOL OS_RebootSystem( void );</CODE>
+</DL>
+<H2>Arguments</H2>
+<P>None.</P>
+<H2>Return Values</H2>
+<P>Returns FALSE if the reboot fails for the following reasons.</P>
+<BLOCKQUOTE>- This function was called while in NITRO mode.</BLOCKQUOTE>
+
+<BLOCKQUOTE>- POWER was pressed and the system is already shutting down.</BLOCKQUOTE>
+
+<P>Control will not return from this function if the reset was successful. Thus, the function does not return TRUE.</P>
+<H2>Description</H2>
+<P>Performs a hardware reset and restarts the calling application.</P>
+<P>From an application's point of view, this is the same as manually restarting the same application after running the <a href="OS_JumpToSystemMenu.html"><CODE>OS_JumpToSystemMenu</CODE></a> function.</P>
+<P>Use the <a href="OS_IsRebooted.html"><CODE>OS_IsRebooted</CODE></a> function to determine whether the running application was booted directly from the System Menu or was restarted with this function.
+
+</P>
+<P>This function uses the <A href="../../spi/pm/PM_ForceToResetHardware.html"><CODE>PM_ForceToResetHardware</CODE></A> function from the PM library. If the purpose is to have the application restart itself, do not directly call the <A href="../../spi/pm/PM_ForceToResetHardware.html"><CODE>PM_ForceToResetHardware</CODE></A> function. Call the <CODE>OS_RebootSystem</CODE> function instead.</P>
+<P><font color="#ff0000"><B>This function cannot be called when interrupts are disabled. <BR>Because this function cannot be called during the exit process either, take care that it is not executed from within an exit callback registered using functions such as the <A href="../../spi/pm/PM_AppendExitCallback.html"><CODE>PM_Append*ExitCallback</CODE></A> functions.</B></font></P>
+<P><FONT color="#ff0000">This function only executes in TWL mode. </FONT>In NITRO mode (when NITRO ROM is running and when HYBRID ROM is running on the NITRO), the function returns FALSE.</P>
+<P>The function does not return TRUE because if it executes successfully control will not return. FALSE is returned either because, as mentioned above, the function has been called in NITRO mode, or because POWER has been pressed and the system is already shutting down. The specifications do not allow the function to execute in NITRO mode, so a return of FALSE for this reason does not indicate a problem within the program. On the actual console, the latter cause is the only reason FALSE is returned. The next step must be either a shutdown or hardware reset. If FALSE is returned, end all game processes and immediately prepare for quitting.</P>
+<H2>See Also</H2>
+<P><A href="../../spi/pm/PM_ForceToResetHardware.html"><CODE>PM_ForceToResetHardware</CODE></A><BR> <a href="OS_IsRebooted.html"><CODE>OS_IsRebooted</CODE></a><BR> <A href="../../spi/pm/PM_AppendExitCallback.html"><CODE>PM_Append*ExitCallback</CODE></A><BR> <A href="../../spi/pm/PM_AppendExitCallback.html"><CODE>PM_Prepend*ExitCallback</CODE></A><BR> <A href="../../spi/pm/PM_AppendExitCallback.html"><CODE>PM_Insert*ExitCallback</CODE></A>
+</P>
+<H2>Revision History</H2>
+<P>2008/12/08 Described the conditions for return of FALSE.<BR>2008/10/22 Added mention that execution is prohibited during the ending process.<BR>2008/09/09 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

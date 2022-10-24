@@ -1,0 +1,56 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<TITLE>RelayStation</TITLE>
+<LINK rel="stylesheet" href="../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">RelayStation</H1>
+<H2>Overview</H2>
+<p>RelayStation is a program for relaying common chance encounter communications. It provides the same functionality as the Chance Encounter Relay Station that operates in Japan.</p>
+<p>When implementing the chance-encounter communication features using the WXC library, you must take appropriate steps to ensure problems do not occur even when data is exchanged via a chance-encounter relay station. Use this program for verification purposes.</p>
+<H2>Startup Preparations and How to Use</H2>
+<ul>
+<li>RelayStation uses backup memory, so you must prepare a flash card with 2-megabit flash onboard backup memory. Burn <CODE>RelayStation.srl</CODE> to the flash card to run RelayStation on an actual DS system. To run the program on the debugger, insert the flash card into the debugger's Card slot.<br> <br>
+<li>RelayStation saves its settings to the backup memory when it first launches, and then automatically saves every hour thereafter. Therefore, before you run RelayStation on an actual DS system or on a debugger, make sure the Time in its System Settings is set accurately.<br> <br>
+<li>If there is no valid RelayStation data in the backup memory, the default settings file is loaded and RelayStation starts in the state shown below.<br>
+    <p><img src="RelayStation_image00.png" width="256" height="384" border="1"><br> <br>
+    </p>
+<li>You can use the following operations on this screen.
+    <table class="table"><tbody>
+<tr><th>Button<th>Operation</th>
+<tr><td>↑↓  <td>Scroll the registered application list on the upper screen.
+<tr><td>L R<td>Cycle through detailed information of registered applications on the lower screen.
+<tr><td>START<td>Save state.
+    </tbody></table>
+    <br>
+<li>You can reset the chance-encounter relay station to its initial state by holding down START＋SELECT＋L＋R while starting the program.
+</ul>
+<H2>Description</H2>
+<ul>
+<li>Initially, the relay station only registers the TWL-SDK WXC sample demo <CODE>simple-1</CODE>.<br>The first time the relay station performs chance-encounter communication with <CODE>simple-1</CODE>, it sends <CODE>simple-1</CODE> the data that was registered in RelayStation in advance. The data it receives from <CODE>simple-1</CODE> is saved as the send data for the next encounter.
+    <p><img src="RelayStation_image01.png" width="256" height="384" border="1"><br> <br>
+<li>When the relay station encounters an unregistered application, it automatically registers that application as <I>New</I> and handles it as a supported application thereafter. The first time the relay station performs chance-encounter communication with an automatically registered application, it sends data with a size of 0 bytes. The data it receives from the other party is saved as the send data for the next encounter.<br>
+    <p><img src="RelayStation_image02.png" width="256" height="384" border="1"><br> <br>
+    </ul>
+<H2>Notes</H2>
+<ul>
+<li>RelayStation does not support applications that implement unique chance-encounter communication features without using the WXC library.<br /><br /></li>
+<li>Actual chance-encounter relay stations not only act as relay stations for chance-encounter communication, but also have data distribution features that conform to designated data formats. However, RelayStation does not support those features.<br /><br /></li>
+<li>RelayStation is functionally equivalent to a real chance-encounter relay station, so it may unintentionally engage in chance-encounter communication with retail applications.<br />To avoid needless complications, minimize your use of RelayStation and shut down the program as soon as verification is finished.<br /><br /></li>
+<li>In North America, <I>DS Download Station</I> is the DS Trial Version distribution program. It provides the same features as a Chance Encounter Relay Station. Verify applications that support chance encounter communications in North America, therefore, with the DS Download Station test program.</li>
+</ul>
+<H2>Location</H2>
+<P><CODE>$TwlSDK/bin/ARM9-TS/Rom/RelayStation.srl</CODE><BR> <CODE>$TwlSDK/bin/ARM9-TS/Rom/DSDownloadStation.srl</CODE></P>
+
+<H2>See Also</H2>
+
+<H2>Revision History</H2>
+
+<P>
+2009/12/10 Added a note about North American titles.<br>2009/07/15 Initial version.<br>
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

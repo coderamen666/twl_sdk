@@ -1,0 +1,710 @@
+<html>
+<head>
+<title>TWL-System Maya Plug-In Revision History</title>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="content-style-type" content="text/css" />
+<style type="text/css">
+<!--
+    
+H1
+{
+    font-weight         : bold;
+    font-size           : 250%;
+    text-align          : left;
+    color               : #46f;
+    margin              : 0em 0em 0.5em 0em;
+}
+
+H2
+{
+    font-weight         : bold;
+    font-size           : 150%;
+    text-align          : left;
+    margin              : 2em 0em 0.5em 0em;
+    padding-top         : 8pt;
+    border-top-style    : double;
+    border-top-width    : 3px;
+}
+
+H3
+{
+    font-weight         : bold;
+    font-size           : 120%;
+    margin              : 1em 0em 0.5em 0em;
+    padding-top         : 8pt;
+    border-top-style    : solid;
+    border-top-width    : 1px;
+}
+
+H4
+{
+    font-weight         : normal;
+    font-size           : 100%;
+    margin              : 0em 0em 0em 0.5em;
+}
+
+DIV.date
+{
+    font-size           : normal;
+    text-align          : right;
+    margin              : 0pt 0pt 12pt 0pt;
+}
+
+DIV.licence
+{
+    margin: 0em;
+    border-style : solid;
+    border-width : 1px;
+}
+
+P
+{
+    font-size           : normal;
+    margin              : 0em 1em 0.5em 1em;
+    line-height         : 150%;
+}
+
+PRE
+{
+    font-size           : normal;
+    margin              : 0em 0em 1em 2em;
+    line-height         : 120%;
+}
+
+DT
+{
+    margin              : 1em 0em 0em 1em;
+}
+DD
+{
+    margin-left         : 3em;
+}
+UL
+{
+    margin-top         : 0em;
+}
+
+-->
+</style>
+</head>
+<body>
+
+<h1>TWL-System Maya Plug-In Revision History</h1>
+
+<h2>Index</h2>
+
+<h3><a href="#version_2_2_0_0">2.2.0 PR</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_83-Y01">Note 83-Y01: Ended support for Maya 8.0</a></li>
+</ul>
+<h3><a href="#version_2_1_0">2.1.0</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_81-Y01">Note 81-Y01: Added the <B>Remove Namespace</B> option to the Output plug-in</a></li>
+<li><a href="#note_81-Y02">Note 81-Y02: Added the <B>Remove Namespace</B> option to the NITRO Rename Over 16 Characters plug-in</a></li>
+<li><a href="#note_81-Y03">Note 81-Y03: Enabled resizing of the <B>Select Output Folder</B> dialog box</a></li>
+<li><a href="#note_81-Y04">Note 81-Y04: Updated the N3ES file format</a></li>
+</ul>
+<h3><a href="#version_2_0_0">2.0.0</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_80-Y01">Note 80-Y01:   Updated for Maya 2009</a></li>
+<li><a href="#note_80-Y02">Note 80-Y02:   (Manual) Added details to List of Supported Features</a></li>
+<li><a href="#note_80-Y03">Note 80-Y03:  (Manual) Added details to Texture Pattern Animation</a></li>
+</ul>
+<h3><a href="#version_2_0_0_1">2.0.0 RC2</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_79-Y01">Note 79-Y01:   Changed the Maya 2008 operating environment</a></li>
+<li><a href="#note_79-Y02">Note 79-Y02:   Ended support for Maya 7.0</a></li>
+<li><a href="#note_79-Y03">Note 79-Y03:  (Manual) Made corrections in line with NITRO-System name change</a></li>
+<li><a href="#note_79-Y04">Note 79-Y04:   (Manual) Added details to Values Exported to the IMD File</a></li>
+</ul>
+<h3><a href="#version_20080408">2008/04/08 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_76-Y01">Note 76-Y01:   (Manual) Changed the format of the Revision History and revised the headings and subheadings</a></li>
+</ul>
+<h3><a href="#version_20080324">2008/03/24 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_75-Y01">Note 75-Y01:   (Manual) Added List of Supported Features</a></li>
+<li><a href="#note_75-Y02">Note 75-Y02:   (Manual) Revised note related to the instance of models for which skin has been set</a></li>
+</ul>
+<h4>Bug Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_75-Y03">Note 75-Y03:  Fixed bug in the Search Animation button</a></li>
+</ul>
+<h3><a href="#version_20071010">2007/10/10 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_70-Y01">Note 70-Y01:   Updated for Maya 2008</a></li>
+<li><a href="#note_70-Y02">Note 70-Y02:   (Manual) Revised precautions in the Skinning section</a></li>
+</ul>
+<h3><a href="#version_20070910">2007/09/10 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_69-Y01">Note 69-Y01:   Changed specifications so that the NINTENDO NITRO System folder is not created when creating new projects</a></li>
+<li><a href="#note_69-Y02">Note 69-Y02:   Eliminated the ability to output from File &gt; Export All/Export Selection</a></li>
+<li><a href="#note_69-Y03">Note 69-Y03:  Changed the name of the plug-in's main menu to NITRO-System</a></li>
+<li><a href="#note_69-Y04">Note 69-Y04:   Changed specifications so that the output option window is displayed from the NITRO Export with Settings menu</a></li>
+<li><a href="#note_69-Y05">Note 69-Y05:   Changed specifications so that errors and warnings at time of output are also displayed in the script editor</a></li>
+<li><a href="#note_69-Y06">Note 69-Y06:   Added &quot;=&quot; and &quot;;&quot; to the list of characters that cannot be used in output options</a></li>
+</ul>
+<h3><a href="#version_20070518">2007/05/18 Version</a></h3>
+<h4>Bug Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_67-Y01">Note 67-Y01:   Corrected a problem where the plug-in for Maya 8.5 would not work</a></li>
+</ul>
+<h3><a href="#version_20070423">2007/04/23 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_65-Y01">Note 65-Y01:   Updated for Maya 8.5</a></li>
+<li><a href="#note_65-Y02">Note 65-Y02:   Updated to use driven keys and expressions with texture pattern animation</a></li>
+<li><a href="#note_65-Y03">Note 65-Y03:  Updated the NITRO Set Material Attribute plug-in</a></li>
+<li><a href="#note_65-Y04">Note 65-Y04:   Changed specifications so that materials connected to a shading group are also selected</a></li>
+<li><a href="#note_65-Y05">Note 65-Y05:   Integrated the NITRO Set Render Priority plug-in and the NITRO Show Render Priority plug-in</a></li>
+</ul>
+<h4>Bug Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_65-Y06">Note 65-Y06:   Revised such that export option settings for the current scene are not overwritten when a scene is referenced or imported</a></li>
+<li><a href="#note_65-Y07">Note 65-Y07:   Added support for when the texture file extensions is preceded by a number that starts with zero when using texture animation</a></li>
+<li><a href="#note_65-Y08">Note 65-Y08:   Revised so that a warning is displayed when the texture file for a frame extension does not exist</a></li>
+</ul>
+<h3><a href="#version_20070129">2007/01/29 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_63-Y01">Note 63-Y01:   Ended support for Maya 5.0.1, Maya 6.0.1, and Maya 6.5</a></li>
+<li><a href="#note_63-Y02">Note 63-Y02:   Added a Search Animation button to the Output File Selection field</a></li>
+<li><a href="#note_63-Y03">Note 63-Y03:  Added a feature for specifying some export options when using N3BE files with batch export</a></li>
+</ul>
+<h4>Bug Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_63-Y04">Note 63-Y04:   Fixed bug where the IMD file's &lt;polygon&gt; volume min and volume max were not being output correctly</a></li>
+</ul>
+<h3><a href="#version_20061003">2006/10/03 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_61-Y01">Note 61-Y01:   Updated for Maya 8.0</a></li>
+</ul>
+<h4>Bug Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_61-Y02">Note 61-Y02:   Fixed a bug that sometimes caused unnecessary export option setting nodes to accumulate in a scene</a></li>
+</ul>
+<h3><a href="#version_20060417">2006/04/17 Version</a></h3>
+<h4>Bug Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_57-Y01">Note 57-Y01:   Fixed a bug where the normal vector was not output correctly when an uneven scale value was set for a node</a></li>
+<li><a href="#note_57-Y02">Note 57-Y02:   Fixed a bug where option settings were not saved for a scene when importing a scene for which export plug-in option settings had been saved</a></li>
+</ul>
+<h3><a href="#version_20051128">2005/11/28 Version</a></h3>
+<h4>Bug Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_53-Y01">Note 53-Y01:   Revised such that &lt;box_test&gt; for the IMD file is correctly output</a></li>
+</ul>
+<h3><a href="#version_20050912">2005/09/12 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_51-Y01">Note 51-Y01:   Updated for Maya 7.0</a></li>
+<li><a href="#note_51-Y02">Note 51-Y02:   (Manual) Added a note about Maya 7.0 to the description of vertex color</a></li>
+</ul>
+<h3><a href="#version_20050620">2005/06/20 Version</a></h3>
+<h4>Bug Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_47-Y01">Note 47-Y01:   Revised software so that animations that use character sets are output</a></li>
+<li><a href="#note_47-Y02">Note 47-Y02:   Fixed bug where colors in some areas became darker when creating a 4x4 texel compressed texture</a></li>
+</ul>
+<h3><a href="#version_20050324">2005/03/24 Version</a></h3>
+<h4>Bug Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_42-Y01">Note 42-Y01:   Fixed bug where scenes that include a reference file were not being saved correctly</a></li>
+</ul>
+<h3><a href="#version_20050228">2005/02/28 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_41-Y01">Note 41-Y01:   Updated for Maya 6.5</a></li>
+</ul>
+<h3><a href="#version_20050202">2005/02/02 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_40-Y01">Note 40-Y01:   Updated for intermediate file format version 1.6.0</a></li>
+<li><a href="#note_40-Y02">Note 40-Y02:   Updated NITRO Set Material Attribute plug-in</a></li>
+</ul>
+<h3><a href="#version_20050114">2005/01/14 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_37-Y01">Note 37-Y01:   Added intermediate file batch export functionality</a></li>
+</ul>
+<h3><a href="#version_20041213">2004/12/13 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_35-Y01">Note 35-Y01:   Updated for intermediate file format version 1.5.0</a></li>
+<li><a href="#note_35-Y02">Note 35-Y02:   Added warnings</a></li>
+<li><a href="#note_35-Y03">Note 35-Y03:  Updated the NITRO Set Material Attribute plug-in</a></li>
+<li><a href="#note_35-Y04">Note 35-Y04:   Added NITRO Set Render Priority plug-in</a></li>
+<li><a href="#note_35-Y05">Note 35-Y05:   Added NITRO Show Render Priority plug-in</a></li>
+<li><a href="#note_35-Y06">Note 35-Y06:   (Manual) Added section 2.7.9 Polygon Rendering Priority</a></li>
+<li><a href="#note_35-Y07">Note 35-Y07:   (Manual) Revised explanation of Unite and Combine Polygon in section 3.2.2 General Options</a></li>
+<li><a href="#note_35-Y08">Note 35-Y08:   (Manual) Revised explanation of interpolation in section 3.2.5 Animation Options</a></li>
+</ul>
+<h3><a href="#version_20041025">2004/10/25 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_29-Y01">Note 29-Y01:   Updated the NITRO Set Material Attribute plug-in</a></li>
+<li><a href="#note_29-Y02">Note 29-Y02:   Updated the NITRO Show Lighting plug-in</a></li>
+<li><a href="#note_29-Y03">Note 29-Y03:  (Manual) Revised the description in section 2.7.3 Vertex Color</a></li>
+<li><a href="#note_29-Y04">Note 29-Y04:   (Manual) Revised the description of the Interpolation option for the intermediate file output plug-in</a></li>
+</ul>
+<h3><a href="#version_20040830">2004/08/30 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_19-Y01">Note 19-Y01:   Updated for Maya 6.0.1</a></li>
+<li><a href="#note_19-Y02">Note 19-Y02:   Changed the conditions for outputting scale compensate in IMD files</a></li>
+<li><a href="#note_19-Y03">Note 19-Y03:  (Manual) Added a note about the differences in IMD file vertex data depending on the Maya version</a></li>
+<li><a href="#note_19-Y04">Note 19-Y04:   (Manual) Added a note about Maya 6.0.1 texture pattern animations</a></li>
+<li><a href="#note_19-Y05">Note 19-Y05:   (Manual) Added a description of envelope expressions in the Nintendo NITRO-system </a></li>
+</ul>
+<h4>Bug Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_19-Y06">Note 19-Y06:   Fixed bug where textures connected to the topmost layer of a layered texture were not output</a></li>
+<li><a href="#note_19-Y07">Note 19-Y07:   Revised the NITRO Rename Over 16 Characters plug-in</a></li>
+</ul>
+<h3><a href="#version_20040726">2004/07/26 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_14-Y01">Note 14-Y01:   Added a warning when the name to be output to the intermediate file exceeds 16 characters</a></li>
+<li><a href="#note_14-Y02">Note 14-Y02:   Added NITRO Replace Character plug-in</a></li>
+<li><a href="#note_14-Y03">Note 14-Y03:  Added NITRO Rename Over 16 Characters plug-in </a></li>
+<li><a href="#note_14-Y04">Note 14-Y04:   (Manual) Added a note about the unit used for vertex coordinates and translate values</a></li>
+</ul>
+<h3><a href="#version_20040630">2004/06/30 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_12-Y01">Note 12-Y01:   Changed the naming convention for &lt;polygon&gt; inside IMD files</a></li>
+<li><a href="#note_12-Y02">Note 12-Y02:   Added errors and warnings for intermediate file output</a></li>
+</ul>
+<h3><a href="#version_20040524">2004/05/24 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_07-Y01">Note 07-Y01:   Updated for TGA files and PIC files that include added information for the NINTENDO NITRO-System</a></li>
+<li><a href="#note_07-Y02">Note 07-Y02:   Added the N3ES file I/O feature to intermediate file output plug-in</a></li>
+<li><a href="#note_07-Y03">Note 07-Y03:   Added scaling_rule to ICA file's &lt;node_anm_info&gt;</a></li>
+</ul>
+<h3><a href="#version_20040420">2004/04/20 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_06-Y01">Note 06-Y01:   (Manual) Revised the intermediate file version for &quot;1 intermediate file type&quot;</a></li>
+</ul>
+<h3><a href="#version_20040412">2004/04/12 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_05-Y01">Note 05-Y01:   Changed specifications so that intermediate files are output from NITRO Export on the NINTENDO NITRO-System menu</a></li>
+<li><a href="#note_05-Y02">Note 05-Y02:   Added a feature for transferring data to the 3D material editor</a></li>
+<li><a href="#note_05-Y03">Note 05-Y03:  Added a feature for saving option settings used by the intermediate file export plug-in in scenes</a></li>
+</ul>
+<h4>Bug Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_05-Y04">Note 05-Y04:   Fixed bug where the wrong value for polygon mode in IMD files was output</a></li>
+</ul>
+<h3><a href="#version_20040325">2004/03/25 Version</a></h3>
+<h4>Bug Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_04-Y01">Note 04-Y01:  Revised such that polygons with a vertex color are not combined with polygons without a vertex color</a></li>
+<li><a href="#note_04-Y02">Note 04-Y02:   Fixed bug where Merge Useless Node process was not same as algorithm given in manual</a></li>
+<li><a href="#note_04-Y03">Note 04-Y03:  Fixed bug where &lt;box text&gt; pos scale was sometimes larger than necessary</a></li>
+</ul>
+<h3><a href="#version_20040301">2004/03/01 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_03-Y01">Note 03-Y01:   Added Use Primitive Strip to the Imd Options export option</a></li>
+<li><a href="#note_03-Y02">Note 03-Y02:   Updated for A3I5 translucent textures</a></li>
+<li><a href="#note_03-Y03">Note 03-Y03:  Revised such that texels with alpha value equal to or greater than 128 in texture file are treated as opaque</a></li>
+<li><a href="#note_03-Y04">Note 03-Y04:   Revised restrictions on names when using NITRO-System library</a></li>
+<li><a href="#note_03-Y05">Note 03-Y05:   (Manual) Added section 2.12.5 Polygon Shapes Output to the IMD File</a></li>
+<li><a href="#note_03-Y06">Note 03-Y06:   (Manual) Revised the code in section 5.3 The Maya Texture Matrix</a></li>
+</ul>
+<h4>Bug Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_03-Y07">Note 03-Y07:   Revised such that TGA files with an alpha given in color index format are processed correctly</a></li>
+<li><a href="#note_03-Y08">Note 03-Y08:   Fixed bug where volume min, volume max, and volume r in IMD files were not output correctly</a></li>
+</ul>
+<h3><a href="#version_20040212">2004/02/12 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_02-Y01">Note 02-Y01:   Changed such that all quadrilateral polygons in Maya are output as quadrilaterals</a></li>
+<li><a href="#note_02-Y02">Note 02-Y02:   Added support for changing the number of surfaces after skinning</a></li>
+<li><a href="#note_02-Y03">Note 02-Y03:  Changed processing when the number of colors in a 4x4 texel compressed texture palette exceeds 32768</a></li>
+</ul>
+<h3><a href="#version_20040202">2004/02/02 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_01-Y01">Note 01-Y01:   Changed the effective number of lines for the Magnify and Tolerance export options (except Color)</a></li>
+</ul>
+<h4>Bug Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_01-Y02">Note 01-Y02:   Fixed bug where Maya would crash depending on animation export conditions</a></li>
+</ul>
+
+
+<h2 id="version_2_2_0_0">Changes in 2.2.0 PR</h2>
+<h3 id="note_83-Y01">Note 83-Y01: Ended support for Maya 8.0</h3>
+<p>Ended support for Maya 8.0.
+</p>
+<h2 id="version_2_1_0">Changes in 2.1.0</h2>
+<h3 id="note_81-Y01">Note 81-Y01: Added the <B>Remove Namespace</B> option to the Output plug-in</h3>
+<p>Added the <B>Remove Namespace</B> option to the Output plug-in.
+</p>
+<h3 id="note_81-Y02">Note 81-Y02: Added the <B>Remove Namespace</B> option to the NITRO Rename Over 16 Characters plug-in</h3>
+<p>Added the <B>Remove Namespace</B> option to the NITRO Rename Over 16 Characters plug-in.
+</p>
+<h3 id="note_81-Y03">Note 81-Y03: Enabled resizing of the <B>Select Output Folder</B> dialog box</h3>
+<p>Revised the <B>Select Output Folder</B> dialog box in the <B>Output Options</B> window so that it can be resized.
+</p>
+<h3 id="note_81-Y04">Note 81-Y04: Updated the N3ES file format</h3>
+<p>Updated the N3ES file format.
+</p>
+<ul><li>Changed <CODE>settings_version</CODE> to 1.1.
+</li>
+<li>Added <CODE>remove_namespace</CODE>.
+</li>
+</ul>
+<h2 id="version_2_0_0">Changes in 2.0.0</h2>
+<h3 id="note_80-Y01">Note 80-Y01:   Updated for Maya 2009</h3>
+<p>Added support for Maya 2009.
+</p>
+<h3 id="note_80-Y02">Note 80-Y02:   (Manual) Added details to List of Supported Features</h3>
+<p>Added details to List of Supported Features.
+</p>
+<h3 id="note_80-Y03">Note 80-Y03:  (Manual) Added details to Texture Pattern Animation</h3>
+<p>Added details about animation layers to Texture Pattern Animation.
+</p>
+<h2 id="version_2_0_0_1">Changes in 2.0.0 RC2</h2>
+<h3 id="note_79-Y01">Note 79-Y01:   Changed the Maya 2008 operating environment</h3>
+<p>Changed the Maya 2008 operating environment to Maya 2008 Service Pack 1 or Maya 2008 Extension 2.
+</p>
+<h3 id="note_79-Y02">Note 79-Y02:   Ended support for Maya 7.0</h3>
+<p>Support for Maya 7.0 has been ended.
+</p>
+<h3 id="note_79-Y03">Note 79-Y03:  (Manual) Made corrections in line with NITRO-System name change</h3>
+<p>Changed NITRO-System to TWL-System.
+</p>
+<h3 id="note_79-Y04">Note 79-Y04:   (Manual) Added details to Values Exported to the IMD File</h3>
+<p>Added details about texture pattern animation to Values Exported to the IMD File.
+</p>
+<h2 id="version_20080408">Changes in Version 2008/04/08</h2>
+<h3 id="note_76-Y01">Note 76-Y01:   (Manual) Changed the format of the Revision History and revised the headings and subheadings</h3>
+<p>The format of the Revision History in <CODE>NITRO_MayaPlugin.pdf</CODE> has been changed. Also revised the document's headings and subheadings.
+</p>
+<h2 id="version_20080324">Changes in Version 2008/03/24</h2>
+<h3 id="note_75-Y01">Note 75-Y01:   (Manual) Added List of Supported Features</h3>
+<p>Added the List of Supported Features chapter.
+</p>
+<h3 id="note_75-Y02">Note 75-Y02:   (Manual) Revised note related to the instance of models for which skin has been set</h3>
+<p>Added details to the note related to instances of models for which skin is set.
+</p>
+<h3 id="note_75-Y03">Note 75-Y03:  Fixed bug in the Search Animation button</h3>
+<p>Revised the <B>Search Animation</B> button in the <B>Output Options</B> window so that node animations that have not been output are not detected.
+</p>
+<h2 id="version_20071010">Changes in Version 2007/10/10</h2>
+<h3 id="note_70-Y01">Note 70-Y01:   Updated for Maya 2008</h3>
+<p>Added support for Maya 2008. The use of multiple bind poses is not supported.
+</p>
+<h3 id="note_70-Y02">Note 70-Y02:   (Manual) Revised precautions in the Skinning section</h3>
+<p>Revised the notes specific to skinning.
+</p>
+<h2 id="version_20070910">Changes in Version 2007/09/10</h2>
+<h3 id="note_69-Y01">Note 69-Y01:   Changed specifications so that the NINTENDO NITRO System folder is not created when creating new projects</h3>
+<p>Changed specifications so that the NINTENDO NITRO System folder is not created when creating new projects.
+</p>
+<h3 id="note_69-Y02">Note 69-Y02:   Eliminated the ability to output from File &gt; Export All/Export Selection</h3>
+<p>The ability to output from File &gt; Export All/Export Selection has been eliminated.
+</p>
+<h3 id="note_69-Y03">Note 69-Y03:  Changed the name of the plug-in's main menu to NITRO-System</h3>
+<p>Changed the name of the plug-in's main menu to NITRO-System.
+</p>
+<h3 id="note_69-Y04">Note 69-Y04:   Changed specifications so that the output option window is displayed from the NITRO Export with Settings menu</h3>
+<p>Changed specifications so that the output option window is displayed from the NITRO Export with Settings menu.
+</p>
+<h3 id="note_69-Y05">Note 69-Y05:   Changed specifications so that errors and warnings at time of output are also displayed in the script editor</h3>
+<p>Changed specifications so that errors and warnings at time of output are also displayed in the script editor.
+</p>
+<h3 id="note_69-Y06">Note 69-Y06:   Added &quot;=&quot; and &quot;;&quot; to the list of characters that cannot be used in output options</h3>
+<p>Added &quot;=&quot; and &quot;;&quot; to the list of characters that cannot be used in output options.
+</p>
+<h2 id="version_20070518">Changes in Version 2007/05/18</h2>
+<h3 id="note_67-Y01">Note 67-Y01:   Fixed bug where the plug-in for Maya 8.5 would not work</h3>
+<p>A problem has been corrected where the plug-in for Maya 8.5 would not work depending on the Windows environment.
+</p>
+<h2 id="version_20070423">Changes in Version 2007/04/23</h2>
+<h3 id="note_65-Y01">Note 65-Y01:   Updated for Maya 8.5</h3>
+<p>Added support for Maya 8.5.
+</p>
+<h3 id="note_65-Y02">Note 65-Y02:   Updated to use driven keys and expressions with texture pattern animation</h3>
+<p>Updated to use driven keys and expressions with texture pattern animation.
+</p>
+<h3 id="note_65-Y03">Note 65-Y03:  Updated the NITRO Set Material Attribute plug-in</h3>
+<p>Updated the NITRO Set Material Attribute plug-in.
+</p>
+<ul><li> Specifications have been changed so that the material name is displayed in the window.
+</li>
+</ul>
+<h3 id="note_65-Y04">Note 65-Y04:   Changed specifications so that materials connected to a shading group are also selected</h3>
+<p>Specifications have been changed so that materials connected to an associated shading group are also selected when using the NITRO Show Lighting plug-in and NITRO Show Display Face plug-in.
+</p>
+<h3 id="note_65-Y05">Note 65-Y05:   Integrated the NITRO Set Render Priority plug-in and the NITRO Show Render Priority plug-in</h3>
+<p>The NITRO Set Render Priority plug-in and NITRO Show Render Priority plug-in have been integrated and a feature for making settings in a list format has been added.
+</p>
+<h3 id="note_65-Y06">Note 65-Y06:   Revised such that export option settings for the current scene are not overwritten when a scene is referenced or imported</h3>
+<p>Revisions were made so that Export settings for the current scene are not overwritten when a scene is referenced or imported.
+</p>
+<h3 id="note_65-Y07">Note 65-Y07:   Added support for when the texture file extensions is preceded by a number that starts with zero when using texture animation</h3>
+<p>Added support for the number followed by texture file extensions such as &quot;01,&quot; &quot;001,&quot; and &quot;0001&quot; that start with a zero when using texture animation.
+</p>
+<h3 id="note_65-Y08">Note 65-Y08:   Revised so that a warning is displayed when the texture file for a frame extension does not exist</h3>
+<p>Revised software so that a warning, rather than an error, is displayed when a texture file corresponding to Frame Extension does not exist when using texture pattern animation. However, an error results if no texture file corresponds to Frame Extension.
+</p>
+<h2 id="version_20070129">Changes in Version 2007/01/29</h2>
+<h3 id="note_63-Y01">Note 63-Y01:   Ended support for Maya 5.0.1, Maya 6.0.1, and Maya 6.5</h3>
+<p>Ended support for Maya 5.0.1, Maya 6.0.1, and Maya 6.5.
+</p>
+<h3 id="note_63-Y02">Note 63-Y02:   Added a Search Animation button to the Output File Selection field</h3>
+<p>Added a Search Animation button to the Output File Selection field of the Export option window.
+</p>
+<h3 id="note_63-Y03">Note 63-Y03:  Added a feature for specifying some export options when using N3BE files with batch export</h3>
+<p>A feature for specifying some export options when using N3BE files with batch export has been added. In conjunction, the N3BE file format has been updated.
+</p>
+<h3 id="note_63-Y04">Note 63-Y04:   Fixed bug where the IMD file's &lt;polygon&gt; volume min and volume max were not being output correctly</h3>
+<p>A bug where the IMD file's &lt;polygon&gt; volume min and volume max were not being output correctly has been fixed.
+</p>
+<h2 id="version_20061003">Changes in Version 2006/10/03</h2>
+<h3 id="note_61-Y01">Note 61-Y01:   Updated for Maya 8.0</h3>
+<p>Added support for Maya 8.0.
+</p>
+<h3 id="note_61-Y02">Note 61-Y02:   Fixed a bug that sometimes caused unnecessary export option setting nodes to accumulate in a scene</h3>
+<ul><li> A bug that sometimes caused unnecessary Export option setting nodes to accumulate in the scene has been fixed.
+</li>
+</ul>
+<h2 id="version_20060417">Changes in Version 2006/04/17</h2>
+<h3 id="note_57-Y01">Note 57-Y01:   Fixed a bug where the normal vector was not output correctly when an uneven scale value was set for a node</h3>
+<p>A bug where the normal line of the skinned model was being incorrectly output when non-uniform (X, Y, and Z values are different) Scale values were configured has been fixed.
+</p>
+<h3 id="note_57-Y02">Note 57-Y02:   Fixed a bug where option settings were not saved for a scene when importing a scene for which export plug-in option settings had been saved</h3>
+<p>A bug where option settings could not be saved for a scene when importing a scene for which export plug-in option settings have been saved has been fixed.
+</p>
+<h2 id="version_20051128">Changes in Version 2005/11/28</h2>
+<h3 id="note_53-Y01">Note 53-Y01:   Revised such that &lt;box_test&gt; for the IMD file is correctly output</h3>
+<p>Revised such that &lt;box_test&gt; for the IMD file was correctly output.
+</p>
+<h2 id="version_20050912">Changes in Version 2005/09/12</h2>
+<h3 id="note_51-Y01">Note 51-Y01:   Updated for Maya 7.0</h3>
+<p>Added support for Maya 7.0.
+</p>
+<h3 id="note_51-Y02">Note 51-Y02:   (Manual) Added a note about Maya 7.0 to the description of vertex color</h3>
+<p>A note about Maya 7.0 has been added to the description of vertex color.
+</p>
+<h2 id="version_20050620">Changes in Version 2005/06/20</h2>
+<h3 id="note_47-Y01">Note 47-Y01:   Revised software so that animations that use character sets are output</h3>
+<p>Software has been revised so that texture SRT animations and material color animations that use a character set are output.
+</p>
+<h3 id="note_47-Y02">Note 47-Y02:   Fixed bug where colors in some areas became darker when creating a 4x4 texel compressed texture</h3>
+<p>Colors in some area became darker when creating a 4x4 texel compressed texture without added information whose filename ended in _cmp4. This bug has been fixed. There are cases in which the palette data amount increases more than in earlier versions.
+</p>
+<h2 id="version_20050324">Changes in Version 2005/03/24</h2>
+<h3 id="note_42-Y01">Note 42-Y01:   Fixed bug where scenes that include a reference file were not being saved correctly</h3>
+<p>A bug where scenes that include a reference file were sometimes not saved correctly due to adverse effects of the output plug-in has been fixed.
+</p>
+<h2 id="version_20050228">Changes in Version 2005/02/28</h2>
+<h3 id="note_41-Y01">Note 41-Y01:   Updated for Maya 6.5</h3>
+<p>Added support for Maya 6.5.
+</p>
+<h2 id="version_20050202">Changes in Version 2005/02/02</h2>
+<h3 id="note_40-Y01">Note 40-Y01:   Updated for intermediate file format version 1.6.0</h3>
+<p>Added support for version 1.6.0 of the intermediate file format.
+</p>
+<h3 id="note_40-Y02">Note 40-Y02:   Updated NITRO Set Material Attribute plug-in</h3>
+<ul><li> Added Texture Effect Matrix.
+</li>
+<li> Deleted Tex Gen ST.
+</li>
+</ul>
+<h2 id="version_20050114">Changes in Version 2005/01/14</h2>
+<h3 id="note_37-Y01">Note 37-Y01:   Added intermediate file batch export functionality</h3>
+<p>Added a feature for the batch export of intermediate files.
+</p>
+<h2 id="version_20041213">Changes in Version 2004/12/13</h2>
+<h3 id="note_35-Y01">Note 35-Y01:   Updated for intermediate file format version 1.5.0</h3>
+<p>Added support for version 1.5.0 of the intermediate file format.
+</p>
+<h3 id="note_35-Y02">Note 35-Y02:   Added warnings</h3>
+<p>Added warnings.
+</p>
+<h3 id="note_35-Y03">Note 35-Y03:  Updated the NITRO Set Material Attribute plug-in</h3>
+<p>Updated the NITRO Set Material Attribute plug-in.
+</p>
+<ul><li> Added configurable attributes.
+</li>
+</ul>
+<h3 id="note_35-Y04">Note 35-Y04:   Added NITRO Set Render Priority plug-in</h3>
+<p>Added NITRO Set Render Priority plug-in.
+</p>
+<h3 id="note_35-Y05">Note 35-Y05:  Added NITRO Show Render Priority plug-in</h3>
+<p>The NITRO Set Material Attribute plug-in has been added.
+</p>
+<h3 id="note_35-Y06">Note 35-Y06:   (Manual) Added section 2.7.9 Polygon Rendering Priority</h3>
+<p>The section 2.7.9 Polygon Rendering Priority has been added.
+</p>
+<h3 id="note_35-Y07">Note 35-Y07:   (Manual) Revised explanation of Unite and Combine Polygon in section 3.2.2 General Options</h3>
+<p>Revised the description of Unite and Combine Polygon in section 3.2.2 General Options.
+</p>
+<h3 id="note_35-Y08">Note 35-Y08:   (Manual) Revised explanation of interpolation in section 3.2.5 Animation Options</h3>
+<p>Revised the description of interpolation in section 3.2.5 Animation Options.
+</p>
+<h2 id="version_20041025">Changes in Version 2004/10/25</h2>
+<h3 id="note_29-Y01">Note 29-Y01:   Updated the NITRO Set Material Attribute plug-in</h3>
+<p>Updated the NITRO Set Material Attribute plug-in.
+</p>
+<ul><li> Added configurable attributes.
+</li>
+<li> Changed Lighting to Light0.
+</li>
+</ul>
+<h3 id="note_29-Y02">Note 29-Y02:   Updated the NITRO Show Lighting plug-in</h3>
+<p>Updated the NITRO Show Lighting plug-in.
+</p>
+<ul><li> Changed to enable individual confirmation of four lights.
+</li>
+</ul>
+<h3 id="note_29-Y03">Note 29-Y03:  (Manual) Revised the description in section 2.7.3 Vertex Color</h3>
+<p>The description in section 2.2.5.3 Vertex Color has been revised.
+</p>
+<h3 id="note_29-Y04">Note 29-Y04:   (Manual) Revised the description of the Interpolation option for the intermediate file output plug-in</h3>
+<p>Revised the description of the Interpolation option for the intermediate file output plug-in.
+</p>
+<h2 id="version_20040830">Changes in Version 2004/08/30</h2>
+<h3 id="note_19-Y01">Note 19-Y01:   Updated for Maya 6.0.1</h3>
+<p>Added support for Maya 6.0.1.
+</p>
+<h3 id="note_19-Y02">Note 19-Y02:   Changed the conditions for outputting scale compensate in IMD files</h3>
+<p>The scale_compensate for &lt;node&gt; found in IMD files is now output only when the scaling_rule in &lt;model_info&gt; is maya.
+</p>
+<h3 id="note_19-Y03">Note 19-Y03:  (Manual) Added a note about the differences in IMD file vertex data depending on the Maya version</h3>
+<p>A note about the differences in IMD file vertex data depending on the Maya version has been added.
+</p>
+<h3 id="note_19-Y04">Note 19-Y04:   (Manual) Added a note about Maya 6.0.1 texture pattern animations</h3>
+<p>A note about Maya 6.0.1 texture pattern animations has been added.
+</p>
+<h3 id="note_19-Y05">Note 19-Y05:  (Manual) Added a description of envelope expressions in the Nintendo NITRO-system </h3>
+<p>A description of envelope expressions in the Nintendo NITRO-system has been added.
+</p>
+<h3 id="note_19-Y06">Note 19-Y06:   Fixed bug where textures connected to the topmost layer of a layered texture were not output</h3>
+<p>A bug where textures connected to the topmost layer of a layered texture were not being output has been fixed.
+</p>
+<h3 id="note_19-Y07">Note 19-Y07:   Revised the NITRO Rename Over 16 Characters plug-in</h3>
+<p>A warning is now displayed when using the NITRO Rename Over 16 Characters plug-in and a texture file cannot be opened.
+</p>
+<h2 id="version_20040726">Changes in Version 2004/07/26</h2>
+<h3 id="note_14-Y01">Note 14-Y01:   Added a warning when the name to be output to the intermediate file exceeds 16 characters</h3>
+<p>A warning when the name to be output to the intermediate file exceeds 16 characters has been added.
+</p>
+<h3 id="note_14-Y02">Note 14-Y02:   Added NITRO Replace Character plug-in</h3>
+<p>The NITRO Replace Character plug-in that replaces element name strings has been added.
+</p>
+<h3 id="note_14-Y03">Note 14-Y03:  Added NITRO Rename Over 16 Characters plug-in </h3>
+<p>Added NITRO Rename Over 16 Characters plug-in to change element names that exceed 16 characters.
+</p>
+<h3 id="note_14-Y04">Note 14-Y04:   (Manual) Added a note about the unit used for vertex coordinates and translate values</h3>
+<p>A note about units used for vertex coordinates and translate values has been added.
+</p>
+<h2 id="version_20040630">Changes in Version 2004/06/30</h2>
+<h3 id="note_12-Y01">Note 12-Y01:   Changed the naming convention for &lt;polygon&gt; inside IMD files</h3>
+<p>The naming convention for &lt;polygon&gt; inside IMD files has been changed to &quot;polygon + serial number&quot;.
+</p>
+<h3 id="note_12-Y02">Note 12-Y02:   Added errors and warnings for intermediate file output</h3>
+<p>Several errors and warnings have been added when outputting intermediate files.
+</p>
+<h2 id="version_20040524">Changes in Version 2004/05/24</h2>
+<h3 id="note_07-Y01">Note 07-Y01:   Updated for TGA files and PIC files that include added information for the NINTENDO NITRO-System</h3>
+<p>Updated for TGA files and PIC files that include added information for the NINTENDO NITRO-System.
+</p>
+<h3 id="note_07-Y02">Note 07-Y02:   Added the N3ES file I/O feature to intermediate file output plug-in</h3>
+<p>Added ability to import and export option settings for the intermediate file output plug-in as N3ES files.
+</p>
+<h3 id="note_07-Y03">Note 07-Y03:  Added scaling_rule to ICA file's &lt;node_anm_info&gt;</h3>
+<p>Added scaling_rule to ICA file's &lt;node_anm_info&gt;.
+</p>
+<h2 id="version_20040420">Changes in Version 2004/04/20</h2>
+<h3 id="note_06-Y01">Note 06-Y01:   (Manual) Revised the intermediate file version for &quot;1 intermediate file type&quot;</h3>
+<p>The version of intermediate files that can be output under &quot;1 intermediate file type&quot; has been changed from &quot;Ver 1.1.0&quot; to &quot;Ver 1.2.0&quot;.
+</p>
+<h2 id="version_20040412">Changes in Version 2004/04/12</h2>
+<h3 id="note_05-Y01">Note 05-Y01:   Changed specifications so that intermediate files are output from NITRO Export on the NINTENDO NITRO-System menu</h3>
+<p>Specifications have been changed so that intermediate files are output from NITRO Export on the NINTENDO NITRO-System menu.
+</p>
+<h3 id="note_05-Y02">Note 05-Y02:   Added a feature for transferring data to the 3D material editor</h3>
+<p>A feature for transferring data to a 3D material editor has been added to the intermediate file export plug-in.
+</p>
+<h3 id="note_05-Y03">Note 05-Y03:  Added a feature for saving option settings used by the intermediate file export plug-in in scenes</h3>
+<p>A feature for saving option settings used by the intermediate file export plug-in in scenes has been added.
+</p>
+<h3 id="note_05-Y04">Note 05-Y04:   Fixed bug where the wrong value for polygon_mode in IMD files was output</h3>
+<p>Changed &quot;toon_hilight&quot; used for the polygon_mode for &lt;material&gt; inside IMD files &quot;toon_highlight&quot;.
+</p>
+<h2 id="version_20040325">Changes in Version 2004/03/25</h2>
+<h3 id="note_04-Y01">Note 04-Y01:   Revised such that polygons with a vertex color are not combined with polygons without a vertex color</h3>
+<p>Revised such that polygons with a vertex color are not combined with polygons without a vertex color when the Compress Node is Unite and Combine Polygon or when Compress Material is Compress.
+</p>
+<h3 id="note_04-Y02">Note 04-Y02:   Fixed bug where Merge Useless Node process was not same as algorithm given in manual</h3>
+<p>A bug where the Merge Useless Node process was not the same as the algorithm given in the manual has been fixed. In previous versions, if the root node of the exported IMD file was &quot;world_root&quot;, it would sometimes change to another node. Because the total number of nodes and hierarchical structure does not change, there is no need to re-output ICA files and IVA files.
+</p>
+<h3 id="note_04-Y03">Note 04-Y03:  Fixed bug where &lt;box text&gt; pos_scale was sometimes larger than necessary</h3>
+<p>A bug where the &lt;box text&gt; pos_scale was sometimes larger than necessary has been fixed.
+</p>
+<h2 id="version_20040301">Changes in Version 2004/03/01</h2>
+<h3 id="note_03-Y01">Note 03-Y01:   Added Use Primitive Strip to the Imd Options export option</h3>
+<p>Use Primitive Strip has been added to the Imd Options export options.
+</p>
+<h3 id="note_03-Y02">Note 03-Y02:   Updated for A3I5 translucent textures</h3>
+<p>Updated for A3I5 translucent textures.
+</p>
+<h3 id="note_03-Y03">Note 03-Y03:  Revised such that texels with alpha value equal to or greater than 128 in texture file are treated as opaque</h3>
+<p>Revised such that, except for translucent textures, texels with an alpha value equal to or greater than 128 in the texture file are treated as opaque.
+</p>
+<h3 id="note_03-Y04">Note 03-Y04:   Revised restrictions on names when using NITRO-System library</h3>
+<p>In the plug-in manual, names (node names, material names, texture names, and palette names) when using the NINTENDO NITRO-System library used to be limited to a maximum of 15 characters, but this has been changed to a maximum of 16 characters.
+</p>
+<h3 id="note_03-Y05">Note 03-Y05:   (Manual) Added section 2.12.5 Polygon Shapes Output to the IMD File</h3>
+<p>The section 2.12.5 Polygon Shapes Output to the IMD File has been added.
+</p>
+<h3 id="note_03-Y06">Note 03-Y06:   (Manual) Revised the code in section 5.3 The Maya Texture Matrix</h3>
+<p>The code given in 5.3 The Maya Texture Matrix has been revised (m[15] only).
+</p>
+<h3 id="note_03-Y07">Note 03-Y07:   Revised such that TGA files with an alpha given in color index format are processed correctly</h3>
+<p>Revised such that TGA files with an alpha given in color index format are processed correctly.
+</p>
+<h3 id="note_03-Y08">Note 03-Y08:   Fixed bug where volume_min, volume_max, and volume_r in IMD files were not output correctly</h3>
+<p>Although values where volume_min, volume_max, and volume_r given for &lt;node&gt; in IMD files were multiplied by 2 to the power of pos_scale, an unmultiplied value is now used.
+</p>
+<h2 id="version_20040212">Changes in Version 2004/02/12</h2>
+<h3 id="note_02-Y01">Note 02-Y01:   Changed such that all quadrilateral polygons in Maya are output as quadrilaterals</h3>
+<p>Quadrilateral polygons and convex quadrilateral polygons where all vertices are not in the same plane are no longer cut into triangular strips. Now quadrilateral polygons in Maya are all output as quadrilaterals. If hardware cannot display them properly, perform the appropriate triangle partitioning in Maya.
+</p>
+<h3 id="note_02-Y02">Note 02-Y02:   Added support for changing the number of surfaces after skinning</h3>
+<p>Support for changing the number of surfaces after skinning has been added. Operations such as triangle partitioning after skinning is now possible. However, just as in the past, the number of vertices cannot be changed.
+</p>
+<h3 id="note_02-Y03">Note 02-Y03:  Changed processing when the number of colors in a 4x4 texel compressed texture palette exceeds 32768</h3>
+<p>Revised such that image quality is lowered and palettes are compressed to 32768 colors or less when the number of colors of a palette for a 4x4 texel compressed texture exceeds 32768.
+</p>
+<h2 id="version_20040202">Changes in Version 2004/02/02</h2>
+<h3 id="note_01-Y01">Note 01-Y01:   Changed the effective number of lines for the Magnify and Tolerance export options (except Color)</h3>
+<p>The effective number of lines for the Magnify and Tolerance export options (except Color) has been changed up to the 10,000th-place digit.
+</p>
+<h3 id="note_01-Y02">Note 01-Y02:   Fixed bug where Maya would crash depending on animation export conditions</h3>
+<p>A bug where Maya would crash when a texture SRT animation was set and another animation file was exported without outputting ITA has been fixed.
+</p>
+
+
+<br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br>
+
+<hr><p>CONFIDENTIAL</p></body>
+</html>

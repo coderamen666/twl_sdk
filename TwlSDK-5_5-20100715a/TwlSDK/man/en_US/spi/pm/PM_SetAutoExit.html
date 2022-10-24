@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>PM_SetAutoExit</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">PM_SetAutoExit <IMG src="../../image/TWL.gif" width="24" height="12" border="0" align="middle"></H1>
+<H2>Syntax</H2>
+<DL>
+  <DD>
+  <PRE><CODE>#include &lt;twl/spi.h&gt;</CODE></PRE>
+  <PRE><CODE>void PM_SetAutoExit( BOOL sw );
+</CODE></PRE>
+</DL>
+<H2>Arguments</H2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="13%"><EM><STRONG>sw</STRONG></EM></TD>
+<TD width="87%">Whether to exit automatically.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>Return Values</H2>
+<P>None.</P>
+<H2>Description</H2>
+<P>Configures whether to proceed automatically to hardware reset or power-off after exit processing has finished.</P>
+<P>The TWL console transitions to exit processing when the Power Button is pressed (depending on how long the button is held down, this leads to either hardware reset or power-off) or when a drop in the remaining battery life has been detected (this leads to power-off). When the Power Button is pressed or when the battery level becomes low, this event triggers an interrupt from the microprocessor to the ARM7, and notification is sent to the ARM9. The ARM9 then calls the exit callbacks and notifies the ARM7 when exit preparations are finished. The ARM7 then resets the hardware or turn the power OFF.</P>
+<P>Transmission from the ARM7 to the ARM9 is executed only once. In other words, even if the Power Button is pressed again before a message can be sent to the ARM7 indicating that the ARM9 has finished preparation for shutdown, that notification is not sent from the ARM7. As such, the shutdown callback process is not executed again regardless of the time at which the Power Button is pressed.</P>
+<P>The <CODE>PM_SetAutoExit</CODE> function specifies whether the <I>system</I> or the <I>application</I> informs the ARM7 that preparations to exit are complete after the ARM9 has invoked the exit callbacks. The value of the <SPAN class="argument">sw</SPAN> argument results in the following.
+</P>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+<TH>Value of the <SPAN class="argument">sw</SPAN> Argument</TH>
+<TH>Operation</TH>
+    </TR>
+    <TR>
+<TD><CODE>TRUE</CODE></TD>
+<TD>After the callbacks have been invoked, the system will continue exit processing and either reset the hardware or turn the power OFF. (default)</TD>
+    </TR>
+    <TR>
+<TD><CODE>FALSE</CODE></TD>
+<TD>After the callbacks have been invoked, the ARM7 will not be notified that exit preparations are complete. This must be done by the application.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P><BR> When <CODE>PM_SetAutoExit( FALSE )</CODE> is run, the application must explicitly notify the ARM7 that exit preparations are complete. Call the <A href="PM_ReadyToExit.html"><CODE>PM_ReadyToExit</CODE></A> function as quickly as possible. If the user continuously presses the Power Button, the system is forcibly powered OFF in several seconds as part of hardware specifications. There is also no notification if the shutdown process is entered due to low battery charge.</P>
+<P><A href="PM_GetAutoExit.html"><CODE>PM_GetAutoExit</CODE></A> is the function used to get the auto exit setting value.</P>
+
+
+<H2>See Also</H2>
+<P><A href="PM_GetAutoExit.html"><CODE>PM_GetAutoExit</CODE></A><BR> <A href="PM_ReadyToExit.html"><CODE>PM_ReadyToExit</CODE></A></P>
+<H2>Revision History</H2>
+<P>2009/06/03 Removed a description of the <CODE>PM_Init</CODE> function (because <CODE>OS_Init</CODE> is now required). <BR>2008/12/11 Noted that the shutdown callback is not invoked twice. <BR>2008/02/07 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

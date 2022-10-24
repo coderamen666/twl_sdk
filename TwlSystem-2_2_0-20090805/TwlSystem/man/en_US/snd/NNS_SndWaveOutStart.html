@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"><html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>NNS_SndWaveOutStart</title>
+<link rel="stylesheet" href="../css/nitro.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.65.1">
+</head>
+<body>
+<div class="refentry" lang="ja"><a name="IDAKKWT"></a><div class="titlepage">
+<div></div>
+<div></div>
+</div>
+<h1>NNS_SndWaveOutStart</h1>
+<h2>Syntax</h2>
+<dl>
+<dd><pre class="funcsynopsisinfo"><code>#include &lt;nnsys/snd.h&gt;</code></pre></dd>
+<dd><pre class="funcprototype"><code class="funcprototype">BOOL NNS_SndWaveOutStart(
+        NNSSndWaveOutHandle <var>handle</var>,
+        NNSSndWaveFormat <var>format</var>,
+        const void* <var>dataaddr</var>,
+        BOOL <var>loopFlag</var>,
+        int <var>loopStartSample</var>,
+        int <var>samples</var>,
+        int <var>sampleRate</var>,
+        int <var>volume</var>,
+        int <var>speed</var>,
+        int <var>pan</var> );</code><br></pre></dd>
+</dl>
+<div class="refsection" lang="ja"><a name="IDA0MWT"></a>
+<h2>Arguments</h2>
+      
+      <div class="variablelist">
+<table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><code>handle</code></td>
+<td>Waveform playback handle.</td>
+</tr>
+<tr>
+<td><code>format</code></td>
+<td>Waveform data format.</td>
+</tr>
+<tr>
+<td><code>dataaddr</code></td>
+<td>The starting address of the waveform data.</td>
+</tr>
+<tr>
+<td><code>loopFlag</code></td>
+<td>The loop flag.</td>
+</tr>
+<tr>
+<td><code>loopStartSample</code></td>
+<td>Position of the loop start sample.</td>
+</tr>
+<tr>
+<td><code>samples</code></td>
+<td>Number of samples of the waveform data.</td>
+</tr>
+<tr>
+<td><code>sampleRate</code></td>
+<td>Sampling rate of the waveform data. It is expressed in MHz.</td>
+</tr>
+<tr>
+<td><code>volume</code></td>
+<td>The volume. Takes a value between 0 and 127.</td>
+</tr>
+<tr>
+<td><code>speed</code></td>
+<td>Playback speed.</td>
+</tr>
+<tr>
+<td><code>pan</code></td>
+<td>Pan position. Takes values in the range of 0 (left) to 64 (center) to 127 (right).</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+    </div>
+<div class="refsection" lang="ja"><a name="IDAIPWT"></a>
+<h2>Return Values</h2>
+
+<p>Returns whether the playback was successful.</p>
+    </div>
+<div class="refsection" lang="ja"><a name="IDAPPWT"></a>
+<h2>Description</h2>
+      <p>
+Plays back the waveform data.</p>
+      <p>
+For the waveform playback handle <code>handle</code>, use the return value obtained with the <a href="NNS_SndWaveOutAllocChannel.html"><CODE>NNS_SndWaveOutAllocChannel</CODE></a> function.
+</p>
+      <p>
+Specify the waveform data format <code>format</code> with the values shown below.
+</p>
+<div class="table"><a name="IDAHQWT"></a><p class="title"><b>Table: NNSSndWaveFormat</b></p>
+<table summary="NNSSndWaveFormat" border="1">
+<colgroup><col><col></colgroup>
+<thead>
+<tr>
+<th>Label</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><CODE>NNS_SND_WAVE_FORMAT_PCM8</CODE></td>
+<td>8-bit PCM.</td>
+</tr>
+<tr>
+<td><CODE>NNS_SND_WAVE_FORMAT_PCM16</CODE></td>
+<td>16-bit PCM</td>
+</tr>
+<tr>
+<td><CODE>NNS_SND_WAVE_FORMAT_ADPCM</CODE></td>
+<td>IMA-ADPCM</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+      <p>
+The waveform data starting address <code>dataaddr</code> must be 4-byte aligned.
+</p>
+      <p>
+The loop flag <code>loopFlag</code> indicates whether to perform loop playback. When <code>TRUE</code> is specified, playback restarts from the location of <code>loopStartSample</code> after the last sample is played. The <code>loopStartSample</code> loop starting sample must be a multiple of 4 for 8-bit PCM, a multiple of 2 for 16-bit PCM, and a multiple of 8 for IMA-ADPCM.
+</p>
+      <p>
+The <code>samples</code> number of samples must be a multiple of 4 for 8-bit PCM, a multiple of 2 for 16-bit PCM, and a multiple of 8 for IMA-ADPCM.
+</p>
+      <p>
+The playback speed <code>speed</code> specifies the speed used for playback. The waveform is played at a rate of <code>speed</code> &divide; 32768. The faster playback speed makes the playback time shorter, and the pitch of the played sound becomes higher.
+</p>
+      
+    </div>
+<h2>See Also</h2>
+<p><a href="NNS_SndWaveOutAllocChannel.html"><CODE>NNS_SndWaveOutAllocChannel</CODE></a></p>
+<h2>Revision History</h2>
+<p>2009/02/02 Support for IMA-ADPCM.<br> 2004/07/01 Initial version.</p>
+</div>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

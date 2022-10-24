@@ -1,0 +1,33 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 8.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>MB_FakeEndScan</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+<body>
+<h1 align="left">MB_FakeEndScan <IMG src="../../image/NTR.gif" width="24" height="12" border="0" align=middle><IMG src="../../image/TWL.gif" width="24" height="12" border="0" align=middle></h1>
+<h2>Syntax</h2>
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/mb/mb_fake_child.h&gt;</CODE><BR>
+  <BR>
+  <CODE>void MB_FakeEndScan( void );</CODE><br>
+  </dd>
+</dl>
+<h2>Arguments</h2>
+<P>None.</P>
+<h2>Return Values</h2>
+<p>None.</p>
+<H2>Description</H2>
+<P>This function ends scanning for a multiboot parent. After this function is called and scanning is complete, an <code>MB_FAKESCAN_END_SCAN</code> notification is sent to the callback function specified by the <CODE><A href="MB_FakeStartScanParent.html">MB_FakeStartScanParent</A></CODE> function. This function must be called to end scanning before the <CODE><A href="MB_FakeEntryToParent.html">MB_FakeEntryToParent</A></CODE> function can return data to the parent.
+</p>
+<h2>See Also</h2>
+<p><code><a href="MB_FakeStartScanParent.html">MB_FakeStartScanParent</a><BR> <a href="MB_FakeEntryToParent.html">MB_FakeEntryToParent</a></code></P>
+<H2>Revision History</H2>
+<P>2004/11/25 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META http-equiv="Content-Style-Type" content="text/css">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<BASE target="main">
+<TITLE>Description of Header Files (TWL-SDK)</TITLE>
+<LINK rel="stylesheet" href="../css/apilist.css">
+</HEAD>
+<BODY>
+<H1>Description of Header Files (TWL-SDK)</H1>
+<H3><A name="System">TWL-SDK System Header</A></H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TH width="25%">twl.h</TH>
+<TD>The definition file for the TWL-SDK standard library.</TD>
+    </TR>
+    <TR>
+<TH width="25%">twl_win32.h</TH>
+<TD>Contains the definitions that are needed when creating tools on a Windows PC, such as the variable types defined for the TWL-SDK.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>Include these header files in modules that use TWL-SDK.</P>
+<H3><A name="Sinit">Module Initialization Function</A></H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TH><code>nitro/sinit.h</code></TH>
+<TD>This header file enables use of the module initialization function <CODE><A href="../os/init/NitroStaticInit.html">NitroStaticInit</A></CODE>.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>Enables the use of the C language static initializer <CODE><A href="../os/init/NitroStaticInit.html">NitroStaticInit()</A></CODE>.</P>
+<P>Place this header file in an include statement only in the module that defines <CODE><A href="../os/init/NitroStaticInit.html">NitroStaticInit()</A></CODE>. The static initializer of the overlay module starts when the overlay is linked. With this mechanism, you can prepare an entry for a pointer to a function so that the corresponding function gets registered in <CODE><A href="../os/init/NitroStaticInit.html">NitroStaticInit()</A></CODE> when the overlay module is linked.</P>
+<H3><A name="Arch">Switching Between ARM &amp; THUMB Instruction Sets</A></H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TH width="25%">twl/code32.h</TH>
+<TD>All subsequent code is output as ARM instructions (32-bit code).</TD>
+    </TR>
+    <TR>
+<TH width="25%">twl/code16.h</TH>
+<TD>All subsequent code is output as THUMB instructions (16-bit code).</TD>
+    </TR>
+    <TR>
+<TH width="25%">twl/codereset.h</TH>
+<TD>At compile time, all subsequent code is outputted as an instruction set, according to the specified options.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>The ARM9 and ARM7 CPUs of the TWL can use two kinds of instruction sets: ARM and THUMB instructions. You can switch between these two instruction sets using jump instructions. In C, switching between jump instructions is performed with function calls. Therefore, the instruction set is normally selected by a function.</P>
+<P>Use <CODE>code32.h</CODE> or <CODE>code16.h</CODE> by combining with <CODE>codereset.h</CODE>. With <CODE>code32.h</CODE> and <CODE>codereset.h</CODE>, enclose the function for the instruction set you want to fix with the ARM. With <CODE>code16.h</CODE> and <CODE>codereset.h</CODE>, enclose the function you want to fix with the THUMB. When you are using assembly, always enclose the function with <CODE>code32.h</CODE> or <CODE>code16.h</CODE>, depending on the instruction set.</P>
+<BLOCKQUOTE>
+<PRE>#include &lt;twl/code32.h&gt;     // This outputs the following arm_inst() using the ARM instruction set
+int arm_inst(int n)<BR>{<BR>    // 32-bit code area
+    return n * n;
+}<BR>#include &lt;twl/codereset.h&gt;  // The instruction set is restored (as per the compiler options)</PRE>
+</BLOCKQUOTE>
+<H3><A name="TCM_Section">Using TCM</A> (TCM section specification)</H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TH width="25%">twl/dtcm_begin.h<BR> twl/dtcm_end.h</TH>
+<TD>The code in between is output to the <CODE>*.dtcm</CODE> section. According to the SDK standard setting, the <CODE>*.dtcm</CODE> section is placed in ARM9 DTCM (data TCM).</TD>
+    </TR>
+    <TR>
+<TH width="25%">twl/itcm_begin.h<BR> twl/itcm_end.h</TH>
+<TD>The code in between is output to the <CODE>*.itcm</CODE> section. According to the SDK standard setting, the  <CODE>*.itcm</CODE> section is placed in ARM9 ITCM (instruction TCM).</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>The TWL ARM9 processor has a scratchpad region in CPU (a high-speed buffer region that is fixed in the memory map) called TCM. The region can be accessed as fast as cache in the CPU; so by making better use of this region you can limit the slow-down in processing speed that might otherwise occur because of a cache miss.</P>
+<P>When defining the functions you want to place in the TCM region, enclose them with twl/itcm_begin.h and twl/itcm_end.h as shown below. Function regions that are enclosed this way are transferred to the instruction TCM (ITCM) region at startup.</P>
+<BLOCKQUOTE>
+<PRE>#include &lt;twl/itcm_begin.h&gt;  //  Place the following tcm_inst() in ITCM
+int tcm_inst(int n)
+{
+    // 32-bit code area
+    return n * n;
+}
+#include &lt;twl/item_end.h&gt;    // Return the placement destination to normal</PRE>
+</BLOCKQUOTE>
+<P>When you want to place a data block in the data TCM (DTCM) region, enclose it with twl/dtcm_begin.h and twl/dtcm_end.h, as shown below.</P>
+<BLOCKQUOTE>
+<PRE>#include &lt;twl/dtcm_begin.h&gt;  // Place the following tcm_data() in DTCM
+u32  tcm_data[] =
+{
+    0, 1, 2, 3, 4, 5, 6, 7, 8, 9
+}
+#include &lt;twl/dtcm_end.h&gt;    // Return the placement destination to normal</PRE>
+</BLOCKQUOTE>
+<H3><A name="OtherSection">Specifying Special Sections</A></H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TH width="25%"><CODE>nitro/parent_begin.h<BR> nitro/parent_end.h</CODE></TH>
+<TD>The code in between gets output to the <CODE>*.parent</CODE> section. This is used during a clone boot operation.</TD>
+    </TR>
+    <TR>
+<TH width="25%">twl/ltdmain_begin.h<BR> twl/ltdmain_end.h</TH>
+<TD>The code in between is output to the <CODE>.ltdmain</CODE> section. This is used with HYBRID applications.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><CODE>nitro/version_begin.h<BR> nitro/version_end.h</CODE></TH>
+<TD>The code in between gets output to the <CODE>*.version</CODE> section. Do not use this section; it is reserved in the TWL-SDK library.</TD>
+    </TR>
+    <TR>
+<TH width="25%">twl/wram_begin.h<BR> twl/wram_end.h</TH>
+<TD>The code in between is output to the <CODE>*.wram</CODE> section. This is enabled only in the ARM7.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>
+There are also other special sections besides the TCM sections.
+</P>
+<P>
+The <CODE>*.parent</CODE> section is essential for clone boot--one form of DS Download Play. 
+</P>
+<P>
+The <CODE>.ltdmain</CODE> section is used with HYBRID applications. This section is only loaded when an application runs on TWL, not when an application is run on a Nintendo DS.
+</P>
+<P>The <CODE>*.version</CODE> section and the <CODE>*.wram</CODE> section are used in the TWL-SDK implementation internally, so there is no need to be aware of them when using the SDK.
+</P>
+<H3><A name="Version">TWL-SDK Version Information</A></H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TH>twl/version.h</TH>
+<TD>This library contains TWL-SDK version information.<br>Defines the macro <CODE><A href="version/SDK_VERSION_NUMBER.html">SDK_VERSION_NUMBER</A></CODE> and the constant <CODE><A href="version/SDK_CURRENT_VERSION_NUMBER.html">SDK_CURRENT_VERSION_NUMBER</A></CODE>.
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>This defines the TWL-SDK version information.</P>
+<TABLE border="0" height="100%">
+  <TBODY>
+    <TR>
+      <TD style="background-color : white;"></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>PM_GetBattery</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">PM_GetBattery <IMG src="../../image/NTR.gif" width="24" height="12" border="0" align="middle"><IMG src="../../image/TWL.gif" width="24" height="12" border="0" align="middle"></H1>
+<H2>Syntax</H2>
+<DL>
+  <DD>
+  <PRE><CODE>#include &lt;nitro/spi.h&gt;</CODE></PRE>
+  <PRE><CODE>u32 PM_GetBattery( PMBattery* batteryBuf );
+</CODE></PRE>
+</DL>
+<H2>Arguments</H2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="13%"><EM><STRONG>batteryBuf</STRONG></EM></TD>
+<TD width="87%">Buffer storing the remaining battery life for the battery pack.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>Return Values</H2>
+<P>If <CODE>PM_RESULT_SUCCESS</CODE>, the command ran successfully.</P>
+<P>If <CODE>PM_RESULT_BUSY</CODE>, the SPI was occupied by other processing and unable to process this function.</P>
+<P>Information on the remaining battery life are placed in <SPAN class="argument">batteryBuf</SPAN> when the command is run successfully. A value of <CODE>PM_BATTERY_HIGH</CODE> indicates that there is a certain amount of remaining battery life, and <CODE>PM_BATTERY_LOW</CODE> indicates that the remaining battery life is low.</P>
+<H2>Description</H2>
+<P>Checks the remaining battery capacity of the battery pack.</P>
+<P>The <SPAN class="argument">batteryBuf</SPAN> argument is a pointer to the <code>PMBattery</code> type, and the results are stored here.</P>
+<P>If this function is called from the ARM9, a command is sent to the ARM7 using PXI. Upon receiving this command, the ARM7 checks the remaining battery life and returns it to the ARM9.</P>
+<P>On NITRO, the ARM7 gets information on the remaining battery life from the PMIC. It returns a result that indicates one of two levels: either the voltage detected by the VDET terminal is greater than the threshold, or it is lower.</P>
+<P>On TWL, the ARM7 gets information on the remaining battery life from the microprocessor. Specifically, the ARM7 gets a value equivalent to that of the <A href="PM_GetBatteryLevel.html"><CODE>PM_GetBatteryLevel</CODE></A> function and returns a two-level result based on whether the result is between 0 to 1 or 2 to 5.<BR> <BR>
+</P>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+<TH>Value Stored in <SPAN class="argument">batteryBuf</SPAN></TH>
+<TH>Description</TH>
+<TH>How to Get Data When Using NITRO Hardware<BR>LED Status</TH>
+<TH>How to Get Data When Using TWL Hardware<BR>LED Status</TH>
+    </TR>
+    <TR>
+<TD><CODE>PM_BATTERY_HIGH</CODE></TD>
+<TD>There is remaining battery capacity.</TD>
+<TD>VDET terminal's detection voltage is greater than or equal to threshold.<BR><FONT color="#33cc00">&#x25A0;</FONT> Steady green light.</TD>
+<TD>The <CODE><A href="PM_GetBatteryLevel.html">PM_GetBatteryLevel</A></CODE> function returns a value in the range of 2-5.<BR> <FONT color="#0099ff">&#x25A0;</FONT> Steady blue or <FONT color="#ff0000">&#x25A0;</FONT> red light.</TD>
+    </TR>
+    <TR>
+<TD><CODE>PM_BATTERY_LOW<BR></CODE></TD>
+<TD>The remaining battery capacity is low.</TD>
+<TD>VDET terminal's detection voltage is greater than or equal to threshold.<BR><FONT color="#ff0000">&#x25A0;</FONT> Steady red light.</TD>
+<TD>The <CODE><A href="PM_GetBatteryLevel.html">PM_GetBatteryLevel</A></CODE> function returns a value in the range of 0-1<BR><FONT color="#ff0000">&#x25A0;</FONT><FONT color="#330000">&#x25A0;</FONT> Blinking red light.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>The color and steady/blinking status of the LED cannot be controlled by applications.</P>
+<P>When the remaining battery life is close to the threshold, the color of the power indicator LED may change temporarily when entering sleep mode. For example, when running on NITRO hardware, the LED may temporarily return to green when entering sleep mode with the LED lit red.</P>
+
+<P><FONT color="#ff0000">This function can be used from an interrupt handler. This function cannot be used in interrupt-prohibited states other than interrupt handlers.</FONT></P>
+<P><BR> <BR> <B>About <CODE>PM_RESULT_BUSY</CODE></B></P>
+<P>The SPI is used for various other processes besides power management. If you call this function while another process is using it, this function sends a command to the ARM7. There, the SPI is determined to be BUSY, and <CODE>PM_RESULT_BUSY</CODE> is notified to the ARM9 without actually processing this function. Likewise, if you call this function while another PM process is running, that fact is determined on the ARM9 side, and this function returns <CODE>PM_RESULT_BUSY</CODE>. (In this case, the determination is made before notification is sent to the ARM7.)</P>
+<P>Accordingly, if you want to ensure that this function succeeds, make it loop until it succeeds as shown below. (This example does not take into account mistakes such as wrong arguments.)</P>
+<BLOCKQUOTE style="background-color:#ffffcc"><B>Example</B><BR> <CODE>while( PM_GetBattery( ... ) != PM_RESULT_SUCCESS )<BR> {<BR> }</CODE></BLOCKQUOTE>
+<H2>Internal Operation</H2>
+<P>On NITRO:<BR>Reads value of the PMIC register <CODE>PMIC_STAT</CODE>.<BR>This function detects whether the voltage of the PMIC VDET terminal is above or below the threshold.</P>
+<P>On TWL:<BR>Returns a two-level result based on the remaining battery life obtained by the microprocessor.</P>
+<H2>See Also</H2>
+<P><A href="PM_Init.html"><CODE>PM_Init</CODE></A><BR> <A href="PM_GetBatteryLevel.html"><CODE>PM_GetBatteryLevel</CODE></A></P>
+<H2>Revision History</H2>
+<P>2009/06/03 Removed a description of the <CODE>PM_Init</CODE> function (because <CODE>OS_Init</CODE> is now required). <BR>2008/08/23 Discontinued use of <CODE>PM_RESULT_ERROR</CODE> and referred to <CODE>PM_RESULT_BUSY</CODE>. <BR>2008/06/12 Explained how to get values on a TWL system. <BR>2005/07/07 Mentioned the <CODE>PM_RESULT_ERROR</CODE> return value. <BR>2004/08/09 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

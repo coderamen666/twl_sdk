@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>OS_TryLockMutex[R|W]</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">OS_TryLockMutex[R|W] <IMG src="../../image/NTR.gif" align="middle"><IMG src="../../image/TWL.gif" align="middle"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/os.h&gt;</CODE><BR> <BR> <CODE>BOOL OS_TryLockMutexR( OSMutex* mutex );</CODE><BR> <BR> <CODE>BOOL OS_TryLockMutexW( OSMutex* mutex );</CODE></dd>
+</dl>
+
+<h2>Arguments</h2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+      <TD width="13%"><CODE>mutex</CODE></TD>
+      <TD width="87%">Pointer to the <CODE>OSMutex</CODE> structure</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<h2>Return Values</h2>
+<p>Returns TRUE when <CODE>mutex</CODE> is locked. Otherwise returns FALSE.</p>
+
+<H2>Description</H2>
+<P>The calling thread attempts to lock <CODE>mutex</CODE>.</P>
+<P><CODE>mutex</CODE> is the pointer to the <CODE>OSMutex</CODE> structure to be changed.</P>
+<P>The <CODE>OS_TryLockMutexR</CODE> function tries to <CODE>read lock</CODE> the mutex. The <CODE>OS_TryLockMutexW</CODE> function tries to <CODE>write lock</CODE> the mutex. To read how these two functions differ, see the <CODE><A href="OS_LockMutexRW.html">OS_LockMutexR/OS_LockMutexW</A></CODE> functions.</P>
+<P>If the mutex cannot be locked, the function returns <code>FALSE</code>. If the mutex can be locked, the <CODE>OS_TryLockMutexR</CODE> function conforms to the process of the <A href="OS_LockMutexRW.html"><CODE>OS_LockMutexR</CODE></A> function, and the <CODE>OS_TryLockMutexW</CODE> function conforms to the process of the <CODE><A href="OS_LockMutexRW.html">OS_LockMutexW</A></CODE> function.</P>
+
+<h2>See Also</h2>
+<p><CODE><A href="OS_InitMutex.html">OS_InitMutex</A><BR> <A href="OS_LockMutex.html">OS_LockMutex</A><BR> <A href="OS_UnlockMutex.html">OS_UnlockMutex</A><BR> <A href="OS_LockMutexRW.html">OS_LockMutexR</A><BR> <A href="OS_LockMutexRW.html">OS_LockMutexW</A><BR> <A href="OS_UnlockMutexRW.html">OS_UnlocMutexR</A><BR> <A href="OS_UnlockMutexRW.html">OS_UnlocMutexW</A><BR> <A href="OS_LockMutexFromToRW.html">OS_LockMutexFromRToW</A><BR> <A href="OS_LockMutexFromToRW.html">OS_LockMutexFromWToR</A><BR> <A href="OS_TryLockMutexFromToRW.html">OS_TryLockMutexFromRToW</A><BR> <A href="OS_TryLockMutexFromToRW.html">OS_TryLockMutexFromWToR</A></CODE></p>
+
+<H2>Revision History</H2>
+<P>2008/12/16 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

@@ -1,0 +1,46 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title>TCL_PrintPicturePath</title>
+<link rel="stylesheet" href="../css/nitro.css" type="text/css">
+</head>
+<body>
+<h1 align="left">TCL_PrintPicturePath <img src="../image/TWL.gif" align="middle"></h1>
+
+<h2>Definition</h2>
+<dl>
+	<dd>
+	<code>#include &lt;twl/tcl.h&gt;</code><br/> <br/>
+	<pre><code>
+int TCL_PrintPicturePath( char* path ,
+                          size_t len ,
+                          const TCLPictureInfo* pPicInfo );
+	</code></pre>
+</dl>
+
+<h2>Arguments</h2>
+<p>
+<table>
+<tr><td><code>path</code><td>Buffer that stores the path 
+<tr><td><code>len</code><td>Path length
+<tr><td><code>pPicInfo</code><td><a href="TCLPictureInfo.html">Photo information</a>
+</table>
+</p>
+
+<h2>Return Values</h2>
+<p>If the path is obtained, the value of the <code>STD_TSNPrintf</code> function, which contains the string length, is returned.</p>
+
+<h2>Description</h2>
+<p>Gets the path from photo information retrieved by a search function.</p>
+
+<h2>See Also</h2>
+<p><code><a href="TCL_SearchNextPictureInfo.html">TCL_SearchNextPictureInfo</a><BR> <a href="TCL_SearchPictureInfoByIndex.html">TCL_SearchPictureInfoByIndex</a></code></p>
+
+<h2>Revision History</h2>
+<p>
+2008/10/07 Initial version.
+</p>
+
+<hr><p>CONFIDENTIAL</p></body>
+</html>

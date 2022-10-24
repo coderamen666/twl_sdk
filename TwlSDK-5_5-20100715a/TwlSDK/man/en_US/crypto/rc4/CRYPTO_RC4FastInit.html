@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>CRYPTO_RC4FastInit</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">CRYPTO_RC4FastInit <IMG src="../../image/NTR.gif" width="23" height="12" border="0" align="middle"><IMG src="../../image/TWL.gif" width="23" height="12" border="0" align="middle"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+  <pre><CODE>#include &lt;nitro/crypto.h&gt;
+
+void CRYPTO_RC4FastInit(<a href="CRYPTORC4FastContext.html">CRYPTORC4FastContext</a>* context, const void* key, u32 key_len);
+</CODE></pre>
+</dd>
+</dl>
+
+<h2>Arguments</h2>
+<TABLE border="1" width="100%" class="arguments">
+  <TBODY>
+    <TR>
+<TH>context</TH>
+<TD>Specifies the context structure where the RC4 key information and so on is kept.</TD>
+    </TR>
+    <TR>
+<TH>key</TH>
+<TD>Pointer to the byte sequence for the encryption/decryption key used with the RC4 algorithm.</TD>
+    </TR>
+    <TR>
+<TH>key_len</TH>
+<TD>Length of the key specified by <SPAN class="argument">key</SPAN>. The length of the key must be 16 bytes or less; longer lengths are truncated to 16 bytes.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<h2>Return Values</h2>
+<p>
+None.
+</p>
+
+<H2>Description</H2>
+<p>
+Initializes the RC4 algorithm encryption structures and sets the encryption/decryption key.
+</p>
+<p>
+This function is called internally when performing operations with <a href="CRYPTO_RC4Fast.html"><CODE>CRYPTO_RC4Fast</CODE></a>, so it does not need to be called.
+</p>
+<P>
+The <CODE>CRYPTO_RC4*</CODE> and <CODE>CRYPTO_RC4Fast*</CODE> functions are the same except that the <CODE>CRYPTO_RC4Fast*</CODE> functions are faster and require more stack memory. The <CODE>CRYPTORC4Context</CODE> structure used by the <CODE>CRYPTO_RC4*</CODE> functions is 260 bytes, and the <CODE>CRYPTORC4FastContext</CODE> structure used by the <code>CRYPTO_RC4Fast*</code> functions is 1032 bytes.<br>With regard to speed, <a href="CRYPTO_RC4FastEncrypt.html"><CODE>CRYPTO_RC4FastEncrypt</CODE></a> processes data at approximately 1.5 times the normal processing speed when the data is sufficiently large in size.
+</P>
+
+<h2>See Also</h2>
+<p><A href="CRYPTO_RC4FastEncrypt.html"><CODE>CRYPTO_RC4FastEncrypt</CODE></A><BR> <A href="CRYPTO_RC4Fast.html"><CODE>CRYPTO_RC4Fast</CODE></A><BR> <A href="CRYPTO_RC4Init.html"><CODE>CRYPTO_RC4Init</CODE></A></p>
+
+<H2>Revision History</H2>
+<P>
+2008/02/25 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

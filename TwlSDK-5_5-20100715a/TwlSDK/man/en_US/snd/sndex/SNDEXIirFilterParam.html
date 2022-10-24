@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+	<HEAD>
+		<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+		<title>SNDEXIirFilterParam</title>
+		<link rel="stylesheet" href="../../css/nitro.css" type="text/css">
+	</HEAD>
+	<BODY>
+		<H1>SNDEXIirFilterParam <IMG src="../../image/TWL.gif" width="24" height="12" border="0" align=middle></H1>
+
+		<H2>Definition</H2>
+		<DL>
+			<DD><CODE>#include &lt;twl/snd.h&gt;</CODE></DD>
+			<DD><PRE><CODE>typedef struct _SNDEXIirFilterParam
+{
+    u16 n0;
+    u16 n1;
+    u16 n2;
+    u16 d1;
+    u16 d2;
+} SNDEXIirFilterParam;</CODE></PRE></DD>
+		</DL>
+
+		<H2>Elements</H2>
+		<TABLE>
+			<TBODY>
+				<TR>
+					<TH width="25%">n0, n1, n2, d1, d2</TH>
+					<TD width="75%">Coefficients that compose an IIR filter (0 &ndash; 65,535).</TD>
+				</TR>
+			</TBODY>
+		</TABLE>
+
+		<H2>Description</H2>
+		<P>
+			A structure that is a collection of parameters used to set IIR filters.
+        </P>
+        <P>
+            You can use the parameters (<B>Hex</B>-type values) calculated with the <A href="doc/aboutIirFilterBuilder.html">IIR_FilterBuilder</A> unchanged.
+            (However, when using <B>Values</B>-type values, you must type-cast them to <CODE>u16</CODE>.)
+        </P>
+        <P>
+			The initial values for these parameters, for each filter that can be specified by the <A href="SNDEXIirFilterTarget.html"><CODE>SNDEXIirFilterTarget</CODE></A> structure, are as follows.<PRE><CODE>n0 = 0x7FFF(32767), n1 = n2 = d1 = d2 = 0</CODE></PRE>
+		</P>
+		<P>
+			Even if you have configured parameters for the various filters, resetting them to the values above will restore the initial filter state.
+		</P>
+		<H2>See Also</H2>
+		<P>
+			<CODE>
+				<A href="SNDEX_SetIirFilter.html">SNDEX_SetIirFilter</A>, <A href="SNDEX_SetIirFilterAsync.html">SNDEX_SetIirFilterAsync</A></CODE>
+		</P>
+
+		<H2>Revision History</H2>
+		<P>
+            2008/09/10 Added a link to <A href="doc/aboutIirFilterBuilder.html">IIR_FilterBuilder</A>.<BR>
+			2008/07/08 Initial version.
+		</P>
+	<hr><p>CONFIDENTIAL</p></body>
+</HTML>

@@ -1,0 +1,37 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title>SSP_GetDateTime</title>
+<link rel="stylesheet" href="../../css/nitro.css" type="text/css" />
+</head>
+<body>
+
+<h1>SSP_GetDateTime <img src="../../image/NTR.gif" align="middle"><img src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+
+<pre><code>
+BOOL SSP_GetDateTime(void);
+</code></pre>
+
+<h2>Arguments</h2>
+<p>None.</p>
+
+
+<h2>Return Values</h2>
+<p>Returns <CODE>TRUE</CODE> if successful.<BR>Returns <CODE>FALSE</CODE> if it fails.</p>
+
+<h2>Description</h2>
+<p>Gets the current date and time.<BR>This function's only operation is to call the <a href="../../rtc/RTC_GetDateTime.html"><CODE>RTC_GetDateTime</CODE></a> function. This function is called from the <a href="SSP_SetJpegEncoderDateTimeNow.html"><CODE>SSP_SetJpegEncoderDateTimeNow</CODE></a>, <a href="SSP_StartJpegEncoder.html"><CODE>SSP_StartJpegEncoder</CODE></a>, and <a href="SSP_StartJpegEncoderWithEncodeData.html"><CODE>SSP_StartJpegEncoderWithEncodeData</CODE></a> functions. This function is compiled with weak symbols, so it can be overwritten by user-defined functions.<br>When not overwriting, you must call the <a href="../../rtc/RTC_Init.html"><CODE>RTC_Init</CODE></a> function for the <a href="../../rtc/RTC_GetDateTime.html"><CODE>RTC_GetDateTime</CODE></a> function in advance.
+</p>
+
+<h2>See Also</h2>
+<p><a href="../../rtc/RTC_GetDateTime.html"><CODE>RTC_GetDateTime</CODE></a><BR> <a href="../../rtc/RTC_Init.html"><CODE>RTC_Init</CODE></a><BR> <a href="SSP_SetJpegEncoderDateTimeNow.html"><CODE>SSP_SetJpegEncoderDateTimeNow</CODE></a><BR> <a href="SSP_StartJpegEncoder.html"><CODE>SSP_StartJpegEncoder</CODE></a><BR> <a href="SSP_StartJpegEncoderWithEncodeData.html"><CODE>SSP_StartJpegEncoderWithEncodeData</CODE></a></p>
+
+<h2>Revision History</h2>
+<p>
+2009/07/16 Added description that it is necessary to call the <a href="../../rtc/RTC_Init.html"><CODE>RTC_Init</CODE></a> function.<br> 2008/09/15 Initial version.
+</p>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

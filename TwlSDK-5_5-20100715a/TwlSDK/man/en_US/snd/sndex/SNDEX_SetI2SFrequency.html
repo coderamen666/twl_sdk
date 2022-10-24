@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+	<HEAD>
+		<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+		<title>SNDEX_SetI2SFrequency</title>
+		<link rel="stylesheet" href="../../css/nitro.css" type="text/css">
+	</HEAD>
+	<BODY>
+		<H1>SNDEX_SetI2SFrequency <IMG src="../../image/TWL.gif" width="24" height="12" border="0" align=middle></H1>
+
+		<H2>Syntax</H2>
+		<DL>
+			<DD><CODE>#include &lt;twl/snd.h&gt;</CODE></DD>
+			<DD><PRE><CODE>SNDEXResult SNDEX_SetI2SFrequency( <A href="SNDEXFrequency.html">SNDEXFrequency</A> freq );</CODE></PRE></DD>
+		</DL>
+
+		<H2>Arguments</H2>
+		<TABLE>
+			<TBODY>
+				<TR>
+					<TH width="25%"><SPAN class="argument">freq</SPAN></TH>
+					<TD width="75%">I2S operating frequency as an <A href="SNDEXFrequency.html"><CODE>SNDEXFrequency</CODE></A> enumerated type.</TD>
+				</TR>
+			</TBODY>
+		</TABLE>
+
+		<H2>Return Values</H2>
+		<TABLE>
+			<TBODY>
+				<TR>
+					<TH width="25%"><CODE>SNDEX_RESULT_SUCCESS</CODE></TH>
+					<TD width="75%">The whole series of operations completed successfully.</TD>
+				</TR>
+				<TR>
+					<TH width="25%"><CODE>SNDEX_RESULT_ILLEGAL_STATE</CODE></TH>
+					<TD width="75%">This function has been called on the NITRO platform or from an exception handler; when the codec is running in CODEC-DS mode; when forced audio output has been configured for the speaker; or when frequency-limited microphone auto-sampling is running.</TD>
+				</TR>
+				<TR>
+					<TH width="25%"><CODE>SNDEX_RESULT_INVALID_PARAM</CODE></TH>
+					<TD width="75%">The value specified for <SPAN class="argument">freq</SPAN> is not included in the <A href="SNDEXFrequency.html">standard values</A>.</TD>
+				</TR>
+				<TR>
+					<TH width="25%"><CODE>SNDEX_RESULT_BEFORE_INIT</CODE></TH>
+					<TD width="75%">Extended sound features have not been initialized by the <A href="SNDEX_Init.html"><CODE>SNDEX_Init</CODE></A> function.</TD>
+				</TR>
+				<TR>
+					<TH width="25%"><CODE>SNDEX_RESULT_EXCLUSIVE</CODE></TH>
+					<TD width="75%">Processing for other extended sound features is running. Note that mutexes are used for each of the extended sound features, so they cannot be used simultaneously. This is also returned when a mutex error occurred in the ARM7. When this is the case, the situation may improve on a retry because the error is dependent on the progress of processing in ARM7.<BR>As mentioned in the <A href="./doc/aboutSNDEX.html">SNDEX Library Overview</A>, the error also returns during processing of shutter sound playback.</TD>
+				</TR>
+				<TR>
+					<TH width="25%"><CODE>SNDEX_RESULT_PXI_SEND_ERROR</CODE></TH>
+					<TD width="75%">A PXI command failed to be sent to the ARM7. This error occurs when the PXI send queue for the ARM7 has filled up or when the hardware has detected an error. As a result, the state may improve when a retry is made.</TD>
+				</TR>
+				<TR>
+					<TH width="25%"><CODE>SNDEX_RESULT_FATAL_ERROR</CODE></TH>
+					<TD width="75%">This error should not ordinarily occur. This may occur when an illegal PXI command was sent directly, ignoring library state management; when the ARM7 component and the extended sound feature library have different versions; when library state management has fallen into an abnormal state due to memory corruption; or when other such conditions arise. There is no way to recover from this at run time.
+					</TD>
+				</TR>
+			</TBODY>
+		</TABLE>
+
+		<H2>Description</H2>
+		<P>
+			Synchronously changes the I2S operating frequency. The I2S operating frequency is set to <CODE>SNDEX_FREQUENCY_32730</CODE> by default.
+		</P>
+		<P>
+			This function calls the <A href="SNDEX_SetI2SFrequencyAsync.html"><CODE>SNDEX_SetI2SFrequencyAsync</CODE></A> function internally and stops its own calling thread until asynchronous processing has completed. This function expects to be called from a thread, so it fails if it is called from an exception handler. Note that this function continues to block internally if PXI receive interrupts are prohibited, because PXI receive interrupts are used to detect the processing's completion.
+		</P>
+
+		<H2>Notes</H2>
+		<P>
+			Changing to the I2S operating frequency also entails change synchronization of the communications clock with respect to CPU-external devices. Sound output features and CODEC-related features are all affected as a result.<FONT color="red">Switch the frequency only after stopping all of the following: audio output from the CPU and DSP, touch panel input sampling, microphone input sampling, and microphone input sampling from the DSP.</FONT>
+		</P>
+
+		<H2>See Also</H2>
+		<P>
+			<A href="SNDEX_SetI2SFrequencyAsync.html"><CODE>SNDEX_SetI2SFrequencyAsync</CODE></A><BR> <A href="SNDEX_GetI2SFrequency.html"><CODE>SNDEX_GetI2SFrequency</CODE></A><BR> <A href="../../spi/mic/MIC_StopLimitedSampling.html"><CODE>MIC_StopLimitedSampling</CODE></A><BR> <A href="../../spi/mic/MIC_StopAutoSampling.html"><CODE>MIC_StopAutoSampling</CODE></A><BR> <A href="../../spi/tp/TP_RequestAutoSamplingStop.html"><CODE>TP_RequestAutoSamplingStop</CODE></A>
+		</P>
+
+		<H2>Revision History</H2>
+		<P>
+2008/11/07 Added mention that <CODE>SNDEX_RESULT_EXCLUSIVE</CODE> is returned during processing of shutter sound playback.<BR> 2008/02/15 Initial version.
+		</P>
+	<hr><p>CONFIDENTIAL</p></body>
+</HTML>

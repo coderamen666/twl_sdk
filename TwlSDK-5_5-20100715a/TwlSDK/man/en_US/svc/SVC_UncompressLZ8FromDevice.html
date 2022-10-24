@@ -1,0 +1,147 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>SVC_UncompressLZ8FromDevice</TITLE>
+<LINK rel="stylesheet" href="../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">SVC_UncompressLZ8FromDevice <IMG src="../image/BPT.gif" align="middle"><IMG src="../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+<DL>
+  <DD>
+  <PRE><CODE>#include &lt;nitro/os/common/systemCall.h&gt;</CODE></PRE>
+  <PRE><CODE>s32 SVC_UncompressLZ8FromDevice( const void* srcp,
+                            void* destp,
+                            const void* paramp,
+                            const MIReadStreamCallbacks* callbacks );</CODE></PRE>
+</DL>
+<H2>Arguments</H2>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+      <TD><B><I>srcp</I></B></TD>
+      <TD>Source address where the LZ77 compressed data is stored.</TD>
+    </TR>
+    <TR>
+      <TD><B><I>destp</I></B></TD>
+      <TD>Destination address for decompression.</TD>
+    </TR>
+    <TR>
+      <TD><B><I>paramp</I></B></TD>
+      <TD>Parameter address that is passed to the <code>initStream</code> function of the <CODE>MIReadStreamCallbacks</CODE> structure.</TD>
+    </TR>
+    <TR>
+      <TD><B><I>callbacks</I></B></TD>
+      <TD>Address of the <code>MIReadStreamCallbacks</code> socket.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>Return Values</H2>
+<P>A value of 0 or higher denotes the decompressed size. A value less than 0 denotes an error.</P>
+<H2>Description</H2>
+<P>This function decompresses LZ77 compressed data and writes the data to the specified region of memory.</P>
+<P>Decompresses compressed data that is specified by <B><I>srcp</I></B>, and stores the result in the area specified in <B><I>destp</I></B>.</P>
+<P>Compressed data on devices that are not memory-mapped can be decompressed directly without using a temporary buffer. You can also decompress in RAM where byte-level access is not possible.</P>
+<P>The data specified by <B><I>srcp</I></B> should be data that was compressed using the command &quot;<CODE><A href="../tools/ntrcomp.html">ntrcomp</A> -l 2</CODE>&quot;. The boundary restrictions of <B><I>srcp</I></B> depend on the implementation of the <CODE>initStream</CODE> callback.</P>
+<P><BR> <BR> <B>Sample code</B></P>
+<pre>
+<CODE>s32 NVRAMi_UncompressLZ8( const u8 *nvram, void *ram, int limit )
+{
+    static const MIReadStreamCallbacks cb = {NVRAMi_InitReadStream, NVRAMi_TerminateReadStream,
+                                             NVRAMi_ReadByteStream, NULL, NVRAMi_ReadWordStream};
+
+    return SVC_UncompressLZ8FromDevice( nvram, ram, &amp;limit, &amp;cb );
+}
+
+s32 NVRAMi_InitReadStream( const u8 *nvram, void *ram, const void *param )
+{
+    int limit = *(int*)param;
+    u32 comp_header;
+    u32 address = (u32)nvram;
+    u8  adr[3];
+    int size;
+    int i;
+    s32 retval;
+
+    adr[0] = (u8)(address &gt;&gt; 16);
+    adr[1] = (u8)(address &gt;&gt; 8);
+    adr[2] = (u8)(address);
+
+    // Send 4 bytes for the instruction portion
+    SPI_Wait();
+    NVRAM_SPIChangeMode( SPI_TRANSMODE_CONTINUOUS );
+    SPI_Send( NVRAM_INSTRUCTION_READ );
+    for (i = 0; i &lt; 3; i++)
+    {
+        SPI_Wait();
+        SPI_Send(adr[i]);
+    }
+
+    // preload
+    SPI_Wait();
+    SPI_Dummy();
+
+    comp_header = NVRAMi_ReadWordStream( nvram );
+    retval = comp_header;
+
+    size = comp_header &gt;&gt; 8;
+    if ( (int)(nvram + size) &gt; NVRAM_SIZE_MAX ||
+         size &lt;= 0 || size &gt; limit )
+    {
+        retval = -1;
+    }
+
+    return retval;
+}
+
+u8 NVRAMi_ReadByteStream( const u8 *nvram )
+{
+    u8 byte;
+
+    SPI_Wait();
+    byte = SPI_Receive();
+
+    // preload
+    SPI_Dummy();
+
+    return  byte;
+}
+
+u32 NVRAMi_ReadWordStream( const u8 *nvram )
+{
+    u32 word;
+    u8* bytep = (u8*)&word;
+    int i;
+
+    for (i=0; i&lt;4; i++)
+    {
+        *bytep++ = NVRAMi_ReadByteStream( NULL );
+    }
+
+    return word;
+}
+
+s32 NVRAMi_TerminateReadStream( const u8 *nvram )
+{
+    // 1st dummy read
+    SPI_Wait();
+    (void)SPI_Receive();
+
+    // 2nd dummy read
+    NVRAM_SPIChangeMode(SPI_TRANSMODE_1BYTE);
+    SPI_DummyWait();
+    (void)SPI_Receive();
+
+    return 0;
+}</CODE></pre>
+</P>
+
+<H2>See Also</H2>
+<P><CODE><A href="SVC_UncompressLZ.html">SVC_UncompressLZ16FromDevice</A><BR></CODE></P>
+<H2>Revision History</H2>
+<P>2007/10/22 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

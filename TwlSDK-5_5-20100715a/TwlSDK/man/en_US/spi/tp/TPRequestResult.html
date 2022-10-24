@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 8.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>TPRequestResult</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">TPRequestResult <img src="../../image/NTR.gif"><img src="../../image/TWL.gif"></h1>
+
+<h2>Definition</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/spi.h&gt;</CODE><BR>
+<PRE><CODE>typedef enum
+{
+    TP_RESULT_SUCCESS = 0 ,            // Success
+    TP_RESULT_INVALID_PARAMETER ,      // Invalid parameter
+    TP_RESULT_ILLEGAL_STATUS ,         // Cannot accept instructions in current status
+    TP_RESULT_EXCLUSIVE ,              // SPI device is busy
+    TP_RESULT_PXI_BUSY                 // PXI communication with ARM7 is busy
+}
+TPRequestResult;</CODE></PRE>
+</dd>
+
+</dl><h2>Elements</h2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="300"><CODE>TP_RESULT_SUCCESS</CODE></TD>
+<TD width="700">The process completed normally.</TD>
+    </TR>
+    <TR>
+<TD><CODE>TP_RESULT_INVALID_PARAMETER</CODE></TD>
+<TD>The request was not executed because the specified parameter was illegal.</TD>
+    </TR>
+    <TR>
+<TD><CODE>TP_RESULT_ILLEGAL_STATUS</CODE></TD>
+<TD>The request could not be executed because of the internal state of the TP library. For example, this could result from a call to the <code>TP_RequestAutoSamplingStop</code> function while sampling is not in progress.<br>This could also indicate that processing was suspended because a synchronous function was called from inside an interrupt handler.</TD>
+    </TR>
+    <TR>
+<TD width="300"><CODE>MIC_RESULT_EXCLUSIVE</CODE></TD>
+<TD width="700">A request to start or stop sampling failed.</TD>
+    </TR>
+    <TR>
+<TD><CODE>TP_RESULT_PXI_BUSY</CODE></TD>
+<TD>A PXI command failed to be sent to the ARM7.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<H2>Description</H2>
+<P>This is a common enumerated type that shows the results of functions that manipulate the Touch Screen. It is used as a return value for synchronous and asynchronous functions, and as the <SPAN class="argument">result</SPAN> argument that is passed to the user callback in an asynchronous function.</P>
+
+<h2>See Also</h2>
+<P><A href="TPRecvCallback.html"><CODE>TPRecvCallback</CODE></A></P>
+
+<H2>Revision History</H2>
+<P>2009/06/17 Corrected errors.<BR> 2009/04/28 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+	<HEAD>
+		<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+		<title>SNDEX_SetVolume</title>
+		<link rel="stylesheet" href="../../css/nitro.css" type="text/css">
+	</HEAD>
+	<BODY>
+		<H1>SNDEX_SetVolume <IMG src="../../image/TWL.gif" width="24" height="12" border="0" align=middle></H1>
+
+		<H2>Syntax</H2>
+		<DL>
+			<DD><CODE>#include &lt;twl/snd.h&gt;</CODE></DD>
+			<DD><PRE><CODE>SNDEXResult SNDEX_SetVolume( u8 volume );</CODE></PRE></DD>
+		</DL>
+
+		<H2>Arguments</H2>
+		<TABLE>
+			<TBODY>
+				<TR>
+					<TH width="25%"><SPAN class="argument">volume</SPAN></TH>
+					<TD width="75%">Speaker volume. You can specify any value between 0 (defined as <code>SNDEX_VOLUME_MIN</code>) and 7 (defined as <code>SNDEX_VOLUME_MAX</code>).</TD>
+				</TR>
+			</TBODY>
+		</TABLE>
+
+		<H2>Return Values</H2>
+		<TABLE>
+			<TBODY>
+				<TR>
+					<TH width="25%"><CODE>SNDEX_RESULT_SUCCESS</CODE></TH>
+					<TD width="75%">The whole series of operations completed successfully.</TD>
+				</TR>
+				<TR>
+					<TH width="25%"><CODE>SNDEX_RESULT_ILLEGAL_STATE</CODE></TH>
+					<TD width="75%">This function has been called on the NITRO platform or from an exception handler.</TD>
+				</TR>
+				<TR>
+					<TH width="25%"><CODE>SNDEX_RESULT_INVALID_PARAM</CODE></TH>
+					<TD width="75%">A value outside of the specifiable range is given for <SPAN class="argument">volume</SPAN>.</TD>
+				</TR>
+				<TR>
+					<TH width="25%"><CODE>SNDEX_RESULT_BEFORE_INIT</CODE></TH>
+					<TD width="75%">Extended sound features have not been initialized by the <A href="SNDEX_Init.html"><CODE>SNDEX_Init</CODE></A> function.</TD>
+				</TR>
+				<TR>
+					<TH width="25%"><CODE>SNDEX_RESULT_EXCLUSIVE</CODE></TH>
+					<TD width="75%">Processing for other extended sound features is running. Note that mutexes are used for each of the extended sound features, so they cannot be used simultaneously.<BR>This is also returned when a mutex error occurred in the ARM7. When this is the case, the situation may improve on a retry because the error is dependent on the progress of processing in ARM7.<BR>As mentioned in the <A href="./doc/aboutSNDEX.html">SNDEX Library Overview</A>, the error also returns during processing of shutter sound playback.</TD>
+				</TR>
+				<TR>
+					<TH width="25%"><CODE>SNDEX_RESULT_PXI_SEND_ERROR</CODE></TH>
+					<TD width="75%">A PXI command failed to be sent to the ARM7. This error occurs when the PXI send queue for the ARM7 has filled up or when the hardware has detected an error. As a result, the state may improve when a retry is made.</TD>
+				</TR>
+				<TR>
+					<TH width="25%"><CODE>SNDEX_RESULT_DEVICE_ERROR</CODE></TH>
+					<TD width="75%">The ARM7 failed to change the speaker volume for an external device. Conditions may improve on a retry, but continued failures after multiple retries could indicate that the external device is not responding, so you may handle this as if it were a return value indicating success.</TD>
+				</TR>
+				<TR>
+					<TH width="25%"><CODE>SNDEX_RESULT_FATAL_ERROR</CODE></TH>
+					<TD width="75%">This error should not ordinarily occur. This may occur when an illegal PXI command was sent directly, ignoring library state management; when the ARM7 component and the extended sound feature library have different versions; when library state management has fallen into an abnormal state due to memory corruption; or when other such conditions arise. There is no way to recover from this at run time.
+					</TD>
+				</TR>
+			</TBODY>
+		</TABLE>
+
+		<H2>Description</H2>
+		<P>
+			The function synchronously changes the speaker volume. <FONT color="red">The changes are not necessarily applied immediately.</FONT>For more information, see <B>Note</B>, below.
+		</P>
+		<P>
+			In addition to this function, the <A href="SNDEX_SetVolumeAsync.html"><CODE>SNDEX_SetVolumeAsync</CODE></A> function and the console's volume switch can be used to change the speaker volume. The console records the changed value and also applies it at the next restart.
+		</P>
+		<P>
+			This function calls the <A href="SNDEX_SetVolumeAsync.html"><CODE>SNDEX_SetVolumeAsync</CODE></A> function internally and stops its own calling thread until asynchronous processing has completed. This function expects to be called from a thread, so it fails if it is called from an exception handler. Note that this function continues to block internally if PXI receive interrupts are prohibited, because PXI receive interrupts are used to detect the processing's completion.
+		</P>
+
+		<H2>Note</H2>
+		<P>
+		Be sure that your method for changing the volume adheres to the <I>Programming Guidelines</I>.<BR>
+		</P>
+		<P>
+			The speaker volume is saved in dedicated nonvolatile memory each time it is changed. Consequently, you cannot change the speaker volume an unlimited number of times.<FONT color="red">Avoid having your program make frequent changes to the speaker volume.</FONT>
+		</P>
+		<P>
+			The library controls the execution of this function to control the number times the volume is changed.<BR>If the function is called during the roughly 10 frames (approximately 167 ms) since the volume was last changed, the new value is not immediately applied but instead held pending. Even if this is the case, the function returns <CODE>SNDEX_RESULT_SUCCESS</CODE>.<BR>When the storage time for this pending change has ended, the speaker volume is changed to the value specified in the argument of the last-called <code>SNDEX_SetVolume[Async]</code> function.<BR>The value returned by the <A href="SNDEX_GetVolume.html"><CODE>SNDEX_GetVolume[Async]</CODE></A> function is the pending change to the speaker volume. If no value is pending, the currently set speaker volume is returned.
+		</P>
+
+		<H2>See Also</H2>
+		<P>
+			<A href="SNDEX_SetVolumeAsync.html"><CODE>SNDEX_SetVolumeAsync</CODE></A><BR> <A href="SNDEX_GetVolume.html"><CODE>SNDEX_GetVolume</CODE></A>
+		</P>
+
+		<H2>Revision History</H2>
+		<P>
+			2009/02/03 Added mention of the Programming Guidelines in <B>Note</B>.<BR> 2009/01/06 Added mention of library control over changes in speaker volume.<BR> 2008/11/07 Added mention that <CODE>SNDEX_RESULT_EXCLUSIVE</CODE> is returned during shutter sound playback.<BR> 2008/07/10 Revised the explanation about speaker volume.<BR> 2008/02/22 Standardized terminology regarding speaker volume and added <B>Description</B>.<BR> 2008/02/15 Initial version.
+		</P>
+	<hr><p>CONFIDENTIAL</p></body>
+</HTML>

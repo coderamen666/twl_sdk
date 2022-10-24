@@ -1,0 +1,171 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!--==========================================================================
+  Copyright 2006 Nintendo.  All rights reserved.
+
+  These coded instructions, statements, and computer programs contain
+  proprietary information of Nintendo of America Inc. and/or Nintendo
+  Company Ltd., and are protected by Federal copyright law.  They may
+  not be disclosed to third parties or copied or duplicated in any form,
+  in whole or in part, without the prior written consent of Nintendo.
+ ==========================================================================-->
+<HTML>
+<HEAD>
+	<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+	<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+	<META http-equiv="Content-Style-Type" content="text/css">
+	<TITLE>Digital Signatures &mdash; Overview</TITLE>
+	<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">Digital Signatures &mdash; Overview</H1>
+<H2>Description</H2>
+<H3>What Is a Digital Signature?</H3>
+<P>
+	A digital signature is a mechanism that is used to verify the authenticity of data that has been received via an untrusted route such as the Internet.
+</P>
+<BLOCKQUOTE><IMG src="image_Signature.gif" border="0"></BLOCKQUOTE>
+<ul>
+	<li>The signing party (the developer) and the verifying party (the user's Nintendo DS system) participate as working subjects.</li>
+	<li>The data involved consists of the private key, public key, send data, and digital signature for the send data.</li>
+	<li>The private key is a secret known only to the signing party.</li>
+	<li>A public key must be obtained ahead of time by the verifying party using some reliable means (such as having it burned onto the game card).</li>
+	<li>The send data is a binary file of any size.</li>
+</ul>
+<ol>
+	<li>The signer uses the private key to create a digital signature having a fixed length from the send data.<BR>(Actually, a hash value for the send data is obtained and operations are performed on that.)</li>
+	<li>The verifying party receives the send data and the digital signature for that data via the Internet or other means.</li>
+	<li>The verifying party then uses the previously obtained public key to authenticate the data based on the send data and the signature.</li>
+</ol>
+<P>
+	Digital signatures have the following features.
+</P>
+<ul>
+	<li>As long as the verifying party has the public key ahead of time, he or she can determine authenticity with only the data and the signature associated with it without any further external communications.</li>
+	<li>As long as the private key is not leaked, a signature cannot be forged even if the public key is known.<BR>(In other words, signatures cannot be forged even if the ROM binary on the DS is somehow analyzed.)</li>
+</ul>
+
+<H3>Digital Signature Features Provided by the CRYPTO Library</H3>
+<P>
+	In addition to the NITRO CRYPTO features for verifying digital signatures, the TWL-SDK CRYPTO library adds features for creating digital signatures.
+</P>
+<P>
+	We provide the <A href="../sign/CRYPTO_VerifySignature.html"><CODE>CRYPTO_VerifySignature</CODE></A> and <A href="../sign/CRYPTO_VerifySignatureWithHash.html"><CODE>CRYPTO_VerifySignatureWithHash</CODE></A> functions for use in verifying digital signatures. We do not provide a feature for managing the expiration dates of the certificates. If necessary, implement this in the application.
+</P>
+<P>
+	We provide the <A href="../rsa/CRYPTO_RSA_Sign.html"><CODE>CRYPTO_RSA_Sign</CODE></A> function for creating digital signatures. This function is special in that it will not be processed even if it is run. Before running this function, you must initialize it using the <A href="../rsa/CRYPTO_RSA_SignInit.html"><CODE>CRYPTO_RSA_SignInit</CODE></A> function; after you have created the signature, you must also shut it down using the <A href="../rsa/CRYPTO_RSA_SignTerminate.html"><CODE>CRYPTO_RSA_SignTerminate</CODE></A> function.
+</P>
+
+<P>
+	A digital signature only verifies the legitimacy of the data. Data encryption is not performed.<BR>The CRYPTO library provides three cryptographic algorithms: (1) RC4, which is fast but weaker in terms of its encryption strength, (2) AES, a shared-key cryptography algorithm that provides stronger encryption, and (3) RSA, a public-key cryptography algorithm that is advantageous in terms of key distribution. Refer to <A href="about_RC4.html">RC4 Algorithm Overview</A> for more about RC2 and <A href="about_RSA.html">RSA Algorithm Overview</A> for more about RSA.<BR>We have also prepared AES encryption functionality for TWL-SDK, which uses hardware features. For details, see the items about AES.
+</P>
+
+<P>
+	Although the digital signature verification feature works for NITRO and TWL, due to licensing issues, the digital signature creation feature works only on TWL.
+</P>
+
+<H3>Signature Data Format</H3>
+<P>
+	Signature data passed to the <code>CRYPTO_VerifySignature*</code> functions can be created using any method as long as it satisfies the following conditions. (It goes without saying that you can also use signature data that was created with the <A href="../rsa/CRYPTO_RSA_Sign.html"><CODE>CRYPTO_RSA_Sign</CODE></A> function.)
+</P>
+<ul>
+	<li>The data format for keys conforms to ASN.1 format and is DER encoded</li>
+	<li>It uses SHA-1 as the hash algorithm</li>
+	<li>It uses RSA for the public key encryption algorithm with a key length of 1024 bits</li>
+	<li>The public exponent of the public key is 65537</li>
+</ul>
+
+<H3>Examples of Creating Signature Data</H3>
+<P>
+	The following is an example of the procedure for generating a digital signature with OpenSSL from the open source SSL tool kit.
+</P>
+
+<P><B>1. Generate an RSA Key for the Signature</B></P>
+<P>
+	Type the following command in the command-line interface of the OpenSSL environment to generate <CODE>privkey.pem</CODE>, a 1024-bit RSA key file.
+</P>
+<PRE><CODE> &gt; openssl genrsa -out privkey.pem 1024</CODE></PRE>
+<P>
+	If this file were leaked, anyone would be able to sign data with it. The private key file therefore needs to be maintained with the strictest care.
+</P>
+<P>
+	Password-based encryption for <CODE>privkey.pem</CODE> is possible by specifying the encryption method when generating the key. In the following example, a newly generated <CODE>privkey.pem</CODE> file is encrypted with the 3DES algorithm.
+</P>
+<PRE><CODE> &gt; openssl genrsa -des3 -out privkey.pem 1024</CODE></PRE>
+<P>
+	For more information, see the <CODE>openssl</CODE> reference.
+</P>
+
+<P><B>2. Confirm the Content of the RSA Key</B></P>
+
+<P>
+	Use the following command to confirm the content of <CODE>privkey.pem</CODE>.
+</P>
+
+<PRE><CODE> &gt; openssl rsa -in privkey.pem -text -noout</CODE></PRE>
+
+<P>
+	The output includes the private information needed for signing and two additional public key values needed for verification: modulus and publicExponent.<BR>The following is an example of extracted <CODE>modulus</CODE> and <CODE>publicExponent</CODE> values output from the command.
+</P>
+
+<PRE><CODE>
+modulus:
+00:eb:95:be:33:19:73:64:f2:72:2c:87:c8:0a:f3:
+1c:ba:e0:4c:e0:3e:1d:f6:e2:09:aa:70:f0:b3:b9:
+0c:86:36:62:2d:12:13:86:fa:a5:3d:93:cb:5f:0b:
+45:64:9b:7b:eb:b5:c6:f9:42:99:70:46:f3:14:6d:
+8f:f9:b9:ec:38:30:a0:1c:28:0d:30:d9:86:1a:4d:
+1b:f2:e9:05:1b:43:06:b2:c0:55:ed:c4:bb:8e:1a:
+a5:ab:2b:54:e5:dc:8d:70:cf:af:91:94:c9:e9:8f:
+7f:9f:29:28:be:e7:01:b0:20:d4:f2:71:58:93:db:
+25:1c:26:bc:98:f3:a2:b3:47
+publicExponent: 65537 (0x10001)
+</CODE></PRE>
+
+<P>
+	The public exponent used by the <code>CRYPTO_VerifySignature*</code> function is 65537. Confirm that <CODE>publicExponent</CODE> has a value of 65537.
+</P>
+
+<P>
+	The modulus value can also be generated with the following command.
+</P>
+
+<PRE><CODE> &gt; openssl rsa -in privkey.pem -modulus -noout</CODE></PRE>
+
+<P>
+	This command outputs a text string similar to the following.
+</P>
+
+<PRE><CODE> Modulus=EB95BE33197364F2722C87C80AF31CBAE04CE03E1DF6E209AA70F0B3B90C8636622D121386FAA53D93CB5F0B45649B7BEBB5C6F942997046F3146D8FF9B9EC3830A01C280D30D9861A4D1BF2E9051B4306B2C055EDC4BB8E1AA5AB2B54E5DC8D70CFAF9194C9E98F7F9F2928BEE701B020D4F2715893DB251C26BC98F3A2B347</CODE></PRE>
+
+<P>
+	The hexadecimal value following <CODE>Modulus=</CODE> must be converted to a <CODE>u8</CODE> array in C and passed as <CODE>mod_ptr</CODE> to the <code>CRYPTO_VerifySignature*</code> functions. In the previous example, the modulus is 127 bytes in length because the leading zeros are omitted when the length is less than 128 bytes. When passing the value to <CODE>mod_ptr</CODE>, be sure to restore any leading zeros to maintain a length of 128 bytes.
+</P>
+
+<P><B>3. Generate a Digital Signature</B></P>
+
+<P>
+	Once the above steps are complete, simply create a digital signature for the target data.<BR>With TWL, the digital signature can be created using the <A href="../rsa/CRYPTO_RSA_Sign.html"><CODE>CRYPTO_RSA_Sign</CODE></A> function. It can also be created on a computer.<BR>The following command uses the <CODE>privkey.pem</CODE> private key to generate signed data (<CODE>hoge.sign</CODE>) from the unencrypted data (<CODE>hoge.txt</CODE>).
+</P>
+
+<PRE><CODE> &gt; openssl dgst -sha1 -sign privkey.pem -out hoge.sign hoge.txt</CODE></PRE>
+
+<P>
+	Confirm that the resulting file size is 128 bytes.<BR>This 128-byte binary data is transferred to a DS and passed to the <code>CRYPTO_VerifySignature*</code> function as <SPAN class="argument">sign_ptr</SPAN>.<BR>Run the following command to confirm on the computer whether the generated signed data forms a valid digital signature.
+</P>
+
+<PRE><CODE> &gt; openssl dgst -sha1 -prverify privkey.pem -signature hoge.sign hoge.txt</CODE></PRE>
+
+<P><B>4. Verifying Digital Signatures</B></P>
+
+<P>
+	By embedding public key data in a DS program in advance, it can then receive data and digital signature data. To verify a digital signature, the <code>CRYPTO_VerifySignature*</code> functions require the data and the data size, the digital signature data (128 bytes), and the embedded public-key data (the 128-byte modulus). The return value is <CODE>TRUE</CODE> if the data is determined to be valid. 
+</P>
+<P>
+<H2>See Also</H2>
+<P><A href="../list_crypto.html#sign">List of CRYPTO Functions</A></P>
+<H2>Revision History</H2>
+<P>
+2008/10/02 Revised the key format.<BR> 2008/09/16 Revised some comments.<BR> 2008/04/18 Added support for the addition of a electronic signature creation function.<BR> 2008/03/27 Initial TWL-SDK migration version.<BR> 2006/03/07 Initial version (NITRO CRYPTO).
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

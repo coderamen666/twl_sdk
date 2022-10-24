@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>makelst</TITLE>
+<LINK rel="stylesheet" href="../css/nitro.css" type="text/css">
+<STYLE type="text/css">
+<!--
+.sample_source{
+  background-color : #e8e8e8;
+}
+H3{
+  color : teal;
+}
+.command_list{
+  margin-bottom : 16pt;
+}
+.command_desc{
+  }
+.command_item{
+  margin-top : 16pt;
+  background-color : #e8e8e8;
+}
+.blockquoted_table {
+  border : 1px;
+  width : 80%;
+}
+TD,TH{
+  border-color	: #c0d8d8;
+  padding       : 1pt 4pt 1pt 4pt;
+  border-width  : 1px;
+  border-style  : solid;
+}
+-->
+</STYLE>
+</HEAD>
+<BODY>
+<H1 align="left">makelst <IMG src="../image/NTR.gif" align="middle"><IMG src="../image/TWL.gif" align="middle"></H1>
+<H2>Description</H2>
+<P>
+The <CODE>makelst</CODE> tool generates an instance, in C source file format, of the <code><a href="../el/EL_AddStaticSym.html">EL_AddStaticSym</a></code> function from the EL library API.<br> The <code><a href="../el/EL_AddStaticSym.html">EL_AddStaticSym</a></code> function must be called for a dynamic module to access static module functions.</P>
+<H2>Using the Tool</H2>
+<H3>Start Command</H3>
+<PRE><CODE>% makelst [-o OUTPUT_FILE] --static STATIC_OBJECT --dll DYNAMIC_OBJECT [--header HEADER_FILE]</CODE></PRE>
+<P>Of the functions in the static module given by <CODE>STATIC_OBJECT</CODE>, function information accessed by <CODE>DYNAMIC_OBJECT</CODE> is output in C source file format.</P>
+<P>Specify the C source file name to be output using the <CODE>-o</CODE> option.</P>
+<P>If you want to add an original header file to the C source file to be output, you can include the file (E.g., demo.h) by specifying it with <CODE>HEADER_FILE</CODE>. (E.g., #include<demo.h>)</P>
+<P>For more information on using the EL library, including specifics regarding the use of this tool, see the <a href="../el/about_el.html">EL Library Overview</a>.</P>
+<H2>Location</H2>
+<P><CODE>$TwlSDK/tools/bin/makelst.exe</CODE></P>
+<H2>See Also</H2>
+<P><CODE><A href="../el/about_el.html">EL</A><BR> <a href="../el/EL_AddStaticSym.html">EL_AddStaticSym</a></CODE></P>
+<H2>Revision History</H2>
+<P>2008/10/06 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 8.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>WMCallbackFunc</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+<body>
+<h1 align="left">WMCallbackFunc</h1>
+<h2>Definition</h2>
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/wm.h&gt;</CODE><BR>
+  <PRE><CODE>typedef void ( *WMCallbackFunc )( void* arg );</CODE></PRE>
+  </dd>
+</dl><h2>Arguments</h2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+      <TD width="200" rowspan="16"><CODE>arg</CODE></TD>
+      <TD colspan="2">Pointer to a structure that will be passed to a callback function.
+      The corresponding structure that is passed by each calling function is shown below.
+      </TD>
+    </TR>
+    <TR>
+      <TD width="400"><center><B>The calling function</B></center></TD>
+      <TD width="400"><center>Structure to be passed.</center></TD>
+    </TR>
+    <TR>
+      <TD><B><A href="WM_StartParent.html"><CODE>WM_StartParent</CODE></A></B></TD>
+      <TD><CODE><A href="WMStartParentCallback.html">WMStartParentCallback</A>*</CODE></TD>
+    </TR>
+    <TR>
+      <TD><B><A href="WM_StartScan.html"><CODE>WM_StartScan</CODE></A></B></TD>
+      <TD><CODE><A href="WMStartScanCallback.html">WMStartScanCallback</A>*</CODE></TD>
+    </TR>
+    <TR>
+      <TD><B><A href="WM_StartScanEx.html"><CODE>WM_StartScanEx</CODE></A></B></TD>
+      <TD><CODE><A href="WMStartScanExCallback.html">WMStartScanExCallback</A>*</CODE></TD>
+    </TR>
+    <TR>
+      <TD><B><A href="WM_StartConnect.html"><CODE>WM_StartConnect</CODE></A></B><BR>
+      <B><A href="WM_StartConnectEx.html"><CODE>WM_StartConnectEx</CODE></A></B></TD>
+      <TD><CODE><A href="WMStartConnectCallback.html">WMStartConnectCallback</A>*</CODE></TD>
+    </TR>
+    <TR>
+      <TD><CODE><B><A href="WM_Disconnect.html">WM_Disconnect</A></CODE>, <CODE><A href="WM_DisconnectChildren.html">WM_DisconnectChildren</A></B></CODE></TD>
+      <TD><code><A href="WMDisconnectCallback.html">WMDisconnectCallback</A>*</code></TD>
+    </TR>
+    <TR>
+      <TD><B><A href="WM_SetMPParameter.html"><CODE>WM_SetMPParameter</CODE></A></B><BR>
+      <B><A href="WM_SetMPFrequency.html"><CODE>WM_SetMPFrequency</CODE></A></B><BR>
+      <B><A href="WM_SetMPParentSize.html"><CODE>WM_SetMPParentSize</CODE></A></B><BR>
+      <B><A href="WM_SetMPChildSize.html"><CODE>WM_SetMPChildSize</CODE></A></B><BR>
+      <B><A href="WM_SetMPTiming.html"><CODE>WM_SetMPTiming</CODE></A></B><BR>
+      <B><A href="WM_SetMPInterval.html"><CODE>WM_SetMPInterval</CODE></A></B></TD>
+      <TD><code><A href="WMSetMPParameterCallback.html">WMSetMPParameterCallback</A>*</code></TD>
+    </TR>
+    <TR>
+      <TD><B><A href="WM_StartMP.html"><CODE>WM_StartMP</CODE></A></B></TD>
+      <TD><CODE><A href="WMStartMPCallback.html">WMStartMPCallback</A>*</CODE></TD>
+    </TR>
+    <TR>
+      <TD><B><A href="WM_SetMPDataToPort.html"><CODE>WM_SetMPDataToPort</CODE></A></B><BR>
+      <B><A href="WM_SetMPDataToPortEx.html"><CODE>WM_SetMPDataToPortEx</CODE></A></B><BR>
+      <B><A href="WM_SetMPData.html"><CODE>WM_SetMPData</CODE></A></B></TD>
+      <TD><CODE><A href="WMPortSendCallback.html">WMPortSendCallback</A>*</CODE></TD>
+    </TR>
+    <TR>
+      <TD><B><A href="WM_StartDCF.html"><CODE>WM_StartDCF</CODE></A></B></TD>
+      <TD><CODE><A href="WMStartDCFCallback.html">WMStartDCFCallback</A>*</CODE></TD>
+    </TR>
+    <TR>
+      <TD><B><A href="WM_MeasureChannel.html"><CODE>WM_MeasureChannel</CODE></A></B></TD>
+      <TD><CODE><A href="WMMeasureChannelCallback.html">WMMeasureChannelCallback</A>*</CODE></TD>
+    </TR>
+    <TR>
+      <TD><B><A href="WM_GetWirelessCounter.html"><CODE>WM_GetWirelessCounter</CODE></A></B></TD>
+      <TD><CODE><A href="WMGetWirelessCounterCallback.html">WMGetWirelessCounterCallback</A>*</CODE></TD>
+    </TR>
+    <TR>
+      <TD><B><A href="WM_SetIndCallback.html"><CODE>WM_SetIndCallback</CODE></A></B></TD>
+      <TD><CODE><A href="WMIndCallback.html">WMIndCallback</A>*</CODE></TD>
+    </TR>
+    <TR>
+      <TD><B><A href="WM_SetPortCallback.html"><CODE>WM_SetPortCallback</CODE></A></B></TD>
+      <TD><CODE><A href="WMPortRecvCallback.html">WMPortRecvCallback</A>*</CODE></TD>
+    </TR>
+    <TR>
+      <TD><B>Common to other asynchronous functions</B></TD>
+      <TD><CODE><A href="WMCallback.html">WMCallback</A>*</CODE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<h2>Return Values</h2>
+<p>None.</p>
+<H2>Description</H2>
+<P>Format of a user callback function that is called either on completion or during an asynchronous process that was started by an asynchronous WM function. It takes as an argument a pointer to the structure where the processing results of an asynchronous process are stored.</P>
+<H2>Revision History</H2>
+<P>
+2005/11/24 Added <CODE>WM-SetMPParameter</CODE> callback.<BR> 2005/03/04 Added <CODE>WM_SetMPData*</CODE> callback.<br /> 2005/02/14 Added callback for use during <CODE>WM_StartScanEx</CODE>.<br /> 2004/10/26 Added Disconnect callbacks.<br /> 2004/08/11 Added callback types.<br /> 2004/08/02 Standardized structure names.<br /> 2004/07/29 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

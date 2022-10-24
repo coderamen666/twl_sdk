@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 8.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>MICAutoParam</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">MICAutoParam <img src="../../image/NTR.gif"><img src="../../image/TWL.gif"></h1>
+
+<h2>Definition</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/spi.h&gt;</CODE><BR>
+  <PRE><CODE>typedef struct
+{
+    <A href="MICSamplingType.html">MICSamplingType</A>     type;
+    void*               buffer;
+    u32                 size;
+    u32                 rate;
+    BOOL                loop_enable;
+    <A href="MICCallback.html">MICCallback</A>         full_callback;
+    void*               full_arg;
+
+} MICAutoParam;</CODE></PRE>
+  </dd>
+
+</dl><h2>Elements</h2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="300"><em><strong><font face="Courier New">type</font></strong></em></TD>
+<TD width="700">Sampling type as one of the <CODE><A href="MICSamplingType.html">MICSamplingType</A></CODE> enumerated types.</TD>
+    </TR>
+    <TR>
+<TD width="300"><em><strong><font face="Courier New">buffer</font></strong></em></TD>
+<TD width="700">Specifies a pointer to the buffer that stores the sampling result. Because ARM7 writes the sampling result directly to this buffer, this buffer needs to be 32-byte aligned to match the cache line.<BR>Also, this buffer must be in a memory space that both ARM9 and ARM7 can access. This specifiable memory space consists of all of main memory including the extended region, WRAM-B, and WRAM-C. Note, however, that this memory mapping changes depending on the program's operating hardware and operating mode. See <A href="../../os/protectionUnit/about_protectionUnit.html">Protection Units (Overview)</A> and <A href="../../mi/wram/about_Wram.html">Work RAM (Overview)</A> for more about memory mapping.
+    </TR>
+    <TR>
+<TD width="300"><em><strong><font face="Courier New">size</font></strong></em></TD>
+<TD width="700">Size of the buffer storing the sampling result</TD>
+    </TR>
+    <TR>
+<TD width="300"><em><strong><font face="Courier New">rate</font></strong></em></TD>
+<TD width="700">The sampling rate. Directly specifies ARM7 CPU timer cycles.<br>This can also be selected from the <CODE><A href="MICSamplingRate.html">MICSamplingRate</A></CODE> enumerated type.</TD>
+    </TR>
+    <TR>
+<TD width="300"><em><strong><font face="Courier New">loop_enable</font></strong></em></TD>
+<TD width="700">Flag for looping buffer during continuous sampling</TD>
+    </TR>
+    <TR>
+<TD width="300"><em><strong><font face="Courier New">full_callback</font></strong></em></TD>
+<TD width="700">Pointer to callback function called when buffer is full</TD>
+    </TR>
+    <TR>
+<TD width="300"><em><strong><font face="Courier New">full_arg</font></strong></em></TD>
+<TD width="700">Argument to pass to callback function called when  buffer is full</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<H2>Description</H2>
+<P>This structure shows the settings for microphone auto-sampling. When <em><strong><code>TRUE</code></strong></em> is specified for the <em><strong><code>loop_enable</code></strong></em> flag, continuous sampling continues when the buffer becomes full by returning the sampling-data storage-position to the start of the buffer. Continuous sampling will proceed until the function that stops auto-sampling is called. When <em><strong><code>FALSE</code></strong></em> is set for the <em><strong><code>loop_enable</code></strong></em> flag, microphone sampling will stop automatically when the buffer becomes full. Regardless of the setting of the <em><strong><code>loop_enable</code></strong></em> flag, the function specified by <em><strong><code>full_callback</code></strong></em> will be called when the buffer becomes full.</P>
+
+<H2>Note</H2>
+<P><font color="red">The buffer that will store the sampling results should have an address with 32-byte alignment and be a size that is a multiple of  32. This is because when the sampling results are read, the cache of the  target area gets destroyed.</font></P>
+<P>When <em><strong><code>TRUE</code></strong></em> is specified for the <em><strong><code>loop_enable</code></strong></em> flag, the <EM><STRONG><FONT face="Courier New">buffer</FONT></STRONG></EM> is treated as a ring buffer and the data will be overwritten from the start of the buffer when it becomes full.<br>For this reason, the data in the buffer is not guaranteed secure during the period of time between the generation of the buffer-full callback and the next sampling (i.e., the sampling period as specified by <EM><STRONG><FONT face="Courier New">rate</FONT></STRONG></EM>).<br>Given this fact, when you are using a ring buffer, if you are going to perform some process on the buffer's data from inside the buffer callback, you should finish performing the process until the next sampling takes place.<br>Also be aware that if interrupts are prohibited for a long period of time and the buffer callback itself is late to generate, then there is a risk that the buffer will get overwritten before the processing on the buffer's data can take place.</P>
+
+<h2>See Also</h2>
+<P><code><a href="MIC_StartAutoSampling.html">MIC_StartAutoSampling</a><BR> <a href="MIC_StartAutoSamplingAsync.html">MIC_StartAutoSamplingAsync</a><BR> <a href="MIC_StopAutoSampling.html">MIC_StopAutoSampling</a><BR> <a  href="MIC_StopAutoSamplingAsync.html">MIC_StopAutoSamplingAsync</a></code></P>
+
+<H2>Revision History</H2>
+<P>
+Ver. 2008/08/19 Revised the description of the memory space that can be specified for the buffer member.<BR> Ver. 2007/04/12 Added a note when using the buffer loop.<BR> Ver. 2006/02/16 Added the fact that expanded main memory cannot be specified for the buffer member.<BR> Ver. 2004/09/17 Added a description about the alignment of the buffer member.<BR> Ver. 2004/06/01 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

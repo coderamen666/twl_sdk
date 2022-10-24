@@ -1,0 +1,45 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title>TCLKeyType</title>
+<link rel="stylesheet" href="../css/nitro.css" type="text/css">
+</head>
+<body>
+<h1 align="left">TCLKeyType <img src="../image/TWL.gif" align="middle"></h1>
+
+<h2>Definition</h2>
+<dl>
+	<dd>
+	<code>#include &lt;twl/tcl.h&gt;</code><br/> <br/>
+	<pre><code>
+typedef enum
+{
+    TCL_KEY_TYPE_LAUNCHER = 0 ,
+    TCL_KEY_TYPE_APPLICATION ,
+    TCL_KEY_TYPE_UNKNOWN ,
+    TCL_KEY_TYPE_MAX
+} TCLKeyType;
+	</code></pre>
+</dl>
+
+<h2>Description</h2>
+<p>Signature type applied to the photo.</p>
+<p>Photos captured by the Nintendo DSi camera and Nintendo DSi Menu are signed with the launcher key, but others are signed with the general key. (JPEG images must be saved with a signature.)</p>
+<p>It is not necessary to be concerned with the type for each application.</p>
+<p>The constants are explained in the following list.</p>
+<table>
+<tr><td>TCL_KEY_TYPE_LAUNCHER<td>Signature with the launcher key.
+<tr><td>TCL_KEY_TYPE_APPLICATION<td>Signature with the general key.
+<tr><td>TCL_KEY_TYPE_UNKNOWN<td>Unknown what key was used for the signature because decoding has not occurred even once after being managed.
+</table>
+
+<h2>See Also</h2>
+
+<h2>Revision History</h2>
+<p>
+2008/10/07 Initial version.
+</p>
+
+<hr><p>CONFIDENTIAL</p></body>
+</html>

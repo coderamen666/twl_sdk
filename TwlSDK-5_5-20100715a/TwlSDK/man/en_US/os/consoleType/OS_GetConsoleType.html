@@ -1,0 +1,353 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>OS_GetConsoleType</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">OS_GetConsoleType <IMG src="../../image/NTR.gif" align="middle"><IMG src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+<DL>
+<DD><CODE>#include &lt;nitro/os.h&gt;</CODE><BR> <BR> <CODE>u32 OS_GetConsoleType( void );</CODE>
+</DL>
+<H2>Arguments</H2>
+<P>None.</P>
+<H2>Return Values</H2>
+<P>A <code>u32</code>-type value that depends on the program's execution environment. Details are provided in <B>Description</B>.</P>
+<H2>Description</H2>
+<P>Returns a <CODE>u32</CODE>-type value that represents the program's execution environment.</P>
+<P>This function is an effective way to automatically switch processes depending on the operating environment. It allows you to create a common program for multiple operating environments.</P>
+<P><CODE>OS_GetConsoleType</CODE> is a function for <FONT color="#ff0000">getting the <I>operating environment</I></FONT>, not a function for <FONT color="#ff0000">finding out the <I>operating mode</I></FONT>. Use the <A href="OS_IsRunOnTwl.html"><CODE>OS_IsRunOnTwl</CODE></A> function to find out the operating mode.　For example, games for NTR can be played on the NTR as well as the TWL. The program is running in NTR mode in either case, but the hardware it is running on is different (NTR or TWL).</P>
+<BLOCKQUOTE>
+<P>・The <A href="OS_IsRunOnTwl.html"><CODE>OS_IsRunOnTwl</CODE></A> function tells you whether the application is running in <B>NTR mode</B> or <B>TWL mode</B>. However, it will not tell you which hardware the application is running on.<BR>With the <CODE>OS_GetConsoleType</CODE> function, you can find out whether the application is running on NTR or TWL. However, it will not tell you what the operating mode is.<BR>(Also, if the FINALROM build of a NITRO-only ROM is run on a TWL, it will return a value that indicates the software is running on NTR.))</P>
+</BLOCKQUOTE>
+<P>The first time it is called, the <CODE>OS_GetConsoleType</CODE> function surveys the devices, memory, and other information to determine its return value, but in subsequent calls, it just returns the same value it returned earlier. As a result, there is hardly any overhead in calling this function.</P>
+<P><FONT color="#ff0000">This function's return values are limited in the FINALROM libraries. When running these builds on something other than the production hardware (such as the debugger), values may be returned that represent environments other than the one being used.</FONT></P>
+<H3><BR><B>Similar Functions</B></H3>
+<P>There is a similar function called <A href="OS_GetRunningConsoleType.html"><CODE>OS_GetRunningConsoleType</CODE></A>. This function is different in that it surveys the actual hardware and returns the appropriate value, even for FINALROM builds.</P>
+<P>For example, this difference can be seen by running a TWL FINALROM build on IS-TWL-DEBUGGER. The IS-TWL-DEBUGGER hardware has 32 MB of built-in memory, so the value returned by the <CODE>OS_GetRunningConsoleType</CODE> function &amp; <CODE>OS_CONSOLE_SIZE_MASK</CODE> is <CODE>OS_CONSOLE_SIZE_32MB</CODE>, and the value returned by the <CODE>OS_GetConsoleType</CODE> function &amp; <CODE>OS_CONSOLE_SIZE_MASK</CODE> is <CODE>OS_CONSOLE_SIZE_16MB</CODE>.</P>
+<P>If either of these functions for getting the operating environment are being left in a FINALROM build, it would be safer to use the <CODE>OS_GetConsoleType</CODE> function instead of the <A href="OS_GetRunningConsoleType.html"><CODE>OS_GetRunningConsoleType</CODE></A> function. The reason is this: Thinking ahead to when this platform is a retail product, the final ROM should only be running on the production hardware, so we want to eliminate the chances of a value that should never occur in the retail product (such as &quot;operating environment is the debugger&quot;) being returned. With that in mind, it would probably be best to limit your use of the <A href="OS_GetRunningConsoleType.html"><CODE>OS_GetRunningConsoleType</CODE></A> function to debugging purposes.</P>
+<H3><BR><B>Values That Can Be Obtained</B></H3>
+<BLOCKQUOTE><B>Operating environment:</B><BR> The bitwise AND of the return value and <CODE>OS_CONSOLE_MASK</CODE> yield the following values depending on the operating environment.<BR>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+<TH>Value</TH>
+<TH>Operating Environment</TH>
+    </TR>
+    <TR>
+<TD width="240"><CODE>OS_CONSOLE_TWL</CODE></TD>
+<TD>Running on TWL hardware (<FONT color="#ff0000"><B>*1</B></FONT>)</TD>
+    </TR>
+    <TR>
+<TD><CODE>OS_CONSOLE_NITRO</CODE></TD>
+<TD>Running on NITRO hardware</TD>
+    </TR>
+    <TR>
+<TD><CODE>OS_CONSOLE_TWLDEBUGGER</CODE></TD>
+<TD>Running on IS-TWL-DEBUGGER (<FONT color="#ff0000"><B>*2</B></FONT>)</TD>
+    </TR>
+    <TR>
+<TD><CODE>OS_CONSOLE_ISDEBUGGER</CODE></TD>
+<TD>Running on IS-NITRO-DEBUGGER</TD>
+    </TR>
+    <TR>
+<TD><CODE>OS_CONSOLE_ENSATA</CODE></TD>
+<TD>Running on Ensata NITRO Software Emulator</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+For <FONT color="#ff0000"><B>*1</B></FONT>, where the function has determined that the application is running on an actual TWL system, the values are further refined based on the bitwise AND in combination with <CODE>OS_CONSOLE_TWLTYPE_MASK</CODE>.<BR>That said, you do not normally have to give consideration to <CODE>OS_CONSOLE_TWLTYPE_DEV</CODE>. Based solely upon <CODE>OS_CONSOLE_TWL</CODE>, you can treat the hardware as an actual TWL system.<BR>When using TWL debugger without connecting to debugger software, the operating environment is <CODE>OS_CONSOLE_TWL</CODE> and the TWL hardware type is <CODE>OS_CONSOLE_TWLTYPE_DEV</CODE>.<BR>However, when using NITRO debugger without connecting to debugger software, the operating environment is <CODE>OS_CONSOLE_IS_DEBUGGER</CODE> (which is no different from being connected to debugger software).
+<TABLE border="1">
+  <TBODY>
+    <TR>
+<TH>Value</TH>
+<TH>TWL Hardware Types</TH>
+    </TR>
+    <TR>
+<TD width="240"><CODE>OS_CONSOLE_TWLTYPE_RETAIL</CODE></TD>
+<TD>TWL retail hardware</TD>
+    </TR>
+    <TR>
+<TD><CODE>OS_CONSOLE_TWLTYPE_DEV</CODE></TD>
+<TD>TWL hardware with a different security key for development purposes / Also indicates no connection to TWL debugger software</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<BR> For <B><FONT color="#ff0000">*2</FONT></B>, where the function has determined that the application is running on IS-TWL-DEBUGGER, the values are further refined based on the bitwise AND in combination with <CODE>OS_CONSOLE_BOARD_MASK</CODE>.
+<TABLE border="1">
+  <TBODY>
+    <TR>
+<TH>Value</TH>
+<TH>IS-TWL-DEBUGGER Types</TH>
+    </TR>
+    <TR>
+<TD width="240"><CODE>OS_CONSOLE_BOARD_A9_A7</CODE></TD>
+<TD>Debugger that supports both the ARM9 and ARM7, for component development</TD>
+    </TR>
+    <TR>
+<TD><CODE>OS_CONSOLE_BOARD_A9</CODE></TD>
+<TD>ARM9-only debugger, for application development</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<BR>
+</BLOCKQUOTE>
+<BLOCKQUOTE><B>Devices for Loading Programs:</B><BR> <BR> The bitwise AND of the return value and <CODE>OS_CONSOLE_DEV_MASK</CODE> yield the following values depending on the device loading the program data.
+<TABLE border="1">
+  <TBODY>
+    <TR>
+<TH>Value</TH>
+<TH>Load Device</TH>
+    </TR>
+    <TR>
+<TD width="240"><CODE>OS_CONSOLE_DEV_CARD</CODE></TD>
+<TD>Load from a Game Card device</TD>
+    </TR>
+    <TR>
+<TD><CODE>OS_CONSOLE_DEV_CARTRIDGE</CODE></TD>
+<TD>Load from a Game Pak (<FONT color="#ff0000"><B>*3</B></FONT>)</TD>
+    </TR>
+    <TR>
+<TD><CODE>OS_CONSOLE_DEV_NAND</CODE></TD>
+<TD>Load from NAND</TD>
+    </TR>
+    <TR>
+<TD><CODE>OS_CONSOLE_DEV_SDCARD</CODE></TD>
+<TD>Load from an SD Card</TD>
+    </TR>
+    <TR>
+<TD><CODE>OS_CONSOLE_DEV_MEMORY</CODE></TD>
+<TD>Load from memory</TD>
+    </TR>
+    <TR>
+<TD><CODE>OS_CONSOLE_DEV_DOWNLOAD</CODE></TD>
+<TD>Load from a download</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<BR> <FONT color="#ff0000"><B>*3</B></FONT> The TWL system does not include a Game Pak slot, so this value cannot be obtained on the TWL platform.<BR>
+</BLOCKQUOTE>
+<BLOCKQUOTE><B>Memory Size:</B><BR> <BR>The bitwise AND of the return value and <CODE>OS_CONSOLE_SIZE_MASK</CODE> takes the following values depending on the size of the implemented memory.
+<TABLE border="1">
+  <TBODY>
+    <TR>
+<TH>Value</TH>
+<TH>Main Memory Size</TH>
+    </TR>
+    <TR>
+<TD width="240"><CODE>OS_CONSOLE_SIZE_4MB</CODE></TD>
+<TD>4 MB</TD>
+    </TR>
+    <TR>
+<TD><CODE>OS_CONSOLE_SIZE_8MB</CODE></TD>
+<TD>8 MB</TD>
+    </TR>
+    <TR>
+<TD><CODE>OS_CONSOLE_SIZE_16MB</CODE></TD>
+<TD>16 MB</TD>
+    </TR>
+    <TR>
+<TD><CODE>OS_CONSOLE_SIZE_32MB</CODE></TD>
+<TD>32 MB</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<BR> If a NITRO-only ROM is run on TWL hardware, the memory size is 4 MB, regardless of the build type.</BLOCKQUOTE>
+<H3><B><BR>Actual Values Due to the Environment or Build</B></H3>
+<P>The table below indicates the values that can be obtained with the <CODE>OS_GetConsoleType</CODE> and <A href="OS_GetRunningConsoleType.html"><CODE>OS_GetRunningConsoleType</CODE></A> functions. The logical sum (bitwise OR) of the items in the table is the value obtained. <CODE>OS_CONSOLE_DEV_xxx</CODE> is the value of the device that actually loaded the ROM data.<BR> <BR>
+</P>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+<TH colspan="5" style="background-color:#304040;"><FONT color="#ffffff">For NITRO Mode</FONT></TH>
+    </TR>
+    <TR>
+<TH>Operating Environment</TH>
+<TH>Build</TH>
+<TH>Value of the <CODE>OS_GetConsoleType</CODE> Function</TH>
+<TH>Value of the <CODE>OS_GetRunningConsoleType</CODE> Function</TH>
+<TH>Comments</TH>
+    </TR>
+    <TR>
+<TD rowspan="2">NTR system</TD>
+<TD>DEBUG<BR>RELEASE</TD>
+<TD><B><FONT color="#990099">OS_CONSOLE_NITRO</FONT></B><BR> OS_CONSOLE_DEV_xxx<BR> <B><FONT color="#339900">OS_CONSOLE_SIZE_4MB</FONT></B></TD>
+<TD><B><FONT color="#990099">OS_CONSOLE_NITRO</FONT></B><BR> OS_CONSOLE_DEV_xxx<BR> <B><FONT color="#339900">OS_CONSOLE_SIZE_4MB</FONT></B></TD>
+<TD rowspan="2">All 4 are<BR>the same.</TD>
+    </TR>
+    <TR>
+<TD>FINALROM</TD>
+<TD><B><FONT color="#990099">OS_CONSOLE_NITRO</FONT></B><BR> OS_CONSOLE_DEV_xxx<BR> <B><FONT color="#339900">OS_CONSOLE_SIZE_4MB</FONT></B></TD>
+<TD><B><FONT color="#990099">OS_CONSOLE_NITRO</FONT></B><BR> OS_CONSOLE_DEV_xxx<BR> <B><FONT color="#339900">OS_CONSOLE_SIZE_4MB</FONT></B></TD>
+    </TR>
+    <TR>
+<TD rowspan="2">TWL system</TD>
+<TD>DEBUG<BR>RELEASE</TD>
+<TD><B><FONT color="#990099">OS_CONSOLE_TWL<BR> OS_CONSOLE_TWLTYPE_RETAIL</FONT></B><BR> OS_CONSOLE_DEV_xxx<BR> <B><FONT color="#339900">OS_CONSOLE_SIZE_4MB</FONT></B></TD>
+<TD><B><FONT color="#990099">OS_CONSOLE_TWL<BR> OS_CONSOLE_TWLTYPE_RETAIL</FONT></B><BR> OS_CONSOLE_DEV_xxx<BR> <B><FONT color="#339900">OS_CONSOLE_SIZE_4MB</FONT></B></TD>
+<TD rowspan="2">The only difference is <BR>the <CODE>OS_GetConsoleType</CODE> function<BR> for FINALROM builds.<BR>The amount of built-in memory is <BR>4 MB, regardless of the build.</TD>
+    </TR>
+    <TR>
+<TD>FINALROM</TD>
+<TD style="background-color:#e0e0f0;"><B><FONT color="#990099"><FONT color="#990099">OS_CONSOLE_NITRO</FONT><BR> OS_CONSOLE_DEV_xxx<BR> <FONT color="#339900">OS_CONSOLE_SIZE_4MB</FONT></FONT></B></TD>
+<TD><B><FONT color="#990099">OS_CONSOLE_TWL<BR> OS_CONSOLE_TWLTYPE_RETAIL</FONT></B><BR> OS_CONSOLE_DEV_xxx<BR> <B><FONT color="#339900">OS_CONSOLE_SIZE_4MB</FONT></B></TD>
+    </TR>
+    <TR>
+<TD rowspan="2">IS-NITRO-DEBUGGER<BR> (debugger software<BR> even if not connected)</TD>
+<TD>DEBUG<BR>RELEASE</TD>
+<TD><FONT color="#990099"><B>OS_CONSOLE_ISDEBUGGER</B></FONT><BR> OS_CONSOLE_DEV_xxx<BR> <FONT color="#339900"><B>OS_CONSOLE_SIZE_8MB</B></FONT></TD>
+<TD><FONT color="#990099"><B>OS_CONSOLE_ISDEBUGGER</B></FONT><BR> OS_CONSOLE_DEV_xxx<BR> <FONT color="#339900"><B>OS_CONSOLE_SIZE_8MB</B></FONT></TD>
+<TD rowspan="2">The only difference is <BR>the <CODE>OS_GetConsoleType</CODE> function<BR>for FINALROM builds.<BR></TD>
+    </TR>
+    <TR>
+<TD>FINALROM</TD>
+<TD style="background-color:#e0e0f0;"><FONT color="#990099"><B>OS_CONSOLE_NITRO</B></FONT><BR> OS_CONSOLE_DEV_xxx<BR> <B><FONT color="#339900">OS_CONSOLE_SIZE_4MB</FONT></B></TD>
+<TD><FONT color="#990099"><B>OS_CONSOLE_ISDEBUGGER</B></FONT><BR> OS_CONSOLE_DEV_xxx<BR> <FONT color="#339900"><B>OS_CONSOLE_SIZE_8MB</B></FONT></TD>
+    </TR>
+    <TR>
+<TD rowspan="2">ENSATA EMULATOR</TD>
+<TD>DEBUG<BR>RELEASE</TD>
+<TD><FONT color="#990099"><B>OS_CONSOLE_ISDEBUGGER</B></FONT><BR> OS_CONSOLE_DEV_xxx<BR> <FONT color="#339900"><B>OS_CONSOLE_SIZE_8MB</B></FONT></TD>
+<TD><FONT color="#990099"><B>OS_CONSOLE_ISDEBUGGER</B></FONT><BR> OS_CONSOLE_DEV_xxx<BR> <FONT color="#339900"><B>OS_CONSOLE_SIZE_8MB</B></FONT></TD>
+<TD rowspan="2">The only difference is <BR>the <CODE>OS_GetConsoleType</CODE> function<BR>for FINALROM builds.<BR></TD>
+    </TR>
+    <TR>
+<TD>FINALROM</TD>
+<TD style="background-color:#e0e0f0;"><FONT color="#990099"><B>OS_CONSOLE_NITRO</B></FONT><BR> OS_CONSOLE_DEV_xxx<BR> <B><FONT color="#339900">OS_CONSOLE_SIZE_4MB</FONT></B></TD>
+<TD><FONT color="#990099"><B>OS_CONSOLE_ISDEBUGGER</B></FONT><BR> OS_CONSOLE_DEV_xxx<BR> <FONT color="#339900"><B>OS_CONSOLE_SIZE_8MB</B></FONT></TD>
+    </TR>
+    <TR>
+<TD rowspan="2">IS-TWL-DEBUGGER<BR>(For general-purpose development: ARM9)</TD>
+<TD>DEBUG<BR>RELEASE</TD>
+<TD><FONT color="#990099"><B>OS_CONSOLE_TWLDEBUGGER<BR> OS_CONSOLE_BOARD_A9</B></FONT><BR> OS_CONSOLE_DEV_xxx<BR> <B><FONT color="#339900">OS_CONSOLE_SIZE_32MB</FONT></B></TD>
+<TD><FONT color="#990099"><B>OS_CONSOLE_TWLDEBUGGER<BR> OS_CONSOLE_BOARD_A9</B></FONT><BR> OS_CONSOLE_DEV_xxx<BR> <B><FONT color="#339900">OS_CONSOLE_SIZE_32MB</FONT></B></TD>
+<TD rowspan="2">The only difference is <BR>the <CODE>OS_GetConsoleType</CODE> function<BR>for FINALROM builds.<BR></TD>
+    </TR>
+    <TR>
+<TD>FINALROM</TD>
+<TD style="background-color:#e0e0f0;"><B><FONT color="#990099">OS_CONSOLE_NITRO<BR> OS_CONSOLE_DEV_xxx<BR> <FONT color="#339900">OS_CONSOLE_SIZE_4MB</FONT></FONT></B></TD>
+<TD><FONT color="#990099"><B>OS_CONSOLE_TWLDEBUGGER<BR> OS_CONSOLE_BOARD_A9</B></FONT><BR> OS_CONSOLE_DEV_xxx<BR> <B><FONT color="#339900">OS_CONSOLE_SIZE_32MB</FONT></B></TD>
+    </TR>
+    <TR>
+<TD rowspan="2">IS-TWL-DEBUGGER<BR>(For component development:<BR>ARM9 + ARM7)</TD>
+<TD>DEBUG<BR>RELEASE</TD>
+<TD><FONT color="#990099"><B>OS_CONSOLE_TWLDEBUGGER<BR> OS_CONSOLE_BOARD_A9_A7</B></FONT><BR> OS_CONSOLE_DEV_xxx<BR> <B><FONT color="#339900">OS_CONSOLE_SIZE_32MB</FONT></B></TD>
+<TD><FONT color="#990099"><B>OS_CONSOLE_TWLDEBUGGER<BR> OS_CONSOLE_BOARD_A9_A7</B></FONT><BR> OS_CONSOLE_DEV_xxx<BR> <B><FONT color="#339900">OS_CONSOLE_SIZE_32MB</FONT></B></TD>
+<TD rowspan="2">The only difference is <BR>the <CODE>OS_GetConsoleType</CODE> function<BR>for FINALROM builds.<BR></TD>
+    </TR>
+    <TR>
+<TD>FINALROM</TD>
+<TD style="background-color:#e0e0f0;"><B><FONT color="#990099">OS_CONSOLE_NITRO<BR> OS_CONSOLE_DEV_xxx<BR> <FONT color="#339900">OS_CONSOLE_SIZE_4MB</FONT></FONT></B></TD>
+<TD><FONT color="#990099"><B>OS_CONSOLE_TWLDEBUGGER<BR> OS_CONSOLE_BOARD_A9_A7</B></FONT><BR> OS_CONSOLE_DEV_xxx<BR> <B><FONT color="#339900">OS_CONSOLE_SIZE_32MB</FONT></B></TD>
+    </TR>
+    <TR>
+<TD rowspan="2">IS-TWL-DEBUGGER<BR>(For general-purpose development: ARM9)<BR> When not connected to debugger software</TD>
+<TD>DEBUG<BR>RELEASE</TD>
+<TD><FONT color="#990099"><B>OS_CONSOLE_TWL<BR> OS_CONSOLE_TWLTYPE_DEV</B></FONT><BR> OS_CONSOLE_DEV_xxx<BR> <B><FONT color="#339900">OS_CONSOLE_SIZE_4MB</FONT></B></TD>
+<TD><FONT color="#990099"><B>OS_CONSOLE_TWL<BR> OS_CONSOLE_TWLTYPE_DEV</B></FONT><BR> OS_CONSOLE_DEV_xxx<BR> <B><FONT color="#339900">OS_CONSOLE_SIZE_4MB</FONT></B></TD>
+<TD rowspan="2">The only difference is <BR>the <CODE>OS_GetConsoleType</CODE> function<BR> for FINALROM builds.<BR><BR> The amount of built-in memory is <BR>4 MB, regardless of the build.</TD>
+    </TR>
+    <TR>
+<TD>FINALROM</TD>
+<TD style="background-color:#e0e0f0;"><B><FONT color="#990099">OS_CONSOLE_NITRO<BR> OS_CONSOLE_DEV_xxx<BR> <FONT color="#339900">OS_CONSOLE_SIZE_4MB</FONT></FONT></B></TD>
+<TD><FONT color="#990099"><B>OS_CONSOLE_TWL<BR> OS_CONSOLE_TWLTYPE_DEV</B></FONT><BR> OS_CONSOLE_DEV_xxx<BR> <B><FONT color="#339900">OS_CONSOLE_SIZE_4MB</FONT></B></TD>
+    </TR>
+    <TR>
+<TD rowspan="2">IS-TWL-DEBUGGER<BR>(For component development:<BR>ARM9 + ARM7)<BR> When not connected to debugger software</TD>
+<TD>DEBUG<BR>RELEASE</TD>
+<TD><FONT color="#990099"><B>OS_CONSOLE_TWL<BR> OS_CONSOLE_TWLTYPE_DEV</B></FONT><BR> OS_CONSOLE_DEV_xxx<BR> <B><FONT color="#339900">OS_CONSOLE_SIZE_4MB</FONT></B></TD>
+<TD><FONT color="#990099"><B>OS_CONSOLE_TWL<BR> OS_CONSOLE_TWLTYPE_DEV</B></FONT><BR> OS_CONSOLE_DEV_xxx<BR> <B><FONT color="#339900">OS_CONSOLE_SIZE_4MB</FONT></B></TD>
+<TD rowspan="2">The only difference is <BR>the <CODE>OS_GetConsoleType</CODE> function<BR> for FINALROM builds.<BR><BR> The amount of built-in memory is <BR>4 MB, regardless of the build.</TD>
+    </TR>
+    <TR>
+<TD>FINALROM</TD>
+<TD style="background-color:#e0e0f0;"><B><FONT color="#990099">OS_CONSOLE_NITRO<BR> OS_CONSOLE_DEV_xxx<BR> <FONT color="#339900">OS_CONSOLE_SIZE_4MB</FONT></FONT></B></TD>
+<TD><FONT color="#990099"><B>OS_CONSOLE_TWL<BR> OS_CONSOLE_TWLTYPE_DEV7</B></FONT><BR> OS_CONSOLE_DEV_xxx<BR> <B><FONT color="#339900">OS_CONSOLE_SIZE_4MB</FONT></B></TD>
+    </TR>
+    <TR>
+<TH colspan="5" style="background-color:#304040;"><FONT color="#ffffff">For TWL Mode</FONT></TH>
+    </TR>
+    <TR>
+<TH>Operating Environment</TH>
+<TH>Build</TH>
+<TH>Value of the <CODE>OS_GetConsoleType</CODE> Function</TH>
+<TH>Value of the <CODE>OS_GetRunningConsoleType</CODE> Function</TH>
+<TH>Comments</TH>
+    </TR>
+    <TR>
+<TD rowspan="2">TWL system</TD>
+<TD>DEBUG<BR>RELEASE</TD>
+<TD><B><FONT color="#990099">OS_CONSOLE_TWL<BR> OS_CONSOLE_TWLTYPE_RETAIL</FONT></B><BR> OS_CONSOLE_DEV_xxx<BR> <B><FONT color="#339900">OS_CONSOLE_SIZE_16MB</FONT></B></TD>
+<TD><B><FONT color="#990099">OS_CONSOLE_TWL<BR> OS_CONSOLE_TWLTYPE_RETAIL</FONT></B><BR> OS_CONSOLE_DEV_xxx<BR> <B><FONT color="#339900">OS_CONSOLE_SIZE_16MB</FONT></B></TD>
+<TD rowspan="2">All 4 are<BR>the same.</TD>
+    </TR>
+    <TR>
+<TD>FINALROM</TD>
+<TD><B><FONT color="#990099">OS_CONSOLE_TWL<BR> OS_CONSOLE_TWLTYPE_RETAIL</FONT></B><BR> OS_CONSOLE_DEV_xxx<BR> <B><FONT color="#339900">OS_CONSOLE_SIZE_16MB</FONT></B></TD>
+<TD><B><FONT color="#990099">OS_CONSOLE_TWL<BR> OS_CONSOLE_TWLTYPE_RETAIL</FONT></B><BR> OS_CONSOLE_DEV_xxx<BR> <B><FONT color="#339900">OS_CONSOLE_SIZE_16MB</FONT></B></TD>
+    </TR>
+    <TR>
+<TD rowspan="2">IS-TWL-DEBUGGER<BR>(For general-purpose development: ARM9)</TD>
+<TD>DEBUG<BR>RELEASE</TD>
+<TD><FONT color="#990099"><B>OS_CONSOLE_TWLDEBUGGER<BR> OS_CONSOLE_BOARD_A9</B></FONT><BR> OS_CONSOLE_DEV_xxx<BR> <B><FONT color="#339900">OS_CONSOLE_SIZE_32MB</FONT></B></TD>
+<TD><FONT color="#990099"><B>OS_CONSOLE_TWLDEBUGGER<BR> OS_CONSOLE_BOARD_A9</B></FONT><BR> OS_CONSOLE_DEV_xxx<BR> <B><FONT color="#339900">OS_CONSOLE_SIZE_32MB</FONT></B></TD>
+<TD rowspan="2">The only difference is <BR>the <CODE>OS_GetConsoleType</CODE> function<BR>for FINALROM builds.<BR></TD>
+    </TR>
+    <TR>
+<TD>FINALROM</TD>
+<TD style="background-color:#e0e0f0;"><B><FONT color="#990099">OS_CONSOLE_TWL<BR> OS_CONSOLE_TWLTYPE_RETAIL</FONT></B><BR> OS_CONSOLE_DEV_xxx<BR> <B><FONT color="#339900">OS_CONSOLE_SIZE_16MB</FONT></B></TD>
+<TD><FONT color="#990099"><B>OS_CONSOLE_TWLDEBUGGER<BR> OS_CONSOLE_BOARD_A9</B></FONT><BR> OS_CONSOLE_DEV_xxx<BR> <B><FONT color="#339900">OS_CONSOLE_SIZE_32MB</FONT></B></TD>
+    </TR>
+    <TR>
+<TD rowspan="2">IS-TWL-DEBUGGER<BR>(For component development:<BR>ARM9 + ARM7)</TD>
+<TD>DEBUG<BR>RELEASE</TD>
+<TD><FONT color="#990099"><B>OS_CONSOLE_TWLDEBUGGER<BR> OS_CONSOLE_BOARD_A9_A7</B></FONT><BR> OS_CONSOLE_DEV_xxx<BR> <B><FONT color="#339900">OS_CONSOLE_SIZE_32MB</FONT></B></TD>
+<TD><FONT color="#990099"><B>OS_CONSOLE_TWLDEBUGGER<BR> OS_CONSOLE_BOARD_A9_A7</B></FONT><BR> OS_CONSOLE_DEV_xxx<BR> <B><FONT color="#339900">OS_CONSOLE_SIZE_32MB</FONT></B></TD>
+<TD rowspan="2">The only difference is <BR>the <CODE>OS_GetConsoleType</CODE> function<BR>for FINALROM builds.<BR></TD>
+    </TR>
+    <TR>
+<TD>FINALROM</TD>
+<TD style="background-color:#e0e0f0;"><B><FONT color="#990099">OS_CONSOLE_TWL<BR> OS_CONSOLE_TWLTYPE_RETAIL</FONT></B><BR> OS_CONSOLE_DEV_xxx<BR> <B><FONT color="#339900">OS_CONSOLE_SIZE_16MB</FONT></B></TD>
+<TD><FONT color="#990099"><B>OS_CONSOLE_TWLDEBUGGER<BR> OS_CONSOLE_BOARD_A9_A7</B></FONT><BR> OS_CONSOLE_DEV_xxx<BR> <B><FONT color="#339900">OS_CONSOLE_SIZE_32MB</FONT></B></TD>
+    </TR>
+    <TR>
+<TD rowspan="2">IS-TWL-DEBUGGER<BR>(For general-purpose development: ARM9)<BR> When not connected to debugger software</TD>
+<TD>DEBUG<BR>RELEASE</TD>
+<TD><FONT color="#990099"><B>OS_CONSOLE_TWL<BR> OS_CONSOLE_TWLTYPE_DEV</B></FONT><BR> OS_CONSOLE_DEV_xxx<BR> <B><FONT color="#339900">OS_CONSOLE_SIZE_32MB</FONT></B></TD>
+<TD><FONT color="#990099"><B>OS_CONSOLE_TWL<BR> OS_CONSOLE_TWLTYPE_DEV</B></FONT><BR> OS_CONSOLE_DEV_xxx<BR> <B><FONT color="#339900">OS_CONSOLE_SIZE_32MB</FONT></B></TD>
+<TD rowspan="2">The only difference is <BR>the <CODE>OS_GetConsoleType</CODE> function<BR>for FINALROM builds.<BR></TD>
+    </TR>
+    <TR>
+<TD>FINALROM</TD>
+<TD style="background-color:#e0e0f0;"><B><FONT color="#990099">OS_CONSOLE_TWL<BR> OS_CONSOLE_TWLTYPE_RETAIL</FONT></B><BR> OS_CONSOLE_DEV_xxx<BR> <B><FONT color="#339900">OS_CONSOLE_SIZE_16MB</FONT></B></TD>
+<TD><FONT color="#990099"><B>OS_CONSOLE_TWL<BR> OS_CONSOLE_TWLTYPE_DEV</B></FONT><BR> OS_CONSOLE_DEV_xxx<BR> <B><FONT color="#339900">OS_CONSOLE_SIZE_32MB</FONT></B></TD>
+    </TR>
+    <TR>
+<TD rowspan="2">IS-TWL-DEBUGGER<BR>(For component development:<BR>ARM9 + ARM7)<BR> When not connected to debugger software</TD>
+<TD>DEBUG<BR>RELEASE</TD>
+<TD><FONT color="#990099"><B>OS_CONSOLE_TWL<BR> OS_CONSOLE_TWLTYPE_DEV</B></FONT><BR> OS_CONSOLE_DEV_xxx<BR> <B><FONT color="#339900">OS_CONSOLE_SIZE_32MB</FONT></B></TD>
+<TD><FONT color="#990099"><B>OS_CONSOLE_TWL<BR> OS_CONSOLE_TWLTYPE_DEV</B></FONT><BR> OS_CONSOLE_DEV_xxx<BR> <B><FONT color="#339900">OS_CONSOLE_SIZE_32MB</FONT></B></TD>
+<TD rowspan="2">The only difference is <BR>the <CODE>OS_GetConsoleType</CODE> function<BR>for FINALROM builds.<BR></TD>
+    </TR>
+    <TR>
+<TD>FINALROM</TD>
+<TD style="background-color:#e0e0f0;"><B><FONT color="#990099">OS_CONSOLE_TWL<BR> OS_CONSOLE_TWLTYPE_RETAIL</FONT></B><BR> OS_CONSOLE_DEV_xxx<BR> <B><FONT color="#339900">OS_CONSOLE_SIZE_16MB</FONT></B></TD>
+<TD><FONT color="#990099"><B>OS_CONSOLE_TWL<BR> OS_CONSOLE_TWLTYPE_DEV</B></FONT><BR> OS_CONSOLE_DEV_xxx<BR> <B><FONT color="#339900">OS_CONSOLE_SIZE_32MB</FONT></B></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P><BR>
+</P>
+<P><BR><B>Identifying the Operating Environment in NITRO Mode</B></P>
+<P>When running in NITRO mode, it is impossible to determine whether hardware is NTR or TWL using just the <CODE>OS_GetConsoleType</CODE> function. Although the distinction can be made by checking the value of the <CODE><A href="OS_GetRunningConsoleType.html">OS_GetRunningConsoleType</A></CODE> function, Nintendo prefers that developers only use the <CODE><A href="OS_GetRunningConsoleType.html">OS_GetRunningConsoleType</A></CODE> function for debugging purposes. Although there is usually no need to know which hardware system is running, the <CODE>OSi_IsNitroModeOnTwl</CODE> function has been prepared in case you need to identify the system. If this function returns <CODE>TRUE</CODE>, it will indicate that a NITRO-mode ROM is running on TWL.</P>
+<P>The <CODE>OSi_IsNitroModeOnTwl</CODE> function, which includes <I>TWL</I> in its name, was originally handled as private when TWL development first began. This was based on the reasoning that the <CODE>OSi_IsNitroModeOnTwl</CODE> function should be used for limited purposes, and that NITRO developers were not familiar with TWL. This function is still private.</P>
+<H2>See Also</H2>
+<P><A href="OS_IsRunOnDebugger.html"><CODE>OS_IsRunOnDebugger</CODE></A><BR> <A href="OS_IsRunOnEmulator.html"><CODE>OS_IsRunOnEmulator</CODE></A><BR> <A href="OS_GetRunningConsoleType.html"><CODE>OS_GetRunningConsoleType</CODE></A></P>
+<H2>Revision History</H2>
+<P>2009/10/30 Added information about operation when a debugger is not connected. Revised operating environment identification in NITRO mode.<BR>2008/04/15 Split up tables according to the mode.<BR>2008/03/27 Added actual values dependent on the environment and build.<BR>2007/11/16 Added descriptions.<BR>2007/11/05 Migrated to the <CODE>OS_GetRunningConsoleType</CODE> function.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title>SSP_GetJpegEncoderBufferSize</title>
+<link rel="stylesheet" href="../../css/nitro.css" type="text/css" />
+</head>
+<body>
+
+<h1>SSP_GetJpegEncoderBufferSize <img src="../../image/NTR.gif" align="middle"><img src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+
+<pre><code>
+u32 SSP_GetJpegEncoderBufferSize(u32 width, u32 height, u32 sampling, u32 option);
+</code></pre>
+
+<h2>Arguments</h2>
+<table style="width:100%">
+<tbody>
+<tr>
+<td style="width:13%"><SPAN class="argument">width</SPAN></td>
+<td style="width:87%">Width (in pixels) of the image to encode.</td>
+</tr>
+<tr>
+<td style="width:13%"><SPAN class="argument">height</SPAN></td>
+<td style="width:87%">Height (in pixels) of the image to encode.</td>
+</tr>
+<tr>
+<td style="width:13%"><SPAN class="argument">sampling</SPAN></td>
+<td style="width:87%">Main image output formats (<CODE>SSP_JPEG_OUTPUT_YUV444</CODE>, <CODE>SSP_JPEG_OUTPUT_YUV420</CODE>, or <CODE>SSP_JPEG_OUTPUT_YUV422</CODE>).</td>
+</tr>
+<tr>
+<td style="width:13%"><SPAN class="argument">option</SPAN></td>
+<td style="width:87%">Encoding options (<CODE>SSP_JPEG_RGB555</CODE>, <CODE>SSP_JPEG_YUV422</CODE>, or <CODE>SSP_JPEG_THUMBNAIL</CODE>).</td>
+</tr>
+</tbody>
+</table>
+
+
+<h2>Return Values</h2>
+<p>Returns the buffer size required to encode.</p>
+
+<h2>Description</h2>
+<p>Gets the size of the work buffer required when encoding is performed by the <a href="SSP_StartJpegEncoder.html"><CODE>SSP_StartJpegEncoder</CODE></a> function.<br>Give this function the same arguments as the <a href="SSP_StartJpegEncoder.html"><CODE>SSP_StartJpegEncoder</CODE></a> function.
+</p>
+
+<h2>See Also</h2>
+<p><a href="SSP_StartJpegEncoder.html"><CODE>SSP_StartJpegEncoder</CODE></a></p>
+
+<h2>Revision History</h2>
+<p>
+2008/09/15 Initial version.
+</p>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>OS_JumpToSystemMenu</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">OS_JumpToSystemMenu <img src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+<DL>
+<DD><CODE>#include &lt;nitro/os.h&gt;</CODE><BR> <BR> <code>BOOL OS_JumpToSystemMenu( void );</CODE>
+</DL>
+<H2>Arguments</H2>
+<P>None.</P>
+<H2>Return Values</H2>
+<P>Returns FALSE if running in NITRO mode.<BR><font color="#ff0000"><B>If running in TWL mode, this function normally succeeds but control is not returned.</B></font></P>
+<H2>Description</H2>
+<P>Performs a hardware reset and returns to the System Menu.</P>
+<P><font color="#ff0000"><B>This function cannot be called when interrupts are disabled. <BR>Because this function cannot be called during the exit process either, take care that it is not executed from within an exit callback registered using functions such as the <A href="../../spi/pm/PM_AppendExitCallback.html"><CODE>PM_Append*ExitCallback</CODE></A> functions.</B></font></P>
+
+<P>The <A href="../../spi/pm/PM_ForceToResetHardware.html"><CODE>PM_ForceToResetHardware</CODE></A>function is used internally by this function. Making a direct call to the <CODE><A href="../../spi/pm/PM_ForceToResetHardware.html">PM_ForceToResetHardware</A></CODE> function also returns the process to the System Menu. TWL has a mechanism to write parameters at the beginning of main RAM, thus enabling you to change the initial process after a hardware reset. If an unintended value is written to this parameter, the call to <CODE><A>PM_ForceToResetHardware</A></CODE> may not return the process to the System Menu. <FONT color="#ff0000">Because of this possibility, use the <CODE>OS_JumpToSystemMenu</CODE> function to return to the System Menu.</FONT></P>
+<H2>See Also</H2>
+<P><A href="../../spi/pm/PM_ForceToResetHardware.html"><CODE>PM_ForceToResetHardware</CODE></A><BR> <A href="../../spi/pm/PM_AppendExitCallback.html"><CODE>PM_Append*ExitCallback</CODE></A><BR> <A href="../../spi/pm/PM_AppendExitCallback.html"><CODE>PM_Prepend*ExitCallback</CODE></A><BR> <A href="../../spi/pm/PM_AppendExitCallback.html"><CODE>PM_Insert*ExitCallback</CODE></A></P>
+<H2>Revision History</H2>
+<P>2008/10/22 Added the fact that execution during exit processing is prohibited.<BR> 2008/09/08 Revised the icon.<BR> 2008/08/05 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

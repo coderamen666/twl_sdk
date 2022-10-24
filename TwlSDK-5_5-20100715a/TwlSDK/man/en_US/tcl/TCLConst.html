@@ -1,0 +1,53 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title>Constants</title>
+<link rel="stylesheet" href="../css/nitro.css" type="text/css">
+</head>
+<body>
+<h1 align="left">TCL-Related Constants <img src="../image/TWL.gif" align="middle"></h1>
+
+<h2>Definition</h2>
+<dl>
+	<dd>
+	<code>#include &lt;twl/tcl.h&gt;</code><br/> <br/>
+	<pre><code>
+enum
+{
+    TCL_MAX_NUM_NAND_PICTURES =  500 ,
+
+    TCL_MAX_JPEG_SIZE = 200 * 1024 ,
+
+    TCL_JPEG_WIDTH  = 640 ,
+    TCL_JPEG_HEIGHT = 480 ,
+    TCL_JPEG_DEFAULT_QUALITY  = 80 ,
+
+    TCL_PATH_LEN = 64 ,
+
+    TCL_CONST_END
+};
+	</code></pre>
+</dl>
+
+<h2>Description</h2>
+<p>TWL defines various constants.</p>
+<p>The constants are explained in the following list.</p>
+<table>
+<tr><td>TCL_MAX_NUM_NAND_PICTURES<td>The maximum number of photos that TCL can manage.
+<tr><td>TCL_MAX_JPEG_SIZE<td>The maximum JPEG size (in bytes) that TCL can manage.
+<tr><td>TCL_JPEG_WIDTH<td>The JPEG image width that TCL can manage.
+<tr><td>TCL_JPEG_HEIGHT<td>The JPEG image height that TCL can manage.
+<tr><td>TCL_JPEG_DEFAULT_QUALITY<td>The quality value recommended by TCL when using the SSP library.
+<tr><td>TCL_PATH_LEN<td>Guarantees the path length returned by the different path search functions.
+</table>
+
+<h2>See Also</h2>
+
+<h2>Revision History</h2>
+<p>
+2009/03/17 Added <CODE>TCL_PATH_LEN</CODE>.<br> 2008/10/07 Initial version.
+</p>
+
+<hr><p>CONFIDENTIAL</p></body>
+</html>

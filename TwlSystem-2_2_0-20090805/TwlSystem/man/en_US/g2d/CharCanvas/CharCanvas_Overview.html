@@ -1,0 +1,115 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+	<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+	<META http-equiv="Content-Style-Type" content="text/css">
+	<TITLE>Text Character Drawing Overview</TITLE>
+	<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+
+<BODY>
+
+<H1 align="left">Text Character Drawing Overview</H1>
+
+<H2>About the Term &quot;Character&quot;</H2>
+<P>
+	In the Text Character and Character String Drawing libraries, the term &quot;character&quot; always refers to an 8x8 pixel image that is a compositional element of OBJs and BGs. &quot;Character&quot; is not used to refer to the symbols of written language, which are called &quot;text characters.&quot;
+
+</P>
+
+<H2>Text Character Drawing Library</H2>
+<P>
+	The Text Character Drawing library draws text characters in pixel units on screen display elements composed of character BGs or character OBJs.
+</P>
+
+<H2>CharCanvas</H2>
+<P>
+	The Text Character Drawing library associates the draw-target characters with a virtual drawing screen called the CharCanvas and then draws text characters on that virtual screen. The CharCanvas drawing screen entity is a solid mass of tiled characters. When a text character is drawn on the virtual drawing screen, the Text Character Drawing library draws on the characters that make up the entity of the screen.
+</P>
+<P>
+	With the Nintendo DS, even if drawing is done on characters, that is not enough for display on the physical screen. <br>For BG characters, screen configuration is necessary, and for OBJ characters, OAM configuration is necessary. However, the Text Character Drawing library has functions that simplify the configuration of these settings.<br> In addition, for OBJ characters another possibility is to construct a cell from the CharCanvas and draw with the renderer.<img src="CharCanvas.png" alt="Text character drawing-&gt;CharCanvas-&gt;Character-&gt;Screen-&gt;Display"><br clear="left">
+</P>
+
+<H2>Text Character Drawing Functions</H2>
+<P>
+	The functions of the Text Character Drawing library can be divided into five groups.
+</p>
+	<TABLE border="1" width="100%">
+	  <TBODY>
+	    <TR>
+	      <TD width="40%">
+			<B>Building CharCanvas</B><br> Functions for initializing and building the CharCanvas.
+	      </TD>
+	      <TD width="60%">
+			<a href="NNS_G2dCharCanvasInitForBG.html"><CODE>NNS_G2dCharCanvasInitForBG</CODE></a><br> <a href="NNS_G2dCharCanvasInitForOBJ1D.html"><CODE>NNS_G2dCharCanvasInitForOBJ1D</CODE></a><br> <a href="NNS_G2dCharCanvasInitForOBJ2DRect.html"><CODE>NNS_G2dCharCanvasInitForOBJ2DRect</CODE></a><br>
+	      </TD>
+	    </TR>
+	    <TR>
+	      <TD width="40%">
+			<B>Building Cells</B><br> Functions for building cells that display CharCanvas.
+	      </TD>
+	      <TD width="60%">
+			<a href="NNS_G2dCharCanvasCalcCellDataSizeXXX.html"><CODE>NNS_G2dCharCanvasCalcCellDataSize1D</CODE></a><br> <a href="NNS_G2dCharCanvasCalcCellDataSizeXXX.html"><CODE>NNS_G2dCharCanvasCalcCellDataSize2DRect</CODE></a><br> <a href="NNS_G2dCharCanvasMakeCellXXX.html"><CODE>NNS_G2dCharCanvasMakeCell1D</CODE></a><br> <a href="NNS_G2dCharCanvasMakeCellXXX.html"><CODE>NNS_G2dCharCanvasMakeCell2DRect</CODE></a>
+	      </TD>
+	    </TR>
+	    <TR>
+	      <TD width="40%">
+			<B>Filling CharCanvas</B><br> Functions for filling the CharCanvas with a solid color.
+	      </TD>
+	      <TD width="60%">
+			<a href="NNS_G2dCharCanvasClear.html"><CODE>NNS_G2dCharCanvasClear</CODE></a><br> <a href="NNS_G2dCharCanvasClearArea.html"><CODE>NNS_G2dCharCanvasClearArea</CODE></a><br>
+	      </TD>
+	    </TR>
+	    <TR>
+	      <TD width="40%">
+			<B>Text character drawing</B><br> Functions for drawing text characters to the CharCanvas.
+	      </TD>
+	      <TD width="60%">
+			<a href="NNS_G2dCharCanvasDrawChar.html"><CODE>NNS_G2dCharCanvasDrawChar</CODE></a><br> <a href="NNS_G2dCharCanvasDrawGlyph.html"><CODE>NNS_G2dCharCanvasDrawGlyph</CODE></a>
+	      </TD>
+	    </TR>
+	    <TR>
+	      <TD width="40%">
+			<B>Configuring the screen and OAM settings</B><br> Functions for setting the screen and OAM so that the CharCanvas can be displayed.
+	      </TD>
+	      <TD width="60%">
+			<a href="NNS_G2dMapScrToCharText.html"><CODE>NNS_G2dMapScrToCharText</CODE></a><br> <a href="NNS_G2dMapScrToCharAffine.html"><CODE>NNS_G2dMapScrToCharAffine</CODE></a><br> <a href="NNS_G2dMapScrToChar256x16Pltt.html"><CODE>NNS_G2dMapScrToChar256x16Pltt</CODE></a><br> <A href="NNS_G2dCalcRequiredOBJXXX.html"><CODE>NNS_G2dCalcRequireOBJ1D</CODE></A><br> <A href="NNS_G2dCalcRequiredOBJXXX.html"><CODE>NNS_G2dCalcRequireOBJ2DRect</CODE></A><br> <A href="NNS_G2dArrangeOBJXXX.html"><CODE>NNS_G2dArrangeOBJ1D</CODE></A><br> <A href="NNS_G2dArrangeOBJXXX.html"><CODE>NNS_G2dArrangeOBJ2DRect</CODE></A>
+	      </TD>
+	    </TR>
+	  </TBODY>
+	</TABLE>
+<p>
+	<br> Based on these classifications, the flow for drawing a text character is as follows.<br>
+</p>
+	<pre>
+    (1) Build the CharCanvas using the CharCanvas build functions.
+        Configure the screen and OAM settings using the configuration functions.
+        As an alternative, construct a cell using the cell-building functions.
+        &darr;
+    (2) Clear the CharCanvas using the fill functions.
+        &darr;
+    (3) Draw a text character using the drawing functions.
+        &darr;
+    From this point, use steps (2) and (3) only when required.
+
+    (4) If a cell was built in (1), draw the cell using the renderer.
+	</pre>
+<p>
+	In many cases, it is better to use the <a  href="../TextCanvas/TextCanvas_Overview.html">Character String Drawing library</a> instead of directly rendering the text character with the text-character drawing functions in step (3).
+</P>
+
+<H2>CharCanvas Coordinate System</H2>
+<P>
+	The text character drawing functions express the position of the text character using a pixel-unit coordinate system; the upper-left corner of the CharCanvas is the origin, and moving towards the lower-right corner is the positive direction. In this documentation, this coordinate system is called the CharCanvas coordinate system. <img src="origin.png" alt="CharCanvas Coordinate System">
+</P>
+
+<H2>See Also</H2>
+<P></P>
+
+<H2>Revision History</H2>
+<P>
+2005/07/12 Added cell-building functions.<br> 2005/05/25 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+
+</HTML>

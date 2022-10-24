@@ -1,0 +1,27 @@
+# NNS_Batch_Export
+
+log    "D:/tmp/export_log.txt"
+
+# for modelA
+input_folder  "D:/data/maya_data/MayaProject_A"
+output_folder "D:/data/nitro_3d_data"Å@ 
+n3es_folder   "D:/data/n3es" 
+n3es          "imd_settings.n3es"
+scene         "modelA.mb"
+
+# for modelB
+input_folder  "D:/data/maya_data/MayaProject_B"
+scene         "modelB.ma"
+
+# for modelC
+input_folder  "D:/data/maya_data/MayaProject_C"
+scene         "modelC.mb"
+
+# for modelD
+input_folder  "D:/data/maya_data/MayaProject_D"
+scene         "modelD.ma"
+
+# for modelE
+input_folder  "D:/data/maya_data/MayaProject_E"
+scene         "modelE.ma"
+

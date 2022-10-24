@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"><html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>NNS_SndArcLoadSeqArc</title>
+<link rel="stylesheet" href="../css/nitro.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.65.1">
+</head>
+<body>
+<div class="refentry" lang="ja"><a name="IDAKKWT"></a><div class="titlepage">
+<div></div>
+<div></div>
+</div>
+<h1>NNS_SndArcLoadSeqArc</h1>
+<h2>Syntax</h2>
+<dl>
+<dd><pre class="funcsynopsisinfo"><code>#include &lt;nnsys/snd.h&gt;</code></pre></dd>
+<dd><pre class="funcprototype"><code class="funcprototype">BOOL NNS_SndArcLoadSeqArc( int <var>seqArcNo</var>, NNSSndHeapHandle <var>heap</var> );</code><br></pre></dd>
+</dl>
+<div class="refsection" lang="ja"><a name="IDA0LWT"></a>
+<h2>Arguments</h2>
+      
+      <div class="variablelist">
+<table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><em><strong><code>seqArcNo</code></strong></em></td>
+<td>Sequence archive number.</td>
+</tr>
+<tr>
+<td><em><strong><code>heap</code></strong></em></td>
+<td>Sound heap handle.</td>
+</tr>
+</tbody>
+</table>
+</div>
+    </div>
+<div class="refsection" lang="ja"><a name="IDAQMWT"></a>
+<h2>Return Values</h2>
+
+<p>Returns a value that indicates whether or not the load was successful.</p>
+    </div>
+<div class="refsection" lang="ja"><a name="IDAXMWT"></a>
+<h2>Description</h2>
+      <p>
+Loads the sequence archive to the heap.
+</p>
+      <p>
+The memory necessary for loading is automatically allocated from the sound heap <em><strong><code>heap</code></strong></em> using the <tt class="function"><a href="NNS_SndHeapAlloc.html">NNS_SndHeapAlloc</a></tt> function. If memory allocation fails, the process is interrupted and <code>FALSE</code> is returned.
+</p>
+      <p>
+The sound data already resident in memory is not loaded. Execution of the <code><a href="NNS_SndArcGetFileAddress.html">NNS_SndArcGetFileAddress</a></code> function will determine if the sound data is resident in memory. In addition, the <code><a href="NNS_SndArcSetFileAddress.html">NNS_SndArcSetFileAddress</a></code> function sets the address of the successfully loaded data.
+</p>
+            <p>
+If you wish to limit the size of data that can be loaded at one time, use the <tt class="function"><a href="NNS_SndArcSetLoadBlockSize.html">NNS_SndArcSetLoadBlockSize</a></tt> function to specify the load block size.
+</p>
+
+      <div class="note">
+<h3 class="title">Note</h3>
+<p>
+Use this function only for sound archives initialized using the <code><tt class="function"><a href="NNS_SndArcInit.html">NNS_SndArcInit</a></tt></code> function. This function <em>cannot</em> be used with sound archives initialized using the <code><tt class="function"><a href="NNS_SndArcInitOnMemory.html">NNS_SndArcInitOnMemory</a></tt></code> function.
+</p>
+</div>
+    </div>
+<h2>See Also</h2>
+<p><a href="NNS_SndHeapAlloc.html"><CODE>NNS_SndHeapAlloc</CODE></a>, <a href="NNS_SndArcGetFileAddress.html"><CODE>NNS_SndArcGetFileAddress</CODE></a>, <a href="NNS_SndArcSetFileAddress.html"><CODE>NNS_SndArcSetFileAddress</CODE></a>, <a href="NNS_SndArcSetLoadBlockSize.html"><CODE>NNS_SndArcSetLoadBlockSize</CODE></a>, <a href="NNS_SndArcInit.html"><CODE>NNS_SndArcInit</CODE></a>, <a href="NNS_SndArcInitOnMemory.html"><CODE>NNS_SndArcInitOnMemory</CODE></a></p>
+<h2>Revision History</h2>
+<p>2007/10/17 Added descriptions related to the <code>NNS_SndArcSetLoadBlockSize</code> function.<br> 2004/06/01 Initial version.</p>
+</div>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

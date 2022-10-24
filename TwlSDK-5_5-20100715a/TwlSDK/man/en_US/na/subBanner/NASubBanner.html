@@ -1,0 +1,89 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>NASubBanner</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+
+<H1 align="left">NASubBanner　<IMG src="../../image/BPT.gif" align=middle><IMG src="../../image/TWL.gif" align=middle></H1>
+<H2>Definition</H2>
+<PRE><CODE>
+#define NA_SUBBANNER_PALETTE_NUM    16
+#define NA_SUBBANNER_CHARACTER_NUM  16
+#define NA_SUBBANNER_PATTERN_NUM    8
+#define NA_SUBBANNER_CONTROL_NUM    64
+
+typedef struct NASubBannerControl
+{
+    u8 frameCount : 8;
+
+    union
+    {
+        struct
+        {
+            u8 cellNo   : 3;
+            u8 plttNo   : 3;
+            u8 reserved : 2;
+        }
+        frameInfo;
+
+        u8 animeType;
+    };
+}
+NASubBannerControl;
+
+typedef struct NASubBannerAnime
+{
+    GXCharFmt16         image   [ NA_SUBBANNER_PATTERN_NUM ][ NA_SUBBANNER_CHARACTER_NUM ];
+    GXRgb               pltt    [ NA_SUBBANNER_PATTERN_NUM ][ NA_SUBBANNER_PALETTE_NUM ];
+    NASubBannerControl  control [ NA_SUBBANNER_CONTROL_NUM ];
+}
+NASubBannerAnime;
+
+typedef struct NASubBanner
+{
+    NASubBannerHeader   header;
+    NASubBannerAnime    anime;
+}
+NASubBanner;
+
+</CODE></PRE>
+
+<H2>Description</H2>
+<P>These sub-banner structures are used by the <A href="NA_SaveSubBanner.html"><CODE>NA_SaveSubBanner</CODE></A> and <A href="NA_LoadSubBanner.html"><CODE>NA_LoadSubBanner</CODE></A> functions. The details of each member are as follows.</P>
+<H3>NASubBanner Structure</H3>
+<TABLE>
+<TR><TD><CODE>header</CODE></TD><TD>The sub-banner header. It has a CRC value that should be set to the proper value with the <A href="NA_MakeSubBannerHeader.html"><CODE>NA_MakeSubBannerHeader</CODE></A> function when the following <CODE>anime</CODE> member is edited.</TD></TR>
+<TR><TD><CODE>anime</CODE></TD><TD>Animation data. See the following topics.</TD></TR>
+</TABLE>
+<H3>NASubBannerAnime Structure</H3>
+<TABLE>
+<TR><TD><CODE>image</CODE></TD><TD>Sub-banner character data. It is formatted with 4-bit index values into the color palette. The displayed image is the same as when <CODE>GX_OAM_SHAPE_32x32</CODE> is specified as the <SPAN class="argument">shape</SPAN> argument to the <A href="../../gx/g2/G2_SetOBJAttr.html"><CODE>G2_SetOBJAttr</CODE></A> function.
+</TD></TR>
+<TR><TD><CODE>pltt</CODE></TD><TD>Sub-banner color palette. It is formatted using the <CODE>GXRgb</CODE> type. The displayed image is the same as when <CODE>GX_OAM_COLORMODE_16</CODE> is specified as the <SPAN class="argument">color</SPAN> argument to the <A href="../../gx/g2/G2_SetOBJAttr.html"><CODE>G2_SetOBJAttr</CODE></A> function. <BR> <FONT color=#ff0000>You can use only one 16-color palette.<BR>Use palette 0. Do not use palettes 1 through 7.</FONT></P>
+</TD></TR>
+<TR><TD><CODE>control</CODE></TD><TD>Animation control data. See the following topics.</TD></TR>
+</TABLE>
+For details on <CODE>image</CODE> and <CODE>pltt</CODE>, see <B>OBJ</B> &gt; <B>Character OBJ</B> &gt; <B>Character Data Format</B> &gt; <B>16-Color Mode</B> in the <I>TWL Programming Manual</I>.
+<H3>NASubBannerControl Structure</H3>
+<TABLE>
+<TR><TD><CODE>frameCount</CODE></TD><TD>Use the following parameters up to the frame set by <CODE>frameCount</CODE>.<BR>Set a 0 in the terminating block.</TD></TR>
+<TR><TD><CODE>cellNo</CODE></TD><TD>Sets which number <CODE>image</CODE> to use from the <CODE>NASubBannerAnime</CODE> structure.<BR>Setting the terminating block to 0 results in a loop, and setting it to 1 causes playback to stop at the last frame.</TD></TR>
+<TR><TD><CODE>plttNo</CODE></TD><TD>Sets the number of the <CODE>pltt</CODE> to use in the <CODE>NASubBannerAnime</CODE> structure.<BR><FONT color=#ff0000>Always set it to use number 0.</FONT></TD></TR>
+<TR><TD><CODE>reserved</CODE></TD><TD>The reserved region. (Previously, it contained <CODE>flipH</CODE> and <CODE>flipV</CODE>, but they have been removed.)<BR></TD></TR>
+</TABLE>
+<H2>See Also</H2>
+<P>
+<CODE><A href="NA_MakeSubBannerHeader.html">NA_MakeSubBannerHeader</A></CODE>
+</P>
+
+<H2>Revision History</H2>
+<P>
+2011/04/08 Noted that <CODE>flipH</CODE> and <CODE>flipV</CODE> have been replaced with <CODE>reserved</CODE>.<BR>2008/11/04 Added animation restrictions.<BR>2008/09/17 Split <CODE>flipType</CODE> into <CODE>flipH</CODE> and <CODE>flipV</CODE>. Added to <CODE>frameCount</CODE>.<BR>2008/09/16 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></BODY>
+</HTML>

@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META http-equiv="Content-Style-Type" content="text/css">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+	<TITLE>NNS_G3dTexLoad</TITLE>
+	<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+
+<BODY>
+
+<H1 align="left">NNS_G3dTexLoad</H1>
+
+<H2>Syntax</H2>
+<DL>
+  <DD>
+  <PRE><CODE>#include &lt;nnsys/g3d/kernel.h&gt;</CODE></PRE>
+  <PRE><CODE>void
+NNS_G3dTexLoad(
+    NNSG3dResTex* pTex,
+    BOOL          exec_begin_end
+);</CODE></PRE>
+</DL>
+
+<H2>Arguments</H2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="13%"><CODE>pTex</CODE></TD>
+<TD width="87%">Pointer to the texture resource.</TD>
+    </TR>
+    <TR>
+<TD width="13%"><CODE>exec_begin_end</CODE></TD>
+<TD width="87%">When <CODE>TRUE</CODE>, calls the TWL-SDK's <code>GX_BeginLoadTex</code> and <code>GX_EndLoadTex</code> functions.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<H2>Return Values</H2>
+<P>None.</P>
+
+<H2>Description</H2>
+<P>Loads the texture stored within the texture resource into the region in VRAM indicated by the configured texture key. At the same time, sets the flag indicating that the texture inside the texture resource was loaded into VRAM. You must configure the texture key with the <a href="NNS_G3dTexSetTexKey.html"><CODE>NNS_G3dTexSetTexKey</CODE></a> function before calling this function. In addition, because DMA transfer is used to load textures, it is necessary to write textures back to memory using functions such as <CODE>DC_Flush*</CODE> and <CODE>DC_Store*</CODE> before calling this function.</P>
+<P>When <CODE>TRUE</CODE> is specified for <code>exec_begin_end</code>, this function calls the TWL-SDK's <code>GX_BeginLoadTex</code> and <code>GX_EndLoadTex</code> functions before and after loading texture data to VRAM. When <code>FALSE</code> is specified for <code>exec_begin_end</code>, the <code>GX_BeginLoadTex</code> and <code>GX_EndLoadTex</code> functions must be called on the user side. When continuously loading texture data, it is more efficient to designate <code>FALSE</code> in <code>exec_begin_end</code> and call the <code>GX_BeginLoadTex</code> and <code>GX_EndLoadTex</code> functions on the user side.</P>
+
+
+<H2>See Also</H2>
+<P><a href="NNS_G3dTexSetTexKey.html"><CODE>NNS_G3dTexSetTexKey</CODE></a><BR> <a href="NNS_G3dTexReleaseTexKey.html"><CODE>NNS_G3dTexReleaseTexKey</CODE></a></P>
+
+<H2>Revision History</H2>
+<P>
+2008/06/20 Changed NITRO-SDK to TWL-SDK.<BR> 2008/01/23 Added description for using DMA transfer.<BR> 2004/08/19 Corrected mistake in explanation.<BR> 2004/08/02 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+
+</HTML>

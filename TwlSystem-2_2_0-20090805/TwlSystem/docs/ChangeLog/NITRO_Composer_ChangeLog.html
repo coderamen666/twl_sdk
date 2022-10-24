@@ -1,0 +1,1150 @@
+<html>
+<head>
+<title>TWL-System NITRO-Composer Revision History</title>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="content-style-type" content="text/css" />
+<style type="text/css">
+<!--
+    
+H1
+{
+    font-weight         : bold;
+    font-size           : 250%;
+    text-align          : left;
+    color               : #46f;
+    margin              : 0em 0em 0.5em 0em;
+}
+
+H2
+{
+    font-weight         : bold;
+    font-size           : 150%;
+    text-align          : left;
+    margin              : 2em 0em 0.5em 0em;
+    padding-top         : 8pt;
+    border-top-style    : double;
+    border-top-width    : 3px;
+}
+
+H3
+{
+    font-weight         : bold;
+    font-size           : 120%;
+    margin              : 1em 0em 0.5em 0em;
+    padding-top         : 8pt;
+    border-top-style    : solid;
+    border-top-width    : 1px;
+}
+
+H4
+{
+    font-weight         : normal;
+    font-size           : 100%;
+    margin              : 0em 0em 0em 0.5em;
+}
+
+DIV.date
+{
+    font-size           : normal;
+    text-align          : right;
+    margin              : 0pt 0pt 12pt 0pt;
+}
+
+DIV.licence
+{
+    margin: 0em;
+    border-style : solid;
+    border-width : 1px;
+}
+
+P
+{
+    font-size           : normal;
+    margin              : 0em 1em 0.5em 1em;
+    line-height         : 150%;
+}
+
+PRE
+{
+    font-size           : normal;
+    margin              : 0em 0em 1em 2em;
+    line-height         : 120%;
+}
+
+DT
+{
+    margin              : 1em 0em 0em 1em;
+}
+DD
+{
+    margin-left         : 3em;
+}
+UL
+{
+    margin-top         : 0em;
+}
+
+-->
+</style>
+</head>
+<body>
+
+<h1>TWL-System NITRO-Composer Revision History</h1>
+
+<h2>Index</h2>
+
+<h3><a href="#version_2_2_0_0">2.2.0 PR</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_83-S02">Note 83-S02: (Documentation) Clarified size of management region when loading waveforms individually</a></li>
+<li><a href="#note_83-S03">Note 83-S03: (Documentation) Added description of <CODE>NNS_SndArcLoadWaveArc</CODE></a></li>
+<li><a href="#note_83-S04">Note 83-S04: (SoundPlayer) Added NAND SoundPlayer</a></li>
+<li><a href="#note_83-S05">Note 83-S05: (SoundPlayer) Added switching of I2S frequency</a></li>
+</ul>
+<h4>Bug Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_83-S01">Note 83-S01: (Converter) Fixed a bug related to text events in SMF files</a></li>
+<li><a href="#note_83-S06">Note 83-S06: (SoundPlayer) Fixed a streaming playback bug</a></li>
+</ul>
+<h3><a href="#version_2_1_0">2.1.0</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_81-S02">Note 81-S02: (Documentation) Added description of <CODE>NNS_SndArcInitOnMemory</CODE></a></li>
+<li><a href="#note_81-S03">Note 81-S03: (Library) Updated <CODE>NNS_SndWaveOutStart</CODE> function to support IMA-ADPCM</a></li>
+<li><a href="#note_81-S05">Note 81-S05: (Documentation) Added description of <CODE>NNS_SndArcInit*</CODE></a></li>
+<li><a href="#note_81-S07">Note 81-S07: (Documentation) Added explanation of SoundPlayer's TWL support</a></li>
+<li><a href="#note_81-S08">Note 81-S08: (Documentation) Corrected sample data directory path</a></li>
+<li><a href="#note_81-S09">Note 81-S09: (Documentation) Added notes about using TWL-SDK's SND, SNDEX, and DSP functions</a></li>
+</ul>
+<h4>Bug Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_81-S01">Note 81-S01: (Converter) Added support for converting data stored in Japanese-language folders</a></li>
+<li><a href="#note_81-S04">Note 81-S04: (Converter) Fixed bug in data size alignment</a></li>
+<li><a href="#note_81-S06">Note 81-S06: (Converter) Added support for invalid loop information during waveform conversion</a></li>
+</ul>
+<h3><a href="#version_2_0_0_0">2.0.0 RC</a></h3>
+<h4>Bug Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_78-S01">Note 78-S01:  (Library) Fixed bug for stream thread stack size</a></li>
+</ul>
+<h3><a href="#version_20080408">2008/04/08 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_76-S01">Note 76-S01:  (Manual) Changed the format of the Revision History and revised the page headers</a></li>
+</ul>
+<h3><a href="#version_20071126">2007/11/26 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_71-S01">Note 71-S01:  (Library) Added a sound archive load block size setting</a></li>
+<li><a href="#note_71-S02">Note 71-S02:  (Library) Function arguments converted to constants</a></li>
+<li><a href="#note_71-S03">Note 71-S03:  (Converter/SoundPlayer) Made MIDI RPN updates</a></li>
+<li><a href="#note_71-S04">Note 71-S04:  (Converter/Library) Disabled sequence commands related to envelopes</a></li>
+<li><a href="#note_71-S05">Note 71-S05:  (Converter) Improved ADPCM encoding</a></li>
+</ul>
+<h4>Bug Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_71-S06">Note 71-S06:  (Library) Fixed bug specific to offset for start of stream playback</a></li>
+<li><a href="#note_71-S07">Note 71-S07:  (Converter) Fixed bug specific to alignment of data within sound archives</a></li>
+<li><a href="#note_71-S08">Note 71-S08:  (Converter) Fixed bug specific to sound map file data size</a></li>
+<li><a href="#note_71-S09">Note 71-S09:  (Converter) Fixed bug specific to AIFF loading process</a></li>
+</ul>
+<h3><a href="#version_20070314">2007/03/14 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_64-S01">Note 64-S01:  (SoundPlayer) Added a feature to SoundPlayer for changing output effects</a></li>
+<li><a href="#note_64-S02">Note 64-S02:  (SoundPlayer) Added a feature to SoundPlayer for displaying stream process loads</a></li>
+<li><a href="#note_64-S03">Note 64-S03:  (SoundPlayer) Added a feature to SoundPlayer for playing multiple sounds simultaneously</a></li>
+<li><a href="#note_64-S04">Note 64-S04:  (Converter) Added a feature for specifying alignment in sound archives</a></li>
+<li><a href="#note_64-S05">Note 64-S05:  (Converter) Added a feature for specifying sound archive conversion file types</a></li>
+<li><a href="#note_64-S06">Note 64-S06:  (Library) Added sound archive stream-related functions</a></li>
+</ul>
+<h4>Bug Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_64-S07">Note 64-S07:  (Converter) Fixed a bug where a conversion error was being generated due to too many command-line arguments</a></li>
+</ul>
+<h3><a href="#version_20060529">2006/05/29 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_59-S01">Note 59-S01:  (Converter/Library) Added the mute sequence command</a></li>
+<li><a href="#note_59-S02">Note 59-S02:  (Converter) Added a feature for accessing before and after labels in sound archive definition files</a></li>
+<li><a href="#note_59-S03">Note 59-S03:  (Converter) Extended the feature for expanding label names with embedded SMF text commands</a></li>
+<li><a href="#note_59-S04">Note 59-S04:  (Library) Added the <CODE>NNS_SndPlayerSetTrackMuteEx</CODE> function</a></li>
+<li><a href="#note_59-S05">Note 59-S05:  (Library) Added the <CODE>NNS_SndCaptureDestroyThread</CODE> function</a></li>
+</ul>
+<h4>Bug Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_59-S06">Note 59-S06:  (Converter) Fixed a bug where the last wait command was missing during SMF Format 1 conversion</a></li>
+<li><a href="#note_59-S07">Note 59-S07:  (Converter) Fixed a bug where conversion was not being executed correctly for paths that included empty strings</a></li>
+<li><a href="#note_59-S08">Note 59-S08:  (Converter) Fixed a bug where the layout of the sound map file would break when creating a missing number for the group number</a></li>
+</ul>
+<h3><a href="#version_20050901">2005/09/01 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_50-S01">Note 50-S01:  (Library) Playback of stream data in memory</a></li>
+<li><a href="#note_50-S02">Note 50-S02:  (Converter) Added an option for specifying an output filename for the sound archiver <CODE>sndarc</CODE></a></li>
+<li><a href="#note_50-S03">Note 50-S03:  (Converter) Added an option for specifying a pre-process file for the sound archiver <CODE>sndarc</CODE></a></li>
+<li><a href="#note_50-S04">Note 50-S04:  (Library) Added the <CODE>NNS_SndArcInitWithResult</CODE> function</a></li>
+<li><a href="#note_50-S05">Note 50-S05:  (Library) Added functions for getting capture status</a></li>
+</ul>
+<h4>Bug Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_50-S06">Note 50-S06:  (Library) Fixed bug resulting in frequent <CODE>NNS_SndUpdateDriverInfo</CODE> function failures</a></li>
+<li><a href="#note_50-S07">Note 50-S07:  (Converter) Fixed bug where file paths not recognized by <CODE>sndarc</CODE> and <CODE>bankconv</CODE></a></li>
+</ul>
+<h3><a href="#version_20050606">2005/06/06 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_45-S01">Note 45-S01:  (Converter/Library) Added instrument setting to ignore Note Off</a></li>
+<li><a href="#note_45-S02">Note 45-S02:  (Converter) Added original key value specification in bank definition file</a></li>
+<li><a href="#note_45-S03">Note 45-S03:  (Documentation) Deleted sound driver (SND) function reference</a></li>
+<li><a href="#note_45-S04">Note 45-S04:  (Library) Added function to create thread for stream preparation</a></li>
+</ul>
+<h4>Bug Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_45-S05">Note 45-S05:  (Library) Fixed problem with minor noise generation</a></li>
+<li><a href="#note_45-S06">Note 45-S06:  (SoundPlayer) Fixed bug in SoundPlayer real-time MIDI portamento</a></li>
+<li><a href="#note_45-S07">Note 45-S07:  (Converter) Corrected case-sensitivity problem with the <CODE>bankconv</CODE> drive letter</a></li>
+</ul>
+<h3><a href="#version_20050328">2005/03/28 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_43-S01">Note 43-S01:  (Library) Added functionality to individually load waveform data to the player heap</a></li>
+<li><a href="#note_43-S02">Note 43-S02:  (Library) Added functionality to use player heap when playing sequence archives</a></li>
+<li><a href="#note_43-S03">Note 43-S03:  (Converter) Changed the sound map file (SMAP) format</a></li>
+<li><a href="#note_43-S04">Note 43-S04:  (Converter) Expanded numeric value notation in text files</a></li>
+<li><a href="#note_43-S05">Note 43-S05:  (Converter) Added a <CODE>NULL</CODE> type instrument</a></li>
+<li><a href="#note_43-S06">Note 43-S06:  (Library) Added a function to set the volume for each player</a></li>
+<li><a href="#note_43-S07">Note 43-S07:  (Library) Added function to set the track pan range</a></li>
+<li><a href="#note_43-S08">Note 43-S08:  (Library) Added function to get stream data time length</a></li>
+<li><a href="#note_43-S09">Note 43-S09:  (Library) Added functions to get sound driver information</a></li>
+<li><a href="#note_43-S10">Note 43-S10:  (Library) Added the <CODE>SND_COMMAND_IMMEDIATE</CODE> flag for the <CODE>SND_FlushCommand</CODE> function</a></li>
+<li><a href="#note_43-S11">Note 43-S11:  (Library) Added <CODE>SNDINST_NULL</CODE> to <CODE>SNDInstType</CODE></a></li>
+</ul>
+<h4>Bug Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_43-S12">Note 43-S12:  (Library) Fixed a bug where channels playing sounds with a portamento command were being released</a></li>
+<li><a href="#note_43-S13">Note 43-S13:  (SoundPlayer) Fixed a bug where data load could not be selected in during manual load mode when using SoundPlayer</a></li>
+<li><a href="#note_43-S14">Note 43-S14:  (Converter) Fixed a bug where an unnecessary wait was being inserted at the end of tracks when using <CODE>smfconv</CODE></a></li>
+<li><a href="#note_43-S15">Note 43-S15:  (Converter) Fixed a bug where an invalid wait time was being output when using <CODE>smfconv</CODE></a></li>
+<li><a href="#note_43-S16">Note 43-S16:  (Converter) Fixed a bug where an error would mistakenly occur when using <CODE>bankconv</CODE></a></li>
+</ul>
+<h3><a href="#version_20050131">2005/01/31 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_39-S01">Note 39-S01:  (Converter/Library) Added a feature for individually loading waveform data</a></li>
+<li><a href="#note_39-S02">Note 39-S02:  (Converter/Library) Added a feature that limits the channels used by a sequence</a></li>
+<li><a href="#note_39-S03">Note 39-S03:  (Converter) Updated for the UNC format path notation</a></li>
+<li><a href="#note_39-S04">Note 39-S04:  (Converter) Added syntax for the <CODE>#include&lt;filename&gt;</CODE> format</a></li>
+<li><a href="#note_39-S05">Note 39-S05:  (Converter/Library) Added the <CODE>printvar</CODE> sequence command</a></li>
+<li><a href="#note_39-S06">Note 39-S06:  (Converter) Eliminated case sensitivity in key notation</a></li>
+<li><a href="#note_39-S07">Note 39-S07:  (SoundPlayer) Improved the channel meter</a></li>
+<li><a href="#note_39-S08">Note 39-S08:  (Library) Added the <CODE>NNS_SndCaptureSetPostOutputEffectCallback</CODE> function</a></li>
+<li><a href="#note_39-S09">Note 39-S09:  (Library) Added a feature that limits the channels used by a sequence</a></li>
+<li><a href="#note_39-S10">Note 39-S10:  (Library) Added the <CODE>micThrough</CODE> demo</a></li>
+</ul>
+<h4>Bug Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_39-S11">Note 39-S11:  (Converter) Fixed a bug with SMF converter</a></li>
+<li><a href="#note_39-S12">Note 39-S12:  (Library) Fixed bug where allocated channels were deallocated with <CODE>NNS_SndArcStrmStopAll</CODE></a></li>
+</ul>
+<h3><a href="#version_20041206">2004/12/06 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_34-S01">Note 34-S01:  (Converter/Library) Two-channel playback for monaural streams</a></li>
+<li><a href="#note_34-S02">Note 34-S02:  (Library) Added the <CODE>NNS_SndArcStrmStartEx2</CODE> function</a></li>
+<li><a href="#note_34-S03">Note 34-S03:  (Library) Made the sound driver thread&ndash;safe</a></li>
+<li><a href="#note_34-S04">Note 34-S04:  (Library) Call to the <CODE>NNS_SndArcStrmAllocChannel</CODE> function for the stream player playing back</a></li>
+<li><a href="#note_34-S05">Note 34-S05:  (Documentation) Added a caution regarding output effects</a></li>
+</ul>
+<h4>Bug Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_34-S06">Note 34-S06:  (Library) Fixed a bug that prevented the generation of the note after <CODE>tieon</CODE></a></li>
+</ul>
+<h3><a href="#version_20041110">2004/11/10 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_31-S01">Note 31-S01:  (Library) Added resource management functions</a></li>
+</ul>
+<h4>Bug Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_31-S02">Note 31-S02:  (Library) Sample of stream playback without loop</a></li>
+<li><a href="#note_31-S03">Note 31-S03:  (Library) Fixed a bug regarding switching the current sound archive during stream playback</a></li>
+<li><a href="#note_31-S04">Note 31-S04:  (Library) Fixed a bug with the <CODE>NNS_SndArcStrmSetChannelVolume</CODE> function</a></li>
+<li><a href="#note_31-S05">Note 31-S05:  (Converter) Fixed a bug with the sequence converter <CODE>seqconv</CODE> command analysis</a></li>
+</ul>
+<h3><a href="#version_20041012">2004/10/12 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_26-S01">Note 26-S01:  (SoundPlayer) Added support for IS-AGB-MIDI</a></li>
+<li><a href="#note_26-S02">Note 26-S02:  (Library) Added an output effect feature</a></li>
+<li><a href="#note_26-S03">Note 26-S03:  (Library) Automated the sleep process</a></li>
+<li><a href="#note_26-S04">Note 26-S04:  (Library) Added functions to specify stream player</a></li>
+<li><a href="#note_26-S05">Note 26-S05:  (Library) Added functions to set monaural flags</a></li>
+<li><a href="#note_26-S06">Note 26-S06:  (Converter) Added a player label specification</a></li>
+<li><a href="#note_26-S07">Note 26-S07:  (Documentation) Added cautions regarding transition to Sleep Mode</a></li>
+<li><a href="#note_26-S08">Note 26-S08:  (Documentation) Added explanation for not interrupting stream</a></li>
+<li><a href="#note_26-S09">Note 26-S09:  (Documentation) Added an introductory description of output effects</a></li>
+</ul>
+<h4>Bug Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_26-S10">Note 26-S10:  (Library) Fixed an infinite loop bug during sequence fadeout</a></li>
+<li><a href="#note_26-S11">Note 26-S11:  (Converter) Fixed a mistake in parsing the <CODE>@PATH</CODE> command</a></li>
+<li><a href="#note_26-S12">Note 26-S12:  (Library) Release channel process during sequence fadeout</a></li>
+<li><a href="#note_26-S13">Note 26-S13:  (Converter) Distinction between upper- and lowercase in filenames</a></li>
+<li><a href="#note_26-S14">Note 26-S14:  (Converter) <CODE>Waveconv</CODE> loop start location check</a></li>
+</ul>
+<h3><a href="#version_20040916">2004/09/16 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_21-S01">Note 21-S01:  (Converter/Library) Extended the <CODE>loop_start</CODE> sequence command.</a></li>
+<li><a href="#note_21-S02">Note 21-S02:  (Converter/Library) Loop specification at the SMF track level</a></li>
+<li><a href="#note_21-S03">Note 21-S03:  (Converter) SMF loop specification</a></li>
+<li><a href="#note_21-S04">Note 21-S04:  (Converter) Extended SBDL files and changed names</a></li>
+<li><a href="#note_21-S05">Note 21-S05:  (Documentation) Standardized the naming of SADL files</a></li>
+<li><a href="#note_21-S06">Note 21-S06:  (Library) Added the <CODE>NNS_SndCaptureCreateThread</CODE> function</a></li>
+<li><a href="#note_21-S07">Note 21-S07:  (Library) Added the <CODE>NNS_SndCaptureStartSampling</CODE> function</a></li>
+<li><a href="#note_21-S08">Note 21-S08:  (Library) Added the <CODE>NNS_SndArcGetSeqArcSeqCount</CODE> function</a></li>
+</ul>
+<h4>Bug Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_21-S09">Note 21-S09:  (Library) Fixed bug with <CODE>NNS_SndPLayerMoveVolume</CODE> function</a></li>
+<li><a href="#note_21-S10">Note 21-S10:  (Library) Uncontrollable sequence bug</a></li>
+<li><a href="#note_21-S11">Note 21-S11:  (SoundPlayer) Incorrect error message in SoundPlayer</a></li>
+<li><a href="#note_21-S12">Note 21-S12:  (Library) Mute off operation when mute is off</a></li>
+<li><a href="#note_21-S13">Note 21-S13:  (Converter) Updated bank list file</a></li>
+<li><a href="#note_21-S14">Note 21-S14:  (Converter) Sequence converter <CODE>seqconv</CODE> error check</a></li>
+</ul>
+<h3><a href="#version_20040902">2004/09/02 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_20-S01">Note 20-S01:  (SoundPlayer) Real-time MIDI playback</a></li>
+<li><a href="#note_20-S02">Note 20-S02:  (Converter) Bank list file output</a></li>
+<li><a href="#note_20-S03">Note 20-S03:  (Converter) Embedded SMF text commands</a></li>
+<li><a href="#note_20-S04">Note 20-S04:  (Converter) Multiple definitions of the same label in sequence archives</a></li>
+<li><a href="#note_20-S05">Note 20-S05:  (Library) Sleep recovery feature</a></li>
+<li><a href="#note_20-S06">Note 20-S06:  (Library) Clearing of the sound heap</a></li>
+<li><a href="#note_20-S07">Note 20-S07:  (Library) Added the <CODE>NNS_SndArcSetup</CODE> function</a></li>
+<li><a href="#note_20-S08">Note 20-S08:  (Library) Added the <CODE>NNS_SndArcStrmSetupPlayer</CODE> function</a></li>
+</ul>
+<h4>Bug Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_20-S09">Note 20-S09:  (Library) Player heap deallocation bug</a></li>
+<li><a href="#note_20-S10">Note 20-S10:  (Converter) Track output error of SMF converter <CODE>smfconv</CODE></a></li>
+<li><a href="#note_20-S11">Note 20-S11:  (Converter) Drifting loop start point in SMF converter <CODE>smfconv</CODE></a></li>
+<li><a href="#note_20-S12">Note 20-S12:  (Converter) Path parsing error for bank converter <CODE>bankconv</CODE></a></li>
+<li><a href="#note_20-S13">Note 20-S13:  (Converter) <CODE>#define</CODE> multiple definition error</a></li>
+</ul>
+<h3><a href="#version_20040810">2004/08/10 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_16-S01">Note 16-S01:  (General) Updated for stream playback</a></li>
+<li><a href="#note_16-S02">Note 16-S02:  (Converter) Made changes to the sound archive definition file</a></li>
+<li><a href="#note_16-S03">Note 16-S03:  (SoundPlayer) Updated for stream playback</a></li>
+<li><a href="#note_16-S04">Note 16-S04:  (Library) Added a sound archive stream library</a></li>
+<li><a href="#note_16-S05">Note 16-S05:  (Library) Added a stream library</a></li>
+<li><a href="#note_16-S06">Note 16-S06:  (Library) Added the <CODE>NNS_SndStopSoundAll</CODE> function</a></li>
+<li><a href="#note_16-S07">Note 16-S07:  (Library) Added the <CODE>NNS_SndHeapDestroy</CODE> function</a></li>
+<li><a href="#note_16-S08">Note 16-S08:  (Converter) Changed the name of SMF converter <CODE>smfconv</CODE> output label</a></li>
+</ul>
+<h4>Bug Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_16-S09">Note 16-S09:  (Converter) Sound Archiver <CODE>sndarc</CODE> abnormal termination</a></li>
+<li><a href="#note_16-S10">Note 16-S10:  (Converter) Bank converter <CODE>bankconv</CODE> abnormal error</a></li>
+<li><a href="#note_16-S11">Note 16-S11:  (Converter) Irregular order of SMF converter <CODE>smfconv</CODE> meta event</a></li>
+</ul>
+<h3><a href="#version_20040720">2004/07/20 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_13-S01">Note 13-S01:  (Converter/Library) Changed the binary data format</a></li>
+<li><a href="#note_13-S02">Note 13-S02:  (SoundPlayer) Changed the name of the executable file</a></li>
+<li><a href="#note_13-S03">Note 13-S03:  (General) Changed the default platform</a></li>
+<li><a href="#note_13-S04">Note 13-S04:  (SoundPlayer) Sequence type selection feature</a></li>
+<li><a href="#note_13-S05">Note 13-S05:  (Library) Added a waveform playback library</a></li>
+<li><a href="#note_13-S06">Note 13-S06:  (Library) Added an effect feature</a></li>
+<li><a href="#note_13-S07">Note 13-S07:  (Library) Changed the arguments of the <CODE>NNS_SndCaptureStartReverb</CODE> function</a></li>
+<li><a href="#note_13-S08">Note 13-S08:  (Library) Changed the <CODE>NNSSndArcBankInfo</CODE> structure</a></li>
+<li><a href="#note_13-S09">Note 13-S09:  (Library) Deleted functions</a></li>
+<li><a href="#note_13-S10">Note 13-S10:  (Converter/Library) Added the ability to use multiple waveform archives with a single bank</a></li>
+<li><a href="#note_13-S11">Note 13-S11:  (Converter) Option to delete sound archive symbol data</a></li>
+</ul>
+<h4>Bug Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_13-S12">Note 13-S12:  (Converter) Mistake in the value for the maximum number of simultaneous sequence playback</a></li>
+</ul>
+<h3><a href="#version_20040610">2004/06/10 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_09-S01">Note 09-S01:  (General) Migration from previous environment</a></li>
+<li><a href="#note_09-S02">Note 09-S02:  (General) Updated for file system</a></li>
+<li><a href="#note_09-S03">Note 09-S03:  (General) Changed the method of embedding sound data</a></li>
+<li><a href="#note_09-S04">Note 09-S04:  (General) Added memory management mechanism</a></li>
+<li><a href="#note_09-S05">Note 09-S05:  (Library) Sound library initialization</a></li>
+<li><a href="#note_09-S06">Note 09-S06:  (Library) Changed the ARM7 component</a></li>
+<li><a href="#note_09-S07">Note 09-S07:  (Converter) Changed the conversion command</a></li>
+<li><a href="#note_09-S08">Note 09-S08:  (SoundPlayer) Label name display</a></li>
+<li><a href="#note_09-S09">Note 09-S09:  (SoundPlayer) Added a manual load mode</a></li>
+<li><a href="#note_09-S10">Note 09-S10:  (Converter/Library) Multiple sequence playback</a></li>
+<li><a href="#note_09-S11">Note 09-S11:  (Converter/Library) Changed the upper limit on the number of players</a></li>
+<li><a href="#note_09-S12">Note 09-S12:  (Converter/Library) Specification of the number of simultaneous sequence playbacks</a></li>
+<li><a href="#note_09-S13">Note 09-S13:  (Library) Player priority during fadeout</a></li>
+<li><a href="#note_09-S14">Note 09-S14:  (Library) Adjusted release/delay</a></li>
+<li><a href="#note_09-S15">Note 09-S15:  (Converter) Sound map file output</a></li>
+<li><a href="#note_09-S16">Note 09-S16:  (Converter) Index number specification</a></li>
+<li><a href="#note_09-S17">Note 09-S17:  (Converter) Program number list output</a></li>
+<li><a href="#note_09-S18">Note 09-S18:  (Converter/Library) Added expressions</a></li>
+<li><a href="#note_09-S19">Note 09-S19:  (Converter) Added ability to use <CODE>sweep_pitch</CODE> from MIDI</a></li>
+<li><a href="#note_09-S20">Note 09-S20:  (Converter) Changed the maximum values for the <CODE>prg</CODE> and <CODE>mod_delay</CODE> commands</a></li>
+<li><a href="#note_09-S21">Note 09-S21:  (Converter/Library) Added the random command</a></li>
+<li><a href="#note_09-S22">Note 09-S22:  (Converter/Library) Added the variable command</a></li>
+<li><a href="#note_09-S23">Note 09-S23:  (Converter/Library) Added the control command</a></li>
+<li><a href="#note_09-S24">Note 09-S24:  (Library) Deleted the <CODE>NNS_SndArcPlayerInit</CODE> function</a></li>
+<li><a href="#note_09-S25">Note 09-S25:  (Library) Deleted the <CODE>NNS_SndArcPlayerStartSeqWithPlayerNo</CODE> function</a></li>
+<li><a href="#note_09-S26">Note 09-S26:  (Library) Changed function names</a></li>
+<li><a href="#note_09-S27">Note 09-S27:  (Library) Added sequence variable functions</a></li>
+<li><a href="#note_09-S28">Note 09-S28:  (Library) Added functions for getting the number of ticks</a></li>
+<li><a href="#note_09-S29">Note 09-S29:  (Library) Added other functions</a></li>
+</ul>
+<h4>Bug Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_09-S30">Note 09-S30:  (Library) Fixed a bug where the sound priority setting was not being applied</a></li>
+<li><a href="#note_09-S31">Note 09-S31:  (Library) Fixed a bug related to assert of the <CODE>NNS_SndPlayerSetTrackPan</CODE> function</a></li>
+<li><a href="#note_09-S32">Note 09-S32:  (Library) Fixed a bug related to release when using the <CODE>NNS_SndPlayerStopSeq</CODE> function</a></li>
+</ul>
+
+
+<h2 id="version_2_2_0_0">Changes in 2.2.0 PR</h2>
+<h3 id="note_83-S01">Note 83-S01: (Converter) Fixed a bug related to text events in SMF files</h3>
+<p>Application errors occurred when converting SMF files if the text length was zero for text events such as markers. This has been fixed.
+</p>
+<h3 id="note_83-S02">Note 83-S02: (Documentation) Clarified size of management region when loading waveforms individually</h3>
+<p>Explicitly explained in the <I>Bank Data Manual</I> and the <I>Sound Archive Manual</I> that 32 bytes are consumed as a management region per every 4 waveforms when loading waveforms individually.
+</p>
+<h3 id="note_83-S03">Note 83-S03: (Documentation) Added description of <CODE>NNS_SndArcLoadWaveArc</CODE></h3>
+<p>Described differences in behavior when the individual load option for waveform archives is enabled versus disabled.
+</p>
+<h3 id="note_83-S04">Note 83-S04: (SoundPlayer) Added NAND SoundPlayer</h3>
+<p>Added <CODE>NANDSoundPlayer.tad</CODE>, which can import SoundPlayer into the NAND memory of TWL development hardware or IS-TWL-DEBUGGER. When you run the imported NAND SoundPlayer, the first SDAT file found in the root folder of the SD Card is automatically loaded.
+</p>
+<p>For more information, see section 9.10 NAND SoundPlayer in the <I>Sound Designer Guide</I>.
+</p>
+<h3 id="note_83-S05">Note 83-S05: (SoundPlayer) Added switching of I2S frequency</h3>
+<p>The I2S frequency can now be switched when the program is run on TWL or IS-TWL-DEBUGGER.
+</p>
+<p>For more information, see section 9.4.5 I2S Frequency in the <I>Sound Designer Guide</I>.
+</p>
+<h3 id="note_83-S06">Note 83-S06: (SoundPlayer) Fixed a streaming playback bug</h3>
+<p>Formerly, when <CODE>SoundPlayer.srl</CODE> was started on IS-TWL-DEBUGGER or TWL development hardware and used to play streaming sound, the program ran out of control. This bug has been fixed.
+</p>
+<h2 id="version_2_1_0">Changes in 2.1.0</h2>
+<h3 id="note_81-S01">Note 81-S01: (Converter) Added support for converting data stored in Japanese-language folders</h3>
+<p>An error would occur when sound data stored in a folder named in Japanese was converted by SoundMaker or other programs. That bug has been fixed.
+</p>
+<h3 id="note_81-S02">Note 81-S02: (Documentation) Added description of <CODE>NNS_SndArcInitOnMemory</CODE></h3>
+<p>Added a cautionary note about destroying Sound archives and loading different Sound archives to the same address.
+</p>
+<h3 id="note_81-S03">Note 81-S03: (Library) Updated <CODE>NNS_SndWaveOutStart</CODE> function to support IMA-ADPCM</h3>
+<p>Updated to include IMA-ADPCM among the waveform data formats that can be handled by the <CODE>NNS_SndWaveOutStart</CODE> function.
+</p>
+<h3 id="note_81-S04">Note 81-S04: (Converter) Fixed bug in data size alignment</h3>
+<p>The alignment size specified by the <CODE>--align</CODE> option in <CODE>sndarc.exe</CODE> was not being applied. That has been fixed. There was also an incorrect size value being output to the Sound Map file. That has also been fixed.
+</p>
+<h3 id="note_81-S05">Note 81-S05: (Documentation) Added description of <CODE>NNS_SndArcInit*</CODE></h3>
+<p>Added mention in the references for the <CODE>NNS_SndArcInit*</CODE> functions that the sound archive data in NAND archives and SD Card archives cannot be used.
+</p>
+<h3 id="note_81-S06">Note 81-S06: (Converter) Added support for invalid loop information during waveform conversion</h3>
+<p>An error is now output when a waveform file with invalid loop information has been converted by <CODE>waveconv.exe</CODE>.
+</p>
+<h3 id="note_81-S07">Note 81-S07: (Documentation) Added explanation of SoundPlayer's TWL support</h3>
+<p>Explained in the Sound Designer Guide that hardware volume is displayed when <CODE>SoundPlayer</CODE> is used with the TWL or with IS-TWL-DEBUGGER. Also added an explanation of IS-TWL-MIDI support.
+</p>
+<h3 id="note_81-S08">Note 81-S08: (Documentation) Corrected sample data directory path</h3>
+<p>In the <I>Quick Start Guide</I> and the <I>Sound Designer Guide</I>, an incorrect path was give for directories containing sample data. This problem has been fixed.
+</p>
+<h3 id="note_81-S09">Note 81-S09: (Documentation) Added notes about using TWL-SDK's SND, SNDEX, and DSP functions</h3>
+<p>Added cautionary notes about using the TWL-SDK's SND, SNDEX, and DSP functions to the <I>Sound Programmer Guide</I>.
+</p>
+<h2 id="version_2_0_0_0">Changes in 2.0.0 RC</h2>
+<h3 id="note_78-S01">Note 78-S01:  (Library) Fixed bug for stream thread stack size</h3>
+<p>The stream thread stack size was too small, causing memory to be destroyed when a stream callback consumed the stack. That bug has been fixed.
+</p>
+<h2 id="version_20080408">Changes in Version 2008/04/08</h2>
+<h3 id="note_76-S01">Note 76-S01:  (Manual) Changed the format of the Revision History and revised the page headers</h3>
+<p>The Revision History has been changed, and the page headers have been revised in the following PDF manuals.
+</p>
+<ul><li><CODE>NITRO_Composer_BankDataManual.pdf</CODE>
+</li>
+<li><CODE>NITRO_Composer_QuickStartGuide.pdf</CODE>
+</li>
+<li><CODE>NITRO_Composer_SequenceDataManual.pdf</CODE>
+</li>
+<li><CODE>NITRO_Composer_SoundArchiveManual.pdf</CODE>
+</li>
+<li><CODE>NITRO_Composer_SoundDesignerGuide.pdf</CODE>
+</li>
+<li><CODE>NITRO_Composer_SoundProgrammerGuide.pdf</CODE>
+</li>
+<li><CODE>NITRO_Composer_SoundSystemManual.pdf</CODE>
+</li>
+<li><CODE>NITRO_Composer_SoundToolManual.pdf</CODE>
+</li>
+</ul>
+<h2 id="version_20071126">Changes in Version 2007/11/26</h2>
+<h3 id="note_71-S01">Note 71-S01:  (Library) Added a sound archive load block size setting</h3>
+<p>The following functions were added to set or get the load block size when loading data from a sound archive.
+</p>
+<ul><li><CODE>NNS_SndArcSetLoadBlockSize</CODE>
+</li>
+<li><CODE>NNS_SndArcGetLoadBlockSize</CODE>
+</li>
+</ul>
+<p>When the amount of data to load is larger than the specified load block size, the data is split into blocks equal to the load block size and loaded over several cycles.
+</p>
+<h3 id="note_71-S02">Note 71-S02:  (Library) Function arguments converted to constants</h3>
+<p>Attached <CODE>const</CODE> to the following function arguments.
+</p>
+<ul><li><CODE>NNS_SndHandleIsValid</CODE>
+</li>
+<li><CODE>NNS_SndStrmHandleIsValid</CODE>
+</li>
+</ul>
+<h3 id="note_71-S03">Note 71-S03:  (Converter/SoundPlayer) Made MIDI RPN updates</h3>
+<p>Added support for MIDI RPN. With RPN LSB = 0, MSB = 0, it is possible to set pitch bend sensitivity (<CODE>bendrange</CODE>).
+</p>
+<h3 id="note_71-S04">Note 71-S04:  (Converter/Library) Disabled sequence commands related to envelopes</h3>
+<p>For the <CODE>attck</CODE>, <CODE>decay</CODE>, <CODE>sustain</CODE>, <CODE>release</CODE>, and <CODE>envelope</CODE> sequence commands, once an envelope was set for the sequence, it was impossible to return to the bank setting. It is now possible, however, to disable the sequence setting and enable the bank setting by specifying -1 for any of the associated arguments.
+</p>
+<h3 id="note_71-S05">Note 71-S05:  (Converter) Improved ADPCM encoding</h3>
+<p>Made improvements to mitigate noise generated during ADPCM encoding when using <CODE>waveconv</CODE> and <CODE>strmconv</CODE>.
+</p>
+<h3 id="note_71-S06">Note 71-S06:  (Library) Fixed bug specific to offset for start of stream playback</h3>
+<p>The offset for the start of playback can be specified in the <CODE>NNS_SndArcStrmStart</CODE> function and elsewhere, but there was a problem that caused an overflow during library calculations, preventing the stream from starting at the specified offset. That bug has been fixed.
+</p>
+<h3 id="note_71-S07">Note 71-S07:  (Converter) Fixed bug specific to alignment of data within sound archives</h3>
+<p>Changes in the 2007/03/14 version caused the alignment of data in the sound archive to shift. This resulted in a bug that triggered an assert during runs. This bug has been fixed.
+</p>
+<p>However, sound data must be reconverted.
+</p>
+<h3 id="note_71-S08">Note 71-S08:  (Converter) Fixed bug specific to sound map file data size</h3>
+<p>A bug was fixed where invalid values were output for the data size given in sound map files (SMAP) generated during sound archive conversion.
+</p>
+<h3 id="note_71-S09">Note 71-S09:  (Converter) Fixed bug specific to AIFF loading process</h3>
+<p>Fixed a conversion error bug, despite its being the correct AIFF file, when using <CODE>waveconv</CODE> and <CODE>strmconv</CODE>.
+</p>
+<h2 id="version_20070314">Changes in Version 2007/03/14</h2>
+<h3 id="note_64-S01">Note 64-S01:  (SoundPlayer) Added a feature to SoundPlayer for changing output effects</h3>
+<p>Functionality allowing output effects to be changed has been added to SoundPlayer.
+</p>
+<h3 id="note_64-S02">Note 64-S02:  (SoundPlayer) Added a feature to SoundPlayer for displaying stream process loads</h3>
+<p>The process load of stream threads during stream playback is now displayed in the SoundPlayer window.
+</p>
+<h3 id="note_64-S03">Note 64-S03:  (SoundPlayer) Added a feature to SoundPlayer for playing multiple sounds simultaneously</h3>
+<p>A feature for playing multiple sounds at beginning at the same time has been added to SoundPlayer. For more information, see the <I>Sound Designer's Guide</I>.
+</p>
+<h3 id="note_64-S04">Note 64-S04:  (Converter) Added a feature for specifying alignment in sound archives</h3>
+<p>The <CODE>.align</CODE> option for specifying the alignment of sound data in an archive has been added to the sound archiver, <CODE>sndarc</CODE>. For more information, see the <I>Sound Tool Manual</I>.
+</p>
+<h3 id="note_64-S05">Note 64-S05:  (Converter) Added a feature for specifying sound archive conversion file types</h3>
+<p>The <CODE>.convert</CODE> option for specifying the file to be converted by file type has been added to the sound archiver, <CODE>sndarc</CODE>. For more information, see the <I>Sound Tool Manual</I>.
+</p>
+<h3 id="note_64-S06">Note 64-S06:  (Library) Added sound archive stream-related functions</h3>
+<p>The <CODE>NNS_SndArcStrmGetChannelCount</CODE> function for getting the number of channels in the stream data being played and the <CODE>NNS_SndArcStrmSetVolume</CODE> function for changing the audio volume of the stream have been added.
+</p>
+<h3 id="note_64-S07">Note 64-S07:  (Converter) Fixed a bug where a conversion error was being generated due to too many command-line arguments</h3>
+<p>A bug has been fixed where a conversion error from too many command line arguments occurred when the number of files in a bank file, or similar file, increased.
+</p>
+<h2 id="version_20060529">Changes in Version 2006/05/29</h2>
+<h3 id="note_59-S01">Note 59-S01:  (Converter/Library) Added the mute sequence command</h3>
+<p>A mute command for applying mute from within sequence data was added. This command works only with SDK version 3.1 or later. For more information, see the <I>Sequence Data Manual</I>.
+</p>
+<h3 id="note_59-S02">Note 59-S02:  (Converter) Added functionality to access before and after labels in sound archive definition files</h3>
+<p>Up until now it was necessary to define labels to be used ahead of time in a sound archive definition file, but now it is possible to use labels defined later.
+</p>
+<h3 id="note_59-S03">Note 59-S03:  (Converter) Extended the feature for expanding label names with embedded SMF text commands</h3>
+<p>When using functionality to expland a label name with an embedded SMF text command, it is now possible to expand only the track number without expanding the file name by using &quot;$$&quot; instead of &quot;$&quot;. For more information, refer to <I>Sequence Data Manual</I>.
+</p>
+<h3 id="note_59-S04">Note 59-S04:  (Library) Added the <CODE>NNS_SndPlayerSetTrackMuteEx</CODE> function</h3>
+<p>The <CODE>NNS_SndPlayerSetTrackMuteEx</CODE> function for applying mute without stopping the sound being played has been added. This function works only with SDK version 3.1 or later.
+</p>
+<h3 id="note_59-S05">Note 59-S05:  (Library) Added the <CODE>NNS_SndCaptureDestroyThread</CODE> function</h3>
+<p>The <CODE>NNS_SndCaptureDestroyThread</CODE> function for terminating capture threads has been added.
+</p>
+<h3 id="note_59-S06">Note 59-S06:  (Converter) Fixed a bug where the last wait command was missing during SMF Format 1 conversion</h3>
+<p>A bug has been fixed where a wait command that should be inserted at the end of tracks was being omitted when converting SMF Format 1 data.
+</p>
+<h3 id="note_59-S07">Note 59-S07:  (Converter) Fixed a bug where conversion was not being executed correctly for paths that included empty strings</h3>
+<p>A bug has been fixed where conversion was not being handled properly when using a path that included an empty string.
+</p>
+<h3 id="note_59-S08">Note 59-S08:  (Converter) Fixed a bug where the layout of the sound map file would break when creating a missing number for the group number</h3>
+<p>A bug was fixed where the layout of sound map files (SMAP) output during conversion was being destroyed when creating a missing number for a group by directly specifying the group number in a group definition in a sound archive definition file (SARC).
+</p>
+<h2 id="version_20050901">Changes in Version 2005/09/01</h2>
+<h3 id="note_50-S01">Note 50-S01:  (Library) Playback of stream data in memory</h3>
+<p>Although playback of stream data contained in a sound archive initialized by <CODE>NNS_SndArcInitOnMemory</CODE> was impossible, the method that initializes the sound archive using <CODE>NNS_SndArcInit</CODE> can be used to play back stream data.
+</p>
+<h3 id="note_50-S02">Note 50-S02:  (Converter) Added an option for specifying an output filename for the sound archiver <CODE>sndarc</CODE></h3>
+<p>An option has been added that enables you to specify the file type of the output (that is, SDAT, SADL, and SBDL files) from the sound archiver <CODE>sndarc</CODE>. For more information, see the <I>Sound Tool Manual</I>.
+</p>
+<h3 id="note_50-S03">Note 50-S03:  (Converter) Added an option for specifying a pre-process file for the sound archiver <CODE>sndarc</CODE></h3>
+<p>An option has been added to specify as an argument the preprocess files that are processed before the sound archive definition file for the sound archiver <CODE>sndarc</CODE>. For more information, see the <I>Sound Tool Manual</I>.
+</p>
+<h3 id="note_50-S04">Note 50-S04:  (Library) Added the <CODE>NNS_SndArcInitWithResult</CODE> function</h3>
+<p>Added the <CODE>NNS_SndArcInitWithResult</CODE> function to determine if sound-archive initialization was successful in loading a file. Use this function if file loading may fail. Using this function in place of the <CODE>NNS_SndArcInit</CODE> function lets you know the success or failure of sound-archive initialization. For more information, see the Function Reference.
+</p>
+<h3 id="note_50-S05">Note 50-S05:  (Library) Added functions for getting capture status</h3>
+<p>Added two functions : <CODE>NNS_SndCaptureIsActive</CODE> retrieves the execution status of a capture, and <CODE>NNS_SndCaptureGetCaptureType</CODE> retrieves the type of the currently executing capture. For more information, see the Function Reference.
+</p>
+<h3 id="note_50-S06">Note 50-S06:  (Library) Fixed bug resulting in frequent <CODE>NNS_SndUpdateDriverInfo</CODE> function failures</h3>
+<p>Fixed the <CODE>NNS_SndUpdateDriverInfo</CODE> function because calling the function failed one out of two times even if called once per frame.
+</p>
+<h3 id="note_50-S07">Note 50-S07:  (Converter) Fixed bug where file paths not recognized by <CODE>sndarc</CODE> and <CODE>bankconv</CODE></h3>
+<p>Fixed file path misinterpretation in which the sound archiver <CODE>sndarc</CODE> and bank converter <CODE>bankconv</CODE> would interpret file paths as relative paths not specified with <CODE>@PATH</CODE>. This issue lead to other issues such as inappropriate conversion errors.
+</p>
+<h2 id="version_20050606">Changes in Version 2005/06/06</h2>
+<h3 id="note_45-S01">Note 45-S01:  (Converter/Library) Added instrument setting to ignore Note Off</h3>
+<p>Added the ability to define an instrument in the bank definition file that ignores Note Off and plays to the end of the waveform data. In the envelope's release setting, instead of a release value, enter &ldquo;DISABLE&rdquo;. This invalidates the release, and the sound plays at the same volume until the end of the waveform data even after the Note Off occurs. For more information, see the <I>Bank Data Manual</I>.
+</p>
+<h3 id="note_45-S02">Note 45-S02:  (Converter) Added original key value specification in bank definition file</h3>
+<p>Added the ability to set the original key in the bank definition file using a value instead of key notation. For more information, see the <I>Bank Data Manual</I>.
+</p>
+<h3 id="note_45-S03">Note 45-S03:  (Documentation) Deleted sound driver (SND) function reference</h3>
+<p>Included the sound driver (SND) source code and function reference in NITRO-SDK and deleted the sound driver (SND) function reference from the NITRO-System package.
+</p>
+<h3 id="note_45-S04">Note 45-S04:  (Library) Added function to create thread for stream preparation</h3>
+<p>Added the <CODE>NNS_SndArcStrmCreatePrepareThread</CODE> function, which starts a thread that performs stream preparation. For more information, see the Reference Manual.
+</p>
+<h3 id="note_45-S05">Note 45-S05:  (Library) Fixed bug resulting in minor noise generation</h3>
+<p>If a sequence was started and the volume was changed or another sequence was played immediately thereafter, minor noise was generated in some cases. This was fixed. This bug occurred when a series of sound functions was called and execution occurred during different sound frames, causing partially ready sounds to be played for an instant. To avoid this bug, the actual processing of sequence data is delayed until the invocation of the series of sound functions is complete.
+</p>
+<h3 id="note_45-S06">Note 45-S06:  (SoundPlayer) Fixed bug in SoundPlayer real-time MIDI portamento</h3>
+<p>When playing a real-time MIDI with the SoundPlayer and using portamento, the pitch change started at the wrong position. This was fixed.
+</p>
+<h3 id="note_45-S07">Note 45-S07:  (Converter) Corrected case-sensitivity problem with the <CODE>bankconv</CODE> drive letter</h3>
+<p>In the bank converter (<CODE>bankconv</CODE>), differences in the case of the drive letter caused the wrong file to be recognized. This was fixed.
+</p>
+<h2 id="version_20050328">Changes in Version 2005/03/28</h2>
+<h3 id="note_43-S01">Note 43-S01:  (Library) Added functionality to individually load waveform data to the player heap</h3>
+<p>Revisions were made so the waveform data individual load feature now works when loading to the player heap.
+</p>
+<h3 id="note_43-S02">Note 43-S02:  (Library) Added functionality to use player heap when playing sequence archives</h3>
+<p>Revisions were made so bank data and waveform data can be loaded to the player heap when playing a sequence archive. However, the sequence archive cannot load to the player heap. The data must be loaded to the sound heap in advance.
+</p>
+<h3 id="note_43-S03">Note 43-S03:  (Converter) Changed the sound map file (SMAP) format</h3>
+<p>A part of the sound map file (SMAP) format was changed, and the heap size consumed when loading data can be output. For more information, see the <I>Sound Archive Manual</I>.
+</p>
+<h3 id="note_43-S04">Note 43-S04:  (Converter) Expanded numeric value notation in text files</h3>
+<p>The sound archive definition file, the bank definition file, and the text sequence file were expanded to allow binary and bit notation as numeric value notation for parameters.
+</p>
+<p>With binary notation, prepend &ldquo;0b&rdquo;, as in <CODE>0b001001</CODE>.
+</p>
+<p>Bit notation is useful for describing a numeric value that carries a meaning that a specific bit is 0 or 1, such as a bit flag, and is written in the format { 1,3,6-8 }. The example indicates that the lower bits 1, 3, and the bits from 6 to 8 have a value of 1, or <CODE>0b111001010</CODE>. The lowest bit will be 0.
+</p>
+<p>For more information, see the <I>Sound Archive Manual</I>, the <I>Bank Data Manual</I>, and the <I>Sequence Data Manual</I>. (The contents of each are identical.)
+</p>
+<h3 id="note_43-S05">Note 43-S05:  (Converter) Added a <CODE>NULL</CODE> type instrument</h3>
+<p>Made it possible to define a <CODE>NULL</CODE> type instrument in the bank definition file. A <CODE>NULL</CODE> type instrument does not play any sound. For example, this can be used to create an instrument that does not play any sound for a given split by combining with a key split. For more information, see the <I>Bank Data Manual</I>.
+</p>
+<h3 id="note_43-S06">Note 43-S06:  (Library) Added a function to set the volume for each player</h3>
+<p>The <CODE>NNS_SndPlayerSetPlayerVolume</CODE> function was added to allow the volume value to be configured for each player. For more information, see the Function Reference Manual.
+</p>
+<h3 id="note_43-S07">Note 43-S07:  (Library) Added function to set the track pan range</h3>
+<p>The <CODE>NNS_SndPlayerSetTrackPanRange</CODE> function was added to allow the track pan range to be configured. The track pan range is a parameter that designates the variation range for the track pan configured in the sequence data. By changing the track pan range, the variation range for the track pan configured in the sequence data can be decreased.
+</p>
+<h3 id="note_43-S08">Note 43-S08:  (Library) Added function to get stream data time length</h3>
+<p>The <CODE>NNS_SndArcStrmGetTimeLength</CODE> function was added to get the time length for the entire stream data. For more information, see the Function Reference Manual.
+</p>
+<h3 id="note_43-S09">Note 43-S09:  (Library) Added functions to get sound driver information</h3>
+<p>Added functions to get information about the sound driver. These functions are listed below:
+</p>
+<ul><li><CODE>NNS_SndUpdateDriverInfo</CODE>
+</li>
+<li><CODE>NNS_SndReadDriverChannelInfo</CODE>
+</li>
+<li><CODE>NNS_SndPlayerReadDriverPlayerInfo</CODE>
+</li>
+<li><CODE>NNS_SndPlayerReadDriverTrackInfo</CODE>
+</li>
+</ul>
+<p>Also added the <CODE>driverInfo</CODE> demo, which displays the sound driver information onscreen using these functions.
+</p>
+<h3 id="note_43-S10">Note 43-S10:  (Library) Added the <CODE>SND_COMMAND_IMMEDIATE</CODE> flag for the <CODE>SND_FlushCommand</CODE> function</h3>
+<p>Made it possible to specify <CODE>SND_COMMAND_IMMEDIATE</CODE> for the argument flag in the <CODE>SND_FlushCommand</CODE> function. When <code>SND_COMMAND_IMMEDIATE</code> is specified, issued commands are processed without waiting for the next sound frame.
+</p>
+<h3 id="note_43-S11">Note 43-S11:  (Library) Added <CODE>SNDINST_NULL</CODE> to <CODE>SNDInstType</CODE></h3>
+<p>Added <CODE>SND_INST_NULL</CODE> to the values that can be taken by the type member of the <CODE>SNDInstData</CODE> structure used by functions such as <CODE>SND_ReadInstData</CODE>. Instrument data set to <code>SND_INST_NULL</code> does not make any sound.
+</p>
+<h3 id="note_43-S12">Note 43-S12:  (Library) Fixed a bug where channels playing sounds with a portamento command were being released</h3>
+<p>There was a bug that released all channels playing on corresponding tracks when the portamento commands <CODE>porta</CODE>, <CODE>porta_on</CODE>, and <CODE>porta_off</CODE> were executed in the sequence data. This bug was fixed. Also fixed the problem caused by this bug that caused sounds to be generated improperly when portamento commands were executed in tie mode.
+</p>
+<h3 id="note_43-S13">Note 43-S13:  (SoundPlayer) Fixed a bug where data load could not be selected in during manual load mode when using SoundPlayer</h3>
+<p>Fixed the bug that prevented data from being loaded because the cursor could not move to the data load menu item while in the SoundPlayer manual load mode.
+</p>
+<h3 id="note_43-S14">Note 43-S14:  (Converter) Fixed a bug where an unnecessary wait was being inserted at the end of tracks when using <CODE>smfconv</CODE></h3>
+<p>Fixed the bug that caused an unnecessary wait command to be inserted at the end of each track in the SMFT file created when converting an SMF file.
+</p>
+<h3 id="note_43-S15">Note 43-S15:  (Converter) Fixed a bug where an invalid wait time was being output when using <CODE>smfconv</CODE></h3>
+<p>Fixed the bug that output an invalid wait time when there are multiple time signature events of the same timing in an SMF file.
+</p>
+<h3 id="note_43-S16">Note 43-S16:  (Converter) Fixed a bug where an error would mistakenly occur when using <CODE>bankconv</CODE></h3>
+<p>Fixed the bug that caused a false error when both an instrument label and an index number were specified in the bank definition file.
+</p>
+<h2 id="version_20050131">Changes in Version 2005/01/31</h2>
+<h3 id="note_39-S01">Note 39-S01:  (Converter/Library) Added a feature for individually loading waveform data</h3>
+<p>Added a feature that allows the individual loading of waveform data in the waveform archive. If multiple banks are using common waveform data, this feature allows for a simple way of using memory more efficiently without having to use the waveform data group management feature. For more information, see the <I>Sound Archive Manual</I>.
+</p>
+<h3 id="note_39-S02">Note 39-S02:  (Converter/Library) Added a feature that limits the channels used by a sequence</h3>
+<p>Added a feature that can limit the usable channels for a sequence on each player. It is now possible to specify bit flags for channels that can be allocated in the <CODE>@PLAYER</CODE> section inside a sound archive definition file. (May be omitted.) For more information, see the <I>Sound Archive Manual</I>.
+</p>
+<h3 id="note_39-S03">Note 39-S03:  (Converter) Updated for the UNC format path notation</h3>
+<p>Revisions were made so that a UNC format path notation such as <CODE>//server-1/path/dir</CODE> can be used in <CODE>@PATH</CODE> and <CODE>#include</CODE>.
+</p>
+<h3 id="note_39-S04">Note 39-S04:  (Converter) Added syntax for the <CODE>#include&lt;filename&gt;</CODE> format</h3>
+<p>Added an <CODE>#include&lt;filename&gt;</CODE> format that has the same feature as the <CODE>#include &ldquo;filename&rdquo;</CODE> in the text data file. If the <CODE>#include&lt;filename&gt;</CODE> format is used, it becomes the relative path from the sound archive definition file (SARC) rather than the relative path from the current file. For more information, see the <I>Sound Tool Manual</I>.
+</p>
+<h3 id="note_39-S05">Note 39-S05:  (Converter/Library) Added the <CODE>printvar</CODE> sequence command</h3>
+<p>The sequence command <CODE>printvar</CODE> was added, which is used to debug output sequence variable values. When a sequence is played back with NITRO-Player or SoundPlayer, the sequence variable value can be displayed on the MCS server or the IS-NITRO-DEBUGGER output window. For more information, see the <I>Sequence Data Manual</I>.
+</p>
+<h3 id="note_39-S06">Note 39-S06:  (Converter) Eliminated case sensitivity in key notation</h3>
+<p>Changes were made so that descriptions can be made in either capital or small letters for cn4 format key notation. For example, notations such as Cn4 or CN4 are both possible.
+</p>
+<h3 id="note_39-S07">Note 39-S07:  (SoundPlayer) Improved the channel meter</h3>
+<p>Changes were made so that the channel meter that had been displayed on the upper screen with SoundPlayer is displayed on the lower screen to allow the display of detailed information.
+</p>
+<h3 id="note_39-S08">Note 39-S08:  (Library) Added the <CODE>NNS_SndCaptureSetPostOutputEffectCallback</CODE> function</h3>
+<p>Added the <CODE>NNS_SndCaptureSetPostOutputEffectCallback</CODE> function, which registers the callback functions called as output effect postprocessors.
+</p>
+<h3 id="note_39-S09">Note 39-S09:  (Library) Added a feature that limits the channels used by a sequence</h3>
+<p>Added a feature that can limit the channels that a sequence can use. Use the <CODE>NNS_SndPlayerSetAllocatableChannel</CODE> function when configuring each player. Use the <CODE>NNS_SndPlayerSetTrackAllocatableChannel</CODE> function when configuring each sequence playback. Specification for each track is also possible with this function. For more information, see the <I>Sound System Manual</I> or Function Reference.
+</p>
+<h3 id="note_39-S10">Note 39-S10:  (Library) Added the <CODE>micThrough</CODE> demo</h3>
+<p>Added the <CODE>micThrough</CODE> demo, which plays back microphone input in real time by using the low-level stream library <CODE>NNS_SndStrm</CODE>.
+</p>
+<h3 id="note_39-S11">Note 39-S11:  (Converter) Fixed a bug with SMF converter</h3>
+<p>There was a bug with an abnormal wait command being output if there were many MIDI events within one bar. This bug has been fixed.
+</p>
+<h3 id="note_39-S12">Note 39-S12:  (Library) Fixed bug where allocated channels were deallocated with <CODE>NNS_SndArcStrmStopAll</CODE></h3>
+<p>There was a bug where allocated channels were deallocated if the <CODE>NNS_SndArcStrmStopAll</CODE> or <CODE>NNS_SndStopSoundAll</CODE> function was called after allocating a channel with the <CODE>NNS_SndArcStrmAllocChannel</CODE> function. This bug has been fixed.
+</p>
+<h2 id="version_20041206">Changes in Version 2004/12/06</h2>
+<h3 id="note_34-S01">Note 34-S01:  (Converter/Library) Two-channel playback for monaural streams</h3>
+<p>An optional feature was added to allow the use of two channels for playing mono stream data with stereo player so that the volume becomes louder. This feature becomes available if the option is specified when registering stream data in the sound archive definition file. For more information, see the <I>Sound Archive Manual</I>.
+</p>
+<h3 id="note_34-S02">Note 34-S02:  (Library) Added the <CODE>NNS_SndArcStrmStartEx2</CODE> function</h3>
+<p>The <CODE>NNS_SndArcStrmStartEx2</CODE> and <CODE>NNS_SndArcStrmPrepareEx2</CODE> functions were added. With these functions, two callback functions can be registered in addition to the existing stream playback function feature. One of the callback functions that can be registered can put multiple stream data sets together in real time and play them. This demo is in <CODE>$NitroSystem/build/demos/snd/stream-2</CODE>. The other callback function applies effects to a specific stream playback. This demo is in <CODE>$NitroSystem/build/demos/snd/stream-3</CODE>. For more information, see the Function Reference.
+</p>
+<h3 id="note_34-S03">Note 34-S03:  (Library) Made the sound driver thread&ndash;safe</h3>
+<p>Made all of the sound driver (SND) functions thread&ndash;safe.
+</p>
+<h3 id="note_34-S04">Note 34-S04:  (Library) Call to the <CODE>NNS_SndArcStrmAllocChannel</CODE> function for the stream player playing back</h3>
+<p>Made changes so that the function fails when the <CODE>NNS_SndArcStrmAllocChannel</CODE> function was called for the stream player that is playing.
+</p>
+<h3 id="note_34-S05">Note 34-S05:  (Documentation) Added a caution regarding output effects</h3>
+<p>Added a caution regarding the output effects in the <I>Sound System Manual</I>.
+</p>
+<h3 id="note_34-S06">Note 34-S06:  (Library) Fixed a bug that prevented the generation of the note after <CODE>tieon</CODE></h3>
+<p>If the command is defined in the order of note command, <CODE>tieon</CODE>, and note command in the sequence data, the sound of the second note was not generated. This bug was fixed.
+</p>
+<h2 id="version_20041110">Changes in Version 2004/11/10</h2>
+<h3 id="note_31-S01">Note 31-S01:  (Library) Added resource management functions</h3>
+<p>Added a function that manages resources to avoid conflict with the NITRO-System library when using the sound driver (SND) function directly. The new functions are listed below.
+</p>
+<ul><li><CODE>NNS_SndLockChannel</CODE>
+</li>
+<li><CODE>NNS_SndUnlockChannel</CODE>
+</li>
+<li><CODE>NNS_SndLockCapture</CODE>
+</li>
+<li><CODE>NNS_SndUnlockCapture</CODE>
+</li>
+<li><CODE>NNS_SndAllockAlarm</CODE>
+</li>
+<li><CODE>NNS_SndFreeAlarm</CODE>
+</li>
+</ul>
+<p>See the Reference Manual for function details.
+</p>
+<h3 id="note_31-S02">Note 31-S02:  (Library) Sample of stream playback without loop</h3>
+<p>When playing stream data without loops, the last several hundred samples did not play. We have fixed this bug so that all samples now play correctly.
+</p>
+<h3 id="note_31-S03">Note 31-S03:  (Library) Fixed a bug regarding switching the current sound archive during stream playback</h3>
+<p>The stream did not playback correctly when the current sound archive was switched with the <CODE>NNS_SndArcSetCurrent</CODE> function during stream play. This bug has been fixed.
+</p>
+<h3 id="note_31-S04">Note 31-S04:  (Library) Fixed a bug with the <CODE>NNS_SndArcStrmSetChannelVolume</CODE> function</h3>
+<p>There was a bug where the volume setting in the <CODE>NNS_SndArcStrmSetChannelVolume</CODE> function was not reflected correctly. This has been fixed.
+</p>
+<h3 id="note_31-S05">Note 31-S05:  (Converter) Fixed a bug with the sequence converter <CODE>seqconv</CODE> command analysis</h3>
+<p>With sequence data, such as <CODE>cn4_r_if</CODE>, when attaching random and conditional assignments for note command, an error occurred during conversion. This bug has been fixed.
+</p>
+<h2 id="version_20041012">Changes in Version 2004/10/12</h2>
+<h3 id="note_26-S01">Note 26-S01:  (SoundPlayer) Added support for IS-AGB-MIDI</h3>
+<p>Real-time MIDI playback can be performed using IS-AGB-MIDI instead of IS-NITRO-UIC MIDI. For more information on real-time MIDI playback, see the <I>Sound Designer Guide</I>.
+</p>
+<h3 id="note_26-S02">Note 26-S02:  (Library) Added an output effect feature</h3>
+<p>Made it possible to apply Surround mode processing, Headphone mode processing, and Mono mode processing to the overall sound output using the <CODE>NNS_SndCaptureStartOutputEffect</CODE> function. The Surround mode makes the sound seem more spacious than the location of the speakers when sound is output from the speakers of the Nintendo DS system. The Headphone mode reduces the load on the ears when headphones are used. A sample demo has been added to the following location: <CODE>$NitroSystem/build/demos/snd/outputEffect</CODE>. See the Reference Manual for function details.
+</p>
+<h3 id="note_26-S03">Note 26-S03:  (Library) Automated the sleep process</h3>
+<p>It is no longer necessary to call the functions that must be called before and after the sleep process: <CODE>NNS_SndBeginSleep</CODE>, <CODE>NNS_SndEndSleep</CODE>, <CODE>NNS_SndStrmBeginSleep</CODE>, and <CODE>NNS_SndStrmEndSleep</CODE>. These processes are performed automatically in the library.
+</p>
+<h3 id="note_26-S04">Note 26-S04:  (Library) Added functions to specify stream player</h3>
+<p>Added functions for specifying the stream player number from the program: <CODE>NNS_SndArcStrmStartEx</CODE> and <CODE>NNS_SndArcStrmPrepareEx</CODE>.
+</p>
+<h3 id="note_26-S05">Note 26-S05:  (Library) Added functions to set monaural flags</h3>
+<p>Added the <CODE>NNS_SndSetMonoFlag</CODE> function for ignoring the pan setting of each channel and producing all sounds at a central location. The <CODE>SND_SetMasterPan</CODE> and <CODE>SND_ResetMasterPan</CODE> functions were added to the sound driver to allow for the implementation of the <CODE>NNS_SndSetMonoFlag</CODE> function.
+</p>
+<h3 id="note_26-S06">Note 26-S06:  (Converter) Added a player label specification</h3>
+<p>In the sound archive definition file, the player label that is defined by the <CODE>@PLAYER</CODE> section can be used instead of the player number that is specified by the <CODE>@SEQ</CODE> section. This applies only when the <CODE>@PLAYER</CODE> section is specified before the <CODE>@SEQ</CODE> section. You can also use the stream player label in the same way as is defined by the <CODE>@STRM_PLAYER</CODE> section of the <CODE>@STRM</CODE> section. When you want to use the player label in the <CODE>@SEQ_TABLE</CODE> section of a sequence archive, this can be done by getting the sound archive label (SBDL) file using <CODE>#include</CODE> in the same way as a bank label is used. Revised to use <CODE>sound_data.sarc</CODE> and <CODE>mus/se.mus</CODE> of the <CODE>$NitroSystem/tools/nitro/SoundPlayer/data</CODE> sample. Use these as references.
+</p>
+<h3 id="note_26-S07">Note 26-S07:  (Documentation) Added cautions regarding transition to Sleep Mode</h3>
+<p>Added cautions to the <I>Sound Programmer Guide</I> for use when changing to the Sleep mode.
+</p>
+<h3 id="note_26-S08">Note 26-S08:  (Documentation) Added explanation for not interrupting stream</h3>
+<p>Added an explanation to the <I>Sound Programmer Guide</I> for how to avoid interrupting stream play.
+</p>
+<h3 id="note_26-S09">Note 26-S09:  (Documentation) Added an introductory description of output effects</h3>
+<p>Added an introduction to the Overview about output effects.
+</p>
+<h3 id="note_26-S10">Note 26-S10:  (Library) Fixed an infinite loop bug during sequence fadeout</h3>
+<p>Fixed the infinite loop bug that occurs when a sequence is faded out using the following functions:
+</p>
+<ul><li><CODE>NNS_SndPlayerStopSeqByPlayerNo</CODE>
+</li>
+<li><CODE>NNS_SndPlayerStopSeqBySeqNo</CODE>
+</li>
+<li><CODE>NNS_SndPlayerStopSeqBySeqArcNo</CODE>
+</li>
+<li><CODE>NNS_SndPlayerStopSeqBySeqArcIdx</CODE>
+</li>
+<li><CODE>NNS_SndPlayerStopSeqAll</CODE>
+</li>
+</ul>
+<h3 id="note_26-S11">Note 26-S11:  (Converter) Fixed a mistake in parsing the <CODE>@PATH</CODE> command</h3>
+<p>There were mistakes in the parsing of the <CODE>@PATH</CODE> command in the sound archive definition file and the bank definition file. When <CODE>#include</CODE> is used to include a file in another directory and if the <CODE>@PATH</CODE> command is used in the file in the include statement, the path was parsed as a relative path from the original directory. It was changed to parse as a relative path from the directory file that has the included file. Because of this fix, sound data that was converted successfully in previous conversions may have errors when they are converted. If this occurs, fix the <CODE>@PATH</CODE> specification so that it is a relative path from the directory where that file is.
+</p>
+<h3 id="note_26-S12">Note 26-S12:  (Library) Release channel process during sequence fadeout</h3>
+<p>Fixed the bug where the volume of the channel being released did not attenuate during the sequence fadeout.
+</p>
+<h3 id="note_26-S13">Note 26-S13:  (Converter) Distinction between upper- and lowercase in filenames</h3>
+<p>When registering bank definition files, if you specified multiple file names that only differ in case (upper or lower), each file was registered as separate data. This has been fixed so that the bank definition files are collected as a single set of data.
+</p>
+<h3 id="note_26-S14">Note 26-S14:  (Converter) <CODE>Waveconv</CODE> loop start location check</h3>
+<p>An error message is now output if you attempt to convert a loop start when the loop start position is too far back to play the loop because of a hardware limitation. The threshold information has been included in the <I>Sound Tool Manual</I>.
+</p>
+<h2 id="version_20040916">Changes in Version 2004/09/16</h2>
+<h3 id="note_21-S01">Note 21-S01:  (Converter/Library) Extended the <CODE>loop_start</CODE> sequence command.</h3>
+<p>You can now assign a value of 0 as the number of times that the <CODE>loop_start</CODE> sequence command must loop. If a value of 0 is assigned, the loop will be infinite.
+</p>
+<h3 id="note_21-S02">Note 21-S02:  (Converter/Library) Loop specification at the SMF track level</h3>
+<p>If MIDI control changes 89 and 90 are used, loops can be made for individual tracks. For more information, see the <I>Sequence Data Manual</I>.
+</p>
+<h3 id="note_21-S03">Note 21-S03:  (Converter) SMF loop specification</h3>
+<p>To specify all tracks to loop in SMF, markers &quot;[&quot; and &quot;]&quot; were used, but &quot;loop_start&quot; and &quot;loop_end&quot; can also be used. (The actual functionality has not changed.)
+</p>
+<h3 id="note_21-S04">Note 21-S04:  (Converter) Extended SBDL files and changed names</h3>
+<p>Previously, only bank labels were defined in SBDL files. Now, labels that are defined in SARC sound archive definition files can also made to output. In addition, SBDL files, which were previously called bank list files, are now sound archive label files.
+</p>
+<h3 id="note_21-S05">Note 21-S05:  (Documentation) Standardized the naming of SADL files</h3>
+<p>SADL files, which were previously called sound label lists, sound label list files, and sound label files, are now called sound label files.
+</p>
+<h3 id="note_21-S06">Note 21-S06:  (Library) Added the <CODE>NNS_SndCaptureCreateThread</CODE> function</h3>
+<p>The <CODE>NNS_SndCaptureCreateThread</CODE> function, which starts up a capture thread, was added. When a capture thread is started, effect callback functions can be called from the capture thread rather than the IRQ handlers.
+</p>
+<h3 id="note_21-S07">Note 21-S07:  (Library) Added the <CODE>NNS_SndCaptureStartSampling</CODE> function</h3>
+<p>The <CODE>NNS_SndCaptureStartSampling</CODE> function, which samples audio output, was added. Sampled data can be obtained with a callback function.
+</p>
+<h3 id="note_21-S08">Note 21-S08:  (Library) Added the <CODE>NNS_SndArcGetSeqArcSeqCount</CODE> function</h3>
+<p>The <CODE>NNS_SndArcGetSeqArcSeqCount</CODE> function, which gets the number of sequences in a sequence archive, was added.
+</p>
+<h3 id="note_21-S09">Note 21-S09:  (Library) Fixed bug with <CODE>NNS_SndPLayerMoveVolume</CODE> function</h3>
+<p>Fixed bug that caused the volume to become 0 or remain unchanged when a value of 0 was specified as the change frame count in the <CODE>NNS_SndPlayerMoveVolume</CODE> function.
+</p>
+<h3 id="note_21-S10">Note 21-S10:  (Library) Uncontrollable sequence bug</h3>
+<p>Fixed the bug that caused the sequence that is being played to become unresponsive to control in extremely rare cases.
+</p>
+<h3 id="note_21-S11">Note 21-S11:  (SoundPlayer) Incorrect error message in SoundPlayer</h3>
+<p>The message &ldquo;Too Large Data&rdquo; appeared when a sequence that has an invalid bank number is played. This message has been changed to &ldquo;Invalid Bank No.&rdquo;
+</p>
+<h3 id="note_21-S12">Note 21-S12:  (Library) Mute off operation when mute is off</h3>
+<p>There was a problem that caused the sound being played to be stopped if Mute Off operation was performed when the sound was not muted, but this problem was fixed.
+</p>
+<h3 id="note_21-S13">Note 21-S13:  (Converter) Updated bank list file</h3>
+<p>Fixed bug that updated the bank list files (SBDL) that were generated by the sound archiver <CODE>sndarc</CODE> even when the sound data was not modified. Now, these files are updated only when necessary.
+</p>
+<h3 id="note_21-S14">Note 21-S14:  (Converter) Sequence converter <CODE>seqconv</CODE> error check</h3>
+<p>Previously, no error occurred when 32 was specified as the variable number that was used with variable commands. Now, an error will be registered.
+</p>
+<h2 id="version_20040902">Changes in Version 2004/09/02</h2>
+<h3 id="note_20-S01">Note 20-S01:  (SoundPlayer) Real-time MIDI playback</h3>
+<p>It is now possible to use IS-NITRO-UIC MIDI for real-time MIDI playback. Because playback is done in real time using MIDI signals, the sequence data can be checked without converting the data. For more information, see the <I>Sound Designer Guide</I>.
+</p>
+<p>For real-time MIDI playback, IS-NITRO-UIC MIDI is required.
+</p>
+<h3 id="note_20-S02">Note 20-S02:  (Converter) Bank list file output</h3>
+<p>Changes were made to output bank list files (SBDL) when the sound archive <CODE>sndarc</CODE> is executed. The bank label that is defined in the sound archive definition file (SARC) is output by using <CODE>#define</CODE>. By using <CODE>#include</CODE> in the sequence archive text file and loading this file, a bank label can be used to specify the bank in <CODE>@SEQ_TABLE</CODE>. Also see <CODE>mus/se.mus</CODE> in the <CODE>$NitroSystem/tools/nitro/SoundPlayer/data</CODE> sample because the same mechanism has been applied.
+</p>
+<h3 id="note_20-S03">Note 20-S03:  (Converter) Embedded SMF text commands</h3>
+<p>When text commands are embedded in SMF as markers, these text commands are output in the SMFT file when the file is converted. This allows you to use text commands in some parts of the file when using SMF. For more information, see the <I>Sequence Data Manual</I>.
+</p>
+<h3 id="note_20-S04">Note 20-S04:  (Converter) Multiple definitions of the same label in sequence archives</h3>
+<p>Changes were made so that an error does not occur if the index numbers are the same when the same label is defined in different archives.
+</p>
+<h3 id="note_20-S05">Note 20-S05:  (Library) Sleep recovery feature</h3>
+<p>Before and after the <CODE>PM_GoSleepMode</CODE> function that changes to the Sleep mode, call the <CODE>NNS_SndBeginSleep</CODE> and <CODE>NNS_SndEndSleep</CODE> functions to allow the system to return to the previous state when it awakes from the Sleep mode.
+</p>
+<h3 id="note_20-S06">Note 20-S06:  (Library) Clearing of the sound heap</h3>
+<p>The sound archive management region and the sound heap region that includes the stream buffer can be released safely. To make the regions usable again, it is necessary to call various setup functions such as <CODE>NNS_SndArcSetup</CODE> and <CODE>NNS_SndArcStrmSetupPlayer</CODE>.
+</p>
+<h3 id="note_20-S07">Note 20-S07:  (Library) Added the <CODE>NNS_SndArcSetup</CODE> function</h3>
+<p>Added the <CODE>NNS_SndArcSetup</CODE> function, which makes the sound archive that has released the sound archive management region usable again.
+</p>
+<h3 id="note_20-S08">Note 20-S08:  (Library) Added the <CODE>NNS_SndArcStrmSetupPlayer</CODE> function</h3>
+<p>Added the <CODE>NNS_SndArcStrmSetupPlayer</CODE> function that makes the stream player that released the stream buffer usable again.
+</p>
+<h3 id="note_20-S09">Note 20-S09:  (Library) Player heap deallocation bug</h3>
+<p>There was a bug that caused problems when releasing the region in the sound heap in which the player heap was allocated. This bug was fixed.
+</p>
+<h3 id="note_20-S10">Note 20-S10:  (Converter) Track output error of SMF converter <CODE>smfconv</CODE></h3>
+<p>Fixed the bug that output only the data in the first track when using one MIDI channel on multiple tracks. Also fixed the bug that output the data in the track that was not being used.
+</p>
+<h3 id="note_20-S11">Note 20-S11:  (Converter) Drifting loop start point in SMF converter <CODE>smfconv</CODE></h3>
+<p>Fixed the bug that caused the loop starting point to shift to the location of the note command when the loop start point was placed before the note command.
+</p>
+<h3 id="note_20-S12">Note 20-S12:  (Converter) Path parsing error for bank converter <CODE>bankconv</CODE></h3>
+<p>Fixed the bug that caused an error when <CODE>@WAVEARC</CODE> path was <CODE>@PATH &ldquo;.&rdquo;</CODE> in the sound archive definition (SARC) file.
+</p>
+<h3 id="note_20-S13">Note 20-S13:  (Converter) <CODE>#define</CODE> multiple definition error</h3>
+<p>When the same symbol was defined twice with <CODE>#define</CODE> in text data files such as sound archive definition file and bank definition file, it became a multiple definition error even when the content was exactly the same. Changes were made so that it will be ignored if the contents are the same.
+</p>
+<h2 id="version_20040810">Changes in Version 2004/08/10</h2>
+<h3 id="note_16-S01">Note 16-S01:  (General) Updated for stream playback</h3>
+<p>Stream playback is now possible. For details on features, see the <I>Sound System Manual</I>.
+</p>
+<h3 id="note_16-S02">Note 16-S02:  (Converter) Made changes to the sound archive definition file</h3>
+<p>The stream data section, which registers the stream data, and the stream player information section, which registers the stream player, were added. For more information, see the <I>Sound Designer Guide</I> and the <I>Sound Archive Manual</I>.
+</p>
+<h3 id="note_16-S03">Note 16-S03:  (SoundPlayer) Updated for stream playback</h3>
+<p>The SoundPlayer can now play stream data. For more information, see the <I>Sound Designer Guide</I>.
+</p>
+<h3 id="note_16-S04">Note 16-S04:  (Library) Added a sound archive stream library</h3>
+<p>The Sound Archive Stream library, which plays stream data, was added. This is a group of functions that start with <CODE>NNS_SndArcStrm</CODE>. For more information, see the <I>Sound Programmer Guide</I> and the Reference Manual.
+</p>
+<h3 id="note_16-S05">Note 16-S05:  (Library) Added a stream library</h3>
+<p>The Stream library, which is a lower-level library than the Sound Archive Stream library, was added. This is a group of functions that start with <CODE>NNS_SndStrm</CODE>. For more information, see the Reference Manual.
+</p>
+<h3 id="note_16-S06">Note 16-S06:  (Library) Added the <CODE>NNS_SndStopSoundAll</CODE> function</h3>
+<p>The <CODE>NNS_SndStopSoundAll</CODE> function, which stops all sounds, was added. Before changing into sleep mode or turning off power to the sound circuitry, make sure to stop all sounds with this function.
+</p>
+<h3 id="note_16-S07">Note 16-S07:  (Library) Added the <CODE>NNS_SndHeapDestroy</CODE> function</h3>
+<p>The <CODE>NNS_SndHeapDestroy</CODE> function, which destroys the sound heap, was added.
+</p>
+<h3 id="note_16-S08">Note 16-S08:  (Converter) Changed the name of SMF converter <CODE>smfconv</CODE> output label</h3>
+<p><CODE>smfconv</CODE> now adds the SMF filename to the beginning of the labels used in the SMFT file. For example, the file <CODE>sample.smft</CODE>, which results from converting <CODE>sample.mid</CODE>, previously contained the label <CODE>Track_0</CODE>. Now it contains the label <CODE>SMF_sample_Track_0</CODE>.
+</p>
+<h3 id="note_16-S09">Note 16-S09:  (Converter) Sound Archiver <CODE>sndarc</CODE> abnormal termination</h3>
+<p>Previously, the sound archiver would terminate with an error when conversion was attempted using a sound archive definition file in which registration numbers of sequence data and so on were specified directly and some numbers contained no data. This bug is fixed.
+</p>
+<h3 id="note_16-S10">Note 16-S10:  (Converter) Bank converter <CODE>bankconv</CODE> abnormal error</h3>
+<p>There was a bug that caused an error during bank conversion due to a mistake in the path interpretation when the directory trees of bank files and waveform list files are in certain state. This bug was fixed.
+</p>
+<h3 id="note_16-S11">Note 16-S11:  (Converter) Irregular order of SMF converter <CODE>smfconv</CODE> meta event</h3>
+<p>If multiple meta-events occurred during the same tick, the output order would become irregular. This was corrected so that the output is now in the order stored in SMF.
+</p>
+<h2 id="version_20040720">Changes in Version 2004/07/20</h2>
+<h3 id="note_13-S01">Note 13-S01:  (Converter/Library) Changed the binary data format</h3>
+<p>The binary format for the sound data has changed. Now, you must reconvert the sound data with <CODE>ReMakeSound.bat</CODE>. The bank data has grown slightly in size. If there is not enough memory, the data load may fail.
+</p>
+<h3 id="note_13-S02">Note 13-S02:  (SoundPlayer) Changed the name of the executable file</h3>
+<p>The name of the executable file has changed from <CODE>SoundPlayer.bin</CODE> to <CODE>SoundPlayer.srl</CODE>.
+</p>
+<h3 id="note_13-S03">Note 13-S03:  (General) Changed the default platform</h3>
+<p>Previously, the TEG executable file was created by default. Now, a TS executable file is created by default. To create a TEG executable file, set the <CODE>NITRO_PLATFORM</CODE> environment variable to <CODE>TEG</CODE>.
+</p>
+<h3 id="note_13-S04">Note 13-S04:  (SoundPlayer) Sequence type selection feature</h3>
+<p>Previously, no more than two sequences and two sequence archives could be played at the same time. Now, you can select between playing any combination of sequences and sequence archives. For example, you can play up to four sequences simultaneously. To select the sequence type, move the +Control Pad up and down while pressing the L Button.
+</p>
+<h3 id="note_13-S05">Note 13-S05:  (Library) Added a waveform playback library</h3>
+<p>Added a waveform playback library with function names that start with <CODE>NNS_SndWaveOut</CODE>. This waveform playback library allows you to directly play waveform data that is in memory, such as samples taken with the microphone. The demo program is in <CODE>$NitroSystem/build/demos/snd/waveout</CODE>.
+</p>
+<h3 id="note_13-S06">Note 13-S06:  (Library) Added an effect feature</h3>
+<p>Added effects functionality that uses sound capture. By processing effects using a callback function, you can create effects such as low-pass filter can be applied on all sounds. The demo program is in <CODE>$NitroSystem/build/demos/snd/effect</CODE>.
+</p>
+<h3 id="note_13-S07">Note 13-S07:  (Library) Changed the arguments of the <CODE>NNS_SndCaptureStartReverb</CODE> function</h3>
+<p>The type of the <CODE>format</CODE> argument of the <CODE>NNS_SndCaptureStartReverb</CODE> function was changed from <CODE>SNDCaptureFormat</CODE> to <CODE>NNSSndCaptureFormat</CODE>. For more information, see the Reference Manual.
+</p>
+<h3 id="note_13-S08">Note 13-S08:  (Library) Changed the <CODE>NNSSndArcBankInfo</CODE> structure</h3>
+<p>The <CODE>waveArcNo</CODE> member of the <CODE>NNSSndArcBankInfo</CODE> structure was changed from u16 to u16[4] type. The previous value is stored in <CODE>waveArcNo[0]</CODE>.
+</p>
+<h3 id="note_13-S09">Note 13-S09:  (Library) Deleted functions</h3>
+<p>The following deprecated functions were deleted.
+</p>
+<ul><li><CODE>NNS_SndArcPlayerInit</CODE>
+</li>
+<li><CODE>NNS_SndArcPlayerStartSeqWithPlayerNo</CODE>
+</li>
+<li><CODE>NNS_SndArcPlayerStartSeqArcWithPlayerNo</CODE>
+</li>
+<li><CODE>NNS_SndPlayerStopSeqByNumber</CODE>
+</li>
+<li><CODE>NNS_SndPlayerPauseByNumber</CODE>
+</li>
+<li><CODE>NNS_SndPlayerCountPlayingSeqByNumber</CODE>
+</li>
+<li><CODE>NNS_SndHandleReleasePlayer</CODE>
+</li>
+</ul>
+<h3 id="note_13-S10">Note 13-S10:  (Converter/Library) Added the ability to use multiple waveform archives with a single bank</h3>
+<p>You can now associate multiple waveform archives (a maximum of four) with a single bank. For more information, see the <I>Bank Data Manual</I> or the <I>Sound Archive Manual</I>.
+</p>
+<h3 id="note_13-S11">Note 13-S11:  (Converter) Option to delete sound archive symbol data</h3>
+<p>If you use the <CODE>-b</CODE> option with the <CODE>sndarc</CODE> sound archiver, the sound archive that is created will not include symbol data.
+</p>
+<h3 id="note_13-S12">Note 13-S12:  (Converter) Mistake in the value for the maximum number of simultaneous sequence playback</h3>
+<p>Fixed the problem that caused an error when the value for the maximum number of simultaneous sequence playback in the sound archive definition file was specified as 16.
+</p>
+<h2 id="version_20040610">Changes in Version 2004/06/10</h2>
+<h3 id="note_09-S01">Note 09-S01:  (General) Migration from previous environment</h3>
+<p>Copy the <CODE>MakeSound.bat</CODE> and <CODE>ReMakeSound.bat</CODE> files in the <CODE>$NitroSystem/tools/nitro/SoundPlayer/data</CODE> directory to the directory with the <CODE>sound_data.sarc</CODE> file. Then double-click <CODE>ReMakeSound.bat</CODE> to execute. This creates <CODE>sound_data.o</CODE>. Link it to the program as before. Thereafter, it can be used as it was in previous versions. However, this version offers support for a file system. Sound data management using the file system is recommended.
+</p>
+<h3 id="note_09-S02">Note 09-S02:  (General) Updated for file system</h3>
+<p>Rather than linking to the program, sound data can now be stored in ROM and loaded.
+</p>
+<h3 id="note_09-S03">Note 09-S03:  (General) Changed the method of embedding sound data</h3>
+<p>The <CODE>sound_data.o</CODE> file is no longer linked. Instead, <CODE>sound_data.sdat</CODE> is stored in ROM. Sound designers must provide programmers with a <CODE>sound_data.sdat</CODE> file rather than a <CODE>sound_data.o</CODE> file. Note that the <CODE>sound_data.sdat</CODE> format has changed. Be sure to use a properly converted <CODE>sound_data.sdat</CODE> file.
+</p>
+<p>The programmer must store the <CODE>sound_data.sdat</CODE> file in ROM. For more information, see the <I>Sound Programmer Guide</I>.
+</p>
+<h3 id="note_09-S04">Note 09-S04:  (General) Added memory management mechanism</h3>
+<p>Memory management is required for sound data. For more information, see the <I>Sound System Manual</I>, the <I>Sound Designer Guide</I>, and the <I>Sound Programmer Guide</I>.
+</p>
+<h3 id="note_09-S05">Note 09-S05:  (Library) Sound library initialization</h3>
+<p>The sound library initialization process has changed. For more information, see the <I>Sound Programmer Guide</I>.
+</p>
+<h3 id="note_09-S06">Note 09-S06:  (Library) Changed the ARM7 component</h3>
+<p>The name of the ARM7 component was changed from &quot;prototype&quot; to &quot;ferret.&quot; For more information, see the <I>Sound Programmer Guide</I>.
+</p>
+<h3 id="note_09-S07">Note 09-S07:  (Converter) Changed the conversion command</h3>
+<p>Previously, a <CODE>make</CODE> command was used for conversion. Now <CODE>MakeSound.bat</CODE> is used. <CODE>MakeSound.bat</CODE> can be executed by double-clicking it from Windows Explorer. To reconvert, use <CODE>ReMakeSound.bat</CODE> instead of <CODE>make rebuild</CODE>.
+</p>
+<h3 id="note_09-S08">Note 09-S08:  (SoundPlayer) Label name display</h3>
+<p>Sequence label names can now be displayed on the SoundPlayer screen. When the X Button is pressed, the parameters are displayed as in the previous version.
+</p>
+<h3 id="note_09-S09">Note 09-S09:  (SoundPlayer) Added a manual load mode</h3>
+<p>A manual loading mode was added to allow you to confirm the data size. For more information, see the <I>Sound Programming Guide</I>.
+</p>
+<h3 id="note_09-S10">Note 09-S10:  (Converter/Library) Multiple sequence playback</h3>
+<p>A single player can now play multiple sequence files. The number of sequences that can be played simultaneously can be set individually for each player. (The default is 1.)
+</p>
+<pre><CODE>@PLAYER</CODE>
+3 : 3       ; Player 3 can play up to three sequences
+4 : 2       ; Player 4 can play up to two
+</pre>
+<h3 id="note_09-S11">Note 09-S11:  (Converter/Library) Changed the upper limit on the number of players</h3>
+<p>The number of players was increased from 16 to 32. However, the number of sequences that can be played simultaneously by the system is still 16.
+</p>
+<h3 id="note_09-S12">Note 09-S12:  (Converter/Library) Specification of the number of simultaneous sequence playbacks</h3>
+<p>The sound archive can specify the number of sequences that can be played simultaneously on each player. If no number is specified, the default value is 1. Also, the number can be set in the program using the <CODE>NNS_SndPlayerSetPlayableSeqCount</CODE> function.
+</p>
+<h3 id="note_09-S13">Note 09-S13:  (Library) Player priority during fadeout</h3>
+<p>Player priority was changed to 0 (lowest) during fadeout.
+</p>
+<h3 id="note_09-S14">Note 09-S14:  (Library) Adjusted release/delay</h3>
+<p>The release and decay of the envelope were slightly modified so that faster release or decay is possible. Be aware that noise can be generated due to the rapid release if the release value is set to 127. The relationship between the previous values and the new values is as follows.
+</p>
+<pre>Old Value     |   New Value   Correspondence
+51 - 127       |  Correspond to 49-125, respectively.
+47 - 50       |  Correspond to the same value minus 1 or 2, respectively.
+0 - 46          | No change.
+</pre>
+<h3 id="note_09-S15">Note 09-S15:  (Converter) Sound map file output</h3>
+<p>A sound map file is now saved when a sound archive is created. A sound map file is a text file that contains information about the data in the sound archive, such as the sound data size. The sound map file is in the same directory as the sound archive definition file, but has the <CODE>.smap</CODE> extension.
+</p>
+<h3 id="note_09-S16">Note 09-S16:  (Converter) Index number specification</h3>
+<p>Sequence and bank numbers in the sound archive were previously assigned in order. Now, you can assign them yourself. Also, you can now assign index numbers to sequence tables for sequence archives. The format is as follows.
+</p>
+<pre>* Specify only a label (the previous one)
+SEQ_TITLE_BGM: SMF, &quot;title.mid&quot; , ...
+
+* Specify both a label and a number
+SEQ_TITLE_BGM = 2: SMF, &quot;title.mid&quot; , ...
+
+* Specify only a number
+2: SMF, &quot;title.mid&quot; , ...
+</pre>
+<p>Previously each instrument in the bank definition file was assigned a number, but now you can also assign labels using the syntax above. If you assign labels, you can use the program number list file, which is explained below.
+</p>
+<h3 id="note_09-S17">Note 09-S17:  (Converter) Program number list output</h3>
+<p>If you assign labels to the program numbers in the bank definition file, you can use the program number list file. This file allows you to replace program numbers with labels. An example is shown below.
+</p>
+<pre>#define PRG_PIANO
+#define PRG_GUITAR 1
+#define PRG_HARP
+</pre>
+<p>This file is found in the same directory as the bank definition file, but uses the extension <CODE>.spdl</CODE>. By including this file in the text sequence archive, labels can be used instead of program numbers.
+</p>
+<pre>#include &quot;../bnk/se.spdl&quot;
+
+test:
+<SPACER>    </SPACER>prg PRG_PIANO
+<SPACER>    </SPACER>cn4 64, 48
+<SPACER>    </SPACER>fin
+</pre>
+<h3 id="note_09-S18">Note 09-S18:  (Converter/Library) Added expressions</h3>
+<p>MIDI control change 11 (&ldquo;expression&rdquo;) was converted to the <CODE>volume2</CODE> command. The <CODE>volume2</CODE> command functions just like the <CODE>volume</CODE> command, but generates its own individual effects.
+</p>
+<h3 id="note_09-S19">Note 09-S19:  (Converter) Added ability to use <CODE>sweep_pitch</CODE> from MIDI</h3>
+<p>Previously, MIDI control change 28 was used for the <CODE>sweep_pitch</CODE> command, but MIDI control change 29 was converted to the <CODE>sweep_pitch</CODE> command, with 24 times its previous value. Using this control change, the pitch can be changed by &plusmn;2 octaves.
+</p>
+<h3 id="note_09-S20">Note 09-S20:  (Converter) Changed the maximum values for the <CODE>prg</CODE> and <CODE>mod_delay</CODE> commands</h3>
+<p>The maximum value for the sequence commands <CODE>prg</CODE> and <CODE>mod_delay</CODE> was reduced from 65,535 to 32,767.
+</p>
+<h3 id="note_09-S21">Note 09-S21:  (Converter/Library) Added the random command</h3>
+<p>You can now specify random numbers in some sequence commands.
+</p>
+<pre>pitchbend_r -12, 12
+pan_r 64 - 32, 64 + 32
+Once the minimum and maximum values are specified, a random value is set within that range.
+The commands that permit the use of random numbers are listed in the <I>Sequence Data Manual</I>.
+</pre>
+<h3 id="note_09-S22">Note 09-S22:  (Converter/Library) Added the variable command</h3>
+<p>Variables can now be manipulated in a sequence. Using variables, you can easily create a sequence that rises in pitch with each iteration. For more information, see the <I>Sequence Data Manual</I>.
+</p>
+<h3 id="note_09-S23">Note 09-S23:  (Converter/Library) Added the control command</h3>
+<p>Using variables, you can now control whether or not a sequence command is executed. For more information, see the <I>Sequence Data Manual</I>.
+</p>
+<h3 id="note_09-S24">Note 09-S24:  (Library) Deleted the <CODE>NNS_SndArcPlayerInit</CODE> function</h3>
+<p>The <CODE>NNS_SndArcPlayerInit</CODE> function will be deleted. See the Function Reference for functions that replace it. This function remains for now, but will be completely deleted in the next release.
+</p>
+<h3 id="note_09-S25">Note 09-S25:  (Library) Deleted the <CODE>NNS_SndArcPlayerStartSeqWithPlayerNo</CODE> function</h3>
+<p>The <CODE>NNS_SndArcPlayerStartSeqEx</CODE> and <CODE>NNS_SndArcPlayerStartSeqArcEx</CODE> functions were added. Because these functions can replace the <CODE>NNS_SndArcPlayerStartSeqWithPlayerNo</CODE> and <CODE>NNS_SndArcPlayerStartSeqArcWithPlayerNo</CODE> functions, the latter two functions will be deleted. These functions remain for now, but will be completely deleted in the next release.
+</p>
+<h3 id="note_09-S26">Note 09-S26:  (Library) Changed function names</h3>
+<p>The names of the following functions were changed. The old function names remain, but they will be completely deleted in the next release.
+</p>
+<pre>Deleted Function Names                  New Function Names
+NNS_SndHandleReleasePlayer              NNS_SndHandleReleaseSeq
+NNS_SndPlayerStopSeqByNumber            NNS_SndPlayerStopSeqByPlayerNo
+NNS_SndPlayerPauseSeqByNumber           NNS_SndPlayerPauseSeqByPlayerNo
+NNS_SndPlayerCountPlayingSeqByNumber    NNS_SndPlayerCountPlayingSeqByPlayerNo
+</pre>
+<h3 id="note_09-S27">Note 09-S27:  (Library) Added sequence variable functions</h3>
+<p>The <CODE>NNS_SndPlayerReadVariable</CODE> and <CODE>NNS_SndPlayerWriteVariable</CODE> functions can be used to read the variables set by the sequence data or to write to the variable in the sequence data. With these functions, you can view the status of a sequence being played back and alter its processing flow.
+</p>
+<h3 id="note_09-S28">Note 09-S28:  (Library) Added functions for getting the number of ticks</h3>
+<p>With the <CODE>NNS_SndPlayerGetTick</CODE> function, you can view the tick count of the sequence being played.
+</p>
+<h3 id="note_09-S29">Note 09-S29:  (Library) Added other functions</h3>
+<p>Many other functions were added. For more information, see the Function Reference.
+</p>
+<h3 id="note_09-S30">Note 09-S30:  (Library) Fixed bug where sound priority setting was not applied</h3>
+<p>There was a bug that caused the voice priority setting in the sound data to be reflected incorrectly. This was fixed.
+</p>
+<h3 id="note_09-S31">Note 09-S31:  (Library) Fixed a bug related to assert of the <CODE>NNS_SndPlayerSetTrackPan</CODE> function</h3>
+<p>Previously, an assert was generated when the pan argument was from -64 to 63. An assert is now generated when the value is from -128 to 127, as the specification requires.
+</p>
+<h3 id="note_09-S32">Note 09-S32:  (Library) Fixed a bug related to release when using the <CODE>NNS_SndPlayerStopSeq</CODE> function</h3>
+<p>A bug caused sequences with long release values to stop abruptly when halted from the application. This was fixed.
+</p>
+
+
+<br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br>
+
+<hr><p>CONFIDENTIAL</p></body>
+</html>

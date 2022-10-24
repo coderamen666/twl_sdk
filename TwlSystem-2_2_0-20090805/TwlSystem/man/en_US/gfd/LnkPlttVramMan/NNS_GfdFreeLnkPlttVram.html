@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+	<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+	<META http-equiv="Content-Style-Type" content="text/css">
+	<TITLE>NNS_GfdFreeLnkPlttVram</TITLE>
+	<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+
+<BODY>
+
+<H1 align="left">NNS_GfdFreeLnkPlttVram</H1>
+
+<H2>Syntax</H2>
+<DL>
+  <DD>
+  <PRE><CODE>#include &lt;nnsys/gfd.h&gt;</CODE></PRE>
+  <PRE><CODE>int NNS_GfdFreeLnkPlttVram( NNSGfdPlttKey plttKey );</CODE></PRE>
+</DL>
+
+<H2>Arguments</H2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="13%"><EM><STRONG>plttKey</STRONG></EM></TD>
+<TD width="87%">The palette key for the region to be released.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<H2>Return Values</H2>
+<P>Returns success or failure of the release.<BR>This function returns 0 if the release succeeds.<br>Returns 1 if the palette key that was released had an invalid size, such as size zero.
+</P>
+<H2>Description</H2>
+<P>
+Releases the VRAM region specified by the palette key. The released region is registered again to the Manager as an empty region. When a new empty region is generated as a result of the release, but there is not enough space for the management information block, the release fails.
+</P>
+
+<H2>See Also</H2>
+<P><CODE><A href="NNS_GfdAllocLnkPlttVram.html">NNS_GfdAllocLnkPlttVram</A></CODE></P>
+
+<H2>Revision History</H2>
+<P>2004/10/12 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+
+</HTML>

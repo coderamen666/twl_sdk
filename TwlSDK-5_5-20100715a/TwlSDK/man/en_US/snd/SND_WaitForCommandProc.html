@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"><html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>SND_WaitForCommandProc</title>
+<link rel="stylesheet" href="../css/nitro.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.65.1">
+</head>
+<body>
+<div class="refentry" lang="ja"><a name="IDAKKWT"></a><div class="titlepage">
+<div></div>
+<div></div>
+</div>
+<h1>SND_WaitForCommandProc <IMG src="../image/NTR.gif" width="24" height="12" border="0" align=middle><IMG src="../image/TWL.gif" width="24" height="12" border="0" align=middle></h1>
+<h2>Syntax</h2>
+<dl>
+<dd><pre class="funcsynopsisinfo"><code>#include &lt;nitro/snd.h&gt;</code></pre></dd>
+<dd><pre class="funcprototype"><code class="funcprototype">void SND_WaitForCommandProc( u32 <var>tag</var> );</code><br></pre></dd>
+</dl>
+<div class="refsection" lang="ja"><a name="IDAWLWT"></a>
+      <h2>Arguments</h2>
+      
+      <div class="variablelist">
+<table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><em><strong><font face="Courier New">tag</font></strong></em></td>
+<td>The command tag.</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+    </div>
+<div class="refsection" lang="ja"><a name="IDAFMWT"></a>
+      <h2>Return Values</h2>
+
+      <p>None.</p>
+    </div>
+<div class="refsection" lang="ja"><a name="IDAMMWT"></a>
+      <h2>Description</h2>
+      <p>
+Waits for command processes to end.
+</p>
+      <p>
+The command tag specified for <em><strong><font face="Courier New">tag</font></strong></em> is the one obtained by the <tt class="function"><a href="SND_GetCurrentCommandTag.html">SND_GetCurrentCommandTag</a></tt> function. The return of this function confirms that execution has completed for the command that was reserved immediately prior to the acquisition of the command tag.
+</p>
+      <div class="note">
+<h3 class="title">Note</h3>
+<p>
+Note that you could end up waiting indefinitely for a command if it is not flushed by the <tt class="function"><a href="SND_FlushCommand.html">SND_FlushCommand</a></tt> function.
+</p>
+</div>
+    </div>
+<h2>See Also</h2>
+<p><code><a href="SND_GetCurrentCommandTag.html">SND_GetCurrentCommandTag</a>, <a href="SND_FlushCommand.html">SND_FlushCommand</a></code> </p>
+<h2>Revision History</h2>
+<p>2004/07/20 Initial version.</p>
+</div>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>OS_GetIrqMask</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">OS_GetIrqMask <IMG src="../../image/NTR.gif" align="middle"><IMG src="../../image/TWL.gif" align="middle"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/os.h&gt;</CODE><BR>
+  <BR>
+  <CODE>OSIrqMask OS_GetIrqMask( void );</CODE></dd>
+</dl><h2>Arguments</h2>
+<P>None.</P>
+<h2>Return Values</h2>
+<p>The setting for the current IRQ interrupt cause. See below for information about causes. This function returns the logical sum of the enabled causes.</p>
+<p><A href="interrupts_list.html">Types of Interrupts</A></p>
+<H2>Description</H2>
+<P>Obtains the setting for the currently established IRQ interrupt cause</P>
+<h2>Internal Operation</h2>
+<P>Reads IE (Interrupt Enable) of the I/O register and returns that value.</P>
+
+<h2>See Also</h2>
+<p><code><a href="OS_SetIrqMask.html">OS_SetIrqMask</a>, <a href="OS_EnableIrqMask.html">OS_EnableIrqMask</a>, <a href="OS_DisableIrqMask.html">OS_DisableIrqMask</a></code></p>
+<H2>Revision History</H2>
+<P>2008/06/18 Moved the types of interrupts to a separate page.<BR>2005/03/08 Unified the Japanese term for &quot;interrupt.&quot; <br> 2004/12/08 Added warning about <CODE>OS_IE_KEY</CODE>. <BR> 2004/11/24 Deleted <CODE>OS_IE_SIO</CODE>. <BR> 2004/09/01 Changed &quot;subprocessor&quot; to &quot;ARM7&quot; and &quot;between subprocessors&quot; to &quot;between the ARM7 and ARM9.&quot; <BR> 2003/12/01 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

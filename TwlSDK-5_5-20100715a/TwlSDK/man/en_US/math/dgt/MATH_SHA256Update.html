@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>MATH_SHA256Update</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">MATH_SHA256Update <img src="../../image/NTR.gif"align="middle"><img src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+
+<dl>
+  <dd>
+  <PRE><CODE>#include &lt;nitro/math/dgt.h&gt;
+
+static inline void MATH_SHA256Update( <A href="MATHSHA256Context.html">MATHSHA256Context</A> *context, const void* input, u32 length );
+</CODE></PRE>
+  </dd>
+</dl><h2>Arguments</h2>
+
+<table border="1" width="100%">
+    <TR>
+      <TD width="176"><em><strong><font face="Courier New">context</font></strong></em></TD>
+      <TD width="670">Pointer to the context structure used for SHA-256 generation.</TD>
+    </TR>
+    <TR>
+      <TD width="176"><em><strong><font face="Courier New">input</font></strong></em></TD>
+      <TD width="670">Pointer to the input data.</TD>
+    </TR>
+    <TR>
+      <TD width="176"><em><strong><font face="Courier New">length</font></strong></em></TD>
+      <TD width="670">Size of the input data.</TD>
+    </TR>
+  </table>
+<h2>Return Values</h2>
+<p>None.</p>
+<H2>Description</H2>
+<P>This function updates the SHA-256 digest value based on the input data. You must initialize the <CODE>context</CODE> argument in advance using the <CODE><A href="MATH_SHA256Init.html">MATH_SHA256Init</A></CODE> function. Call this function as many times as needed, and then use the <CODE><A href="MATH_SHA256GetHash.html">MATH_SHA256GetHash</A></CODE> function to obtain the digest value. Any size and alignment position can be used for the input data. SHA-256 is an algorithm to find the message digest value. For details, refer to the Federal Information Processing Standard, FIPS PUB 180-2.
+</P>
+<h2>See Also</h2>
+<P><CODE><CODE><A href="MATH_SHA256Init.html">MATH_SHA256Init</A></CODE>, <A href="MATH_SHA256GetHash.html">MATH_SHA256GetHash</A></CODE></P>
+<H2>Revision History</H2>
+<P>
+2008/05/23 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

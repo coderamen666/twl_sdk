@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>OS_LockMutexFrom[RToW|WToR]</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">OS_LockMutexFrom[RToW|WToR] <IMG src="../../image/NTR.gif" align="middle"><IMG src="../../image/TWL.gif" align="middle"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/os.h&gt;</CODE><BR> <BR> <CODE>void OS_LockMutexFromRToW( OSMutex* mutex );</CODE><BR> <BR> <CODE>void OS_LockMutexFromWToR( OSMutex* mutex );</CODE></dd>
+</dl>
+
+<h2>Arguments</h2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+      <TD width="13%"><CODE>mutex</CODE></TD>
+      <TD width="87%">Pointer to the <CODE>OSMutex</CODE> structure</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<h2>Return Values</h2>
+<p>None.</p>
+
+<H2>Description</H2>
+<P>Changes the type of the <CODE>mutex</CODE> that is locked.</P>
+<P><CODE>mutex</CODE> is the pointer to the <CODE>OSMutex</CODE> structure to be changed.</P>
+<P>The <CODE>OS_LockMutexFromWToR</CODE> function takes a <CODE>mutex</CODE> that is set to <CODE>write lock</CODE> and changes the setting to <CODE>read lock</CODE>. The <CODE>mutex</CODE> type is then <CODE>read lock</CODE>. To unlock it you need to execute either the <CODE><A href="OS_UnlockMutexRW.html">OS_UnlockMutexR</A></CODE> or <CODE><A href="OS_UnlockMutexRW.html">OS_UnlockMutexRW</A></CODE> function.</P>
+<P>The <CODE>OS_LockMutexFromRToW</CODE> takes a <CODE>mutex</CODE> that is set to <CODE>read lock</CODE> and changes the setting to <CODE>write lock</CODE>. The <CODE>mutex</CODE> type is then <CODE>write lock</CODE>. To unlock it you need to execute either the <CODE><A href="OS_UnlockMutexRW.html">OS_UnlockMutexW</A></CODE> or <CODE><A href="OS_UnlockMutexRW.html">OS_UnlockMutexRW</A></CODE> function.</P>
+<P>Control will not return from either of these functions until the change has succeeded. Internally, the <CODE><A href="OS_TryLockMutexFromToRW.html">OS_TryLockMutexFromWToR</A></CODE> and <CODE><A href="OS_TryLockMutexFromToRW.html">OS_TryLockMutexFromRToW</A></CODE> functions will be called repeatedly until the process succeeds. The process will stop, however, if the function has been specified in a way that cannot succeed. For example, if the <CODE>OS_LockMutexFromToWToR</CODE> function is called to change the mutex from <CODE>write lock</CODE> to <CODE>read lock</CODE> but the mutex is already set to <CODE>read lock</CODE>. (The thread goes to sleep.)</P>
+<h2>See Also</h2>
+<p><CODE><A href="OS_InitMutex.html">OS_InitMutex</A><BR> <A href="OS_LockMutex.html">OS_LockMutex</A><BR> <A href="OS_UnlockMutex.html">OS_UnlockMutex</A></CODE><BR> <CODE><A href="OS_LockMutexRW.html">OS_LockMutexR</A><BR> <A href="OS_LockMutexRW.html">OS_LockMutexW</A><BR> <A href="OS_UnlockMutexRW.html">OS_UnlocMutexR</A><BR> <A href="OS_UnlockMutexRW.html">OS_UnlocMutexW</A><BR> <A href="OS_TryLockMutexRW.html">OS_TryLockMutexR</A><BR> <A href="OS_TryLockMutexRW.html">OS_TryLockMutexW</A><BR> <A href="OS_TryLockMutexFromToRW.html">OS_TryLockMutexFromRToW</A><BR> <A href="OS_TryLockMutexFromToRW.html">OS_TryLockMutexFromWToR</A></CODE></p>
+<H2>Revision History</H2>
+<P>2008/12/17 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

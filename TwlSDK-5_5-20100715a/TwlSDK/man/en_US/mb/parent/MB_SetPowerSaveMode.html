@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 8.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>MB_SetPowerSaveMode</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">MB_SetPowerSaveMode <IMG src="../../image/NTR.gif" width="24" height="12" border="0" align=middle><IMG src="../../image/TWL.gif" width="24" height="12" border="0" align=middle></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/mb.h&gt;</CODE><BR>
+  <BR>
+  <CODE>void MB_SetPowerSaveMode(BOOL enable);</CODE><br>
+  <br>
+  </dd>
+</dl>
+<h2>Arguments</h2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+      <TD width="13%"><EM><STRONG>enable</STRONG></EM></TD>
+      <TD width="87%">This is set to <CODE>TRUE</CODE> to enable power save mode; set to <CODE>FALSE</CODE> to disable it.
+      This setting is enabled by default.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<h2>Return Values</h2>
+<p>None.</p>
+
+<H2>Description</H2>
+<P>Specifies the communications power save mode that is used in the MB library. The default setting is 'enabled.' This function is an option that provides more stable operation in scenes where power consumption is not an important issue. An ordinary game application should not use this unless its operating environment is one that guarantees a connection to a power source.<br>This function can be called only after the <CODE><a href="../common/MB_Init.html">MB_Init</a></CODE> function and before the <CODE><A href="MB_StartParent.html">MB_StartParent</A></CODE> function. <br>
+</p>
+<h2>See Also</h2>
+<p><CODE><A href="../common/MB_Init.html">MB_Init</A>, <A href="MB_StartParent.html">MB_StartParent</A></CODE></P>
+<H2>Revision History</H2>
+<P>
+2005/04/11 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

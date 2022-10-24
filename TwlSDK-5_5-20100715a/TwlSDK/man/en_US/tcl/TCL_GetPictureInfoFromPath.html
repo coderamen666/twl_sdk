@@ -1,0 +1,48 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title>TCL_GetPictureInfoFromPath</title>
+<link rel="stylesheet" href="../css/nitro.css" type="text/css">
+</head>
+<body>
+<h1 align="left">TCL_GetPictureInfoFromPath <img src="../image/TWL.gif" align="middle"></h1>
+
+<h2>Definition</h2>
+<dl>
+	<dd>
+	<code>#include &lt;twl/tcl.h&gt;</code><br/> <br/>
+	<pre><code>
+BOOL TCL_GetPictureInfoFromPath( const TCLAccessor* pAccessor ,
+                          TCLPictureInfo** ppPicInfo ,
+                          const char* path ,
+                          size_t len );
+	</code></pre>
+</dl>
+
+<h2>Arguments</h2>
+<p>
+<table>
+<tr><td>pAccessor<td><a href="TCLAccessor.html">Accessor</a>
+<tr><td>pPicInfo<td><a href="TCLPictureInfo.html">Photo information</a>
+<tr><td>path<td>Buffer that stores the path 
+<tr><td>len<td>Path length
+</table>
+</p>
+
+<h2>Return Values</h2>
+<p><CODE>TRUE</CODE> when data was obtained successfully.</p>
+
+<h2>Description</h2>
+<p>Gets photo information from the path to a saved photo.</p>
+
+<h2>See Also</h2>
+<p><code><a href="TCL_PrintPicturePath.html">TCL_PrintPicturePath</a></code></p>
+
+<h2>Revision History</h2>
+<p>
+2009/04/06 Initial version.
+</p>
+
+<hr><p>CONFIDENTIAL</p></body>
+</html>

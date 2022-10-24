@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>STD_TSNPrintf</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">STD_TSNPrintf <img src="../../image/NTR.gif"align="middle"><img src="../../image/TWL.gif" align="middle"></h1>
+<h2>Syntax</h2>
+<DL>
+<DD><CODE>#include &lt;nitro/std.h&gt;<BR> <BR> int STD_TSNPrintf( char *dst, size_t len, const char *fmt, ... );<BR> <BR></CODE>
+</DL>
+<H2>Arguments</H2>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+<TD><I><B>dst</B></I></TD>
+<TD>Storage destination buffer for the output string.</TD>
+    </TR>
+    <TR>
+<TD><I><B>len</B></I></TD>
+<TD>Storage destination buffer size for the output string.</TD>
+    </TR>
+    <TR>
+<TD><I><B>fmt</B></I></TD>
+<TD>Output format string.</TD>
+    </TR>
+    <TR>
+      <TD><I><B>...</B></I></TD>
+<TD>Variable number of arguments.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>Return Values</H2>
+<P>Always returns the number of characters of a correctly formatted output string. The termination character (<code>\0</code>) is not included in this number.</P>
+<H2>Description</H2>
+<P>This function simplifies the format string.</P>
+<P>With the exception of a difference in argument format, this function is equivalent to the <A href="STD_TVSNPrintf.html"><CODE>STD_TVSNPrintf</CODE></A> format.</P>
+<P>This function is compiled with weak symbols. Therefore, you can overwrite them with your own function definitions.<BR><FONT color=#ff0000>However, this function may be used by TWL-SDK functions, high-level libraries, middleware, and other sources, so be careful not to change its behavior when you overwrite it.</FONT>
+</P>
+<H2>See Also</H2>
+<P><A href="STD_TSPrintf.html"><CODE>STD_TSPrintf</CODE></A><BR> <A href="STD_TVSPrintf.html"><CODE>STD_TVSPrintf</CODE></A><BR> <A href="STD_TVSNPrintf.html"><CODE>STD_TVSNPrintf</CODE></A></P>
+<H2>Revision History</H2>
+<P>
+2009/03/27 Added a note related to user-defined functions. <BR>2007/04/20 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

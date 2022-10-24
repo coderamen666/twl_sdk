@@ -1,0 +1,143 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>PM_SetBackLight*</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">PM_SetBackLight* <IMG src="../../image/NTR.gif" width="24" height="12" border="0" align="middle"><IMG src="../../image/TWL.gif" width="24" height="12" border="0" align="middle"></H1>
+<H2>Syntax</H2>
+<DL>
+  <DD>
+  <PRE><CODE>#include &lt;nitro/spi.h&gt;</CODE></PRE>
+  <PRE><CODE>u32 PM_SetBackLight( PMLCDTarget target, PMBackLightSwitch sw );
+
+u32 PM_SetBackLightAsync( PMLCDTarget target, PMBackLightSwitch sw, PMCallback callback, void* arg );
+  </CODE></PRE>
+</DL>
+<H2>Arguments</H2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="13%"><EM><STRONG>target</STRONG></EM></TD>
+<TD width="87%">Screen that is the target of operation.</TD>
+    </TR>
+    <TR>
+<TD width="13%"><EM><STRONG>sw</STRONG></EM></TD>
+<TD width="87%">Backlight switch.</TD>
+    </TR>
+    <TR>
+<TD><EM><STRONG>callback</STRONG></EM></TD>
+<TD>Callback that is called when the command finishes.</TD>
+    </TR>
+    <TR>
+<TD><EM><STRONG>arg</STRONG></EM></TD>
+<TD>Argument that is used when calling the callback.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>Return Values</H2>
+<P>If <CODE>PM_RESULT_SUCCESS</CODE>, the command execution has succeeded (for synchronous functions), or the command was successfully sent to the ARM7 processor (for asynchronous functions).</P>
+<P>If <CODE>PM_INVALID_COMMAND</CODE>, the argument that was passed is invalid.</P>
+<P>If <CODE>PM_RESULT_BUSY</CODE>, the SPI was occupied by other processing and unable to process this function.</P>
+<H2>Description</H2>
+<P>Toggles the specified screen's backlight switch.</P>
+<P>The <CODE>target</CODE> argument is a <code>PMLCDTarget</code> enumerator type that can contain either one of the following values.
+</P>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+<TH>Value of <SPAN class="argument">target</SPAN></TH>
+<TH>Targeted LCD</TH>
+    </TR>
+    <TR>
+<TD><CODE>PM_LCD_TOP</CODE></TD>
+<TD>Top screen</TD>
+    </TR>
+    <TR>
+<TD><CODE>PM_LCD_BOTTOM</CODE></TD>
+<TD>Bottom screen</TD>
+    </TR>
+    <TR>
+<TD><CODE>PM_LCD_ALL</CODE></TD>
+<TD>Top and bottom screens</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P><BR> The <SPAN class="argument">sw</SPAN> argument is a <code>PMBackLightSwitch</code> enumerator type value that specifies one of the following values.
+</P>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+<TH>Value of <SPAN class="argument">sw</SPAN></TH>
+<TH>Backlight Operation</TH>
+    </TR>
+    <TR>
+<TD><CODE>PM_BACKLIGHT_OFF</CODE></TD>
+<TD>Turns the backlight OFF.</TD>
+    </TR>
+    <TR>
+<TD><CODE>PM_BACKLIGHT_ON</CODE></TD>
+<TD>Turns the backlight ON.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P><BR> This function performs the operation that is specified by <SPAN class="argument">sw</SPAN> on the screen that is specified by the <SPAN class="argument">target</SPAN> argument.</P>
+
+<P><FONT color="#ff0000">This function can be used from an interrupt handler. This function cannot be used in interrupt-prohibited states other than interrupt handlers.</FONT></P>
+<P><BR> <BR> <B>Prohibition against turning the backlight on and off at high speed</B></P>
+<P>In certain PMIC accessories, PMIC protection features will activate if a lit backlight is turned off and then on again within an extremely short period of time. This causes the TWL system to shut down.<FONT color="#ff0000">There should be a 16 msec interval or longer when when turning the backlight on and off.</FONT>In other words, it is acceptable to switch once per frame.</P>
+<P><BR> <BR> <B>Asynchronous Functions</B></P>
+<P>This function uses PXI to send the command that performs the corresponding operation in the ARM7 processor. The ARM7 side that receives that command is executed by operating the PMIC. Therefore, this function may not operate instantly after you call it. A synchronous function that waits for the operation to finish, as well as an asynchronous function that only sends commands to the ARM7, are provided. Use either of the functions depending on your operational requirements. (The asynchronous function has &quot;Async&quot; appended to the function name.))</P>
+<P>When an asynchronous function is called, the specified <SPAN class="argument">callback</SPAN> is called when processing on the ARM7 finishes. The callback type <CODE>PMCallback</CODE> is defined by:</P>
+<BLOCKQUOTE> <CODE><code>typedef void ( *PMCallback )( u32 result, void* arg )</code>;</CODE></BLOCKQUOTE>
+<P> This callback is called from within the PXI interrupt handler.</P>
+<P>The callback's first argument, <SPAN class="argument">result</SPAN>, indicates the result of the command. This is either <code>PM_RESULT_SUCCESS</code> or <code>PM_RESULT_BUSY</code>. The second argument in the callback returns the value <SPAN class="argument">arg</SPAN>.</P>
+<P><BR> <BR> <B>About <CODE>PM_RESULT_BUSY</CODE></B></P>
+<P>The SPI is used for various other processes besides power management. If you call this function while another process is using it, this function sends a command to the ARM7. There, the SPI is determined to be BUSY, and <CODE>PM_RESULT_BUSY</CODE> is dispatched to the ARM9 without actually processing this function. Likewise, if you call this function while another PM process is running, that fact is determined on the ARM9, and this function returns <CODE>PM_RESULT_BUSY</CODE>. (In this case, the determination is made before notification is sent to the ARM7.)</P>
+<P>Accordingly, if you want to ensure that this function succeeds, make it loop until it succeeds as shown below. (This example does not take into account mistakes such as wrong arguments.)</P>
+<BLOCKQUOTE style="background-color:#ffffcc"><B>Example</B><BR> <CODE>while( PPM_SetBackLight( ... ) != PM_RESULT_SUCCESS )<BR> {<BR> }</CODE></BLOCKQUOTE>
+<P>When using the <CODE>Async</CODE> version of this function, you could do this with code similar to the following.</P>
+<BLOCKQUOTE style="background-color:#ffffcc"><B>Example:</B><BR>
+<PRE>
+void setResult( u32 result, void* arg )
+{
+  if ( arg )
+  {
+    *(u32*)arg = result;
+  }
+}
+
+while(1)
+{
+  volatile u32 result = PM_RESULT_NONE; //A value that will not be returned
+
+  while ( PM_SetSetBackLightAsync(..., setResult, (void*)&amp;result ) != PM_RESULT_SUCCESS )
+  {
+  }
+
+  // Some other process
+  otherProcess();
+
+  // Wait for completion
+  while( result == PM_RESULT_NONE )
+  {
+  }
+
+  // Exit the loop on success
+  if ( result == PM_RESULT_SUCCESS )
+  {
+    break;
+  }
+}</PRE></BLOCKQUOTE>
+<H2>Internal Operation</H2>
+<P>Controls the PMIC_CTL value of the PMIC register.</P>
+<H2>See Also</H2>
+<P><A href="PM_Init.html"><CODE>PM_Init</CODE></A><BR> <A href="PM_GetBackLight.html"><CODE>PM_GetBackLight</CODE></A></P>
+<H2>Revision History</H2>
+<P>2010/06/16 Added a note that a 16 msec time interval or longer is required between turning the backlight on and off.<BR> 2009/06/03 Deleted description of the <CODE>PM_Init</CODE> function. (This is because the <CODE>OS_Init</CODE> function is required.)<BR> 2008/08/23 Discontinued PM_RESULT_ERROR and cited PM_RESULT_BUSY<BR> 2005/07/07 Cited the return value PM_RESULT_ERROR<BR> 2005/06/02 Added note about the caller of the callback<BR> 2004/08/04 Initial version</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

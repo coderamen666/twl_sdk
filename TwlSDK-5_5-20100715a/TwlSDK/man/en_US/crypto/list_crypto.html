@@ -1,0 +1,206 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META http-equiv="Content-Style-Type" content="text/css">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<BASE target="main">
+<TITLE>Software Crypotography Library (CRYPTO) Function List</TITLE>
+<LINK rel="stylesheet" href="../css/apilist.css">
+</HEAD>
+<BODY>
+<H1>Software Crypotography Library (CRYPTO) Function List</H1>
+<H3><A name="sign">Digital Signatures</A></H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TH width="25%"><A href="sign/CRYPTO_VerifySignature.html" target="_self">CRYPTO_VerifySignature</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Verifies digital signatures.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="sign/CRYPTO_VerifySignatureWithHash.html" target="_self">CRYPTO_VerifySignatureWithHash</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Verifies digital signatures from a hash value.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="sign/CRYPTO_SIGN_GetModulus.html" target="_self">CRYPTO_SIGN_GetModulus</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Analyzes the public key used for the digital signature and returns a pointer to <CODE>modulus</CODE>.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="rsa/CRYPTO_RSA_SignInit.html" target="_self">CRYPTO_RSA_SignInit</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Performs the initialization and key settings needed for digital signature creation.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="rsa/CRYPTO_RSA_Sign.html" target="_self">CRYPTO_RSA_Sign</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Creates a digital signature.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="rsa/CRYPTO_RSA_SignTerminate.html" target="_self">CRYPTO_RSA_SignTerminate</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Performs shutdown processing for digital signature creation.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<H3><A name="rc4">RC4 Encryption</A></H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TH width="25%"><A href="rc4/CRYPTO_RC4Init.html" target="_self">CRYPTO_RC4Init</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Performs the initialization and key settings needed for encryption/decryption using the RC4 algorithm.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="rc4/CRYPTO_RC4Encrypt.html" target="_self">CRYPTO_RC4Encrypt</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Performs encryption using the RC4 algorithm.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="rc4/CRYPTO_RC4.html" target="_self">CRYPTO_RC4</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Using the data and the key, performs encryption/decryption using the RC4 algorithm in one function.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="rc4/CRYPTO_RC4FastInit.html" target="_self">CRYPTO_RC4FastInit</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Performs the initialization and key settings needed for encryption/decryption using the RC4 algorithm. (High-speed version)</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="rc4/CRYPTO_RC4FastEncrypt.html" target="_self">CRYPTO_RC4FastEncrypt</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Performs encryption using the RC4 algorithm. (High-speed version)</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="rc4/CRYPTO_RC4Fast.html" target="_self">CRYPTO_RC4Fast</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Using the data and the key, performs encryption/decryption using the RC4 algorithm in one function. (High-speed version)</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<H3><A name="rsa">RSA Encryption</A></H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TH width="25%"><A href="rsa/CRYPTO_RSA_EncryptInit.html" target="_self">CRYPTO_RSA_EncryptInit</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Performs the initialization and key settings needed for encryption using the RSA algorithm.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="rsa/CRYPTO_RSA_EncryptInit_PrivateKey.html" target="_self">CRYPTO_RSA_EncryptInit_PrivateKey</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Performs the initialization and key settings needed for encryption using the RSA algorithm. The private key version is used instead of the public key.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="rsa/CRYPTO_RSA_Encrypt.html" target="_self">CRYPTO_RSA_Encrypt</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Performs encryption using the RSA algorithm. </TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="rsa/CRYPTO_RSA_EncryptTerminate.html" target="_self">CRYPTO_RSA_EncryptTerminate</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Performs processing to end encryption using the RSA algorithm.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="rsa/CRYPTO_RSA_DecryptInit.html" target="_self">CRYPTO_RSA_DecryptInit</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Performs the initialization and key settings needed for decryption using the RSA algorithm.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="rsa/CRYPTO_RSA_Decrypt.html" target="_self">CRYPTO_RSA_Decrypt</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Performs decryption using the RSA algorithm. </TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="rsa/CRYPTO_RSA_DecryptTerminate.html" target="_self">CRYPTO_RSA_DecryptTerminate</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Performs shutdown processing for decryption using the RSA algorithm.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<H3><A name="misc">Utility Functions</A></H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TH width="25%"><A href="util/CRYPTO_SetAllocator.html" target="_self">CRYPTO_SetAllocator</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Sets the memory management functions for use by the CRYPTO library. (Outdated)</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="util/CRYPTO_SetMemAllocator.html" target="_self">CRYPTO_SetMemAllocator</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Sets the memory management functions for use by the CRYPTO library.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<H3><A name="misc">Structures</A></H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TH width="25%"><A href="rc4/CRYPTORC4Context.html" target="_self">CRYPTORC4Context</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>The context structure for RCA encryption/decryption</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="rc4/CRYPTORC4FastContext.html" target="_self">CRYPTORC4FastContext</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>The context structure for RCA encryption/decryption (for Fast system)</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="rsa/CRYPTORSAContext.html" target="_self">CRYPTORSAContext</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>The context structure for RSA encryption/decryption</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="rsa/CRYPTORSAEncryptInitParam.html" target="_self">CRYPTORSAEncryptInitParam</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>The values of the settings required for initializing RSA encryption</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="rsa/CRYPTORSAEncryptParam.html" target="_self">CRYPTORSAEncryptParam</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>The values of the settings required for conducting RSA encryption</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="rsa/CRYPTORSADecryptInitParam.html" target="_self">CRYPTORSADecryptInitParam</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>The values of the settings required for initializing RSA decryption</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="rsa/CRYPTORSADecryptParam.html" target="_self">CRYPTORSADecryptParam</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>The values of the settings required for conducting RSA decryption</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="rsa/CRYPTORSAEncryptInitPKParam.html" target="_self">CRYPTORSAEncryptInitPKParam</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>The values of the settings required for initializing RSA encryption (for <CODE>CRYPTO_RSA_EncryptInit_PrivateKey</CODE>)</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="rsa/CRYPTORSASignContext.html" target="_self">CRYPTORSASignContext</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>The context structure for RSA digital signature</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="rsa/CRYPTORSASignInitParam.html" target="_self">CRYPTORSASignInitParam</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>The values of the settings required for the initialization process for creating a signature</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="rsa/CRYPTORSASignParam.html" target="_self">CRYPTORSASignParam</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>The values of the settings required for creating a digital signature</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<table border="0" height="100%"><tr><td style="background-color : white;"></td></tr></table>
+
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

@@ -1,0 +1,50 @@
+#! make -f
+#----------------------------------------------------------------------------
+# Project:  TwlSDK - WM - demo - wireless-all
+# File:     Makefile.icon
+#
+# Copyright 2006-2009 Nintendo.  All rights reserved.
+#
+# These coded instructions, statements, and computer programs contain
+# proprietary information of Nintendo of America Inc. and/or Nintendo
+# Company Ltd., and are protected by Federal copyright law. They may
+# not be disclosed to third parties or copied or duplicated in any form,
+# in whole or in part, without the prior written consent of Nintendo.
+#
+# $Date:: 2009-06-04#$
+# $Rev: 10698 $
+# $Author: okubata_ryoma $
+#----------------------------------------------------------------------------
+TARGET_PLATFORM	=	TWL NITRO
+
+include	$(TWLSDK_ROOT)/build/buildtools/commondefs
+
+#----------------------------------------------------------------------------
+
+DATA_DIR	= ./data/image
+WLICON_DIR	= $(ROOT)/data/wl_icons
+
+SRC_FILES	= $(wildcard $(WLICON_DIR)/wireless_strength_level_*_b.bmp)
+TGT_FILES	= $(patsubst $(WLICON_DIR)/wireless_strength_level_%_b.bmp,linkimg%.dat,$(SRC_FILES))
+
+TARGETS		= $(addprefix $(DATA_DIR)/,$(TGT_FILES))
+
+LDIRT_CLEAN	= $(TARGETS)
+
+#----------------------------------------------------------------------------
+
+do-build:	$(TARGETS)
+
+
+# Convert the bitmap for the link strength icon to binary data
+$(DATA_DIR)/linkimg%.dat : $(WLICON_DIR)/wireless_strength_level_%_b.bmp
+	$(ROOT)/tools/bin/ntexconv.exe -no -bg -bgb -bgf palette16 $(call cygpathm,$<) >/dev/null && \
+	cat	$(basename $<).nbfp $(basename $<).nbfc > $(basename $@).dat && \
+	rm	$(basename $<).nbfp $(basename $<).nbfc $(basename $<).nbfs
+
+
+#----------------------------------------------------------------------------
+
+include	$(TWLSDK_ROOT)/build/buildtools/modulerules
+
+#===== End of Makefile =====

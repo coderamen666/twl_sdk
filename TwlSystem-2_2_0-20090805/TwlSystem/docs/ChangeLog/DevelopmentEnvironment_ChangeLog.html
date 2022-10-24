@@ -1,0 +1,151 @@
+<html>
+<head>
+<title>TWL-System Overall Development Environment Revision History</title>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="content-style-type" content="text/css" />
+<style type="text/css">
+<!--
+    
+H1
+{
+    font-weight         : bold;
+    font-size           : 250%;
+    text-align          : left;
+    color               : #46f;
+    margin              : 0em 0em 0.5em 0em;
+}
+
+H2
+{
+    font-weight         : bold;
+    font-size           : 150%;
+    text-align          : left;
+    margin              : 2em 0em 0.5em 0em;
+    padding-top         : 8pt;
+    border-top-style    : double;
+    border-top-width    : 3px;
+}
+
+H3
+{
+    font-weight         : bold;
+    font-size           : 120%;
+    margin              : 1em 0em 0.5em 0em;
+    padding-top         : 8pt;
+    border-top-style    : solid;
+    border-top-width    : 1px;
+}
+
+H4
+{
+    font-weight         : normal;
+    font-size           : 100%;
+    margin              : 0em 0em 0em 0.5em;
+}
+
+DIV.date
+{
+    font-size           : normal;
+    text-align          : right;
+    margin              : 0pt 0pt 12pt 0pt;
+}
+
+DIV.licence
+{
+    margin: 0em;
+    border-style : solid;
+    border-width : 1px;
+}
+
+P
+{
+    font-size           : normal;
+    margin              : 0em 1em 0.5em 1em;
+    line-height         : 150%;
+}
+
+PRE
+{
+    font-size           : normal;
+    margin              : 0em 0em 1em 2em;
+    line-height         : 120%;
+}
+
+DT
+{
+    margin              : 1em 0em 0em 1em;
+}
+DD
+{
+    margin-left         : 3em;
+}
+UL
+{
+    margin-top         : 0em;
+}
+
+-->
+</style>
+</head>
+<body>
+
+<h1>TWL-System Overall Development Environment Revision History</h1>
+
+<h2>Index</h2>
+
+<h3><a href="#version_2_1_0">2.1.0</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_81-D01">Note 1-D01: Makefile support for <CODE>version.h</CODE></a></li>
+<li><a href="#note_81-D02">Note 81-D02: Deleted the IDE sample demo</a></li>
+</ul>
+<h3><a href="#version_2_0_0_0">2.0.0 RC</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_78-D01">Note 78-D01: Changed name to TWL-System</a></li>
+<li><a href="#note_78-D02">Note 78-D02: Changed the way versions are managed</a></li>
+</ul>
+<h3><a href="#version_20080408">2008/04/08 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_76-D01">Note 76-D01: Support for TWL-SDK</a></li>
+<li><a href="#note_76-D02">Note 76-D02: Changed the package composition</a></li>
+<li><a href="#note_76-D03">Note 76-D03: Added the <I>Quick Start</I> manual</a></li>
+</ul>
+
+
+<h2 id="version_2_1_0">Changes in 2.1.0</h2>
+<h3 id="note_81-D01">Note 1-D01: Makefile support for <CODE>version.h</CODE></h3>
+<p>Included the <CODE>$TwlSystem/include/nnsys/version.h</CODE> file from Makefile and enabled the acquisition of version information.
+</p>
+<h3 id="note_81-D02">Note 81-D02: Deleted the IDE sample demo</h3>
+<p>The IDE sample demo and IDE build guide have been deleted from the TWL-System package because they will be released in a different package.
+</p>
+<h2 id="version_2_0_0_0">Changes in 2.0.0 RC</h2>
+<h3 id="note_78-D01">Note 78-D01: Changed name to TWL-System</h3>
+<p>Changed NITRO-System to TWL-System.
+</p>
+<p>In line with this change, the name of the environment variable needed for setting the root folder has been changed to <CODE>TWLSYSTEM_ROOT</CODE> from <CODE>NITROSYSTEM_ROOT</CODE>.
+</p>
+<h3 id="note_78-D02">Note 78-D02: Changed the way versions are managed</h3>
+<p>Previously, the package version was managed using dates. That has been changed so now it is managed using version numbers.
+</p>
+<p>Note that in line with this change, the version macro defined by <CODE>$TwlSystem/include/nnsys/version.h</CODE> has also been changed.
+</p>
+<h2 id="version_20080408">Changes in Version 2008/04/08</h2>
+<h3 id="note_76-D01">Note 76-D01: Support for TWL-SDK</h3>
+<p>Added support for TWL-SDK. The SDK that is supported is TWL-SDK 5.0 FC plus.
+</p>
+<h3 id="note_76-D02">Note 76-D02: Changed the package composition</h3>
+<p>Up until now, the NITRO-System libraries, NITRO-Viewer, NITRO-SoundMaker and 3DTools were released as separate packages. Starting with this version, they are being released together as a single package.
+</p>
+<p>NITRO-Viewer, NITRO-SoundMaker, and 3DTools are stored separately under the <CODE>$NitroSystem/tools</CODE> directory.
+</p>
+<h3 id="note_76-D03">Note 76-D03: Added the <I>Quick Start</I> manual</h3>
+<p>Added the manual named <I>Quick Start</I> (<CODE>$NitroSystem/docs/QuickStart.pdf</CODE>), which explains the overview of setup when installing NITRO-System.
+</p>
+
+
+
+<hr><p>CONFIDENTIAL</p></body>
+</html>

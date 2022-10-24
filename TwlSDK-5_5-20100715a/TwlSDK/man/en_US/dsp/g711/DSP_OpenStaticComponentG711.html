@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title>DSP_OpenStaticComponentG711</title>
+<link rel="stylesheet" href="../../css/nitro.css" type="text/css" />
+</head>
+<body>
+
+<h1>DSP_OpenStaticComponentG711 <IMG src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+
+<pre><code>
+void DSP_OpenStaticComponentG711(FSFile *file);
+</code></pre>
+
+<h2>Arguments</h2>
+<table style="width:100%">
+<tbody>
+<tr>
+<td style="width:13%"><CODE>file</CODE></td>
+<td style="width:87%">The <CODE>FSFile</CODE> structure to open a memory file.</td>
+</tr>
+</tbody>
+</table>
+
+<h2>Return Values</h2>
+<p>None.</p>
+
+<h2>Description</h2>
+<p>Opens a memory file in static memory for use by the G.711 component. The opened file can be used as an argument to the <a href="DSP_LoadG711.html"><CODE>DSP_LoadG711</CODE></a> function. If this function is used, the SDK library and component files always have the same version, and component files no longer need to be saved to the file system in advance. However, the files are linked in static memory and therefore increase the program's resident memory size. <br>Because this function makes an internal call to the <a href="../../fs/file/FS_InitFile.html"><CODE>FS_InitFile</CODE></a> function, you do not need to initialize <code>file</code> ahead of time.
+</p>
+
+<h2>See Also</h2>
+<p><a href="DSP_LoadG711.html"><CODE>DSP_LoadG711</CODE></a></p>
+
+<h2>Revision History</h2>
+<p>
+2009/02/12 Added mention that the <a href="../../fs/file/FS_InitFile.html"><CODE>FS_InitFile</CODE></a> function is called internally.<br> 2008/05/22 Initial version.
+</p>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

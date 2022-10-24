@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>CARD_GetRomHeader</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">CARD_GetRomHeader <img src="../../image/NTR.gif"align="middle"><img src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/card.h&gt;</CODE><BR>
+  <BR>
+  <CODE>const u8* CARD_GetRomHeader( void );</CODE><br>
+  <br>
+  </dd>
+</dl>
+<h2>Arguments</h2>
+<p>None.</p>
+
+<h2>Return Values</h2>
+<p>Returns the pointer to the buffer that stores the ROM header information of the inserted Game Card.<br>This pointer can be cast as the pointer to the <a href="../card_rom_header_type.html">CARDRomHeader</a> structure.<br>The contents of this buffer cannot be changed.</p>
+
+<H2>Description</H2>
+<p>Gets the ROM header information of the Game Card that is actually inserted in the DS Card slot.</p>
+<p>
+This function provides a way for programs that are not card-boot programs (such as NAND applications and programs on DS Download Play child consoles) to identify the content of the Game Card actually inserted in the slot.<br />If this function is called for a normal card-boot program, the information obtained is the same as that stored in the <CODE>HW_ROM_HEADER_BUF</CODE> address of the program's own ROM header.</p>
+<p style='color:Red;'>
+Note that, although this function will get the correct information from the Nintendo DS and Nintendo DSi consoles, it will <I>not</I> get the correct information from IS-NITRO-EMULATOR, IS-TWL-EMULATOR and other debug environments.</p>
+<H2>Revision History</H2>
+<P>
+2008/12/05 Made specific note that correct information cannot be obtained from non-commercial models.<BR> 2006/08/25 Added mention that correct information cannot be obtained from non-commercial models.<BR> 2006/06/22 Added mention that return value can be cast to the <CODE>CARDRomHeader</CODE> structure pointer.<BR> 2004/10/08 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 8.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>MTX_FrustumW</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">MTX_FrustumW <img src="../../image/NTR.gif"align="middle"><img src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+
+<dl>
+  <dd>
+<PRE>
+<CODE>#include &lt;nitro/fx/fx_mtx44.h&gt;</CODE><BR>
+<CODE>void MTX_FrustumW(
+    fx32 t,
+    fx32 b,
+    fx32 l,
+    fx32 r,
+    fx32 n,
+    fx32 f,
+    fx32 scaleW,
+    MtxFx44 * mtx
+);</CODE></PRE></dd>
+</dl><h2>Arguments</h2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+      <TD width="190"><em><strong><font face="Courier New">t</font></strong></em></TD>
+      <TD width="512">Y coordinate at the top of the near clipping plane</TD>
+    </TR>
+    <TR>
+      <TD width="190"><em><strong><font face="Courier New">b</font></strong></em></TD>
+      <TD width="512">Y coordinate at the bottom of the near clipping plane</TD>
+    </TR>
+    <TR>
+      <TD><em><strong><font face="Courier New">l</font></strong></em></TD>
+      <TD>X coordinate at the left of the near clipping plane</TD>
+    </TR>
+    <TR>
+      <TD><em><strong><font face="Courier New">r</font></strong></em></TD>
+      <TD>X coordinate at the right of the near clipping plane</TD>
+    </TR>
+    <TR>
+      <TD><em><strong><font face="Courier New">n</font></strong></em></TD>
+      <TD>Distance from viewpoint to the near clipping plane</TD>
+    </TR>
+    <TR>
+      <TD><em><strong><font face="Courier New">f</font></strong></em></TD>
+      <TD>Distance from viewpoint to the far clipping plane</TD>
+    </TR>
+    <TR>
+      <TD><em><strong><font face="Courier New">scaleW</font></strong></em></TD>
+      <TD>Precision adjustment parameter for the view volume</TD>
+    </TR>
+    <TR>
+      <TD width="190"><em><strong><font face="Courier New">mtx</font></strong></em></TD>
+      <TD width="512">Pointer to a 4x4 matrix.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<h2>Return Values</h2>
+<p>None.</p>
+<H2>Description</H2>
+<P>This function sets a perspective projection matrix into <em><strong><code>*mtx</code></strong></em>.<BR>The diagram shows the matrix that is set.</P>
+<P><IMG width="205" height="163" src="geo_ortho.gif" align="middle" v:shapes="_x0000_i1025"></span></span> &times; <I>scaleW</I></P>
+<P>The divider is used internally. Refer to <A href="../../cp/div/about_div.html#use_in_intr">Divider Usage Notes</A> when using this function inside an interrupt.</P>
+
+<h2>See Also</h2>
+<P><a href="../../gx/g3/G3_FrustumW.html"><code>G3_FrustumW</code></a>, <a href="MTX_Frustum.html"><code>MTX_Frustum</code></a>, <a href="../../gx/g3/G3_Frustum.html"><code>G3_Frustum</code></a></P>
+<H2>Revision History</H2>
+<P>2004/06/21 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

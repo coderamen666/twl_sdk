@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META http-equiv="Content-Style-Type" content="text/css">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+	<TITLE>NNS_G3dGeSetBuffer</TITLE>
+	<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+
+<BODY>
+
+<H1 align="left">NNS_G3dGeSetBuffer</H1>
+
+<H2>Syntax</H2>
+<DL>
+  <DD>
+  <PRE><CODE>#include &lt;nnsys/g3d/gecom.h&gt;</CODE></PRE>
+  <PRE><CODE>void
+NNS_G3dGeSetBuffer(
+    NNSG3dGeBuffer* p
+);</CODE></PRE>
+</DL>
+
+<H2>Arguments</H2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="13%"><EM><STRONG>p</STRONG></EM></TD>
+<TD width="87%">The pointer to the command buffer.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<H2>Return Values</H2>
+<P>None.</P>
+
+<H2>Description</H2>
+<P>If the the geometry command buffer is not configured, this function configures the buffer indicated by <code><STRONG><EM>p</EM></STRONG></code> to be the geometry command buffer. If the geometry command buffer is already configured, this function does nothing. When a geometry command send request is received while geometry commands are being DMA transferred via the <CODE>NNS_G3dGeSendDL</CODE> command, the geometry command buffer is used to allow processing to proceed without stopping the CPU. It does this by buffering the geometry commands .&nbsp;This method tends to be effective when rendering non-simple models with large display lists. Generally, the buffer itself is allocated by the user in the DTCM (stack) area.</P>
+
+<H2>See Also</H2>
+<P><a href="NNS_G3dGeIsBufferExist.html"><code>NNS_G3dGeIsBufferExist</code></a>, <a href="NNS_G3dGeReleaseBuffer.html"><code>NNS_G3dGeReleaseBuffer</code></a></P>
+
+<H2>Revision History</H2>
+<P>2004/10/15 Added description.<br /> 2004/09/16 Added description regarding the buffer.<br /> 2004/08/02 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+
+</HTML>

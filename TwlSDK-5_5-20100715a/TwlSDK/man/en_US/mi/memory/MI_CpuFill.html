@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>MI_CpuFill*</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">MI_CpuFill* <IMG src="../../image/NTR.gif" align="middle"><IMG src="../../image/TWL.gif" align="middle"><B></B></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/mi.h&gt;</CODE><BR> <BR> <CODE>void MI_CpuFill8( void* dest, u8 data, u32 size );</CODE><BR> <CODE>void MI_CpuFill16( void* dest, u16 data, u32 size );</CODE><BR> <CODE>void MI_CpuFill32( void* dest, u32 data, u32 size );</CODE><BR> <CODE>void MI_CpuFillFast( void* dest, u32 data, u32 size );</CODE><BR> <CODE>void MI_CpuFill( void* dest, u8 data, u32 size );</CODE></dd>
+</dl>
+
+<h2>Arguments</h2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="13%"><CODE>dest</CODE></TD>
+<TD width="87%">The transfer destination address</TD>
+    </TR>
+    <TR>
+<TD width="13%"><CODE>data</CODE></TD>
+<TD width="87%">The data that will be transferred</TD>
+    </TR>
+    <TR>
+<TD><CODE>size</CODE></TD>
+<TD>Transfer size
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<h2>Return Values</h2>
+<p>None.</p>
+
+<H2>Description</H2>
+<P>This function uses the CPU to fill memory with specified data.</P>
+<P><code>MI_CpuFill8()</code> selects the most efficient memory access based on the transfer destination address, and then fills the memory with the specified data in 16-bit and 32-bit units, as appropriate. The alignment of the transfer destination address does not need to be considered.</P>
+<P><code>MI_CpuFill16()</code> fills the memory with specified data in 16-bit units. The transfer destination address must be 2-byte aligned.</P>
+<P><code>MI_CpuFill32()</code> fills the memory with specified data in 32-bit units. The transfer destination address must be 4-byte aligned.</P>
+<P><code>MI_CpuFillFast()</code> quickly fills the memory with the specified data in 32-byte units. The transfer destination address must be 4-byte aligned. The transfer size is an integral multiple of 4 bytes. It does not have to be an integral multiple of 32 bytes.</P>
+<P><CODE>MI_CpuFill()</CODE>, in the same manner as <CODE>MI_CpuFill8()</CODE>, selects the most efficient memory access based on the transfer destination address, and fills the memory with the specified data in 16-bit and 32-bit units, as appropriate. The alignment of the transfer destination address does not need to be considered. If the alignment and size are defined, we recommend that you divide calls between <CODE>MI_CpuFillFast</CODE> and <CODE>MI_CpuFill32</CODE>, as appropriate.</P>
+
+
+<h2>Internal Operation</h2>
+<P>Processing is done by the CPU only and does not use the DMA controller. It does not use a system call. The <CODE>MI_CpuFill8</CODE> function writes in units of 16 or 32 bits, so accessing VRAM directly will not cause problems.</P>
+<P>The <CODE>MI_CpuFill</CODE> function writes data in 8-bit units for some target addresses, so it should not be used when accessing VRAM directly. (It can be used in TWL mode if extended VRAM has been configured.)</P>
+
+<h2>See Also</h2>
+<p><code><a href="MI_CpuClear.html">MI_CpuClear*</a><BR><a href="MI_CpuCopy.html">MI_CpuCopy*</a><BR><a href="MI_CpuSend.html">MI_CpuSend*</a><BR><a href="../dma/MI_DmaFill.html">MI_DmaFill*</a></code></p>
+
+<H2>Revision History</H2>
+<P>
+2008/09/01 Added <CODE>MI_CpuFill</CODE>. <BR>2004/04/29 Added a description of <CODE>MI_CpuFill8</CODE>. <BR>2004/03/29 Mentioned that system calls are not used. <BR>2003/12/01 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

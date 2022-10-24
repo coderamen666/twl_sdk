@@ -1,0 +1,250 @@
+<html>
+<head>
+<title>TWL-System NITRO-SoundMaker Revision History</title>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="content-style-type" content="text/css" />
+<style type="text/css">
+<!--
+    
+H1
+{
+    font-weight         : bold;
+    font-size           : 250%;
+    text-align          : left;
+    color               : #46f;
+    margin              : 0em 0em 0.5em 0em;
+}
+
+H2
+{
+    font-weight         : bold;
+    font-size           : 150%;
+    text-align          : left;
+    margin              : 2em 0em 0.5em 0em;
+    padding-top         : 8pt;
+    border-top-style    : double;
+    border-top-width    : 3px;
+}
+
+H3
+{
+    font-weight         : bold;
+    font-size           : 120%;
+    margin              : 1em 0em 0.5em 0em;
+    padding-top         : 8pt;
+    border-top-style    : solid;
+    border-top-width    : 1px;
+}
+
+H4
+{
+    font-weight         : normal;
+    font-size           : 100%;
+    margin              : 0em 0em 0em 0.5em;
+}
+
+DIV.date
+{
+    font-size           : normal;
+    text-align          : right;
+    margin              : 0pt 0pt 12pt 0pt;
+}
+
+DIV.licence
+{
+    margin: 0em;
+    border-style : solid;
+    border-width : 1px;
+}
+
+P
+{
+    font-size           : normal;
+    margin              : 0em 1em 0.5em 1em;
+    line-height         : 150%;
+}
+
+PRE
+{
+    font-size           : normal;
+    margin              : 0em 0em 1em 2em;
+    line-height         : 120%;
+}
+
+DT
+{
+    margin              : 1em 0em 0em 1em;
+}
+DD
+{
+    margin-left         : 3em;
+}
+UL
+{
+    margin-top         : 0em;
+}
+
+-->
+</style>
+</head>
+<body>
+
+<h1>TWL-System NITRO-SoundMaker Revision History</h1>
+
+<h2>Index</h2>
+
+<h3><a href="#version_2_1_0">2.1.0</a></h3>
+<h4>Problem Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_81-K01">Note 81-K01:  Fixed NITRO-Player startup bug</a></li>
+</ul>
+<h3><a href="#version_20080408">2008/04/08 Version</a></h3>
+<h4>Added and Modified Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_76-K01">Note 76-K01:   (Manual) Changed the format of the Revision History and revised the page headers</a></li>
+</ul>
+<h3><a href="#version_20071126">2007/11/26 Version</a></h3>
+<h4>Added and Modified Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_71-K01">Note 71-K01:   Added support for disabling envelope release</a></li>
+<li><a href="#note_71-K02">Note 71-K02:   Added support for MIDI RPN</a></li>
+<li><a href="#note_71-K03">Note 71-K03:   Improved ADPCM encoding process </a></li>
+</ul>
+<h4>Problem Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_71-K04">Note 71-K04:   Corrected problem related to the AIFF loading process</a></li>
+<li><a href="#note_71-K05">Note 71-K05:   Fixed a problem related to displaying the file path for the reference waveform of the bank window</a></li>
+<li><a href="#note_71-K06">Note 71-K06:   Fixed a problem related to <B>All Region</B> checkbox</a></li>
+<li><a href="#note_71-K07">Note 71-K07:   Fixed a bug related to the <B>File Selection</B> dialog box for sequences</a></li>
+<li><a href="#note_71-K08">Note 71-K08:   Fixed a problem in the operation to recover (CTRL+Z) the region split</a></li>
+</ul>
+<h3><a href="#version_20070314">2007/03/14 Version</a></h3>
+<h4>Added and Modified Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_64-K01">Note 64-K01:   Added user command execution feature before and after conversion</a></li>
+<li><a href="#note_64-K02">Note 64-K02:   Added converting feature by specifying the file type</a></li>
+<li><a href="#note_64-K03">Note 64-K03:   Revised <B>WGroup</B> setting of the multi-region instrument</a></li>
+<li><a href="#note_64-K04">Note 64-K04:   Revised original key when region is split in the percussion list</a></li>
+<li><a href="#note_64-K05">Note 64-K05:   Revised SeqMax when creating a new player</a></li>
+</ul>
+<h4>Problem Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_64-K06">Note 64-K06:   Fixed problem relating to Undo of deleting the bank</a></li>
+<li><a href="#note_64-K07">Note 64-K07:   Fixed problem relating to write-prohibit files</a></li>
+<li><a href="#note_64-K08">Note 64-K08:   Fixed problem relating to bank files whose release has been set to DISABLE</a></li>
+</ul>
+<h3><a href="#version_20060315">2006/03/15 Version</a></h3>
+<h4>Problem Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_56-K01">Note 56-K01:   Fixed problem where invalid data reference information is output</a></li>
+<li><a href="#note_56-K02">Note 56-K02:   Fixed problem where invalid data references were generated when creating a new bank</a></li>
+<li><a href="#note_56-K03">Note 56-K03:   Fixed problem relating to the volume of PC emulation playback</a></li>
+<li><a href="#note_56-K04">Note 56-K04:   Fixed problem where the convert log would not be updated</a></li>
+</ul>
+<h3><a href="#version_20060118">2006/01/18 Version</a></h3>
+<h4>Problem Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_55-K01">Note 55-K01:   Fixed problem where invalid group reference information would be output when using multiple sound sets</a></li>
+<li><a href="#note_55-K02">Note 55-K02:   Fixed problem where it was not possible to convert when referencing data between multiple sound sets</a></li>
+<li><a href="#note_55-K03">Note 55-K03:   Fixed problem in saving the instrument region</a></li>
+<li><a href="#note_55-K04">Note 55-K04:   Corrected a problem with reading AIFF markers</a></li>
+<li><a href="#note_55-K05">Note 55-K05:   Fixed problem where it was not possible to shut down Windows while an application was running</a></li>
+<li><a href="#note_55-K06">Note 55-K06:   Fixed a problem where an invalid instrument is generated</a></li>
+</ul>
+
+
+<h2 id="version_2_1_0">Changes in 2.1.0</h2>
+<h3 id="note_81-K01">Note 81-K01:  Fixed NITRO-Player startup bug</h3>
+<p>When NITRO-Player was already running and the <B>Start NITRO-Player</B> button was pressed while using a Sound project stored in a Japanese-language folder, the message <I>XXXX contains an invalid path</I> would appear on NITRO-Player, and an error would occur. That bug has been fixed.
+</p>
+<h2 id="version_20080408">Changes in Version 2008/04/08</h2>
+<h3 id="note_76-K01">Note 76-K01:   (Manual) Changed the format of the Revision History and revised the page headers</h3>
+<p>Changed the format of the Revision History in the document <CODE>NITRO-SoundMaker_UserManual.pdf</CODE> and revised the page headers.
+</p>
+<h2 id="version_20071126">Changes in Version 2007/11/26</h2>
+<h3 id="note_71-K01">Note 71-K01:   Added support for disabling envelope release</h3>
+<p>Added support for disabling envelope release phase.  Disable the envelope release process when the note is off for regions and instruments specified as disabled and continue playback until the end of the wave file. 
+</p>
+<h3 id="note_71-K02">Note 71-K02:   Added support for MIDI RPN</h3>
+<p>Added support for MIDI RPN. With RPN LSB = 0, MSB = 0, it is possible to set pitch bend sensitivity (bendrange). 
+</p>
+<h3 id="note_71-K03">Note 71-K03:  Improved ADPCM encoding process </h3>
+<p>Made improvement to mitigate noise generated by wave form file ADPCM encoding. 
+</p>
+<h3 id="note_71-K04">Note 71-K04:   Corrected problem related to the AIFF loading process </h3>
+<p>Fixed a conversion error problem despite its being the correct AIFF file. 
+</p>
+<h3 id="note_71-K05">Note 71-K05:   Fixed a problem related to displaying the file path for the reference waveform of the bank window.</h3>
+<p>Fixed a problem where the path of the wave form file that is referenced by the region selected in the sample map would not be displayed at the bottom of the window.
+</p>
+<h3 id="note_71-K06">Note 71-K06:   Fixed a problem related to <B>All Region</B> checkbox</h3>
+<p>Fixed a problem where the <B>All Region</B> checkbox on the instrument parameter panel would remain selected when specifying a different envelope in multiple regions from the percussion list. 
+</p>
+<h3 id="note_71-K07">Note 71-K07:   Fixed a bug related to the <B>File Selection</B> dialog box for sequences</h3>
+<p>When the <B>File Selection</B> dialog box opened from the <B>Create New Sequence</B> dialog box, the file type would be restricted to <CODE>.smft</CODE>. This was revised to change according to the file's type (for example, to <CODE>.mid</CODE>).
+</p>
+<h3 id="note_71-K08">Note 71-K08:   Fixed a problem in the operation to recover (CTRL+Z) the region split</h3>
+<p>Fixed a problem where application errors are generated when repeating the operation (CTRL+Z) to return the split region to its original state in the sample map. 
+</p>
+<h2 id="version_20070314">Changes in Version 2007/03/14</h2>
+<h3 id="note_64-K01">Note 64-K01:   Added user command execution feature before and after conversion. </h3>
+<p>The commands run before and after the conversion can now be registered with the Project Settings.
+</p>
+<h3 id="note_64-K02">Note 64-K02:   Added converting feature by specifying the file type</h3>
+<p>It is now possible to shorten the conversion time by specifying the file type when converting. It is possible to specify using the <B>Convert by Specifying the Option</B> menu.
+</p>
+<h3 id="note_64-K03">Note 64-K03:  Revised <B>WGroup</B> setting of the multi-region instrument</h3>
+<p>Conventionally, it has been possible to specify <B>WGroup</B> for only a single region, but it is now possible to also specify for multi regions. 
+</p>
+<h3 id="note_64-K04">Note 64-K04:   Revised original key when region is split in the percussion list</h3>
+<p>Previously the new regions created by region split in the percussion list inherited the original keys of the source region. This has been corrected so that the new regions will have the same keys as where the split occurred.
+</p>
+<h3 id="note_64-K05">Note 64-K05:   Revised SeqMax when creating a new player </h3>
+<p>Conventionally the value of SeqMax when a new player was created was set to 0, but this was corrected to be set to 1. 
+</p>
+<h3 id="note_64-K06">Note 64-K06:   Fixed problem relating to Undo of deleting the bank </h3>
+<p>Corrected a problem where an application error was generated when saving a project after undoing a deletion of a bank.  
+</p>
+<h3 id="note_64-K07">Note 64-K07:   Fixed problem relating to write-prohibit files </h3>
+<p>Fixed a problem where application errors were generated when executing a conversion with a write-prohibit file in an edited state. 
+</p>
+<h3 id="note_64-K08">Note 64-K08:   Fixed problem relating to bank files whose release has been set to DISABLE </h3>
+<p>Fixed a problem where application errors were generated when loading a bank file whose release was set to DISABLE.   Note that even in this version, it is not possible to set release to DISABLE from the NITRO-SoundMaker. To set release to DISABLE, close the bank window opened in NITRO-SoundMaker and use a text editor to edit the bank file.  For details on editing the bank file, see the <I>NITRO-Composer Bank Data Manual</I>.
+</p>
+<h2 id="version_20060315">Changes in Version 2006/03/15</h2>
+<h3 id="note_56-K01">Note 56-K01:   Fixed problem where invalid data reference information is output </h3>
+<p>Fixed a problem that invalid data reference information was output when using multiple sound sets or when using a fix-index-number feature. 
+</p>
+<h3 id="note_56-K02">Note 56-K02:   Fixed problem where invalid data references were generated when creating a new bank </h3>
+<p>Fixed a problem where reference information to an invalid waveform archive was generated when a new reference waveform archive was created at the same time when a new bank was generated while using multiple sound sets. 
+</p>
+<h3 id="note_56-K03">Note 56-K03:  Fixed problem relating to the volume of PC emulation playback </h3>
+<p>During PC emulation playback, the volume of the right channel was output at higher-than-normal volume. We fixed this bug.
+</p>
+<h3 id="note_56-K04">Note 56-K04:   Fixed problem where the convert log would not be updated </h3>
+<p>Fixed a problem where the log would not be updated when the number of convert log characters reaches a certain number.
+</p>
+<h2 id="version_20060118">Changes in Version 2006/01/18</h2>
+<h3 id="note_55-K01">Note 55-K01:   Fixed problem where invalid group reference information would be output when using multiple sound sets </h3>
+<p>Fixed problem where invalid group reference information was output when using multiple sound sets.
+</p>
+<h3 id="note_55-K02">Note 55-K02:   Fixed problem where it was not possible to convert when referencing data between multiple sound sets </h3>
+<p>Fixed a problem where conversion errors were generated and conversion was not possible when referencing data from one sound set to another sound set in a project using multiple sound sets. 
+</p>
+<h3 id="note_55-K03">Note 55-K03:  Fixed problem in saving the instrument region </h3>
+<p>Fixed a problem where the last region was not correctly saved when more than nine instrument regions were created. 
+</p>
+<h3 id="note_55-K04">Note 55-K04:   Corrected a problem with reading AIFF markers</h3>
+<p>Fixed a problem where reading files would fail and sounds could not be played back when AIFF markers included characters other than ASCII code characters.
+</p>
+<h3 id="note_55-K05">Note 55-K05:   Fixed problem where it was not possible to shut down Windows while an application was running </h3>
+<p>Fixed a problem where it was not possible to shut down Windows or log off when a NITRO-SoundMaker application was running. 
+</p>
+<h3 id="note_55-K06">Note 55-K06:   Fixed a problem where an invalid instrument is generated </h3>
+<p>Fixed a problem where an instrument with the program number -1 was generated when creating a new instrument using the context menu in the instrument list margin. Corrected so that a new instrument cannot be created in the instrument list margin. 
+</p>
+
+
+
+<hr><p>CONFIDENTIAL</p></body>
+</html>

@@ -1,0 +1,580 @@
+#! make -f
+#----------------------------------------------------------------------------
+# Project:  TwlSDK
+# File:     commondefs
+#
+# Copyright 2007-2009 Nintendo.  All rights reserved.
+#
+# These coded instructions, statements, and computer programs contain
+# proprietary information of Nintendo of America Inc. and/or Nintendo
+# Company Ltd., and are protected by Federal copyright law.  They may
+# not be disclosed to third parties or copied or duplicated in any form,
+# in whole or in part, without the prior written consent of Nintendo.
+#
+# $Date:: 2010-03-17#$
+# $Rev: 11313 $
+# $Author: okubata_ryoma $
+#----------------------------------------------------------------------------
+ifndef TWLSDK_TOP_COMMONDEFS_
+TWLSDK_TOP_COMMONDEFS_ = TRUE
+
+#----------------------------------------------------------------
+#
+# Utilities
+#
+EMPTY	 		:=
+SPACE 			:= $(EMPTY) $(EMPTY)
+OPEN_PAREN		:=(
+CLOSE_PAREN		:=)
+ifdef	MSYSTEM		# for MinGW32
+QUOTE			 ='
+else
+QUOTE			 ="
+endif
+
+define NEWLINE
+$(EMPTY)
+
+endef
+
+#----------------------------------------------------------------------------
+#  MAKE COMMAND SETTINGS
+#
+#	--no-print-directory: 	No print directory when 'change directory'
+#	-r			no builtin rules
+#	-R			no builtin variables
+#	-j			do make with multi-thread (not used now)
+#
+
+MAKEFILE		= $(firstword $(MAKEFILE_LIST))
+MAKEFLAGS_SHORT	= $(filter-out --%,$(MAKEFLAGS))
+
+MAKEFLAGS	+= -R -r
+
+ifdef SILENT
+MAKEFLAGS	+= -s
+endif
+
+# Check -w option
+ifeq (,$(findstring w,$(MAKEFLAGS_SHORT)))
+MAKEFLAGS	+= --no-print-directory
+endif
+
+# Check -k option
+ifeq (,$(findstring k,$(MAKEFLAGS_SHORT)))
+AND		= &&
+else
+AND		= ;
+endif
+
+# Check -s option
+ifneq (,$(findstring s,$(MAKEFLAGS_SHORT)))
+STDOUT	= > /dev/null
+endif
+
+# Check -B option
+MAKEFLAGS_OPTIONS	= $(MAKEFLAGS)
+MAKEFLAGS_ALWAYS	= $(if $(findstring B,$(MAKEFLAGS_SHORT))$(findstring --always-make,$(MAKEFLAGS_OPTIONS)),TRUE,FALSE)
+
+#----------------------------------------------------------------------------
+# CYGWIN tools
+#
+CD				:= cd
+CP				:= cp -rf
+RM				:= rm -rf
+MV				:= mv
+MKDIRP			:= mkdir -p
+SED				:= sed
+INSTALL			:= install -p
+TOUCH			:= touch
+ECHO			:= echo
+PERL			:= perl
+OBJCOPY			:= objcopy -I elf32-little -O binary
+
+# デバッグ用フラグ
+MAKEFLAGS_D		?=
+
+REMAKE			:= $(MAKE) -f $(MAKEFILE) $(MAKEFLAGS_D)
+
+LEX				:= flex
+YACC			:= bison -y
+CC_X86			:= gcc -mno-cygwin
+CXX_X86			:= g++ -mno-cygwin
+LD_X86			:= gcc -mno-cygwin
+AR_X86			:= ar ruc
+GREP			?= /bin/grep
+MOUNT			?= /bin/mount
+HEAD			?= /bin/head
+AWK				?= /bin/gawk
+CUT				?= /bin/cut
+TR				?= /bin/tr
+			    # /bin/true の代わりに builtin で真を返すコマンドを使う
+TRUE			?= test true
+
+ifdef USE_ASH
+export SHELL=ash
+endif
+
+#----------------------------------------------------------------
+#
+# cygpath
+#
+
+CYGPATH					?= cygpath
+
+# 高速 cygpath は標準では無効 (make 3.80 では eval 関数に不具合があり動作しないため)
+CYGPATH_NOCMD			?= FALSE
+
+# 自動判別する場合は上の定義を消す(動作未確認)
+#ifndef CYGPATH_NOCMD
+#
+#MAKE_VERSION			:= $(shell $(MAKE) -v | $(HEAD) -1 | $(AWK) '{print $3}')
+#
+#ifndef MSYSTEM
+#
+#ifeq ($(shell(expr "$(MAKE_VERSION)" ">=" "3.81")),1)
+#CYGPATH_NOCMD=TRUE
+#else  # MAKE_VERSION
+#CYGPATH_NOCMD=FALSE
+#endif # MAKE_VERSION
+#
+#endif # MSYSTEM
+#
+#endif  # CYGPATH_NOCMD
+
+
+# cygdrive path prefix を取得
+
+ifeq ($(CYGPATH_MOUNTPOINT),)
+CYGPATH_MOUNTPOINT		:= $(patsubst %/,%,$(dir $(shell $(CYGPATH) -u c:/)))
+endif # CYGPATH_MOUNTPOINT
+
+ifeq ($(CYGPATH_NOCMD),TRUE)
+
+ifeq ($(CYGPATH_DRIVELIST),)
+# 安全
+CYGPATH_DRIVELIST_ALL	 = $(shell DRIVES=`$(MOUNT) | $(GREP) 'type user' | $(CUT) -c1 | tr '\n' ' '` \
+                                  && echo $${DRIVES} `echo $${DRIVES} | $(TR) '[a-z]' '[A-Z]'`)
+
+# 最小限で速い
+CYGPATH_DRIVELIST_FAST	 = $(shell $(CYGPATH) -aw '$(TWLSDK_ROOT)c' '$(NITROSDK_ROOT)c'		\
+                                                 '$(CWFOLDER_TWL)c' '$(CWFOLDER_NITRO)c'	\
+                                                 '$(TWLSYSTEM_ROOT)c' '$(NITROSYSTEM_ROOT)c'	\
+                                                 '$(IS_TWL_DIR)c' '$(IS_NITRO_DIR)c'		\
+                                  | $(CUT) -c1)
+
+CYGPATH_DRIVELIST		:= $(sort $(CYGPATH_DRIVELIST_FAST))
+#CYGPATH_DRIVELIST		:= $(sort $(CYGPATH_DRIVELIST_ALL))
+endif # CYGPATH_DRIVELIST
+
+
+define cygpathm
+$(strip $(eval VALUE=$(1))$(foreach DRIVE,$(CYGPATH_DRIVELIST),$(eval VALUE:=$$(patsubst $(CYGPATH_MOUNTPOINT)/$(DRIVE)/%,$(DRIVE):/%,$$(subst \,/,$$(VALUE)))))$(VALUE))
+endef # cygpathm
+
+define cygpathu
+$(strip $(eval VALUE:=$(1))$(foreach DRIVE,$(CYGPATH_DRIVELIST),$(eval VALUE:=$$(patsubst $(DRIVE):/%,$(CYGPATH_MOUNTPOINT)/$(DRIVE)/%,$$(subst \,/,$$(VALUE)))))$(VALUE))
+endef # cygpathu
+
+define cygpathm_multi
+$(foreach pathvar,$(1),$(call cygpathm,$(pathvar)))
+endef # cygpathm_multi
+
+define cygpathu_multi
+$(foreach pathvar,$(1),$(call cygpathu,$(pathvar)))
+endef # cygpathu_multi
+
+define eupath
+$(subst $(SPACE),\ ,$(call cygpathu,$(subst \ , ,$(1))))
+endef # eupath
+
+define empath
+$(subst $(SPACE),\ ,$(call cygpathm,$(subst \ , ,$(1))))
+endef # empath
+
+else  # CYGPATH_NOCMD
+
+define empath
+$(subst $(SPACE),\ ,$(shell $(CYGPATH) -m $(subst \,\\,$(subst \ , ,$(1)))))
+endef # empath
+
+ifdef MSYSTEM
+
+define eupath
+$(call empath,$(1))
+endef #eupath
+
+define cygpathu
+$(shell cygpath -m $(subst \,\\,$(subst \ , ,$(1))))
+endef
+
+else  # MSYSTEM
+
+# 括弧が含まれているコンパイラのパスに対応するために "" で囲んでいる
+define eupath
+$(subst $(SPACE),\ ,$(shell $(CYGPATH) -u "$(subst \,\\,$(subst \ , ,$(1)))"))
+endef
+
+define cygpathu
+$(shell cygpath -u "$(subst \,\\,$(subst \ , ,$(1)))")
+endef
+
+endif # MSYSTEM
+
+define cygpathm
+$(shell cygpath -m "$(subst \,\\,$(subst \ , ,$(1)))")
+endef
+
+define cygpathu_multi
+$(foreach pathvar,$(1),$(call cygpathu,$(pathvar)))
+endef
+
+define cygpathm_multi
+$(foreach pathvar,$(1),$(call cygpathm,$(pathvar)))
+endef
+
+endif # CYGPATH_NOCMD
+
+export CYGPATH_MOUNTPOINT CYGPATH_DRIVELIST CYGPATH_NOCMD
+
+define encode_specialchar
+$(subst $(SPACE),%20,$(1))
+endef
+
+define decode_specialchar
+$(subst %20,$(SPACE),$(1))
+endef
+
+define delete_space_escape
+$(subst \ ,$(SPACE),$(1))
+endef
+
+#----------------------------------------------------------------
+#
+# SDK directories
+#
+
+TWLSDK_ROOT			?= C:/TwlSDK
+
+ROOT				:= $(call eupath,$(TWLSDK_ROOT))
+BUILDTOOLSDIR		:= $(ROOT)/build/buildtools
+BUILDSETUPDIR		:= $(ROOT)/build/buildsetup
+TOOLSDIR			:= $(ROOT)/tools
+COMPONENTSDIR		:= $(ROOT)/components
+ADDINSDIR			?= $(ROOT)/add-ins
+
+
+#----------------------------------------------------------------
+#
+# Utililty rules
+#
+
+ifeq ($(MAKEFILE),Makefile)
+MAKEFILE_	=
+else
+MAKEFILE_	= /$(MAKEFILE)
+endif
+
+define ECHO_CURDIR
+	$(ECHO) "==== $(CURDIR)$(MAKEFILE_)";
+endef
+
+define DO_MAKEDIR
+	$(if $(strip $(NEWDIRS)),$(MKDIRP) $(NEWDIRS);)
+endef
+
+
+#----------------------------------------------------------------
+#
+# Target Platform
+#
+
+ifeq ($(filter TWL NITRO ALL,$(TWLSDK_PLATFORM)),)
+$(error "INVALID TWLSDK_PLATFORM : Please set TWLSDK_PLATFORM. Refer to the $$TwlSDK/docs/SDKRules/Rule-Defines.html for the setting method.")
+endif
+
+EFFECTIVE_TWLSDK_PLATFORM	 = $(if $(REMAKE_TWLSDK_PLATFORM),$(REMAKE_TWLSDK_PLATFORM),$(TWLSDK_PLATFORM))
+TWLSDK_PLATFORM_LIST		 = $(strip $(if $(filter ALL,$(EFFECTIVE_TWLSDK_PLATFORM)),TWL NITRO,$(EFFECTIVE_TWLSDK_PLATFORM)))
+
+
+DEFAULT_TARGET_PLATFORM		 = ALL
+
+TARGET_PLATFORM				:= $(if $(REMAKE_TWLSDK_PLATFORM),$(REMAKE_TWLSDK_PLATFORM),$(if $(TARGET_PLATFORM),$(TARGET_PLATFORM),$(DEFAULT_TARGET_PLATFORM)))
+TARGET_PLATFORM_LIST		 = $(strip $(filter $(TWLSDK_PLATFORM_LIST),$(if $(filter ALL,$(TARGET_PLATFORM)),TWL NITRO,$(TARGET_PLATFORM))))
+
+
+#----------------------------------------------------------------
+# TARGET_* 互換のための一時的処理
+#
+
+ifneq	($(filter TWL,$(TARGET_PLATFORM_LIST)),)
+TARGET_PLATFORM_TWL		 = TRUE
+endif
+ifneq	($(filter NITRO,$(TARGET_PLATFORM_LIST)),)
+TARGET_PLATFORM_NITRO	 = TRUE
+endif
+
+
+ifdef TARGET_CODEGEN
+NITRO_CODEGEN			:= $(TARGET_CODEGEN)
+TWL_CODEGEN				:= $(TARGET_CODEGEN)
+endif
+
+ifdef TARGET_PROC
+NITRO_PROC				:= $(TARGET_PROC)
+TWL_PROC				:= $(TARGET_PROC)
+endif
+
+#----------------------------------------------------------------
+#  common setiings
+#
+NITRO_ELF_EXT			:= nef
+TWL_ELF_EXT				:= tef
+
+TARGET_ELF				?= $(strip $(sort $(if $(IS_TWL),$(patsubst %.$(NITRO_ELF_EXT),%.$(TWL_ELF_EXT),$(TARGET_NEF)),$(TARGET_NEF)) $(TARGET_TEF)))
+
+FORCE_BUILD				?= $(strip $(TWL_FORCE_BUILD) $(NITRO_FORCE_BUILD) $(TARGET_BIN) $(TARGET_OBJ) $(TARGET_ELF) $(TARGET_LIB) $(TARGET_SIGN_BIN))
+
+DEFAULT_SRCDIR			:= ./src
+DEFAULT_INCDIR			:= ./include
+DEFAULT_ETCDIR			:= ./etc
+
+
+#----------------------------------------------------------------
+#
+# Read Private 
+#
+-include $(BUILDTOOLSDIR)/@*privatedefs
+-include $(BUILDTOOLSDIR)/_privatedefs
+
+
+#----------------------------------------------------------------------------
+#  Load add-ins' commondefs
+#
+-include $(BUILDTOOLSDIR)/commondefs.add-ins.*
+
+
+#----------------------------------------------------------------
+#
+# Target Proc
+#
+
+DEFAULT_PROC		 = ARM9
+
+TARGET_PROC			?= $(TWL_PROC)
+TARGET_PROC			?= $(NITRO_PROC)
+TARGET_PROC			?= $(DEFAULT_PROC)
+
+ifneq	($(TWLSDK_PRIVATE),TRUE)
+TWLSDK_PRIVATE		 =
+endif
+
+ifneq	($(TWL_PROC),)
+NITRO_PROC			:= $(TWL_PROC)
+endif
+
+TWL_PROC			?= $(NITRO_PROC)
+
+ifeq ($(NITRO_PROC)$(TWL_PROC),)
+NITRO_PROC			 = $(DEFAULT_PROC)
+TWL_PROC			 = $(DEFAULT_PROC)
+TARGET_PROC_LIST	 = $(DEFAULT_PROC) $(if $(TWLSDK_PRIVATE),ARM7,)
+else
+TARGET_PROC_LIST	 = $(filter-out $(if $(TWLSDK_PRIVATE),,ARM7),$(if $(filter ALL,$(TARGET_PROC)),ARM7 ARM9,$(TARGET_PROC)))
+endif
+
+
+#----------------------------------------------------------------
+#
+# Target Codegen
+#
+
+DEFAULT_CODEGEN		 = ARM
+
+TARGET_CODEGEN		?= $(TWL_CODEGEN)
+TARGET_CODEGEN		?= $(NITRO_CODEGEN)
+TARGET_CODEGEN		?= $(DEFAULT_CODEGEN)
+
+ifneq	($(TWL_CODEGEN),)
+NITRO_CODEGEN		:= $(TWL_CODEGEN)
+endif
+
+TWL_CODEGEN			?= $(NITRO_CODEGEN)
+
+ifeq ($(NITRO_CODEGEN)$(TWL_CODEGEN),)
+NITRO_CODEGEN		:= $(DEFAULT_CODEGEN)
+TWL_CODEGEN			:= $(DEFAULT_CODEGEN)
+endif
+
+CODEGEN_ARCH		 = $(if $(filter ARM,$(TARGET_CODEGEN)),,.thumb)
+CODEGEN_ARCH_ARM7	?= $(CODEGEN_ARCH)
+CODEGEN_CC			?= $(TARGET_CODEGEN)
+CODEGEN_AS			?= ARM
+
+
+#----------------------------------------------------------------
+#
+# Target build type
+#
+
+# build type は Makefile 内で ifdef の条件に使用される場合が多いため、
+# 以下のような処理をしています。
+
+ifneq	($(NITRO_DEBUG),)
+ifeq	($(TWL_DEBUG),)
+TWL_DEBUG			 = $(NITRO_DEBUG)
+endif
+endif
+
+ifeq	($(TARGET_DEBUG),)
+TARGET_DEBUG		 = $(TWL_DEBUG)
+endif
+
+ifneq	($(NITRO_RELEASE),)
+ifeq	($(TWL_RELEASE),)
+TWL_RELEASE			 = $(NITRO_RELEASE)
+endif
+endif
+
+ifeq	($(TARGET_RELEASE),)
+TARGET_RELEASE		 = $(TWL_RELEASE)
+endif
+
+ifneq	($(NITRO_FINALROM),)
+ifeq	($(TWL_FINALROM),)
+TWL_FINALROM		 = $(NITRO_FINALROM)
+endif
+endif
+
+ifeq	($(TARGET_FINALROM),)
+TARGET_FINALROM		 = $(TWL_FINALROM)
+endif
+
+
+#----------------------------------------------------------------
+#
+# GSUBDIRS
+#     decided from $(TARGET_PLATFORM_xxx) and $(TWLSDK_PRIVATE)
+#
+
+define IS_TWL
+$(filter TWL,$(TARGET_PLATFORM_LIST))
+endef
+
+define IS_NITRO
+$(filter NITRO,$(TARGET_PLATFORM_LIST))
+endef
+
+GSUBDIRS	 = $(strip $(if $(IS_TWL),$(addsuffix .TWL,$(TARGET_PROC_LIST)),) $(if $(IS_NITRO),$(TARGET_PROC_LIST),))
+
+
+#----------------------------------------------------------------------------
+#  TWLSDK_INSTALL_ROOT
+#
+
+ifdef	TWLSDK_INSTALL_ROOT
+TWLSDK_INSTALL_ROOT_ 		:= $(TWLSDK_INSTALL_ROOT)
+else
+TWLSDK_INSTALL_ROOT_ 		:= $(TWLSDK_ROOT)
+endif
+
+TWL_INSTALL_ROOT			:= $(subst $(SPACE),\ ,$(subst \,/,$(TWLSDK_INSTALL_ROOT_)))
+TWL_INSTALL_INCDIR			:= $(TWL_INSTALL_ROOT)/include
+TWL_INSTALL_TOOLSDIR		:= $(TWL_INSTALL_ROOT)/tools
+TWL_INSTALL_LIBDIR			 = $(TWL_INSTALL_ROOT)/lib/$(TWL_LIBTYPE)
+TWL_INSTALL_COMPONENTSDIR	:= $(TWL_INSTALL_ROOT)/components
+TWL_INSTALL_ADDINS			:= $(TWL_INSTALL_ROOT)/add-ins
+
+#----------------------------------------------------------------------------
+#  NITROSDK_INSTALL_ROOT
+#
+
+NITROSDK_INSTALL_ROOT		?= $(TWLSDK_INSTALL_ROOT)
+NITROSDK_INSTALL_ROOT_		?= $(TWLSDK_INSTALL_ROOT_)
+
+NITRO_INSTALL_ROOT			?= $(TWL_INSTALL_ROOT)
+NITRO_INSTALL_INCDIR		?= $(TWL_INSTALL_INCDIR)
+NITRO_INSTALL_TOOLSDIR		?= $(TWL_INSTALL_TOOLSDIR)
+NITRO_INSTALL_LIBDIR		?= $(TWL_INSTALL_LIBDIR)
+NITRO_INSTALL_COMPONENTSDIR	?= $(TWL_INSTALL_COMPONENTSDIR)
+NITRO_INSTALL_ADDINS		?= $(TWL_INSTALL_ADDINS)
+
+#----------------------------------------------------------------------------
+#  switch for NIGHTLYBUILD
+#
+ifeq ($(NIGHTLY_TARGET),full)
+SDK_NIGHTLY_BUILD	 = TRUE
+endif
+
+#----------------------------------------------------------------------------
+#  switch for NIGHTLYTEST
+#
+ifeq ($(NIGHTLY_TARGET),testsrl)
+SDK_NTEST	 = TRUE
+endif
+ifdef SDK_NTEST
+MACRO_FLAGS			+= -DSDK_NTEST
+endif
+
+#----------------------------------------------------------------
+
+NITRO_BUILDTOOLSDIR			:= $(BUILDTOOLSDIR)/nitro
+TWL_BUILDTOOLSDIR			:= $(BUILDTOOLSDIR)/twl
+
+ifneq	($(filter TWL,$(TARGET_PLATFORM_LIST)),)
+include $(TWL_BUILDTOOLSDIR)/commondefs
+else
+ifneq	($(filter NITRO,$(TARGET_PLATFORM_LIST)),)
+include $(NITRO_BUILDTOOLSDIR)/commondefs
+else
+include $(BUILDTOOLSDIR)/commondefs.skip
+endif
+endif
+
+# TWL 固有の定義だが NITRO ビルド時にも参照する
+-include $(BUILDTOOLSDIR)/commondefs.compat.pre
+
+#----------------------------------------------------------------
+#  Merge flags
+#
+
+USE_STD_PCHDR				 = FALSE
+
+#ifeq ($(MAKEFLAGS_ALWAYS),FALSE)
+ifdef	NITRO_STD_PCHDR
+ifndef	NITRO_NO_STD_PCHDR
+USE_STD_PCHDR				 = TRUE
+endif
+endif
+
+ifdef	TWL_STD_PCHDR
+ifndef	TWL_NO_STD_PCHDR
+USE_STD_PCHDR				 = TRUE
+endif
+endif
+#endif
+
+
+#----------------------------------------------------------------------------
+#  NITRO-WIRELESS path settings
+#
+#	libraries should be in
+#		$(ROOT)/lib/NitroWireless
+#
+#	includes should be in
+#		$(ROOT)/include/nitro_wl/ARM7/*.h
+#
+#		access by #include <nitro_wl/ARM7/*.h>
+#
+#	SDK_VERSION_WL is defined in <nitro_wl/ARM7/version_wl.h>
+#
+
+NITROWIRELESS_VERSION		?= 2.88.00
+NITROWIRELESS_ROOT			?= $(ROOT)/add-ins/NitroWireless/Marionea-$(NITROWIRELESS_VERSION)
+NITROWIRELESS_ROOT_			 = $(subst $(SPACE),\ ,$(subst \,/,$(NITROWIRELESS_ROOT)))
+NITROWIRELESS_LIBDIR		?= $(ROOT)/lib/NitroWireless/$(NITRO_LIBTYPE)
+NITROWIRELESS_INCDIR		?= $(ROOT)/include
+
+#----------------------------------------------------------------------------
+endif	# TWLSDK_TOP_COMMONDEFS_
+#----- End of commondefs -----

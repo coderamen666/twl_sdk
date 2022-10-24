@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>SVC_DecryptRSA</TITLE>
+<LINK rel="stylesheet" href="../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">SVC_DecryptRSA <IMG src="../image/BPT.gif" align="middle"><IMG src="../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+<DL>
+  <DD>
+  <PRE><CODE>#include &lt;twl/os/common/systemCall.h&gt;</CODE></PRE>
+  <PRE><CODE>int SVC_DecryptRSA( const SVCSignHeapContext* acmemory_pool,
+                     const SVCSignBuffers* pData,
+                    unsigned int* len );</CODE></PRE>
+  <PRE><BR></PRE>
+  <PRE><CODE>typedef struct
+{
+   u32* head;
+   u32* tail;
+   u32 size;
+}
+SVCSignHeapContext;
+
+typedef struct
+{
+   void* output;
+   const void* input;
+   const void* key;
+}
+SVCSignBuffers;</CODE><BR></PRE>
+</DL>
+<H2>Arguments</H2>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+      <TD><B><I>acmemory_pool</I></B></TD>
+      <TD>Pointer to the heap information.</TD>
+    </TR>
+    <TR>
+      <TD><B><I>pData</I></B></TD>
+      <TD>Pointer to the structure containing data including which region the data is stored in.</TD>
+    </TR>
+    <TR>
+      <TD><B><I>len</I></B></TD>
+      <TD>Size of the data.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>Return Values</H2>
+<P>Returns FALSE if any pointers in the arguments or any members of <B><I>pData</I></B> are NULL. Returns TRUE otherwise.</P>
+<H2>Description</H2>
+<P>Performs RSA decryption.</P>
+<P><B><I>acmemory_pool</I></B> is a pointer to the <CODE>SVCSignHeapContext</CODE> structure where information about the heap area used for the operation is stored. This is initialized by the <CODE><A href="SVC_InitSignHeap.html">SVC_InitSignHeap</A></CODE> function.</P>
+<P><B><I>pData</I></B> is a pointer to a structure that contains various data, including which region the data will be stored in. The <CODE>input</CODE> member is a pointer to the input data, and the <CODE>output</CODE> member is a pointer to the output data region. The <CODE>key</CODE> is a pointer to the private key used for decryption. Only a 1024-bit key length is supported for the private key.</P>
+<P><B><I>len</I></B> is the length of the data.</P>
+<P>See the <a href="../crypto/overview/about_RSA.html#make_key">key creation example</a> in the CRYPTO library's RSA encryption overview for information on how to create a private key.</P>
+<H2>See Also</H2>
+<P><CODE><A href="SVC_InitSignHeap.html">SVC_InitSignHeap</A></CODE>, <CODE><A href="SVC_DecryptSign.html">SVC_DecryptSign</A></CODE>, <CODE><A href="SVC_DecryptSignDER.html">SVC_DecryptSignDER</A></CODE></P>
+<H2>Revision History</H2>
+<P>
+2008/09/18 Added an explanation related to keys.<BR>2007/10/19 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

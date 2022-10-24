@@ -1,0 +1,113 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>Camera Library Overview</TITLE>
+<LINK rel="stylesheet" href="../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">Camera Library Overview</H1>
+<P>
+The TWL system includes two cameras. Although cameras can be controlled separately, it is not possible to get images from both cameras simultaneously.<BR><BR> The Camera library cannot be used in CODEC-DS mode. Always use it in CODEC-TWL mode.<BR><br> Use the API to operate the camera.
+</P>
+<H2>Basic Camera Specifications</H2>
+<P>
+The basic camera specifications are listed below.
+</P>
+<ul>
+<li>Aperture: F2.8 (fixed)</li>
+<li>Angles of view (when photographing at maximum resolution): <BR> Diagonal: 66&deg;<BR> Horizontal: approximately 54&deg;<BR> Vertical: approximately 42&deg;</li>
+<li>Depth of field: 20cm to infinity (Pan focus. Cameras do not contain a macro switch.)</li>
+<li>Maximum resolution: VGA</li>
+<li>Maximum frame rate: 30 fps (fps: frames per second)</li>
+<li>Output format: YCrYCb (a YUV-&gt;RGB conversion circuit also makes it possible to output in RGB555)</li>
+<li>Resolution settings (supports fast configuration changes)</li>
+<li>Frame rate settings</li>
+<li>Effect processing (supports fast configuration changes)</li>
+<li>Flipping (supports fast configuration changes)</li>
+<li>Photo mode settings</li>
+<li>White balance settings</li>
+<li>Exposure settings</li>
+<li>Sharpness setting</li>
+</ul>
+<P>
+Of these specifications, Resolution, Effects, and Flipping are capable of handling two contexts for each camera. It can be faster to switch contexts than to set the specifications separately.<BR> The library automatically puts the cameras in standby mode when the hardware is reset or put to sleep. To enable the camera after recovering from sleep, the application must implement the process.
+</P>
+
+<P><h2>Default Camera Settings</h2></P>
+<p>
+Contexts handle the following default values when the cameras are started (when the <A href="CAMERA_Init.html"><CODE>CAMERA_Init</CODE></A> function is called).
+</p>
+<p>Inner Camera: Context A
+<table>
+<tr><td>Resolution</td><td><A href="CAMERASize.html">CAMERA_SIZE_DS_LCD</A></td></tr>
+<tr><td>Effect</td><td><A href="CAMERAEffect.html">CAMERA_EFFECT_NONE</A></td></tr>
+<tr><td>Flipping</td><td><A href="CAMERAFlip.html">CAMERA_FLIP_HORIZONTAL</A></td></tr>
+</table></p>
+<p>Inner Camera: Context B
+<table>
+<tr><td>Resolution</td><td><A href="CAMERASize.html">CAMERA_SIZE_VGA</A></td></tr>
+<tr><td>Effect</td><td><A href="CAMERAEffect.html">CAMERA_EFFECT_NONE</A></td></tr>
+<tr><td>Flipping</td><td><A href="CAMERAFlip.html">CAMERA_FLIP_HORIZONTAL</A></td></tr>
+</table></p>
+<p>Outer Camera: Context A
+<table>
+<tr><td>Resolution</td><td><A href="CAMERASize.html">CAMERA_SIZE_DS_LCD</A></td></tr>
+<tr><td>Effect</td><td><A href="CAMERAEffect.html">CAMERA_EFFECT_NONE</A></td></tr>
+<tr><td>Flipping</td><td><A href="CAMERAFlip.html">CAMERA_FLIP_NONE</A></td></tr>
+</table></p>
+<p>Outer Camera: Context B
+<table>
+<tr><td>Resolution</td><td><A href="CAMERASize.html">CAMERA_SIZE_VGA</A></td></tr>
+<tr><td>Effect</td><td><A href="CAMERAEffect.html">CAMERA_EFFECT_NONE</A></td></tr>
+<tr><td>Flipping</td><td><A href="CAMERAFlip.html">CAMERA_FLIP_NONE</A></td></tr>
+</table></p>
+<p>By default, both the inner and outer cameras are in context A.<BR><BR>Contexts do not handle the following default values.
+<p>Inner Camera
+<table>
+<tr><td>Frame rate</td><td><A href="CAMERAFrameRate.html">CAMERA_FRAME_RATE_15</A></td></tr>
+<tr><td>Photo mode</td><td><A href="CAMERAPhotoMode.html">CAMERA_PHOTO_MODE_PORTRAIT</A></td></tr>
+</table></p>
+<p>Outer Camera
+<table>
+<tr><td>Frame rate</td><td><A href="CAMERAFrameRate.html">CAMERA_FRAME_RATE_15</A></td></tr>
+<tr><td>Photo mode</td><td><A href="CAMERAPhotoMode.html">CAMERA_PHOTO_MODE_NORMAL</A></td></tr>
+</table></p>
+<BR>Common settings for the inner and outer cameras take the following default values.
+<p>
+<table>
+<tr><td>Output Format</td><td><A href="CAMERAOutput.html">CAMERA_OUTPUT_YUV</A></td></tr>
+<tr><td>Number of Lines to Transfer</td><td>1 line</td></tr>
+</table></p>
+<p>See the links for specific descriptions of the parameter meanings.</p>
+</p>
+
+<P><h2>RGB Conversion</h2></P>
+<p>
+The camera gets image data in the YCrYCb (YUV4:2:2) format or the RGB (RGB5:5:5) format.<BR><BR>YUV422 is converted into RGB8:8:8 as follows.
+
+<PRE>
+R = 1.000 x Y                     + 1.402 x (V - 128)
+G = 1.000 x Y - 0.344 x (U - 128) - 0.714 x (V - 128)
+B = 1.000 x Y + 1.772 x (U - 128)
+</PRE>
+</p>
+<p>
+The results of the calculation are rounded off if they are less than 0 or more than 255. Then they are scaled to the range [0-31], after which they are in RGB555 format.<BR><BR>The formulas for the reverse conversion (that is, converting RGB555 to YUV422) are shown below.
+
+<PRE>
+Y =  0.299 x R + 0.587 x G + 0.114 x B
+U = -0.169 x R - 0.331 x G + 0.500 x B + 128
+V =  0.500 x R - 0.419 x G - 0.081 x B + 128
+</PRE>
+</p>
+<H2>See Also</H2>
+<P><CODE><A href="list_camera.html">CAMERA Function List</A><BR></CODE></P>
+<H2>Revision History</H2>
+<P>
+2009/06/09 Updated Basic Camera Specifications.<br> 2008/10/06 Described the Camera library's CODEC mode restrictions.<br> 2008/09/11 Added a description of the camera's initial values.<br> 2008/04/21 Added photo mode to the camera's initial values.<br> 2008/03/17 Added a description of operations during hardware reset and during sleep mode.<br> 2007/11/14 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

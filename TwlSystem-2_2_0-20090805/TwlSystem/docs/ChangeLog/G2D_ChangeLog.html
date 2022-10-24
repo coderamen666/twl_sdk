@@ -1,0 +1,1357 @@
+<html>
+<head>
+<title>TWL-System G2D Library Revision History</title>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="content-style-type" content="text/css" />
+<style type="text/css">
+<!--
+    
+H1
+{
+    font-weight         : bold;
+    font-size           : 250%;
+    text-align          : left;
+    color               : #46f;
+    margin              : 0em 0em 0.5em 0em;
+}
+
+H2
+{
+    font-weight         : bold;
+    font-size           : 150%;
+    text-align          : left;
+    margin              : 2em 0em 0.5em 0em;
+    padding-top         : 8pt;
+    border-top-style    : double;
+    border-top-width    : 3px;
+}
+
+H3
+{
+    font-weight         : bold;
+    font-size           : 120%;
+    margin              : 1em 0em 0.5em 0em;
+    padding-top         : 8pt;
+    border-top-style    : solid;
+    border-top-width    : 1px;
+}
+
+H4
+{
+    font-weight         : normal;
+    font-size           : 100%;
+    margin              : 0em 0em 0em 0.5em;
+}
+
+DIV.date
+{
+    font-size           : normal;
+    text-align          : right;
+    margin              : 0pt 0pt 12pt 0pt;
+}
+
+DIV.licence
+{
+    margin: 0em;
+    border-style : solid;
+    border-width : 1px;
+}
+
+P
+{
+    font-size           : normal;
+    margin              : 0em 1em 0.5em 1em;
+    line-height         : 150%;
+}
+
+PRE
+{
+    font-size           : normal;
+    margin              : 0em 0em 1em 2em;
+    line-height         : 120%;
+}
+
+DT
+{
+    margin              : 1em 0em 0em 1em;
+}
+DD
+{
+    margin-left         : 3em;
+}
+UL
+{
+    margin-top         : 0em;
+}
+
+-->
+</style>
+</head>
+<body>
+
+<h1>TWL-System G2D Library Revision History</h1>
+
+<h2>Index</h2>
+
+<h3><a href="#version_2_2_0_0">2.2.0 PR</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_83-B05">Note 83-B05: (Converter) Added letter order files for TWL bitmap fonts</a></li>
+<li><a href="#note_83-B06">Note 83-B06: (Converter) Fixed a bug related to the <CODE>-cr/</CODE> option in <CODE>g2dcvgtr</CODE></a></li>
+<li><a href="#note_83-B08">Note 83-B08: (Documentation) Added description of TWL bitmap fonts to <CODE>fontcvtr_Manual</CODE></a></li>
+<li><a href="#note_83-B09">Note 83-B09: (Documentation) Fixed the description of the file structure in <CODE>fontcvtr_Manual</CODE></a></li>
+<li><a href="#note_83-B10">Note 83-B10: (Documentation) Revised the description of the <CODE>NNS_G2dSetAnimCtrlCallBackFunctorAtAnimFrame</CODE> function</a></li>
+<li><a href="#note_83-B11">Note 83-B11: (Documentation) Added function references for the renderer module</a></li>
+<li><a href="#note_83-B12">Note 83-B12: (Documentation) Revised the description of the <CODE>NNS_G2dUnpacked*</CODE>-type functions</a></li>
+<li><a href="#note_83-B13">Note 83-B13: (Documentation) Revised description of the output conditions of character position information blocks in <CODE>g2dcvgtr</CODE></a></li>
+</ul>
+<h4>Bug Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_83-B01">Note 83-B01: (Library) Deleted redundant code in the <CODE>LoadScreenPartText</CODE> function</a></li>
+<li><a href="#note_83-B02">Note 83-B02: (Library) Fixed typo in <CODE>g2d_screen.c</CODE> comments</a></li>
+<li><a href="#note_83-B03">Note 83-B03: (Library) Deleted redundant code in cell animation module</a></li>
+<li><a href="#note_83-B04">Note 83-B04: (Library) Added support for the <CODE>MAIN_EX</CODE> arena of <CODE>NNS_G2D_POINTER_ASSERT</CODE></a></li>
+<li><a href="#note_83-B07">Note 83-B07: (Converter) Revised behavior for cases where folders specified by the <CODE>-o</CODE> option do not exist</a></li>
+</ul>
+<h3><a href="#version_2_1_0">2.1.0</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_81-B01">Note 81-B01: (Converter) Revised the Font Converter Error Messages</a></li>
+<li><a href="#note_81-B02">Note 81-B02: (Documentation) Revised <CODE>fontcvtr</CODE>_Manual</a></li>
+</ul>
+<h3><a href="#version_2_0_0">2.0.0</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_80-B01">Note 80-B01:  (Library) Revised the workings of the API</a></li>
+</ul>
+<h3><a href="#version_2_0_0_1">2.0.0 RC2</a></h3>
+<h4>Bug Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_79-B01">Note 79-B01:  (Library) Fixed bug in font version checking</a></li>
+<li><a href="#note_79-B02">Note 79-B02:  (Library) Fixed bug in output of false warnings when font-display functions are used</a></li>
+<li><a href="#note_79-B03">Note 79-B03:  (Library) Suppressed warnings because of change in compiler specifications</a></li>
+</ul>
+<h3><a href="#version_2_0_0_0">2.0.0 RC</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_78-B01">Note 78-B01:  (Converter) Added location information to the format of BMP files input/output by <CODE>fontcvtr</CODE></a></li>
+</ul>
+<h4>Bug Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_78-B02">Note 78-B02:  (Converter) Fixed bug in baseline position of vertical fonts in <CODE>fontcvtr</CODE></a></li>
+<li><a href="#note_78-B03">Note 78-B03:  (Converter) Fixed bug where incorrect linefeed width for vertical fonts is output in <CODE>fontcvtr</CODE></a></li>
+</ul>
+<h3><a href="#version_20080408">2008/04/08 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_76-B01">Note 76-B01:  (Manual) Changed Revision History format, made overall revisions</a></li>
+<li><a href="#note_76-B02">Note 76-B02:  (Manual) Changed the language of the Xerces-C++ license</a></li>
+</ul>
+<h3><a href="#version_20071126">2007/11/26 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_71-B01">Note 71-B01:  (Library) Added function for standard material settings for software sprites</a></li>
+<li><a href="#note_71-B02">Note 71-B02:  (Library) Revised specifications such that standard camera matrix for software sprites is set for position coordinate matrix</a></li>
+<li><a href="#note_71-B03">Note 71-B03:  (Converter) Added <CODE>-cic</CODE> option to <CODE>g2dcvtr</CODE></a></li>
+<li><a href="#note_71-B04">Note 71-B04:  (Converter) Added functionality to select width of a space character in <CODE>fontcvtr</CODE></a></li>
+</ul>
+<h4>Bug Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_71-B05">Note 71-B05:  (Library) Fixed bug in cell-animation function</a></li>
+<li><a href="#note_71-B06">Note 71-B06:  (Library) Added <CODE>const</CODE> to cell-animation function arguments</a></li>
+<li><a href="#note_71-B07">Note 71-B07:  (Library) Revised spelling errors for software sprite</a></li>
+<li><a href="#note_71-B08">Note 71-B08:  (Library) Fixed bug in OAM manager</a></li>
+<li><a href="#note_71-B09">Note 71-B09:  (Library) Fixed bug in background</a></li>
+<li><a href="#note_71-B10">Note 71-B10:  (Converter) Fixed bug in <CODE>-pcm</CODE> option of <CODE>g2dcvtr</CODE></a></li>
+<li><a href="#note_71-B11">Note 71-B11:  (Converter) Fixed bug in <CODE>-afs</CODE> option of <CODE>g2dcvtr</CODE></a></li>
+<li><a href="#note_71-B12">Note 71-B12:  (Converter) Fixed bug for header information in BMP files output by <CODE>fontcvtr</CODE></a></li>
+</ul>
+<h3><a href="#version_20070314">2007/03/14 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_64-B01">Note 64-B01:  (Library) Changed static inline in the header file to inline</a></li>
+<li><a href="#note_64-B02">Note 64-B02:  (Library) Added function to OAM manager to get pointer to internal buffer</a></li>
+<li><a href="#note_64-B03">Note 64-B03:  (Library) Revised operations resulting when region to be transferred in background exceeds allowed range</a></li>
+<li><a href="#note_64-B04">Note 64-B04:  (Library) Updated for vertical writing/holding when rendering characters</a></li>
+<li><a href="#note_64-B05">Note 64-B05:  (Library) Added and revised character rendering samples</a></li>
+<li><a href="#note_64-B06">Note 64-B06:  (Converter) Added option to input Windows fonts when using <CODE>fontcvtr</CODE></a></li>
+<li><a href="#note_64-B07">Note 64-B07:  (Converter) Added letter order files for <CODE>fontcvtr</CODE></a></li>
+<li><a href="#note_64-B13">Note 64-B13:  (Converter) Updated <CODE>fontcvtr</CODE> to output fonts used for vertical writing/holding</a></li>
+</ul>
+<h4>Bug Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_64-B08">Note 64-B08:  (Converter) Fixed bug where illegal termination code was not returned correctly when using <CODE>g2dcvtr</CODE></a></li>
+<li><a href="#note_64-B09">Note 64-B09:  (Converter) Fixed bug where last frame of multicell animations was mistakenly displayed when using <CODE>g2dcvtr</CODE></a></li>
+<li><a href="#note_64-B10">Note 64-B10:  (Converter) Fixed bug where multicell animations were not updated correctly when using <CODE>g2dcvtr</CODE></a></li>
+<li><a href="#note_64-B11">Note 64-B11:  (Converter) Revised such that illegal data causes conversion to halt in <CODE>g2dcvtr</CODE></a></li>
+<li><a href="#note_64-B12">Note 64-B12:  (Converter) Added <CODE>-cza</CODE> option to <CODE>g2dcvtr</CODE></a></li>
+<li><a href="#note_64-B14">Note 64-B14:  (Converter) Fixed bug when entering Windows font in <CODE>fontcvtr</CODE></a></li>
+<li><a href="#note_64-B15">Note 64-B15:  (Converter) Fixed bug in <CODE>-iu</CODE> option of <CODE>fontcvtrc</CODE></a></li>
+<li><a href="#note_64-B16">Note 64-B16:  (Converter) Fixed bug in width line of <CODE>fontcvtrc</CODE></a></li>
+<li><a href="#note_64-B17">Note 64-B17:  (Converter) Fixed bug in message window when using <CODE>fontcvtr</CODE></a></li>
+<li><a href="#note_64-B18">Note 64-B18:  (Converter) Fixed bug in <CODE>fontcvtr</CODE> letter order files</a></li>
+</ul>
+<h3><a href="#version_20060529">2006/05/29 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_59-B01">Note 59-B01:  (Library) Added functionality to restart cell animations from the beginning</a></li>
+<li><a href="#note_59-B02">Note 59-B02:  (Library) Added functionality to restart multicell animations from the beginning</a></li>
+<li><a href="#note_59-B03">Note 59-B03:  (Library) Added functionality to set playback start status for multicell animations</a></li>
+<li><a href="#note_59-B04">Note 59-B04:  (Converter) Added <CODE>-afs</CODE> option to <CODE>g2dcvtr</CODE></a></li>
+</ul>
+<h4>Bug Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_59-B05">Note 59-B05:  (Library) Fixed bug where G2d library did not function correctly when <CODE>GX_DMA_NOT_USE</CODE> was set</a></li>
+<li><a href="#note_59-B06">Note 59-B06:  (Library) Fixed bug where screens that were not a multiple of 32 characters could not be loaded correctly</a></li>
+<li><a href="#note_59-B07">Note 59-B07:  (Converter) Fixed bug where incorrect region information was calculated and output by <CODE>g2dcvtr</CODE></a></li>
+<li><a href="#note_59-B08">Note 59-B08:  (Converter) Fixed bug where VRAM transfer information was not calculated correctly by <CODE>g2dcvtr</CODE></a></li>
+<li><a href="#note_59-B09">Note 59-B09:  (Converter) Fixed bug where cell boundary radius was not calculated correctly by <CODE>g2dcvtr</CODE></a></li>
+</ul>
+<h3><a href="#version_20050901">2005/09/01 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_50-B01">Note 50-B01:  (Format) Added capture position information block to NCGR and NCBR</a></li>
+<li><a href="#note_50-B02">Note 50-B02:  (Library) Added function to access data blocks</a></li>
+<li><a href="#note_50-B03">Note 50-B03:  (Library) Added functionality to access data structures</a></li>
+<li><a href="#note_50-B04">Note 50-B04:  (Library) Added functions for the animation controller</a></li>
+<li><a href="#note_50-B08">Note 50-B08:  (Sample) Added samples</a></li>
+<li><a href="#note_50-B09">Note 50-B09:  (Converter) Added <CODE>-br/</CODE>, <CODE>-rtp</CODE>, and <CODE>-oua</CODE> options to <CODE>g2dcvtr</CODE></a></li>
+</ul>
+<h4>Bug Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_50-B05">Note 50-B05:  (Library) Added functions for multicell animations</a></li>
+<li><a href="#note_50-B06">Note 50-B06:  (Library) Added background functionality</a></li>
+<li><a href="#note_50-B07">Note 50-B07:  (Library) Added function for character rendering</a></li>
+<li><a href="#note_50-B10">Note 50-B10:  (Library) Fixed bug where cell animation rendering failed</a></li>
+<li><a href="#note_50-B11">Note 50-B11:  (Library) Multicell animations</a></li>
+<li><a href="#note_50-B12">Note 50-B12:  (Library) Fixed bug where OAM manager would fail on an assert</a></li>
+<li><a href="#note_50-B13">Note 50-B13:  (Library) Fixed bug where an assert warning was illegally displayed by extended OAM manager</a></li>
+<li><a href="#note_50-B14">Note 50-B14:  (Library) Fixed bug where renderer did not render correctly</a></li>
+<li><a href="#note_50-B15">Note 50-B15:  (Library) Fixed bug where data was loaded in the wrong slot in background</a></li>
+<li><a href="#note_50-B16">Note 50-B16:  (Library) Fixed bug where wrong background mode would result in background</a></li>
+<li><a href="#note_50-B17">Note 50-B17:  (Library) Fixed bug in tag process callback for character rendering</a></li>
+<li><a href="#note_50-B18">Note 50-B18:  (Converter) Fixed bug for VRAM transfer information output when using <CODE>g2dcvtr</CODE></a></li>
+<li><a href="#note_50-B19">Note 50-B19:  (Converter) Fixed bug where warning message was illegally displayed by <CODE>g2dcvtr</CODE></a></li>
+<li><a href="#note_50-B20">Note 50-B20:  (Converter) Fixed bug where screen was not converted correctly when using <CODE>g2dcvtr</CODE></a></li>
+<li><a href="#note_50-B21">Note 50-B21:  (Converter) Fixed bug in rectangular region information output when using <CODE>g2dcvtr</CODE></a></li>
+</ul>
+<h3><a href="#version_20050606">2005/06/06 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_45-B01">Note 45-B01:  (Library) Added font-rendering functionality</a></li>
+<li><a href="#note_45-B02">Note 45-B02:  (Library) Added assert statement for cell animation</a></li>
+<li><a href="#note_45-B03">Note 45-B03:  (Library) Changed object position correction process for cell animations</a></li>
+<li><a href="#note_45-B04">Note 45-B04:  (Library) Updated for object rendering where double affine flag is set for OAM software sprite rendering</a></li>
+<li><a href="#note_45-B05">Note 45-B05:  (Library) Added function for multicell animations</a></li>
+<li><a href="#note_45-B06">Note 45-B06:  (Library) Changed object position correction process for renderer and renderer core</a></li>
+<li><a href="#note_45-B07">Note 45-B07:  (Library) Changed object processing method when double affine flag is set for renderer and renderer core</a></li>
+<li><a href="#note_45-B08">Note 45-B08:  (Converter) Added <CODE>-ncn</CODE> option to <CODE>g2dcvtr</CODE></a></li>
+<li><a href="#note_45-B09">Note 45-B09:  (Converter) Added warning process to <CODE>g2dcvtr</CODE></a></li>
+<li><a href="#note_45-B10">Note 45-B10:  (Converter) Added <CODE>fontcvtr</CODE></a></li>
+</ul>
+<h4>Bug Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_45-B11">Note 45-B11:  (Library) Fixed bug where cells not included between -128 and 127 were not rendered correctly</a></li>
+<li><a href="#note_45-B12">Note 45-B12:  (Library) Fixed bug in rendering software sprites</a></li>
+<li><a href="#note_45-B13">Note 45-B13:  (Library) Fixed bug where infinite loop resulted with cell animations</a></li>
+<li><a href="#note_45-B14">Note 45-B14:  (Converter) Fixed bug in <CODE>BuildNENR</CODE></a></li>
+</ul>
+<h3><a href="#version_20050328">2005/03/28 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_43-B01">Note 43-B01:  (Library) Standardized rendering order for standard OAMs and affine-converted OAMs when using extended OAM manager</a></li>
+<li><a href="#note_43-B02">Note 43-B02:  (Library) Added function for extended OAM manager</a></li>
+<li><a href="#note_43-B03">Note 43-B03:  (Sample) Added samples</a></li>
+</ul>
+<h4>Bug Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_43-B04">Note 43-B04:  (Library) Fixed bug in multicell animations</a></li>
+<li><a href="#note_43-B05">Note 43-B05:  (Library) Fixed bug related to renderer affine parameter sharing</a></li>
+<li><a href="#note_43-B06">Note 43-B06:  (Library) Revised coding error in ASSERT macro</a></li>
+<li><a href="#note_43-B07">Note 43-B07:  (Converter) Fixed bug where invalid converted binary was output by <CODE>g2dcvtr</CODE></a></li>
+</ul>
+<h3><a href="#version_20050131">2005/01/31 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_39-B01">Note 39-B01:  (Library) Added function to calculate total length of video frames for animation sequence data</a></li>
+<li><a href="#note_39-B02">Note 39-B02:  (Library) Added function for multicell animations</a></li>
+<li><a href="#note_39-B03">Note 39-B03:  (Library) Changed function that initializes multicell animations</a></li>
+<li><a href="#note_39-B04">Note 39-B04:  (Converter) Changed label definition header file output by <CODE>g2dcvtr</CODE></a></li>
+<li><a href="#note_39-B05">Note 39-B05:  (Converter) Deleted the C source code format output feature in <CODE>g2dcvtr</CODE></a></li>
+</ul>
+<h4>Bug Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_39-B06">Note 39-B06:  (Library) Fixed bug in UV value calculation when rendering OAM software sprites</a></li>
+<li><a href="#note_39-B07">Note 39-B07:  (Converter) Fixed bug where conversion of files stored in absolute-path format by <CODE>g2dcvtr</CODE> failed</a></li>
+<li><a href="#note_39-B08">Note 39-B08:  (Converter) Fixed bug where cell animation playback mode information for <CODE>g2dcvtr</CODE> was not set correctly</a></li>
+</ul>
+<h3><a href="#version_20041206">2004/12/06 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_34-B01">Note 34-B01:  (Library) Added function for multicell animations</a></li>
+<li><a href="#note_34-B02">Note 34-B02:  (Documentation) Moved portion of the overview manual to API reference</a></li>
+<li><a href="#note_34-B03">Note 34-B03:  (Converter) Added <CODE>-o/</CODE> and <CODE>-src</CODE> options to <CODE>BuildNENR</CODE></a></li>
+<li><a href="#note_34-B04">Note 34-B04:  (Converter) Added <CODE>-ai</CODE>, <CODE>-aisrt</CODE>, and <CODE>-ait</CODE> options to <CODE>g2dcvtr</CODE></a></li>
+</ul>
+<h4>Bug Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_34-B05">Note 34-B05:  (Library) Fixed bug where rendering count was set too low for extended OAM manager</a></li>
+<li><a href="#note_34-B06">Note 34-B06:  (Library) Fixed bug where values were not updated correctly for software sprites</a></li>
+<li><a href="#note_34-B07">Note 34-B07:  (Library) Fixed bug in loading images</a></li>
+</ul>
+<h3><a href="#version_20041118">2004/11/18 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_33-B01">Note 33-B01:  (Library) Added the renderer core module</a></li>
+<li><a href="#note_33-B02">Note 33-B02:  (Sample) Added renderer core module samples</a></li>
+<li><a href="#note_33-B03">Note 33-B03:  (Library) Added function for cells</a></li>
+<li><a href="#note_33-B04">Note 33-B04:  (Library) Added process to SRT animation for data that uses translation animation only</a></li>
+<li><a href="#note_33-B05">Note 33-B05:  (Library) Added functions for high-speed rendering of software sprites</a></li>
+<li><a href="#note_33-B06">Note 33-B06:  (Library) Added functions for high-speed rendering when rendering OAM software sprites</a></li>
+<li><a href="#note_33-B07">Note 33-B07:  (Library) Added functions to improve efficiency of rendering process when rendering OAM software sprites</a></li>
+<li><a href="#note_33-B08">Note 33-B08:  (Library) Added cache process for loading images</a></li>
+<li><a href="#note_33-B09">Note 33-B09:  (Library) Improved renderer processing efficiency</a></li>
+<li><a href="#note_33-B10">Note 33-B10:  (Library) Added and also eliminated renderer functions</a></li>
+<li><a href="#note_33-B11">Note 33-B11:  (Library) Added renderer process to overwrite OAM parameters</a></li>
+<li><a href="#note_33-B12">Note 33-B12:  (Converter) Updated <CODE>g2dcvtr</CODE> for data that uses only translation animation</a></li>
+</ul>
+<h4>Bug Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_33-B13">Note 33-B13:  (Library) Fixed bug where palettes were not loaded correctly when loading images</a></li>
+</ul>
+<h3><a href="#version_20041012">2004/10/12 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_26-B01">Note 26-B01:  (Library) Changed the DMA channel used by the library</a></li>
+<li><a href="#note_26-B02">Note 26-B02:  (Library) Changed some functions in library to inline functions</a></li>
+<li><a href="#note_26-B03">Note 26-B03:  (Library) Updated for cell information that has rectangle information as cell-region information</a></li>
+<li><a href="#note_26-B04">Note 26-B04:  (Library) Eliminated wrapping process formerly used when specifying position outside screen for software sprite</a></li>
+<li><a href="#note_26-B05">Note 26-B05:  (Library) Added function to load palettes where only part of the palette used is loaded</a></li>
+<li><a href="#note_26-B06">Note 26-B06:  (Library) Added renderer functions</a></li>
+<li><a href="#note_26-B07">Note 26-B07:  (Library) Enabled control of object affine conversion mode rewrite method when using renderer</a></li>
+<li><a href="#note_26-B08">Note 26-B08:  (Library) Changed type of callback arguments before and after object rendering by the renderer</a></li>
+<li><a href="#note_26-B09">Note 26-B09:  (Converter) Added <CODE>-pcm</CODE> option to <CODE>g2dcvtr</CODE></a></li>
+<li><a href="#note_26-B10">Note 26-B10:  (Converter) Error messages now output as standard errors</a></li>
+<li><a href="#note_26-B11">Note 26-B11:  (Converter) Revised specifications such that execution result is now returned as return value</a></li>
+<li><a href="#note_26-B12">Note 26-B12:  (Converter) Added <CODE>-br</CODE> option to <CODE>g2dcvtr</CODE></a></li>
+<li><a href="#note_26-B14">Note 26-B14:  (Library) Fixed bug when loading 256-color extended palette data</a></li>
+</ul>
+<h4>Bug Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_26-B13">Note 26-B13:  (Library) Fixed bug where polygon ID setting for software sprites was not enabled</a></li>
+<li><a href="#note_26-B15">Note 26-B15:  (Library) Fixed bug where cell data was not rendered correctly by the renderer</a></li>
+<li><a href="#note_26-B16">Note 26-B16:  (Converter) Fixed bug where invalid data was output by <CODE>g2dcvtr</CODE></a></li>
+</ul>
+<h3><a href="#version_20040916">2004/09/16 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_21-B01">Note 21-B01:  (Library) Added functionality to display background</a></li>
+<li><a href="#note_21-B02">Note 21-B02:  (Library) Changed behavior when double affine conversion mode is forcibly set by the OAM manager</a></li>
+<li><a href="#note_21-B03">Note 21-B03:  (Library) Eliminated functionality to set object affine conversion mode when using extended OAM manager</a></li>
+<li><a href="#note_21-B04">Note 21-B04:  (Library) Implemented process for switching render surface's active state</a></li>
+<li><a href="#note_21-B05">Note 21-B05:  (Converter) Updated for conversion of background-related data to <CODE>g2dcvtr</CODE></a></li>
+</ul>
+<h3><a href="#version_20040902">2004/09/02 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_20-B01">Note 20-B01:  (Library) Added functionality to OAM manager to automatically shift Z-value of sprite and render it</a></li>
+<li><a href="#note_20-B02">Note 20-B02:  (Library) Added functionality to renderer to automatically shift Z-value of sprite and render it</a></li>
+<li><a href="#note_20-B03">Note 20-B03:  (Library) Implemented functionality to optimize renderer's rendering process</a></li>
+<li><a href="#note_20-B04">Note 20-B04:  (Library) Added flip-rendering functionality to renderer</a></li>
+<li><a href="#note_20-B05">Note 20-B05:  (Library) Added ability to register callback functions to renderer</a></li>
+<li><a href="#note_20-B06">Note 20-B06:  (Library) Updated for SRT animations in cell animations</a></li>
+<li><a href="#note_20-B07">Note 20-B07:  (Library) Updated for SRT animations in multicell animations</a></li>
+<li><a href="#note_20-B08">Note 20-B08:  (Converter) Added functionality to correct scale value in SRT animations</a></li>
+</ul>
+<h4>Bug Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_20-B09">Note 20-B09:  (Library) Fixed bug that did not reset cell animation playback status when multicells were switched</a></li>
+</ul>
+<h3><a href="#version_20040810">2004/08/10 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_16-B01">Note 16-B01:  (Converter) Added <CODE>-bg</CODE> option to <CODE>g2dcvtr</CODE></a></li>
+<li><a href="#note_16-B02">Note 16-B02:  (Converter) Added <CODE>-lbl</CODE> option to <CODE>g2dcvtr</CODE></a></li>
+<li><a href="#note_16-B03">Note 16-B03:  (Converter) Changed <CODE>g2dcvtr</CODE>'s log messages</a></li>
+</ul>
+<h4>Bug Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_16-B04">Note 16-B04:  (Library) Fixed bug in animations</a></li>
+<li><a href="#note_16-B05">Note 16-B05:  (Converter) Fixed bug in input filename path</a></li>
+</ul>
+<h3><a href="#version_20040802">2004/08/02 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_15-B01">Note 15-B01:  (Library) Changed function names</a></li>
+<li><a href="#note_15-B02">Note 15-B02:  (Library) Improved debug string output for color palettes loaded from file</a></li>
+<li><a href="#note_15-B03">Note 15-B03:  (Library) Added functions to OAM manager</a></li>
+<li><a href="#note_15-B04">Note 15-B04:  (Library) Updated for cases where OAM manager does not manage affine parameters</a></li>
+<li><a href="#note_15-B05">Note 15-B05:  (Library) Changed parameters for setting 3D graphics engine camera used with software sprites</a></li>
+<li><a href="#note_15-B06">Note 15-B06:  (Converter) Extended functionality of converter and changed its name</a></li>
+</ul>
+<h4>Bug Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_15-B07">Note 15-B07:  (Library) Fixed bug where affine parameters outside area being managed were illegally reset by OAM manager</a></li>
+<li><a href="#note_15-B08">Note 15-B08:  (Library) Fixed bug where rendering was not performed correctly by OAM manager except in double affine mode</a></li>
+</ul>
+<h3><a href="#version_20040720">2004/07/20 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_13-B01">Note 13-B01:  (Library) Updated for multicells</a></li>
+<li><a href="#note_13-B02">Note 13-B02:  (Format) Changed the version of every file format to 1.0</a></li>
+<li><a href="#note_13-B03">Note 13-B03:  (Library) Added CellVRAM transfer mode manager module</a></li>
+<li><a href="#note_13-B04">Note 13-B04:  (Library) Added OAM software sprite rendering module</a></li>
+<li><a href="#note_13-B05">Note 13-B05:  (Library) Updated cell animations for VRAM transfer animations</a></li>
+<li><a href="#note_13-B06">Note 13-B06:  (Library) Changed names of multicell functions</a></li>
+<li><a href="#note_13-B07">Note 13-B07:  (Library) Changed workings of OAM manager</a></li>
+<li><a href="#note_13-B08">Note 13-B08:  (Converter) Added functionality to <CODE>g2dcvtr</CODE></a></li>
+</ul>
+<h3><a href="#version_20040622">2004/06/22 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_10-B01">Note 10-B01:  (Library) Combined extended OAM manager and extended OAM manager 2</a></li>
+<li><a href="#note_10-B02">Note 10-B02:  (Library) Changed variable names</a></li>
+<li><a href="#note_10-B03">Note 10-B03:  (Library) Revised specifications such that functions used for debug output are turned off in FINALROM build</a></li>
+<li><a href="#note_10-B04">Note 10-B04:  (Library) Changed accessors for animation controller to inline functions</a></li>
+<li><a href="#note_10-B05">Note 10-B05:  (Library) Changed extended OAM manager specifications</a></li>
+<li><a href="#note_10-B06">Note 10-B06:  (Library) Added functionality to the renderer</a></li>
+<li><a href="#note_10-B07">Note 10-B07:  (Format) Changed the format of NCER files</a></li>
+</ul>
+<h4>Bug Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_10-B08">Note 10-B08:  (Library) Fixed bug where extended OAM manager did not render correctly</a></li>
+<li><a href="#note_10-B09">Note 10-B09:  (Library) Fixed bug where renderer did not render correctly</a></li>
+</ul>
+<h3><a href="#version_20040610">2004/06/10 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_09-B01">Note 09-B01:  (Converter) Updated converter for 1D-mapping specifications</a></li>
+</ul>
+<h4>Bug Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_09-B02">Note 09-B02:  (Library) Fixed bug where debug display for animation data failed when loading files</a></li>
+<li><a href="#note_09-B03">Note 09-B03:  (Library) Fixed bug in OAM manager</a></li>
+<li><a href="#note_09-B04">Note 09-B04:  (Library) Fixed bugs in software sprites</a></li>
+</ul>
+<h3><a href="#version_20040528">2004/05/28 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_08-B01">Note 08-B01:  (Library) Added functions to load files</a></li>
+<li><a href="#note_08-B02">Note 08-B02:  (Library) Added functions for the animation controller</a></li>
+<li><a href="#note_08-B03">Note 08-B03:  (Library) Changed OAM manager function arguments</a></li>
+<li><a href="#note_08-B04">Note 08-B04:  (Library) Changed extended OAM manager 2 function arguments</a></li>
+<li><a href="#note_08-B05">Note 08-B05:  (Library) Added functions to load images</a></li>
+<li><a href="#note_08-B06">Note 08-B06:  (Library) Changed renderer function arguments</a></li>
+<li><a href="#note_08-B07">Note 08-B07:  (Library) Enabled turning debug output on and off with compiler switch</a></li>
+<li><a href="#note_08-B08">Note 08-B08:  (Format) Made changes to file format and converter</a></li>
+<li><a href="#note_08-B09">Note 08-B09:  (Sample) Added samples</a></li>
+<li><a href="#note_08-B10">Note 08-B10:  (Converter) Added <CODE>BuildNENR</CODE></a></li>
+</ul>
+
+
+<h2 id="version_2_2_0_0">Changes in 2.2.0 PR</h2>
+<h3 id="note_83-B01">Note 83-B01: (Library) Deleted redundant code in the <CODE>LoadScreenPartText</CODE> function</h3>
+<h3 id="note_83-B02">Note 83-B02: (Library) Fixed typo in <CODE>g2d_screen.c</CODE> comments</h3>
+<h3 id="note_83-B03">Note 83-B03: (Library) Deleted redundant code in cell animation module</h3>
+<p>Revised redundant code in the <CODE>ApplyCurrentAnimResult_</CODE> function of the cell animation module.
+</p>
+<h3 id="note_83-B04">Note 83-B04: (Library) Added support for the <CODE>MAIN_EX</CODE> arena of <CODE>NNS_G2D_POINTER_ASSERT</CODE></h3>
+<p>Fixed a bug where <CODE>NNS_G2D_POINTER_ASSERT</CODE> did not work correctly for pointers in the <CODE>MAIN_EX</CODE> arena.
+</p>
+<h3 id="note_83-B05">Note 83-B05: (Converter) Added letter order files for TWL bitmap fonts</h3>
+<p>Added letter order files for TWL bitmap fonts.
+</p>
+<ul><li><CODE>twl_bitmap_font.xlor</CODE>
+</li>
+<li><CODE>twl_bitmap_font_cn.xlor</CODE>
+</li>
+<li><CODE>twl_bitmap_font_kr.xlor</CODE>
+</li>
+</ul>
+<h3 id="note_83-B06">Note 83-B06: (Converter) Fixed a bug related to the <CODE>-cr/</CODE> option in <CODE>g2dcvgtr</CODE></h3>
+<p>Fixed a bug where character position information blocks were output with <CODE>g2dcvgtr</CODE>, even if the <CODE>-cr/</CODE> option was not specified.
+</p>
+<h3 id="note_83-B07">Note 83-B07: (Converter) Revised behavior for cases where folders specified by the <CODE>-o</CODE> option do not exist</h3>
+<pre>Previously, when a folder specified by the <CODE>-o</CODE> option did not exist, nothing happened, and processing ended normally.
+This behavior was changed. Now a standard error message is output and processing ends on an error.
+</pre>
+<h3 id="note_83-B08">Note 83-B08: (Documentation) Added description of TWL bitmap fonts to <CODE>fontcvtr_Manual</CODE></h3>
+<p>Added a description of TWL bitmap fonts in section 5.5 The Included Letter Order files.
+</p>
+<h3 id="note_83-B09">Note 83-B09: (Documentation) Fixed the description of the file structure in <CODE>fontcvtr_Manual</CODE></h3>
+<p>Revised description of the file structure to accompany the addition of TWL bitmap fonts.
+</p>
+<h3 id="note_83-B10">Note 83-B10: (Documentation) Revised the description of the <CODE>NNS_G2dSetAnimCtrlCallBackFunctorAtAnimFrame</CODE> function</h3>
+<p>Deleted description of nonexistent <CODE>type</CODE> argument.
+</p>
+<p>Deleted code that initializes unused variables in the <CODE>LoadScreenPartText</CODE> function in <CODE>g2d_screen.c</CODE>.
+</p>
+<h3 id="note_83-B11">Note 83-B11: (Documentation) Added function references for the renderer module</h3>
+<p>Added the following functions to the Function Reference.
+</p>
+<ul><li>NNS_G2dSetRendererOverwritePlttNoOffset
+</li>
+<li>NNS_G2dGetRendererOverwritePlttNoOffset
+</li>
+</ul>
+<h3 id="note_83-B12">Note 83-B12: (Documentation) Revised the Description of the <CODE>NNS_G2dUnpacked*</CODE>-type functions</h3>
+<ul><li>Explained that <CODE>NULL</CODE> is set in the argument when one of the <CODE>NNSG2dUnpacked*</CODE>-type functions fails.
+</li>
+<li>Also added references for NCG and NCL files.
+</li>
+</ul>
+<h3 id="note_83-B13">Note 83-B13: (Documentation) Revised description of the output conditions of character position information blocks in <CODE>g2dcvgtr</CODE></h3>
+<h2 id="version_2_1_0">Changes in 2.1.0</h2>
+<h3 id="note_81-B01">Note 81-B01: (Converter) Revised the Font Converter Error Messages</h3>
+<p>Revised the error messages output from the <CODE>fontcvtr.exe</CODE> font converter tool.
+</p>
+<h3 id="note_81-B02">Note 81-B02: (Documentation) Revised <CODE>fontcvtr</CODE>_Manual</h3>
+<p>Revised the error message descriptions.
+</p>
+<h2 id="version_2_0_0">Changes in 2.0.0</h2>
+<h3 id="note_80-B01">Note 80-B01:  (Library) Revised the workings of the API</h3>
+<p><B>Note:</B> When using NDMA added with the TWL, memory operations cannot be conducted via DMA. Memory operations are instead conducted via the CPU.
+</p>
+<ul><li><CODE>NNS_G2dResetOamManagerBuffer</CODE>
+</li>
+<li><CODE>NNS_G2dBGLoadElementsEx</CODE>
+</li>
+</ul>
+<h2 id="version_2_0_0_1">Changes in 2.0.0 RC2</h2>
+<h3 id="note_79-B01">Note 79-B01:  (Library) Fixed bug in font version checking</h3>
+<p>In TWL-System 2.0.0 RC, there was a bug rendering NFTR 1.1 vertically written and vertically held fonts in the correct direction. That has been fixed.
+</p>
+<h3 id="note_79-B02">Note 79-B02:  (Library) Fixed bug in output of false warnings when font-display functions are used</h3>
+<p>Fixed bug with output of false warnings when the following functions were used.
+</p>
+<ul><li><CODE>NNS_G2dCharCanvasMakeCell1D</CODE>
+</li>
+<li><CODE>NNS_G2dCharCanvasMakeCell2DRect</CODE>
+</li>
+</ul>
+<h3 id="note_79-B03">Note 79-B03:  (Library) Suppressed warnings because of change in compiler specifications</h3>
+<p>In conjunction with changes to compiler specifications, suppressed warnings when variable-length arrays of <CODE>g2d_Font_data.h</CODE> are used.
+</p>
+<h2 id="version_2_0_0_0">Changes in 2.0.0 RC</h2>
+<h3 id="note_78-B01">Note 78-B01:  (Converter) Added location information to the format of BMP files input/output by <CODE>fontcvtr</CODE></h3>
+<p>The font width and font height can now be described for the BMP files input and output by <CODE>fontcvtr</CODE>. If a font width and height are not specified, the size is treated like before as the minimum rectangle in which all characters are superimposed. The font width is not used with the current version of the G2D library.
+</p>
+<h3 id="note_78-B02">Note 78-B02:  (Converter) Fixed bug in baseline position of vertical fonts in <CODE>fontcvtr</CODE></h3>
+<p>When a vertically written font was output to a BMP file, the baseline position would be skewed if an offset or a margin of greater than 0 was specified. That bug has been fixed.
+</p>
+<h3 id="note_78-B03">Note 78-B03:  (Converter) Fixed bug where incorrect linefeed width for vertical fonts is output in <CODE>fontcvtr</CODE></h3>
+<p>When a vertically written font was output to a NITRO Font, if the linefeed width and the default width information was not specified, the values would be calculated with horizontal and vertical reversed. That bug has been fixed.
+</p>
+<h2 id="version_20080408">Changes in Version 2008/04/08</h2>
+<h3 id="note_76-B01">Note 76-B01:  (Manual) Changed Revision History format, made overall revisions</h3>
+<p>Changed the format of the Revision History in the PDF manuals listed below and made comprehensive corrections.
+</p>
+<ul><li><CODE>BuildNENR_Manual.pdf</CODE>
+</li>
+<li><CODE>fontcvtr_Manual.pdf</CODE>
+</li>
+<li><CODE>fontcvtrc_Manual.pdf</CODE>
+</li>
+<li><CODE>g2dcvtr_Manual.pdf</CODE>
+</li>
+<li><CODE>NNS_G2DRuntime-BinaryFormat.pdf</CODE>
+</li>
+</ul>
+<h3 id="note_76-B02">Note 76-B02:  (Manual) Changed the language of the Xerces-C++ license</h3>
+<p>Changed the language of the Xerces-C++ license in the PDF manuals listed below.
+</p>
+<ul><li><CODE>fontcvtr_Manual.pdf</CODE>
+</li>
+<li><CODE>fontcvtrc_Manual.pdf</CODE>
+</li>
+</ul>
+<h2 id="version_20071126">Changes in Version 2007/11/26</h2>
+<h3 id="note_71-B01">Note 71-B01:  (Library) Added function for standard material settings for software sprites</h3>
+<p>The <CODE>NNS_G2dSetupSoftwareSpriteMaterial</CODE> function standard material settings when using software sprite functionality has been added.
+</p>
+<h3 id="note_71-B02">Note 71-B02:  (Library) Revised specifications such that standard camera matrix for software sprites is set for position coordinate matrix</h3>
+<p>Specifications have been changed such that the standard camera matrix is set for the position coordinate matrix inside the <CODE>NNS_G2dSetupSoftwareSpriteCamera</CODE> function.
+</p>
+<h3 id="note_71-B03">Note 71-B03:  (Converter) Added <CODE>-cic</CODE> option to <CODE>g2dcvtr</CODE></h3>
+<p>Added the <CODE>-cic</CODE> option to check for presence of invalid character numbers.
+</p>
+<h3 id="note_71-B04">Note 71-B04:  (Converter) Added functionality to select width of a space character in <CODE>fontcvtr</CODE></h3>
+<p>When entering a Windows font, an option has been added to use the character width specified by the font for spaces and use the glyph width for all other characters (&quot;Use glyph width (keep space)&quot;).
+</p>
+<h3 id="note_71-B05">Note 71-B05:  (Library) Fixed bug in cell-animation function</h3>
+<p>A bug that caused the <CODE>NNS_G2dSetCellAnimationCurrentFrame</CODE> function to malfunction has been fixed.
+</p>
+<h3 id="note_71-B06">Note 71-B06:  (Library) Added <CODE>const</CODE> to cell-animation function arguments</h3>
+<p>The <CODE>const</CODE> keyword has been added to arguments (3, 8, and 9) used by the <CODE>NNS_G2dInitCellAnimationVramTransfered</CODE> function.
+</p>
+<h3 id="note_71-B07">Note 71-B07:  (Library) Revised spelling errors for software sprite</h3>
+<p>The following misspellings in the <CODE>g2d_Softsprite.h</CODE> library header file have been corrected.
+</p>
+<pre>Incorrect: NNS_G2D_SPRITEATTR_TEXTUE 
+Correct: NNS_G2D_SPRITEATTR_TEXTURE 
+The previous, incorrect expression remains as a separate name to maintain code compatibility.
+</pre>
+<h3 id="note_71-B08">Note 71-B08:  (Library) Fixed bug in OAM manager</h3>
+<p>The internal buffer that holds the OAM manager's admin area was not updated correctly, and therefore, it was not possible to properly check for illegal manager initialization. This bug has been fixed.
+</p>
+<p>In the previous version, if for example you defined two OAM managers and specified an illegal initialization where the starting number of one of the OAM managers overlapped with the ending OAM number of the other OAM manager's admin area, overlap determination would not occur correctly, and initialization would succeed.
+</p>
+<h3 id="note_71-B09">Note 71-B09:  (Library) Fixed bug in background</h3>
+<p>Fixed a bug in the <CODE>NNS_G2dBGLoadScreenRect</CODE> function that caused invalid writing of data outside of the transfer-destination region when that region was smaller than the transfer-source region.
+</p>
+<h3 id="note_71-B10">Note 71-B10:  (Converter) Fixed bug in <CODE>-pcm</CODE> option of <CODE>g2dcvtr</CODE></h3>
+<ul><li>A bug resulting in incorrect calculation of palette size when using the <CODE>-pcm</CODE> option has been fixed.
+</li> 
+</ul>
+<h3 id="note_71-B11">Note 71-B11:  (Converter) Fixed bug in <CODE>-afs</CODE> option of <CODE>g2dcvtr</CODE></h3>
+<ul><li> A bug where the <CODE>-afs</CODE> option (for aligning output file size to 4-byte units) was not reflected correctly in file header size information has been fixed..
+</li>
+</ul>
+<h3 id="note_71-B12">Note 71-B12:  (Converter) Fixed bug for header information in BMP files output by <CODE>fontcvtr</CODE></h3>
+<p>A bug where header information for output BMP files was not parsed correctly by some editors and viewers has been fixed.
+</p>
+<h2 id="version_20070314">Changes in Version 2007/03/14</h2>
+<h3 id="note_64-B01">Note 64-B01:  (Library) Changed static inline in the header file to inline</h3>
+<p>Some static inline function declarations in the header file have been changed from static inline to inline. A reduction in code size can be expected due to this change.
+</p>
+<h3 id="note_64-B02">Note 64-B02:  (Library) Added function to OAM manager to get pointer to internal buffer</h3>
+<p>The <CODE>NNS_G2dGetOamBuffer</CODE> function to get a pointer to the internal buffer of the OAM manager module has been added.
+</p>
+<h3 id="note_64-B03">Note 64-B03:  (Library) Revised operations resulting when region to be transferred in background exceeds allowed range</h3>
+<p>Behavior has been revised so that clipping results when the area being transferred by the <CODE>NNS_G2dBGLoadScreenRect</CODE> function exceeds the range of the transfer source/destination.
+</p>
+<h3 id="note_64-B04">Note 64-B04:  (Library) Updated for vertical writing/holding when rendering characters</h3>
+<p>Updated for correct display of vertical writing and holding.
+</p>
+<h3 id="note_64-B05">Note 64-B05:  (Library) Added and revised character rendering samples</h3>
+<ul><li> Three demos, <CODE>PortraitHW</CODE>, <CODE>PortraitSW</CODE>, and <CODE>DrawVertical</CODE>, have been added to sample demos.
+</li>
+<li> Specifications have been changed so that VRAM mode and color mode can be switched when using the <CODE>OBJ1D</CODE> and <CODE>MinimumCanvas</CODE> sample demos. A warning is now issued or a correction carried out when an invalid size results for <CODE>CharCanvas</CODE>.
+</li>
+</ul>
+<h3 id="note_64-B06">Note 64-B06:  (Converter) Added option to input Windows fonts when using <CODE>fontcvtr</CODE></h3>
+<ul><li> An option for parsing font sizes in the same manner as typical Windows software when entering a Windows font has been added.
+</li>
+</ul>
+<ul><li> When entering a Windows font and converting at other than two levels, a &quot;soft anti-alias&quot; feature that allows output quality to be improved depending on the font has been added.
+</li>
+</ul>
+<h3 id="note_64-B07">Note 64-B07:  (Converter) Added letter order files for <CODE>fontcvtr</CODE></h3>
+<ul><li> Letter order files for IPL font output for the Chinese and Korean markets have been added.
+</li>
+<li> A letter order file for character output used by UHC (code page 949) has been added.
+</li>
+</ul>
+<h3 id="note_64-B08">Note 64-B08:  (Converter) Fixed bug where illegal termination code was not returned correctly when using <CODE>g2dcvtr</CODE></h3>
+<p>A bug where illegal termination codes were not returned correctly for data when the number of display frames for all animation frames was zero has been fixed.
+</p>
+<h3 id="note_64-B09">Note 64-B09:  (Converter) Fixed bug where last frame of multicell animations was mistakenly displayed when using <CODE>g2dcvtr</CODE></h3>
+<p>A bug where the last frame was mistakenly displayed when animation frames whose number of display frames was zero was specified at the end of a multicell animation sequence has been fixed.
+</p>
+<h3 id="note_64-B10">Note 64-B10:  (Converter) Fixed bug where multicell animations were not updated correctly when using <CODE>g2dcvtr</CODE></h3>
+<p>Sometimes animations were not updated correctly due to the update timing of multicell animations when zero display frames were specified for the last frame of a cell animation sequence inside a multicell animation. This bug has been fixed.
+</p>
+<h3 id="note_64-B11">Note 64-B11:  (Converter) Revised such that illegal data causes conversion to halt in <CODE>g2dcvtr</CODE></h3>
+<p>A means of checking for illegal character numbers of objects in a cell has been implemented so that illegal data now causes conversion to halt.
+</p>
+<h3 id="note_64-B12">Note 64-B12:  (Converter) Added <CODE>-cza</CODE> option to <CODE>g2dcvtr</CODE></h3>
+<p>The <CODE>-cza</CODE> option for checking for animation frames for which zero has been specified as the number of displayed animation frames and treating such cases as illegal data has been added.
+</p>
+<h3 id="note_64-B13">Note 64-B13:  (Converter) Updated <CODE>fontcvtr</CODE> to output fonts used for vertical writing/holding</h3>
+<ul><li> Functionality to output vertical NITRO fonts has been added.
+</li>
+<li> Functionality to output NITRO fonts for vertical holding has been added.
+</li>
+<li> Functionality to rotate glyphs during BMP output has been deleted with the addition of functionality to output NITRO fonts for vertical writing/holding. This functionality is still available in the CUI version.
+</li>
+</ul>
+<h3 id="note_64-B14">Note 64-B14:  (Converter) Fixed bug when entering Windows font in <CODE>fontcvtr</CODE></h3>
+<p>A bug where fonts were not output correctly when 2 was specified for <B>Levels of Gray</B> when using a Windows font for input has been fixed.
+</p>
+<h3 id="note_64-B15">Note 64-B15:  (Converter) Fixed bug in <CODE>-iu</CODE> option of <CODE>fontcvtrc</CODE></h3>
+<p>A bug where the command line option <CODE>-iu</CODE> was actually <CODE>-iv</CODE> when using the command line version (CUI version) has been fixed. Although <CODE>-iu</CODE> is the correct option, <CODE>-iv</CODE> can also be used for compatibility. (However, it is not given in the manual.)
+</p>
+<h3 id="note_64-B16">Note 64-B16:  (Converter) Fixed bug in width line of <CODE>fontcvtrc</CODE></h3>
+<p>A bug where the width line color and internal cell color were being processed in the same way has been fixed.
+</p>
+<h3 id="note_64-B17">Note 64-B17:  (Converter) Fixed bug in message window when using <CODE>fontcvtr</CODE></h3>
+<p>A bug has been fixed where the message window would close when using the GUI even if conversion failed.
+</p>
+<h3 id="note_64-B18">Note 64-B18:  (Converter) Fixed bug in <CODE>fontcvtr</CODE> letter order files</h3>
+<p>When using a letter order file (<CODE>ds_ipl.xlor</CODE>) that outputs an IPL table, a bug has been fixed where characters having the same character code in the European and Japanese code sets would appear. Corresponding locations in the Japanese code set have been replaced with <CODE>&lt;null/&gt;</CODE>.
+</p>
+<h2 id="version_20060529">Changes in Version 2006/05/29</h2>
+<h3 id="note_59-B01">Note 59-B01:  (Library) Added functionality to restart cell animations from the beginning</h3>
+<p>The <CODE>NNS_G2dRestartCellAnimation</CODE> function was added to restart animation playback from the beginning of an animation.
+</p>
+<h3 id="note_59-B02">Note 59-B02:  (Library) Added functionality to restart multicell animations from the beginning</h3>
+<p>The <CODE>NNS_G2dRestartMCAnimation</CODE> function was added to restart multicell animation playback from the beginning of an animation.
+</p>
+<h3 id="note_59-B03">Note 59-B03:  (Library) Added functionality to set playback start status for multicell animations</h3>
+<p>The <CODE>NNS_G2dStartMCCellAnimationAll</CODE> function has been added to put cell animations made up of multicell instances in animation playback start mode.
+</p>
+<h3 id="note_59-B04">Note 59-B04:  (Converter) Added <CODE>-afs</CODE> option to <CODE>g2dcvtr</CODE></h3>
+<p>Added the <CODE>-afs</CODE> option for aligning the file size of output files to 4-byte multiples.
+</p>
+<h3 id="note_59-B05">Note 59-B05:  (Library) Fixed bug where G2d library did not function correctly when <CODE>GX_DMA_NOT_USE</CODE> was set</h3>
+<p>A bug has been fixed where the G2d library would not work correctly when <CODE>GX_DMA_NOT_USE</CODE> was set using the <CODE>GX_SetDefaultDMA</CODE> function.
+</p>
+<h3 id="note_59-B06">Note 59-B06:  (Library) Fixed bug where screens that were not a multiple of 32 characters could not be loaded correctly</h3>
+<p>A bug has been fixed where screens whose vertical/horizontal dimensions were not a multiple of 32 characters could not be loaded correctly. The arguments of the <CODE>NNS_G2dBGLoadScreenRect</CODE> function were also changed in line with this.
+</p>
+<h3 id="note_59-B07">Note 59-B07:  (Converter) Fixed bug where incorrect region information was calculated and output by <CODE>g2dcvtr</CODE></h3>
+<p>A bug has been fixed where the calculation of area information for cells that include an object for which double affine mode has been set was mistakenly output. Now the same area information as cells that use only standard objects is output.
+</p>
+<h3 id="note_59-B08">Note 59-B08:  (Converter) Fixed bug where VRAM transfer information was not calculated correctly by <CODE>g2dcvtr</CODE></h3>
+<p>A bug has been fixed where transfer information was not calculated corrected by the process used to calculate VRAM transfer information as updated in version 1.2.2.
+</p>
+<h3 id="note_59-B09">Note 59-B09:  (Converter) Fixed bug where cell boundary radius was not calculated correctly by <CODE>g2dcvtr</CODE></h3>
+<p>There was a bug where the cell boundary radius was not being calculated correctly. This has been fixed.
+</p>
+<h2 id="version_20050901">Changes in Version 2005/09/01</h2>
+<h3 id="note_50-B01">Note 50-B01:  (Format) Added capture position information block to NCGR and NCBR</h3>
+<p>The character-data file formats NCCR and NCBR have been extended, and the character location information block has been added.
+</p>
+<h3 id="note_50-B02">Note 50-B02:  (Library) Added function to access data blocks</h3>
+<p>The <CODE>NNS_G2dGetUnpackedCharacterPosInfo</CODE> function has been added to access this data block.
+</p>
+<h3 id="note_50-B03">Note 50-B03:  (Library) Added functionality to access data structures</h3>
+<ul><li> An accessor function has been added to enable use of user extended attributes.
+</li>
+<li> The <CODE>NNS_G2dGetAnimSequenceIndex</CODE> function has been added.
+</li>
+</ul>
+<h3 id="note_50-B04">Note 50-B04:  (Library) Added functions for the animation controller</h3>
+<p>The following new functions have been added for the animation controller.
+</p>
+<ul><li><CODE>NNS_G2dGetAnimCtrlCurrentAnimSequence</CODE>
+</li>
+<li><CODE>NNS_G2dGetAnimCtrlCurrentElemIdxVal</CODE>
+</li>
+</ul>
+<h3 id="note_50-B05">Note 50-B05:  (Library) Added functions for multicell animations</h3>
+<p>The following new functions have been added for multicell animations.
+</p>
+<ul><li><CODE>NNS_G2dTraverseMCCellAnims</CODE>
+</li>
+<li><CODE>NNS_G2dTraverseMCNodes</CODE>
+</li>
+</ul>
+<h3 id="note_50-B06">Note 50-B06:  (Library) Added background functionality</h3>
+<p>The following functionality has been added to backgrounds.
+</p>
+<ul><li> Updated to load compressed palettes and partial characters.
+</li>
+<li> Updated for loading free size screens.
+</li>
+</ul>
+<h3 id="note_50-B07">Note 50-B07:  (Library) Added function for character rendering</h3>
+<p>A function was added for creating cells that display <CODE>CharCanvas</CODE> using the renderer.
+</p>
+<h3 id="note_50-B08">Note 50-B08:  (Sample) Added samples</h3>
+<ul><li> The <CODE>Renderer_CharChange</CODE> sample demo has been added. This demo switches between multiple images for the renderer. It also shows how to use the <CODE>-br</CODE> partial character output option.
+</li>
+</ul>
+<ul><li> The <CODE>UserExAttribute</CODE> sample demo has been added. This demo uses user extended attributes.
+</li>
+<li> The <CODE>MultiCell_UILayout</CODE> sample demo has been added. This demo does user interface processing for game applications using multicells.
+</li>
+</ul>
+<h3 id="note_50-B09">Note 50-B09:  (Converter) Added <CODE>-br/</CODE>, <CODE>-rtp</CODE>, and <CODE>-oua</CODE> options to <CODE>g2dcvtr</CODE></h3>
+<ul><li> The <CODE>&ndash;br/</CODE> option has been added for the conversion process in which a rectangular area of the character file has been specified.
+</li>
+<li> The <CODE>-rtp</CODE> option has been added to remove transparent pixels from the boundary region when calculating boundary region information.
+</li>
+<li> The <CODE>&ndash;oua</CODE> option has been added to extract comment strings in extended comment fields that are added in NCE file version 1.04 as extended user attribute information. (For more information, see the <CODE>g2dcvtr</CODE> manual.)
+</li>
+</ul>
+<h3 id="note_50-B10">Note 50-B10:  (Library) Fixed bug where cell animation rendering failed</h3>
+<p>The rendering of animation sequences that specified a zero display time for the leading animation would fail. This bug has been fixed.
+</p>
+<h3 id="note_50-B11">Note 50-B11:  (Library) Multicell animations</h3>
+<p>A bug has been fixed where animation updating was not performed properly in cases for data that the multicell node attribute and <CODE>NNS_G2D_MCANIM_PLAYMODE_CONTINUE</CODE> were set.
+</p>
+<p>Note: The fix for this bug has slightly increased the processing load to update multicell animations. Specifically, the average execution time of the <CODE>NNS_G2dTickMCAnimation</CODE> function has increased by 19 percent (from 57 microseconds to 68 microseconds) in the <CODE>Renderer_PerfCheck</CODE> sample. The increase in processing load depends on the data. The characteristics of an increased processing load are as follows.
+</p>
+<ul><li> Processing occurs during multicell switching.
+</li>
+<li> No processing occurs if <CODE>NNS_G2D_MCANIM_PLAYMODE_CONTINUE</CODE> has not been set.
+</li>
+<li> The processing load increases if the total number of animation frames is large in the cell animation referenced by multicell.
+</li>
+</ul>
+<h3 id="note_50-B12">Note 50-B12:  (Library) Fixed bug where OAM manager would fail on an assert</h3>
+<p>A bug has been fixed where an assert fails if the transformation enable flag is not set for the object and the object is registered by the OAM manager with an affine reference number. (Operations were changed to continue processing without setting the affine number.)</p>
+<h3 id="note_50-B13">Note 50-B13:  (Library) Fixed bug where an assert warning was illegally displayed by extended OAM manager</h3>
+<p>When setting a registration function with the extended OAM manager using the <CODE>NNS_G2dSetOamManExEntryFunctions</CODE> function, an erroneous assert warning was output when the affine parameters were not used but <CODE>NNSG2dOamExEntryFunctions.getAffineCapacity</CODE> and <CODE>NNSG2dOamExEntryFunctions.funcs.entryNewAffine</CODE> were set to <CODE>NULL</CODE>. This bug has been fixed.
+</p>
+<h3 id="note_50-B14">Note 50-B14:  (Library) Fixed bug where renderer did not render correctly</h3>
+<p>A bug has been fixed where cells were not rendered correctly when using object rendering without using affine transformation after rendering a cell with the renderer using software sprites that use affine transformation.
+</p>
+<h3 id="note_50-B15">Note 50-B15:  (Library) Fixed bug where data was loaded in the wrong slot in background</h3>
+<p>A bug in <CODE>NNS_G2dBGSetup</CODE> and <CODE>NNS_G2dBGLoadElements</CODE> has been fixed where the extended palette was loaded into the wrong slot with the sub-screen as the target.
+</p>
+<h3 id="note_50-B16">Note 50-B16:  (Library) Fixed bug where wrong background mode would result in background</h3>
+<p>A bug in <CODE>NNS_G2dBGSetup</CODE> that resulted in the wrong background mode when reading an affine-extended background into a BG3 that is an affine-extended background has been fixed.
+</p>
+<h3 id="note_50-B17">Note 50-B17:  (Library) Fixed bug in tag process callback for character rendering</h3>
+<p>A bug in <CODE>NNS_G2dTextCanvasDrawTaggedText</CODE> has been fixed where changes made using a tag process callback to <CODE>TextCanvas</CODE> were not reflected in the rendered drawing.
+</p>
+<h3 id="note_50-B18">Note 50-B18:  (Converter) Fixed bug for VRAM transfer information output when using <CODE>g2dcvtr</CODE></h3>
+<p>A bug in specifying a greater transfer size than was needed during VRAM transfer information output has been fixed.
+</p>
+<h3 id="note_50-B19">Note 50-B19:  (Converter) Fixed bug where warning message was illegally displayed by <CODE>g2dcvtr</CODE></h3>
+<p>A bug for a warning message output erroneously in the middle of valid conversion processing has been fixed. The warning displays information about an invalid type conversion that causes truncation when converting variable types within the converter. In previous versions, even valid type conversions displayed this warning. This bug has been fixed.
+</p>
+<h3 id="note_50-B20">Note 50-B20:  (Converter) Fixed bug where screen was not converted correctly when using <CODE>g2dcvtr</CODE></h3>
+<p>A bug in converting screens that were not multiples of 256 in height properly has been fixed.
+</p>
+<h3 id="note_50-B21">Note 50-B21:  (Converter) Fixed bug in rectangular region information output when using <CODE>g2dcvtr</CODE></h3>
+<p>A bug where rectangular area information was output one size larger has been fixed.
+</p>
+<h2 id="version_20050606">Changes in Version 2005/06/06</h2>
+<h3 id="note_45-B01">Note 45-B01:  (Library) Added font-rendering functionality</h3>
+<p>Functions to manipulate fonts and rendering of text characters and text strings have been added.
+</p>
+<h3 id="note_45-B02">Note 45-B02:  (Library) Added assert statement for cell animation</h3>
+<p>Assert statements that treat animation sequences having only animation frames with a display time of zero as invalid sequences have been added.
+</p>
+<h3 id="note_45-B03">Note 45-B03:  (Library) Changed object position correction process for cell animations</h3>
+<p>The object position correction processing that is used when the double affine flag is specified using the <CODE>NNS_G2dMakeCellToOams</CODE> function will be performed only when the object's double-size flag is actually changed.
+</p>
+<h3 id="note_45-B04">Note 45-B04:  (Library) Updated for object rendering where double affine flag is set for OAM software sprite rendering</h3>
+<p>Updated for object rendering when a double affine flag is set for OAM software sprite rendering.
+</p>
+<h3 id="note_45-B05">Note 45-B05:  (Library) Added function for multicell animations</h3>
+<p>Added the <CODE>NNS_G2dSetMCAnimationCellAnimFrame</CODE> function, which sets the playback animation frame for each cell animation in a multicell animation.
+</p>
+<h3 id="note_45-B06">Note 45-B06:  (Library) Changed object position correction process for renderer and renderer core</h3>
+<p>The object position correction process used when the double-size affine flag overwrite is specified using the <CODE>NNS_G2dSetRendererAffineOverwriteMode</CODE> function is performed only when the object&rsquo;s double-size flag is actually changed.
+</p>
+<h3 id="note_45-B07">Note 45-B07:  (Library) Changed object processing method when double affine flag is set for renderer and renderer core</h3>
+<p>The processing method used to render objects that have had their double-size affine flag enabled by NITRO-CHARACTER using 2D graphics engines was changed. In the new version, when objects with an enabled double-size affine flag are entered, based on the assumption that the tool has performed object position correction, object size * 1/2 is added to the object position calculation, and the correction value for double-size affine objects is cancelled before performing the process. (If you want to revert to the previous operation, comment out the <CODE>NNS_G2D_ASSUME_DOUBLEAFFINE_OBJPOS_ADJUSTED</CODE> definition in <CODE>g2d_config.h</CODE>.)</p>
+<h3 id="note_45-B08">Note 45-B08:  (Converter) Added <CODE>-ncn</CODE> option to <CODE>g2dcvtr</CODE></h3>
+<p>Added the <CODE>&ndash;ncn</CODE> option, which uses NCE file titles for the NCGR (NCBR) output filenames. The <CODE>&ndash;ncn</CODE> option is used when several 1D mapping format NCE files reference a single NCG file.
+</p>
+<h3 id="note_45-B09">Note 45-B09:  (Converter) Added warning process to <CODE>g2dcvtr</CODE></h3>
+<p>A warning process was added to prevent the output of invalid data. (For animation sequences that do not contain any animation frames, and sequences that contain only animation frames having a display time of zero.)</p>
+<h3 id="note_45-B10">Note 45-B10:  (Converter) Added <CODE>fontcvtr</CODE></h3>
+<p>A font converter (<CODE>fontcvtr.exe</CODE>) has been added to create font resources. For instructions on its use, see <CODE>NitroSystem\docs\G2D\fontcvtr_Manual.pdf</CODE>.
+</p>
+<h3 id="note_45-B11">Note 45-B11:  (Library) Fixed bug where cells not included between -128 and 127 were not rendered correctly</h3>
+<p>Cells with objects positioned outside of the range -128 to 127 were rendered incorrectly. This bug has been fixed. Objects in cells can be positioned from -256 to 255. You can revert to previous rendering functionality by defining <CODE>NNS_G2D_LIMIT_CELL_X_128</CODE> in <CODE>include/fmt/g2d_Cell_data.h</CODE> and recompiling the library.
+</p>
+<h3 id="note_45-B12">Note 45-B12:  (Library) Fixed bug in rendering software sprites</h3>
+<p>The direction of flat surfaces is reversed on square polygons in software sprites. As a result of this change, sprites display correctly even when the culling mode is set to <CODE>GX_CULL_BACK</CODE>.
+</p>
+<h3 id="note_45-B13">Note 45-B13:  (Library) Fixed bug where infinite loop resulted with cell animations</h3>
+<p>A bug has been fixed where animation sequence rendering would fail when the lead animation frame was specified as having a display time of zero in the cell animation.
+</p>
+<h3 id="note_45-B14">Note 45-B14:  (Converter) Fixed bug in <CODE>BuildNENR</CODE></h3>
+<p>Fixed bugs in <CODE>BuildNENR.exe</CODE> (mainly related to input path parsing).
+</p>
+<h2 id="version_20050328">Changes in Version 2005/03/28</h2>
+<h3 id="note_43-B01">Note 43-B01:  (Library) Standardized rendering order for standard OAMs and affine-converted OAMs when using extended OAM manager</h3>
+<p>The rendering order for standard OAMs and affine-converted OAMs has been standardized. In the past, affine-converted OAMs were rendering in the reverse order they were registered in. The same behavior as implemented in the past can be restored by defining <CODE>NNS_G2D_OAMEX_USE_OLD_REINDEXOAMCHUNKLIST_</CODE> and rebuilding the library.
+</p>
+<h3 id="note_43-B02">Note 43-B02:  (Library) Added function for extended OAM manager</h3>
+<p>The <CODE>NNSG2d_SetOamManExDrawOrderType</CODE> function has been added for changing behavior related to object rendering order used by the extended OAM manager.
+</p>
+<h3 id="note_43-B03">Note 43-B03:  (Sample) Added samples</h3>
+<p>A sample using the extended OAM manager in combination with the renderer has been added.
+</p>
+<h3 id="note_43-B04">Note 43-B04:  (Library) Fixed bug in multicell animations</h3>
+<p>A bug where the <CODE>NNS_G2dSetMCAnimationSpeed</CODE> and <CODE>NNS_G2dResetMCCellAnimationAll</CODE> functions would not work correctly depending on initialization conditions has been fixed. (The functions would not work correctly when initialized with the multicell instance type specified as <CODE>NNS_G2D_MCTYPE_DONOT_SHARE_CALLANIM</CODE>.)</p>
+<h3 id="note_43-B05">Note 43-B05:  (Library) Fixed bug related to renderer affine parameter sharing</h3>
+<p>A bug related to affine parameter sharing by the renderer module has been fixed.
+</p>
+<h3 id="note_43-B06">Note 43-B06:  (Library) Revised coding error in ASSERT macro</h3>
+<p>A coding error in the ASSERT macro found in the <CODE>g2d_SRTControl.h</CODE> file has been fixed.
+</p>
+<h3 id="note_43-B07">Note 43-B07:  (Converter) Fixed bug where invalid converted binary was output by <CODE>g2dcvtr</CODE></h3>
+<p>A bug has been fixed where invalid converted binary was being output for 1D mapping mode data with object compression turned off.
+</p>
+<h2 id="version_20050131">Changes in Version 2005/01/31</h2>
+<h3 id="note_39-B01">Note 39-B01:  (Library) Added function to calculate total length of video frames for animation sequence data</h3>
+<p>Added the <CODE>NNS_G2dCalcAnimSequenceTotalVideoFrames</CODE> function, which calculates the total video frame length of the animation sequence data.
+</p>
+<h3 id="note_39-B02">Note 39-B02:  (Library) Added function for multicell animations</h3>
+<p>The <CODE>NNS_G2dResetMCCellAnimationAll</CODE> function has been added. Resets the animation frames for the cell animation that composes the multicell entity.
+</p>
+<h3 id="note_39-B03">Note 39-B03:  (Library) Changed function that initializes multicell animations</h3>
+<p>The function for initializing multicell animations has been changed. The sample demo that showed how to use the functions was also revised. Usage has been simplified, and depending on the characteristics of the multicell animation data, improved performance and memory efficiency can be anticipated (this is effective in cases where data references the same cell animation). The older function also remains.
+</p>
+<h3 id="note_39-B04">Note 39-B04:  (Converter) Changed label definition header file output by <CODE>g2dcvtr</CODE></h3>
+<p>The extended comment information in the label definition header file output with the <CODE>-lbl</CODE> option of <CODE>g2dcvtr</CODE> is now inserted as a C comment.
+</p>
+<h3 id="note_39-B05">Note 39-B05:  (Converter) Deleted the C source code format output feature in <CODE>g2dcvtr</CODE></h3>
+<p>Deleted functionality to create output files in C source code format.
+</p>
+<h3 id="note_39-B06">Note 39-B06:  (Library) Fixed bug in UV value calculation when rendering OAM software sprites</h3>
+<p>Fixed a bug in the calculation method of the UV value used in software sprite rendering when a 1D mapping with a 256-color character was being used.
+</p>
+<h3 id="note_39-B07">Note 39-B07:  (Converter) Fixed bug where conversion of files stored in absolute-path format by <CODE>g2dcvtr</CODE> failed</h3>
+<p>Fixed a bug where file conversion failed for files with related files in the link filename data that use absolute path names.
+</p>
+<h3 id="note_39-B08">Note 39-B08:  (Converter) Fixed bug where cell animation playback mode information for <CODE>g2dcvtr</CODE> was not set correctly</h3>
+<p>Fixed a bug that caused the cell animation playback mode information to be set incorrectly when converting multicell data.
+</p>
+<h2 id="version_20041206">Changes in Version 2004/12/06</h2>
+<h3 id="note_34-B01">Note 34-B01:  (Library) Added function for multicell animations</h3>
+<p>The <CODE>NNS_G2dGetMCBankNumNodesRequired</CODE> function was added.
+</p>
+<h3 id="note_34-B02">Note 34-B02:  (Documentation) Moved portion of the overview manual to API reference</h3>
+<p>Updated the content of the technical document and moved a section of the overview manual to API reference.
+</p>
+<h3 id="note_34-B03">Note 34-B03:  (Converter) Added <CODE>-o/</CODE> and <CODE>-src</CODE> options to <CODE>BuildNENR</CODE></h3>
+<p>The following options were added to the <CODE>BuildNENR.exe</CODE> converter.
+</p>
+<ul><li> <CODE>-o/</CODE> Output destination folder specification
+</li>
+<li> <CODE>-src</CODE> Source file output specification
+</li>
+</ul>
+<h3 id="note_34-B04">Note 34-B04:  (Converter) Added <CODE>-ai</CODE>, <CODE>-aisrt</CODE>, and <CODE>-ait</CODE> options to <CODE>g2dcvtr</CODE></h3>
+<p>Added options (<CODE>-ai</CODE>, <CODE>-aisrt</CODE>, <CODE>-ait</CODE>) that specify the method for the output animation element in <CODE>g2dcvtr.exe</CODE>.
+</p>
+<h3 id="note_34-B05">Note 34-B05:  (Library) Fixed bug where rendering count was set too low for extended OAM manager</h3>
+<p>With the lower-priority OAM (drawn in the background), a bug caused the number of rendering times to be set to a lower number. That has been fixed.
+</p>
+<h3 id="note_34-B06">Note 34-B06:  (Library) Fixed bug where values were not updated correctly for software sprites</h3>
+<p>When the <CODE>NNS_G2dSetSpriteAttrEnable</CODE> function was executed the second or later times, values were not updated properly. This bug has been fixed.
+</p>
+<h3 id="note_34-B07">Note 34-B07:  (Library) Fixed bug in loading images</h3>
+<p>With functions like <CODE>NNS_G2dLoadImage*</CODE>, a bug that did not flash cache content before the DMA transfer has been fixed.
+</p>
+<h2 id="version_20041118">Changes in Version 2004/11/18</h2>
+<h3 id="note_33-B01">Note 33-B01:  (Library) Added the renderer core module</h3>
+<p>Separated part of the rendering process for the renderer from matrix stack management and parameter management, and made part of the rendering process into a separate renderer core module.
+</p>
+<p>The renderer core module was created by separating from the renderer module only the essential parts necessary for render processing. It was created with the assumption that users want to substantially customize their process or speed up simple processes. The renderer module uses the renderer core module internally.
+</p>
+<h3 id="note_33-B02">Note 33-B02:  (Sample) Added renderer core module samples</h3>
+<p>Six renderer module samples have been added.
+</p>
+<h3 id="note_33-B03">Note 33-B03:  (Library) Added function for cells</h3>
+<p>The <CODE>NNS_G2dGetCellAnimationCurrentCell</CODE> function has been added.
+</p>
+<h3 id="note_33-B04">Note 33-B04:  (Library) Added process to SRT animation for data that uses translation animation only</h3>
+<p>A process has been added in cell (multicell) SRT animation for data using only translational animation. Previously, even when using only translational animation, scale and rotation was also configured for cell (multicell) animation. With this addition, unnecessary affine transformation settings are avoided.
+</p>
+<h3 id="note_33-B05">Note 33-B05:  (Library) Added functions for high-speed rendering of software sprites</h3>
+<p>The <CODE>NNS_G2dDrawSprite*Fast</CODE> functions that do not save the current matrix of the 3D graphics engine have been added. They work faster because push and pop operations are not performed on the matrix stack.
+</p>
+<h3 id="note_33-B06">Note 33-B06:  (Library) Added functions for high-speed rendering when rendering OAM software sprites</h3>
+<p>The <CODE>NNS_G2dDrawOneOam3DDirect*Fast</CODE> functions that do not save the current matrix of the 3D graphics engine have been added. They work faster because push and pop operations are not performed on the matrix stack.
+</p>
+<h3 id="note_33-B07">Note 33-B07:  (Library) Added functions to improve efficiency of rendering process when rendering OAM software sprites</h3>
+<p>Added functions to increase the efficiency of the rendering process by caching UV parameter calculation results (<CODE>NNS_G2dSetOamSoftEmuSpriteParamCache</CODE> and <CODE>NNS_G2dDrawOneOam3DDirectUsingParamCacheFast</CODE>). The usable parts are limited, but they operate about 50 percent faster than the normal <CODE>NNS_G2dDrawOneOam3DDirect*Fast</CODE> functions.
+</p>
+<h3 id="note_33-B08">Note 33-B08:  (Library) Added cache process for loading images</h3>
+<p>Added a process that writes the memory cache of the transfer source data region back to main memory before data transfer to VRAM with the <CODE>NNS_G2dLoadPalette</CODE> and <CODE>NNS_G2dLoadPaletteEx</CODE> functions.
+</p>
+<h3 id="note_33-B09">Note 33-B09:  (Library) Improved renderer processing efficiency</h3>
+<p>Process efficiency has improved. Comparing with the multicell rendering process (see the <CODE>Renderer_PerfCheck</CODE> sample demo):
+</p>
+<ul><li> When optimization method is not set, object rendering is about -40 percent, and software sprite rendering is -30 percent
+</li>
+<li> When optimization method is set, object rendering is about -50 percent, and software sprite rendering is -40 percent
+</li>
+</ul>
+<h3 id="note_33-B10">Note 33-B10:  (Library) Added and also eliminated renderer functions</h3>
+<ul><li> The <CODE>NNS_G2dOptimizeRenderer</CODE> function has been eliminated.
+</li>
+<li> The <CODE>NNS_G2dBeginRenderingEx</CODE> function has been added to replace the function above.
+</li>
+<li> The <CODE>NNS_G2dSetTrans</CODE> function has been added.
+</li>
+</ul>
+<h3 id="note_33-B11">Note 33-B11:  (Library) Added renderer process to overwrite OAM parameters</h3>
+<p>Items were added that the renderer can specify in the parameter overwrite process performed for OAM (such as the <CODE>NNS_G2dSetRendererOverwriteEnable</CODE>/<CODE>Disable</CODE> functions).
+</p>
+<h3 id="note_33-B12">Note 33-B12:  (Converter) Updated <CODE>g2dcvtr</CODE> for data that uses only translation animation</h3>
+<p>In cell SRT animation, animation result types supporting data using only translational animation were added. Updates were also made for that output. With this extension, animation data capacity was reduced, and unnecessary affine transformation settings during execution were avoided.
+</p>
+<h3 id="note_33-B13">Note 33-B13:  (Library) Fixed bug where palettes were not loaded correctly when loading images</h3>
+<p>Fixed bug in the <CODE>NNS_G2dLoadPaletteExfunction</CODE> where palette was not loaded correctly.
+</p>
+<h2 id="version_20041012">Changes in Version 2004/10/12</h2>
+<h3 id="note_26-B01">Note 26-B01:  (Library) Changed the DMA channel used by the library</h3>
+<p>The DMA channels used by the G2D library are now the same ones used by the GX library.
+</p>
+<h3 id="note_26-B02">Note 26-B02:  (Library) Changed some functions in library to inline functions</h3>
+<p>To improve processing efficiency, changed some of the library functions to inline functions.
+</p>
+<h3 id="note_26-B03">Note 26-B03:  (Library) Updated for cell information that has rectangle information as cell-region information</h3>
+<p>Updated for cell information that has rectangle information as cell-region information. Also, preexisting private functions for getting boundary sphere information have made public. (Such as the <CODE>NNS_G2dGetCellBoundingRect</CODE> function.)
+</p>
+<h3 id="note_26-B04">Note 26-B04:  (Library) Eliminated wrapping process formerly used when specifying position outside screen for software sprite</h3>
+<p>The <CODE>NNS_G2dDrawSprite*</CODE> functions no longer internally emulate wrapping when an offscreen position is specified.
+</p>
+<h3 id="note_26-B05">Note 26-B05:  (Library) Added function to load palettes where only part of the palette used is loaded</h3>
+<p>A function was added for loading palettes where only the part of the palette being used is loaded. (<CODE>NNS_G2dLoadPaletteEx</CODE>.) To use this functionality, you must use the converter's <CODE>-pcm</CODE> option to create compressed palette data.
+</p>
+<h3 id="note_26-B06">Note 26-B06:  (Library) Added renderer functions</h3>
+<p>Programmer-friendly functions for overwriting rendering objects parameters have been added. (Such as <CODE>NNS_G2dSetRendererOverwriteEnable</CODE> and <CODE>NNS_G2dSetRendererOverwrite*</CODE>.)
+</p>
+<h3 id="note_26-B07">Note 26-B07:  (Library) Enabled control of object affine conversion mode rewrite method when using renderer</h3>
+<p>Rewriting object affine conversion mode when the renderer renders objects using the 2D graphics engine can now be controlled. (Using the <CODE>NNS_G2dSetRendererAffineOverwriteMode</CODE> function, for example.)
+</p>
+<h3 id="note_26-B08">Note 26-B08:  (Library) Changed type of callback arguments before and after object rendering by the renderer</h3>
+<p>The argument type used by callbacks before and after the renderer draws objects has been changed.
+</p>
+<h3 id="note_26-B09">Note 26-B09:  (Converter) Added <CODE>-pcm</CODE> option to <CODE>g2dcvtr</CODE></h3>
+<p>The <CODE>&mdash;pcm</CODE> option was added. This option outputs compressed palette data that holds only the used palette numbers as data. Palettes can be partially loaded using the <CODE>NNS_G2dLoadPaletteEx</CODE> function to load compressed palette data.
+</p>
+<h3 id="note_26-B10">Note 26-B10:  (Converter) Error messages now output as standard errors</h3>
+<p>Error messages are now output as standard errors. Also, the user can control the output of the converter's operation messages. With standard values the converter does not output operational messages.
+</p>
+<ul><li>If the <CODE>v</CODE> option is specified, operational messages of the converter are output to the standard output.
+</li>
+</ul>
+<h3 id="note_26-B11">Note 26-B11:  (Converter) Revised specifications such that execution result is now returned as return value</h3>
+<p>The converter's execution result is now returned as a return value. Zero is returned when execution succeeded. A nonzero value is returned when execution failed.
+</p>
+<h3 id="note_26-B12">Note 26-B12:  (Converter) Added <CODE>-br</CODE> option to <CODE>g2dcvtr</CODE></h3>
+<p>The <CODE>-br</CODE> option was added. This option outputs cell data that contains rectangular area information.
+</p>
+<h3 id="note_26-B13">Note 26-B13:  (Library) Fixed bug where polygon ID setting for software sprites was not enabled</h3>
+<p>Fixed a bug that disabled functions (such as <CODE>NNS_G2dSetSpriteCurrentPolygonID</CODE>) used to set polygon IDs used while rendering software sprites.
+</p>
+<h3 id="note_26-B14">Note 26-B14:  (Library) Fixed bug when loading 256-color extended palette data</h3>
+<p>Fixed a bug in which the loading destination address value was not reflected when using the <CODE>NNS_G2dLoadPalette</CODE> function to load 256-color extended palette data for use with the 2D graphics engine.
+</p>
+<h3 id="note_26-B15">Note 26-B15:  (Library) Fixed bug where cell data was not rendered correctly by the renderer</h3>
+<p>Fixed a bug in which cell data meeting both of the following conditions were not rendered properly.
+</p>
+<ul><li> The load destination address of the image proxy character data is a nonzero value.
+</li>
+<li> The character data uses a 256-color palette format or a mapping mode other than 1D-32K.
+</li>
+</ul>
+<h3 id="note_26-B16">Note 26-B16:  (Converter) Fixed bug where invalid data was output by <CODE>g2dcvtr</CODE></h3>
+<p>A bug resulted in corrupt export data if object compression was turned off when converting 256-color palettes and 1D mapping characters. This has been fixed.
+</p>
+<h2 id="version_20040916">Changes in Version 2004/09/16</h2>
+<h3 id="note_21-B01">Note 21-B01:  (Library) Added functionality to display background</h3>
+<p>Added functionality that displays backgrounds semi-automatically, using screen data information.
+</p>
+<h3 id="note_21-B02">Note 21-B02:  (Library) Changed behavior when double affine conversion mode is forcibly set by the OAM manager</h3>
+<p>Changed the way in which double-size affine transformation mode is applied forcibly to an object that is registered using the <CODE>NNS_G2dEntryOamManagerOamWithAffineIdx</CODE> function. Only the affine parameter numbers are rewritten. The affine transformation mode is not changed. The same processing must be performed outside the manager. (When using the <CODE>NNS_G2dMakeCellToOams</CODE> function and the renderer, you do not need to be concerned with this. In the next release, we plan to release functions that control rewriting operations that are performed in the renderer's affine transformation mode.)</p>
+<h3 id="note_21-B03">Note 21-B03:  (Library) Eliminated functionality to set object affine conversion mode when using extended OAM manager</h3>
+<p>Removed the ability to set the object affine transformation mode (normal or double-size). Along with this change, the <CODE>NNS_G2dSetOamManExDoubleAffineFlag</CODE> and <CODE>NNS_G2dGetOamManExDoubleAffineFlag</CODE> functions were deleted. The same processing must be performed outside the manager. (When using the <CODE>NNS_G2dMakeCellToOams</CODE> function and the renderer, you do not need to be concerned with this.</p>
+<h3 id="note_21-B04">Note 21-B04:  (Library) Implemented process for switching render surface's active state</h3>
+<p>Implemented processing that supports the switching of the active state of the render surface. This feature allows you to forcibly prohibit rendering on specific surfaces. The <CODE>NNS_G2dSetRendererSurfaceActiveFlag</CODE> and <CODE>NNS_G2dGetRendererSurfaceActiveFlag</CODE> accessor functions have been added.
+</p>
+<h3 id="note_21-B05">Note 21-B05:  (Converter) Updated for conversion of background-related data to <CODE>g2dcvtr</CODE></h3>
+<p>Support for the conversion of background data has been added to <CODE>g2dcvtr</CODE>.
+</p>
+<h2 id="version_20040902">Changes in Version 2004/09/02</h2>
+<h3 id="note_20-B01">Note 20-B01:  (Library) Added functionality to OAM manager to automatically shift Z-value of sprite and render it</h3>
+<p>Added functionality to shift Z-values automatically and to render sprites when software sprite rendering is used. (<CODE>NNS_G2dSetOamManagerSpriteZoffsetStep</CODE>.)
+</p>
+<h3 id="note_20-B02">Note 20-B02:  (Library) Added functionality to renderer to automatically shift Z-value of sprite and render it</h3>
+<p>Added functionality to shift Z-values automatically and to render sprites when software sprite rendering is used. (<CODE>NNS_G2dSetOamManagerSpriteZoffsetStep</CODE>.)
+</p>
+<h3 id="note_20-B03">Note 20-B03:  (Library) Implemented functionality to optimize renderer's rendering process</h3>
+<p>Examined the renderer setting status and implemented functionality to optimize the rendering process. (<CODE>NNS_G2dOptimizeRenderer</CODE>.)
+</p>
+<h3 id="note_20-B04">Note 20-B04:  (Library) Added flip-rendering functionality to renderer</h3>
+<p>Flip-rendering functionality has been added to the renderer. (<CODE>NNS_G2dSetRendererFlipMode</CODE>.)
+</p>
+<h3 id="note_20-B05">Note 20-B05:  (Library) Added ability to register callback functions to renderer</h3>
+<p>Made it possible to register callback functions that are used before and after rendering a cell or an object.
+</p>
+<h3 id="note_20-B06">Note 20-B06:  (Library) Updated for SRT animations in cell animations</h3>
+<p>Updated for SRT (scale, rotate, and translate) animation.
+</p>
+<p><B>Note:</B> Many of the NCE data that was created with previous versions of NITRO-CHARACTER contain animation frames that include an incorrect scale zero value. Such data cannot be rendered properly with the new runtime. Reconvert the data and replace scale zero, or save the data again with the latest version of NITRO-CHARACTER. (This applies to the multicell animations that is described below.)</p>
+<h3 id="note_20-B07">Note 20-B07:  (Library) Updated for SRT animations in multicell animations</h3>
+<p>Updated for SRT (scale, rotate, and translate) animation.
+</p>
+<h3 id="note_20-B08">Note 20-B08:  (Converter) Added functionality to correct scale value in SRT animations</h3>
+<p>Implemented functionality that replaces scale values with a value of 1 if the scale value is specified as 0 for the SRT animation data.
+</p>
+<h3 id="note_20-B09">Note 20-B09:  (Library) Fixed bug that did not reset cell animation playback status when multicells were switched</h3>
+<p>Fixed a bug that did not reset cell animation playback status when multicells were switched. Now the multicell animations that use the cell animations in stop playback mode can be played back properly.
+</p>
+<h2 id="version_20040810">Changes in Version 2004/08/10</h2>
+<h3 id="note_16-B01">Note 16-B01:  (Converter) Added <CODE>-bg</CODE> option to <CODE>g2dcvtr</CODE></h3>
+<p>The <CODE>-bg</CODE> option for outputting character (NCG) data used for backgrounds has been added. When using the <CODE>&ndash;bg</CODE> option, no NCE (cell definition) file is necessary during conversion.
+</p>
+<h3 id="note_16-B02">Note 16-B02:  (Converter) Added <CODE>-lbl</CODE> option to <CODE>g2dcvtr</CODE></h3>
+<p>Added <CODE>&ndash;lbl</CODE> option, which outputs the label name definition header file. The label name definition header file defines label text strings linked to animation sequences as aliases for label numbers.
+</p>
+<h3 id="note_16-B03">Note 16-B03:  (Converter) Changed <CODE>g2dcvtr</CODE>'s log messages</h3>
+<p>The converter log message was changed to output more data.
+</p>
+<h3 id="note_16-B04">Note 16-B04:  (Library) Fixed bug in animations</h3>
+<p>Fixed a bug that caused the animation frame of frame 0 to be set regardless of the frame number entered with the <CODE>NNS_G2dSetAnimCtrlCurrentFrame</CODE> function.
+</p>
+<p>Bugs in the <CODE>NNS_G2dSetMCAnimationCurrentFrame</CODE>, <CODE>NNS_G2dSetCellAnimationCurrentFrame</CODE>, and <CODE>NNS_G2dSetCellAnimationCurrentFrameNoReset</CODE> functions, which use the N<CODE>NS_G2dSetAnimCtrlCurrentFrame</CODE> function, have also been fixed.
+</p>
+<h3 id="note_16-B05">Note 16-B05:  (Converter) Fixed bug in input filename path</h3>
+<p>Fixed a bug that caused parameter parsing to fail with entered filenames that do not include a '<CODE>\</CODE>' or '<CODE>/</CODE>' in their file path.
+</p>
+<h2 id="version_20040802">Changes in Version 2004/08/02</h2>
+<h3 id="note_15-B01">Note 15-B01:  (Library) Changed function names</h3>
+<p>Changed function names. Function names in past versions have been aliased and still work. Please use new functions for the projects. The following functions have changed.
+</p>
+<pre>---------------------------------------------------------------------------
+Animation
+Old                                                   =&gt;      New
+NNS_G2dGetCurrentElement               NNS_G2dGetAnimCtrlCurrentElement
+NNS_G2dGetNextElement                  NNS_G2dGetAnimCtrlNextElement
+NNS_G2dGetNormalizedTime               NNS_G2dGetAnimCtrlNormalizedTime
+NNS_G2dSetCallBackFunctor              NNS_G2dSetAnimCtrlCallBackFunctor
+NNS_G2dSetCallBackFunctorAtAnimFrame   NNS_G2dSetAnimCtrlCallBackFunctorAtAnimFrame
+NNS_G2dGetAnimSpeed                    NNS_G2dGetAnimCtrlSpeed
+NNS_G2dSetAnimSpeed                    NNS_G2dSetAnimCtrlSpeed
+NNS_G2dResetAnimationState             NNS_G2dResetAnimCtrlState
+NNS_G2dInitCallBackFunctor             NNS_G2dInitAnimCallBackFunctor
+
+NNS_G2dBindAnimController              NNS_G2dBindAnimCtrl
+NNS_G2dGetAnimControllerType           NNS_G2dGetAnimCtrlType
+NNS_G2dInitAnimController              NNS_G2dInitAnimCtrl
+NNS_G2dIsAnimControllerActive          NNS_G2dIsAnimCtrlActive
+NNS_G2dStartAnimController             NNS_G2dStartAnimCtrl
+NNS_G2dStopAnimController 	            NNS_G2dStopAnimCtrl
+NNS_G2dTickAnimController              NNS_G2dTickAnimCtrl
+NNS_G2dInitAnimControllerCallBackFunctor  NNS_G2dInitAnimCtrlCallBackFunctor
+
+---------------------------------------------------------------------------
+Cell Animations
+Old                                                   =&gt;      New
+NNS_G2dSetCellAnimSpeed                NNS_G2dSetCellAnimationSpeed
+NNS_G2dGetCellAnimAnimCtrl             NNS_G2dGetCellAnimationAnimCtrl                        
+NNS_G2dInitializeCellAnimation         NNS_G2dInitCellAnimation
+NNS_G2dInitializeCellAnimationVramTransfered    NNS_G2dInitCellAnimationVramTransfered 
+
+
+---------------------------------------------------------------------------
+Multicell Animations
+Old                                                   =&gt;      New
+NNS_G2dInitializeMCAnimation           NNS_G2dInitMCAnimation
+NNS_G2dInitializeMCInstance            NNS_G2dInitMCInstance
+NNS_G2dSetMCAnimSpeed                  NNS_G2dSetMCAnimationSpeed
+
+
+---------------------------------------------------------------------------
+Graphic Image Loading
+Old                                                   =&gt;      New
+NNS_G2dInitializeImageProxy            NNS_G2dInitImageProxy
+NNS_G2dInitializeImagePaletteProxy     NNS_G2dInitImagePaletteProxy
+---------------------------------------------------------------------------
+Entities
+Old                                                   =&gt;      New
+NNS_G2dInitializeEntity                NNS_G2dInitEntity
+NNS_G2dSetCurrentAnimation             NNS_G2dSetEntityCurrentAnimation
+
+----------------------------------------------------------------------------
+OAM Manager
+Old                                                   =&gt;      New
+NNS_G2dInitializeOamManager            NNS_G2dInitOamManagerModule
+NNS_G2dEntryNewOam                     NNS_G2dEntryOamManagerOam
+NNS_G2dEntryNewOamWithAffineIdx        NNS_G2dEntryOamManagerOamWithAffineIdx
+NNS_G2dEntryNewOamAffine               NNS_G2dEntryOamManagerAffine
+NNS_G2dEntryOamAffine                  NNS_G2dSetOamManagerAffine
+NNS_G2dApplyToHW                       NNS_G2dApplyOamManagerToHW
+NNS_G2dApplyToHWSoftEmu                NNS_G2dApplyOamManagerToHWSprite               
+NNS_G2dResetBuffer                     NNS_G2dResetOamManagerBuffer
+NNS_G2dApplyToHWAndReset               NNS_G2dApplyAndResetOamManagerBuffer
+NNS_G2dGetOamAttrCapacity              NNS_G2dGetOamManagerOamCapacity
+NNS_G2dGetOamAffineCapacity            NNS_G2dGetOamManagerAffineCapacity
+
+---------------------------------------------------------------------------
+Extended OAM Manager
+Old                                                   =&gt;      New
+NNS_G2dEntryNewOamEx                   NNS_G2dEntryOamManExOam
+NNS_G2dEntryNewOamWithAffineIdxEx      NNS_G2dEntryOamManExOamWithAffineIdx
+NNS_G2dEntryNewAffineParamsEx          NNS_G2dEntryOamManExAffine
+NNS_G2dApplyToBaseModuleEx             NNS_G2dApplyOamManExToBaseModule
+NNS_G2dResetOamInstanceEx              NNS_G2dResetOamManExBuffer
+NNS_G2dGetNewOamInstanceEx             NNS_G2dGetOamManExInstance
+NNS_G2dSetOamEntryFunctionsEx          NNS_G2dSetOamManExEntryFunctions
+
+----------------------------------------------------------------------------
+Renderer
+Old                                                   =&gt;      New
+NNS_G2dAddTargetSurface                NNS_G2dAddRendererTargetSurface
+NNS_G2dSetCurrentImageProxy            NNS_G2dSetRendererImageProxy
+
+-----------------------------------------------------------------------------
+Software Sprites
+Old                                                   =&gt;      New
+NNS_G2dSetCurrentPolygonID             NNS_G2dSetSpriteCurrentPolygonID
+NNS_G2dSetDefaultAttr                  NNS_G2dSetSpriteDefaultAttr
+NNS_G2dGetDefaultAttr                  NNS_G2dGetSpriteDefaultAttr
+</pre>
+<h3 id="note_15-B02">Note 15-B02:  (Library) Improved debug string output for color palettes loaded from file</h3>
+<p>Improved debug string output for the color palette.
+</p>
+<h3 id="note_15-B03">Note 15-B03:  (Library) Added functions to OAM manager</h3>
+<ul><li> Added the <CODE>NNS_G2dGetNewOamManagerInstance</CODE> function, a new function that generates the OAM Manager entity.
+</li>
+<li> Added the <CODE>NNS_G2dGetNewOamManagerInstanceAsFastTransferMode</CODE> function, which generates the OAM Manager entity and can transfer the internal buffer at high speed using DMA.
+</li>
+</ul>
+<h3 id="note_15-B04">Note 15-B04:  (Library) Updated for cases where OAM manager does not manage affine parameters</h3>
+<p>Updated for when the OAM Manager entity does not control the affine parameter.
+</p>
+<h3 id="note_15-B05">Note 15-B05:  (Library) Changed parameters for setting 3D graphics engine camera used with software sprites</h3>
+<p>Changed the parameters of the 3D graphics engine camera settings for software sprites. Fixed a bug resulting in disparities in the image output between 2D and 3D rendering.
+</p>
+<h3 id="note_15-B06">Note 15-B06:  (Converter) Extended functionality of converter and changed its name</h3>
+<p>The name of the converter program has been changed from <CODE>G2DConv.exe</CODE> to <CODE>g2dcvtr.exe</CODE>. Functionality was also extended. (For more information, see the converter manual.</p>
+<h3 id="note_15-B07">Note 15-B07:  (Library) Fixed bug where affine parameters outside area being managed were illegally reset by OAM manager</h3>
+<p>Fixed a bug where affine parameters outside the control range were incorrectly reset by the <CODE>NNS_G2dResetBuffer</CODE> function (internal buffer reset process).
+</p>
+<h3 id="note_15-B08">Note 15-B08:  (Library) Fixed bug where rendering was not performed correctly by OAM manager except in double affine mode</h3>
+<p>Fixed a bug resulting in incorrect rendering from outside the double affine mode when the software sprite rendering functions are used.
+</p>
+<h2 id="version_20040720">Changes in Version 2004/07/20</h2>
+<h3 id="note_13-B01">Note 13-B01:  (Library) Updated for multicells</h3>
+<p>Updated for multicell use.
+</p>
+<h3 id="note_13-B02">Note 13-B02:  (Format) Changed the version of every file format to 1.0</h3>
+<p>Changed the version of every file format to 1.0. (Old data cannot be used. Please use the new converter to reconvert.)</p>
+<h3 id="note_13-B03">Note 13-B03:  (Library) Added CellVRAM transfer mode manager module</h3>
+<p>A CellVRAM transfer mode manager module has been added. (Used in VRAM transfer animation.)</p>
+<h3 id="note_13-B04">Note 13-B04:  (Library) Added OAM software sprite rendering module</h3>
+<p>Rendering using OAM software sprites separated from the OAM Manager. OAM software sprite rendering module added.
+</p>
+<h3 id="note_13-B05">Note 13-B05:  (Library) Updated cell animations for VRAM transfer animations</h3>
+<p>Cell animations now support VRAM transfer animation.
+</p>
+<h3 id="note_13-B06">Note 13-B06:  (Library) Changed names of multicell functions</h3>
+<ul><li> Changed the name of the <CODE>NNS_G2dGetNumNodesRequired</CODE> function to <CODE>NNS_G2dGetMCNumNodesRequired</CODE>.
+</li>
+<li> Changed the name of the <CODE>MultiCellDataToMCInstance</CODE> function to <CODE>NNS_G2dSetMCDataToMCInstance</CODE>.
+</li>
+</ul>
+<h3 id="note_13-B07">Note 13-B07:  (Library) Changed workings of OAM manager</h3>
+<p>Separated rendering with OAM software sprites into its own module. (The behavior of the NNS_G2dDrawOneOam3DDirect function was changed accordingly. For more information, see the function reference.)
+</p>
+<h3 id="note_13-B08">Note 13-B08:  (Converter) Added functionality to <CODE>g2dcvtr</CODE></h3>
+<ul><li> Implemented version checking for NITRO-CHARACTER files. Old version files can no longer be used. (Old data must be resaved using the new NITRO-CHARACTER.)</li>
+</ul>
+<ul><li> Various output options were added. (See the converter documentation for more information.)
+</li>
+<li> Updated for the output of various 1D mapping modes.
+</li>
+<li> Updated for conversion of data using character compression functionality.
+</li>
+<li> Made it possible to output VRAM transfer animation data.
+</li>
+<li> Updated for output of animation play method information.
+</li>
+</ul>
+<h2 id="version_20040622">Changes in Version 2004/06/22</h2>
+<h3 id="note_10-B01">Note 10-B01:  (Library) Combined extended OAM manager and extended OAM manager 2</h3>
+<p>The extended OAM manager and extended OAM manager 2 have been combined. Named the extended OAM manager, with functions to use the extended OAM manager 2 format.
+</p>
+<h3 id="note_10-B02">Note 10-B02:  (Library) Changed variable names</h3>
+<p><CODE>NNSG2dCellData.cellType</CODE> has been renamed <CODE>NNSG2dCellData.cellAttr</CODE>.
+</p>
+<h3 id="note_10-B03">Note 10-B03:  (Library) Revised specifications such that functions used for debug output are turned off in FINALROM build</h3>
+<p>The function group that outputs run-time library debug data is defined as dummy inline functions in the FINALROM build.
+</p>
+<h3 id="note_10-B04">Note 10-B04:  (Library) Changed accessors for animation controller to inline functions</h3>
+<p>Converted the accessor group functions that were defined in the header to inline functions.
+</p>
+<h3 id="note_10-B05">Note 10-B05:  (Library) Changed extended OAM manager specifications</h3>
+<ul><li> Can specify the method (normal or double-sized affine) for affine transformations that are used by the OAM Manager. (<CODE>NNS_G2dSetOamManExDoubleAffineFlag</CODE>.)
+</li>
+</ul>
+<ul><li> Can no longer configure default rendering registration functions. The <CODE>NNS_G2dSetOamEntryFunctionsEx</CODE> function must be executed.
+</li>
+</ul>
+<h3 id="note_10-B06">Note 10-B06:  (Library) Added functionality to the renderer</h3>
+<ul><li> Added visibility culling functionality to the Renderer. (Data must be reconverted with the new converter.)</li>
+<li> Added a function to initialize the render surface (<CODE>NNS_G2dInitRenderSurface</CODE>).
+</li>
+<li> Added a pointer to the function that performs visibility culling on the render surface member.
+</li>
+</ul>
+<h3 id="note_10-B07">Note 10-B07:  (Format) Changed the format of NCER files</h3>
+<p>Changed the format of the cell definition data NCER file. Data from previous versions cannot be used. (Re-conversion is necessary.)
+</p>
+<h3 id="note_10-B08">Note 10-B08:  (Library) Fixed bug where extended OAM manager did not render correctly</h3>
+<p>Fixed a bug that caused improper rendering when registering OAM without using affine parameters.
+</p>
+<h3 id="note_10-B09">Note 10-B09:  (Library) Fixed bug where renderer did not render correctly</h3>
+<p>Fixed a bug that prevented proper rendering when object position was y &lt;= -64 in the cell's local coordinate system.
+</p>
+<h2 id="version_20040610">Changes in Version 2004/06/10</h2>
+<h3 id="note_09-B01">Note 09-B01:  (Converter) Updated converter for 1D-mapping specifications</h3>
+<p>Added converter support for specifications to allow multiple objects in a single cell to share the character region during 1D mapping.
+</p>
+<h3 id="note_09-B02">Note 09-B02:  (Library) Fixed bug where debug display for animation data failed when loading files</h3>
+<p>In the <CODE>NNS_G2dPrintAnimContents</CODE> function, the display of debug animation data that was created using SRT (scale, rotate, and translate) animation failed. This bug has been fixed.
+</p>
+<h3 id="note_09-B03">Note 09-B03:  (Library) Fixed bug in OAM manager</h3>
+<ul><li> Fixed a bug that caused improper operation when <CODE>NNS_G2D_OAMTYPE_SOFTWAREEMULATION</CODE> was specified as a manager type and the OAM management region start index was specified as a value other than 0.
+</li>
+</ul>
+<ul><li> Fixed a bug that caused improper operation when the affine parameter management region start index was specified as a value other than 0.
+</li>
+</ul>
+<h3 id="note_09-B04">Note 09-B04:  (Library) Fixed bugs in software sprites</h3>
+<ul><li> Fixed a bug that caused improper rendering after a sprite with an alpha value of 0 was rendered.
+</li>
+<li> Fixed a bug that caused improper rendering when the <CODE>NNS_G2D_SPRITEATTR_UV</CODE> attribute was not used.
+</li>
+<li> Fixed a bug resulting in a difference in the behavior of the 2D graphics engine and software sprite processing when scrolling.
+</li>
+</ul>
+<h2 id="version_20040528">Changes in Version 2004/05/28</h2>
+<h3 id="note_08-B01">Note 08-B01:  (Library) Added functions to load files</h3>
+<ul><li> Added the <CODE>NNS_G2dGetUnpackedXXX</CODE> function group to simplify the description of user code.
+</li>
+<li> Added the <CODE>NNS_G2dIsBinFileValid</CODE> function to verify file extensions and versions.
+</li>
+</ul>
+<h3 id="note_08-B02">Note 08-B02:  (Library) Added functions for the animation controller</h3>
+<ul><li> Added playback control functions (<CODE>NNS_G2dStartAnimController</CODE>, <CODE>NNS_G2dStopAnimController</CODE>, and so on)
+</li>
+<li> Added functions that allow the playback mode to be changed by the programmer (<CODE>NNS_G2dSetAnimCtrlPlayModeOverridden</CODE> and so on).
+</li>
+<li> Renamed the <CODE>NNS_G2dSetCallBackFunctorAtSpecifiedFrame</CODE> function as <CODE>NNS_G2dSetCallBackFunctorAtAnimFrame</CODE>.
+</li>
+</ul>
+<h3 id="note_08-B03">Note 08-B03:  (Library) Changed OAM manager function arguments</h3>
+<p>Changed the arguments for the <CODE>NNS_G2dApplyToHWSoftEmu</CODE> and <CODE>NNS_G2dDrawOneOam3DDirect</CODE> functions.
+</p>
+<h3 id="note_08-B04">Note 08-B04:  (Library) Changed extended OAM manager 2 function arguments</h3>
+<p>Changed the arguments of the <CODE>NNS_G2dGetNewOamInstanceEx2</CODE> functions.
+</p>
+<h3 id="note_08-B05">Note 08-B05:  (Library) Added functions to load images</h3>
+<p>Added a convenient function group to simplify the loading of data to an image proxy.
+</p>
+<h3 id="note_08-B06">Note 08-B06:  (Library) Changed renderer function arguments</h3>
+<ul><li> Changed the arguments for rendering methods. The matrix cache for the <CODE>NNS_G2dDrawXXX</CODE> internal data structure has been hidden.
+</li>
+<li> Changed the arguments for the <CODE>NNS_G2dPopMtx</CODE> function.
+</li>
+</ul>
+<h3 id="note_08-B07">Note 08-B07:  (Library) Enabled turning debug output on and off with compiler switch</h3>
+<ul><li> Allowed the compiler switch to turn debug output on and off in the library. Debug output is enabled when <CODE>NNSI_G2D_DEBUG</CODE> is defined.
+</li>
+</ul>
+<h3 id="note_08-B08">Note 08-B08:  (Format) Made changes to file format and converter</h3>
+<p>Changed the file format and converter. Reconvert previously created files.
+</p>
+<h3 id="note_08-B09">Note 08-B09:  (Sample) Added samples</h3>
+<ul><li> Revised the sample to support SDK 1.2 and load sample data from the file system.
+</li>
+<li> Added character data display samples for each format (256-color palette, extended palette, and so on).
+</li>
+</ul>
+<h3 id="note_08-B10">Note 08-B10:  (Converter) Added <CODE>BuildNENR</CODE></h3>
+<p>Provided the <CODE>BuildNENR.exe</CODE> tool to create entity-defined binary files.
+</p>
+
+
+
+<hr><p>CONFIDENTIAL</p></body>
+</html>

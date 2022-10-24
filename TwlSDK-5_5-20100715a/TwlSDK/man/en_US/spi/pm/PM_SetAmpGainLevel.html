@@ -1,0 +1,148 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>PM_SetAmpGainLevel*</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">PM_SetAmpGainLevel* <IMG src="../../image/TWL.gif" width="24" height="12" border="0" align="middle"></H1>
+<H2>Syntax</H2>
+<DL>
+  <DD>
+  <PRE><CODE>#include &lt;twl/spi.h&gt;</CODE></PRE>
+  <PRE><CODE>u32 PM_SetAmpGainLevel( u8 level );
+
+u32 PM_SetAmpGainLevelAsync( u8 level, PMCallback callback, void* arg );
+  </CODE></PRE>
+</DL>
+<H2>Arguments</H2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="13%"><EM><STRONG>level</STRONG></EM></TD>
+<TD width="87%">Setting value that determines the amp gain.</TD>
+    </TR>
+    <TR>
+<TD><EM><STRONG>callback</STRONG></EM></TD>
+<TD>Callback that is called when the command finishes.</TD>
+    </TR>
+    <TR>
+<TD><EM><STRONG>arg</STRONG></EM></TD>
+<TD>Argument that is used when calling the callback.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>Return Values</H2>
+<P>If <CODE>PM_RESULT_SUCCESS</CODE>, the command execution has succeeded (for synchronous functions), or the command was successfully sent to the ARM7 processor (for asynchronous functions).</P>
+<P>If <CODE>PM_RESULT_BUSY</CODE>, the SPI was occupied by other processing and unable to process this function.</P>
+<H2>Description</H2>
+<P>Sets the gain of the programmable amp gain. This function can only be used when the operating mode is TWL mode.</P>
+<P>The <SPAN class="argument">level</SPAN> argument is a <CODE>u8</CODE> value; specify a value in the range of 0 to 119.</P>
+<P><BR> <BR> <B>Differences Between the <A href="PM_SetAmpGain.html"><CODE>PM_SetAmpGain*</CODE></A> and <CODE>PM_SetAmpGainLevel*</CODE> Functions</B>
+
+
+<P>There are two types of setter functions: <A href="PM_SetAmpGain.html"><CODE>PM_SetAmpGain*</CODE></A> and <CODE>PM_SetAmpGainLevel*</CODE>. The former has existed since the Nintendo DS and can specify four gain levels. The latter is explained in this reference page; it is new, has been added for the TWL system, and can set 120 gain levels.
+
+<P>The <CODE><A href="PM_SetAmpGain.html">PM_SetAmpGain*</A></CODE> functions can specify four levels and are usable in any mode. The specified value is always set unchanged.
+
+
+<P>The <CODE>PM_SetAmpGainLevel*</CODE> functions can specify 120 levels and are usable only in TWL HYBRID and TWL LIMITED mode. The CODEC mode decides whether the value is actually configured as one of 120 levels, as specified. When the CODEC is running in TWL mode (which should always be the operating mode in this case), a 120-level specification is set, unchanged, to 120 levels. However, at all other times, values specified for 120 levels will be averaged to 4 levels. These four levels conform to the four levels set with the <CODE><A href="PM_SetAmpGain.html">PM_SetAmpGain</A></CODE> function.
+
+
+<P><BR> <BR> <B>Value of <SPAN class="argument">level</SPAN> and the Gain to Set</B>
+
+
+<P>The value of the <SPAN class="argument">level</SPAN> argument and the actual amp gain that is set are shown below.
+
+
+
+<BLOCKQUOTE>
+<P>When the codec is in TWL mode:</P>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+<TH width="254"><I>level</I></TH>
+<TH width="725">Gain to Set    </TH>
+    </TR>
+    <TR>
+      <TD width="254"> 0</TD>
+<TD width="725"> 10.5 dB</TD>
+    </TR>
+    <TR>
+      <TD width="254"> 1</TD>
+<TD width="725"> 11.0 dB</TD>
+    </TR>
+    <TR>
+      <TD width="254"> 2</TD>
+<TD width="725"> 11.5 dB</TD>
+    </TR>
+    <TR>
+      <TD width="254"> :</TD>
+      <TD width="725"> :</TD>
+    </TR>
+    <TR>
+<TD> n</TD>
+<TD>10.5 + (<I>n</I> x 0.5) dB</TD>
+    </TR>
+    <TR>
+      <TD> :</TD>
+      <TD> :</TD>
+    </TR>
+    <TR>
+      <TD width="254"> 119</TD>
+<TD width="725"> 70.0 dB</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</BLOCKQUOTE>
+<BLOCKQUOTE>
+<P>When the codec is in DS mode:</P>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+<TH width="249"><I>level</I></TH>
+<TH width="730">Gain to Set</TH>
+    </TR>
+    <TR>
+      <TD width="249"> 0 ~ 36</TD>
+<TD width="730"> 26.0 dB (equivalent to 31 in the 120-level notation)</TD>
+    </TR>
+    <TR>
+      <TD width="249"> 37 ~ 48</TD>
+<TD width="730"> 32.0 dB (equivalent to 43 in the 120-level notation)</TD>
+    </TR>
+    <TR>
+      <TD width="249"> 49 ~ 60</TD>
+<TD width="730"> 38.0 dB (equivalent to 55 in the 120-level notation)</TD>
+    </TR>
+    <TR>
+      <TD width="249"> 61 ~ 119</TD>
+<TD width="730"> 44.0 dB (equivalent to 67 in the 120-level notation)</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</BLOCKQUOTE>
+<P><BR> <BR> <BR> <B>Asynchronous Functions</B></P>
+<P>This function uses PXI to send the command that performs the corresponding operation in the ARM7 processor. The ARM7 side that receives that command is executed by operating the PMIC. Therefore, this function may not operate instantly after you call it. A synchronous function that waits for the operation to finish, as well as an asynchronous function that only sends commands to the ARM7, are provided. Use either of the functions depending on your operational requirements. (The asynchronous function has &quot;Async&quot; appended to the function name.)</P>
+<P>When an asynchronous function is called, the specified <SPAN class="argument">callback</SPAN> is called when processing on the ARM7 side finishes. The callback type <CODE>PMCallback</CODE> is defined by:</P>
+<BLOCKQUOTE> <CODE><code>typedef void ( *PMCallback )( u32 result, void* arg )</code>;</CODE></BLOCKQUOTE>
+<P> This callback is called from inside the PXI interrupt handler.</P>
+<P>The callback's first argument, <SPAN class="argument">result</SPAN>, indicates the result of the command. This is either <code>PM_RESULT_SUCCESS</code> or <code>PM_RESULT_BUSY</code>. The second argument in the callback returns the value <SPAN class="argument">arg</SPAN>.</P>
+<P><BR> <BR> <B>About <CODE>PM_RESULT_BUSY</CODE></B></P>
+<P>The SPI is used for various other processes besides power management. If you call this function while another process is using it, this function sends a command to the ARM7. There, the SPI is determined to be BUSY, and <CODE>PM_RESULT_BUSY</CODE> is dispatched to the ARM9 without actually processing this function. Likewise, if you call this function while another PM process is running, that fact is determined on the ARM9, and this function returns <CODE>PM_RESULT_BUSY</CODE>. (In this case, the determination is made before notification is sent to the ARM7.)</P>
+<P>Accordingly, if you want to ensure that this function succeeds, make it loop until it succeeds as shown below. (This example does not take into account mistakes such as wrong arguments.)</P>
+<BLOCKQUOTE style="background-color:#ffffcc"><B>Example</B><BR> <CODE>while( PM_SetAmpGainLevel( ... ) != PM_RESULT_SUCCESS )<BR> {<BR> }</CODE></BLOCKQUOTE>
+<P>When using the <CODE>Async</CODE> version of this function, you could do this with code similar to the following.</P>
+<BLOCKQUOTE style="background-color:#ffffcc"><B>Example</B><BR> <CODE>void setResult( u32 result, void* arg )<BR> {<BR> if ( arg )<BR> {<BR> *(u32*)arg = result;<BR> }<BR> }<BR> <BR> while(1)<BR> {<BR> volatile u32 result = PM_RESULT_NONE; // Value that is not returned as a result<BR> <BR> while ( PM_SetAmpGainLevelAsync(..., setResult, (void*)&amp;result ) != PM_RESULT_SUCCESS )<BR> {<BR> }<BR> <BR> // Some other process<BR> otherProcess();<BR> <BR> // Wait for processing to finish<BR> while( result == PM_RESULT_NONE )<BR> {<BR> }<BR> <BR> // Exit from the loop on success<BR> if ( result == PM_RESULT_SUCCESS )<BR> {<BR> break;<BR> }<BR> }</CODE></BLOCKQUOTE>
+
+<H2>Internal Operation</H2>
+<P>On NITRO hardware, this function manipulates the PMIC register PGA_GAIN. On TWL hardware it manipulates the codec.</P>
+<H2>See Also</H2>
+<P><A href="PM_Init.html"><CODE>PM_Init</CODE></A><BR> <A href="PM_SetAmp.html"><CODE>PM_SetAmp*</CODE></A><BR> <A href="PM_SetAmpGain.html"><CODE>PM_SetAmpGain*</CODE></A><BR> <A href="PM_GetAmpGainLevel.html"><CODE>PM_GetAmpGainLevel</CODE></A></P>
+<H2>Revision History</H2>
+<P>2009/06/03 Removed a description of the <CODE>PM_Init</CODE> function (because <CODE>OS_Init</CODE> is now required). <BR>2008/05/01 Initial version. Branched off from the <CODE>PM_SetAmpGain*</CODE> functions.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>FS_ClearOverlayImage</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">FS_ClearOverlayImage <img src="../../image/NTR.gif"align="middle"><img src="../../image/TWL.gif" align="middle"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/fs.h&gt;</CODE><BR>
+  <BR>
+  <CODE>BOOL FS_ClearOverlayImage(<A href="../fs_overlay_info_type.html">FSOverlayInfo</a> *p_ovi);</CODE><br>
+  <br>
+  </dd>
+</dl>
+<h2>Arguments</h2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="13%"><SPAN class="argument">p_ovi</SPAN></TD>
+<TD width="87%"><A href="../fs_overlay_info_type.html"><CODE>FSOverlayInfo</CODE></a> structure that holds overlay module information.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<h2>Return Values</h2>
+<p><CODE>TRUE</CODE> if the overlay module's region is cleared properly; <CODE>FALSE</CODE> otherwise.</p>
+
+<H2>Description</H2>
+<P>
+Clears the overlay module's region. This function is called in the <a href="FS_LoadOverlayImage.html"><CODE>FS_LoadOverlayImage</CODE></a> function.<br><BR> This process is equivalent to invalidating the data and instruction caches for the range starting at the address retrieved by the <a href="FS_GetOverlayAddress.html"><CODE>FS_GetOverlayAddress</CODE></a> function and extending for the length retrieved by <a href="FS_GetOverlayTotalSize.html"><CODE>FS_GetOverlayTotalSize</CODE></a>, and then initializing the entire region to a value of zero.<BR><BR> This function is used together with other functions, such as <A href="FS_GetOverlayFileID.html"><CODE>FS_GetOverlayFileID</CODE></A>, to load overlays asynchronously. For information about the relationship with other overlay functions that perform equivalent processes, see the examples in the <A href="FS_LoadOverlay.html"><CODE>FS_LoadOverlay</CODE></A> function reference. <BR>
+<h2>See Also</h2>
+<p><A href="../fs_overlay_info_type.html"><CODE>FSOverlayInfo</CODE></A><BR> <A href="FS_LoadOverlayInfo.html"><CODE>FS_LoadOverlayInfo</CODE></A><BR> <A href="FS_GetOverlayTotalSize.html"><CODE>FS_GetOverlayTotalSize</CODE></A><BR> <A href="FS_GetOverlayAddress.html"><CODE>FS_GetOverlayAddress</CODE></A><BR> <A href="FS_GetOverlayFileID.html"><CODE>FS_GetOverlayFileID</CODE></A><BR> <A href="FS_StartOverlay.html"><CODE>FS_StartOverlay</CODE></A><BR> <A href="FS_LoadOverlayImage.html"><CODE>FS_LoadOverlayImage</CODE></A><BR> <A href="FS_LoadOverlay.html"><CODE>FS_LoadOverlay</CODE></A><BR> <A href="FS_UnloadOverlayImage.html"><CODE>FS_UnloadOverlayImage</CODE></A></p>
+
+<H2>Revision History</H2>
+<P>
+2007/07/29 Corrected &quot;TCM&quot; to &quot;cache&quot;.<br />
+ 2004/10/19 Changed text and some links.<br> 2004/09/24 Added description of the relationship with each type of overlay function.<br> 2004/09/09 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

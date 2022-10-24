@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>MI_ReadUncompLZ*</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">MI_ReadUncompLZ* <IMG src="../../image/NTR.gif" align="middle"><IMG src="../../image/TWL.gif" align="middle"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+  <PRE><CODE>#include &lt;nitro/mi/uncomp_stream.h&gt;</CODE><BR>
+
+<CODE>s32 MI_ReadUncompLZ8(  <A href="MIUncompContextLZ.html">MIUncompContextLZ</A> *context,  
+                          const u8* data, 
+                          u32 len );</CODE><br>
+<CODE>s32 MI_ReadUncompLZ16( <A href="MIUncompContextLZ.html">MIUncompContextLZ</A> *context,
+                          const u8* data, 
+u32 len );</CODE></PRE>
+  </dd>
+</dl>
+<h2>Arguments</h2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="13%"><SPAN class="argument">context</SPAN></TD>
+<TD width="87%">Pointer to the context structure for uncompression of LZ77-compressed data.</TD>
+    </TR>
+    <TR>
+<TD width="13%"><SPAN class="argument">data</SPAN></TD>
+<TD width="87%">Pointer to a portion of the data to be uncompressed.</TD>
+    </TR>
+    <TR>
+<TD><SPAN class="argument">len</SPAN></TD>
+<TD>Size of the data provided in the second argument.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<h2>Return Values</h2>
+<p>Returns the number of remaining bytes of data being uncompressed. If all of the data is finished being uncompressed, the function returns 0.</p>
+
+<H2>Description</H2>
+<P>Performs streaming uncompression of LZ77-compressed data, doing just the data size given, and copying it to the buffer specified by the <A href="MI_InitUncompContextLZ.html"><CODE>MI_InitUncompContextLZ</CODE></A> function. This function is slow compared to the <A href="MI_UncompressLZ.html"><CODE>MI_UncompressLZ*</CODE></A> function, which uncompresses all the data at once.</P>
+<P>The <code>MI_ReadUncompLZ8</code> function writes in units of 8 bits. On NITRO, you cannot decompress directly to VRAM. On TWL, this is possible, but it is quite slow.<BR><BR> The <code>MI_ReadUncompLZ16</code> function writes in units of 16 bits. On both NITRO and TWL, you can also decompress directly to VRAM. However, the process is slower compared to normal memory.<BR>For compressed data, allow for a 2-byte lead when searching for matching strings.</P>
+
+<P>Decompresses data compressed in LZ77 or LZ77 extended format using <A href="../../tools/ntrcomp.html"><CODE>ntrcomp</CODE> tool</A> or an <A href="MI_CompressLZ.html"><CODE>MI_CompressLZ*</CODE></A> function.</P>
+
+<h2>Internal Operation</h2>
+<P>Processing only takes place on the CPU, without the use of a system call or DMA.</P>
+<h2>See Also</h2>
+<p><A href="MI_UncompressLZ.html"><CODE>MI_UncompressLZ*</CODE></A><BR> <A href="MI_InitUncompContextLZ.html"><CODE>MI_InitUncompContextLZ</CODE></A><BR> <A href="MIUncompContextLZ.html"><CODE>MIUncompContextLZ</CODE></A><BR> <A href="MI_ReadUncompRL.html"><CODE>MI_ReadUncompRL*</CODE></A><BR> <A href="MI_ReadUncompHuffman.html"><CODE>MI_ReadUncompHuffman</CODE></A><BR> <A href="MI_CompressLZ.html"><CODE>MI_CompressLZ*</CODE></A></p>
+
+<H2>Revision History</H2>
+<P>
+2008/12/05 Added description of TWL. <BR> 2007/11/01 Added description of LZ77 extended compression. <BR> 2004/11/30 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 8.0.2.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>WM_SetMPData</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">WM_SetMPData&nbsp;<img src="../../image/NTR.gif"><img src="../../image/TWL.gif"></H1>
+<h2>Syntax</h2>
+<dl>
+  <dd><PRE><CODE>#include &lt;nitro/wm.h&gt;
+
+<A href="WMErrCode.html">WMErrCode</A> WM_SetMPData(
+        <A href="WMCallbackFunc.html">WMCallbackFunc</A>  callback ,
+        const u16*      sendData ,
+        u16             sendDataSize ,
+        u16             tmptt ,
+        u16             pollbmp
+);
+</CODE></PRE></dd>
+</dl>
+
+<h2>Arguments</h2>
+<TABLE width="100%">
+  <tbody>
+    <TR>
+<TD width="200"><CODE>callback</CODE></TD>
+<TD width="800">Designates the callback function to call when the asynchronous process completes. This callback is called from within the interrupt handler.</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>sendData</CODE></TD>
+<TD width="800">Pointer to the data to be send-reserved. Note that this data is forcibly cached.</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>sendDataSize</CODE></TD>
+<TD width="800">The size of the send-reserved data.</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>tmptt</CODE></TD>
+<TD width="800">Kept to maintain backward-compatibility &mdash; now it is ignored.</TD>
+    </TR>
+     <TR>
+<TD width="200"><CODE>pollbmp</CODE></TD>
+<TD width="800">Bitmap that indicates the AID of the send destination child. (enabled only for the parent).</TD>
+    </TR>
+   </tbody>
+</table>
+
+<h2>Return Values</h2>
+<p>Returns the results of the <CODE><A href="WMErrCode.html">WMErrCode</A></CODE> enumerated type process.</p>
+
+<H2>Description</H2>
+<P>Sets the data to be sent by the MP. This function is only executable when the WM is in either the <code>MP PARENT</code> or <code>MP CHILD</code> state. If the return value is <code>WM_ERRCODE_OPERATING</code>, a callback is generated after the MP completes the data transmission process. Do not rewrite the buffer identified by <code><em><strong>sendData</strong></em></code> until the callback is called. Unlike the asynchronous functions of other wireless APIs, processing continues normally even if different function pointers are specified for callbacks when this API is called repeatedly without waiting for callbacks. However, you can call this function a maximum of 10 consecutive times without waiting for a callback; if this function is called more than 10 consecutive times, the API returns an error.</P>
+<P>This function was retained from previous versions to maintain backward-compatibility and is equivalent to specifying <code>WM_PORT_RAWDATA</code> for <em><strong>port</strong></em> and <code>WM_PRIORITY_NORMAL</code> for <em><strong>prio</strong></em> in <A href="WM_SetMPDataToPort.html"><code>WM_SetMPDataToPort</code></A>.</P>
+
+<H2>Notes</H2>
+<P>The <CODE>sendData</CODE> argument is forcibly stored in the internal cache. To avoid overwriting surrounding memory regions, be sure to pass data that is 32-byte aligned.<BR>See the Wireless Communication Library Manual (AboutWirelessManager.pdf) for additional details.</P>
+
+<h2>See Also</h2>
+<P><code><A href="WM_StartMP.html">WM_StartMP</A><BR> <A href="WM_EndMP.html">WM_EndMP</A><BR> <A href="WM_SetMPDataToPort.html">WM_SetMPDataToPort</A><BR> <A href="WM_SetPortCallback.html">WM_SetPortCallback</A></code></P>
+
+<H2>Revision History</H2>
+<P>
+2008/12/17 Added a note about how data passed in arguments is forcibly cached internally.<BR>2005/07/08 Added a description of the limit on number of times this function can be repeatedly called asynchronously.<BR>2005/06/08 Added the fact that the callback is called from the interrupt handler.<br>2004/10/22 Changed the type of return values.<BR>2004/09/25 Added to and revised Description.<BR>2004/08/02 Standardized structure names.<BR>2004/07/29 Added to Description.<BR>2004/07/23 Initial version.<BR>
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

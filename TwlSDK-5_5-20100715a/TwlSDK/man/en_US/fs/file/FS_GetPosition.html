@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title>FS_GetPosition</title>
+<link rel="stylesheet" href="../../css/nitro.css" type="text/css" />
+</head>
+<body>
+
+<h1 align="left">FS_GetPosition <img src="../../image/NTR.gif"align="middle"><img src="../../image/TWL.gif" align="middle"></h1>
+<h2>Syntax</h2>
+<pre><code>
+#include &lt;nitro/fs.h&gt;
+
+u32	FS_GetPosition(FSFile *file);
+</code></pre>
+
+<h2>Arguments</h2>
+<table style="width:100%">
+<tbody>
+<tr>
+<td style="width:13%"><CODE>file</CODE></td>
+<td style="width:87%">The FSFile structure with the file handle.</td>
+</tr>
+</tbody>
+</table>
+
+<h2>Return Values</h2>
+<p>Returns the current seek position in the file.</p>
+
+<h2>Description</h2>
+<P>This acquires the current seek position in an open file. This function is the same as the <a href="FS_GetFilePosition.html">FS_GetFilePosition</a> function. It was created for the sake of compatibility, but the use of <a href="FS_GetFilePosition.html">FS_GetFilePosition</a> is now recommended.</p>
+
+<h2>See Also</h2>
+<p><code><a href="FS_GetFilePosition.html">FS_GetFilePosition</a></code></p>
+
+<h2>Revision History</h2>
+<p>
+2008/12/04 Deleted the <CODE>const</CODE> argument modification. <br />2007/09/18 Changed text to recommend <CODE>FS_GetFileLength</CODE>.<br />2004/05/14 Initial version.<br />
+</p>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

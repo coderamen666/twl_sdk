@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>RTG_GetLastSyncSWClockResult</title>
+<LINK rel="stylesheet" href="../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">RTG_GetLastSyncSWClockResult <img src="../image/NTR.gif" align="middle"><img src="../image/TWL.gif" align="middle"></h1>
+
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/rtc.h&gt;</CODE><BR>
+<PRE><CODE><A href="RTCResult.html">RTCResult</A> RTG_GetLastSyncSWClockResult( void );</CODE></PRE>
+  </dd>
+
+</dl><h2>Arguments</h2>
+<p>None.</p>
+
+<h2>Return Values</h2>
+<p>
+Returns the results from the last call to the <code><A href="RTC_SyncSWClock.html">RTC_SyncSWClock</A></code> function.
+</p>
+
+<H2>Description</H2>
+<P>
+Returns the results of synchronizing the software clock with the last call to the <code><A href="RTC_SyncSWClock.html">RTC_SyncSWClock</A></code> function. Note that the <code><A href="RTC_SyncSWClock.html">RTC_SyncSWClock</A></code> function is invoked from a callback function when recovering from sleep mode.
+</P>
+
+<h2>See Also</h2>
+<P><CODE><A href="RTC_SyncSWClock.html">RTC_SyncSWClock</A></CODE></P>
+
+<H2>Revision History</H2>
+<P>
+2008/04/17 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

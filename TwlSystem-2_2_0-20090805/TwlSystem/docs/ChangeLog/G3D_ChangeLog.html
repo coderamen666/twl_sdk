@@ -1,0 +1,682 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>TWL-System G3D Library Revision History</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta http-equiv="content-style-type" content="text/css" />
+<style type="text/css">
+<!--
+    
+H1
+{
+    font-weight         : bold;
+    font-size           : 250%;
+    text-align          : left;
+    color               : #46f;
+    margin              : 0em 0em 0.5em 0em;
+}
+
+H2
+{
+    font-weight         : bold;
+    font-size           : 150%;
+    text-align          : left;
+    margin              : 2em 0em 0.5em 0em;
+    padding-top         : 8pt;
+    border-top-style    : double;
+    border-top-width    : 3px;
+}
+
+H3
+{
+    font-weight         : bold;
+    font-size           : 120%;
+    margin              : 1em 0em 0.5em 0em;
+    padding-top         : 8pt;
+    border-top-style    : solid;
+    border-top-width    : 1px;
+}
+
+H4
+{
+    font-weight         : normal;
+    font-size           : 100%;
+    margin              : 0em 0em 0em 0.5em;
+}
+
+DIV.date
+{
+    font-size           : normal;
+    text-align          : right;
+    margin              : 0pt 0pt 12pt 0pt;
+}
+
+DIV.licence
+{
+    margin: 0em;
+    border-style : solid;
+    border-width : 1px;
+}
+
+P
+{
+    font-size           : normal;
+    margin              : 0em 1em 0.5em 1em;
+    line-height         : 150%;
+}
+
+PRE
+{
+    font-size           : normal;
+    margin              : 0em 0em 1em 2em;
+    line-height         : 120%;
+}
+
+DT
+{
+    margin              : 1em 0em 0em 1em;
+}
+DD
+{
+    margin-left         : 3em;
+}
+UL
+{
+    margin-top         : 0em;
+}
+
+-->
+</style>
+</head>
+<body>
+
+<h1>TWL-System G3D Library Revision History</h1>
+
+<h2>Index</h2>
+
+<h3><a href="#version_2_2_0_0">2.2.0 PR</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_83-R01">Note 83-R01: (Converter) Added options</a></li>
+<li><a href="#note_83-R02">Note 83-R02: (Library) Standardized behavior when out-of-range frames have been set</a></li>
+<li><a href="#note_83-R03">Note 83-R03: (Documentation) Added warning and error lists to <CODE>g3dcvtr_UsersManual</CODE></a></li>
+</ul>
+<h3><a href="#version_2_1_1">2.1.1</a></h3>
+<h4>Problem Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_82-R01">Note 82-R01: (Library) Reverted the changes related to material skipping </a></li>
+</ul>
+<h3><a href="#version_2_1_0">2.1.0</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_81-R01">Note 81-R01: (Library) Changed the default maximum number of shapes</a></li>
+<li><a href="#note_81-R02">Note 81-R02: (Converter) Added options</a></li>
+</ul>
+<h4>Bug Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_81-R03">Note 81-R03: (Library) Fixed the material skipping bug</a></li>
+<li><a href="#note_81-R04">Note 81-R04: (Library) Fixed the <CODE>NNS_G3D_GET_ANM</CODE> macro bug</a></li>
+<li><a href="#note_81-R05">Note 81-R05: (Converter) Removed the debug check feature from <CODE>g3dcvtr</CODE></a></li>
+<li><a href="#note_81-R06">Note 81-R06: (Converter) Fixed bug specific to large element size in intermediate files</a></li>
+<li><a href="#note_81-R07">Note 81-R07: (Converter) Fixed error output when name is blank</a></li>
+</ul>
+<h3><a href="#version_2_0_0">2.0.0</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_80-R01">Note 80-R01:  (Library) Updated for NDMA</a></li>
+</ul>
+<h3><a href="#version_2_0_0_0">2.0.0 RC</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_78-R01">Note 78-R01:  (Converter) Added errors to <CODE>g3dcvtr</CODE> for irregular matrices</a></li>
+</ul>
+<h4>Bug Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_78-R02">Note 78-R02:  (Converter) Fixed bug for uniform processing of <CODE>frame_step</CODE> in <CODE>g3dcvtr</CODE></a></li>
+</ul>
+<h3><a href="#version_20080408">2008/04/08 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_76-R01">Note 76-R01:  (Converter) Added animation data reference range check to <CODE>g3dcvtr</CODE></a></li>
+<li><a href="#note_76-R02">Note 76-R02:  (Manual) Changed the format of the Revision History</a></li>
+<li><a href="#note_76-R03">Note 76-R03:  (Manual) Changed the language of the Xerces-C++ license</a></li>
+</ul>
+<h4>Bug Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_76-R04">Note 76-R04:  (Converter) Fixed bug where <CODE>g3dcvtr</CODE> does not return correct value on an error</a></li>
+<li><a href="#note_76-R05">Note 76-R05:  (Converter) Changed specifications for the <CODE>frame_step</CODE> uniformity process in <CODE>g3dcvtr</CODE></a></li>
+</ul>
+<h3><a href="#version_20071126">2007/11/26 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_71-R01">Note 71-R01:  (Library) Changed specifications</a></li>
+<li><a href="#note_71-R02">Note 71-R02:  (Converter) Changed <CODE>g3dcvtr</CODE> specifications</a></li>
+</ul>
+<h4>Bug Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_71-R03">Note 71-R03:  (Library) Fixed ASSERT bug</a></li>
+<li><a href="#note_71-R04">Note 71-R04:  (Converter) Fixed bug where incorrect rotation data was output when converting the ICA file</a></li>
+<li><a href="#note_71-R05">Note 71-R05:  (Converter) Fixed bug where <CODE>NODEDESC</CODE> command of the SCB command was not issued correctly when converting <CODE>g3dcvtr</CODE>'s IMD file</a></li>
+</ul>
+<h3><a href="#version_20060529">2006/05/29 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_59-R01">Note 59-R01:  (Converter) Revised to read the command line argument from the file with <CODE>g3dcvtr</CODE></a></li>
+<li><a href="#note_59-R02">Note 59-R02:  (Converter) Added <CODE>-tex-nomerge</CODE> option to <CODE>g3dcvtr</CODE></a></li>
+</ul>
+<h4>Bug Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_59-R03">Note 59-R03:  (Library) Revised comments</a></li>
+<li><a href="#note_59-R04">Note 59-R04:  (Converter) Fixed bug where intermediate files that include billboards could not be converted</a></li>
+</ul>
+<h3><a href="#version_20050901">2005/09/01 Version</a></h3>
+<h4>Bug Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_50-R01">Note 50-R01:  (Library) Fixed bug where rotate animations using a small angle were not being animated smoothly</a></li>
+</ul>
+<h3><a href="#version_20050616">2005/06/16 Version</a></h3>
+<h4>Bug Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_46-R01">Note 46-R01:  (Library) Fixed various bugs</a></li>
+</ul>
+<h3><a href="#version_20050606">2005/06/06 Version</a></h3>
+<h4>Bug Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_45-R01">Note 45-R01:  (Library) Fixed bug when playing animations</a></li>
+</ul>
+<h3><a href="#version_20050328">2005/03/28 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_43-R01">Note 43-R01:  (Library) Improved the precision of frame interpolation</a></li>
+</ul>
+<h4>Bug Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_43-R02">Note 43-R02:  (Library) Fixed bug in SBC instruction callback</a></li>
+<li><a href="#note_43-R03">Note 43-R03:  (Converter) Fixed bug where code used for the environment map when using <CODE>g3dcvtr</CODE> was working incorrectly</a></li>
+</ul>
+<h3><a href="#version_20050131">2005/01/31 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_39-R01">Note 39-R01:  (Library) Support for environmental and projection mapping</a></li>
+<li><a href="#note_39-R02">Note 39-R02:  (Sample) Added samples</a></li>
+<li><a href="#note_39-R03">Note 39-R03:  (Converter) Updated <CODE>g3dcvtr</CODE> for NITRO intermediate file version 1.6.0</a></li>
+</ul>
+<h4>Bug Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_39-R04">Note 39-R04:  (Library) Fixed bug in rendering weighted envelope models</a></li>
+</ul>
+<h3><a href="#version_20041206">2004/12/06 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_34-R01">Note 34-R01:  (Sample) Added samples</a></li>
+<li><a href="#note_34-R02">Note 34-R02:  (Documentation) Added a document about the G3D binary file format</a></li>
+<li><a href="#note_34-R03">Note 34-R03:  (Converter) Updated <CODE>g3dcvtr</CODE> for specifications added to NITRO intermediate file version 1.5.0</a></li>
+<li><a href="#note_34-R04">Note 34-R04:  (Converter) Improved binary generation</a></li>
+</ul>
+<h4>Bug Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_34-R05">Note 34-R05:  (Library) Fixed bug in Y-axis billboard conversion</a></li>
+<li><a href="#note_34-R06">Note 34-R06:  (Library) Fixed bug where callbacks were not called correctly</a></li>
+</ul>
+<h3><a href="#version_20041110">2004/11/10 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_31-R01">Note 31-R01:  (Library) Support for partial playback of joint animations</a></li>
+<li><a href="#note_31-R02">Note 31-R02:  (Library) Support for fractional frame interpolation playback in joint animations</a></li>
+<li><a href="#note_31-R03">Note 31-R03:  (Library) Increased display speed of weighted envelopes</a></li>
+<li><a href="#note_31-R04">Note 31-R04:  (Library) Added accessors for the <CODE>NNSG3dRenderObj</CODE> and <CODE>NNSG3dRS</CODE> structures</a></li>
+<li><a href="#note_31-R05">Note 31-R05:  (Sample) Added samples</a></li>
+</ul>
+<h4>Bug Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_31-R06">Note 31-R06:  (Library) Fixed bug where alpha-value animations did not play accurately</a></li>
+<li><a href="#note_31-R07">Note 31-R07:  (Library) Fixed bug where animation data was sometimes output in duplicate</a></li>
+<li><a href="#note_31-R08">Note 31-R08:  (Library) Fixed bug where playback using a frame step of 2 or 4 was undefined</a></li>
+<li><a href="#note_31-R09">Note 31-R09:  (Library) Fixed bug where display was invalid</a></li>
+<li><a href="#note_31-R10">Note 31-R10:  (Converter) Fixed bug where some data was illegally output by <CODE>g3dcvtr</CODE></a></li>
+<li><a href="#note_31-R11">Note 31-R11:  (Converter) Fixed bug in alignment of animation data when using <CODE>g3dcvtr</CODE></a></li>
+<li>z<a href="#note_31-R12">Note 31-R12:  (Converter) Fixed bug in output of <CODE>pos_scale</CODE> value of <CODE>&lt;box text&gt;</CODE> when using <CODE>g3dcvtr</CODE></a></li>
+</ul>
+<h3><a href="#version_20041012">2004/10/12 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_26-R01">Note 26-R01:  (Library) Added the display of weighted envelopes</a></li>
+<li><a href="#note_26-R02">Note 26-R02:  (Library) Changed callback specifications</a></li>
+<li><a href="#note_26-R03">Note 26-R03:  (Library) Tuned material animations</a></li>
+<li><a href="#note_26-R04">Note 26-R04:  (Sample) Added samples</a></li>
+<li><a href="#note_26-R05">Note 26-R05:  (Converter) Made changes to the <CODE>g3dcvtr</CODE> summary display format (NSBMA, NSBTP, and NSBTA files)</a></li>
+</ul>
+<h4>Bug Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_26-R06">Note 26-R06:  (Library) Fixed bug where execution would hang when using <CODE>NNS_G3dGeSendDL</CODE></a></li>
+<li><a href="#note_26-R07">Note 26-R07:  (Library) Fixed bug where texture scaling was wrong</a></li>
+<li><a href="#note_26-R08">Note 26-R08:  (Library) Fixed bug where write direction was set illegally</a></li>
+<li><a href="#note_26-R09">Note 26-R09:  (Library) Fixed bug for large textures</a></li>
+</ul>
+<h3><a href="#version_20040916">2004/09/16 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_21-R01">Note 21-R01:  (Library) Added function to get current matrix</a></li>
+<li><a href="#note_21-R02">Note 21-R02:  (Library) Added the <CODE>NNS_G3dGlbFlushP</CODE>, <CODE>NNS_G3dGlbFlushVP</CODE>, and <CODE>NNS_G3dGlbFlushWVP</CODE> functions</a></li>
+<li><a href="#note_21-R03">Note 21-R03:  (Library) Added an accessor for the <CODE>NNSG3dGlb</CODE> structure</a></li>
+<li><a href="#note_21-R04">Note 21-R04:  (Library) Deleted unused code</a></li>
+<li><a href="#note_21-R05">Note 21-R05:  (Converter) Changed the <CODE>g3dcvtr</CODE> summary display format (NSBCA and NSBVA files)</a></li>
+</ul>
+<h4>Bug Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_21-R06">Note 21-R06:  (Library) Fixed bug where scaling was not applied correctly</a></li>
+<li><a href="#note_21-R07">Note 21-R07:  (Library) Fixed bug where models that use textures with a TexCoord source were not rendered correctly</a></li>
+</ul>
+<h3><a href="#version_20040902">2004/09/02 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_20-R01">Note 20-R01:  (Library) Added functions to render simple objects quickly</a></li>
+<li><a href="#note_20-R02">Note 20-R02:  (Library) Treated a bug in the geometry FIFO (2004/09/01)</a></li>
+<li><a href="#note_20-R03">Note 20-R03:  (Library) Optimized code</a></li>
+<li><a href="#note_20-R04">Note 20-R04:  (Converter) Improved <CODE>g3dcvtr</CODE> error display</a></li>
+<li><a href="#note_20-R05">Note 20-R05:  (Converter) Improved <CODE>g3dcvtr</CODE> output</a></li>
+</ul>
+<h4>Bug Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_20-R06">Note 20-R06:  (Library) Fixed bug where child node list was wrong</a></li>
+<li><a href="#note_20-R07">Note 20-R07:  (Library) Fixed bug in adding multiple animations</a></li>
+<li><a href="#note_20-R08">Note 20-R08:  (Converter) Fixed bug for the conversion of fully weighted envelope models</a></li>
+</ul>
+<h3><a href="#version_20040810">2004/08/10 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_16-R01">Note 16-R01:  (Library) Updated for material color animations</a></li>
+<li><a href="#note_16-R02">Note 16-R02:  (Library) Updated for texture SRT animations</a></li>
+</ul>
+<h4>Bug Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_16-R03">Note 16-R03:  (Library) Fixed various bugs</a></li>
+</ul>
+
+
+<h2 id="version_2_2_0_0">Changes in 2.2.0 PR</h2>
+<h3 id="note_83-R01">Note 83-R01: (Converter) Added options</h3>
+<p>Added the <CODE>-maxjnt</CODE>, <CODE>-maxmat</CODE>, and <CODE>-maxshp</CODE> options to check the maximum number of joints, materials, and shapes.
+</p>
+<h3 id="note_83-R02">Note 83-R02: (Library) Standardized behavior when out-of-range frames have been set</h3>
+<p>When out-of-range frames were called in the different types of animations, they were handled differently depending on the animation. Some animations would end on an ASSERT, and others would round off the out-of-range frames into the final frame. Behavior has been standardized so that all animation types now round these frames into the final frame.
+</p>
+<h3 id="note_83-R03">Note 83-R03: (Documentation) Added warning and error lists to <CODE>g3dcvtr_UsersManual</CODE></h3>
+<p>Added a list of warnings and errors.
+</p>
+<h2 id="version_2_1_1">Changes in 2.1.1</h2>
+<h3 id="note_82-R01">Note 82-R01: (Library) Reverted the changes related to material skipping </h3>
+<p>Note 81-R03: (Library) The changes for the material skipping bug prevented materials status from being updated in certain cases, causing invalid colors to be applied to polygons. The changes have been reverted provisionally.
+</p>
+<h2 id="version_2_1_0">Changes in 2.1.0</h2>
+<h3 id="note_81-R01">Note 81-R01: (Library) Changed the default maximum number of shapes</h3>
+<p>Because no special restrictions are necessary, the default value for the maximum number of shapes in one model has been changed from 64 to 256.
+</p>
+<h3 id="note_81-R02">Note 81-R02: (Converter) Added options</h3>
+<p>Added the <CODE>-we</CODE> option for handling warnings as errors.
+</p>
+<h3 id="note_81-R03">Note 81-R03: (Library) Fixed the material skipping bug</h3>
+<p>During the material update process, a material that is hidden or is the same as the immediately previous material should be skipped and not updated. However, this skipping did not occur. That bug has now been fixed.
+</p>
+<h3 id="note_81-R04">Note 81-R04: (Library) Fixed the <CODE>NNS_G3D_GET_ANM</CODE> macro bug</h3>
+<p>The <CODE>NNS_G3D_GET_ANM</CODE> macro was using undefined variables as arguments. That has been fixed.
+</p>
+<h3 id="note_81-R05">Note 81-R05: (Converter) Removed the debug check feature from <CODE>g3dcvtr</CODE></h3>
+<p>The <CODE>g3dcvtr</CODE> tool in the release package had a check feature for debugging purposes that should have been disabled but was not. This feature caused errors to result from data that could previously be converted. This problem has been fixed.
+</p>
+<h3 id="note_81-R06">Note 81-R06: (Converter) Fixed bug specific to large element size in intermediate files</h3>
+<p>When the intermediate file contained elements with more than 2 MB of content, an error would occur. That has been fixed.
+</p>
+<h3 id="note_81-R07">Note 81-R07: (Converter) Fixed error output when name is blank</h3>
+<p>When the name of a node or material was left blank, an error was not correctly output. That has been fixed.
+</p>
+<h2 id="version_2_0_0">Changes in 2.0.0</h2>
+<h3 id="note_80-R01">Note 80-R01:   (Library) Updated for NDMA</h3>
+<p>Added support for NDMA added with the TWL.
+</p>
+<h2 id="version_2_0_0_0">Changes in 2.0.0 RC</h2>
+<h3 id="note_78-R01">Note 78-R01:   (Converter) Added errors to <CODE>g3dcvtr</CODE> for irregular matrices</h3>
+<p>When the modeling matrix of a node referenced from a weighted envelope is a non-regular matrix, an error is now output. 
+</p>
+<h3 id="note_78-R02">Note 78-R02:  (Converter) Fixed bug for uniform processing of <CODE>frame_step</CODE> in <CODE>g3dcvtr</CODE></h3>
+<p>Fixed the problem of the constant component of <CODE>frame_step</CODE> being employed for all frame steps when the XYZ components of the rotation data of an ICA file or the RGB components of an IMA file met these two conditions.
+</p>
+<ul><li> The <CODE>frame_step</CODE> of two non-constant components were equivalent
+</li>
+<li> The third component was constant and had a larger <CODE>frame_step</CODE>
+</li>
+</ul>
+<h2 id="version_20080408">Changes in Version 2008/04/08</h2>
+<h3 id="note_76-R01">Note 76-R01:   (Converter) Added animation data reference range check to <CODE>g3dcvtr</CODE></h3>
+<p>For ICA, IVA, IMA, ITP, and ITA intermediate files, added a range check for when the animation data are index-referenced.
+</p>
+<h3 id="note_76-R02">Note 76-R02:  (Manual) Changed the format of the Revision History</h3>
+<p>The format of the Revision History has been changed in the following PDF manuals.
+</p>
+<ul><li><CODE>G3D_BinaryFormat.pdf</CODE>
+</li>
+<li><CODE>g3dcvtr_UsersManual.pdf</CODE>
+</li>
+</ul>
+<h3 id="note_76-R03">Note 76-R03:  (Manual) Changed the language of the Xerces-C++ license</h3>
+<p>Changed the notation of the Xerces-C++ license in the document <CODE>g3dcvtr_UsersManual.pdf</CODE>.
+</p>
+<h3 id="note_76-R04">Note 76-R04:  (Converter) Fixed bug where <CODE>g3dcvtr</CODE> does not return correct value on an error</h3>
+<p>When an error occurred, <CODE>g3dcvtr</CODE> returned the normal value 0 instead of returning 1. That has been corrected.
+</p>
+<h3 id="note_76-R05">Note 76-R05:  (Converter) Changed specifications for the <CODE>frame_step</CODE> uniformity process in <CODE>g3dcvtr</CODE></h3>
+<p>The specification for unifying <CODE>frame_step</CODE> for the XYZ components of the rotational data in the ICA file has been changed. Before they were unified to the lowest-precision <CODE>frame_step</CODE>. Now they are unified to the highest-precision <CODE>frame_step</CODE>.
+</p>
+<h2 id="version_20071126">Changes in Version 2007/11/26</h2>
+<h3 id="note_71-R01">Note 71-R01:   (Library) Changed specifications</h3>
+<ul><li> Under previous specifications, if the <CODE>NNS_G3D_USE_FASTGXDMA</CODE> macro was defined, the transfer method of the geometry command could not be switched even by calling the <CODE>NNS_G3dGeUseFastDma</CODE> function. This has been changed so that the transfer method can be switched.
+</li>
+</ul>
+<ul><li> Under previous specifications, if rotate matrices were blended using the <CODE>NNSi_G3dAnmBlendJnt</CODE> function, execution would fail on an assert during normalization if the row vector resulting from blending was a zero vector. This has been changed so that the status before blending is restored if the result of blending is a zero vector.
+</li>
+</ul>
+<h3 id="note_71-R02">Note 71-R02:  (Converter) Changed <CODE>g3dcvtr</CODE> specifications</h3>
+<p>Under previous specifications, an error would result if the <CODE>frame_step</CODE> for the red, green, and blue components were not all the same when converting IMA files. This has been changed so that conversion is performed using the <CODE>frame_step</CODE> having the highest precision.
+</p>
+<h3 id="note_71-R03">Note 71-R03:  (Library) Fixed ASSERT bug</h3>
+<ul><li> A problem has been corrected where execution would always fail on an assert during the callback process and execution would then terminate on an error if memory allocation by the <CODE>NNS_G3dResDefaultSetup</CODE> function failed.
+</li>
+</ul>
+<ul><li> A problem has been corrected where locations that should return <CODE>NULL</CODE> would fail on an ASSERT if a numeric value equal to or greater than the number of animations possessing resources was specified for the second argument of the <CODE>NNS_G3dGetAnmByIdx</CODE> function.
+</li>
+</ul>
+<h3 id="note_71-R04">Note 71-R04:  (Converter) Fixed bug where incorrect rotation data was output when converting the ICA file</h3>
+<p>A problem has been corrected when converting ICA files where the wrong rotate data was being output depending on the combination of <CODE>frame_size</CODE> and <CODE>frame_step_mode</CODE> being used.
+</p>
+<h3 id="note_71-R05">Note 71-R05:  (Converter) Fixed bug where <CODE>NODEDESC</CODE> command of the SCB command was not issued correctly when converting <CODE>g3dcvtr</CODE>'s IMD file</h3>
+<p>A problem has been corrected when converting IMD files where the <CODE>NODEDESC</CODE> instruction of the SBC instruction was not being correctly issued depending on the node configuration and <CODE>&lt;display&gt;::priority</CODE> setting.
+</p>
+<h2 id="version_20060529">Changes in Version 2006/05/29</h2>
+<h3 id="note_59-R01">Note 59-R01:   (Converter) Revised to read the command line argument from the file with <CODE>g3dcvtr</CODE></h3>
+<p>Command-line arguments can now be read from a file. Command-line arguments starting with an at sign (<CODE>@</CODE>) are interpreted as a filename past the second character, and the contents of that file are expanded as arguments. Expansion of multiple files and multiple nested layers is possible. An error will result if file access cycles.
+</p>
+<h3 id="note_59-R02">Note 59-R02:  (Converter) Added <CODE>-tex-nomerge</CODE> option to <CODE>g3dcvtr</CODE></h3>
+<p>The <CODE>-tex-nomerge</CODE> option has been added to <CODE>g3dcvtr</CODE>. If the texture or palette names are different when using this option, they are not merged even if the data is the same and separate memory is allocated.
+</p>
+<h3 id="note_59-R03">Note 59-R03:  (Library) Revised comments</h3>
+<p>Comments for the <CODE>NNS_G3dGeUseFastDma</CODE> function have been revised.
+</p>
+<h3 id="note_59-R04">Note 59-R04:  (Converter) Fixed bug where intermediate files that include billboards could not be converted</h3>
+<p>A problem where intermediate files that include billboards could not be converted has been corrected.
+</p>
+<h2 id="version_20050901">Changes in Version 2005/09/01</h2>
+<h3 id="note_50-R01">Note 50-R01:   (Library) Fixed bug where rotate animations using a small angle were not being animated smoothly</h3>
+<p>Fixed bug to smoothly do animations that rotate through small angles.
+</p>
+<h2 id="version_20050616">Changes in Version 2005/06/16</h2>
+<h3 id="note_46-R01">Note 46-R01:   (Library) Fixed various bugs</h3>
+<p>Bugs in the 2005/06/06 version have been corrected.
+</p>
+<h2 id="version_20050606">Changes in Version 2005/06/06</h2>
+<h3 id="note_45-R01">Note 45-R01:   (Library) Fixed bug when playing animations</h3>
+<p>When converting ICA files using the <CODE>&ndash;OS</CODE> option, replay did not work in some cases. This bug was fixed.
+</p>
+<h2 id="version_20050328">Changes in Version 2005/03/28</h2>
+<h3 id="note_43-R01">Note 43-R01:   (Library) Improved the precision of frame interpolation</h3>
+<p>When frame interpolation was used with joint animation and the amount of rotations between key frames was large, distortions in the models would increase in size in some cases. This was improved.
+</p>
+<h3 id="note_43-R02">Note 43-R02:  (Library) Fixed bug in SBC instruction callback</h3>
+<p>In SBC instructions <CODE>NODEDESC</CODE> and <CODE>BBY</CODE>, with <CODE>TIMING_C</CODE>, the <CODE>NNS_G3D_RSFLAG_SKIP</CODE> flag for <CODE>TIMING_B</CODE> was used by mistake. This problem was fixed. Also in SBC instructions <CODE>NODEDESC</CODE>, <CODE>BBY</CODE>, and <CODE>BB</CODE>, if processing was skipped with <CODE>TIMING_C</CODE>, subsequent processing would fail. This problem was fixed.
+</p>
+<h3 id="note_43-R03">Note 43-R03:  (Converter) Fixed bug where code used for the environment map when using <CODE>g3dcvtr</CODE> was working incorrectly</h3>
+<p>When multiple IMD files were converted, the environment map codes would malfunction. This bug was fixed.
+</p>
+<h2 id="version_20050131">Changes in Version 2005/01/31</h2>
+<h3 id="note_39-R01">Note 39-R01:   (Library) Support for environmental and projection mapping</h3>
+<p>Added the <CODE>NNSi_G3dFuncSbc_ENVMAP</CODE> and <CODE>NNSi_G3dFuncSbc_PRJMAP</CODE> functions to support environment and projection mapping (orthogonal projection).
+</p>
+<h3 id="note_39-R02">Note 39-R02:  (Sample) Added samples</h3>
+<p>The following samples have been added.
+</p>
+<ul><li> The <CODE>EnvMap</CODE> sample: Displays an environmentally mapped sphere.
+</li>
+<li> The <CODE>ProjMap</CODE> sample: Displays a projection-mapped (orthogonal projection) sphere.
+</li>
+</ul>
+<h3 id="note_39-R03">Note 39-R03:  (Converter) Updated <CODE>g3dcvtr</CODE> for NITRO intermediate file version 1.6.0</h3>
+<p><CODE>g3dcvtr</CODE> now supports NITRO intermediate file version 1.6.0. IMD files that include an environment map and/or projection map can be converted.
+</p>
+<h3 id="note_39-R04">Note 39-R04:  (Library) Fixed bug in rendering weighted envelope models</h3>
+<p>Fixed the bug in which the drawing was not performed properly because a portion of the data in the NSBMD file output by <CODE>g3dcvtr</CODE> is invalid if classic scale off was configured with a weighted-envelope model (Softimage3D or Softimage|XSI).
+</p>
+<h2 id="version_20041206">Changes in Version 2004/12/06</h2>
+<h3 id="note_34-R01">Note 34-R01:   (Sample) Added samples</h3>
+<p>The following samples have been added.
+</p>
+<ul><li> The <CODE>Translucent</CODE> sample has been added. This sample demonstrates the rendering of a model in which translucent polygons overlap.
+</li>
+</ul>
+<h3 id="note_34-R02">Note 34-R02:  (Documentation) Added a document about the G3D binary file format</h3>
+<p>The binary file format used with G3D is described in <CODE>NitroSystem\docs\G3D\G3D_BinaryFormat.pdf</CODE>.
+</p>
+<h3 id="note_34-R03">Note 34-R03:  (Converter) Updated <CODE>g3dcvtr</CODE> for specifications added to NITRO intermediate file version 1.5.0</h3>
+<p>Provided support for addition attributes for <CODE>&lt;material&gt;</CODE> and <CODE>&lt;display&gt;</CODE> elements added with version 1.5.0 of the NITRO intermediate files.
+</p>
+<h3 id="note_34-R04">Note 34-R04:  (Converter) Improved binary generation</h3>
+<p>Binary generation has been improved when a billboard is added to a joint with multiple <CODE>&lt;display&gt;</CODE> elements.
+</p>
+<h3 id="note_34-R05">Note 34-R05:  (Library) Fixed bug in Y-axis billboard conversion</h3>
+<p>A bug where thick objects did not appear properly when a Y-axis billboard conversion occurred has been fixed.
+</p>
+<h3 id="note_34-R06">Note 34-R06:  (Library) Fixed bug where callbacks were not called correctly</h3>
+<p>A bug where the wrong callback was called when the <CODE>NNS_G3D_SBC_CALLBACK_TIMING_A_DISABLE</CODE> macro was defined and G3D was compiled has been fixed.
+</p>
+<h2 id="version_20041110">Changes in Version 2004/11/10</h2>
+<h3 id="note_31-R01">Note 31-R01:   (Library) Support for partial playback of joint animations</h3>
+<p>Added the <CODE>NNS_G3dAnmObjDisableID</CODE> and <CODE>NNS_G3dAnmObjEnableID</CODE> functions to support the playback of the joint animation in which only some of joints are animated.
+</p>
+<h3 id="note_31-R02">Note 31-R02:  (Library) Support for fractional frame interpolation playback in joint animations</h3>
+<p>If <CODE>linear</CODE> is specified for <CODE>&lt;node_anm_info&gt;::interpolation</CODE> in the ICA file, when the decimal part of the frame is specified, the joint animation is played back by performing linear interpolation with neighboring frames. To loop playback of the animation, <CODE>&lt;node_anm_info&gt;::interp_end_to_start</CODE> must be set to <CODE>ON</CODE>.
+</p>
+<h3 id="note_31-R03">Note 31-R03:  (Library) Increased display speed of weighted envelopes</h3>
+<p>Improved the implementation of the <CODE>NNSi_G3dFuncSbc_NODEMIX</CODE> function and accelerated display of models that have weighted envelopes.
+</p>
+<h3 id="note_31-R04">Note 31-R04:  (Library) Added accessors for the <CODE>NNSG3dRenderObj</CODE> and <CODE>NNSG3dRS</CODE> structures</h3>
+<p>Added accessor for the <CODE>NNS_G3dRenderObj</CODE> and <CODE>NNS_G3dRS</CODE> structures.
+</p>
+<h3 id="note_31-R05">Note 31-R05:  (Sample) Added samples</h3>
+<p>The following samples have been added.
+</p>
+<ul><li> The <CODE>PartialAnm1</CODE> sample has been added. The sample demonstrates partial playback of joint animation.
+</li>
+<li> The <CODE>PartialAnm2</CODE> sample has been added. This sample demonstrations partial playback of a joint animation, but for cases more complicated than those covered by <CODE>PartialAnm1</CODE>.
+</li>
+<li> The <CODE>SlowMotion</CODE> sample has been added. This sample plays joint animations in slow motion.
+</li>
+<li> The <CODE>SharedMotion</CODE> sample has been added. This sample plays the same joint animation resource using two models with different shapes.
+</li>
+<li> The <CODE>ScreenUtil</CODE> sample has been added. This is a sample of the coordinate conversion utility API. Converts from world coordinates to BG screen coordinates or from BG screen coordinates to world coordinates.
+</li>
+</ul>
+<h3 id="note_31-R06">Note 31-R06:  (Library) Fixed bug where alpha-value animations did not play accurately</h3>
+<p>A bug in the 2004/10/12 version that kept animations with alpha values for the material color animation from playing back properly has been fixed.
+</p>
+<h3 id="note_31-R07">Note 31-R07:  (Library) Fixed bug where animation data was sometimes output in duplicate</h3>
+<p>A bug where redundant animation data near the last frame was sometimes being generated if the frame step was set to 2 or 4 when converting ICA files with <CODE>g3dcvtr</CODE> has been fixed.
+</p>
+<h3 id="note_31-R08">Note 31-R08:  (Library) Fixed bug where playback using a frame step of 2 or 4 was undefined</h3>
+<p>A bug where invalid playback resulted when the frame step was set to 2 or 4 if there were frames with scale greater than or equal to 8 or less than or equal to 0.125 in the joint animation has been fixed.
+</p>
+<h3 id="note_31-R09">Note 31-R09:  (Library) Fixed bug where display was invalid</h3>
+<p>A bug where an invalid display would result if the camera was far or close when using weighted envelopes because it caused the temporary variable being used in G3D to overflow has been fixed.
+</p>
+<h3 id="note_31-R10">Note 31-R10:  (Converter) Fixed bug where some data was illegally output by <CODE>g3dcvtr</CODE></h3>
+<p>A bug where some data was output improperly when converting multiple IMD files into one NSBMD file with <CODE>g3dcvtr</CODE> has been fixed.
+</p>
+<h3 id="note_31-R11">Note 31-R11:  (Converter) Fixed bug in alignment of animation data when using <CODE>g3dcvtr</CODE></h3>
+<p>A bug where inappropriate alignment of the second and subsequent animation data was used when converting multiple IMA files with <CODE>g3dcvtr</CODE> has been fixed.
+</p>
+<h3 id="note_31-R12">Note 31-R12:  (Converter) Fixed bug in output of <CODE>pos_scale</CODE> value of <CODE>&lt;box text&gt;</CODE> when using <CODE>g3dcvtr</CODE></h3>
+<p>A bug where the <CODE>pos_scale</CODE> value of <CODE>&lt;model_info&gt;</CODE> was output as data corresponding to the <CODE>pos_scale</CODE> value of <CODE>&lt;box_test&gt;</CODE> used by <CODE>g3dcvtr</CODE> has been fixed.
+</p>
+<h2 id="version_20041012">Changes in Version 2004/10/12</h2>
+<h3 id="note_26-R01">Note 26-R01:   (Library) Added the display of weighted envelopes</h3>
+<p>The <CODE>NNSi_G3dFuncSbc_NODEMIX</CODE> function was added, and now models having weighted envelopes converted with <CODE>g3dcvtr</CODE> can be displayed. In addition, the NSBMD file format has been extended, and IMD files must be converted again.
+</p>
+<h3 id="note_26-R02">Note 26-R02:  (Library) Changed callback specifications</h3>
+<p>Callback specifications were changed. In some cases, they may not be compatible with previous versions.
+</p>
+<ul><li> By using the <CODE>NNS_G3dRenderObjSetInitFunc</CODE> function, you can execute functions that use the <CODE>NNSG3dRS</CODE> structure as an argument immediately before rendering.
+</li>
+<li> By allocating an <CODE>NNSG3dRS</CODE> callback function pointer for each SBC instruction, one callback can be registered to each type of SBC instruction during rendering. This change makes it easy to use multiple callbacks.
+</li>
+<li> Callbacks cannot be called by specifying the address of an SBC instruction. Accordingly, the value of the third argument of <CODE>NNS_G3dRenderObjSetCallBack</CODE> is now invalid.
+</li>
+<li> The code inside a callback function that changes the callback conditions or the callback function itself must be changed. For more information, see the <CODE>callback4</CODE> and <CODE>callback5</CODE> samples.
+</li>
+</ul>
+<h3 id="note_26-R03">Note 26-R03:  (Library) Tuned material animations</h3>
+<p>The performance of material color animations and texture SRT animations was improved, and the code was reduced in size. Fixed the bug that always enabled the specular reflection shininess table when a material color animation was executed.
+</p>
+<h3 id="note_26-R04">Note 26-R04:  (Sample) Added samples</h3>
+<p>The following samples have been added.
+</p>
+<ul><li> The <CODE>RecordMtx</CODE> sample has been added. Processing similar to the <CODE>callback2</CODE> sample is possible without using a callback function by converting IMD files using the <CODE>-s</CODE> option of <CODE>g3dcvtr</CODE>.
+</li>
+<li> The <CODE>ManualSetup</CODE> sample has been added. This sample demonstrated how to set up a loaded NSBMD file without using the <CODE>NNS_G3dResDefaultSetup</CODE> function.
+</li>
+<li> The <CODE>callback5</CODE> sample has been added. A sample that uses callbacks has been added along with the ability to register multiple callback functions.
+</li>
+<li>The <CODE>ShadowVolume</CODE> sample has been added. This sample demonstrates how to display a shadow volume using the G3D library.
+</li>
+<li> The <CODE>Envelope</CODE> sample has been added. The sample compares the display quality and performance when weighted envelopes versus when they are not used.
+</li>
+</ul>
+<h3 id="note_26-R05">Note 26-R05:  (Converter) Made changes to the <CODE>g3dcvtr</CODE> summary display format (NSBMA, NSBTP, and NSBTA files)</h3>
+<p>The format of the summary display shown when NSBMA, NSBTP, and NSBTA files are passed to <CODE>g3dcvtr</CODE> as arguments has been changed.
+</p>
+<h3 id="note_26-R06">Note 26-R06:  (Library) Fixed bug where execution would hang when using <CODE>NNS_G3dGeSendDL</CODE></h3>
+<p>A bug has been fixed where execution would hang if the <CODE>NNS_G3dGeSendDL</CODE> function was used while <CODE>GX_DMA_NOT_USE</CODE> was selected with NITRO-SDK's <CODE>GX_InitEx</CODE> function.
+</p>
+<h3 id="note_26-R07">Note 26-R07:  (Library) Fixed bug where texture scaling was wrong</h3>
+<p>A bug where texture scaling became invalid when a textured model was created using SoftImage3D has been fixed.
+</p>
+<h3 id="note_26-R08">Note 26-R08:  (Library) Fixed bug where write direction was set illegally</h3>
+<p>Fixed bug where the light direction was being set improperly by the <CODE>NNS_G3dGlbFlushWVP</CODE> function.
+</p>
+<h3 id="note_26-R09">Note 26-R09:  (Library) Fixed bug for large textures</h3>
+<p>A bug where large textures were sometimes not displayed has been fixed.
+</p>
+<h2 id="version_20040916">Changes in Version 2004/09/16</h2>
+<h3 id="note_21-R01">Note 21-R01:   (Library) Added function to get current matrix</h3>
+<p>The current position coordinate and direction vector matrices can be obtained with the <CODE>NNS_G3dGetCurrentMtx</CODE> function.
+</p>
+<h3 id="note_21-R02">Note 21-R02:  (Library) Added the <CODE>NNS_G3dGlbFlushP</CODE>, <CODE>NNS_G3dGlbFlushVP</CODE>, and <CODE>NNS_G3dGlbFlushWVP</CODE> functions</h3>
+<p>The various functions that initialize the current matrix and so on before rendering were broken into three types. These functions differ only in how they set the current matrix, as described below.
+</p>
+<ul><li> The <CODE>NNS_G3dGlbFlushP</CODE> function sets the projection transformation matrix as the current projection matrix, combines the camera matrix and the modeling matrix, and sets the resulting matrix as the current position coordinate matrix and the direction vector matrix.
+</li>
+<li> The <CODE>NNS_G3dGlbFlushVP</CODE> function combines the projection transformation matrix and the camera matrix, sets the resulting matrix as the current projection matrix, and sets the modeling matrix as the current position coordinate matrix and direction vector matrix.
+</li>
+<li> The <CODE>NNS_G3dGlbFlushWVP</CODE> function combines the projection transformation matrix, the camera matrix, and the modeling matrix, and sets the resulting matrix as the current projection matrix and sets the identity matrix as the current position coordinate matrix and direction vector matrix.
+</li>
+</ul>
+<p>Due to the above function differences, the current matrices obtained during rendering will be the camera coordinate system, world coordinate system, and local coordinate system matrices, respectively. By using these three functions accordingly, calculations such as multiplying an inverse matrix can be omitted when getting necessary data.
+</p>
+<p>The <CODE>NNS_G3dGlbFlushP</CODE> function works the same as the existing <CODE>NNS_G3dGlbFlush</CODE> function. The same is true for the <CODE>NNS_G3dGlbFlushWVP</CODE> and <CODE>NNS_G3dGlbFlushAlt</CODE> functions.
+</p>
+<h3 id="note_21-R03">Note 21-R03:  (Library) Added an accessor for the <CODE>NNSG3dGlb</CODE> structure</h3>
+<p>Added accessor functions that read from and write to the data in the <CODE>NNSG3dGlb</CODE> structure.
+</p>
+<h3 id="note_21-R04">Note 21-R04:  (Library) Deleted unused code</h3>
+<p>Unused code has been deleted.
+</p>
+<h3 id="note_21-R05">Note 21-R05:  (Converter) Changed the <CODE>g3dcvtr</CODE> summary display format (NSBCA and NSBVA files)</h3>
+<p>Changed the summary display format used when NSBCA and NSBVA files are passed as arguments to <CODE>g3dcvtr</CODE>.
+</p>
+<h3 id="note_21-R06">Note 21-R06:  (Library) Fixed bug where scaling was not applied correctly</h3>
+<p>A bug has been fixed where scaling was not applied correctly with the <CODE>NNS_G3dDraw1Mat1Shp</CODE> function.
+</p>
+<h3 id="note_21-R07">Note 21-R07:  (Library) Fixed bug where models that use textures with a TexCoord source were not rendered correctly</h3>
+<p>Fixed bug that caused the <CODE>NNS_G3dDraw1Mat1Shp</CODE> function to incorrectly render models that use textures based on TexCoord source.
+</p>
+<h2 id="version_20040902">Changes in Version 2004/09/02</h2>
+<h3 id="note_20-R01">Note 20-R01:   (Library) Added functions to render simple objects quickly</h3>
+<p>Added the <CODE>NNS_G3dDraw1Mat1Shp</CODE> function, which allows a simple object to be rendered quickly.
+</p>
+<h3 id="note_20-R02">Note 20-R02:  (Library) Treated a bug in the geometry FIFO (2004/09/01)</h3>
+<p>Fixed bug in Geometry FIFO.
+</p>
+<h3 id="note_20-R03">Note 20-R03:  (Library) Optimized code</h3>
+<p>A display list that is shorter than 256 bytes is transferred via the CPU without using the DMA.
+</p>
+<h3 id="note_20-R04">Note 20-R04:  (Converter) Improved <CODE>g3dcvtr</CODE> error display</h3>
+<p>Improved the error display of the error in the input XML file.
+</p>
+<h3 id="note_20-R05">Note 20-R05:  (Converter) Improved <CODE>g3dcvtr</CODE> output</h3>
+<p>Because the output of <CODE>g3dcvtr</CODE> was improved, the stall period that is related to the DMA transfer of the display list was shortened.
+</p>
+<h3 id="note_20-R06">Note 20-R06:  (Library) Fixed bug where child node list was wrong</h3>
+<p>Fixed bug where the child node list output by the <CODE>NNS_G3dGetChildNodeIDList</CODE> function was not correct.
+</p>
+<h3 id="note_20-R07">Note 20-R07:  (Library) Fixed bug in adding multiple animations</h3>
+<p>Fixed bug that did not play back the animation when multiple animations were added to the same rendering object.
+</p>
+<h3 id="note_20-R08">Note 20-R08:  (Converter) Fixed bug for the conversion of fully weighted envelope models</h3>
+<p>A bug where fully weighted envelope models were not being converted correctly by <CODE>g3dcvtr</CODE> has been fixed.
+</p>
+<h2 id="version_20040810">Changes in Version 2004/08/10</h2>
+<h3 id="note_16-R01">Note 16-R01:   (Library) Updated for material color animations</h3>
+<p>The library now supports the playback of material color animations.
+</p>
+<h3 id="note_16-R02">Note 16-R02:  (Library) Updated for texture SRT animations</h3>
+<p>The library now supports the playback of texture SRT animations.
+</p>
+<h3 id="note_16-R03">Note 16-R03:  (Library) Fixed various bugs</h3>
+<p>Bugs in texture matrix calculation, animation blending, texture pattern animation, and so on have been fixed.
+</p>
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<hr><p>CONFIDENTIAL</p></body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>MI_GetFreeWramSlot</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">MI_GetFreeWramSlot* <IMG src="../../image/TWL.gif" align="middle"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;twl/mi.h&gt;</CODE><BR> <BR> <CODE>u8 MI_GetFreeWramSlot( <A href="../mi_constant.html">MIWramPos</A> wram );</CODE><br> <BR> <CODE>(define)</CODE><br> <CODE>#define MI_GetFreeWramSlot_A();</CODE><br> <CODE>#define MI_GetFreeWramSlot_B();</CODE><br> <CODE>#define MI_GetFreeWramSlot_C();</CODE><br>
+  </dd>
+</dl>
+<h2>Arguments</h2>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+<TD><B><I>wram</I></B></TD>
+<TD>WRAM to get information about.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<h2>Return Values</h2>
+<p>Returns information about the slots within the specified WRAM that are not reserved for or allocated by any processor. Returns slot values ranging from 0 to 3 for WRAM-A, or slot values ranging from 0 to 7 for WRAM-B and WRAM-C.</p>
+<H2>Description</H2>
+<P>Gets information about the slots within the specified WRAM that are not reserved for or allocated by any processor.</P>
+<P>The separate <A href="MI_IsWramSlotUsed.html"><CODE>MI_IsWramSlotUsed</CODE></A> function has been created for finding out whether a single slot has been assigned.</P>
+<P><BR> <B>About the return values:</B></P>
+<p>The lower bits of the <CODE>u8</CODE> value indicate slot 0, slot 1, and so on (in order). If a given bit is 1, it means that the corresponding slot is neither reserved nor allocated.</p>
+<p>For example, if the return value of <CODE>MI_GetFreeWramSlot( MI_WRAM_B )</CODE> is <CODE>0xC0</CODE> (11000000 in binary), this indicates that WRAM-B slots 0, 1, 2, 3, 4, and 5 have been either reserved for or allocated by some processor, and that slots 6 and 7 have not been reserved for or allocated by any of the processors.</p>
+<BLOCKQUOTE><IMG src="image_allocatable1.gif" width="226" height="163" border="0"></BLOCKQUOTE>
+<P><BR> <B>Convenience functions that include the WRAM type in the function name:</B></P>
+<P><CODE>MI_GetFreeWramSlot_A(...)</CODE> is the <CODE>#define</CODE> directive of <CODE>MI_GetFreeWramSlot( MI_WRAM_A, ... )</CODE>.<BR><CODE>MI_GetFreeWramSlot_B(...)</CODE> is the <CODE>#define</CODE> directive of <CODE>MI_GetFreeWramSlot( MI_WRAM_B, ... )</CODE>.<BR><CODE>MI_GetFreeWramSlot_C(...)</CODE> is the <CODE>#define</CODE> directive of <CODE>MI_GetFreeWramSlot( MI_WRAM_C, ... )</CODE>.<BR>
+
+
+<h2>Internal Operation</h2>
+<p>The WRAM manager managed by the ARM9 determines the return value.<BR>The ARM7 gets values from the ARM9 through PXI.</p>
+<p>This function is implemented by specifying <CODE>MI_WRAM_FREE</CODE> as the processor type of the <A href="MI_GetAllocatableWramSlot.html"><CODE>MI_GetAllocatableWramSlot</CODE></A> function.</p>
+<h2>See Also</h2>
+<P><A href="about_Wram.html">Overview: Work RAM</A><BR> <A href="../mi_constant.html">MI-Related Constants</A><BR> <A href="MI_GetAllocatableWramSlot.html"><CODE>MI_GetAllocatableWramSlot</CODE></A><BR> <A href="MI_GetUsedWramSlot.html"><CODE>MI_GetUsedWramSlot</CODE></A><BR> <A href="MI_IsWramSlotUsed.html"><CODE>MI_IsWramSlotUsed</CODE></A></P>
+
+<H2>Revision History</H2>
+<P>2008/05/29 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

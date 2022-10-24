@@ -1,0 +1,340 @@
+<html>
+<head>
+<title>TWL-System NITRO Intermediate File Format Revision History</title>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="content-style-type" content="text/css" />
+<style type="text/css">
+<!--
+    
+H1
+{
+    font-weight         : bold;
+    font-size           : 250%;
+    text-align          : left;
+    color               : #46f;
+    margin              : 0em 0em 0.5em 0em;
+}
+
+H2
+{
+    font-weight         : bold;
+    font-size           : 150%;
+    text-align          : left;
+    margin              : 2em 0em 0.5em 0em;
+    padding-top         : 8pt;
+    border-top-style    : double;
+    border-top-width    : 3px;
+}
+
+H3
+{
+    font-weight         : bold;
+    font-size           : 120%;
+    margin              : 1em 0em 0.5em 0em;
+    padding-top         : 8pt;
+    border-top-style    : solid;
+    border-top-width    : 1px;
+}
+
+H4
+{
+    font-weight         : normal;
+    font-size           : 100%;
+    margin              : 0em 0em 0em 0.5em;
+}
+
+DIV.date
+{
+    font-size           : normal;
+    text-align          : right;
+    margin              : 0pt 0pt 12pt 0pt;
+}
+
+DIV.licence
+{
+    margin: 0em;
+    border-style : solid;
+    border-width : 1px;
+}
+
+P
+{
+    font-size           : normal;
+    margin              : 0em 1em 0.5em 1em;
+    line-height         : 150%;
+}
+
+PRE
+{
+    font-size           : normal;
+    margin              : 0em 0em 1em 2em;
+    line-height         : 120%;
+}
+
+DT
+{
+    margin              : 1em 0em 0em 1em;
+}
+DD
+{
+    margin-left         : 3em;
+}
+UL
+{
+    margin-top         : 0em;
+}
+
+-->
+</style>
+</head>
+<body>
+
+<h1>TWL-System NITRO Intermediate File Format Revision History</h1>
+
+<h2>Index</h2>
+
+<h3><a href="#version_2_1_0">2.1.0</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_81-N01">Note 81-N01:  Fixed trademark notation.</a></li>
+</ul>
+<h3><a href="#version_20070518">2007/05/18 Version</a></h3>
+<h4>Added and Modified Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_67-N01">Note 67-N01:   Corrected explanation of the IMD file's <CODE>&lt;box_test&gt;</CODE> attribute</a></li>
+</ul>
+<h3><a href="#version_20050202">2005/02/02 Version</a></h3>
+<h4>Added and Modified Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_40-N01">Note 40-N01:   Added and deleted attributes for the IMD file</a></li>
+<li><a href="#note_40-N02">Note 40-N02:   Added explanation of IMD file</a></li>
+<li><a href="#note_40-N03">Note 40-N03:   Corrected explanation of section 6.1.4 ISD Supplement</a></li>
+</ul>
+<h3><a href="#version_20041213">2004/12/13 Version</a></h3>
+<h4>Added and Modified Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_35-N01">Note 35-N01:   Added elements and attributes to the IMD file</a></li>
+<li><a href="#note_35-N02">Note 35-N02:   Added elements and attributes to the ISD file</a></li>
+<li><a href="#note_35-N03">Note 35-N03:   Revised &quot;Cautions When Playing Using the G3D Library&quot; in section 5.2.4 Supplemental Information for ICA Files</a></li>
+</ul>
+<h3><a href="#version_20041025">2004/10/25 Version</a></h3>
+<h4>Added and Modified Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_29-N01">Note 29-N01:   Corrected explanation of <CODE>light0</CODE> in Table 4-12 Attributes of the &lt;material&gt; Element</a></li>
+<li><a href="#note_29-N02">Note 29-N02:   Corrected explanation of the <CODE>interpolation</CODE> attribute of the ICA, IMA, and ITA files and added supplemental information </a></li>
+</ul>
+<h3><a href="#version_20040830">2004/08/30 Version</a></h3>
+<h4>Added and Modified Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_19-N01">Note 19-N01:   Changed output condition of the <CODE>scale_compensate</CODE> attribute of the IMD file's <CODE>&lt;node&gt;</CODE> element</a></li>
+<li><a href="#note_19-N02">Note 19-N02:   Added explanation of &quot;Envelopes in Nintendo NITRO-system&quot;</a></li>
+<li><a href="#note_19-N03">Note 19-N03:   Added explanation of normal vectors to &quot;The Matrix That Transforms Vertex Position Coordinates&quot;</a></li>
+</ul>
+<h3><a href="#version_20040802">2004/08/02 Version</a></h3>
+<h4>Added and Modified Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_15-N01">Note 15-N01:   Modified descriptions in line with added support for XSI and 3ds max</a></li>
+<li><a href="#note_15-N02">Note 15-N02:   Corrected explanation of the <CODE>scaling_rule</CODE> attribute of the IMD and ICA files' <CODE>&lt;***_info&gt;</CODE> element</a></li>
+<li><a href="#note_15-N03">Note 15-N03:   Added <CODE>xsi</CODE> and <CODE>3dsmax</CODE> to the value taken by the <CODE>tex_matrix_mode</CODE> attribute of the IMD and ITA files' <CODE>&lt;***_info&gt;</CODE> element</a></li>
+<li><a href="#note_15-N04">Note 15-N04:   Added explanation of the <CODE>name</CODE> attribute of the IMD file's <CODE>&lt;polygon&gt;</CODE> element</a></li>
+</ul>
+<h3><a href="#version_20040630">2004/06/30 Version</a></h3>
+<h4>Added and Modified Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_12-N01">Note 12-N01:   Corrected the explanation of the <CODE>name</CODE> attribute of the IMD file's <CODE>&lt;polygon&gt;</CODE> element</a></li>
+<li><a href="#note_12-N02">Note 12-N02:   Corrected explanation of the <CODE>twist</CODE> attribute of the ISD file's <CODE>&lt;camera&gt;</CODE> element</a></li>
+<li><a href="#note_12-N03">Note 12-N03:   Added to section 6.1.4 ISD Supplement</a></li>
+</ul>
+<h3><a href="#version_20040524">2004/05/24 Version</a></h3>
+<h4>Added and Modified Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_07-N01">Note 07-N01:   Added <CODE>scaling_rule</CODE> attribute to the ICA file's <CODE>&lt;node_anm_info&gt;</CODE> element</a></li>
+<li><a href="#note_07-N02">Note 07-N02:   Corrected output conditions of section 5.5.3.4 &lt;palette_name&gt; Element</a></li>
+<li><a href="#note_07-N03">Note 07-N03:   Added descriptions and figures to section 6.1.3.1 &lt;camera&gt; Element</a></li>
+</ul>
+<h3><a href="#version_20040412">2004/04/12 Version</a></h3>
+<h4>Added and Modified Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_05-N01">Note 05-N01:   Added an intermediate file for graphics scenes (ISD)</a></li>
+<li><a href="#note_05-N02">Note 05-N02:   Changed output condition of the <CODE>source</CODE> attribute in Table 3-2 Attributes of the &lt;create&gt; Element</a></li>
+<li><a href="#note_05-N03">Note 05-N03:   Corrected the explanation of section 3.4.5 &lt;comment&gt; Element</a></li>
+<li><a href="#note_05-N04">Note 05-N04:   Corrected the value taken by the <CODE>polygon_mode</CODE> attribute of the IMD file's <CODE>&lt;material&gt;</CODE> element from <CODE>toon_hilight</CODE> to <CODE>toon_highlight</CODE></a></li>
+<li><a href="#note_05-N05">Note 05-N05:   Corrected and added text in line with added support for 3D Material Editor</a></li>
+</ul>
+<h3><a href="#version_20040325">2004/03/25 Version</a></h3>
+<h4>Added and Modified Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_04-N01">Note 04-N01:   Added text in line with added support for SOFTIMAGE|3D</a></li>
+<li><a href="#note_04-N02">Note 04-N02:   Added to Table 6-1 Types of Node Culling</a></li>
+</ul>
+<h3><a href="#version_20040301">2004/03/01 Version</a></h3>
+<h4>Added and Modified Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_03-N01">Note 03-N01:   Added <CODE>use_primitive_strip</CODE> attribute to the IMD file's <CODE>&lt;model_info&gt;</CODE> element</a></li>
+<li><a href="#note_03-N02">Note 03-N02:   Added support for A3I5 translucent textures</a></li>
+<li><a href="#note_03-N03">Note 03-N03:   Deleted 2 from the value taken by the <CODE>color_size</CODE> attribute of the IMD file's <CODE>&lt;tex_palette&gt;</CODE> element</a></li>
+<li><a href="#note_03-N04">Note 03-N04:   Corrected the restriction on names from up to 15 characters to up to 16 characters</a></li>
+<li><a href="#note_03-N05">Note 03-N05:   Corrected explanation of section 6.3 Connecting Polygons</a></li>
+<li><a href="#note_03-N06">Note 03-N06:  Corrected explanation in section 7.1.1 Node Matrix Computation Methods</a></li>
+</ul>
+
+
+<h2 id="version_2_1_0">Changes in 2.1.0</h2>
+<h3 id="note_81-N01">Note 81-N01:  Fixed trademark notation.</h3>
+<p>Revised trademark display.
+</p>
+<h2 id="version_20070518">Changes in Version 2007/05/18</h2>
+<h3 id="note_67-N01">Note 67-N01:   Corrected explanation of the IMD file's <CODE>&lt;box_test&gt;</CODE> attribute</h3>
+<p>Corrected explanation of the IMD file's <CODE>&lt;box_test&gt;</CODE> attribute.
+</p>
+<h2 id="version_20050202">Changes in Version 2005/02/02</h2>
+<h3 id="note_40-N01">Note 40-N01:   Added and deleted attributes for the IMD file</h3>
+<p>Added and deleted attributes for the IMD file.
+</p>
+<ul><li> Added the <CODE>tex_effect_mtx</CODE> attribute to the <CODE>&lt;material&gt;</CODE> element.
+</li>
+<li> Deleted the <CODE>tex_gen_st</CODE> attribute of the <CODE>&lt;material&gt;</CODE> element.
+</li>
+</ul>
+<h3 id="note_40-N02">Note 40-N02:   Added explanation of IMD file</h3>
+<p>Added explanation of IMD file.
+</p>
+<ul><li> Added explanation of <CODE>tool_start_frame</CODE> attribute of the <CODE>&lt;model_info&gt;</CODE> element.
+</li>
+<li> Corrected and added explanation of <CODE>tex_gen_mode</CODE> and <CODE>tex_gen_st_src</CODE> attributes of the <CODE>&lt;material&gt;</CODE> element.
+</li>
+<li> Corrected the output conditions for the <CODE>&lt;tex&gt;</CODE> element.
+</li>
+<li> Added explanation &quot;About Environmental and Projection Mapping&quot; to section 4.1.4 Supplementary Information for IMD Files in the document.
+</li>
+</ul>
+<h3 id="note_40-N03">Note 40-N03:   Corrected explanation of section 6.1.4 ISD Supplement</h3>
+<p>Corrected explanation of section 6.1.4 ISD Supplement in the document. 
+</p>
+<h2 id="version_20041213">Changes in Version 2004/12/13</h2>
+<h3 id="note_35-N01">Note 35-N01:   Added elements and attributes to the IMD file </h3>
+<p>Added elements and attributes to the IMD file.
+</p>
+<ul><li> Added <CODE>&lt;original_create&gt;</CODE> and <CODE>&lt;original_generator&gt;</CODE> elements.
+</li>
+<li> Added the <CODE>depth_test_decal</CODE>, <CODE>render_1_pixel</CODE>, <CODE>far_clipping</CODE>, and <CODE>translucent_update_depth</CODE> attributes to the <CODE>&lt;material&gt;</CODE> element. 
+</li>
+<li> Added <CODE>priority</CODE> attribute to the <CODE>&lt;display&gt;</CODE> element and added an explanation related to rendering priority. 
+</li>
+</ul>
+<h3 id="note_35-N02">Note 35-N02:   Added elements and attributes to the ISD file </h3>
+<p>Added elements and attributes to the ISD file.
+</p>
+<ul><li> Added the <CODE>&lt;y_sorting&gt;</CODE> element.
+</li>
+<li> Added the <CODE>&lt;render_1_pixel_depth&gt;</CODE> element.
+</li>
+<li> Added the <CODE>depth_buffer</CODE> and <CODE>scale_w</CODE> attributes to the <CODE>&lt;camera&gt;</CODE> element.
+</li>
+</ul>
+<h3 id="note_35-N03">Note 35-N03:   Revised &quot;Cautions When Playing Using the G3D Library&quot; in section 5.2.4 Supplemental Information for ICA Files</h3>
+<p>Revised &quot;Cautions When Playing Using the G3D Library&quot; in section 5.2.4 Supplemental Information for ICA Files in the document. 
+</p>
+<h2 id="version_20041025">Changes in Version 2004/10/25</h2>
+<h3 id="note_29-N01">Note 29-N01:   Corrected explanation of <CODE>light0</CODE> in Table 4-12 Attributes of the &lt;material&gt; Element </h3>
+<p>Corrected explanation of <CODE>light0</CODE> in Table 4-12 Attributes of the &lt;material&gt; Element in the document.
+</p>
+<h3 id="note_29-N02">Note 29-N02:   Corrected explanation of the <CODE>interpolation</CODE> attribute of the ICA, IMA, and ITA files and added supplemental information </h3>
+<p>Corrected explanation of the <CODE>interpolation</CODE> attribute of the ICA, IMA, and ITA files and added supplemental information.
+</p>
+<h2 id="version_20040830">Changes in Version 2004/08/30</h2>
+<h3 id="note_19-N01">Note 19-N01:   Changed output condition of the <CODE>scale_compensate</CODE> attribute of the IMD file's <CODE>&lt;node&gt;</CODE> element </h3>
+<p>Changed output condition of the <CODE>scale_compensate</CODE> attribute of the IMD file's <CODE>&lt;node&gt;</CODE> element.
+</p>
+<h3 id="note_19-N02">Note 19-N02:   Added explanation of &quot;Envelopes in Nintendo NITRO-system&quot; </h3>
+<p>Added explanation of &quot;Envelopes in the Nintendo NITRO-system&quot; in the document.
+</p>
+<h3 id="note_19-N03">Note 19-N03:   Added explanation of normal vectors to &quot;The Matrix That Transforms Vertex Position Coordinates&quot;  </h3>
+<p>Added explanation of normal vectors to &quot;The Matrix That Transforms Vertex Position Coordinates&quot; to the document.
+</p>
+<h2 id="version_20040802">Changes in Version 2004/08/02</h2>
+<h3 id="note_15-N01">Note 15-N01:   Modified descriptions in line with added support for XSI and 3ds max </h3>
+<p>Modified descriptions in line with added support for NITRO intermediate file plug-in for SOFTIMAGE|XSI and NITRO intermediate file plug-in for 3ds max. 
+</p>
+<h3 id="note_15-N02">Note 15-N02:   Corrected explanation of the <CODE>scaling_rule</CODE> attribute of the IMD and ICA files' <CODE>&lt;***_info&gt;</CODE> element   </h3>
+<p>Corrected explanation of the <CODE>scaling_rule</CODE> attribute of the IMD and ICA files' <CODE>&lt;***_info&gt;</CODE> element.
+</p>
+<h3 id="note_15-N03">Note 15-N03:   Added <CODE>xsi</CODE> and <CODE>3dsmax</CODE> to the value taken by the <CODE>tex_matrix_mode</CODE> attribute of the IMD and ITA files' <CODE>&lt;***_info&gt;</CODE> element  </h3>
+<p>Added <CODE>xsi</CODE> and <CODE>3dsmax</CODE> to the value taken by the <CODE>tex_matrix_mode</CODE> attribute of the IMD and ITA files' <CODE>&lt;***_info&gt;</CODE> element. 
+</p>
+<h3 id="note_15-N04">Note 15-N04:   Added explanation of the <CODE>name</CODE> attribute of the IMD file's <CODE>&lt;polygon&gt;</CODE> element  </h3>
+<p>Added explanation of the <CODE>name</CODE> attribute of the IMD file's <CODE>&lt;polygon&gt;</CODE> element.
+</p>
+<h2 id="version_20040630">Changes in Version 2004/06/30</h2>
+<h3 id="note_12-N01">Note 12-N01:   Corrected the explanation of the <CODE>name</CODE> attribute of the IMD file's <CODE>&lt;polygon&gt;</CODE> element </h3>
+<p>Corrected explanation of the <CODE>name</CODE> attribute of the IMD file's <CODE>&lt;polygon&gt;</CODE> element.
+</p>
+<h3 id="note_12-N02">Note 12-N02:   Corrected explanation of the <CODE>twist</CODE> attribute of the ISD file's <CODE>&lt;camera&gt;</CODE> element  </h3>
+<p>Corrected explanation of the <CODE>twist</CODE> attribute of the ISD file's <CODE>&lt;camera&gt;</CODE> element.
+</p>
+<h3 id="note_12-N03">Note 12-N03:   Added to section 6.1.4 ISD Supplement</h3>
+<p>Added to section 6.1.4 ISD Supplement.
+</p>
+<h2 id="version_20040524">Changes in Version 2004/05/24</h2>
+<h3 id="note_07-N01">Note 07-N01:   Added <CODE>scaling_rule</CODE> attribute to the ICA file's <CODE>&lt;node_anm_info&gt;</CODE> element </h3>
+<p>Added <CODE>scaling_rule</CODE> attribute to the ICA file's <CODE>&lt;node_anm_info&gt;</CODE> element.
+</p>
+<h3 id="note_07-N02">Note 07-N02:   Corrected output conditions of section 5.5.3.4 &lt;palette_name&gt; Element </h3>
+<p>Corrected output conditions of section 5.5.3.4 &lt;palette_name&gt; Element.
+</p>
+<h3 id="note_07-N03">Note 07-N03:   Added descriptions and figures to section 6.1.3.1 &lt;camera&gt; Element</h3>
+<p>Added descriptions and figures to section 6.1.3.1 &lt;camera&gt; Element.
+</p>
+<h2 id="version_20040412">Changes in Version 2004/04/12</h2>
+<h3 id="note_05-N01">Note 05-N01:   Added an intermediate file for graphics scenes (ISD) </h3>
+<p>Added an intermediate file for graphics scenes (ISD).
+</p>
+<h3 id="note_05-N02">Note 05-N02:   Changed output condition of the <CODE>source</CODE> attribute in Table 3-2 Attributes of the &lt;create&gt; Element </h3>
+<p>Changed output condition of the <CODE>source</CODE> attribute in Table 3-2 Attributes of the &lt;create&gt; Element.
+</p>
+<h3 id="note_05-N03">Note 05-N03:   Corrected the explanation of section 3.4.5 &lt;comment&gt; Element </h3>
+<p>Corrected the explanation of section 3.4.5 &lt;comment&gt; Element.
+</p>
+<h3 id="note_05-N04">Note 05-N04:   Corrected the value taken by the <CODE>polygon_mode</CODE> attribute of the IMD file's <CODE>&lt;material&gt;</CODE> element from <CODE>toon_hilight</CODE> to <CODE>toon_highlight</CODE> </h3>
+<p>Corrected the value taken by the <CODE>polygon_mode</CODE> attribute of the IMD file's <CODE>&lt;material&gt;</CODE> element from <CODE>toon_hilight</CODE> to <CODE>toon_highlight</CODE>.
+</p>
+<h3 id="note_05-N05">Note 05-N05:   Corrected and added text in line with added support for 3D Material Editor </h3>
+<p>Corrected and added text in line with added support for 3D Material Editor.
+</p>
+<ul><li> Corrected the explanation.
+</li>
+<li> Added to the IMD file elements and attributes dedicated to the 3D Material Editor.
+</li>
+</ul>
+<h2 id="version_20040325">Changes in Version 2004/03/25</h2>
+<h3 id="note_04-N01">Note 04-N01:   Added text in line with added support for SOFTIMAGE|3D </h3>
+<p>Added text in line with added support for the intermediate file output plug-in for SOFTIMAGE|3D.
+</p>
+<h3 id="note_04-N02">Note 04-N02:   Added to Table 6-1 Types of Node Culling </h3>
+<p>Added to Table 6-1 Types of Node Culling.
+</p>
+<h2 id="version_20040301">Changes in Version 2004/03/01</h2>
+<h3 id="note_03-N01">Note 03-N01:   Added <CODE>use_primitive_strip</CODE> attribute to the IMD file's <CODE>&lt;model_info&gt;</CODE> element </h3>
+<p>Added the <CODE>use_primitive_strip</CODE> attribute to the IMD file's <CODE>&lt;model_info&gt;</CODE> element.
+</p>
+<h3 id="note_03-N02">Note 03-N02:   Support for A3I5 translucent textures </h3>
+<p>Supported A3I5 translucent textures.
+</p>
+<h3 id="note_03-N03">Note 03-N03:   Deleted 2 from the value taken by the <CODE>color_size</CODE> attribute of the IMD file's <CODE>&lt;tex_palette&gt;</CODE> element </h3>
+<p>Deleted 2 from the value taken by the <CODE>color_size</CODE> attribute of the IMD file's <CODE>&lt;tex_palette&gt;</CODE> element.
+</p>
+<h3 id="note_03-N04">Note 03-N04:   Corrected the restriction on names from up to 15 characters to up to 16 characters </h3>
+<p>The restriction on names in the manual when using Nintendo NITRO-System was up to 15 characters. This was revised up to 16 characters. 
+</p>
+<h3 id="note_03-N05">Note 03-N05:   Corrected explanation of section 6.3 Connecting Polygons </h3>
+<p>Corrected explanation of section 6.3 Connecting Polygons.
+</p>
+<h3 id="note_03-N06">Note 03-N06:   Corrected explanation in section 7.1.1 Node Matrix Computation Methods</h3>
+<p>Corrected explanation in section 7.1.1 Node Matrix Computation Methods.
+</p>
+
+
+<br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br>
+
+<hr><p>CONFIDENTIAL</p></body>
+</html>

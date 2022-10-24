@@ -1,0 +1,122 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 8.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>WMErrCode</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+<body>
+<h1 align="left">WMErrCode</h1>
+<h2>Definition</h2>
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/wm.h&gt;</CODE><BR>
+  <PRE><CODE>typedef enum WMErrCode
+{ 
+    WM_ERRCODE_SUCCESS            = 0 ,
+    WM_ERRCODE_FAILED             = 1 ,
+    WM_ERRCODE_OPERATING          = 2 ,
+    WM_ERRCODE_ILLEGAL_STATE      = 3 ,
+    WM_ERRCODE_WM_DISABLE         = 4 ,
+    WM_ERRCODE_NO_KEYSET          = 5 ,
+    WM_ERRCODE_NO_DATASET         = 5 ,
+    WM_ERRCODE_INVALID_PARAM      = 6 ,
+    WM_ERRCODE_NO_CHILD           = 7 ,
+    WM_ERRCODE_FIFO_ERROR         = 8 ,
+    WM_ERRCODE_TIMEOUT            = 9 ,
+    WM_ERRCODE_SEND_QUEUE_FULL    = 10 ,
+    WM_ERRCODE_NO_ENTRY           = 11 ,
+    WM_ERRCODE_OVER_MAX_ENTRY     = 12 ,
+    WM_ERRCODE_INVALID_POLLBITMAP = 13 ,
+    WM_ERRCODE_NO_DATA            = 14 ,
+    WM_ERRCODE_SEND_FAILED        = 15 ,
+} WMErrCode;</CODE></PRE>
+  </dd>
+</dl><h2>Elements</h2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="200"><CODE>WM_ERRCODE_SUCCESS</CODE></TD>
+<TD width="800">The process completed normally.</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>WM_ERRCODE_FAILED</CODE></TD>
+<TD width="800">An error response was returned from the wireless firmware.</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>WM_ERRCODE_OPERATING</CODE></TD>
+<TD width="800">An asynchronous process has begun normally.</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>WM_ERRCODE_ILLEGAL_STATE</CODE></TD>
+<TD width="800">The process could not run because of the internal state of the WM.</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>WM_ERRCODE_WM_DISABLE</CODE></TD>
+<TD width="800">A process could not run because the WM has not yet been initialized. Also, this value is returned when attempting to execute this process on a system that has had wireless communications prohibited.</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>WM_ERRCODE_NO_KEYSET</CODE></TD>
+<TD width="800">When using key sharing, there is no keyset that has completed sharing that can be read.<BR>Do not treat this as a fatal error since communications continue normally.</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>WM_ERRCODE_NO_DATASET</CODE></TD>
+<TD width="800">When using data sharing, there is no data set that has completed sharing that can be read.<BR> Do not treat this as a fatal error since communications continue normally.</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>WM_ERRCODE_INVALID_PARAM</CODE></TD>
+<TD width="800">A parameter specified in a function is invalid.</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>WM_ERRCODE_NO_CHILD</CODE></TD>
+<TD width="800">There is no party to communicate with as a parent because no children are connected.<BR>Do not treat this as a fatal error since processing continues normally.</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>WM_ERRCODE_FIFO_ERROR</CODE></TD>
+<TD width="800">Communication to ARM7 through FIFO failed, and the working FIFO in the ARM7 overflowed.</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>WM_ERRCODE_TIMEOUT</CODE></TD>
+<TD width="800">The check response of the MP communication cannot be received for a certain period of time.<BR> Do not treat this error as fatal because communications continue normally.</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>WM_ERRCODE_SEND_QUEUE_FULL</CODE></TD>
+<TD width="800">The transmission failed because the port's send queue was full.<BR> Do not treat this error as fatal because communications continue normally.</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>WM_ERRCODE_NO_ENTRY</CODE></TD>
+<TD width="800">The connection was not permitted by the parent because the entry was already terminated when the child attempted the connection.</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>WM_ERRCODE_OVER_MAX_ENTRY</CODE></TD>
+<TD width="800">The connection was not permitted by the parent because it exceeds the maximum number of children to be connected.<BR> During a callback for <A href="WM_StartConnect.html"><CODE>WM_StartConnect</CODE></A>, this error code may be issued after notification of <CODE>WM_ERRCODE_SUCCESS</CODE> is made.</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>WM_ERRCODE_INVALID_POLLBITMAP</CODE></TD>
+<TD width="800">The local host (the child) was not included in the poll bitmap that the child received during the MP communications.<BR> Do not treat this error as fatal because communications continue normally.</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>WM_ERRCODE_NO_DATA</CODE></TD>
+<TD width="800">The data could not be found. Returned when even the header was not included in the MP communication that the child received.<BR>In the current implementation, this error code is not returned as long as the library is running as expected.</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>WM_ERRCODE_SEND_FAILED</CODE></TD>
+<TD width="800">The parent and child send/receive sequence in MP communication failed.<BR> Do not treat this error as fatal because communications continue normally.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>Description</H2>
+<P>
+This enumerated type indicates process results that are common to WM operation functions. This enumerated type can also be used jointly as the <CODE>errcode</CODE> member of structures that are passed to the callback functions of asynchronous process functions.
+</P>
+<P>
+These values include some that should be handled as fatal errors and some that should not. To read about the error codes received by various functions and callbacks and about handling the error codes, see &quot;Error Codes Returned by the Wireless Communications Library&quot; list in <I>A Description of the Wireless Communications Library</I>.
+</P>
+<H2>Revision History</H2>
+<P>
+2007/11/13 Added descriptions for error codes that should not be handled as fatal errors.<BR> 2007/07/18 Added text mentioning the Wireless Communications library description.<BR> 2004/11/02 Added text to go along with the additions to specifications.<BR> 2004/08/20 Added text to go along with the additions to the Entry control specifications.<BR> 2004/08/11 Added text to go along with the additions to the WM specifications.<BR> 2004/07/29 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

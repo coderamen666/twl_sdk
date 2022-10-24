@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>OS_SetIrqMask</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">OS_SetIrqMask <IMG src="../../image/NTR.gif" align="middle"><IMG src="../../image/TWL.gif" align="middle"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/os.h&gt;</CODE><BR>
+  <BR>
+  <CODE>OSIrqMask OS_SetIrqMask( OSIrqMask intr );</CODE></dd>
+</dl><h2>Arguments</h2>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+      <TD><B><I>intr</I></B></TD>
+      <TD>The IRQ interrupt cause(s) to set.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<h2>Return Values</h2>
+<p>Returns the IRQ interrupt cause parameters from before this function was called. See below for information about causes. The return value is the logical sum of the causes that were formerly set.</p>
+<p><A href="interrupts_list.html">Types of Interrupts</A></p>
+<H2>Description</H2>
+<P>Sets the IRQ interrupt causes.</P>
+<P>When the IRQ interrupt master enable is enabled with <a href="OS_EnableIrq.html"><code>OS_EnableIrq</code></a>, only IRQ interrupts corresponding to those enabled with this function will occur. The types of interrupts vary based on both the operating mode (NITRO mode vs TWL mode) and the processor (ARM9 vs ARM7).</P>
+<H3><BR> <B>Types of Interrupts</B></H3>
+<P>Specify the interrupt cause(s) to set using the <B><I>intr</I></B> argument. See below for information on the types of interrupts.</P>
+<P><A href="interrupts_list.html">Types of Interrupts</A></P>
+<H3><BR> <B>Example</B></H3>
+<BLOCKQUOTE style="background-color:#ffffd0;"><code>// Enable both V-Blank and DMA0 interrupts. <br />OS_SetIrqMask( OS_IE_V_BLANK | OS_IE_DMA0 );<br /><br />// IRQ master enable <br />OS_EnableIrq();</code><BR>
+</BLOCKQUOTE>
+<H3><BR> <B>Note</B></H3>
+<P><code>OS_SetIrqMask</code> is a function that <FONT color="#ff0000">overwrites the IRQ interrupt cause parameters with the specified setting</FONT>. It is <FONT color="#ff0000">not</FONT> a function that adds the specified causes. Since some interrupt causes are set by system, do not overwrite settings needlessly. For example, because the tick and alarm features use timer interrupts, the IRQ interrupt cause for the applicable timer must always be enabled.</P>
+<P>Use <code><a href="OS_EnableIrqMask.html">OS_EnableIrqMask</a></code> when adding IRQ interrupts to the previous settings.</P>
+<h2>Internal Operation</h2>
+<P>Operates on one of the I/O registers, IE (Interrupt Enable).</P>
+
+<h2>See Also</h2>
+<p><CODE><A href="OS_GetIrqMask.html">OS_GetIrqMask</A>, <A href="OS_EnableIrqMask.html">OS_EnableIrqMask</A>, <A href="OS_DisableIrqMask.html">OS_DisableIrqMask</A><BR> <A href="interrupts_list.html">Types of Interrupts</A><br></CODE></p>
+
+<H2>Revision History</H2>
+<P>2008/05/30 Moved the types of interrupts to a separate page.<BR>2005/03/08 Standardized the Japanese term for &quot;interrupt.&quot; <br> 2004/12/08 Added warning about OS_IE_KEY. <BR> 2004/11/24 Deleted OS_IE_SIO. <BR> 2004/09/01 Changed &quot;subprocessor&quot; to &quot;ARM7&quot; and &quot;between subprocessors&quot; to &quot;between the ARM7 and ARM9.&quot; <BR> 2004/03/12 Emphasized differences from <CODE>OS_EnableIrqMask().</CODE> <BR>2003/12/01 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

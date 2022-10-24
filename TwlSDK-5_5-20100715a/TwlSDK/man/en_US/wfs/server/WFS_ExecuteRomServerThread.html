@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title>WFS_ExecuteRomServerThread</title>
+<link rel="stylesheet" href="../../css/nitro.css" type="text/css" />
+</head>
+<body>
+
+<h1>WFS_ExecuteRomServerThread <img src="../../image/NTR.gif"><img src="../../image/TWL.gif"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<code>#include &lt;nitro/wfs.h&gt;</code><br />
+  <br />
+  <code>void WFS_ExecuteRomServerThread(WFSServerContext *context, <a href="../../fs/fs_file_type.html">FSFile</a> *file, BOOL sharedFS);</code><br />
+  <br />
+  </dd>
+</dl>
+<h2>Arguments</h2>
+<table border="1" width="100%">
+  <tbody>
+    <tr>
+      <td style="width:13%"><em><strong>context</strong></em></td>
+      <td style="width:87%">Pointer to the <CODE>WFSServerContext</CODE> structure.</td>
+    </tr>
+    <tr>
+      <td style="width:13%"><em><strong>file</strong></em></td>
+      <td style="width:87%">An <a href="../../fs/fs_file_type.html"><code>FSFile</code></a> object that represents an opened SRL file that holds the file system to be registered.<br />
+      Specify NULL to register the file system of the parent (server) itself.</td>
+    </tr>
+    <tr>
+      <td style="width:13%"><em><strong>sharedFS</strong></em></td>
+      <td style="width:87%">Flag indicating whether to share the file system with children.<br />
+      If TRUE is specified, a mixed file system will be created wherein only the overlay from <EM><STRONG>file</STRONG></EM> will be added to file system of the parent (server) itself.
+      If NULL is specified for file, this argument is ignored. (Always interpreted as TRUE.)</td>
+    </tr>
+  </tbody>
+</table>
+<h2>Return Values</h2>
+<p>TRUE is returned, if registration of the ROM file table and generation of the internal thread succeed; FALSE is returned if either of them fails.</p>
+
+<h2>Description</h2>
+<p>The specified SRL file file table is registered using standard settings and an internal thread is automatically generated in response to the read request.<BR>If this function is called successfully, a thread with priority 15 is generated and its execution continues until the <a href="WFS_EndServer.html"><code>WFS_EndServer</code></a> function is called. Because this thread is generated automatically in response to a read request from a child (client), <a href="../WFSEventType.html"><code>WFS_EVENT_SERVER_SEGMENT_REQUEST</code></a> event notification is not generated.<BR>If no special processing is required to set the file table or respond to a read request, a parent (server) process can be much more easily implemented using this function rather than the <a href="WFS_RegisterServerTable.html"><code>WFS_RegisterServerTable</code></a> function.</p>
+<p>
+This function supports three standard registration patterns frequently used when using the MB library and WFS library together.<BR>Possible combinations of each argument and their main application are given below.</p>
+<table style="border:solid 1px black">
+<tr><td>file</td><td>sharedFS</td><td>Type</td><td>Usage</td></tr>
+<tr><td style="background-color:white" rowspan="2">Effective Files</td><td style="background-color:white">FALSE</td><td style="background-color:white">Stand-alone type</td>
+<td style="width:80%;background-color:white">Effective when the configuration of the download program to be distributed has no relationship with the parent (server).<BR>This is good for creating simple, self-contained, stand-alone download programs.</td></tr>
+<tr><td style="background-color:white">TRUE</td><td style="background-color:white">FS Shared Type</td>
+<td style="width:80%;background-color:white">Effective when the configuration of the download program to be distributed differs from the parent (server), but the contents of the file system are nearly identical.<BR>This allows the ROM size to be kept to a minimum because it is not necessary to prepare duplicate data for the download program.</td></tr>
+<tr><td style="background-color:white">NULL</td><td style="background-color:white">-</td><td style="background-color:white">Clone boot type</td>
+<td style="width:80%;background-color:white">Effective when the configuration of the download program to be distributed is a clone boot of the parent (server) itself.</td></tr>
+</table>
+<p>
+Be sure to use the <a href="WFS_RegisterServerTable.html"><code>WFS_RegisterServerTable</code></a> function if you want to register a file table using customized settings unlike any listed here. Use either this function or the <a href="WFS_RegisterServerTable.html"><code>WFS_RegisterServerTable</code></a> function, as their use is mutually exclusive.
+</p>
+
+<h2>See Also</h2>
+<p><code><a href="../WFSEventType.html">WFS_EVENT_SERVER_SEGMENT_REQUEST</a>, <br /> <a href="WFS_RegisterServerTable.html">WFS_RegisterServerTable</a> <br /></code></p>
+
+<h2>Revision History</h2>
+<p>
+2007/06/14 Initial version.
+</p>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

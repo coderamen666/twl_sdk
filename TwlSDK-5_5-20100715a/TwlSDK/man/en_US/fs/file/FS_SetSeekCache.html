@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title>FS_SetSeekCache</title>
+<link rel="stylesheet" href="../../css/nitro.css" type="text/css" />
+</head>
+<body>
+
+<h1>FS_SetSeekCache <img src="../../image/NTR.gif"align="middle"><img src="../../image/TWL.gif" align="middle"></h1>
+<h2>Syntax</h2>
+<pre><code>
+#include &lt;nitro/fs.h&gt;
+
+BOOL FS_SetSeekCache(<A href="../fs_file_type.html">FSFile</a> *file, void* buf, u32 bufsize);
+</code></pre>
+
+<h2>Arguments</h2>
+<table style="width:100%">
+<tbody>
+<tr>
+<td style="width:13%"><CODE>file</CODE></td>
+<td style="width:87%">An already open file.<br /><span style="color:Red">For more details, see the Notes section.</span></td>
+</tr>
+<tr>
+<td style="width:13%"><CODE>buf</CODE></td>
+<td style="width:87%">Buffer to be used as the seek cache.<br />Use of the cache buffer already configured is cancelled if NULL is specified.<br /><span style="color:Red">For details on the conditions that apply to the argument, see the Notes section.</span></td>
+</tr>
+<tr>
+<td style="width:13%">bufsize</td>
+<td style="width:87%">Buffer size.<br />Use the <A><CODE>FS_GetSeekCacheSize</CODE></A> function to get the required size for the seek cache. If the size is small, the library will build the largest cache it can within the size provided.</td>
+</tr>
+</tbody>
+</table>
+
+<h2>Return Values</h2>
+<p>Returns TRUE if the process succeeds.<br /> Returns FALSE in the following situations.</p>
+<ul>
+<li>The specified buffer is not located in main memory</li>
+<li>The buffer region becomes 0 after the two ends of the specified buffer are cropped to a 32-byte cache line boundary</li>
+</ul>
+
+<h2>Description</h2>
+<p>Sets the seek cache buffer.<br />With archives like <a href="../archive_nand_spec.html">NAND archives</a> or <a href="../archive_sdmc_spec.html">SD Card archives</a> that use FAT as the internal format, operations that seek to the end of the file and operations that seek in the reverse direction may require a significant execution cost. If you know that you will be making frequent use of seek operations on read-only files, you can improve the seek speed by using this function.</p>
+<p>The buffer set with this function will be managed by the library until either the file is closed or NULL is specified to explicitly cancel use of the file.</p>
+<p>This function uses only the cropped region of the specified buffer that remains after the start and end have been aligned with the cache line boundary. The buffer size retrieved by the <CODE><a href="FS_GetSeekCacheSize.html">FS_GetSeekCacheSize</a></CODE> function contains enough space for addresses of any length.</p>
+
+<h2>Note</h2>
+<a name="note" />
+<ul><span style="color:Red">
+<li>The file being specified must be opened in read-only mode.</li>
+<li>The seek cache being specified must be a buffer in main memory that is aligned to a boundary that is an integer multiple of 4 bytes.</li>
+</span></ul>
+
+<h2>See Also</h2>
+<p><code><a href="FS_SeekFile.html">FS_SeekFile</a><BR> <a href="FS_GetSeekCacheSize.html">FS_GetSeekCacheSize</a></code></p>
+
+<h2>Revision History</h2>
+<p>
+2009/02/05 Explained the buffer's alignment to cache line boundary.<br />2008/07/01 Noted that the file must be opened in read-only mode.<br />2008/06/26 Initial version.<br />
+</p>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

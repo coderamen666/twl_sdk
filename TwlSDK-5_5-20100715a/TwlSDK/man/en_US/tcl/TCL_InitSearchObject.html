@@ -1,0 +1,45 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title>TCL_InitSearchObject</title>
+<link rel="stylesheet" href="../css/nitro.css" type="text/css">
+</head>
+<body>
+<h1 align="left">TCL_InitSearchObject <img src="../image/TWL.gif" align="middle"></h1>
+
+<h2>Definition</h2>
+<dl>
+	<dd>
+	<code>#include &lt;twl/tcl.h&gt;</code><br/> <br/>
+	<pre><code>
+void TCL_InitSearchObject( TCLSearchObject* pSearchObj , u32 condition );
+	</code></pre>
+</dl>
+
+<h2>Arguments</h2>
+<p>
+<table>
+<tr><td><code>pSearchObj</code><td><a href="TCLSearchObject.html">Search object</a>
+<tr><td><code>condition</code><td><a href="TCLSearchCondition.html">Search conditions</a>
+</table>
+</p>
+
+<h2>Return Values</h2>
+<p>None.</p>
+
+<h2>Description</h2>
+<p>Initializes the search object used for search-related functions.</p>
+<p>For <code>condition</code>, use the bitwise OR in the search conditions specified by <a href="TCLSearchCondition.html"><code>TCLSearchCondition</code></a>,</p>
+<p>Each search returns items that match the conditions specified by <code>condition</code>.</p>
+
+<h2>See Also</h2>
+<p><code><a href="TCL_GetNumPictures.html">TCL_GetNumPictures</a><BR> <a href="TCL_SearchNextPictureInfo.html">TCL_SearchNextPictureInfo</a><BR> <a href="TCL_SearchPictureInfoByIndex.html">TCL_SearchPictureInfoByIndex</a><BR> <a href="TCL_SearchNextPicturePath.html">TCL_SearchNextPicturePath</a><BR> <a href="TCL_SearchPicturePathByIndex.html">TCL_SearchPicturePathByIndex</a></code></p>
+
+<h2>Revision History</h2>
+<p>
+2008/10/07 Initial version.
+</p>
+
+<hr><p>CONFIDENTIAL</p></body>
+</html>

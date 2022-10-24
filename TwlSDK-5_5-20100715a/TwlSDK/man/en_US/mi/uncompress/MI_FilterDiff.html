@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 8.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>MI_FilterDiff*</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">MI_FilterDiff* <IMG src="../../image/NTR.gif" width="23" height="12" border="0" align="middle"><IMG src="../../image/TWL.gif" width="23" height="12" border="0" align="middle"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/mi.h&gt;</CODE><BR>
+  <BR>
+  <CODE>void MI_FilterDiff8( const void *srcp, void *destp, u32 size, BOOL bitsize );</CODE><br>
+  <CODE>void MI_FilterDiff16( const void *srcp, void *destp, u32 size, BOOL bitsize );</CODE><br>
+  <CODE>void MI_FilterDiff32( const void *srcp, void *destp, u32 size, BOOL bitsize );</CODE></dd>
+</dl>
+<h2>Arguments</h2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+      <TD width="13%"><EM><STRONG>srcp</STRONG></EM></TD>
+      <TD width="87%">The source address where difference filtered-data is stored.</TD>
+    </TR>
+    <TR>
+      <TD width="13%"><EM><STRONG>destp</STRONG></EM></TD>
+      <TD width="87%">The destination address where the data is expanded. Can be the same region as the source address.</TD>
+    </TR>
+    <TR>
+      <TD width="13%"><EM><STRONG>size</STRONG></EM></TD>
+      <TD width="87%">Size of the source address. It is expressed in bytes.</TD>
+    </TR>
+    <TR>
+      <TD width="13%"><EM><STRONG>bitsize</STRONG></EM></TD>
+      <TD width="87%">Bit depth of the difference filter. 16-bit if TRUE; 8-bit if FALSE.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<h2>Return Values</h2>
+<p>None.</p>
+
+<H2>Description</H2>
+<P>Encodes data using a difference filter, then writes it to a specified memory region. The source address must be aligned to a 4-byte boundary. When the size of the compressed data is not a multiple of 4, adjust by padding it with zeros. The pointers to the source and destination addresses may point to the same region.</P>
+<P><CODE>MI_FilterDiff8()</CODE> writes in 8-bit units. On NITRO, you cannot decompress directly to VRAM.<BR><BR><BR> <CODE>MI_FilterDiff16()</CODE> writes in 16-bit units. It is also possible to decompress to DTCM or VRAM.<BR><BR><BR> <CODE>MI_FilterDiff32()</CODE> writes in 32-bit units. It operates at a higher speed than both <CODE>MI_FilterDiff8()</CODE> and <CODE>MI_FilterDiff16()</CODE>. It is also possible to decompress to DTCM or VRAM.</P>
+<h2>Internal Operation</h2>
+<P>Processing only takes place on the CPU, without the use of a system call or DMA.</P>
+<h2>See Also</h2>
+<p>
+<CODE><A href="MI_UnfilterDiff.html">MI_UnfilterDiff</A>, <A href="MI_CompressRL.html">MI_CompressRL</A>, <A href="MI_CompressHuffman.html">MI_CompressHuffman</A></CODE></p>
+
+<H2>Revision History</H2>
+<P>
+2008/07/02 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

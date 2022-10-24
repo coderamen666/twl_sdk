@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 8.0.2.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>STD_ConvertStringUnicodeToSjis</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+<body>
+<h1 align="left">STD_ConvertStringUnicodeToSjis<img src="../../image/NTR.gif"align="middle"><img src="../../image/TWL.gif" align="middle"></h1>
+<h2>Syntax</h2>
+<dl>
+  <dd><PRE><CODE>#include &lt;nitro/std.h&gt;
+<a href="STDResult.html">STDResult</a> STD_ConvertStringUnicodeToSjis(char *dst, int *dst_len, const u16 *src, int *src_len, <A href="STDConvertSjisCallback.html">STDConvertSjisCallback</A> callback);</CODE></PRE></dd>
+</dl>
+<h2>Arguments</h2>
+<table border="1" width="100%">
+  <tbody>
+    <TR>
+      <TD width="20%"><CODE>dst</CODE></TD>
+      <TD width="80%">Shift-JIS string buffer for storing the converted string.<br>If <CODE>NULL</CODE>, the storing process is ignored.</TD>
+    </TR>
+    <TR>
+      <TD width="20%"><CODE>dst_len</CODE></TD>
+      <TD width="80%">Passing the maximum byte size that can be stored in the destination buffer, this pointer accepts the byte size that was actually stored.<br>
+      Ignored when <CODE>NULL</CODE> is specified.</TD>
+    </TR>
+    <TR>
+      <TD width="200"><CODE>src</CODE></TD>
+      <TD width="800">Unicode string buffer for string to be converted.</TD>
+    </TR>
+    <TR>
+      <TD width="200"><CODE>src_len</CODE></TD>
+      <TD width="800">Passing the maximum number of characters that should be converted, this pointer accepts the number of characters that were actually converted.<br>
+      Note that this is not the byte size.<br>
+      If a negative number is passed or if <CODE>NULL</CODE> is specified, it is treated as if the length up to <CODE>src</CODE> was specified.</TD>
+    </TR>
+    <TR>
+      <TD width="200"><CODE>callback</CODE></TD>
+      <TD width="800">Callback that will be called if there are any characters that cannot be converted.</TD>
+    </TR>
+  </tbody>
+</table>
+<h2>Return Values</h2>
+<p>
+Returns an <a href="STDResult.html"><CODE>STDResult</CODE></a> type value that gives the conversion result. If <CODE>dst</CODE> is other than NULL, the converted string is stored in <CODE>dst</CODE> and the post-conversion byte size is returned in <CODE>src_len</CODE> and <CODE>dst_len</CODE>. If <CODE>dst</CODE> is <CODE>NULL</CODE>, the post-conversion byte size is returned; the converted string is not stored. <br>The null terminator '<CODE>\0</CODE>' is not given or included in the character count.</p>
+</p>
+<H2>Description</H2>
+<P>
+Converts the Unicode string to a Shift-JIS string. If a Unicode character that cannot be converted by the function is found, a callback for that event is generated.<BR> If <CODE>NULL</CODE> specifies the callback, processing will terminate when an unconvertible character appears.<BR><br> If <CODE>NULL</CODE> is specified for <CODE>dst</CODE>, only the post-conversion character length can be found.<br>
+</P>
+<h2>See Also</h2>
+<p><a href="STDResult.html"><CODE>STDResult</CODE></a><BR> <A href="STD_ConvertStringSjisToUnicode.html"><CODE>STD_ConvertStringSjisToUnicode</CODE></A><BR> <A href="STD_ConvertCharSjisToUnicode.html"><CODE>STD_ConvertCharSjisToUnicode</CODE></A><BR> <A href="STD_ConvertCharUnicodeToSjis.html"><CODE>STD_ConvertCharUnicodeToSjis</CODE></A><BR> <A href="STDConvertSjisCallback.html"><CODE>STDConvertSjisCallback</CODE></A></p>
+<H2>Revision History</H2>
+<P>
+2006/08/10 Changed the interface.<br>2006/07/24 Changed the interface.<br>2006/07/05 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

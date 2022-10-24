@@ -1,0 +1,373 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>NITRO-SDK CHANGELOG</TITLE>
+</HEAD>
+<BODY>
+<HR>
+<H1>NITRO-SDK 4.2 Series Revision History</H1>
+<HR>
+<DL>
+  <DT><A href="changelog.html">-&gt; TWL-SDK Revision History</A>
+</DL>
+
+<DL>
+  <DT><A href="#sdk_4_02">NITRO-SDK 4.2 Release Version</A> (2007/12/10)
+  <DD><A href="#note51-01">Note 51-01: (WBT) Fixed a bug in the <CODE>WBT_CancelCurrentCommand</CODE> function</A>
+  <DD><A href="#KnownIssues_4_02">Known Issues in NITRO-SDK Version 4.2 Release Version</A>
+</DL>
+
+<DL>
+  <DT><A href="#sdk_4_02_rc">NITRO-SDK 4.2 RC</A> (2007/11/28)
+  <DD><A href="#note50-01">Note 50-01: (MI) Added LZ77 extended compression format</A>
+  <DD><A href="#note50-02">Note 50-02: (GX) Changed the <CODE>GX_SetVCount</CODE> Function</A>
+  <DD><A href="#note50-03">Note 50-03: (MATH) Revised the <CODE>fft-2 </CODE>sample demo</A>
+  <DD><A href="#note50-04">Note 50-04: (MI) Fixed a problem with Huffman compression</A>
+  <DD><A href="#note50-05">Note 50-05: (OS) Corrected a problem with the V-Count alarm</A>
+  <DD><A href="#note50-06">Note 50-06: (PM) Fixed an inconsistency in tick values before and after calling the <CODE>PM-GoSleepMode</CODE> function</A>
+  <DD><A href="#note50-07">Note 50-07: (PRC) Corrected the <CODE>pdic2c.pl</CODE> sample demo tool</A>
+  <DD><A href="#note50-08">Note 50-08: (TOOL) Eliminated the parameter that allowed specification of LZ77 compression when using <CODE>ntrcomp.exe</CODE></A>
+  <DD><A href="#note50-09">Note 50-09: (TOOL) Added an endian specification when outputting text using <CODE>ntrcomp.exe</CODE></A>
+  <DD><A href="#note50-10">Note 50-10: (TOOL) Added 8-, 16-, and 32-byte alignment for the output data size when using <CODE>ntrcomp.exe</CODE></A>
+  <DD><A href="#note50-11">Note 50-11: (TOOL) Added a decompression option to <CODE>ntrcomp.exe</CODE></A>
+  <DD><A href="#note50-12">Note 50-12: (WBT) Eliminated a bug related to block transfer to multiple child devices</A>
+  <DD><A href="#note50-13">Note 50-13: (WM) Changed the send size limit for <CODE>WM_SetMPDataToPort*</CODE> functions</A>
+  <DD><A href="#note50-14">Note 50-14: (WM) Corrected the <CODE>dataSharing-model</CODE> sample demo</A>
+  <DD><A href="#note50-15">Note 50-15: (MATH) Revised the <CODE>wmPadRead-child</CODE> sample demo</A>
+  <DD><A href="#note50-16">Note 50-16: (WM) Eased the limit on the maximum child device send size</A>
+  <DD><A href="#note50-17">Note 50-17: (WM) Added an initialization function for receive-only mode</A>
+  <DD><A href="#KnownIssues_4_02_rc">Known Issues in NITRO-SDK Version 4.2 RC</A>
+</DL>
+
+<DL>
+  <DT><A href="#sdk_4_02_pr">NITRO-SDK 4.2 PR</A> (2007/10/22)
+  <DD><A href="#note49-01">Note 49-01: (CARD) Added data-writing functions for FLASH devices</A>
+  <DD><A href="#note49-02">Note 49-02: (CARD) Made Card Library Compatible with New Backup Devices</A>
+  <DD><A href="#note49-03">Note 49-03: (CARD) Corrected a problem with asynchronous backup functions</A>
+  <DD><A href="#note49-04">Note 49-04: (DevEnv) Standardized Filenames for make Builds</A>
+  <DD><A href="#note49-05">Note 49-05: (GX) Changed the <CODE>GX_SetVCount</CODE> Function</A>
+  <DD><A href="#note49-06">Note 49-06: (MATH) Changed the implementation of the MATH_CountLeadingZeros function in the thumb library</A>
+  <DD><A href="#note49-07">Note 49-07: (MATH) Corrected Sample Demos</A>
+  <DD><A href="#note49-08">Note 49-08: (MB) Fixed a bug specific to the MB_EndToIdle function</A>
+  <DD><A href="#note49-09">Note 49-09: (MB) Added documentation for Icon data</A>
+  <DD><A href="#note49-10">Note 49-10: (MB) Fixed bug specific to dynamic reading from memory files</A>
+  <DD><A href="#note49-11">Note 49-11: (MB) Revised value of the callback argument for a pseudo-multiboot child</A>
+  <DD><A href="#note49-12">Note 49-12: (MB) Corrected a problem related to terminating the library during transmission</A>
+  <DD><A href="#note49-13">Note 49-13: (OS) Changed the OS_SetPeriodicVAlarm function</A>
+  <DD><A href="#note49-14">Note 49-14: (OS) Changed the reference for the OS_SetThreadDestructor function</A>
+  <DD><A href="#note49-15">Note 49-15: (PM) Corrected LCD control functions</A>
+  <DD><A href="#note49-16">Note 49-16: (PRC) Updated documentation that describes the figure recognition library</A>
+  <DD><A href="#note49-17">Note 49-17: (TP) Revised the V-count interrupt used with auto-sampling</A>
+  <DD><A href="#note49-18">Note 49-18: (WBT) Corrected header files</A>
+  <DD><A href="#note49-19">Note 49-19: (WBT) Fixed bug in which an infinite loop was caused by delays in preparing data for transfer</A>
+  <DD><A href="#note49-20">Note 49-20: (WFS) Added a note specific to termination for WFS child devices</A>
+  <DD><A href="#note49-21">Note 49-21: (WFS) Corrected a memory leak in the WFS_ExecuteRomServerThread function</A>
+  <DD><A href="#note49-22">Note 49-22: (WFS) Corrected a problem related to block transfer processing during card access</A>
+  <DD><A href="#note49-23">Note 49-23: (WM) Eliminated a Bug specific to changing parameters during MP communications</A>
+  <DD><A href="#note49-24">Note 49-24: (WM) Adjusted the V-count range for V-blank synchronization</A>
+  <DD><A href="#note49-25">Note 49-25: (WM) Eliminated the ball sample demo</A>
+  <DD><A href="#note49-26">Note 49-26: (WM) Corrected Sample Demos</A>
+  <DD><A href="#note49-27">Note 49-27: (WM) Eliminated a bug specific to Sequential communications to a child device immediately after connection</A>
+  <DD><A href="#note49-28">Note 49-28: (Misc) Corrected header file dependency errors</A>
+  <DD><A href="#KnownIssues_4_02_pr">Known Issues in NITRO-SDK Version 4.2 PR</A>
+</DL>
+
+
+<HR>
+<H2 style="line-height: 0"><A name="sdk_4_02" id="sdk_4_02">NITRO-SDK Version 4.2 Release Version</A></H2>
+<DIV style="text-align: right">
+<P style="line-height: 0">(2007/12/10)</P>
+</DIV>
+
+<HR>
+<H3><A name="note51-01" id="note51-01">Note 51-01: (WBT) Fixed a bug in the <CODE>WBT_CancelCurrentCommand</CODE> function</A></H3>
+<P>Eliminated the following bug: If the <CODE>WBT_CancelCurrentCommand</CODE> function was called before the completion of a command that was issued to more than one partners, the next command that the cancelled partner issued would never complete.
+</P>
+
+<HR>
+<H3><A name="KnownIssues_4_02" id="KnownIssues_4_02">Known Issues in NITRO-SDK Version 4.2 Release Version</A></H3>
+<P><UL>
+<LI>Correct results were not being obtained due to a problem with the <CODE>MATH_FFTReal</CODE> function.<BR>Until this can be corrected, be sure to insert 0 into the imaginary part of input to the <CODE>MATH_FFT</CODE> function.</UL></P>
+
+<HR>
+<H2 style="line-height: 0"><A name="sdk_4_02_rc" id="sdk_4_02_rc">NITRO-SDK Version 4.2 RC</A></H2>
+<DIV style="text-align: right">
+<P style="line-height: 0">(2007/11/28)</P>
+</DIV>
+
+<HR>
+<H3><A name="note50-01" id="note50-01">Note 50-01: (MI) Added LZ77 extended compression format</A></H3>
+<P>Added LZ77 extended compression format.<BR>LZ77 extended compression is available by using the <CODE>-lex</CODE> option with <CODE>ntrcomp.exe</CODE> or by using the <CODE>MI_CompressLZEx</CODE> function or <CODE>MI_CompressLZExFast </CODE>function.<BR><BR> For decompression, extract data using the existing LZ77 decompression functions.<BR> <BR> Although you can expect a higher compression ratio than when using conventional LZ77 compression, when worst case compression speed is compared, considerably more time is required compared to conventional LZ77 compression.<BR> <BR>Decompression speed is about the same for both the extended version and conventional version.
+</P>
+
+<HR>
+<H3><A name="note50-02" id="note50-02">Note 50-02: (GX) Changed the <CODE>GX_SetVCount</CODE> Function</A></H3>
+<P>Revised code and increased the limit because it was insufficient due to the change described in <a href="changelog-nitro.html#note46-08">Note 46-08</a>.<BR>The function reference was also revised to correspond with this change.
+</P>
+
+<HR>
+<H3><A name="note50-03" id="note50-03">Note 50-03: (MATH) Revised the <CODE>fft-2 </CODE>sample demo</A></H3>
+<P>Eliminated a bug related to the on-screen display of the <CODE>math/fft-2</CODE> sample demo and Fourier transformation processing.<BR>In addition, changed the specifications of the spectral display for mic input using a bar, and added a new display mode divided into scales.
+</P>
+
+<HR>
+<H3><A name="note50-04" id="note50-04">Note 50-04: (MI) Fixed a problem with Huffman compression</A></H3>
+<P>A problem with Huffman compression when using the nrtcomp tool and the <CODE>MI_CompressHuffman</CODE> function was found where incorrect compression results would sometimes occur when 8-bit encoding was encoded in 17 or more bits.<BR>This problem has been corrected.
+</P>
+
+<HR>
+<H3><A name="note50-05" id="note50-05">Note 50-05: (OS) Corrected a problem with the V-Count alarm</A></H3>
+<P>A problem was eliminated that caused some V-count alarms to no longer be issued if execution was interrupted and restarted repeatedly by the debugger when using more than one periodic V-count alarm.<BR>This problem was also corrected in automatic sampling of the touch panel because it uses this feature.
+</P>
+
+<HR>
+<H3><A name="note50-06" id="note50-06">Note 50-06: (PM) Fixed an inconsistency in tick values before and after calling the <CODE>PM-GoSleepMode</CODE> function</A></H3>
+<P>A problem was corrected where an inconsistency would occur in the tick value obtained by the <CODE>OS_GetTick</CODE> function before and after sleep. This was caused because the <CODE>PM_GoSleepMode</CODE> function was prohibiting timer interrupts for 7.5 frames or more.
+</P>
+
+<HR>
+<H3><A name="note50-07" id="note50-07">Note 50-07: (PRC) Corrected the <CODE>pdic2c.pl</CODE> sample demo tool</A></H3>
+<P>A problem with the <CODE>pdic2c.pl</CODE> tool for the sample demo was corrected where processing was not performed correctly unless a comment was included for each line of input data.
+</P>
+
+<HR>
+<H3><A name="note50-08" id="note50-08">Note 50-08: (TOOL) Eliminated the parameter that allowed specification of LZ77 compression when using <CODE>ntrcomp.exe</CODE></A></H3>
+<P>Although it used to be possible when using the <CODE>ntrcomp</CODE> tool to perform LZ77 compression to specify the start offset value for text string match searches as an option, beginning from NitroSDK 3.0, this parameter is no longer used.<BR>Since this parameter has already become unnecessary, it has been officially eliminated and deleted from documentation and help.
+</P>
+
+<HR>
+<H3><A name="note50-09" id="note50-09">Note 50-09: (TOOL) Added an endian specification when outputting text using <CODE>ntrcomp.exe</CODE></A></H3>
+<P>Although there was a <CODE>-t[width]</CODE> option with the ntrcomp tool for outputting results as C language array definition text, if 2 or 4 was specified for <CODE>width</CODE>, data was output in little endian format.<BR>A <CODE>-T[width]</CODE> option has therefore been added as an option for outputting text data in big-endian format.
+</P>
+
+<HR>
+<H3><A name="note50-10" id="note50-10">Note 50-10: (TOOL) Added 8-, 16-, and 32-byte alignment for the output data size when using <CODE>ntrcomp.exe</CODE></A></H3>
+<P>The <CODE>ntrcomp</CODE> tool had a feature for aligning compressed data to a 4-byte boundary by applying the <CODE>-A4</CODE> option. The specifications have been changed so that 8-byte, 16-byte, and 32-byte can be specified for the alignment boundary by specifying <CODE>-A8</CODE>, <CODE>-A16</CODE>, or <CODE>-A32</CODE>, respectively.
+</P>
+
+<HR>
+<H3><A name="note50-11" id="note50-11">Note 50-11: (TOOL) Added a decompression option to <CODE>ntrcomp.exe</CODE></A></H3>
+<P>The <CODE>-x </CODE>option has been added to the <CODE>ntrcomp</CODE> tool for decompressing data compressed using <CODE>ntrcomp.exe</CODE> on a PC.
+</P>
+
+<HR>
+<H3><A name="note50-12" id="note50-12">Note 50-12: (WBT) Eliminated a bug related to block transfer to multiple child devices</A></H3>
+<P>A problem was corrected where, depending on the timing, a normal completion acknowledgment was never received for some child devices in cases where block transfer requests for the same ID were issued simultaneously by more than one child device.
+</P>
+
+<HR>
+<H3><A name="note50-13" id="note50-13">Note 50-13: (WM) Changed the send size limit for <CODE>WM_SetMPDataToPort*</CODE> functions</A></H3>
+<P>Although the error <CODE>WM_ERRCODE_INVALID_PARAM</CODE> has been returned up until now if there was an attempt to use the <CODE>WM_SetMPDataToPort*</CODE> function to send data having a size larger than the maximum send size currently set for the local host.<BR>However, note that the send queue will be continuously blocked if data quantities larger than the send capacity are set.
+</P>
+
+<HR>
+<H3><A name="note50-14" id="note50-14">Note 50-14: (WM) Corrected the <CODE>dataSharing-model</CODE> sample demo</A></H3>
+<P>The following revisions have been made to the WM samples.
+<UL>
+<LI>Display processing added as described in <a href="changelog4.2branch.html#note49-25">Note 49-25</a> has been slightly improved so that it is easier to check that data sharing is being performed accurately when using the <CODE>$NitroSDK/build/demos/wm/dataSharing-model</CODE> sample demo.
+</UL>
+</P>
+
+<HR>
+<H3><A name="note50-15" id="note50-15">Note 50-15: (MATH) Revised the <CODE>wmPadRead-child</CODE> sample demo</A></H3>
+<P>Specifications of the <CODE>wmPadRead-child</CODE> sample demo have been changed in line with changes made so that the <CODE>mpdlntr2rvl</CODE> sample demo supported by the Wii uses data sharing.<BR>In addition, a problem was corrected where appropriate operations were not being performed by multi-boot child device programs.<BR>The demo library used on the child device has therefore been changed from WC to WH.
+</P>
+
+<HR>
+<H3><A name="note50-16" id="note50-16">Note 50-16: (WM) Eased the limit on the maximum child device send size</A></H3>
+<P>Although it has been impossible up until now to subsequently specify a value for the child device send capacity after the child device send capacity was specified by the parent using <CODE>WMParentParam.childMaxSize</CODE>, this restriction has been eliminated.<BR>However, note that transmissions will stop if a value greater than the capacity of the parent device's receive buffer is set.
+</P>
+
+<HR>
+<H3><A name="note50-17" id="note50-17">Note 50-17: (WM) Added an initialization function for receive-only mode</A></H3>
+<P>The <CODE>WM_EnableForListening</CODE> and <CODE>WM_InitializeForListening</CODE> functions have been added for initializing the wireless system in receive-only mode.<BR>Rather than prohibiting operations that require radio transmission, use of this function allows passive scanning for surrounding beacons without causing the power LED to flash at variable speed.
+</P>
+
+<HR>
+<H3><A name="KnownIssues_4_02_rc" id="KnownIssues_4_02_rc">Known Issues in NITRO-SDK Version 4.2 RC</A></H3>
+<P><UL>
+<LI>Correct results were not being obtained due to a problem with the <CODE>MATH_FFTReal</CODE> function.<BR>Until this can be corrected, be sure to insert 0 into the imaginary part of input to the <CODE>MATH_FFT</CODE> function.</UL></P>
+
+<HR>
+<H2 style="line-height: 0"><A name="sdk_4_02_pr" id="sdk_4_02_pr">NITRO-SDK Version 4.2 PR</A></H2>
+<DIV style="text-align: right">
+<P style="line-height: 0">(2007/10/22)</P>
+</DIV>
+
+<HR>
+<H3><A name="note49-01" id="note49-01">Note 49-01: (CARD) Added data-writing functions for FLASH devices</A></H3>
+<P>Added the following data-writing functions for FLASH devices to the SDK.<BR>Large-capacity flash devices that cannot use the <CODE>CARD_WriteFlash</CODE> function must instead use these functions.
+<ul>
+<li>CARD_EraseFlashSector 
+<li>CARD_EraseFlashSectorAsync 
+<li>CARD_ProgramFlash 
+<li>CARD_ProgramFlashAsync 
+<li>CARD_ProgramAndVerifyFlash 
+<li>CARD_ProgramAndVerifyFlashAsync 
+<li>CARD_WriteFlashSector 
+<li>CARD_WriteFlashSectorAsync 
+<li>CARD_WriteAndVerifyFlashSector 
+<li>CARD_WriteAndVerifyFlashSectorAsync 
+</ul>
+</P>
+
+<HR>
+<H3><A name="note49-02" id="note49-02">Note 49-02: (CARD) Made Card Library Compatible with New Backup Devices</A></H3>
+<P>Made the CARD library compatible with 64MB FLASH backup devices and added <CODE>CARD_BACKUP_TYPE_FLASH_64MBITS</CODE> to the <CODE>CARDBackupType</CODE> enumerated type.<BR>In relation, the reference and sample demos were updated.
+</P>
+
+<HR>
+<H3><A name="note49-03" id="note49-03">Note 49-03: (CARD) Corrected a problem with asynchronous backup functions</A></H3>
+<P>Fixed the following bug: Abnormal state management inside the CARD library would sometimes arise when a process was waiting for the completion of an asynchronous backup function in a thread with higher priority than the CARD library's internal thread and then a synchronous backup function was called.
+</P>
+
+<HR>
+<H3><A name="note49-04" id="note49-04">Note 49-04: (DevEnv) Standardized Filenames for make Builds</A></H3>
+<P>Made the following revision: when building with <CODE>make</CODE>, an error no longer occurs even if the name in the <CODE>Static</CODE> section of the <CODE>lsf</CODE> file differs with the file specified by <CODE>TARGET_BIN</CODE>. As a result, when selecting the name to use for the generated file, the name generated from the <CODE>TARGET_BIN</CODE> specified by the <CODE>makelcf</CODE> command line option has priority over the name in the <CODE>Static</CODE> section.<BR><BR> This feature is currently disabled by default in order to confirm its operation.<BR> To enable it, you need to set a value for the NITRO_TRGNAME variable.<BR> (For example, <BR>
+   <CODE>% make TARGET_BIN=myapp.srl clean</CODE> <BR>
+   <CODE>% make TARGET_BIN=myapp.srl NITRO_TRGNAME=TRUE</CODE>
+</P>
+
+<HR>
+<H3><A name="note49-05" id="note49-05">Note 49-05: (GX) Changed the GX_SetVCount Function</A></H3>
+<P>The runtime restriction checking was not catching everything; the function was revised to perform more adequate checking.
+</P>
+
+<HR>
+<H3><A name="note49-06" id="note49-06">Note 49-06: (MATH) Changed the implementation of the MATH_CountLeadingZeros function in the thumb library</A></H3>
+<P>The <CODE>MATH_CountLeadingZeros</CODE> function had until now been used in the <CODE>thumb</CODE> code library to call <CODE>thumb</CODE> code implementations of functions, but its operation has now been switched to <CODE>ARM</CODE> code, and it calls a <CODE>CLZ</CODE> command. This change improves both code size and run speed.
+</P>
+
+<HR>
+<H3><A name="note49-07" id="note49-07">Note 49-07: (MATH) Corrected Sample Demos</A></H3>
+<P>In the <CODE>$NitroSDK/build/demos/math/qsort</CODE> sample demo, the comparison function used in sorting handled the compared values as s32 values. Because of this sometimes the comparison result would overflow.<BR>This has been corrected so that calculations are done with s64.
+</P>
+
+<HR>
+<H3><A name="note49-08" id="note49-08">Note 49-08: (MB) Fixed a bug specific to the MB_EndToIdle function</A></H3>
+<P>Fixed the following bug: when the <CODE>IDLE</CODE> state was ended by a call to the <CODE>MB_EndToIdle</CODE> function, the settings for the <CODE>WM_SetBeaconIndication</CODE> function called inside the library still remained valid.
+</P>
+
+<HR>
+<H3><A name="note49-09" id="note49-09">Note 49-09: (MB) Added documentation for Icon data</A></H3>
+<P>Added documentation about the Icon data used with DS Download Play, explaining the image format and creation of Icon data.
+</P>
+
+<HR>
+<H3><A name="note49-10" id="note49-10">Note 49-10: (MB) Fixed bug specific to dynamic reading from memory files</A></H3>
+<P>Fixed the following bug: when a memory file generated by the <CODE>FS_CreateFileFromMemory</CODE> function was specified as a <CODE>MB_ReadSegment</CODE> function argument, program delivery processing would not execute.
+</P>
+
+<HR>
+<H3><A name="note49-11" id="note49-11">Note 49-11: (MB) Revised value of the callback argument for a pseudo-multiboot child</A></H3>
+<P>When a pseudo-multiboot child scans for a parent, it can get parent information from the callback argument. Until now, when the callback class was <CODE>MB_FAKESCAN_PARENT_LOST</CODE>, the <CODE>gameInfo</CODE> and <CODE>bssDesc</CODE> members of the <CODE>MBFakeScanCallback</CODE> structure would be set to NULL.<BR>This has been revised so that even when the class is <CODE>MB_FAKESCAN_PARENT_LOST</CODE>, <CODE>gameInfo</CODE> and <CODE>bssDesc</CODE> are set to the parent information obtained last and those values are returned.
+</P>
+
+<HR>
+<H3><A name="note49-12" id="note49-12">Note 49-12: (MB) Corrected a problem related to terminating the library during transmission</A></H3>
+<P>If the MB_End function was called while a program for which delayed loading had been specified with the MB_ReadSegment function, and was actually being transmitted, the condition test would fail within the library and a forced halt would occur. This problem has been corrected.
+</P>
+
+<HR>
+<H3><A name="note49-13" id="note49-13">Note 49-13: (OS) Changed the OS_SetPeriodicVAlarm function</A></H3>
+<P>Fixed the following problem: an incorrect threshold value was set for the check to determine if the value entered in the <CODE>OS_SetPeriodicVAlarm</CODE> function's <CODE>delay</CODE> argument was within a valid range.
+</P>
+
+<HR>
+<H3><A name="note49-14" id="note49-14">Note 49-14: (OS) Changed the reference for the OS_SetThreadDestructor function</A></H3>
+<P>Added notes about destructor functions to the <CODE>OS_SetThreadDestructor</CODE> function references. 
+</P>
+
+<HR>
+<H3><A name="note49-15" id="note49-15">Note 49-15: (PM) Corrected LCD control functions</A></H3>
+<P>Revised the LCD control functions so that when the state is <CODE>LCD OFF</CODE>, microphone power is off, and when the state is <CODE>LCD ON</CODE>, microphone power is restored to its original state.
+</P>
+
+<HR>
+<H3><A name="note49-16" id="note49-16">Note 49-16: (PRC) Updated documentation that describes the figure recognition library</A></H3>
+<P>Indicated that the <EM>Decuma Handwriting Recognition library</EM> can be used when all that is required is hand-written character recognition.
+</P>
+
+<HR>
+<H3><A name="note49-17" id="note49-17">Note 49-17: (TP) Revised the V-count interrupt used with auto-sampling</A></H3>
+<P>The touch panel's auto-sampling makes use of V-count interrupts. However, when the application called the <CODE>GX_SetVCount</CODE> function, it would sometimes perform inappropriately. This was corrected to not use the V-count interrupts between lines 200 and 214. When settings are made that would cause auto-sampling to occur between lines 200 and 214, sampling is performed at line 215.
+</P>
+
+<HR>
+<H3><A name="note49-18" id="note49-18">Note 49-18: (WBT) Corrected header files</A></H3>
+<P>Made slight revisions to the specification range for <CODE>extern &quot;C&quot;</CODE> in <CODE>$NitroSDK/include/nitro/wbt/context.h</CODE>. This does not change the actual behavior of the program.
+</P>
+
+<HR>
+<H3><A name="note49-19" id="note49-19">Note 49-19: (WBT) Fixed bug in which an infinite loop was caused by delays in preparing data for transfer</A></H3>
+<P>Fixed the following bug: when the <CODE>WBT</CODE> library's <CODE>WBT_CMD_PREPARE_SEND_DATA</CODE> callback is delayed because the application had not prepared data for transmission, subsequent responses from the parent would enter an infinite loop inside the library and the parent program would freeze.<BR><BR>This bug was introduced in NITRO-SDK 4.1 PR and occurs only in that and subsequent releases.
+</P>
+
+<HR>
+<H3><A name="note49-20" id="note49-20">Note 49-20: (WFS) Added a note specific to termination for WFS child devices</A></H3>
+<P>If wireless communications are ended when a child is using the <CODE>WFS</CODE> library to access files, the process will remain blocked unless the <CODE>WFS_EndClient</CODE> function is called to notify the library that communications were terminated. A note about this has been added to the Function Reference.
+</P>
+
+<HR>
+<H3><A name="note49-21" id="note49-21">Note 49-21: (WFS) Corrected a memory leak in the WFS_ExecuteRomServerThread function</A></H3>
+<P>Fixed the following bug: the memory for threads generated internally by a call to the <CODE>WFS_ExecuteRomServerThread</CODE> function was not released when the <CODE>WFS_EndServer</CODE> function was called.
+</P>
+
+<HR>
+<H3><A name="note49-22" id="note49-22">Note 49-22: (WFS) Corrected a problem related to block transfer processing during card access</A></H3>
+<P>Fixed the following bug: if the parent was made to wait for card access during a file access request from a <CODE>WFS</CODE> child, in some cases the process would enter an infinite loop inside the <CODE>WFS_CallServerPacketSendHook</CODE> function called by the parent.
+</P>
+
+<HR>
+<H3><A name="note49-23" id="note49-23">Note 49-23: (WM) Eliminated a Bug specific to changing parameters during MP communications</A></H3>
+<P>Corrected two problems listed below, both of which emerged as a result of changes to NITRO-SDK 4.1 PR described in <a href="changelog-nitro.html#note46-23">Note 46-23</a>.
+<UL>
+<LI>During MP communications, the MP frequency could not be modified with the <CODE>WM_SetMPParameter</CODE> or <CODE>WM_SetMPFrequency</CODE> function.
+<LI>Values for <CODE>WMMPParam.minFrequency</CODE>, <CODE>WMMPParam.maxFrequency</CODE> and <CODE>WMMPParam.defaultRetryCount</CODE>, set by the <CODE>WM_SetMPParameter</CODE> function, would not become effective until the <CODE>WM_StartMP</CODE> function was called again.
+</UL>
+</P>
+
+<HR>
+<H3><A name="note49-24" id="note49-24">Note 49-24: (WM) Adjusted the V-count range for V-blank synchronization</A></H3>
+<P>To synchronize V blanks during MP communications, the V-count value might roll back from a maximum of 212 lines to 202 lines. The maximum value has been changed to 210 lines.
+</P>
+
+<HR>
+<H3><A name="note49-25" id="note49-25">Note 49-25: (WM) Eliminated the ball sample demo</A></H3>
+<P>Eliminated the <CODE>$NitroSDK/build/demos/wm/ball</CODE> sample because, having been designed for the original NITRO-SDK wireless specifications, it is no longer appropriate.<BR><BR>An example of sharing game information using data sharing has been added to the <CODE>$NitroSDK/build/demos/wm/dataSharing-model</CODE> sample. Refer to it now that <CODE>ball</CODE> has been removed.
+</P>
+
+<HR>
+<H3><A name="note49-26" id="note49-26">Note 49-26: (WM) Corrected Sample Demos</A></H3>
+<P>The following revisions have been made to the WM samples.
+<ul>
+<li>In <CODE>$NitroSDK/build/demos/wireless_shared/wh/default/wh_config.h</CODE>, the constant value <CODE>4</CODE> that was used without explanation inside the <CODE>WH_PARENT_MAX_SIZE</CODE> macro has been replaced by <CODE>WM_SIZE_DS_PARENT_HEADER</CODE>.
+<li>In the <CODE>$NitroSDK/build/demos/wireless_shared/wh</CODE> sample, there are functions that take a prepared <CODE>void*</CODE> pointer as an argument. In those functions in which the pointer content does not change, the pointer has been changed to <CODE>const void*</CODE>.
+<li>Combined the wireless control samples located in <CODE>$NitroSDK/build/demos/wireless_shared/</CODE>.<BR>The <CODE>WC</CODE> sample now makes internal use of the <CODE>WH</CODE> sample, but its existing features can still be used as they were originally.<BR>In future, the wireless control sample will be integrated into <CODE>WH</CODE> and the <CODE>WC</CODE> code will be gradually eliminated.
+<li>In the <CODE>WH</CODE> sample, the <CODE>WM_StartScanEx</CODE> function is now used instead of <CODE>WM_StartScan</CODE> when scanning for parents.<BR>In a wireless environment with multiple access points, the <CODE>WM_StartScan</CODE> function may require thirty seconds or more to find a parent.<BR>The use of the <CODE>WM_StartScanEx</CODE> function is recommended particularly when connecting to a Wii.<BR>This was also added to the description of the Wireless Communications library.
+<li>Fixed the following bug: in the <CODE>$NitroSDK/bbuild/demos/wm/dataShare-model</CODE> sample, nearly one frame's worth of data is empty while key input information is obtained and sent through data sharing; if there was a delay that ought to last two frames, it actually lasted for three frames.
+</ul>
+</P>
+
+<HR>
+<H3><A name="note49-27" id="note49-27">Note 49-27: (WM) Eliminated a bug specific to Sequential communications to a child device immediately after connection</A></H3>
+<P>Fixed the following bug: when Sequential communications were conducted with a child immediately after connection, in some cases the parent would assume the transmission was successful even if the data had not reached the child.
+</P>
+
+<HR>
+<H3><A name="note49-28" id="note49-28">Note 49-28: (Misc) Corrected header file dependency errors</A></H3>
+<P>Fixed the following bug: undefined errors sometimes occurred for a number of constants and functions when the precompiled header feature was disabled and <CODE>fx.h</CODE> and <CODE>gx.h</CODE> were included directly instead of <CODE>nitro.h</CODE>.
+</P>
+
+<HR>
+<H3><A name="KnownIssues_4_02_pr" id="KnownIssues_4_02_pr">Known Issues in NITRO-SDK Version 4.2 PR</A></H3>
+<P> None.</P>
+
+<HR>
+<P style="text-align: right">Nintendo Technical Support Center</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

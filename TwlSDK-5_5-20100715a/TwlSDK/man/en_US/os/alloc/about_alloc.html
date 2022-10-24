@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>Memory Allocation: Overview </TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">Memory Allocation: Overview</H1>
+<P><BR> <FONT color="#ff0000">(In the image of the memory map shown on this page, the &quot;lower address&quot; is at the top of the image, and the &quot;upper address&quot; is at the bottom.)</FONT></P>
+<H2>Initialization</H2>
+<P>The TWL-SDK allows you to build a heap system in the arena. You can use the heap system to allocate and release memory blocks for in-game use. When the <a href="../arena/OS_InitArena.html"><CODE>OS_InitArena</CODE></a> function initializes the arena, the <CODE>ArenaLo</CODE> pointer is inserted at the front end of the region, and the <CODE>ArenaHi</CODE> pointer is inserted at the tail end of the region.</P>
+<BLOCKQUOTE><IMG src="image_alloc1.gif" border="0"></BLOCKQUOTE>
+<P><BR> A memory allocation system can be built for each of multiple arenas. In addition, multiple heap regions can be configured for a single arena.</P>
+<P>For an arena in the state shown in the preceding figure, calling the <A href="OS_InitAlloc.html"><CODE>OS_InitAlloc</CODE></A> function to initialize the memory allocation system results in the creation of a heap information block at the bottom of the memory region, as shown in the figure below. Up to this point, this memory block was an unallocated arena region. Using the <code>OS_InitiAlloc</code> return value, the arena's boundary address, <CODE>ArenaLo</CODE>, only needs to move by the size of the information block.</P>
+<P>The maximum number of heaps that can be created in a single arena must be specified as an argument of the <A href="OS_InitAlloc.html"><CODE>OS_InitAlloc</CODE></A> function because heap descriptors equal to this maximum number are created in the heap information block as part of the initialization process. The reason for this is that this maximum number of heap descriptors is created in advance in the block information of the heap. As shown in the figure, the heap descriptors store information about the size of the heap regions, the start of free blocks, and the starting addresses of blocks in use.</P>
+<BLOCKQUOTE><BR> <IMG src="image_alloc2.gif" border="0"></BLOCKQUOTE>
+<P>To clear memory allocation system information, call the <a href="OS_ClearAlloc.html"><code>OS_ClearAlloc</code></a> function.</P>
+<H2>Creating Heaps</H2>
+<P>Call the <a href="OS_CreateHeap.html"><code>OS_CreateHeap</code></a> function to create a new heap. Specify the region to use for the heap using the <SPAN class="argument">start</SPAN> and <SPAN class="argument">end</SPAN> arguments. The specified region must be in the range from <code>topAddr</code> to <code>bottomAddr</code> in the diagram.</P>
+<P>The heap information is stored in the heap descriptor.</P>
+<BLOCKQUOTE><IMG src="image_alloc3.gif" border="0"></BLOCKQUOTE>
+<H2>Releasing and Reinitializing Heaps</H2>
+<P>Call the <a href="OS_DestroyHeap.html"><code>OS_DestroyHeap</code></a> function to destroy created heaps. This does not change the pointers <CODE>ArenaLo</CODE> and <CODE>ArenaHi</CODE>.<br /></P>
+<P>Call the <a href="OS_ClearHeap.html"><code>OS_ClearHeap</code></a> function to reinitialize a heap.</P>
+<H2>Current Heap</H2>
+<P>You can set current heap for each arena. By setting the current heap, it is no longer necessary to specify heap handlers using several macro functions. It also becomes possible to specify heap with <code>OS_CURRENT_HEAP_HANDLE</code>, even though it is a tool for specifying heap handles.</P>
+<P>The <a href="OS_SetCurrentHeap.html"><code>OS_SetCurrentHeap</code></a> function sets the current heap.</P>
+<H2>Extending Heaps</H2>
+<P>After creating a heap, it is possible to extend the heap region. Call the <a href="OS_AddToHeap.html"><code>OS_AddToHeap</code></a> function using the <SPAN class="argument">heap</SPAN> argument to specify the heap you want extended.</P>
+<P>Do not use the extended heap region for another purpose until you release the heap.</P>
+<P>When using <code>OS_AddToHeap</code>, heap &quot;enclaves&quot; may occur, as illustrated below.</P>
+<BLOCKQUOTE><IMG src="image_alloc4.gif" border="0"></BLOCKQUOTE>
+<H2>Allocating Memory Blocks</H2>
+<P>The <a href="OS_AllocFromHeap.html"><code>OS_AllocFromHeap</code></a> function allows you to allocate memory blocks from the specified heap. For this function, you must also specify the arena.<br /> For the sake of simplicity, a macro is provided that includes the arena name in the function name. For details, see <code>OS_AllocFromHeap</code>.</P>
+<P>Also, the <a href="OS_AllocFixed.html"><code>OS_AllocFixed</code></a> function allows you to allocate memory blocks from a specified region. A memory block allocated with this function is excluded from heap control. Therefore, it is acceptable to take a memory block allocated with this function as an argument and extend another heap with the <a href="OS_AddToHeap.html"><code>OS_AddToHeap</code></a> function.</P>
+<H2>Freeing Memory Blocks</H2>
+<P>The <a href="OS_FreeToHeap.html"><code>OS_FreeToHeap</code></a> function allows you to release allocated memory blocks. For this function, you must also specify the arena.<br /> For the sake of simplicity, a macro is provided that includes the arena name in the function name. For details regarding this macro, see the reference materials for <code>OS_FreeToHeap</code>.</P>
+<P>Also, the <a href="OS_FreeAllToHeap.html"><code>OS_FreeAllToHeap</code></a> function allows you to release all memory blocks. Here, too, a macro is provided that includes arena name in function name. For details regarding this macro, see <code>OS_FreeAllToHeap</code>.</P>
+<H2>Memory Block Management</H2>
+<P>Within heaps, both free memory and used memory are controlled in block units. These block units are linked with a bidirectional list. After creating a heap, all regions for the heap are considered free blocks.</P>
+<P>The size of the data area includes the region allocated for the heap. With normal use, this value does not change. However, calling the <a href="OS_AllocFixed.html"><code>OS_AllocFixed</code></a> function reduces the size of that block amount in heaps that include the specified region. Also, the size of that block amount increases when you add memory blocks that were not originally included in this heap by calling the <a href="OS_AddToHeap.html"><code>OS_AddToHeap</code></a> function.</P>
+<P>The following diagram shows the heap and heap descriptor state at a point in time. In this example, when <code>FreeBlockList</code> reaches <code>addr1</code> and then follows the next link, it becomes clear that <code>addr1</code> and the block that starts from <code>addr5</code> and <code>addr3</code> are empty regions. In the same way, by following Allocated Block List, it becomes clear that the block that starts from <code>addr2</code>, <code>addr4</code>, and <code>addr6</code> is in use.</P>
+<BLOCKQUOTE><IMG src="image_alloc5.gif" border="0"></BLOCKQUOTE>
+<H2>Memory Block Size Information</H2>
+<P>The following functions are available.</P>
+<P><a href="OS_GetTotalAllocSize.html"><code>OS_GetTotalAllocSize</code></a> gets the total size of the memory block (not including the header size) being used.</P>
+<P><a href="OS_GetTotalAllocSize.html"><code>OS_GetTotalOccupiedSize</code></a> gets the total size of the memory block (including the header size) being used.</P>
+<P><a href="OS_GetTotalFreeSize.html"><code>OS_GetTotalFreeSize</code></a> gets the total size of the free memory block.</P>
+<P><a href="OS_GetMaxFreeSize.html"><code>OS_GetMaxFreeSize</code></a> gets the size of the largest free memory block.</P>
+<P><a href="OS_ReferentSize.html"><code>OS_ReferentSize</code></a> specifies a memory block and then gets the size of that block.</P>
+<P>These functions only take into account parts where memory block data is stored. In other words, the size of the part that controls memory is not included. Even though these are functions that get the totals, that total is only the data region part.</P>
+<P><IMG src="image_allocBlockSize.gif" border="0"></P>
+<H2>Debugging Functions</H2>
+<P><a href="OS_DumpHeap.html"><code>OS_DumpHeap</code></a> displays heap contents using <a href="../debug/OS_Printf.html"><code>OS_Printf</code></a>. This function is used for debugging.</P>
+<P>Also, <a href="OS_CheckHeap.html"><code>OS_CheckHeap</code></a> checks the validity of the heap contents.</P>
+<H2>Special Heap for Hybrid ROMs Operating in NITRO Mode</H2>
+<P>On the TWL ROM (both hybrid ROM and limited ROM), the bottom 16 KB (<CODE>0x02000000</CODE> to <CODE>0x02004000</CODE>) of the main memory is reserved as a system region and programs are located after <CODE>0x02004000</CODE>. This region is used only when operating in TWL mode, but when operating in NITRO mode, it is not used.</P>
+<P>Therefore, as long as the hybrid ROM is operating in NITRO mode, this 16 KB can be used freely.</P>
+<P>It can be used however you like, such as a thread stack region or as data buffer, but the <A href="OS_CreateExtraHeap.html"><CODE>OS_CreateExtraHeap</CODE></A> function is available so that this region can be used as an independent heap, as one other use.</P>
+<P>Note that a 16-KB region can be added as a free region to be an enclave for different heaps that already exist. In such a case, use the <A href="OS_AddToHeap.html"><CODE>OS_AddToHeap</CODE></A> function. This is the <CODE>OS_AddToHeap</CODE> function wrapper, but the <A href="OS_AddExtraAreaToHeap.html"><CODE>OS_AddExtraHeapToHeap</CODE></A> function is a convenient function that is available so that the starting and ending addresses do not need to be specified.</P>
+<P><FONT color="#ff0000"><B>In either case, this is valid only when a hybrid ROM is operating in NITRO mode.</B></FONT></P>
+<H2>See Also</H2>
+<P><a href="../list_os.html#Arena">OS Function List (Arena)</a><BR> <a href="../list_os.html#Alloc">OS Function List (Alloc)</a></P>
+<H2>Revision History</H2>
+<P>2009/04/03 Added special heap for the top region of the main memory.<BR> 2005/10/07 Added the <CODE>OS_GetTotalOccupiedSize</CODE> function.<BR> 2005/03/14 Corrected mistakes in the link.<BR> 2005/03/03 Corrected mistakes in the link.<BR> 2004/12/13 Corrected terms and word endings.<BR> 2004/10/26 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

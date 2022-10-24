@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>WBT_MpChildRecvHook</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">WBT_MpChildRecvHook <img src="../../image/NTR.gif"><img src="../../image/TWL.gif"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/wbt.h&gt;</CODE><BR> <BR> <CODE>void WBT_MpChildRecvHook(const void *recv_buf, int recv_size);</CODE><br> <br>
+  </dd>
+</dl>
+<h2>Arguments</h2>
+<p>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="13%"><CODE>recv_buf</CODE></TD>
+<TD width="87%">Child's receive buffer, used for WBT by functions such as <a href="../../wm/wm/WM_SetMPDataToPort.html"><code>WM_SetMPDataToPort</code></a> during MP communications.</TD>
+    </TR>
+    <TR>
+<TD width="13%"><CODE>recv_size</CODE></TD>
+<TD width="87%">Size of <code>recv_buf</code>.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</p>
+
+<h2>Return Values</h2>
+<p>None.</p>
+
+<H2>Description</H2>
+<P>Notifies the WBT library of data that the WBT library child received by MP communication. Data based on the WBT library protocol is extracted from the receive buffer. Various commands are executed by repeating this function during MP communication.<br> <B>Note:</B> This function merely processes data based on the WBT protocol.<br> Call this function inside the MP data receive callback that is specified by functions such as <A href="../../wm/wm/WM_SetPortCallback.html"><code>WM_SetPortCallback</code></A>.)<br>
+
+<br> The completion callback generates in this call when any command is executed. Also, the <A href="../wbt_command_type_const.html"><code>WBT_CMD_SYSTEM_CALLBACK</code></A> callback may occur in this call when any command is received from a communication destination. <br>
+<h2>See Also</h2>
+<p><BR></P>
+<H2>Revision History</H2>
+<P>
+2005/03/14 Corrected link destination error.<br /> 2005/02/18 Added cautionary notes about the relationship with the WM library.<br /> 2004/09/31 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

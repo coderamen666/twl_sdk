@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"><html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>NNS_SndArcReadFile</title>
+<link rel="stylesheet" href="../css/nitro.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.65.1">
+</head>
+<body>
+<div class="refentry" lang="ja"><a name="IDAKKWT"></a><div class="titlepage">
+<div></div>
+<div></div>
+</div>
+<h1>NNS_SndArcReadFile</h1>
+<h2>Syntax</h2>
+<dl>
+<dd><pre class="funcsynopsisinfo"><code>#include &lt;nnsys/snd.h&gt;</code></pre></dd>
+<dd><pre class="funcprototype"><code class="funcprototype">s32 NNS_SndArcReadFile(
+        u32 <var>fileId</var>,
+        void* <var>buffer</var>,
+        s32 <var>size</var>,
+        s32 <var>offset</var> );</code><br></pre></dd>
+</dl>
+<div class="refsection" lang="ja"><a name="IDACMWT"></a>
+<h2>Arguments</h2>
+      
+      <div class="variablelist">
+<table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><em><strong><code>fileId</code></strong></em></td>
+<td>File ID.</td>
+</tr>
+<tr>
+<td><em><strong><code>buffer</code></strong></em></td>
+<td>Address of the storage destination buffer.</td>
+</tr>
+<tr>
+<td><em><strong><code>size</code></strong></em></td>
+<td>Length (in bytes) of the data to read out.</td>
+</tr>
+<tr>
+<td><em><strong><code>offset</code></strong></em></td>
+<td>Position, relative to the start of the file, at which to begin loading.</td>
+</tr>
+</tbody>
+</table>
+</div>
+    </div>
+<div class="refsection" lang="ja"><a name="IDAGNWT"></a>
+<h2>Return Values</h2>
+
+<p>Returns size of the loaded data. Returns -1 if the load fails.</p>
+    </div>
+<div class="refsection" lang="ja"><a name="IDANNWT"></a>
+<h2>Description</h2>
+      <p>
+Reads into memory the file in sound archive.
+</p>
+      <p>
+A portion of memory equal to <em><strong><code>size</code></strong></em> (the amount of data to load) must be allocated in advance. Use <code><a href="NNS_SndArcGetFileSize.html">NNS_SndArcGetFileSize</a></code> to get the file size.
+</p>
+      <p>
+The file ID <em><strong><code>fileId</code></strong></em> can be obtained from the sound data information structure gotten with <tt class="function"><a href="NNS_SndArcGetSeqInfo.html"><CODE>NNS_SndArcGetSeqInfo</CODE></a></tt> or similar functions.
+</p>
+      <p>
+If you wish to limit the size of data that can be loaded at one time, use the <tt class="function"><a href="NNS_SndArcSetLoadBlockSize.html">NNS_SndArcSetLoadBlockSize</a></tt> function to specify the load block size.
+</p>
+      <p>
+This function is called from such functions as <code><a href="NNS_SndArcLoadSeq.html">NNS_SndArcLoadSeq</a></code> and <code><a href="NNS_SndArcLoadSeqArc.html">NNS_SndArcLoadSeqArc</a></code>.
+</p>
+      <div class="note">
+<h3 class="title">Note</h3>
+<p>
+Use this function only for sound archives initialized using the <code><tt class="function"><a href="NNS_SndArcInit.html">NNS_SndArcInit</a></tt></code> function. This function <em>cannot</em> be used with sound archives initialized using the <code><tt class="function"><a href="NNS_SndArcInitOnMemory.html">NNS_SndArcInitOnMemory</a></tt></code> function.
+</p>
+</div>
+    </div>
+<h2>See Also</h2>
+<p><a href="NNS_SndArcGetFileSize.html"><CODE>NNS_SndArcGetFileSize</CODE></a>, <a href="NNS_SndArcGetSeqInfo.html"><CODE>NNS_SndArcGetSeqInfo</CODE></a>, <a href="NNS_SndArcSetLoadBlockSize.html"><CODE>NNS_SndArcSetLoadBlockSize</CODE></a>, <a href="NNS_SndArcLoadSeq.html"><CODE>NNS_SndArcLoadSeq</CODE></a>, <a href="NNS_SndArcLoadSeqArc.html"><CODE>NNS_SndArcLoadSeqArc</CODE></a>, <a href="NNS_SndArcInit.html"><CODE>NNS_SndArcInit</CODE></a>, <a href="NNS_SndArcInitOnMemory.html"><CODE>NNS_SndArcInitOnMemory</CODE></a></p>
+<h2>Revision History</h2>
+<p>2007/10/17 Added descriptions related to the <code>NNS_SndArcSetLoadBlockSize</code> function.<br> 2004/06/01 Initial version.</p>
+</div>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

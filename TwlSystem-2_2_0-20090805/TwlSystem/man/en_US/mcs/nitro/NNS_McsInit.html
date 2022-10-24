@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 Trial for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>NNS_McsInit</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+<h1 align="left">NNS_McsInit</h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+		
+  <pre><CODE>#include &lt;nnsys/mcs.h&gt;</CODE></pre>
+	  
+  <pre><CODE>void NNS_McsInit(void* workMem);</CODE></pre>
+	</dd>
+</dl>
+
+<h2>Arguments</h2>
+<table border="1" width="100%">
+ 
+    <tr> 
+<td width="13%"><font face="Courier New">workMem</font></td>
+<td width="87%">Work memory used by MCS. Specify a memory region of <CODE>NNS_MCS_WORKMEM_SIZE</CODE> bytes that is aligned to 4.</td>
+ </tr>
+</table>
+<h2>Return Values</h2>
+<p>None.</p>
+
+<h2>Description</h2>
+<P>Performs initialization for communication with devices. It must be called before any other <code>NNS_Mcs</code> functions are used.</p>
+
+<h2>See Also</h2>
+<p><A href="NNS_McsFinalize.html"><CODE>NNS_McsFinalize</CODE></A></p>
+
+<H2>Revision History</H2>
+<P>2009/03/11 Added links to <B>See Also</B>.<br /> 2007/04/26 Revised to use an argument to specify the internally used work memory.<br />2004/06/01 Initial version.</P>
+
+<hr><p>CONFIDENTIAL</p></body>
+</html>

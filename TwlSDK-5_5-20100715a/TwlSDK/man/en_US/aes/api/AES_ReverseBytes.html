@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>AES_ReverseBytes</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">AES_ReverseBytes <IMG src="../../image/TWL.gif" width="23" height="12" border="0" align="middle"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+  <pre><CODE>#include &lt;twl/aes.h&gt;
+
+void AES_ReverseBytes(const void* src, void* dst, u32 size);
+</CODE></pre>
+</dd>
+</dl>
+
+<h2>Arguments</h2>
+<TABLE border="1" width="100%" class="arguments">
+  <TBODY>
+    <TR>
+      <TH>src</TH>
+      <TD>Pointer to the source data to copy.</TD>
+    </TR>
+    <TR>
+      <TH>dst</TH>
+      <TD>Pointer to the destination buffer where the data will be copied.. This can specify the same pointer as <span class="argument">src</span>.</TD>
+    </TR>
+    <TR>
+      <TH>size</TH>
+      <TD>Copy size.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<h2>Return Values</h2>
+<p>
+None.
+</p>
+
+<H2>Description</H2>
+<P>
+Copies a byte array one byte at a time in reverse order.
+</p>
+
+<P>
+The input and output values of the TWL-SDK AES library are not compatible with the standard AES algorithm, but by adding certain pre- and post-processing operations, standards-compatible encryption and decryption is possible. For details, see the <a href="../../demos/aes/aesdemos.html">ctr-compatible demo / ccm-compatible demo</a>.
+</p>
+
+<h2>See Also</h2>
+<p><CODE></CODE></p>
+
+<H2>Revision History</H2>
+<P>
+2007/12/25 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>NNS_G2dEntryNewOam</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+<h1 align="left">NNS_G2dEntryNewOam</h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+		<pre><CODE>#include &lt;nnsys/g2d/g2d_Oam.h&gt;</CODE></pre>
+  <pre><CODE>BOOL NNS_G2dEntryNewOam( 
+                         NNSG2dOamManagerInstance* pMan, 
+                         const GXOamAttr*          pOam, 
+                         u16                       num );</CODE></pre>
+  </dd>
+</dl><h2>Arguments</h2>
+
+<table border="1" width="100%">
+  <tr>
+<td width="13%"><CODE>pMan</CODE></td>
+<td width="87%">[OUT] OAM manager entity</td>
+  </tr>
+  <tr>
+<td width="13%"><CODE>pOam</CODE></td>
+<td width="87%">[IN] Pointer to the start of the <CODE>GXOamAttr</CODE> array that will be registered</td>
+  </tr>
+  <tr>
+<td width="13%"><CODE>num</CODE></td>
+<td width="87%">[IN] Number of OAMs to be registered</td>
+  </tr>
+  </table>
+<h2>Return Values</h2>
+<p>If there is not enough free space, nothing is registered, and <code>FALSE</code> is returned.
+</p>
+<H2>Description</H2>
+<P>Registers OBJs in the OAM manager. The entered <code>GXOamAttr</code> array is copied to the Manager's internal buffer. The Manager copies only the &quot;<CODE>attr 0,1,2</CODE>&quot; portion of the <code>GXOamAttr</code> array elements. (In other words, the affine parameters are not overwritten.) The name of this function has changed to <code>NNS_G2dEntryOamManagerOam</code>. To maintain compatibility with past versions, this function has been kept under a different name.
+</p>
+
+<h2>See Also</h2>
+<p>
+<a href="NNS_G2dEntryOamManagerOam.html"><code>NNS_G2dEntryOamManagerOam</code></a><BR> <a href="NNS_G2dEntryOamManagerOamWithAffineIdx.html"><code>NNS_G2dEntryOamManagerOamWithAffineIdx</code></a></p>
+<H2>Revision History</H2>
+<P>2004/08/02 Renamed function.<BR></P><P>2004/05/28 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

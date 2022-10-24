@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<LINK rel="stylesheet" type="text/css" href="../../css/nitro.css">
+<TITLE>WXC Demos</TITLE>
+</HEAD>
+<BODY>
+<H1>Chance Encounter Communications Library (WXC) Sample Demos</H1>
+
+<H2>Location</H2>
+<P><CODE>$TwlSDK/build/demos/wxc</CODE></P>
+
+<H2>Compilation</H2>
+<P>Move to the <CODE>$TwlSDK/build/demos/wxc</CODE> directory and enter the following.</P>
+<BLOCKQUOTE><CODE>% make</CODE></BLOCKQUOTE>
+<P>  &nbsp;The compilation begins, and the SRL executable file and the NEF or TEF files with binary information are generated in the following directory.</P>
+<BLOCKQUOTE><CODE>$TwlSDK/build/demos/wxc/<I>(sample_name)</I>/bin/<I>(platform)</I>/<I>(target)</I>/</CODE></BLOCKQUOTE>
+<P>  &nbsp;&nbsp;&nbsp;For example:</P>
+<BLOCKQUOTE><CODE>$TwlSDK/build/demos/wxc/simple-1/bin/ARM9-TS/Release/main.srl</CODE></BLOCKQUOTE>
+<P>The above path shows the executable file for the <CODE>simple-1</CODE> demo.</P>
+
+<H2>Execution</H2>
+<H3>For NITRO ROMs</H3>
+
+<P>If using IS-NITRO-DEBUGGER:</P>
+<UL>
+  <LI>Load and execute an NLF file with IS-NITRO-DEBUGGER
+  <LI>Execute an SRL file with IS-NITRO-DEBUGGER
+  <LI>Execute an SRL file with IS-NITRO-DEBUGGER using the <CODE>loadrun.exe</CODE> tool from the command line
+</UL>
+<P>If using IS-TWL-DEBUGGER:</P>
+<UL>
+  <LI>Load and execute an NLF file with IS-TWL-DEBUGGER
+  <LI>Execute an SRL file with IS-TWL-DEBUGGER
+  <LI>Execute an SRL file with IS-TWL-DEBUGGER using the <CODE>loadrun.TWL.exe</CODE> tool from the command line
+</UL>
+<H3>For TWL/NITRO HYBRID ROMs</H3>
+<P>If using IS-NITRO-DEBUGGER:</P>
+<UL>
+  <LI>Execute an SRL file with IS-NITRO-DEBUGGER
+  <LI>Execute an SRL file with IS-NITRO-DEBUGGER using the <CODE>loadrun.exe</CODE> tool from the command line
+</UL>
+<P>If using IS-TWL-DEBUGGER:</P>
+<UL>
+  <LI>Load and execute a TLF file with IS-TWL-DEBUGGER
+  <LI>Execute an SRL file with IS-TWL-DEBUGGER
+  <LI>Execute an SRL file with IS-TWL-DEBUGGER using the <CODE>loadrun.TWL.exe</CODE> tool from the command line
+</UL>
+<H3>For TWL LIMITED ROMs</H3>
+<P>If using IS-TWL-DEBUGGER:</P>
+<UL>
+  <LI>Load and execute a TLF file with IS-TWL-DEBUGGER
+  <LI>Execute an SRL file with IS-TWL-DEBUGGER
+  <LI>Execute an SRL file with IS-TWL-DEBUGGER using the <CODE>loadrun.TWL.exe</CODE> tool from the command line
+</UL>
+
+<H2>Description</H2>
+<br>
+
+<TABLE width="720">
+  <TBODY>
+    <TR>
+      <TH>Name</TH>
+      <TH>Directory</TH>
+      <TH>Operation</TH>
+    </TR>
+    <TR>
+      <TD width="187"><EM><STRONG><CODE>simple-1</CODE></STRONG></EM></TD>
+      <TD><CODE>demos</CODE></TD>
+      <TD width="525">This simple sample demonstrates WXC functionality.<br> It searches for associated <CODE>simple-1</CODE> samples, exchanges data once automatically and then stops.</TD>
+    </TR>
+    <TR>
+      <TD width="187"><EM><STRONG><CODE>simple-2</CODE></STRONG></EM></TD>
+      <TD><CODE>demos</CODE></TD>
+      <TD width="525">Similar to the <CODE>simple-1</CODE> sample, but allows multiple data sets to be selected and registered.</TD>
+    </TR>
+    <TR>
+      <TD width="187"><EM><STRONG><CODE>wxc-pm</CODE></STRONG></EM></TD>
+      <TD><CODE>demos</CODE></TD>
+      <TD width="525">Similar to the <CODE>simple-1</CODE> sample, but enters into sleep mode or transitions to LCD OFF after the exchange of data.</TD>
+    </TR>
+    <TR>
+      <TD width="187"><EM><STRONG><CODE>unregister-1</CODE></STRONG></EM></TD>
+      <TD><CODE>demos</CODE></TD>
+      <TD width="525">Similar to the <CODE>simple-1</CODE> sample, but re-registers the received data and exchanges data again.</TD>
+    </TR>
+    <TR>
+      <TD width="187"><EM><STRONG><CODE>wxc-dataShare</CODE></STRONG></EM></TD>
+      <TD><CODE>demos</CODE></TD>
+      <TD width="525">After exchanging data with associated <CODE>wxc-dataShare</CODE> samples, this reconnects and performs data sharing.</TD>
+    </TR>
+    <TR>
+      <TD width="187"><EM><STRONG><CODE>relayStation-1</CODE></STRONG></EM></TD>
+      <TD><CODE>demos</CODE></TD>
+      <TD width="525">This sample operates as a relay station for the <CODE>simple-2</CODE> or <CODE>wxc-pm</CODE> sample demos.</TD>
+    </TR>
+    <TR>
+      <TD width="187"><EM><STRONG><CODE>relayStation-2</CODE></STRONG></EM></TD>
+      <TD><CODE>demos</CODE></TD>
+      <TD width="525">This sample acts as a relay station for <CODE>simple-1</CODE> sample demos.<br> This is similar to <CODE>relayStation-1</CODE>, except that it can dynamically set the handling of registration data.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<H2>Operation</H2>
+<P><CODE></CODE>The WXC library demos do not work with ensata.</CODE></P>
+
+<H2>See Also</H2>
+<P><A href="../../wxc/list_wxc.html"><CODE>WXC Function List</CODE></A></P>
+
+<H2>Revision History</H2>
+<P>
+2009/04/23 Initial version.
+</P>
+
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

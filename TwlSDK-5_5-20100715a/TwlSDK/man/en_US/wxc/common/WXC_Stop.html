@@ -1,0 +1,37 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 8.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>WXC_Stop</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">WXC_Stop <img src="../../image/NTR.gif"align="middle"><img src="../../image/TWL.gif" align="middle"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/wxc.h&gt;</CODE><BR> <BR> <CODE>void WXC_Stop(void);</CODE><br> <br>
+  </dd>
+</dl>
+<h2>Arguments</h2>
+<p>None.</p>
+<h2>Return Values</h2>
+<p>None.</p>
+
+<H2>Description</H2>
+<P>Stops wireless operation inside the WXC library. <BR>Calling this function more than once does nothing. By calling this function, the library's internal state transitions from <a href="../WXCStateCode.html">WXC_STATE_ACTIVE</a> to <a href="../WXCStateCode.html">WXC_STATE_READY</a>. <br>At the point when the transition is actually completed, notification is sent to the callback specified with <A href="WXC_Init.html">WXC_Init</A> function. <br><br> This function is used to prepare for a restart of chance encounter communication by stopping power supply to wireless started with the <A href="WXC_Start.html">WXC_Start</A> function and keeping the LED blinking. <br>To only end the WXC library, call the <A href="WXC_End.html">WXC_End</A> function directly.
+</p>
+<h2>See Also</h2>
+<p><CODE><A href="../WXCStateCode.html">WXCStateCode</A><br><A href="WXC_Init.html">WXC_Init</A><BR><A href="WXC_Start.html">WXC_Start</A><BR><A href="WXC_End.html">WXC_End</A></CODE></P>
+<H2>Revision History</H2>
+<P>
+2005/10/11 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

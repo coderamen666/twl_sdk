@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+	<HEAD>
+		<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+		<title>SNDEX_Get[Current]Volume</title>
+		<link rel="stylesheet" href="../../css/nitro.css" type="text/css">
+	</HEAD>
+	<BODY>
+		<H1>SNDEX_Get[Current]Volume <IMG src="../../image/TWL.gif" width="24" height="12" border="0" align=middle></H1>
+		
+
+		<H2>Syntax</H2>
+		<DL>
+			<DD><CODE>#include &lt;twl/snd.h&gt;</CODE></DD>
+			<DD><PRE><CODE>SNDEXResult SNDEX_GetVolume( u8* volume );</CODE></PRE></DD>
+			<DD><PRE><CODE>SNDEXResult SNDEX_GetCurrentVolume( u8* volume );</CODE></PRE></DD>
+		</DL>
+
+		<H2>Arguments</H2>
+		<TABLE>
+			<TBODY>
+				<TR>
+					<TH width="25%"><SPAN class="argument">volume</SPAN></TH>
+					<TD width="75%">Pointer to the variable that will get the speaker volume.</TD>
+				</TR>
+			</TBODY>
+		</TABLE>
+
+		<H2>Return Values</H2>
+		<TABLE>
+			<TBODY>
+				<TR>
+					<TH width="25%"><CODE>SNDEX_RESULT_SUCCESS</CODE></TH>
+					<TD width="75%">The whole series of operations completed successfully.</TD>
+				</TR>
+				<TR>
+					<TH width="25%"><CODE>SNDEX_RESULT_ILLEGAL_STATE</CODE></TH>
+					<TD width="75%">This function has been called on the NITRO platform or from an exception handler.</TD>
+				</TR>
+				<TR>
+					<TH width="25%"><CODE>SNDEX_RESULT_BEFORE_INIT</CODE></TH>
+					<TD width="75%">Extended sound features have not been initialized by the <A href="SNDEX_Init.html"><CODE>SNDEX_Init</CODE></A> function.</TD>
+				</TR>
+				<TR>
+					<TH width="25%"><CODE>SNDEX_RESULT_EXCLUSIVE</CODE></TH>
+					<TD width="75%">Processing for other extended sound features is running. Note that mutexes are used for each of the extended sound features, so they cannot be used simultaneously.<BR>This is also returned when a mutex error occurred in the ARM7. When this is the case, the situation may improve on a retry because the error is dependent on the progress of processing in ARM7.<BR>As mentioned in the <A href="./doc/aboutSNDEX.html">SNDEX Library Overview</A>, the error also returns during processing of shutter sound playback.</TD>
+				</TR>
+				<TR>
+					<TH width="25%"><CODE>SNDEX_RESULT_PXI_SEND_ERROR</CODE></TH>
+					<TD width="75%">A PXI command failed to be sent to the ARM7. This error occurs when the PXI send queue for the ARM7 has filled up or when the hardware has detected an error. As a result, the state may improve when a retry is made.</TD>
+				</TR>
+				<TR>
+					<TH width="25%"><CODE>SNDEX_RESULT_DEVICE_ERROR</CODE></TH>
+					<TD width="75%">This notification is sent when the ARM7's internal operation failed to get the speaker volume for an external device. Conditions may improve on a retry, but continued failures after multiple retries could indicate that the external device is not responding, so you may handle this as if it were a return value indicating success. A value of 0 is stored in <SPAN class="argument">volume</SPAN> when this error occurs.</TD>
+				</TR>
+				<TR>
+					<TH width="25%"><CODE>SNDEX_RESULT_FATAL_ERROR</CODE></TH>
+					<TD width="75%">This error should not ordinarily occur. This may occur when an illegal PXI command was sent directly, ignoring library state management; when the ARM7 component and the extended sound feature library have different versions; when library state management has fallen into an abnormal state due to memory corruption; or when other such conditions arise. There is no way to recover from this at run time.
+					</TD>
+				</TR>
+			</TBODY>
+		</TABLE>
+
+		<H2>Description</H2>
+		<P>
+			Synchronously gets the speaker volume. The speaker volume takes a value between 0 (minimum, defined by <code>SNDEX_VOLUME_MIN</code>) and 7 (maximum, defined by <code>SNDEX_VOLUME_MAX</code>.
+		</P>
+		<P>
+			The only difference between <code>GetVolume</code> and <code>GetCurrentVolume</code> is that <code>GetVolume</code> can get the pending volume value. To read more about this pending volume value, see the description of the <A href="./SNDEX_SetVolume.html"><CODE>SNDEX_SetVolume [Async]</CODE></A> function and <B>Note</B>, below.<BR>The pending volume value is applied several frames later, so if you do not need to get the volume for the exact time the function is called or if you are not using the <code>SNDEX_SetVolume[Async]</code> functions, there are no problems using the <code>SNDEX_GetVolume</code> function.
+		</P>
+		<P>
+			Change the speaker volume by the console's volume switch in addition to the <A href="SNDEX_SetVolumeAsync.html"><CODE>SNDEX_SetVolumeAsync</CODE></A> and <A href="SNDEX_SetVolume.html"><CODE>SNDEX_SetVolume</CODE></A> functions. The console records the changed value and also applies it at the next restart.
+		</P>
+		<P>
+			This function calls the <A href="SNDEX_GetVolumeAsync.html"><CODE>SNDEX_GetVolumeAsync</CODE></A> function internally and stops its own calling thread until asynchronous processing has completed. This function expects to be called from a thread, so it fails if it is called from an exception handler. Note that this function continues to block internally if PXI receive interrupts are prohibited, because PXI receive interrupts are used to detect the processing's completion.
+		</P>
+
+		<H2>Note</H2>
+		<P>
+			To keep the speaker volume from being continuously changed by the <A href="./SNDEX_SetVolume.html"><CODE>SNDEX_SetVolume[Async]</CODE></A> functions, once a change is made, the next change is kept pending for roughly 10 frames. <BR>After roughly 10 frames, the pending value is set to the speaker volume.
+		</P>
+
+		<H2>See Also</H2>
+		<P>
+			<A href="SNDEX_GetVolumeAsync.html"><CODE>SNDEX_GetVolumeAsync</CODE></A><BR> <A href="SNDEX_SetVolume.html"><CODE>SNDEX_SetVolume</CODE></A>
+		</P>
+
+		<H2>Revision History</H2>
+		<P>
+			2009/01/06 In line with the addition of <CODE>SNDEX_SetCurrentVolume</CODE>, added a description of the difference in return values.<BR> 2008/11/07 Added mention that <CODE>SNDEX_RESULT_EXCLUSIVE</CODE> is returned during processing of shutter sound playback.<BR> 2008/07/10 Revised description of speaker volume.<BR> 2008/02/22 Standardized terminology concerning speaker volume and added <B>Description</B>.<BR> 2008/02/15 Initial version.
+		</P>
+	<hr><p>CONFIDENTIAL</p></body>
+</HTML>

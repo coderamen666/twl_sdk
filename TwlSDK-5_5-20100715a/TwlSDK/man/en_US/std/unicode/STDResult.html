@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>STDResult</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">STDResult <img src="../../image/NTR.gif"align="middle"><img src="../../image/TWL.gif" align="middle"></h1>
+<h2>Definition</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/std.h&gt;</CODE><BR>
+  <BR>
+  <CODE>typedef enum STDResult<br> {<br>
+    STD_RESULT_SUCCESS,<br>
+    STD_RESULT_ERROR,<br>
+    STD_RESULT_INVALID_PARAM,<br>
+    STD_RESULT_CONVERSION_FAILED<br> }<br> STDResult;<br></CODE><br>
+  <br>
+  </dd>
+</dl>
+
+<H2>Description</H2>
+<P>This shows the enumerator constants that indicate the processing result of STD library functions. <BR>The meaning of each enumerator constant is shown in the following table:
+<TABLE border="0">
+  <TBODY>
+    <TR>
+      <TD>Value</TD>
+      <TD>Description</TD>
+    </TR>
+    <TR>
+      <TD>STD_RESULT_SUCCESS</TD>
+      <TD>Indicates that processing completed successfully.</TD>
+    </TR>
+    <TR>
+      <TD>STD_RESULT_INVALID_PARAM</TD>
+      <TD>Indicates that the process failed due to a problem wih the argument passed to the function.
+	  </TD>
+    </TR>
+    <TR>
+      <TD>STD_RESULT_CONVERSION_FAILED</TD>
+      <TD>Indicates that the character code conversion function failed at conversion and terminated processing.</TD>
+    </TR>
+    <TR>
+      <TD>STD_RESULT_ERROR</TD>
+      <TD>Indicates the process failed because of a problem other than those listed above.
+	  </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<BR>
+</P>
+<h2>See Also</h2>
+<p><CODE><A href="STD_ConvertStringSjisToUnicode.html">STD_ConvertStringSjisToUnicode</A> <A href="STD_ConvertStringUnicodeToSjis.html">STD_ConvertStringUnicodeToSjis</A></CODE></p>
+
+<H2>Revision History</H2>
+<P>
+2006/08/10 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

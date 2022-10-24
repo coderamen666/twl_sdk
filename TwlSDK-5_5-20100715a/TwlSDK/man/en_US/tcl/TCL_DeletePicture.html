@@ -1,0 +1,47 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title>TCL_DeletePicture</title>
+<link rel="stylesheet" href="../css/nitro.css" type="text/css">
+</head>
+<body>
+<h1 align="left">TCL_DeletePicture <img src="../image/TWL.gif" align="middle"></h1>
+
+<h2>Definition</h2>
+<dl>
+	<dd>
+	<code>#include &lt;twl/tcl.h&gt;</code><br/> <br/>
+	<pre><code>
+TCLResult TCL_DeletePicture( <a href="TCLAccessor.html">TCLAccessor</a>* pAccessor ,
+                             const <a href="TCLPictureInfo.html">TCLPictureInfo</a>* pPicInfo ,
+                             FSResult* pFSResult );
+	</code></pre>
+</dl>
+
+<h2>Arguments</h2>
+<p>
+<table>
+<tr><td>pAccessor<td>Accessor
+<tr><td>pPicInfo<td>Photo information
+<tr><td>pFSResult<td>Location to store the <CODE>FSResult</CODE> value when an error occurs in an FS function
+</table>
+</p>
+
+<h2>Return Values</h2>
+<p><a href="TCLResult.html">Processing result</a></p>
+
+<h2>Description</h2>
+<p>
+Deletes photo data.<br><br> <font color="red"><B>Note:</B></font><br> Only allow photo data to be deleted if it was created by one of your company's games.<br> You may even restrict this to items created by the application itself. Because photo data includes the game code of the application that encoded it, call the <a href="../ssp/jpeg_dec/SSP_GetJpegDecoderSoftware.html"><CODE>SSP_GetJpegDecoderSoftware</CODE></a> function to get a game code after you have decoded the photo data using the <a href="TCL_DecodePicture.html"><CODE>TCL_DecodePicture</CODE></a> function. Compare this game code with the game codes for your company's games.
+</p>
+
+<h2>See Also</h2>
+
+<h2>Revision History</h2>
+<p>
+2009/04/13 Explained how to determine which data to delete.<br> 2009/03/23 Initial version.
+</p>
+
+<hr><p>CONFIDENTIAL</p></body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>OS_GetProtectionRegion</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">OS_GetProtectionRegion* <img src="../../image/NTR.gif" align="middle"><img src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+<DL>
+  <DD>
+<P><CODE>#include &lt;nitro/os.h&gt;</CODE><BR> <BR> (<CODE>Get address</CODE>)<BR> <CODE>#define OS_GetProtectionRegionAddress( regionNo );</CODE><BR> <br> (<CODE>Get size</CODE>)<BR> <CODE>#define OS_GetProtectionRegionSize( regionNo );</CODE><BR> <BR> (<CODE>Specify parameters</CODE>)<BR> <CODE>u32 OS_GetProtectionRegionParam( int regionNo );</CODE><BR> <CODE>u32 OS_GetProtectionRegion0( void );</CODE>;<BR> <CODE>u32 OS_GetProtectionRegion1( void );</CODE><BR> <CODE>u32 OS_GetProtectionRegion2( void );</CODE><BR> <CODE>u32 OS_GetProtectionRegion3( void );</CODE><BR> <CODE>u32 OS_GetProtectionRegion4( void );</CODE><BR> <CODE>u32 OS_GetProtectionRegion5( void );</CODE><BR> <CODE>u32 OS_GetProtectionRegion6( void );</CODE><BR> <CODE>u32 OS_GetProtectionRegion7( void );</CODE><BR>
+</DL>
+<H2>Arguments</H2>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+<TD><B><I>regionNo</I></B></TD>
+<TD>Protection Region number. Specify a value between 0 and 7.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>Return Values</H2>
+<P>All return values are type <code>u32</code>. The values provide information about the specified Protection Region.</P>
+<H2>Description</H2>
+<P>Gets the settings relating to the Protection Region's base address and size.</P>
+<P><font color="red">The Protection Region's settings are closely related to system behavior. When making these settings, be sure you understand the design of the Protection Region and how each area is used.</font></P>
+<H3><CODE>OS_GetProtectionRegionAddress</CODE></H3>
+<P>The <CODE>OS_GetProtectionRegionAddress</CODE> function returns the base address of the Protection Region specified by <SPAN class="argument">regionNo</SPAN>.</P>
+<H3><CODE>OS_GetProtectionRegionSize</CODE></H3>
+<P>The <CODE>OS_GetProtectionRegionSize</CODE> function returns the size of the Protection Region specified by <SPAN class="argument">regionNo</SPAN>. The values will be of the form <CODE>OS_PR_SIZE_xxx</CODE>, where &quot;xxx&quot; will be one of the following.</P>
+<BLOCKQUOTE>4KB 8KB 16KB 32KB 64KB 128KB 256KB 512KB<BR> 1MB 2MB 4MB 8MB 16MB 32MB 64MB 128MB 256MB 512MB<BR> 1GB 2GB 4GB</BLOCKQUOTE>
+<P> </P>
+<H3><CODE>OS_GetProtectionRegionParam</CODE></H3>
+<P>The <CODE>OS_GetProtectionRegionParam</CODE> function returns the raw values obtained from CP15, which provide information about the base address and region size parameters of the Protection Region specified by <SPAN class="argument">regionNo</SPAN>.</P>
+<H3><CODE>OS_GetProtectionRegion0 - OS_GetProtectionRegion7</CODE></H3>
+<P>The functions <CODE>OS_GetProtectionRegion0</CODE> through <CODE>OS_GetProtectionRegion7</CODE> are used for specifying the region numbers of <CODE>OS_GetProtectionRegionParam</CODE> using the function names.</P>
+<H2>Internal Operation</H2>
+<P>Modifies register 6 of the system control co-processor CP15.</P>
+
+<H2>See Also</H2>
+<P><A href="OS_EnableProtectionUnit.html"><CODE>OS_EnableProtectionUnit</CODE></A><BR> <A href="OS_DisableProtectionUnit.html"><CODE>OS_DisableProtectionUnit</CODE></A><BR> <A href="OS_SetProtectionRegion.html"><CODE>OS_SetProtectionRegion*</CODE></A></P>
+<H2>Revision History</H2>
+<P>2007/10/25 Slightly changed the specifications of the function.<BR>2004/05/28 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

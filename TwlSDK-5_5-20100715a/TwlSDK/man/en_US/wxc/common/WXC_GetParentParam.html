@@ -1,0 +1,37 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 8.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>WXC_GetParentParam</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">WXC_GetParentParam <img src="../../image/NTR.gif"align="middle"><img src="../../image/TWL.gif" align="middle"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/wxc.h&gt;</CODE><BR> <BR> <CODE>const WMParentParam* WXC_GetParentParam(void);</CODE><br> <br>
+  </dd>
+</dl>
+<h2>Arguments</h2>
+<p>None.</p>
+<h2>Return Values</h2>
+<p>Returns a pointer to a <CODE>WMParentParam</CODE> structure.</p>
+
+<H2>Description</H2>
+<P>Gets the parent state that is being maintained by the WXC library's current internal wireless state. <BR>The data indicated by the pointer this function returns is valid only if the function is called when both (1) the state is <A href="../WXCStateCode.html"><CODE>WXC_STATE_ACTIVE</CODE></A>, and (2) the <A href="WXC_IsParentMode.html"><CODE>WXC_IsParentMode</CODE></A> function returns <CODE>TRUE</CODE>.<br><br> This function can be used for deliberately reconnecting to a peer with which the local host has exchanged data, and for other similar purposes.
+</p>
+<h2>See Also</h2>
+<p><CODE><A href="../WXCStateCode.html">WXCStateCode</A> <br> <A href="WXC_GetStateCode.html">WXC_GetStateCode</A><BR> <A href="WXC_IsParentMode.html">WXC_IsParentMode</A><BR> <A href="WXC_GetParentBssDesc.html">WXC_GetParentBssDesc</A> <BR></CODE></P>
+<H2>Revision History</H2>
+<P>
+2005/08/04 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

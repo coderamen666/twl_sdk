@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 8.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>GX_SetVCount</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">GX_SetVCount <img src="../../image/NTR.gif"align="middle"><img src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+
+<dl>
+  <dd>
+<PRE><CODE>#include &lt;nitro/gx/gx.h&gt;
+
+void GX_SetVCount(s32 count);<BR></CODE></PRE>
+  </dd>
+</dl><h2>Arguments</h2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+      <TD width="289">count</TD>
+      <TD width="557">V count to set in the V-Counter (202 &le; <EM><STRONG><code>count</code></strong></em> &le; 211).</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<h2>Return Values</h2>
+<p>None.</p>
+<H2>Description</H2>
+<P>This function writes a value in the V-Count register. The written value takes effect when the V-Counter is updated. First, confirm that the current V count is between 202 and 211, then write that value between 202 and 211.<BR>However, because the V count cannot be set if line 212 has been reached while calling this function, to be sure this doesn't happen interrupts must be disabled and this function must called by line 210.</P>
+<P><FONT color="#ff3300">Caution: Because this could have a detrimental effect on the LCD, the following usage methods are prohibited.</FONT><UL>
+<LI>Advancing V-Count.
+<LI>Calling it twice or more in one frame.
+</UL></FONT></P>
+<P><FONT color="#ff3300">Because the synchronization of parent or child V blanking is thrown off if this function is used to set the V count during MP communications, do not use this function during MP communications as it will become impossible to stably perform communications in frame synchronous communication mode.</FONT></P>
+<h2>See Also</h2>
+<P><A href="GX_GetVCount.html">GX_GetVCount</A></P>
+<H2>Revision History</H2>
+<P>
+2007/11/26 Changed warning notes.<br> 2007/10/16 Added restrictions during MP communications.<br>2007/01/26 Added warning notes.<br>2004/01/19 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

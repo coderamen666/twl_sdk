@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>OS_LockMutex</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">OS_LockMutex <IMG src="../../image/NTR.gif" align="middle"><IMG src="../../image/TWL.gif" align="middle"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/os.h&gt;</CODE><BR> <BR> <CODE>void OS_LockMutex( OSMutex* mutex );</CODE></dd>
+</dl>
+
+
+<h2>Arguments</h2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="13%"><EM><STRONG>mutex</STRONG></EM></TD>
+<TD width="87%">Pointer to the <CODE>OSMutex</CODE> structure</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<h2>Return Values</h2>
+<p>None.</p>
+
+<H2>Description</H2>
+<P>The calling thread tries to lock the mutex specified by <code>mutex</code>.</P>
+<P>When <code>mutex</code> is being maintained by another thread, the calling thread is temporarily stopped until <code>mutex</code> is released. If <code>mutex</code> is being maintained in the current thread, it returns immediately. However, the number of times the <CODE>OS_LockMutex</CODE> function is called is recorded, and <CODE>mutex</CODE> must be unlocked the same number of times to actually release it.</P>
+<P>When the thread that is locking <CODE>mutex</CODE> is ended by the <A href="../thread/OS_ExitThread.html"><CODE>OS_ExitThread</CODE></A> function, that mutex is automatically unlocked.</P>
+<h2>See Also</h2>
+<p><a href="OS_InitMutex.html"><CODE>OS_InitMutex</CODE></a><BR> <a href="OS_UnlockMutex.html"><CODE>OS_UnlockMutex</CODE></a><BR> <a href="OS_TryLockMutex.html"><CODE>OS_TryLockMutex</CODE></a><BR> <a href="../thread/OS_ExitThread.html"><CODE>OS_ExitThread</CODE></a></p>
+<H2>Revision History</H2>
+<P>2004/04/05 Added that the <A href="../thread/OS_ExitThread.html"><CODE>OS_ExitThread</CODE></A> function will unlock mutexes.<BR> 2003/12/01 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

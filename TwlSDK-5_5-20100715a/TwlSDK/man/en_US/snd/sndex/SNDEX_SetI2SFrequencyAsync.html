@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+	<HEAD>
+		<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+		<title>SNDEX_SetI2SFrequencyAsync</title>
+		<link rel="stylesheet" href="../../css/nitro.css" type="text/css">
+	</HEAD>
+	<BODY>
+		<H1>SNDEX_SetI2SFrequencyAsync <IMG src="../../image/TWL.gif" width="24" height="12" border="0" align=middle></H1>
+
+		<H2>Syntax</H2>
+		<DL>
+			<DD><CODE>#include &lt;twl/snd.h&gt;</CODE></DD>
+			<DD><PRE><CODE>SNDEXResult SNDEX_SetI2SFrequencyAsync( <A href="SNDEXFrequency.html">SNDEXFrequency</A> freq, <A href="SNDEXCallback.html">SNDEXCallback</A> callback, void* arg );</CODE></PRE></DD>
+		</DL>
+
+		<H2>Arguments</H2>
+		<TABLE>
+			<TBODY>
+				<TR>
+					<TH width="25%"><SPAN class="argument">freq</SPAN></TH>
+					<TD width="75%">I2S operating frequency as a <A href="SNDEXFrequency.html"><CODE>SNDEXFrequency</CODE></A> enumerated type.</TD>
+				</TR>
+				<TR>
+					<TH width="25%"><SPAN class="argument">callback</SPAN></TH>
+					<TD width="75%"><A href="SNDEXCallback.html"><CODE>SNDEXCallback</CODE></A>-type function that is notified when the asynchronous process has completed. The asynchronous process runs even if <CODE>NULL</CODE> is specified here, but you are no longer able to detect that it has completed.</TD>
+				</TR>
+				<TR>
+					<TH width="25%"><SPAN class="argument">arg</SPAN></TH>
+					<TD width="75%">Argument to pass to the function specified in <SPAN class="argument">callback</SPAN>.</TD>
+				</TR>
+			</TBODY>
+		</TABLE>
+
+		<H2>Return Values</H2>
+		<H3>Function Return Values</H3>
+		<TABLE>
+			<TBODY>
+				<TR>
+					<TH width="25%"><CODE>SNDEX_RESULT_SUCCESS</CODE></TH>
+					<TD width="75%">Asynchronous processing started successfully. The asynchronous processing results are passed as an argument to the function registered in <SPAN class="argument">callback</SPAN>.</TD>
+				</TR>
+				<TR>
+					<TH width="25%"><CODE>SNDEX_RESULT_ILLEGAL_STATE</CODE></TH>
+					<TD width="75%">Returned when this function is called on the NITRO platform or when the codec is running in CODEC-DS mode.</TD>
+				</TR>
+				<TR>
+					<TH width="25%"><CODE>SNDEX_RESULT_INVALID_PARAM</CODE></TH>
+					<TD width="75%">The value specified for <SPAN class="argument">freq</SPAN> is not included in the <A href="SNDEXFrequency.html">standard values</A>.</TD>
+				</TR>
+				<TR>
+					<TH width="25%"><CODE>SNDEX_RESULT_BEFORE_INIT</CODE></TH>
+					<TD width="75%">Extended sound features have not been initialized by the <A href="SNDEX_Init.html"><CODE>SNDEX_Init</CODE></A> function.</TD>
+				</TR>
+				<TR>
+					<TH width="25%"><CODE>SNDEX_RESULT_EXCLUSIVE</CODE></TH>
+					<TD width="75%">Processing for other extended sound features is running. Note that mutexes are used for each of the extended sound features, so they cannot be used simultaneously.<BR>As mentioned in the <A href="./doc/aboutSNDEX.html">SNDEX Library Overview</A>, the error also returns during processing of shutter sound playback.</TD>
+				</TR>
+				<TR>
+					<TH width="25%"><CODE>SNDEX_RESULT_PXI_SEND_ERROR</CODE></TH>
+					<TD width="75%">A PXI command failed to be sent to the ARM7. This error occurs when the PXI send queue for the ARM7 has filled up or when the hardware has detected an error. As a result, the state may improve when a retry is made.</TD>
+				</TR>
+			</TBODY>
+		</TABLE>
+		<H3>Asynchronous Process Results</H3>
+		<TABLE>
+			<TBODY>
+				<TR>
+					<TH width="25%"><CODE>SNDEX_RESULT_SUCCESS</CODE></TH>
+					<TD width="75%">The whole series of operations completed successfully.</TD>
+				</TR>
+				<TR>
+					<TH width="25%"><CODE>SNDEX_RESULT_ILLEGAL_STATE</CODE></TH>
+					<TD width="75%">The codec is running in CODEC-DS mode; forced audio output is configured for the speaker; or frequency-limited microphone auto-sampling is running.</TD>
+				</TR>
+				<TR>
+					<TH width="25%"><CODE>SNDEX_RESULT_EXCLUSIVE</CODE></TH>
+					<TD width="75%">A mutex error occurred in the ARM7. This error depends upon the progress of ARM7 processing, so conditions may improve when a retry is made.</TD>
+				</TR>
+				<TR>
+					<TH width="25%"><CODE>SNDEX_RESULT_FATAL_ERROR</CODE></TH>
+					<TD width="75%">This error should not ordinarily occur. This may occur when an illegal PXI command was sent directly, ignoring library state management; when the ARM7 component and the extended sound feature library have different versions; when library state management has fallen into an abnormal state due to memory corruption; or when other such conditions arise. There is no way to recover from this at run time.
+					</TD>
+				</TR>
+			</TBODY>
+		</TABLE>
+
+		<H2>Description</H2>
+		<P>
+			Asynchronously changes the I2S operating frequency. The I2S operating frequency is set to <CODE>SNDEX_FREQUENCY_32730</CODE> by default.
+		</P>
+		<P>
+			If this function does not return a value of <CODE>SNDEX_RESULT_SUCCESS</CODE>, the asynchronous processing and callback do not run. Also note that a PXI receive interrupt sends notification when the asynchronous processing is complete, so callbacks do not occur if PXI receive interrupts are prohibited.
+		</P>
+
+		<H2>Notes</H2>
+		<P>
+			Changing to the I2S operating frequency also entails change synchronization of the communications clock with respect to CPU-external devices. Sound output features and CODEC-related features are all affected as a result.<FONT color="red">Switch the frequency only after stopping all of the following: audio output from the CPU and DSP, touch panel input sampling, microphone input sampling, and microphone input sampling from the DSP.</FONT>
+		</P>
+
+		<H2>See Also</H2>
+		<P>
+			<A href="SNDEX_SetI2SFrequency.html"><CODE>SNDEX_SetI2SFrequency</CODE></A><BR> <A href="SNDEX_GetI2SFrequencyAsync.html"><CODE>SNDEX_GetI2SFrequencyAsync</CODE></A><BR> <A href="../../spi/mic/MIC_StopLimitedSamplingAsync.html"><CODE>MIC_StopLimitedSamplingAsync</CODE></A><BR> <A href="../../spi/mic/MIC_StopAutoSamplingAsync.html"><CODE>MIC_StopAutoSamplingAsync</CODE></A><BR> <A href="../../spi/tp/TP_RequestAutoSamplingStopAsync.html"><CODE>TP_RequestAutoSamplingStopAsync</CODE></A>
+		</P>
+
+		<H2>Revision History</H2>
+		<P>
+2008/11/07 Added mention that <CODE>SNDEX_RESULT_EXCLUSIVE</CODE> is returned during processing of shutter sound playback.<BR> 2008/11/06 Corrected <B>Asynchronous Process Results</B> (<CODE>SNDEX_RESULT_EXCLUSIVE</CODE>) in <B>Return Values</B>.<BR> 2008/02/15 Initial version.
+		</P>
+	<hr><p>CONFIDENTIAL</p></body>
+</HTML>

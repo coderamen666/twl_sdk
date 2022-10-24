@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 8.0.2.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>STD_ConvertCharUnicodeToSjis</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">STD_ConvertCharUnicodeToSjis<img src="../../image/NTR.gif"align="middle"><img src="../../image/TWL.gif" align="middle"></h1>
+<h2>Syntax</h2>
+<dl>
+  <dd><PRE><CODE>#include &lt;nitro/std.h&gt;
+
+inline int STD_ConvertCharUnicodeToSjis(char *dst, u16 src);</CODE></PRE></dd>
+</dl>
+
+<h2>Arguments</h2>
+<table border="1" width="100%">
+  <tbody>
+    <TR>
+      <TD width="20%"><EM><STRONG>dst</STRONG></EM></TD>
+      <TD width="80%">Shift-JIS string buffer that will contain the converted characters.<BR>
+      Specify a buffer that has been allocated with at least a 2-byte region.</TD>
+    </TR>
+    <TR>
+      <TD width="20%"><EM><STRONG>src</STRONG></EM></TD>
+      <TD width="80%">The Unicode format character to be converted</TD>
+    </TR>
+    <TR>
+  </tbody>
+</table>
+
+<h2>Return Values</h2>
+<p>
+If the conversion is successful, the converted number of bytes (=1 or 2) will return. If the conversion fails, a -1 will return.
+</p>
+
+<H2>Description</H2>
+<P>
+This function converts a Unicode-format character to a ShiftJIS-format character.<BR><CODE><A href="STD_ConvertStringUnicodeToSjis.html">STD_ConvertStringUnicodeToSjis</A></CODE> is called internally, and only one character is converted.<BR>If the ShiftJIS character after conversion is a two-byte character, it will be necessary to pass a buffer to dst for which two or more bytes have been allocated. <BR>If it is unclear whether the character is single- or double-byte after conversion, be sure to pass a buffer of at least 2 bytes.
+
+</P>
+
+<h2>See Also</h2>
+<p><CODE><A href="STD_ConvertStringUnicodeToSjis.html">STD_ConvertStringUnicodeToSjis</A></CODE></p>
+
+<H2>Revision History</H2>
+<P>
+2006/07/24 Changed the interface.<br>2006/07/05 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

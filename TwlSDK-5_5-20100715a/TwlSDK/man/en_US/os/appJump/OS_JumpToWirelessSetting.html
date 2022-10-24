@@ -1,0 +1,31 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>OS_JumpToWirelessSetting</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">OS_JumpToWirelessSetting&nbsp;<img src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+<DL>
+<DD><CODE>#include &lt;nitro/os.h&gt;</CODE><BR> <BR> <code>BOOL OS_JumpToWirelessSetting( void );</CODE>
+</DL>
+<H2>Arguments</H2>
+<P>None.</P>
+<H2>Return Values</H2>
+<P>Returns <CODE>FALSE</CODE> if the conditions required for the transition have not been met. This can occur, for example, when this function is called in a development environment where the System Settings are not present.<font color="#ff0000"> <B>If successful, control will never return from this function.</B></font></P>
+<H2>Description</H2>
+<P>Resets the hardware and jumps to the <B>Wireless Communications</B> item in System Settings.</P>
+<P>When making the transition, a hardware reset will be performed, just as with the <A href="OS_JumpToSystemMenu.html"><CODE>OS_JumpToSystemMenu</CODE></A> or <A href="../../spi/pm/PM_ForceToResetHardware.html"><CODE>PM_ForceToResetHardware</CODE></A> functions. Therefore, you should be sure to save any necessary data before calling this function.</P>
+<P><font color="#ff0000"><B>This function cannot be called when interrupts are disabled. <BR>This function also cannot be called during the exit process, so take care that it is not executed from inside an exit callback of functions such as <A href="../../spi/pm/PM_AppendExitCallback.html"><CODE>PM_Append*ExitCallback</CODE></A>.</B></font></P>
+
+<H2>See Also</H2>
+<P><A href="../../spi/pm/PM_ForceToResetHardware.html"><CODE>PM_ForceToResetHardware</CODE></A><BR> <A href="OS_JumpToSystemMenu.html"><CODE>OS_JumpToSystemMenu</CODE></A><BR> <A href="OS_JumpToWirelessSetting.html"><CODE>OS_JumpToInternetSetting</CODE></A><BR> <A href="OS_JumpToEULAViewer.html"><CODE>OS_JumpToEULAViewer</CODE></A><BR> <A href="../../spi/pm/PM_AppendExitCallback.html"><CODE>PM_Append*ExitCallback</CODE></A><BR> <A href="../../spi/pm/PM_AppendExitCallback.html"><CODE>PM_Prepend*ExitCallback</CODE></A><BR> <A href="../../spi/pm/PM_AppendExitCallback.html"><CODE>PM_Insert*ExitCallback</CODE></A>
+</P>
+<H2>Revision History</H2>
+<P>2008/10/22 Added the fact that execution during exit processing is prohibited.<BR> 2008/09/08 Revised the icon.<BR> 2008/08/05 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

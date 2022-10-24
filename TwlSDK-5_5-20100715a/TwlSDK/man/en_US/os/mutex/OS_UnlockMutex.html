@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>OS_UnlockMutex</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">OS_UnlockMutex <IMG src="../../image/NTR.gif" align="middle"><IMG src="../../image/TWL.gif" align="middle"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/os.h&gt;</CODE><BR> <BR> <CODE>void OS_UnlockMutex( OSMutex* mutex );</CODE></dd>
+</dl>
+
+<h2>Arguments</h2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="13%"><EM><STRONG>mutex</STRONG></EM></TD>
+<TD width="87%">Pointer to the <CODE>OSMutex</CODE> structure</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<h2>Return Values</h2>
+<p>None.</p>
+
+<H2>Description</H2>
+<P>The thread calling this function releases <SPAN class="argument">mutex</SPAN>.<BR>The thread that calls this function must be the owner of <SPAN class="argument">mutex</SPAN>.</P>
+<P>However, when the calling thread has locked <SPAN class="argument">mutex</SPAN> <I>n</I> times, the mutex will be released only by the <I>n</I>th call to the <CODE>OS_UnlockMutex</CODE> function.</P>
+<BLOCKQUOTE style="background-color:#ffffcc"><B>Example</B><BR> <BR> <CODE>OSMutex mutex;<BR> <BR> OS_LockMutex( &amp;mutex );<BR> :<BR>OS_LockMutex( &amp;mutex );<BR> :<BR>:<BR> :<BR> OS_UnlockMutex( &amp;mutex ); <FONT color="#ff0000">// The mutex has not yet been unlocked.</FONT><BR> :<BR>OS_UnlockMutex( &amp;mutex ); <FONT color="#ff0000">// The mutex is unlocked here.</FONT></CODE> </BLOCKQUOTE>
+<P>When the thread that is locking <SPAN class="argument">mutex</SPAN> is terminated with the <A href="../thread/OS_ExitThread.html"><CODE>OS_ExitThread</CODE></A> function, <SPAN class="argument">mutex</SPAN> is automatically unlocked.</P>
+<h2>See Also</h2>
+<p><a href="OS_InitMutex.html"><code>OS_InitMutex</code></a><BR> <a href="OS_LockMutex.html"><CODE>OS_LockMutex</CODE></a><BR> <a href="OS_TryLockMutex.html"><CODE>OS_TryLockMutex</CODE></a><BR> <a href="../thread/OS_ExitThread.html"><CODE>OS_ExitThread</CODE></a></p>
+
+<H2>Revision History</H2>
+<P>2009/03/11 Fixed a location that incorrectly used <A href="OS_LockMutex.html"><CODE>OS_LockMutex</CODE></A> instead of <CODE>OS_UnlockMutex</CODE>. <BR>2008/12/17 Added an example. <BR>2004/04/05 Noted that the <A href="../thread/OS_ExitThread.html"><CODE>OS_ExitThread</CODE></A> function unlocks mutexes. <BR>2003/12/01 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

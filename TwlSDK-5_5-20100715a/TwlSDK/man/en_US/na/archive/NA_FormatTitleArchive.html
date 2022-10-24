@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>NA_FormatTitleArchive</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">NA_FormatTitleArchive <IMG src="../../image/TWL.gif" width="23" height="12" border="0" align="middle"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+  <pre><CODE>#include &lt;twl/na.h&gt;
+
+<a href="../../fs/fs_result_const.html">FSResult</a> NA_FormatTitleArchive(<a href="NATitleArchive.html">NATitleArchive</a> archive);
+</CODE></pre>
+</dd>
+</dl>
+
+<h2>Arguments</h2>
+<TABLE border="1" width="100%" class="arguments">
+  <TBODY>
+    <TR>
+<TH>archive</TH>
+<TD>Sets the save data region to initialize.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<h2>Return Values</h2>
+<p>
+Returns <code>FS_RESULT_SUCCESS</code> if processing completed successfully. <br>Other values indicate an error. The following values, in particular, have specific meanings.
+</p>
+
+<table class="table">
+<tr><th><CODE>FS_RESULT_UNSUPPORTED</CODE><td>This is running on the Nintendo DS system and cannot be used.
+</table>
+
+
+<H2>Description</H2>
+<P>
+Initializes the specified save data region. Applications can initialize only their own save data region. (Save data regions for other applications cannot be initialized.)
+</p>
+<P>
+Initializing the save data region deletes all directories and files contained therein. It also fixes the type of file system corruption indicated when <CODE>FS_RESULT_BAD_FORMAT</CODE> is returned by the FS library functions.
+</p>
+<P>
+The time required for initialization with this function is proportionate to the size of the save data region. It takes approximately 10 seconds per MB, so be sure to follow the various programming guidelines regarding what to display. Note that this is a synchronous function, so control does not return until the processing has completed.
+</p>
+
+
+<h2>See Also</h2>
+<p></p>
+
+<H2>Revision History</H2>
+<P>
+2008/11/26 Clarified that this is a synchronous function. <br>2008/09/26 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

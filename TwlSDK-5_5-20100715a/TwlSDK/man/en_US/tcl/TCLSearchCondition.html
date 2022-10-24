@@ -1,0 +1,59 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title>TCLSearchCondition</title>
+<link rel="stylesheet" href="../css/nitro.css" type="text/css">
+</head>
+<body>
+<h1 align="left">TCLSearchCondition <img src="../image/TWL.gif" align="middle"></h1>
+
+<h2>Definition</h2>
+<dl>
+	<dd>
+	<code>#include &lt;twl/tcl.h&gt;</code><br/> <br/>
+	<pre><code>
+typedef enum
+{
+    TCL_SEARCH_CONDITION_NONE          = 0         ,
+    TCL_SEARCH_CONDITION_PICTURE       = 1 &lt;&lt; 0x00 ,
+    TCL_SEARCH_CONDITION_FRAME         = 1 &lt;&lt; 0x01 ,
+    TCL_SEARCH_CONDITION_FAVORITE_NONE = 1 &lt;&lt; 0x07 ,
+    TCL_SEARCH_CONDITION_FAVORITE_1    = 1 &lt;&lt; 0x08 ,
+    TCL_SEARCH_CONDITION_FAVORITE_2    = 1 &lt;&lt; 0x09 ,
+    TCL_SEARCH_CONDITION_FAVORITE_3    = 1 &lt;&lt; 0x0a ,
+    TCL_SEARCH_CONDITION_FAVORITE_ALL  = 1 &lt;&lt; 0x0b ,
+    TCL_SEARCH_CONDITION_LAUNCHER      = 1 &lt;&lt; 0x0c ,
+    TCL_SEARCH_CONDITION_APPLICATION   = 1 &lt;&lt; 0x0d ,
+    TCL_SEARCH_CONDITION_FREE          = 1 &lt;&lt; 0x10 ,
+    TCL_SEARCH_CONDITION_MAX
+} TCLSearchCondition;
+	</code></pre>
+</dl>
+
+<h2>Description</h2>
+<p>The <a href="TCL_InitSearchObject.html"><code>TCL_InitSearchObject</code></a> function specifies conditions for search-related functions. </p>
+<p>The conditions are explained in the following list.</p>
+<table>
+<tr><td>TCL_SEARCH_CONDITION_PICTURE<td>Search only for photos.
+<tr><td>TCL_SEARCH_CONDITION_FRAME<td>Search only for frames.
+<tr><td>TCL_SEARCH_CONDITION_FAVORITE_NONE<td>Search for non-favorite photos and frames.
+<tr><td>TCL_SEARCH_CONDITION_FAVORITE_1<td>Search for first favorite photos.
+<tr><td>TCL_SEARCH_CONDITION_FAVORITE_2<td>Search for second favorite photos.
+<tr><td>TCL_SEARCH_CONDITION_FAVORITE_3<td>Search for third favorite photos.
+<tr><td>TCL_SEARCH_CONDITION_FAVORITE_ALL<td>Search for all favorite photos.
+<tr><td>TCL_SEARCH_CONDITION_LAUNCHER<td>Search for photo signed with the launcher key.<br/>Photos signed by the launcher key specify photos captured by the Nintendo DSi Menu or the Nintendo DSi camera.
+<tr><td>TCL_SEARCH_CONDITION_APPLICATION<td>Search for photos signed with the general key.<br/>Photos signed with the general key specify photos captured by other applications.
+<tr><td>TCL_SEARCH_CONDITION_FREE<td>Search for empty portions of management information. (Not normally used in an application.)
+</table>
+
+<h2>See Also</h2>
+<p><code><a href="TCL_InitSearchObject.html">TCL_InitSearchObject</a></code></p>
+
+<h2>Revision History</h2>
+<p>
+2009/03/04 Added explanation of the launcher and general keys.<br/> 2008/10/24 Added <code>TCL_SEARCH_CONDITION_FAVORITE_NONE</code>.<br/> 2008/10/07 Initial version.
+</p>
+
+<hr><p>CONFIDENTIAL</p></body>
+</html>

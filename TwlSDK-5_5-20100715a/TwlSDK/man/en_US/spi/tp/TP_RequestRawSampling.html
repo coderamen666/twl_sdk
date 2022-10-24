@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 8.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>TP_RequestRawSampling</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">TP_RequestRawSampling <img src="../../image/NTR.gif"><img src="../../image/TWL.gif"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/spi.h&gt;</CODE><BR>
+  <PRE><CODE>u32 TP_RequestRawSampling( TPData * result );</CODE></PRE>
+  </dd>
+</dl>
+<h2>Arguments</h2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="300"><em><strong><font face="Courier New">result</font></strong></em></TD>
+<TD width="700">Pointer to the variable to get touch-panel values.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<h2>Return Values</h2>
+<p>Returns 0 if the request succeeds; returns non-zero value if it fails.</p>
+<H2>Description</H2>
+<P>This synchronous function requests from the ARM7 processor the current touch-panel values for a single event and waits until those values are acquired.  The values (which were already checked for chattering) are acquired as uncalibrated, raw values (<I>x</I>- and <I>y</I>-values take the range of 0 to 4095). This command cannot be used during autosampling.</P>
+<P> <B>Note:</B> This function can get touch-panel values even during MIC auto sampling.<BR>However, this function is executed the next time the microphone sampling ends. Therefore, it may take longer than usual for the function to respond.<BR>
+</P>
+<H2>Note</H2>
+<P>This function uses an interrupt to wait for a completion response from ARM7. Notice that if it is called while FIFO receive interrupts from ARM7 are prohibited, it will not be possible to return from wait.</P>
+<h2>See Also</h2>
+<P><A href="TP_RequestCalibratedSampling.html"><CODE>TP_RequestCalibratedSampling</CODE></A><BR> <A href="TP_RequestSamplingAsync.html"><CODE>TP_RequestSamplingAsync</CODE></A></P>
+<H2>Revision History</H2>
+<P>2009/07/22 Deleted duplicate description.<BR> 2004/04/21 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

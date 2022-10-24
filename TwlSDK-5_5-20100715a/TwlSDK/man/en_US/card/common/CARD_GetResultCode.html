@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 8.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>CARD_GetResultCode</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">CARD_GetResultCode <img src="../../image/NTR.gif"align="middle"><img src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/card.h&gt;</CODE><BR>
+  <BR>
+  <CODE>CARDResult	CARD_GetResultCode( void );</CODE><br>
+  <br>
+  </dd>
+</dl>
+<h2>Arguments</h2>
+<p>None.</p>
+
+<h2>Return Values</h2>
+<p>Returns the result of the last process run by the function that accesses the CARD ROM device and the backup device.</p>
+<H2>Description</H2>
+<P>This function returns the result of the last process that is run by the function that accesses the CARD ROM device and the backup device. From the result value that is obtained with this function, the success or failure of the process and the detailed cause of the failure can be determined.<br> This function allows these functions to obtain the result value. However, the functions that are shown in <font color="#008000">green</font> will always have a return value of <code>CARD_RESULT_SUCCESS</code>; therefore, it is not necessary to explicitly determine the value of the result.
+<pre>
+These functions access the backup device:
+
+  [EEPROM]
+  CARD_ReadEeprom 
+  CARD_ReadEepromAsync 
+  CARD_WriteEeprom 
+  CARD_WriteEepromAsync 
+  CARD_VerifyEeprom 
+  CARD_VerifyEepromAsync 
+  CARD_WriteAndVerifyEeprom 
+  CARD_WriteAndVerifyEepromAsync
+
+  [FLASH]
+  CARD_ReadFlash 
+  CARD_ReadFlashAsync 
+  CARD_WriteFlash 
+  CARD_WriteFlashAsync 
+  CARD_VerifyFlash 
+  CARD_VerifyFlashAsync 
+  CARD_WriteAndVerifyFlash 
+  CARD_WriteAndVerifyFlashAsync 
+
+  [Common]
+  CARD_IdentifyBackup
+  <font color="#008000">CARD_LockBackup</font>
+  <font color="#008000">CARD_UnlockBackup</font>
+
+These functions access the ROM device:
+
+  <font color="#008000">CARD_LockRom </font>
+  <font color="#008000">CARD_UnlockRom </font>
+  <font color="#008000">CARD_ReadRom </font>
+  <font color="#008000">CARD_ReadRomAsync </font>
+</pre>
+Of the functions mentioned above, the result value of the last called function is the return value for this function. These return values do not change if functions other than the above mentioned CARD functions are called. <br>
+</P>
+<h2>See Also</h2>
+<p><CODE><A href="../card_result_const.html">CARDResult</A>, <A href="../rom/CARD_ReadRom.html">CARD_ReadRom</A>, <A href="../eeprom/CARD_ReadEeprom.html">CARD_ReadEeprom</A>, <A href="../eeprom/CARD_WriteEeprom.html">CARD_WriteEeprom</A>, <A href="../eeprom/CARD_VerifyEeprom.html">CARD_VerifyEeprom</A>, <A href="../eeprom/CARD_WriteAndVerifyEeprom.html">CARD_WriteAndVerifyEeprom</A></CODE></p>
+
+<H2>Revision History</H2>
+<P>
+2004/11/02 Corrected an error in writing.<br /> 2004/08/31 Corrected most of the function description, and added description regarding the function that updates the result value.<br /> 2004/07/28 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

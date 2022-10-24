@@ -1,0 +1,39 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title>TCL_GetTableBufferSize</title>
+<link rel="stylesheet" href="../css/nitro.css" type="text/css">
+</head>
+<body>
+<h1 align="left">TCL_GetTableBufferSize <img src="../image/TWL.gif" align="middle"></h1>
+
+<h2>Definition</h2>
+<dl>
+	<dd>
+	<code>#include &lt;twl/tcl.h&gt;</code><br/> <br/>
+	<pre><code>
+u32 TCL_GetTableBufferSize( void );
+	</code></pre>
+</dl>
+
+<h2>Arguments</h2>
+<p>None.</p>
+
+<h2>Return Values</h2>
+<p>The size of the buffer needed to load or generate a management file.</p>
+
+<h2>Description</h2>
+<p>Returns the size of buffer that the <a href="TCL_LoadTable.html"><code>TCL_LoadTable</code></a> or <a href="TCL_CreateTable.html"><code>TCL_CreateTable</code></a> functions need to load or generate a management file.</p>
+<p>When calling the previous two functions, pass them the buffer size retrieved by this function.</p>
+
+<h2>See Also</h2>
+<p><code><a href="TCL_LoadTable.html">TCL_LoadTable</a><BR> <a href="TCL_CreateTable.html">TCL_CreateTable</a></code></p>
+
+<h2>Revision History</h2>
+<p>
+2008/10/07 Initial version.
+</p>
+
+<hr><p>CONFIDENTIAL</p></body>
+</html>

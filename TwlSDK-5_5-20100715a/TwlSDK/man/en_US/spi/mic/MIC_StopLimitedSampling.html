@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 8.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>MIC_StopLimitedSampling</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">MIC_StopLimitedSampling <img src="../../image/TWL.gif"></h1>
+
+<h2>Syntax</h2>
+<dl>
+  <dd>
+<CODE>#include &lt;twl/spi.h&gt;</CODE><BR>
+  <PRE><CODE><A href="MICResult.html">MICResult</A> MIC_StopLimitedSampling( void );</CODE></PRE>
+  </dd>
+</dl>
+
+<h2>Arguments</h2>
+<P>
+None.
+</P>
+
+<h2>Return Values</h2>
+<P>
+Returns the processing result as a <CODE><A href="MICResult.html">MICResult</A></CODE> enumerated type. Returns <CODE>MIC_RESULT_SUCCESS</CODE> if processing completed successfully; returns some other value if the process failed.
+</P>
+
+<H2>Description</H2>
+<P>
+Stops frequency-limited microphone auto-sampling.<BR>This function issues a request to the ARM7 to stop frequency-limited auto-sampling, waits for the ARM7 to respond, and returns the processing result. This is a synchronous version of the <CODE><A href="MIC_StopLimitedSamplingAsync.html">MIC_StopLimitedSamplingAsync</A></CODE> function.
+</P>
+
+<H2>Note</H2>
+<P>
+<FONT color=red>This function waits for a PXI interrupt for synchronization purposes. Do not call it when PXI interrupts are prohibited.<BR> <BR>Because frequency-limited auto-sampling cannot be performed on the NITRO platform or when the CODEC is running in CODEC-DS mode, this function will instead internally call the <CODE><A href="MIC_StopAutoSampling.html">MIC_StopAutoSampling</A></CODE> auto-sampling control function.</FONT>
+</P>
+<P><FONT color=red>It has been confirmed that slight hardware noise is mixed with the microphone input on the TWL console. See <A href="./about_HardwareNoise.html">here</A> for a workaround.</FONT></P>
+<H2>See Also</H2>
+<P>
+<CODE><A href="MIC_StopLimitedSamplingAsync.html">MIC_StopLimitedSamplingAsync</A>, <A href="MIC_StartLimitedSampling.html">MIC_StartLimitedSampling</A>, <A href="MIC_AdjustLimitedSampling.html">MIC_AdjustLimitedSampling</A></CODE>
+</P>
+
+<H2>Revision History</H2>
+<P>
+2008/01/09 Added a note about the difference in behavior with CODEC mode. <BR>2007/11/17 Initial version.<BR>
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

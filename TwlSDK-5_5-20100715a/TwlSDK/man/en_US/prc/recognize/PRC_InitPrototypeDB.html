@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 8.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>PRC_InitPrototypeDB*</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">PRC_InitPrototypeDB* <img src="../../image/NTR.gif"align="middle"><img src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+<dl>
+  <dd><PRE><CODE>#include &lt;nitro/prc.h&gt;
+
+BOOL PRC_InitPrototypeDB(
+    <A href="PRCPrototypeDB.html">PRCPrototypeDB</A>*             protoDB,
+    void*                       buffer,
+    const <A href="PRCPrototypeList.html">PRCPrototypeList</A>*     prototypeList );
+
+BOOL PRC_InitPrototypeDBEx(
+    <A href="PRCPrototypeDB.html">PRCPrototypeDB</A>*             protoDB,
+    void*                       buffer,
+    const <A href="PRCPrototypeList.html">PRCPrototypeList</A>* prototypeList,
+    u32                         kindMask,
+    BOOL                        ignoreDisabledEntries,
+    const <A href="PRCPrototypeDBParam.html">PRCPrototypeDBParam</A>*  param );
+</CODE></PRE></dd>
+</dl>
+
+<h2>Arguments</h2>
+<table border="1" width="100%">
+    <tr>
+<td width="13%"><CODE>protoDB</CODE></td>
+<td width="87%">Pointer to the sample DB structure to be created.</td>
+    </tr>
+    <tr>
+<td width="13%"><CODE>buffer</CODE></td>
+<td width="87%">Pointer to the memory area that will be used in <code>protoDB</code>.</td>
+    </tr>
+    <tr>
+<td width="13%"><CODE>prototypeList</CODE></td>
+<td width="87%">Pointer to the sample pattern list.</td>
+    </tr>
+    <tr>
+<td width="13%"><CODE>kindMask</CODE></td>
+<td width="87%">Bit field used to select the pattern type of the sample DB entry that will be taken into the sample DB.</td>
+    </tr>
+    <tr>
+<td width="13%"><CODE>ignoreDisabledEntries</CODE></td>
+<td width="87%">Designates whether a sample entry whose <code>enabled</code> flag is FALSE should be ignored.</td>
+    </tr>
+    <tr>
+<td width="13%"><CODE>param</CODE></td>
+<td width="87%">Other parameter values that are dependent on the recognition algorithm (use NULL as the default).</td>
+    </tr>
+  </table>
+
+<h2>Return Values</h2>
+<p>Returns <CODE>TRUE</CODE> if input pattern data is created successfully.</p>
+
+<H2>Description</H2>
+<P>Converts the <A href="PRCPrototypeList.html"><CODE>PRCPrototypeList</CODE></A> type sample pattern list into the <A href="PRCPrototypeDB.html"><CODE>PRCPrototypeDB</CODE></A> type sample DB that is used for recognition. This function precalculates length, angle, bounding box, and other values used for recognition from a sample pattern list that contains only strokes, and stores them as a sample DB. Depending on the size of the sample DB, the cost of the process can be extremely high.</P>
+<P>The <code>buffer</code> argument specifies the memory region used internally by <code>protoDB</code>. First, use <A href="PRC_GetPrototypeDBBufferSize.html"><CODE>PRC_GetPrototypeDBBufferSize*</CODE></A> to get the amount of memory required, and then allocate at least that amount. Do not free <code>buffer</code> while <code>protoDB</code> is in use.</P>
+<P>The logical AND of the <code>kindMask</code> value and the value of <code>kind</code> for each sample DB entry in the <code>prototypeList</code> is performed. The entry will be brought into the sample DB if the result is non-zero. Specifying <code>PRC_KIND_ALL</code> in <code>kindMask</code> will select all <code>kind</code> instances. If <code>ignoreDisabledEntries</code> is <CODE>TRUE</CODE>, sample DB entries whose <code>enabled</code> flag is <CODE>FALSE</CODE> will not be imported, even if their <code>kind</code> values match.</P>
+<P><code>PRC_InitPrototypeDB(protoDB, buffer, bufferSize, prototypeList)</code> is the same as <code>PRC_InitPrototypeDBEx(protoDB, buffer, bufferSize, prototypeList, PRC_KIND_ALL, FALSE, NULL)</code>.</P>
+<h2>See Also</h2>
+<p><A href="PRC_GetPrototypeDBBufferSize.html"><CODE>PRC_GetPrototypeDBBufferSize</CODE></a><BR> <a href="PRC_GetPrototypeDBBufferSize.html"><CODE>PRC_GetPrototypeDBBufferSizeEx</CODE></a><BR> <a href="PRC_GetRecognizedEntry.html"><CODE>PRC_GetRecognizedEntry*</CODE></A></p>
+
+<H2>Revision History</H2>
+<P>2005/03/04 Changed return value to BOOL.<BR>2004/06/23 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

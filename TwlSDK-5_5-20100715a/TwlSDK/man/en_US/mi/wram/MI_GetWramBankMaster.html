@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>MI_GetWramBankMaster</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">MI_GetWramBankMaster* <IMG src="../../image/TWL.gif" align="middle"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;twl/mi.h&gt;</CODE><BR>
+  <BR>
+  <CODE>MIWramProc MI_GetWramBankMaster( <A href="../mi_constant.html">MIWramPos</A> wram, int num )</CODE><br>
+  <CODE>MIWramProc MI_GetWramBankMaster_A( int num )</CODE><br>
+  <CODE>MIWramProc MI_GetWramBankMaster_B( int num )</CODE><br>
+  <CODE>MIWramProc MI_GetWramBankMaster_C( int num )</CODE><br>
+  </dd>
+</dl>
+<h2>Arguments</h2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+      <TD width="13%"><EM><STRONG>wram</STRONG></EM></TD>
+      <TD width="87%">The WRAM for which to obtain the master processor information.</TD>
+    </TR>
+    <TR>
+      <TD><B><I>num</I></B></TD>
+      <TD>The slot number of the WRAM for which to obtain the master processor information.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<h2>Return Values</h2>
+<p>The master processor information of the specified WRAM region.<BR>Will return one of the following: <CODE>MI_WRAM_ARM9</CODE>, <CODE>MI_WRAM_ARM7</CODE>, or <CODE>MI_WRAM_DSP</CODE>.</p>
+
+<H2>Description</H2>
+<P>Gets the master processor of the specified WRAM region.</P>
+<P><B><I>wram</I></B> is of type <CODE><A href="../mi_constant.html">MIWramPos</A></CODE>, and specifies which WRAM's master processor information to obtain.</P>
+<P><B><I>num</I></B> is the slot number of the target WRAM. For WRAM-A it should be 0-3, and for WRAM-B and WRAM-C, it should be 0-7.</P>
+<P><CODE>MI_GetWramBankMaster_A()</CODE> is the #define directive of <CODE>MI_GetWramBankMaster( MI_WRAM_A, ... )</CODE>. <BR><CODE>MI_GetWramBankMaster_B()</CODE> is the #define directive of <CODE>MI_GetWramBankMaster( MI_WRAM_B, ... )</CODE>. <BR><CODE>MI_GetWramBankMaster_C()</CODE> is the #define directive of <CODE>MI_GetWramBankMaster( MI_WRAM_C, ... )</CODE>. <BR></P>
+<h2>Internal Operation</h2>
+<p>Accesses I/O registers MBK1-MBK5.</p>
+
+<h2>See Also</h2>
+<P><A href="about_Wram.html">Overview (Work RAM)</A>, <A href="../mi_constant.html">MI-Related Constants</A></P>
+
+<H2>Revision History</H2>
+<P>2007/08/22 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

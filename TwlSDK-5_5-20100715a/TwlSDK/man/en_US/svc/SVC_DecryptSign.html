@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>SVC_DecryptSign</TITLE>
+<LINK rel="stylesheet" href="../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">SVC_DecryptSign <IMG src="../image/BPT.gif" align="middle"><IMG src="../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+<DL>
+  <DD>
+  <PRE><CODE>#include &lt;twl/os/common/systemCall.h&gt;</CODE></PRE>
+  <PRE><CODE>void SVC_DecryptSign( const SVCSignHeapContext* acmemory_pool,
+                        void* buffer,
+                        const void* sgn_ptr,
+                        const void* key_ptr );</CODE></PRE>
+</DL>
+<H2>Arguments</H2>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+      <TD><B><I>acmemory_pool</I></B></TD>
+      <TD>Pointer to the heap information.</TD>
+    </TR>
+    <TR>
+      <TD><B><I>buffer</I></B></TD>
+      <TD>Pointer to the output data buffer.</TD>
+    </TR>
+    <TR>
+      <TD><B><I>sgn_ptr</I></B></TD>
+      <TD>Pointer to the digital signature data.</TD>
+    </TR>
+    <TR>
+      <TD><B><I>key_ptr</I></B></TD>
+      <TD>Pointer to the public key data.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>Return Values</H2>
+<P>Returns FALSE if the one of the pointers in the arguments is NULL or if the padding of the digital signature is invalid. Returns TRUE otherwise.</P>
+<H2>Description</H2>
+<P>Decrypts signed data using the specified public key.</P>
+<P><B><I>acmemory_pool</I></B> is a pointer to the <CODE>SVCSignHeapContext</CODE> structure where information about the heap area used for the operation is stored. This is initialized by the <CODE><A href="SVC_InitSignHeap.html">SVC_InitSignHeap</A></CODE> function.</P>
+<P><B><I>buffer</I></B> is a pointer to the output data buffer. The decrypted data is stored here.<BR><B>Note:</B> The output size is fixed at <CODE>SVC_SHA1_DIGEST_SIZE</CODE> (20 bytes).</P>
+<P><B><I>sgn_ptr</I></B> is a pointer to the digital signature data to decrypt.</P>
+<P><B><I>key_ptr</I></B> is a pointer to the public key data to use for decryption.</P>
+<P>Only a 1024-bit key length is supported for the public key. See the <a href="../crypto/overview/about_RSA.html#make_key">key creation example</a> in the CRYPTO library's RSA encryption overview for information on how to create a key.</P>
+<H2>See Also</H2>
+<P><CODE><A href="SVC_InitSignHeap.html">SVC_InitSignHeap</A></CODE>, <A href="SVC_DecryptRSA.html"><CODE>SVC_DecryptRSA</CODE></A>, <CODE><A href="SVC_DecryptSignDER.html">SVC_DecryptSignDER</A></CODE></P>
+<H2>Revision History</H2>
+<P>
+2008/09/18 Added an explanation related to keys. <BR>2008/05/22 Added a note on the output data size. <BR>2007/10/19 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title>WFS_RegisterServerTable</title>
+<link rel="stylesheet" href="../../css/nitro.css" type="text/css" />
+</head>
+<body>
+
+<h1>WFS_RegisterServerTable <img src="../../image/NTR.gif"><img src="../../image/TWL.gif"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<code>#include &lt;nitro/wfs.h&gt;</code><br /> <br /> <code>BOOL WFS_RegisterServerTable(WFSServerContext *context, <a href="../../mi/device/MIDevice.html">MIDevice</a> *device, u32 fatbase, u32 overlay);</code><br /> <br />
+  </dd>
+</dl>
+<h2>Arguments</h2>
+<table border="1" width="100%">
+  <tbody>
+    <tr>
+<td style="width:13%"><CODE>context</CODE></td>
+<td style="width:87%">Pointer to the <CODE>WFSServerContext</CODE> structure.</td>
+    </tr>
+    <tr>
+<td style="width:13%"><CODE>device</CODE></td>
+<td style="width:87%">Interface with the device storing the ROM image.</td>
+    </tr>
+    <tr>
+<td style="width:13%"><CODE>fatbase</CODE></td>
+<td style="width:87%">Address within the device where the ROM image is located.</td>
+    </tr>
+    <tr>
+<td style="width:13%"><CODE>overlay</CODE></td>
+<td style="width:87%">Internal device address at which the ROM image that includes the overlay to be merged is located.<br />Specify the same value as <CODE>fatbase</CODE> if the overlay is not to be merged.</td>
+    </tr>
+  </tbody>
+</table>
+<h2>Return Values</h2>
+<p>Returns <CODE>TRUE</CODE> if the ROM file table is correctly loaded and registered; otherwise, returns <CODE>FALSE</CODE>.</p>
+
+<h2>Description</h2>
+<p>Extracts the file table from a ROM image located on a device, and registers it in a WFS parent (server) context structure. All connected WFS children (clients) will automatically get this file table from the server.
+</p>
+<p>
+If a read request for the ROM image registered with this function is issued from a child (client), notification of a <a href="../WFSEventType.html"><code>WFS_EVENT_SERVER_SEGMENT_REQUEST</code></a> event will be made. The application must handle the read request appropriately within the event callback.<BR>
+</p>
+<p>
+If no special processing is required to set the file table or respond to a read request, a parent (server) process can be much more easily implemented using  <a href="WFS_ExecuteRomServerThread.html"><code>WFS_ExecuteRomServerThread</code></a> instead of this function.
+</p>
+
+<h2>See Also</h2>
+<p><a href="WFS_InitServer.html"><CODE>WFS_InitServer</CODE></a><BR> <a href="WFS_EndServer.html"><CODE>WFS_EndServer</CODE></a><BR> <a href="WFS_ExecuteRomServerThread.html"><CODE>WFS_ExecuteRomServerThread</CODE></a></p>
+
+<h2>Revision History</h2>
+<p>
+2007/06/14 Added a description of the <code>WFS_ExecuteRomServerThread</code> function.<br /> 2007/06/06 Initial version.
+</p>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

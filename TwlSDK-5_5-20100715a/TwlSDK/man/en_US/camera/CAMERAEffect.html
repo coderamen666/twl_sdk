@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>CAMERAEffect</TITLE>
+<LINK rel="stylesheet" href="../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">CAMERAEffect <IMG src="../image/TWL.gif" align="middle"></H1>
+<H2>Definition</H2>
+<DL>
+  <DD>
+  <CODE>#include &lt;twl/camera.h&gt;</CODE><BR>
+  <BR>
+  <PRE><CODE>
+typedef enum
+{
+    CAMERA_EFFECT_NONE,
+    CAMERA_EFFECT_MONO,
+    CAMERA_EFFECT_SEPIA,
+    CAMERA_EFFECT_NEGATIVE,
+    CAMERA_EFFECT_NEGAFILM,
+    CAMERA_EFFECT_SEPIA01,
+
+    CAMERA_EFFECT_MAX
+}
+CAMERAEffect;
+</CODE></PRE>
+</DL>
+
+<H2>Elements</H2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+      <TD width="13%"><EM><STRONG>CAMERA_EFFECT_NONE</STRONG></EM></TD>
+      <TD width="87%">Do not use effects.</TD>
+    </TR>
+    <TR>
+      <TD width="13%"><EM><STRONG>CAMERA_EFFECT_MONO</STRONG></EM></TD>
+      <TD width="87%">Use a monochrome tone for output images.</TD>
+    </TR>
+    <TR>
+      <TD width="13%"><EM><STRONG>CAMERA_EFFECT_SEPIA</STRONG></EM></TD>
+      <TD width="87%">Use a sepia tone for output images.<BR>
+                      Apply an ochre filter overall.</TD>
+    </TR>
+    <TR>
+      <TD width="13%"><EM><STRONG>CAMERA_EFFECT_NEGATIVE</STRONG></EM></TD>
+      <TD width="87%">Invert tone and color in output images.</TD>
+    </TR>
+    <TR>
+      <TD width="13%"><EM><STRONG>CAMERA_EFFECT_NEGAFILM</STRONG></EM></TD>
+      <TD width="87%">Invert tone and color and apply film tone in output images.</TD>
+    </TR>
+    <TR>
+      <TD width="13%"><EM><STRONG>CAMERA_EFFECT_SEPIA01</STRONG></EM></TD>
+      <TD width="87%">Use a sepia tone for output images.<BR>
+                      Apply a reddish-brown filter overall.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<H2>Description</H2>
+<P>
+This is an enumerated type that is used to specify the effects to apply to the camera's output data.
+</P>
+
+<H2>Revision History</H2>
+<P>2008/07/08 Added <CODE>CAMERA_EFFECT_SEPIA01</CODE>. <BR>2007/11/09 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

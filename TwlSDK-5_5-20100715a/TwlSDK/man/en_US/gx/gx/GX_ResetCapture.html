@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 8.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>GX_ResetCapture</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">GX_ResetCapture <img src="../../image/NTR.gif"align="middle"><img src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+
+<dl>
+  <dd>
+<PRE><CODE>#include &lt;nitro/gx/gx_capture.h&gt;
+
+void GX_ResetCapture( void );<BR></CODE></PRE>
+  </dd>
+</dl><h2>Arguments</h2>
+<P>None.</P>
+<h2>Return Values</h2>
+<p>None.</p>
+<H2>Description</H2>
+<P>Turns OFF the capture enable flag of the display capture control register. After completing the capture, the capture enable register automatically becomes OFF, and normally it is not necessary to explicitly reset with this function.
+</P>
+<H2>Notes</H2>
+<ul>
+<li>Once display capture has begun at Line 0, this function cannot abort the capture process. To cancel the capture, cancel it before the capturing operation starts.</li>
+<li>In the LCD OFF state, some of the circuitry clocks in the GX are stopped, so the settings of this function are ignored.</li>
+</ul>
+<h2>See Also</h2>
+<P><A href="GX_SetCapture.html"><CODE>GX_SetCapture</CODE></A></P>
+<H2>Revision History</H2>
+<P>
+2009/02/25 Noted that the settings are ignored when state is LCD OFF. <br /> 2005/01/05 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

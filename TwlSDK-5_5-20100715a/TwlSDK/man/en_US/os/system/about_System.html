@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>System State: Overview</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">System State: Overview <IMG src="../../image/NTR.gif" width="24" height="12" border="0" align="middle"><IMG src="../../image/TWL.gif" width="24" height="12" border="0" align="middle"></H1>
+<P>The functions in this category mainly handle the Current Program Status Register (CPSR) and state inside the co-processor 15 (CP15).</P>
+<H2>CPSR</H2>
+<P>The CPSR is a status register that contains the status of logical operations, the disable flag for FIQ and IRQ interrupts, and the processor mode.</P>
+<center>
+<IMG src="image_cpsr.gif" border="0"><BR>
+</center>
+<P>The <CODE>N</CODE>, <CODE>Z</CODE>, <CODE>C</CODE>, and <CODE>V</CODE> flags are conditional bits set by the results of logical operations. The <CODE>N</CODE> flag is set when the result of an operation is a negative value, the <CODE>Z</CODE> flag is set when the result of an operation is zero, the <CODE>C</CODE> flag is set when a carry occurs during an operation, and the <CODE>V</CODE> flag is set when an overflow occurs during an operation.</P>
+<P>The <CODE>Q</CODE> flags <CODE>QADD</CODE>, <CODE>QSUB</CODE>, <CODE>QDADD</CODE>, and <CODE>QDSUB</CODE> are used to find out when a saturation arithmetic operation caused an overflow.</P>
+<P>IRQ interrupts are disabled if the <CODE>I</CODE> flag is set.</P>
+<P>FIQ interrupts are disabled if the <CODE>F</CODE> flag is set.</P>
+<P>The <CODE>T</CODE> flag indicates the current processor state (ARM or Thumb), which is Thumb when the <CODE>T</CODE> flag is set.</P>
+<P>The mode bits are the processor mode and take one of the following seven values. The TWL system normally runs in system mode. It runs in IRQ mode during an interrupt.</P>
+<center>
+<TABLE border="1" style="width:50%">
+  <TBODY>
+    <TR>
+<TH>mode bits</TH>
+<TH>Mode</TH>
+    </TR>
+    <TR>
+<TD>0b10000</TD>
+<TD>User mode</TD>
+    </TR>
+    <TR>
+<TD>0b10001</TD>
+<TD>FIQ mode</TD>
+    </TR>
+    <TR>
+<TD>0b10010</TD>
+<TD>IRQ mode</TD>
+    </TR>
+    <TR>
+<TD>0b10011</TD>
+<TD>Supervisor mode</TD>
+    </TR>
+    <TR>
+<TD>0b10111</TD>
+<TD>Abort mode</TD>
+    </TR>
+    <TR>
+<TD>0b11011</TD>
+<TD>Undefined mode</TD>
+    </TR>
+    <TR>
+<TD>0b11111</TD>
+<TD>System mode</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</center>
+<H2>Interrupt State (IRQ)</H2>
+<P>The <a href="OS_EnableInterrupts.html"><CODE>OS_EnableInterrupts</CODE></a> function clears the <CODE>I</CODE> bit. In other words, it enables IRQ interrupts.</P>
+<P>The <a href="OS_DisableInterrupts.html"><CODE>OS_DisableInterrupts</CODE></a> function sets the <CODE>I</CODE> bit. In other words, it disables IRQ interrupts.</P>
+<P>The <a href="OS_RestoreInterrupts.html"><CODE>OS_RestoreInterrupts</CODE></a> function sets the <CODE>I</CODE> bit to a designated state. In other words, it restores the IRQ interrupts to a designated state.</P>
+<P>These functions return the state before it is changed. This is used to restore the original state with <A href="OS_RestoreInterrupts.html"><CODE>OS_RestoreInterrupts</CODE></A> after <A href="OS_EnableInterrupts.html"><CODE>OS_EnableInterrupts</CODE></A> and <A href="OS_DisableInterrupts.html"><CODE>OS_DisableInterrupts</CODE></A> have changed the state and some processing has occurred. As shown in the following example, an interrupt state is usually changed and then recovered; these operations are used as a pair.</P>
+<BLOCKQUOTE style="background-color:#ffffc0;"><CODE>Example:<BR> OSIntrMode enabled = OS_EnableInterrups();<BR> :<BR>(void)OS_RestoreInterrupts( enabled );</CODE></BLOCKQUOTE>
+<H2>Interrupt State (IRQ and FIQ)</H2>
+<BLOCKQUOTE style="background-color:#ffe0e0;"><B><FONT color="#ff0000">Caution:</FONT></B><BR> <font color="#ff0033">Because FIQ interrupts are used with the debug tool, the application cannot use them. Also, applications normally have no need to use them. The functions for handling FIQs, as described here, were created for use with only certain types of software, such as system tools and middleware.</FONT></BLOCKQUOTE>
+<P>Similar to the IRQ interrupt functions, there are functions for configuring both the IRQ interrupts and the FIQ interrupts at the same time.</P>
+<P>The <a href="OS_EnableInterrupts_IrqAndFiq.html"><CODE>OS_EnableInterrupts_IrqAndFiq</CODE></a> function clears the <code>I</code> and <code>F</code> bits. In other words, it enables IRQ interrupts and FIQ interrupts.</P>
+<P>The <a href="OS_DisableInterrupts_IrqAndFiq.html"><CODE>OS_DisableInterrupts_IrqAndFiq</CODE></a> function sets the <code>I</code> and <code>F</code> bits. In other words, it enables IRQ interrupts and FIQ interrupts.</P>
+<P>The <a href="OS_RestoreInterrupts_IrqAndFiq.html"><CODE>OS_RestoreInterrupts_IrqAndFiq</CODE></a> function sets the <code>I</code> and <code>F</code> bits to designated states. In other words, it restores the IRQ interrupts and FIQ interrupts to designated states.</P>
+<P>The function groups related to these IRQ interrupts and FIQ interrupts use the <code>OS_RestoreInterrupts_IrqAndFiq</code> function for state recovery, and <CODE>Enable</CODE>/<CODE>Restore</CODE> or <CODE>Disable</CODE>/<CODE>Restore</CODE> are normally used as a pair.</P>
+<BLOCKQUOTE style="background-color:#ffffc0;"><B>Example:</B><BR> <CODE>OSIntrMode enabled = OS_EnableInterrups_IrqAndFiq();<BR> :<BR>(void)OS_RestoreInterrupts_IrqAndFiq( enabled );</CODE></BLOCKQUOTE>
+<H2>Getting the State (IRQ, Processor Mode)</H2>
+<P>Use the <a href="OS_GetCpsrIrq.html"><CODE>OS_GetCpsrIrq</CODE></a> function to get the current IRQ interrupt configuration.</P>
+<P>Use <a href="OS_GetProcMode.html"><CODE>OS_GetProcMode</CODE></a> function to get the current processor mode. Operations are normally performed in system mode.</P>
+<H2>Halting the CPU</H2>
+<P>When the CPU is idle, you can reduce power consumption by halting the CPU. It can receive interrupts and recover even if it is in this halt state. The function for halting is <a href="OS_Halt.html"><CODE>OS_Halt</CODE></a> on both the ARM9 and the ARM7.</P>
+<P>It is not necessary for the application side to be aware of this, but the ARM9 processor uses the CP15 function to enter the halt state, and the ARM7 side uses a system call.</P>
+<H2>Stopping the Program</H2>
+<P>The <A href="OS_Terminate.html"><CODE>OS_Terminate</CODE></A> function has been prepared for stopping the execution of the current program. This function disables IRQ interrupts internally and becomes a loop that calls the <A href="OS_Halt.html"><CODE>OS_Halt</CODE></A> function. There is no transition to other threads, and no interrupt handler is called after entering the loop. In NITRO mode, this function traps the ARM9 processor in a loop, but the ARM7 continues running. In TWL mode, both the ARM9 and ARM7 processors loop.</P>
+<P>The <A href="OS_Exit.html"><CODE>OS_Exit</CODE></A> and <A href="OS_FExit.html"><CODE>OS_FExit</CODE></A> functions also stop program execution. They display the specified status and call the <A href="OS_Terminate.html"><CODE>OS_Terminate</CODE></A> function. These functions can stop <A href="../../tools/loadrun.html"><CODE>loadrun</CODE></A> or <A href="../../tools/loadrunTWL.html"><CODE>loadrun.TWL</CODE></A> by displaying a string.</P>
+<P>The <A href="../debug/OS_Panic.html"><CODE>OS_Panic</CODE></A> and <A href="../debug/OS_FPanic.html"><CODE>OS_FPanic</CODE></A> functions are similar. These functions display the position of the halted program using the source filename and line number. They also display some specified string. These functions are used for debugging purposes; in FINALROM builds, they become equivalent to the <A href="OS_Terminate.html"><CODE>OS_Terminate</CODE></A> function.</P>
+<BLOCKQUOTE style="background-color:#ffffcc;"><B>Example:</B><BR> <CODE>OS_Terminate();<BR> <BR> OS_Exit( 100 );<BR> <BR> OS_Panic( &quot;now stop (x=%d)&quot;, myX );</CODE></BLOCKQUOTE>
+<H2>Waiting</H2>
+<P>The <A href="OS_SpinWait.html"><CODE>OS_SpinWait</CODE></A>, <A href="OS_SpinWait.html"><CODE>OS_SpinWaitCpuCycles</CODE></A>, and <A href="OS_SpinWait.html"><CODE>OS_SpinWaitSysCycles</CODE></A> functions wait for a designated period of time by looping in accordance with the CPU. However, because the CPU only loops, when an interrupt occurs, it may not take longer than the designated time to return from the function. Interpret this as the &quot;lower-limit wait time&quot; for the designated time.</P>
+<P>The <A href="OS_SpinWait.html"><CODE>OS_SpinWait</CODE></A> function takes NITRO compatibility into consideration; it is based on an approximately 67-MHz ARM9 and an approximately 33-MHz ARM7. The ARM9's double-speed mode has no effect on this.</P>
+<P>The <A href="OS_SpinWait.html"><CODE>OS_SpinWaitCpuCycles</CODE></A> function is based on the CPU cycles. This is approximately 134 MHz when the ARM9 is running at double speed.</P>
+<P>The <A href="OS_SpinWait.html"><CODE>OS_SpinWaitSysCycles</CODE></A> function uses the base cycle (approximately 33 MHz) as a standard.</P>
+<H2>See Also</H2>
+<P><CODE><A href="../list_os.html#Cpsr">An Overview of OS Functions (System  State)</A></CODE></P>
+<H2>Revision History</H2>
+<P>2009/04/13 Revised processor behavior when programs stop. <BR>2008/05/23 Added information on <CODE>OS_Panic</CODE>. <BR>2007/09/27 Added information on <CODE>OS_SpinWaitCpuCycles</CODE> and <CODE>OS_SpinWaitSysCycles</CODE>. <BR>2004/12/14 Revised terminology and word endings. <BR>2004/11/09 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

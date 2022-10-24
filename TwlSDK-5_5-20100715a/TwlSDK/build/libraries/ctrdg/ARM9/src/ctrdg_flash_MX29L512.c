@@ -1,0 +1,134 @@
+/*---------------------------------------------------------------------------*
+  Project:  TwlSDK - CTRDG - libraries - ARM9
+  File:     ctrdg_flash_MX29L512.c
+
+  Copyright 2008 Nintendo. All rights reserved.
+
+  These coded instructions, statements, and computer programs contain
+  proprietary information of Nintendo of America Inc. and/or Nintendo
+  Company Ltd., and are protected by Federal copyright law. They may
+  not be disclosed to third parties or copied or duplicated in any form,
+  in whole or in part, without the prior written consent of Nintendo.
+
+  $Date:: 2007-11-15#$
+  $Rev: 2414 $
+  $Author: hatamoto_minoru $
+ *---------------------------------------------------------------------------*/
+
+#include <nitro.h>
+
+
+// Extern data----------------------------------
+extern u16 CTRDGi_PollingSR512kCOMMON(u16 phase, u8 *adr, u16 lastData);
+extern u16 CTRDGi_EraseFlashChipLE(void);
+extern u16 CTRDGi_EraseFlashSectorLE(u16 secNo);
+extern u16 CTRDGi_ProgramFlashByteLE(u8 *src, u8 *dst);
+extern void CTRDGi_EraseFlashChipAsyncLE(CTRDG_TASK_FUNC callback);
+extern void CTRDGi_EraseFlashSectorAsyncLE(u16 secNo, CTRDG_TASK_FUNC callback);
+extern void CTRDGi_WriteFlashSectorAsyncLE(u16 secNo, u8 *src, CTRDG_TASK_FUNC callback);
+/*Exclusive control*/
+extern u16 ctrdgi_flash_lock_id;
+
+// Function's prototype declaration-------------
+u16     CTRDGi_WriteFlashSectorMX5(u16 secNo, u8 *src);
+u32     CTRDGi_WriteFlashSectorCoreMX5(CTRDGTaskInfo * arg);
+void    CTRDGi_WriteFlashSectorAsyncMX5(u16 secNo, u8 *src, CTRDG_TASK_FUNC callback);
+
+// Const data-----------------------------------
+static const u16 PaMaxTime[] = {
+    10,                                // Common       10ms
+    10,                                // Program      10ms(exactly:50usec)    (15.256us*66)*1=1ms
+    500,                               // Sector erase 100ms
+    500,                               // Chip   erase 100ms
+};
+
+const CTRDGiFlashTypePlus MN63F805MNP = {
+    CTRDGi_WriteFlashSectorMX5,
+    CTRDGi_EraseFlashChipLE,
+    CTRDGi_EraseFlashSectorLE,
+    CTRDGi_WriteFlashSectorAsyncMX5,
+    CTRDGi_EraseFlashChipAsyncLE,
+    CTRDGi_EraseFlashSectorAsyncLE,
+    CTRDGi_PollingSR512kCOMMON,
+    PaMaxTime,
+    {
+/* For debugging */
+//#ifndef   __FLASH_DEBUG
+        0x00010000,                       // ROM size
+        {0x00001000, 12, 16, 0},          // Sector size, shift, count, top
+//#else
+//      0x00002000,
+//      {0x00000200,  9, 16,  0},
+//#endif
+        {MI_CTRDG_RAMCYCLE_10, MI_CTRDG_RAMCYCLE_6},       // agb read cycle=4, write cycle=2
+        0x32,                             // Maker ID
+        0x1b,                             // Device ID
+    },
+};
+
+// Program description**************************
+u32 CTRDGi_WriteFlashSectorCoreMX5(CTRDGTaskInfo * arg)
+{
+    u8     *tgt;
+    MICartridgeRamCycle ram_cycle;
+    u32     result;
+    CTRDGTaskInfo p = *arg;
+    u16     secNo = p.sec_num;
+    u8     *src = p.data;
+
+    if (secNo >= AgbFlash->sector.count)
+        return CTRDG_BACKUP_RESULT_ERROR | CTRDG_BACKUP_PHASE_PARAMETER_CHECK;
+
+    // Erase
+    result = CTRDGi_EraseFlashSectorLE(secNo);
+    if (result)
+    {
+        return result;
+    }
+
+    /*Exclusive control (lock) */
+    (void)OS_LockCartridge(ctrdgi_flash_lock_id);
+    /*Access cycle settings */
+    ram_cycle = MI_GetCartridgeRamCycle();
+    MI_SetCartridgeRamCycle(AgbFlash->agbWait[0]);
+    //*(vu16 *)REG_EXMEMCNT_ADDR=(*(vu16 *)REG_EXMEMCNT_ADDR & 0xfffc)|AgbFlash->agbWait[0]; // read 3cycles wait
+
+    ctrdg_flash_remainder = (u16)AgbFlash->sector.size;
+    tgt = (u8 *)(CTRDG_AGB_FLASH_ADR + (secNo << AgbFlash->sector.shift));
+    while (ctrdg_flash_remainder)
+    {
+        result = CTRDGi_ProgramFlashByteLE(src, tgt);
+        if (result)
+            break;
+        ctrdg_flash_remainder--;
+        src++;
+        tgt++;
+    }
+
+    /*Access cycle settings */
+    MI_SetCartridgeRamCycle(ram_cycle);
+    /*Exclusive control (unlock) */
+    (void)OS_UnlockCartridge(ctrdgi_flash_lock_id);
+
+    return result;
+}
+
+u16 CTRDGi_WriteFlashSectorMX5(u16 secNo, u8 *src)
+{
+    u16     result;
+    CTRDGTaskInfo p;
+    p.sec_num = secNo;
+    p.data = src;
+    result = (u16)CTRDGi_WriteFlashSectorCoreMX5(&p);
+
+    return result;
+}
+
+void CTRDGi_WriteFlashSectorAsyncMX5(u16 secNo, u8 *src, CTRDG_TASK_FUNC callback)
+{
+    CTRDGTaskInfo p;
+
+    p.sec_num = secNo;
+    p.data = src;
+    CTRDGi_SetTask(&p, CTRDGi_WriteFlashSectorCoreMX5, callback);
+}

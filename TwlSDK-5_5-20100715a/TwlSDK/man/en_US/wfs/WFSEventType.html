@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title>WFSEventType</title>
+<link rel="stylesheet" href="../css/nitro.css" type="text/css" />
+</head>
+
+<body>
+
+<h1>WFSEventType</h1>
+<h2>Definition</h2>
+
+<dl>
+  <dd>
+<code>#include &lt;nitro/wfs.h&gt;</code><br />
+  <br />
+<pre>
+<font color="#008000">/* Event callback type */</font>
+typedef enum WFSEventType
+{
+    <font color="#008000">/*** Event notified only to parent (server) ***/</font>
+
+    WFS_EVENT_SERVER_SEGMENT_REQUEST, <font color="#008000">/* Read request from child/client (argument <a href="WFSSegmentBuffer.html">WFSSegmentBuffer*</a>) */</font>
+
+    <font color="#008000">/*** Event notified only to children (clients) ***/</font>
+
+    WFS_EVENT_CLIENT_READY            <font color="#008000">/* Reception of file table from parent (server) is complete */</font>
+}
+WFSEventType;
+</pre>
+  <br />
+  </dd>
+</dl>
+
+<h2>Description</h2>
+<p>Represents the enumerator constants used to indicate WFS library events. The meaning of each enumerator constant is shown in the following table:
+</p>
+<table border="0">
+  <tbody>
+    <tr>
+      <td colspan="3" style="background-color:white">Event notified only to parent (server)</td>
+    </tr>
+    <tr>
+      <td>Value</td>
+      <td>Description</td>
+	  <td>Argument</td>
+    </tr>
+    <tr>
+      <td>WFS_EVENT_SERVER_SEGMENT_REQUEST</td>
+      <td>This notification is made when a read request is issued by a child (client).<BR>
+      The parent (server) must read data in the specified memory region from the device.</td>
+	  <td>Pointer to the <CODE><a href="WFSSegmentBuffer.html">WFSSegmentBuffer</a></CODE> type used to maintain request contents.</td>
+    </tr>
+    <tr>
+      <td colspan="3" style="background-color:white">Event notified only to children (clients)</td>
+    </tr>
+    <tr>
+      <td>Value</td>
+      <td>Description</td>
+	  <td>Argument</td>
+    </tr>
+    <tr>
+      <td>WFS_EVENT_CLIENT_READY</td>
+      <td>This notification is made when receiving the file table from the parent (server) completes.<BR>
+      Once this notification is made, the file table can be accessed using the <a href="client/WFS_GetTableFormat.html"><code>WFS_GetTableFormat</code></a> function.</td>
+	  <td>There are no arguments.</td>
+    </tr>
+  </tbody>
+</table>
+<br />
+
+<h2>See Also</h2>
+<p><code><a href="WFSEventCallback.html">WFSEventCallback</a>, <a href="WFSSegmentBuffer.html">WFSSegmentBuffer</a>, <br /> <a href="server/WFS_InitServer.html">WFS_InitServer</a>, <a href="client/WFS_InitClient.html">WFS_InitClient</a>, <a href="client/WFS_GetTableFormat.html">WFS_GetTableFormat</a>, <a href="client/WFS_RequestClientRead.html">WFS_RequestClientRead</a></code></p>
+
+<h2>Revision History</h2>
+<p>
+2007/06/11 Deleted <CODE>WFS_EVENT_CLIENT_READ_COMPLETE</CODE>.<br /> 2007/06/06 Initial version.<br />
+</p>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

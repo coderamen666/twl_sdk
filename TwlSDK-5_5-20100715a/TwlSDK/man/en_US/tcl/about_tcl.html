@@ -1,0 +1,236 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Style-Type" content="text/css" text="text/css">
+<title>Nintendo DSi Photo Database Library (TCL)</title>
+<link rel="stylesheet" href="../css/nitro.css">
+</head>
+<body>
+<h1>Nintendo DSi Photo Database Library (TCL)</h1>
+
+<h2>Introduction</h2>
+<p>The TCL library performs tasks such as loading JPEG images saved on NAND by the Nintendo DSi cameras and writing JPEG images to paths that can be loaded by Nintendo DSi Camera.</p>
+<p>Loading and writing JPEG images is based on information in management files, which are saved in memory separately from the image files.</p>
+<p>TCL manipulates files on NAND, so it can be used only with NAND applications.</p>
+
+<h2>Errors Corresponding to FS Function Processes</h2>
+<p>With TCL, no special processes are performed for internally generated FS function errors. All error processes are left to the application. For any functions that use FS internally, error codes are returned by an argument, so use them to perform the necessary processes.</p>
+
+<h2>Loading Management Files and Errors</h2>
+<p>You must load a management file to use TCL functions.</p>
+<p>The following processes demonstrate error handling when a management file fails to be loaded.</p>
+<ul>
+<li><b>Show a message prompting the user to start the Nintendo DSi Camera and use it to reference system memory and then stop further processing.</b></li>
+<li>Recreate the management file.</li>
+</ul>
+<p>There is little possibility that loading the management file in system memory will fail and recovery can be performed with the Nintendo DSi Camera, so <b>there is basically no problem with the former error process</b>. In such cases, when application specifications are limited to loading (not writing) photos, it is possible to ignore several errors. For more information, see the <a href="TCL_LoadTable.html"><code>TCL_LoadTable</code></a> function.</p>
+<p>The following are the sequences for attempting to recover a management file for reasons associated with the game's characteristics. However, even if the following processes are performed, management files might not be recovered.</p>
+
+<h2>Sequences to Attempt Recovering Management Files That Failed to Load</h2>
+<p>If a management file fails to load and you are recovering it, two error-handling sequences are available, depending on your application specifications. The first sequence is based on <I>next save</I> locations defined for images in the management file. If the save location is invalid, images are loaded but will not be written. If the management file fails to load for a different reason, both the loading and writing of images fails.</p>
+<p>The error-handling sequences are explained in the following sections.</p>
+<h3>When Images Can Only Be Loaded</h3>
+<p>This sequence loads a management file that includes an error process when only loading images for application specifications. (See the manual for more information on the content of each function.)</p>
+<p><pre style="border:1px solid; black; padding:8px;">
+// Load the management file
+TCLResult result = TCL_LoadTable( &accessor ,
+                                  tableBuffer ,
+                                  tableBufferSize ,
+                                  workBuffer ,
+                                  workBufferSize ,
+                                  &fsResult );
+
+// The result of the load process
+switch ( result )
+{
+    case TCL_RESULT_SUCCESS: // Loading succeeded
+    case TCL_RESULT_ERROR_EXIST_OTHER_FILE: // A file already exists in the next save location
+    case TCL_RESULT_ERROR_ALREADY_MANAGED: // The  next save location is already being managed
+        // The image loading process is performed, so nothing needs to be done
+                     :
+        break;
+    default:
+        // The image loading process is not being performed, so recreate the management file
+        result = TCL_CreateTable( &accessor ,
+                                  tableBuffer ,
+                                  tableBufferSize ,
+                                  workBuffer ,
+                                  workBufferSize ,
+                                  &fsResult );
+
+        if ( result == TCL_RESULT_SUCCESS )
+        {
+            // Images can be both loaded and written out
+                         :
+        }
+        else
+        {
+            // Images can neither be loaded nor written out
+                         :
+        }
+    }
+}
+</pre></p>
+<h3>When Images Can Be Loaded and Written</h3>
+<p>When images can be loaded and written as per application specifications, this management file loading sequence includes an error-handling process.</p>
+<p><pre style="border:1px solid; black; padding:8px;">
+// Load the management file
+TCLResult result = TCL_LoadTable( &accessor ,
+                                  tableBuffer ,
+                                  tableBufferSize ,
+                                  workBuffer ,
+                                  workBufferSize ,
+                                  &fsResult );
+
+// The result of the load process
+switch ( result )
+{
+    case TCL_RESULT_SUCCESS: // Loading succeeded
+        // The image loading and writing processes are both performed, so nothing needs to be done
+                      :
+        break;
+
+    case TCL_RESULT_ERROR_EXIST_OTHER_FILE: // A file already exists in the next save location
+    case TCL_RESULT_ERROR_ALREADY_MANAGED: // The  next save location is already being managed
+        // The writing process is not performed, so recalculate the next save location
+        result = TCL_RepairTable( &accessor , &fsResult );
+
+        if ( result == TCL_RESULT_SUCCESS )
+        {
+            // Images can be both loaded and written
+                          :
+        }
+        else
+        {
+            // The image-writing process cannot be performed, so recreate the management file
+            result = TCL_CreateTable( &accessor ,
+                                      tableBuffer ,
+                                      tableBufferSize ,
+                                      workBuffer ,
+                                      workBufferSize ,
+                                      &fsResult );
+
+            if ( result == TCL_RESULT_SUCCESS )
+            {
+                // Images can be both loaded and written out
+                              :
+            }
+            else
+            {
+                // Images can neither be loaded nor written out
+                              :
+            }
+        }
+        break;
+    default:
+        // The image loading process is not being performed, so recreate the management file
+        result = TCL_CreateTable( &accessor ,
+                                  tableBuffer ,
+                                  tableBufferSize ,
+                                  workBuffer ,
+                                  workBufferSize ,
+                                  &fsResult );
+
+        if ( result == TCL_RESULT_SUCCESS )
+        {
+            // Images can be both loaded and written out
+                         :
+        }
+        else
+        {
+            // Images can neither be loaded nor written out
+                         :
+        }
+    }
+}
+</pre></p>
+
+<h2>Example Message for Failure to Load a Management File</h2>
+<p>When the loading of a management file has failed, it might be necessary to display some form of message to indicate that photos cannot be worked with and that the management file should be recreated. Such cases are shown as an example based on Nintendo DSi Camera messages.</p>
+<p>However, these are only for your reference. Perform processes appropriate for the application.</p>
+<h3>When Loading a Management File Failed and Photos Cannot Be Worked With</h3>
+<p>No special message has been prepared for such cases with the Nintendo DSi Camera. (Handled as a fatal error.) For that reason, an example cannot be provided. It might be effective to provide a message that prompts the user to start the Nintendo DSi Camera and recover the file.</p>
+<h3>When Creating a Management File That Does Not Exist</h3>
+<p>When <code>TCL_RESULT_ERROR_NO_TABLE_FILE</code> is returned from the <a href="TCL_LoadTable.html"><code>TCL_LoadTable</code></a> function, it indicates that the management file does not exist. The following message is displayed when a management file is created in this state.</p>
+<p><pre style="border:1px solid; black; padding:8px;">
+Creating a photo management file...
+
+</pre></p>
+<p></p>
+<h3>When Recreating Because the Management File Could Not Be Loaded</h3>
+<p>The following message is displayed when the management file is recreated for some other reason.</p>
+<p><pre style="border:1px solid; black; padding:8px;">
+The photo management file is corrupted.
+
+
+Recreating the photo management file.
+
+</pre></p>
+<p></p>
+
+<h2>Writing Image Files</h2>
+<p>Image files cannot be written in the following situations.</p>
+<dl>
+<dd>There is insufficient NAND
+<dd>The maximum manageable number of photos is already being managed
+<dd>An addressable path does not exist for the save location
+</dl>
+<p>The <a href="TCL_CalcNumEnableToTakePictures.html"><code>TCL_CalcNumEnableToTakePictures</code></a> function calculates how many photos can be taken, based on the NAND capacity and the number of photos currently being managed. However, it does not determine whether it is possible to write to the specified path. Include logic similar to that shown in the following example when an image file is written.
+</p>
+
+<p><pre style="border:1px solid; black; padding:8px;">
+// Flags that maintain whether addressable path exists.
+// If <CODE>TCL_RESULT_ERROR_NO_NEXT_INDEX</CODE> is returned from <CODE>TCL_RepairTable</CODE> or <CODE>TCL_CreateTable</CODE>, no path can be specified so the default value is set to <CODE>FALSE</CODE>.
+// 
+BOOL isEnableValidPath;
+
+// Where image is actually stored
+// Only take photo if 1 or more photos can be taken and there is a valid path
+if ( TCL_CalcNumEnableToTakePictures(,,) &gt; 0 && isEnableValidPath != FALSE )
+{
+    result = TCL_EncodeAndWritePicture(,,);
+
+    // If, as a result of this save, there is no longer a valid path, hold this
+    if ( result == TCL_RESULT_ERROR_NO_NEXT_INDEX )
+    {
+        isEnableValidPath = FALSE;
+    }
+}
+</pre></p>
+<p>
+For more information, see the <CODE>tcl-2</CODE> demo.
+</p>
+
+<h2>JPEG Decoding</h2>
+<p>The <a href="TCL_DecodePicture.html"><code>TCL_DecodePicture</code></a> function to decode JPEG files is provided. This is a wrapper function for the <code>SSP_StartJpegDecoder</code> function, but because it performs the necessary internal error checks, decode using this function without calling the <code>SSP_StartJpegDecoder</code> function directly.</p>
+
+<h2>Differentiating Image Types</h2>
+<p>There are two types of images used with the Nintendo DSi cameras: photos and frames. Frames are used by the frame camera. Metadata information stored in the JPEG image defines its image type. TCL write operations must adhere to the specified image type.</p>
+<p>The management file stores image information independent of the metadata. Overwriting the management file, therefore, can lead to a mismatch between TCL data and image data.</p>
+<p>If this happens, unexpected results may occur. For example, a search based only on data in the management file may return frames instead of photos.</p>
+<p>Compare the image type in the management file with the image type retrieved from the JPEG metadata before operating on files. The following sample compares the two sources of information.</p>
+<p><pre style="border:1px solid; black; padding:8px;">
+// Get image type from the management file
+TCLPictureInfo* pPicInfo = NULL;
+TCL_SearchNextPictureInfo( ,, &pPicInfo ,, );
+
+// The manufacturer's note structure gotten from the manufacturer's note after decoding
+// See the JPEG library to learn how to get this
+// Cast the Nintendo DSi camera manufacturer note to the following structure.
+TCLMakerNote* pMakerNote = ...;
+
+// Perform this process only if the image types match
+if ( TCL_IsSameImageType( pPicInfo , pMakerNote ) != FALSE )
+{
+    :
+}
+</pre></p>
+<p>That this evaluation procedure is not necessary if you want to handle photos and frames together without differentiating between the two.</p>
+
+<H2>Revision History</H2>
+<P>
+2009/04/13 Initial version.
+</p>
+
+<hr><p>CONFIDENTIAL</p></body>
+</html>

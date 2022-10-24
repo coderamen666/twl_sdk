@@ -1,0 +1,2 @@
+$(OBJDIR)/main.o: ./src/main.c
+$(OBJDIR)/data.o: ./src/data.c

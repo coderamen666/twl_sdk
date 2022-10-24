@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>NNS_G2dRestartMCAnimation</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+<h1 align="left">NNS_G2dRestartMCAnimation</h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+		<pre><CODE>#include &lt;nnsys/g2d/g2d_MultiCellAnimation.h&gt;</CODE></pre>
+  <pre><CODE>
+void NNS_G2dRestartMCAnimation
+(
+    NNSG2dMultiCellAnimation*   pMultiCellAnim
+);
+  </CODE></pre>
+  </dd>
+</dl><h2>Arguments</h2>
+
+<table border="1" width="100%">
+  <tr>
+<td width="13%"><em><strong><font face="Courier New">pMultiCellAnim</font></strong></em></td>
+<td width="87%">[OUT] The multi-cell animation entity</td>
+  </tr>
+  </table>
+<h2>Return Values</h2>
+<p>None.<BR>
+</p>
+<H2>Description</H2>
+<P>
+Restarts the multi-cell animation playback from the beginning of the animation sequence.<BR>If animation is playing in reverse, the end of the animation sequence is treated as the beginning.<BR><BR>Internally, the function calls the multi-cell animation's animation controller, as well as the functions NNS_G2dStartAnimCtrl() and NNS_G2dResetAnimCtrlState() for the animation controllers of the cell animation that comprise the multi-cell animation.
+
+</p>
+
+<h2>See Also</h2>
+<p>
+<CODE><A href="../Animation/NNS_G2dStartAnimCtrl.html">NNS_G2dStartAnimCtrl</A></CODE><BR><CODE><A href="../Animation/NNS_G2dResetAnimCtrlState.html">NNS_G2dResetAnimCtrlState</A></CODE><BR>
+</p>
+<H2>Revision History</H2>
+<P>2006/05/29 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title>FSResult</title>
+<link rel="stylesheet" href="../css/nitro.css" type="text/css" />
+</head>
+<body>
+
+<h1>FSResult <img src="../image/NTR.gif"align="middle"><img src="../image/TWL.gif" align="middle"></h1>
+<h2>Definition</h2>
+<pre><code>
+#include &lt;nitro/fs.h&gt;
+
+typedef	enum FSResult
+{
+    FS_RESULT_SUCCESS = 0,
+    FS_RESULT_FAILURE = 1,
+    FS_RESULT_BUSY = 2,
+    FS_RESULT_CANCELED = 3,
+    FS_RESULT_UNSUPPORTED = 4,
+    FS_RESULT_ERROR = 5,
+    FS_RESULT_INVALID_PARAMETER = 6,
+    FS_RESULT_NO_MORE_RESOURCE = 7,
+    FS_RESULT_ALREADY_DONE = 8,
+    FS_RESULT_PERMISSION_DENIED = 9,
+    FS_RESULT_MEDIA_FATAL = 10,
+    FS_RESULT_NO_ENTRY = 11,
+    FS_RESULT_MEDIA_NOTHING = 12,
+    FS_RESULT_MEDIA_UNKNOWN = 13,
+    FS_RESULT_BAD_FORMAT = 14,
+
+    FS_RESULT_PROC_ASYNC = 256,
+    FS_RESULT_PROC_DEFAULT,
+    FS_RESULT_PROC_UNKNOWN,
+
+    FS_RESULT_CANCELLED = FS_RESULT_CANCELED
+}
+FSResult;
+</code></pre>
+
+<h2>Description</h2>
+<p>These enumerator types represent the results of the file system API and the user procedures of the archive.<br />They are defined as follows.</p>
+
+<table>
+<tbody>
+
+<tr><td colspan="2" style="border:solid 1px black;background-color:Transparent">The following values can be returned as results from the FS library functions.</td></tr>
+
+<tr><td>FS_RESULT_SUCCESS</td>
+<td>Indicates success as a result of the function's correct processing.<br />Example: Suppose that <code><a href="file/FS_ReadFile.html">FS_ReadFile</a></code> attempts to read 100 bytes of data, but reaches the end of the file after only reading 50 bytes. This is normal behavior and is recorded as successful.</td>
+</tr>
+
+<tr><td>FS_RESULT_FAILURE</td>
+<td>Indicates failure as a result of the function's correct processing.<br />Example: This indicates a failure as one of the expected return values for the process when you have read to the end using the <code><a href="file/FS_ReadDir.html">FS_ReadDir</a></code> function.</td></tr>
+
+<tr><td>FS_RESULT_BUSY</td>
+<td>Indicates that the current command is busy.<br />Strictly speaking, this is not an error because the operation is incomplete. However, we have included this with the errors for the sake of convenience.</td></tr>
+
+<tr><td>FS_RESULT_CANCELED</td>
+<td>Indicates that the command was canceled.<br /><br />There are two types of cancels: (1) explicit command cancels by the user, and (2) forced cancel when the archive is unloaded.</td></tr>
+
+<tr><td>FS_RESULT_UNSUPPORTED</td>
+<td>Indicates that the archive is not supported by the specified command.<br />This error occurs when the archive that ignores certain commands explicitly returns this as a return value of a user procedure.<br />If this error gets returned unexpectedly, you should double-check for any unique specifications of the archive in question.</td></tr>
+
+<tr><td>FS_RESULT_INVALID_PARAMETER</td>
+<td>Indicates that one of the arguments provided is invalid or outside the allowed range. This mostly occurs with NULL pointers or when an invalid handle is specified.</td></tr>
+
+<tr><td>FS_RESULT_NO_MORE_RESOURCE</td>
+<td>Indicates that certain resources required for the operation turned out to be insufficient internally. The number of handles that can be opened simultaneously, as well as the upper limit for dynamic memory consumed internally, are different for each archive.</td></tr>
+
+<tr><td>FS_RESULT_ALREADY_DONE</td>
+<td>Indicates that the requested operation has already been performed. This will occur if the file specified to <code><a href="directory/FS_CreateFile.html">FS_CreateFile()</a></code> already exists, for example, or if the directory specified to <code><a href="directory/FS_DeleteDirectory.html">FS_DeleteDirectory()</a></code> didn't exist to begin with.</td></tr>
+
+<tr><td>FS_RESULT_PERMISSION_DENIED</td>
+<td>Indicates that the requested process failed due to a problem of access rights.<br />This primarily happens in the following cases:
+<ul>
+<li>An attempt is made to open with write permission a read-only file</li>
+<li>An attempt is made to delete a directory that is not empty</li>
+<li>An attempt is made to open a TWL-exclusive file (as specified by the <a href="../tools/makerom.html#ROMSPEC_TWL"><CODE>Put</CODE> parameter of the <CODE>makerom</CODE> tool</a>) in the NITRO environment</li>
+<li>An SD Card is write-protected</li>
+<li>An attempt is made to open a file that is larger than 2 GB, which is not supported by the FS library</li>
+</ul>
+</td></tr>
+
+<tr><td style="background-color:#FFF0F0;">FS_RESULT_MEDIA_FATAL</td>
+<td style="background-color:#FFF0F0;">Indicates that a fatal device error is detected in writable media such as a <a href="archive_nand_spec.html">NAND archive</a> or an <a href="archive_sdmc_spec.html">SD Card archive</a>. Processing cannot continue. Prompt the user to replace or re-insert the SD card, or, if the error is in system save memory (NAND), to have the system repaired.</td></tr>
+
+<tr><td style="background-color:#FFF0F0;">FS_RESULT_BAD_FORMAT</td>
+<td style="background-color:#FFF0F0;">This will occur if corruption in the file system is detected in writable media such as a <a href="archive_nand_spec.html">NAND archive</a> or an <a href="archive_sdmc_spec.html">SD Card library</a>. Processing cannot continue. Prompt the user to replace or re-insert the SD card, or, if the error is in system save memory (NAND), reformat the archive using the <CODE>NA_FormatTitleArchive</CODE> function.</td></tr>
+
+<tr><td>FS_RESULT_NO_ENTRY</td>
+<td>Indicates that the specified path does not exist. This error will also occur when trying to create a file under a directory that doesn't exist.</td></tr>
+
+<tr><td>FS_RESULT_MEDIA_NOTHING</td>
+<td>The specified archive is located on removable media, and that device was not inserted. Currently, this error is only returned by <a href="archive_sdmc_spec.html">SD Card archives</a>.</td></tr>
+
+<tr><td>FS_RESULT_MEDIA_UNKNOWN</td>
+<td>The specified archive is located on removable media, and an unknown device has been inserted that doesn't have a known file system. Currently, this error is only returned by <a href="archive_sdmc_spec.html">SD Card archives</a>.</td></tr>
+
+<tr><td>FS_RESULT_ERROR</td>
+<td>Indicates that some other detectable error occurred during an operation.</td></tr>
+
+<tr><td colspan="2" style="border:solid 1px black;background-color:Transparent"><br />The following are used only as user procedure return values:</td></tr>
+
+<tr><td>FS_RESULT_PROC_ASYNC</td>
+<td>Return value when the user procedure returns a temporary control for asynchronous processing.<br />When this value is returned, you must notify the read/write callback as well as the process completion using the <code><a href="archive/FS_NotifyArchiveAsyncEnd.html">FS_NotifyArchiveAsyncEnd</a></code> function.</td></tr>
+
+<tr><td>FS_RESULT_PROC_DEFAULT</td>
+<td>The default return value passed to a user procedure. This is the value passed unless a different value/type is called explicitly. The user procedure for the corresponding command will be called the next time as well. If you simply want to hook an existing command, this value is returned every time.</td></tr>
+
+<tr><td>FS_RESULT_PROC_UNKNOWN</td>
+<td>The default return value passed to a user procedure when the procedure call flag to the associated command is canceled. The command will not be called again.</td></tr>
+
+<tr><td>FS_RESULT_SUCCESS</td><td rowspan="10">You must follow the rules described above to determine about the specific archive in question and return from the procedure accordingly.</td></tr>
+
+<tr><td>FS_RESULT_FAILURE</td></tr>
+
+<tr><td>FS_RESULT_UNSUPPORTED</td></tr>
+
+<tr><td>FS_RESULT_INVALID_PARAMETER</td></tr>
+
+<tr><td>FS_RESULT_NO_MORE_RESOURCE</td></tr>
+
+<tr><td>FS_RESULT_ALREADY_DONE</td></tr>
+
+<tr><td>FS_RESULT_PERMISSION_DENIED</td></tr>
+
+<tr><td>FS_RESULT_MEDIA_FATAL</td></tr>
+
+<tr><td>FS_RESULT_NO_ENTRY</td></tr>
+
+<tr><td>FS_RESULT_ERROR</td></tr>
+
+</tbody>
+</table>
+
+<h2>See Also</h2>
+<p><code><a href="fs_archive_type.html">FSArchive</a><BR> <a href="fs_archive_proc_func_type.html">FS_ARCHIVE_PROC_FUNC</a> <br /> <a href="archive/FS_SetArchiveProc.html">FS_SetArchiveProc</a></code></p>
+
+<h2>Revision History</h2>
+<p>
+2009/06/08 Added link to explanation of TWL-exclusive files.<br />2009/02/05 Expanded explanation of FS_RESULT_PERMISSION_DENIED.<br />2008/10/21 Added a detailed description of FS_RESULT_MEDIA_FATAL and FS_RESULT_BAD_FORMAT.<br />2008/07/16 Added conditions for issuing <CODE>FS_RESULT_PERMISSION_DENIED</CODE>. <br />2008/06/25 Added <CODE>FS_RESULT_MEDIA_NOTHING</CODE>, <CODE>FS_RESULT_MEDIA_UNKNOWN</CODE>, and <CODE>FS_RESULT_BAD_FORMAT</CODE>. <br />2008/05/13 Added <CODE>FS_RESULT_NO_ENTRY</CODE>. <br />2008/04/42 Clarified the correspondence between error codes and numerical values.<br />2008/03/12 Added <CODE>FS_RESULT_MEDIA_FATAL</CODE>. <br />2007/09/18 Added a value and its description to the enumerated type. <br />2004/07/12 Added a value and its description to the enumerated type. <br />2004/07/01 Initial version.<br />
+</p>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

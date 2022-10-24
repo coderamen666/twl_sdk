@@ -1,0 +1,26 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>Initialization: Overview</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">Initialization: Overview <IMG src="../../image/NTR.gif" align="middle"><IMG src="../../image/TWL.gif" align="middle"></H1>
+<P>When using the TWL-SDK to develop TWL or NITRO applications, always call <A href="OS_Init.html" target="_self"><CODE>OS_Init</CODE></A> first as soon as control shifts to the user's <CODE>NitroMain</CODE> or <CODE>TwlMain</CODE> function. The functions called by <CODE>OS_Init</CODE> are required for proper behavior and cannot be called in any other order.<BR>(In the sample demo <CODE>os/cplusplus-1</CODE>, implemented in C++, the <CODE>OS_Init</CODE> function is called before <CODE>NitroMain</CODE> because memory management needs to be initialized.)</P>
+
+<P>The functions called inside <CODE>OS_Init</CODE> differ depending on whether the system is operating in NITRO or TWL mode. For details, see the <A href="OS_Init.html"><CODE>OS_Init</CODE></A> function.
+</P>
+
+<H2>Main Function</H2>
+<P>In developing for NITRO and TWL, you must prepare the <CODE>NitroMain</CODE> or <CODE>TwlMain</CODE> function as the first function called after shifting control to the user. Although their names are different, there are no particularly major differences between these two functions.<BR>However, you cannot use the <CODE>TwlMain</CODE> function if the ROM type is NITRO ROM.
+</P>
+
+<H2>See Also</H2>
+<P><A href="OS_Init.html"><CODE>OS_Init</CODE></A><BR> <A href="../list_os.html">OS Function List</A></P>
+<H2>Revision History</H2>
+<P>2009/06/18 Added a description of Main.<BR> 2009/06/03 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

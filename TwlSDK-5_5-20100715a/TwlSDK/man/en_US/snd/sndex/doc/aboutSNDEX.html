@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>TWL Extended Sound Features: Overview </TITLE>
+<LINK rel="stylesheet" href="../../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">TWL Extended Sound Features: Overview <IMG src="../../../image/TWL.gif"></H1>
+<P>On TWL, in addition to the NITRO-SDK's SND library, you can use the <A href="../../list_snd.html#Extra">SNDEX library</A>. This library provides several extended features to supplement the features in the NITRO-SDK's SND library.</P>
+	<H2>CODEC Mode</H2>
+<P>The TWL console has built-in hardware known as &quot;CODEC&quot; to control microphone input, speaker output, and Touch Screen input. By using this CODEC, TWL provides the following two modes for NITRO compatibility. See the <I>Programming Manual</I> for details on the CODEC hardware.</P>
+    <TABLE>
+        <TR>
+<TD width="25%">CODEC-DS</TD>
+<TD width="75%">This environment is identical to the sound circuit on the NITRO console.<BR>NTR ROMs boot up in this mode when they are running on the TWL console.</TD>
+        </TR>
+        <TR>
+<TD width="25%">CODEC-TWL</TD>
+<TD width="75%">This environment uses a sound circuit specific to the TWL system. A TWL ROM usually boots up in this mode. You can specify which CODEC mode to use for a ROM in the ROM specification file.</TD>
+        </TR>
+    </TABLE>
+<P><FONT color="red">You cannot change the CODEC mode at run time.</FONT></P>
+<P>When you use the TWL camera feature, you must play a specific audio sample either when taking a still photo or when starting and stopping video recording. Note that the forced audio output feature can be used only when the CODEC is operating in CODEC-TWL mode. <FONT color="red">Therefore, the <A href="../../../camera/about_camera.html">Camera Operations library</A> can be used only when the CODEC is in CODEC-TWL mode.</FONT></P>
+
+<H2>Extended Features</H2>
+<P>The following sound-related features have been added on the TWL console. See each function's description for more details.</P>
+    <UL>
+<LI>Getting the headphone connection state
+<LI>Getting and setting the mute setting
+<LI>Getting and changing the I2S frequency
+<LI>Getting and changing the rate for mixing DSP audio output
+<LI>Getting and changing the speaker volume
+<LI>Setting IIR filters for microphone input data and speaker output data
+<LI>Setting callbacks invoked when the volume button is pressed on the TWL console
+    </UL>
+
+<H2>Note</H2>
+<P>Mutexes are used by processing related to each extended sound feature, so these features cannot be used simultaneously. A SNDEX function returns <CODE>SNDEX_RESULT_EXCLUSIVE</CODE> and quit if another SNDEX function is still running.</P>
+<P>When you execute the <A href="../../../dsp/common/DSP_PlayShutterSound.html"><CODE>DSP_PlayShutterSound</CODE></A> shutter sound playback function, internally the function makes use of extended sound functionality automatically. For this reason, until the playback of shutter sound has ended, SNDEX functions returns <CODE>SNDEX_RESULT_EXCLUSIVE</CODE> and quits without doing anything.<BR>The exception is the <A href="../SNDEX_SetVolumeSwitchCallback.html"><CODE>SNDEX_SetVolumeSwitchCallback</CODE></A> function, which succeeds because all it does is configure function settings. Use the <A href="../../../dsp/common/DSP_IsShutterSoundPlaying.html"><CODE>DSP_IsShutterSoundPlaying</CODE></A> function to determine the end of the shutter sound playback process.</P>
+<P>The SNDEX functions internally continue to block if PXI receive interrupts are prohibited because they use a PXI receive interrupt to detect that their processing completed. In asynchronous versions of these functions, callbacks do not return.</P>
+
+<H2>See Also</H2>
+<P><A href="../../list_snd.html#Extra">SNDEX Function List</A></P>
+
+<H2>Revision History</H2>
+<P>
+2009/01/22 Deleted the text about the Changing the Voice Forced Output Settings feature because it is not related to application development.<BR> 2008/11/07 Added mention of mutexes during shutter sound playback to <B>Note</B>.<BR> 2008/10/27 Added mention of the restrictions on the Changing the Voice Forced Output Settings feature.<BR> 2008/09/30 Added mention of restrictions on use of  camera in different CODEC modes.<BR> 2008/09/12 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>
+
+
+<!-- <A href="../SNDEX_SetIirFilter.html">SNDEX_SetIirFilter[Async]()</A> -->
+

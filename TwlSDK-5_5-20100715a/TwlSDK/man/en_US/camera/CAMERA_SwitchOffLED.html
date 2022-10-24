@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>CAMERA_SwitchOffLED*</TITLE>
+<LINK rel="stylesheet" href="../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">CAMERA_SwitchOffLED* <IMG src="../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+<DL>
+  <DD>
+<CODE>#include &lt;twl/camera.h&gt;</CODE><BR> <BR> <CODE><A href="CAMERAResult.html">CAMERAResult</A> CAMERA_SwitchOffLED(void);</CODE> <BR> <CODE><A href="CAMERAResult.html">CAMERAResult</A> CAMERA_SwitchOffLEDAsync(<A href="CAMERACallback.html">CAMERACallback</A> callback, void *arg);</CODE>
+</DL>
+<H2>Arguments</H2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="13%"><EM><STRONG>callback</STRONG></EM></TD>
+<TD width="87%">Function that is called when asynchronous processing has completed.</TD>
+    </TR>
+    <TR>
+<TD width="13%"><EM><STRONG>arg</STRONG></EM></TD>
+<TD width="87%">Arguments when the callback function is invoked.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<H2>Return Values</H2>
+<P>
+Returns <CODE>CAMERA_RESULT_SUCCESS</CODE> if configuration was successful.
+</P>
+
+<H2>Description</H2>
+<P>
+Turns off the outer camera indicator LED for the duration of a single blink (approximately 0.8 seconds).<BR><BR>The camera indicator LED is configured to light up when the outer camera is activated. If you call this function from that state, the camera indicator LED is turned off for the duration of a single blink, as configured by the <a href="CAMERA_SetLED.html"><CODE>CAMERA_SetLED</CODE></a> function. Note that the function therefore fails if the outer camera is not active.<BR> <BR>This function behaves the same as calling <a href="CAMERA_SetLED.html"><CODE>CAMERA_SetLED(TRUE)</CODE></a>, waiting 6 ms, and then calling <a href="CAMERA_SetLED.html"><CODE>CAMERA_SetLED(FALSE)</CODE></a>.<br><br> <B>Note:</B> For this reason, the synchronous version of this function blocks execution internally for 6 ms after it is called.<br> When the asynchronous version is called, execution returns immediately without being blocked, but note that you cannot use other <CODE>CAMERA</CODE> functions during the 6 ms after calling the function.<br> <br>If these restrictions are confusing, you can use a separate <a href="CAMERA_SetLED.html"><CODE>CAMERA_SetLED</CODE></a> call to turn off the LED.
+</P>
+
+<H2>See Also</H2>
+<P><CODE><A href="CAMERA_SetLED.html">CAMERA_SetLED*</A></CODE></P>
+<H2>Revision History</H2>
+<P>
+2009/06/08 Explained the time it takes to blink.<br> 2009/04/15 Added text about the restrictions on calling this function.<br> 2008/09/09 Initial version
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

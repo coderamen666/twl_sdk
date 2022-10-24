@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>NNS_G2dSetMCAnimationCurrentFrame</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+<h1 align="left">NNS_G2dSetMCAnimationCurrentFrame</h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+		<pre><CODE>#include &lt;nnsys/g2d/g2d_MultiCellAnimation.h&gt;</CODE></pre>
+  <pre><CODE>
+void NNS_G2dSetMCAnimationCurrentFrame
+( 
+    NNSG2dMultiCellAnimation*   pMultiCellAnim, 
+    u16                         frameIndex 
+);
+  </CODE></pre>
+  </dd>
+</dl><h2>Arguments</h2>
+
+<table border="1" width="100%">
+  <tr>
+<td width="13%"><CODE>pMultiCellAnim</CODE></td>
+<td width="87%">[OUT] Multicell animation</td>
+  </tr>
+  <tr>
+<td width="13%"><CODE>frameIndex</CODE></td>
+<td width="87%">[IN] Animation frame number</td>
+  </tr>
+  </table>
+<h2>Return Values</h2>
+<p>None.
+</p>
+<H2>Description</H2>
+<P>
+Sets the play animation frame of the multicell animation. No action will occur if an invalid index is specified.<BR><BR><BR> <B>Note:</B> If a STOP-method animation sequence plays to the end, the animation controller is set to the Stop state.<BR> Because of this, you will need to call the <CODE>NNS_G2dStartAnimCtrl</CODE> function for the animation controller of that multicell animation to update the animation again.<BR> To get the animation controller of that multicell animation, use the <CODE>NNS_G2dGetMCAnimAnimCtrl</CODE> function.<BR> <BR> The <CODE>NNS_G2dStartMCCellAnimationAll</CODE> function is available for calling the <CODE>NNS_G2dStartAnimCtrl</CODE> function for all of the cell animations that make up the multicell animation.<BR> <BR>To restart the animation from the beginning, use the <CODE>NNS_G2dRestartMCAnimation</CODE> function.
+</p>
+
+<h2>See Also</h2>
+<p>
+<A href="../Animation/NNS_G2dSetAnimCtrlCurrentFrame.html"><CODE>NNS_G2dSetAnimCtrlCurrentFrame</CODE></A><BR> <A href="NNS_G2dSetMCAnimationCellAnimFrame.html"><CODE>NNS_G2dSetMCAnimationCellAnimFrame</CODE></A><BR> <A href="NNS_G2dGetMCAnimAnimCtrl.html"><CODE>NNS_G2dGetMCAnimAnimCtrl</CODE></A><BR> <A href="../Animation/NNS_G2dStartAnimCtrl.html"><CODE>NNS_G2dStartAnimCtrl</CODE></A><BR> <A href="NNS_G2dStartMCCellAnimationAll.html"><CODE>NNS_G2dStartMCCellAnimationAll</CODE></A><BR> <A href="NNS_G2dRestartMCAnimation.html"><CODE>NNS_G2dRestartMCAnimation</CODE></A>
+</p>
+
+<H2>Revision History</H2>
+<P>2006/05/29 Added a note.<BR>
+2004/05/28 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

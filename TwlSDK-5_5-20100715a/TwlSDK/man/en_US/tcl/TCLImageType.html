@@ -1,0 +1,46 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title>TCLImageType</title>
+<link rel="stylesheet" href="../css/nitro.css" type="text/css">
+</head>
+<body>
+<h1 align="left">TCLImageType <img src="../image/TWL.gif" align="middle"></h1>
+
+<h2>Definition</h2>
+<dl>
+	<dd>
+	<code>#include &lt;twl/tcl.h&gt;</code><br/> <br/>
+	<pre><code>
+typedef enum
+{
+    TCL_IMAGE_TYPE_PICTURE = 0 ,
+    TCL_IMAGE_TYPE_FRAME ,
+    TCL_IMAGE_TYPE_COMPOSITE ,
+    TCL_IMAGE_TYPE_UNKNOWN ,
+    TCL_IMAGE_TYPE_MAX
+} TCLImageType;
+	</code></pre>
+</dl>
+
+<h2>Description</h2>
+<p>Use image types to classify images.</p>
+<p>The current version of the library can only save <code>TCL_IMAGE_TYPE_PICTURE</code> image types, so the application does not need to distinguish between types.
+<p>The image types are explained in the following list.</p>
+<table>
+<tr><td>TCL_IMAGE_TYPE_PICTURE<td>Photos.
+<tr><td>TCL_IMAGE_TYPE_FRAME<td>Frames. Frames are photos with cut-out information. They are used with the DSi camera's Frame Camera feature.
+<tr><td>TCL_IMAGE_TYPE_COMPOSITE<td>Composite photos created using frames. Search and sort composite photos in same way as the <code>TCL_IMAGE_TYPE_PICTURE</code> type.
+<tr><td>TCL_IMAGE_TYPE_UNKNOWN<td>It is unknown whether the image type is photo or composite.
+</table>
+
+<h2>See Also</h2>
+
+<h2>Revision History</h2>
+<p>
+2008/10/07 Initial version.
+</p>
+
+<hr><p>CONFIDENTIAL</p></body>
+</html>

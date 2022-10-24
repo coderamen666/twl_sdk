@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 8.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>MBFakeCompareGGIDCallbackFunc</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">MBFakeCompareGGIDCallbackFunc <IMG src="../../image/NTR.gif" width="24" height="12" border="0" align=middle><IMG src="../../image/TWL.gif" width="24" height="12" border="0" align=middle></h1>
+<h2>Definition</h2>
+
+<dl>
+  <dd>
+  <PRE><CODE>#include &lt;nitro/mb/mb_fake_child.h&gt;</CODE>
+
+typedef BOOL (*MBFakeCompareGGIDCallbackFunc) (WMStartScanCallback *arg, u32 defaultGGID);
+</PRE>
+  </dd>
+</dl>
+<h2>Arguments</h2>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+      <TD>Arguments</TD>
+      <TD>Description</TD>
+    </TR>
+    <TR>
+      <TD><B><I>arg</I></B></TD>
+      <TD>Pointer to the <CODE><a href="../../wm/wm/WMStartScanCallback.html">WMStartScanCallback</a></CODE> structure storing the beacon information obtained by scanning.</TD>
+    </TR>
+    <TR>
+      <TD><B><I>defaultGGID</I></B></TD>
+      <TD>GGID specified by the <CODE><A href="MB_FakeStartScanParent.html">MB_FakeStartScanParent</A></CODE> function. <br />
+      Passed as an argument for more convenient implementation of the callback.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<h2>Return Values</h2>
+<p>Returns TRUE if the obtained beacon matches the search criteria; FALSE if it does not match.</p>
+
+<H2>Description</H2>
+<p>This is a function prototype for the user-defined callback specified with the <CODE><A href="MB_FakeSetCompareGGIDCallback.html">MB_FakeSetCompareGGIDCallback</A></CODE> function. The argument passed to this callback function is used to determine whether the beacon is a search target. The result must be reported to the MB library as a return value.</p>
+<p>
+Example:
+<pre><CODE>
+<font color="#008000">/* If you want two kinds of GGID to be the search target */</font>
+static BOOL GGIDComparator(WMStartScanCallback *arg, u32 defaultGGID)
+{
+    (void)defaultGGID;
+    return (arg-&gt;gameInfo.ggid == ggid1) || (arg-&gt;gameInfo.ggid == ggid2);
+}
+
+    ...
+    MB_FakeInit(mbfBuf, &amp;userInfo);
+    MB_FakeSetCompareGGIDCallback(GGIDComparator);
+    MB_FakeStartScanParent(NotifyScanParent, ggid1<font color="#008000">/* merely ignored in this example */</font>);
+    ...
+</CODE></pre>
+</p>
+<h2>See Also</h2>
+<p><CODE><A href="MB_FakeStartScanParent.html">MB_FakeStartScanParent</A>, <A href="MB_FakeSetCompareGGIDCallback.html">MB_FakeSetCompareGGIDCallback</A></CODE><BR></CODE></P>
+<H2>Revision History</H2>
+<P>
+2007/04/18 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

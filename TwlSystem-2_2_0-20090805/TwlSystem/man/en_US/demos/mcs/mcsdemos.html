@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META http-equiv="Content-Style-Type" content="text/css">
+<LINK rel="stylesheet" type="text/css" href="../../css/nitro.css">
+<TITLE>MCS Demos</TITLE>
+</HEAD>
+<BODY>
+<H1>Multiple Channel Stream Library Demos</H1>
+<H2>Location</H2>
+<P><CODE>$TwlSystem/build/demos/mcs</CODE></P>
+<H2>Compilation</H2>
+<h3>For Nintendo DS Programs</h3>
+<P>Move to the <CODE>$TwlSystem/build/demos/mcs</CODE> directory and run:</P>
+<BLOCKQUOTE><CODE>% make</CODE></BLOCKQUOTE>
+<P>&nbsp;Executable files (NEF and SRL files) are generated in:</P>
+<BLOCKQUOTE><CODE>$TwlSystem/build/demos/mcs/(sample name)/nitro/bin/(platform)/(target)/</CODE></BLOCKQUOTE>
+<P>&nbsp;For example:</P>
+<BLOCKQUOTE><CODE>$TwlSystem/build/demos/mcs/basic/nitro/bin/ARM9-TS/Release/</CODE></BLOCKQUOTE>
+<P>&nbsp;<font color="#ff0000">The MCS library is used for debugging, so the (platform) directory does not normally operate with &quot;Rom&quot; version executable files.</font></P>
+<h3>For the Windows Program</h3>
+<p>There are two types: the C++ version; and the C# version.</p>
+<h4>For the C++ Version</h4>
+<P><font color="#ff0000">To compile a program, you must have Visual Studio 2005 or later installed.</font></P>
+<p>Move to the <CODE>$TwlSystem/build/demos/mcs/(sample name)/win</CODE> directory and open the <CODE>(sample).sln</CODE> file. Next, build in Visual Studio. Executable files are created in:</p>
+<BLOCKQUOTE><CODE>$TwlSystem/build/demos/mcs/(sample name)/win/(target)/</CODE></BLOCKQUOTE>
+<P>  For example:</P>
+<BLOCKQUOTE><CODE>$TwlSystem/build/demos/mcs/basic/win/Release/</CODE></BLOCKQUOTE>
+<P>&nbsp;</P>
+<h4>For the C# Version</h4>
+<P><font color="#ff0000">To compile a program, you must have Visual Studio 2008 or later installed.</font></P>
+<p>Move to the <CODE>$TwlSystem/build/demos/mcs/(sample name)/win_csharp</CODE> directory and open the <CODE>(sample).sln</CODE> file. Next, build in Visual Studio. Executable files are created in:</p>
+<BLOCKQUOTE><CODE>$TwlSystem/build/demos/mcs/(sample name)/win_csharp/bin/(target)/</CODE></BLOCKQUOTE>
+<P>  For example:</P>
+<BLOCKQUOTE><CODE>$TwlSystem/build/demos/mcs/basic/win_csharp/bin/Release/</CODE></BLOCKQUOTE>
+<P> </P>
+
+<H2>Execution</H2>
+<ol>
+<li><p>Start the mcs server and connect it with the Nintendo DS hardware.</p></li>
+<li><p>Open the SRL file in the <CODE>$TwlSystem/build/demos/mcs/(sample name)/bin/(platform)/(target)</CODE> directory. After a moment, the program starts on the Nintendo DS hardware.</p>
+</li>
+  <li>
+<p>For the <CODE>basic</CODE> sample, also run a Windows program under either of the directories below.</p>
+<ul>
+<li><CODE>$TwlSystem/build/demos/mcs/basic/win/(target)</CODE></li>
+<li><CODE>$TwlSystem/build/demos/mcs/basic/win_csharp/bin/(target)/</CODE></li>
+</ul>
+</li>
+</ol>
+
+<H2>Description</H2>
+<BR>
+<TABLE width="720">
+  <TBODY>
+    <TR>
+<TD width="187"><CODE>basic</CODE><BR> (<A href="../../../../build/demos/mcs/basic/nitro/src/main.c">DS source</A>)<BR> (<A href="../../../../build/demos/mcs/basic/win/main.cpp">Windows source</A>)</TD>
+<TD width="525">Moves the picture displayed on the Nintendo DS BG screen in accordance with the coordinate data sent from the Windows program side. If one Windows program has been started, the picture will scroll from side to side. If two Windows programs have been started, the picture will scroll diagonally.</TD>
+    </TR>
+    <TR>
+<TD width="187"><CODE>file_io</CODE><BR> (<A href="../../../../build/demos/mcs/file_io/nitro/src/main.c">DS source</A>)</TD>
+<TD width="525">Loads the file from the PC and, after its contents have been reversed, writes a new file back to the PC.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>Operating Environment</H2>
+<P>Normal operation for all of the samples using IS-NITRO-EMULATOR and Ensata has been confirmed.</P>
+<H2>See Also</H2>
+<P><A href="../../mcs/list_mcs.html">An Overview of the MCS Functions</A></P>
+<H2>Revision History</H2>
+<P>2005/04/04 Corrected an error in a directory path.<br>2005/01/28 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

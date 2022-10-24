@@ -1,0 +1,33 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>FS_ARCHIVE_PROC_FUNC</title>
+<LINK rel="stylesheet" href="../css/nitro.css" type="text/css">
+</head>
+<body>
+<h1 align="left">FS_ARCHIVE_PROC_FUNC <img src="../image/NTR.gif"align="middle"><img src="../image/TWL.gif" align="middle"></h1>
+<h2>Definition</h2>
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/fs.h&gt;</CODE><BR>
+  <BR>
+  <CODE>typedef	<A href="fs_result_const.html">FSResult</a> (*FS_ARCHIVE_PROC_FUNC)(struct <A href="fs_file_type.html">FSFile</a>*, <A href="fs_command_type_const.html">FSCommandType</a>);</CODE><BR>
+  <br>
+  </dd>
+</dl>
+<H2>Description</H2>
+<P>Defines the function formats of the user procedures specified in the archive.<br />The file system calls this function as a callback as necessary. User procedures must return appropriate values after processes. See the description of <code><A href="fs_result_const.html">FSResult</a></code> for the return values. When <code>FS_RESULT_PROC_ASYNC</code> is the return value, you must call the <code><a href="archive/FS_NotifyArchiveAsyncEnd.html">FS_NotifyArchiveAsyncEnd</a></code> function upon completion of asynchronous processing, and notify the archive.
+</P>
+<BR>
+</P>
+<h2>See Also</h2>
+<p><code><a href="fs_archive_type.html">FSArchive</a><BR> <a href="fs_command_type_const.html">FSCommandType</a><BR> <a href="fs_result_const.html">FSResult</a><BR> <a href="archive/FS_SetArchiveProc.html">FS_SetArchiveProc</a><BR> <a href="archive/FS_NotifyArchiveAsyncEnd.html">FS_NotifyArchiveAsyncEnd</a></code></p>
+<H2>Revision History</H2>
+<P>
+2004/11/02 Corrected the function declaration.<br /> 2004/07/12 Added description of return values.<br /> 2004/06/30 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

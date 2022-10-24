@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>MBIconInfo</title>
+<LINK rel="stylesheet" href="../css/nitro.css" type="text/css">
+</head>
+<body>
+<h1 align="left">MBIconInfo <IMG src="../image/NTR.gif" width="24" height="12" border="0" align=middle><IMG src="../image/TWL.gif" width="24" height="12" border="0" align=middle></h1>
+<h2>Definition</h2>
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/mb.h&gt;</CODE>
+<PRE><CODE>
+typedef	struct
+{
+    u16    palette[ MB_ICON_COLOR_NUM ];
+    u16    data[ MB_ICON_DATA_SIZE / 2 ];
+} MBIconInfo;	/* 544byte */
+</CODE></PRE>
+  <br>
+  </dd>
+</dl>
+<H2>Description</H2>
+<P>This structure defines the style of the icon data, which is part of the download file information. The meaning of each member is shown in the following table:
+<TABLE border="0">
+  <TBODY>
+    <TR>
+<TD>Member</TD>
+<TD>Description</TD>
+    </TR>
+    <TR>
+<TD><B><I>palette</B></I></TD>
+<TD>The array where the palette color of the icon is saved.<BR>The maximum number of colors is 16. This is defined as <code>MB_ICON_COLOR_NUM</code>.
+	  </TD>
+    </TR>
+    <TR>
+<TD><B><I>data</B></I></TD>
+<TD>The array where the pixel data of the icon is saved.<BR> For icons that are 32x32 pixels with 4-bit (16-color) bit depth, the array is 512 bytes. This is defined as <CODE>MB_ICON_DATA_SIZE</CODE>.
+	  </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</P>
+<BR>
+</P>
+<h2>See Also</h2>
+<p><CODE><A href="mb_game_registry_type.html">MBGameRegistry</A><BR> <A href="parent/MB_RegisterFile.html">MB_RegisterFile</A></CODE></p>
+<H2>Revision History</H2>
+<P>
+2004/08/09 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

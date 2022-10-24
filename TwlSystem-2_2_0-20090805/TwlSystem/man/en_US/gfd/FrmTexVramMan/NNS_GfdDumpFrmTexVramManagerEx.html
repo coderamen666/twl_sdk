@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+	<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+	<META http-equiv="Content-Style-Type" content="text/css">
+	<TITLE>NNS_GfdDumpFrmTexVramManagerEx</TITLE>
+	<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+
+<BODY>
+
+<H1 align="left">NNS_GfdDumpFrmTexVramManagerEx</H1>
+
+<H2>Syntax</H2>
+<DL>
+  <DD>
+  <PRE><CODE>#include &lt;nnsys/gfd.h&gt;</CODE></PRE>
+  <PRE><CODE>void NNS_GfdDumpFrmTexVramManagerEx( NNSGfdFrmTexVramDebugDumpCallBack pFunc, void* pUserContext );</CODE></PRE>
+</DL>
+
+<H2>Arguments</H2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR> 
+<TD width="13%"><CODE>pFunc</CODE></TD>
+<TD width="87%">A type of <CODE>NNSGfdFrmTexVramDebugDumpCallBack</CODE> function pointer that represents a user-defined debug callback.</TD>
+    </TR>
+    
+    <TR>
+<TD width="13%"><CODE>pUserContext</CODE></TD>
+<TD width="87%">Pointer to a variable passed as an argument to the user-defined debug callback.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+
+
+<H2>Return Values</H2>
+<P>None.</P>
+
+<H2>Description</H2>
+<P>
+Specifies the user-defined debug callback and outputs the status of the frame texture VRAM manager for debugging. The <CODE>NNS_GfdDumpFrmTexVramManager</CODE> function is implemented using this function. A sample of the callback function definition implemented using the <CODE>NNS_GfdDumpFrmTexVramManager</CODE> function is shown below.<br>
+
+<PRE><code> 
+static void DefaultDebugDumpFunc_( 
+    int index, 
+    u32 startAddr, 
+    u32 endAddr, 
+    u32 blockMax, 
+    BOOL bActive, 
+    void* pUserContext 
+)
+{
+    NNSiGfdDefaultDebugContext*        pContext = (NNSiGfdDefaultDebugContext*)pUserContext;
+    NNS_GFD_NULL_ASSERT( pContext );
+    
+    
+    if( bActive )
+    {
+        OS_Printf("%02d    : 0x%08x  : 0x%08x  : 0x%08x  \n", 
+            index, 
+            startAddr, 
+            endAddr, 
+            endAddr - startAddr );
+        
+        pContext->szTotalFree      += endAddr - startAddr;
+        pContext->szTotalReserved  += blockMax;            
+    }else{
+        OS_Printf("%02d    : ----------  : ----------  : ----------  \n", index );
+    }
+}
+</code></PRE>
+
+</P>
+
+<H2>See Also</H2>
+<P>None.</P>
+
+<H2>Revision History</H2>
+<P>2007/01/31 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+
+</HTML>

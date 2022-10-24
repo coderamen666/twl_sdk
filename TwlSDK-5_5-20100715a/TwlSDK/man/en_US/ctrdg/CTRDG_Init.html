@@ -1,0 +1,41 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>CTRDG_Init</TITLE>
+<LINK rel="stylesheet" href="../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">CTRDG_Init <IMG src="../image/NTR.gif" align="middle"><IMG src="../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+<DL>
+  <DD>
+  <PRE><CODE>#include &lt;nitro/ctrdg.h&gt;</CODE></PRE>
+  <PRE><CODE>void CTRDG_Init( void );
+  </CODE></PRE>
+</DL>
+<H2>Arguments</H2>
+<P>None.</P>
+<H2>Return Values</H2>
+<P>None.</P>
+<H2>Description</H2>
+<P>Initializes the Game Pak library.</P>
+<P>This function only needs to be called once before calls to Game Pak functions. This function is called internally by the <CODE><A href="../os/init/OS_Init.html">OS_Init</A></CODE> function, so it does not need to be called by the application.</P>
+<P>The <CODE>CTRDG_Init</CODE> function is a weak function, so if the application will not be using a Game Pak, you can redefine the function in the application. The purpose of redefining the function is to reduce the amount of memory occupied by the Game Pak library. When you redefine the function, make sure you only define a call to the <A href="CTRDG_DummyInit.html"><CODE>CTRDG_DummyInit</CODE></A> function. For more information, see the <A href="CTRDG_DummyInit.html"><CODE>CTRDG_DummyInit</CODE></A> function. Note that the function is a weak function only for NITRO and NITRO/TWL hybrid builds. The function is an inline function in TWL limited builds, and this method cannot be used there,</P>
+<P>This function exists in TWL limited builds, but because the TWL hardware does not have a Game Pak slot, it is initialized in only a minimal form.</P>
+<H2>Note</H2>
+<P>The following explanation pertains to NITRO-only and NITRO/TWL hybrid ROMs.</P>
+<P><font color="#800000">During the initialization process of this function, the library first determines if there is a Game Pak and gets information associated with it. These values will be used later for validation purposes in the <a href="CTRDG_GetAgbMakerCode.html"><CODE>CTRDG_GetAgbMakerCode</CODE></a> and <a href="CTRDG_GetAgbMakerCode.html"><CODE>CTRDG_GetAgbGameCode</CODE></a> functions. When using the Game Pak, before calling this function, be sure to put the Game Pak into a valid state.</font></P>
+<P><font color="#800000">A &quot;valid state&quot; means that the Game Pak power is turned on for IS-NITRO-DEBUGGER or other development tools.</font></P>
+<P><font color="#800000">The <A href="../os/thread/OS_InitThread.html"><CODE>OS_InitThread</CODE></A> function must be called in advance because a thread will be created for running asynchronous AGB backup access functions when this function is called.</font>
+</P>
+
+<H2>See Also</H2>
+<P><A href="CTRDG_SetPulledOutCallback.html"><CODE>CTRDG_SetPulledOutCallback</CODE></A><BR> <A href="CTRDG_TerminateForPulledOut.html"><CODE>CTRDG_TerminateForPulledOut</CODE></A><BR> <A href="CTRDG_DummyInit.html"><CODE>CTRDG_DummyInit</CODE></A></P>
+<H2>Revision History</H2>
+<P>2009/05/19 Explained that this function is called from inside <CODE>OS_Init</CODE>. <BR> 2008/01/28 Added the <CODE>CTRDG_DummyInit</CODE> function to <B>See Also</B>.<BR> 2006/04/05 Added mention that the <CODE>OS_InitThread</CODE> function must be called beforehand.<BR> 2005/04/12 Revised the description of the relationship between the first information obtained and the <CODE>CTRDG_GetAgbMakerCode</CODE> and <CODE>CTRDG_GetAgbGameCode</CODE> functions. <BR>2005/03/03 Added note that determining whether there is a Game Card is done only at time of initialization. <BR>2004/09/15 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

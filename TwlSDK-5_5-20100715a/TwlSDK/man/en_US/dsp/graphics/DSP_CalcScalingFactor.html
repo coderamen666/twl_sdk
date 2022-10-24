@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title>DSP_CalcScalingFactor</title>
+<link rel="stylesheet" href="../../css/nitro.css" type="text/css" />
+</head>
+<body>
+
+<h1>DSP_CalcScalingFactor* <IMG src="../../image/TWL.gif" align="middle"></H1>
+<H2>Definition</H2>
+
+<pre><code>
+f32 DSP_CalcScalingFactorF32(
+		const u16 src_size,
+		const u16 dst_size
+	);
+
+fx32 DSP_CalcScalingFactorFx32(
+		const u16 src_size,
+		const u16 dst_size
+	);
+</code></pre>
+
+<h2>Arguments</h2>
+<table style="width:100%">
+<tbody>
+<tr>
+<td style="width:13%"><em><strong>src_size</strong></em></td>
+<td style="width:87%">Source data size for scaling.</td>
+</tr>
+<tr>
+<td style="width:13%"><em><strong>dst_size</strong></em></td>
+<td style="width:87%">Desired size for the output data after scaling.</td>
+</tr>
+</tbody>
+</table>
+
+<h2>Return Values</h2>
+<p>A factor that was reverse-calculated from, and uses the same type as, the specified values.
+</p>
+
+<h2>Description</h2>
+<p>Performs reverse calculations to get the factor for arguments specified with the desired output size from the <a href="DSP_Scaling.html"><CODE>DSP_Scaling*</CODE></a> and <a href="DSP_ScalingFx.html"><CODE>DSP_ScalingFx*</CODE></a> functions. The result and the arguments have the same type.
+</p>
+<p>For some specified input and output sizes, however, the correct factor may not be obtainable because of factor restrictions. It must be between 31 and 0.001, and will be truncated after the third decimal place. For example, even specifying a factor obtained from this function may cause a 1- or 2-line deficiency to appear as an error if the original image data was large, exceeding 1000 pixels. In this case, adjust either the resolution of the original image data or the output size specified to this function.
+</p>
+
+<h2>See Also</h2>
+<p><a href="DSP_Scaling.html"><CODE>DSP_Scaling*</CODE></a><BR> <a href="DSP_ScalingFx.html"><CODE>DSP_ScalingFx*</CODE></a></p>
+
+<h2>Revision History</h2>
+<p>
+2009/03/20 Added a note on calculation errors in <B>Description</B>. <br>2008/08/28 Initial version.
+</p>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 8.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>TP_RequestAutoSamplingStart</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">TP_RequestAutoSamplingStart <img src="../../image/NTR.gif"><img src="../../image/TWL.gif"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/spi.h&gt;</CODE><BR>
+  <PRE><CODE>u32 TP_RequestAutoSamplingStart(
+            u16 vcount,
+            u16 frequence,
+            <A href="TPData.html">TPData</A> samplingBufs[],
+            u16 bufSize );</CODE></PRE>
+  </dd>
+</dl><h2>Arguments</h2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="300"><em><strong><font face="Courier New">vcount</font></strong></em></TD>
+<TD width="700">Base V-Count value for auto-sampling.<br>If you specify a value greater than or equal to <CODE>HW_LCD_LINES</CODE>, which indicates the vertical line count, <CODE>TP_RESULT_INVALID_PARAMETER</CODE> will be returned.</TD>
+    </TR>
+    <TR>
+<TD><em><strong><font face="Courier New">frequence</font></strong></em></TD>
+<TD>The number of samples taken during one frame. (Maximum of 4). <br>If you specify a value of 5 or greater, <CODE>TP_RESULT_INVALID_PARAMETER</CODE> will be returned.</TD>
+    </TR>
+    <TR>
+<TD><em><strong><font face="Courier New">samplingBufs</font></strong></em></TD>
+<TD>The pointer that sets the buffer in which auto sampling values are stored.</TD>
+    </TR>
+    <TR>
+<TD><em><strong><font face="Courier New">bufSize</font></strong></em></TD>
+<TD>The element count of the buffer passed by <SPAN class="argument">samplingBufs</SPAN>.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<h2>Return Values</h2>
+<p>Returns 0 if the request succeeds; returns non-zero value if it fails. For details, see <CODE><A href="TPRequestResult.html">TPRequestResult</A></CODE>.</p>
+<p></p>
+<H2>Description</H2>
+<P>This function issues a request to ARM7 to begin auto sampling touch panel values and waits for the request to complete internally. This is the synchronous version of the <CODE><A href="TP_RequestAutoSamplingStartAsync.html">TP_RequestAutoSamplingStartAsync</A></CODE> function.<BR><BR>After this request is accepted, sampling is carried out periodically and values are stored in the array specified by <SPAN class="argument">samplingBufs</SPAN>. The auto-sampling interval is the uniform interval at which VAlarm samples data: <SPAN class="argument">frequence</SPAN> times per frame, based on the value set in <SPAN class="argument">vcount</SPAN>.<BR>However, the span of time over which the V-Count values range from 200 to 214 is not used for sampling. This is because the V-Count values may be changed by the <CODE><A href="../../gx/gx/GX_SetVCount.html">GX_SetVCount</A></CODE> function. If the V-count value to be sampled is contained in this interval, sampling is delayed until line 215.<BR>If a user callback is set with the <CODE><A href="TP_SetCallback.html">TP_SetCallback</A></CODE> function, notification is given by a callback each time a value is saved.<BR><BR>After this function clears <SPAN class="argument">samplingBufs</SPAN>, the buffer will be used as a loop buffer. The <CODE><A href="TP_GetLatestIndexInAuto.html">TP_GetLatestIndexInAuto</A></CODE> function can be used to get the index of the data that was last saved.<BR><BR>When auto-sampling, it is possible that the sampling value for (newest index + 1) will be unexpectedly overwritten by an interrupt. If you are using the sampling values from one frame all together, you can avoid this by securing an area of size equivalent to at least (<SPAN class="argument">frequence</SPAN> + 1).<BR>
+</P>
+<H2>Note</H2>
+<P><FONT color="#ff0000">This function uses an interrupt to wait for a completion response from ARM7. Note that if this function is called while FIFO receive interrupts from ARM7 are prohibited, it will not return from wait.</FONT></P>
+<h2>See Also</h2>
+<P><CODE><A href="TP_RequestAutoSamplingStop.html">TP_RequestAutoSamplingStop</A><BR><A href="TP_GetLatestRawPointInAuto.html">TP_GetLatestRawPointInAuto</A><BR><A href="TP_GetLatestCalibratedPointInAuto.html">TP_GetLatestCalibratedPointInAuto</A><BR><A href="TP_GetLatestIndexInAuto.html">TP_GetLatestIndexInAuto</A><BR><A href="TP_RequestAutoSamplingStartAsync.html">TP_RequestAutoSamplingStartAsync</A><BR><A href="TPData.html">TPData</A></CODE></P>
+<H2>Revision History</H2>
+<P>
+2009/04/28 Added conditions on the arguments and added <CODE>TPRequestResult</CODE> to the return value description. <br>2007/10/29 Added explanations. <br>2007/10/16 Added an explanation for unused V-Count values. <br>2006/09/01 Modified the description of <CODE>bufSize</CODE>. <br>2004/04/21 Created an asynchronous version and made this version synchronous. <BR>2004/04/16 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 8.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>GX_Init</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">GX_Init <img src="../../image/NTR.gif"align="middle"><img src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+
+<dl>
+  <dd>
+<PRE><CODE>#include &lt;nitro/gx/gx.h&gt;
+
+void GX_Init( void );<BR></CODE></PRE>
+  </dd>
+</dl><h2>Arguments</h2>
+<P>None.</P>
+<h2>Return Values</h2>
+<p>None.</p>
+<H2>Description</H2>
+<P>Initializes all graphics registers that are not 3D-related. This function calls <CODE><A href="GX_SetPower.html">GX_SetPower</A>(GX_POWER_ALL)</CODE>.<BR><BR> <FONT color="#800000">By default, GX functions use DMA 3. </FONT><BR>To change the DMA number to use, set a different DMA number with <A href="GX_InitEx.html"><CODE>GX_InitEx</CODE></A> or <A href="GX_SetDefaultDMA.html"><CODE>GX_SetDefaultDMA</CODE></A>.<br><br> <FONT color="#800000">Before calling this function, you must call the <A href="../../os/spinLock/OS_InitLock.html"><code>OS_InitLock</code></A> or <A href="../../os/init/OS_Init.html"><code>OS_Init</code></A> function.</FONT>
+</P>
+
+<h2>See Also</h2>
+<P><A href="../g3/G3X_Init.html"><CODE>G3X_Init</CODE></A><BR> <A href="../g3/G3X_Reset.html"><CODE>G3X_Reset</CODE></A><BR> <A href="../g3/G3X_InitTable.html"><CODE>G3X_InitTable</CODE></A><BR> <A href="GX_InitEx.html"><CODE>GX_InitEx</CODE></A><BR> <A href="GX_InitNDMAEx.html"><CODE>GX_InitNDMAEx</CODE></A></P>
+<H2>Revision History</H2>
+<P>2005/03/14
+
+Corrected link errors.
+</P>
+<P>2005/02/18
+
+Added warning that <code>OS_Init</code> must be called in advance.
+</P>
+<P>2004/02/09
+
+Changed so that <CODE>GX_SetPower</CODE> is called.
+</P>
+<P>2004/01/19 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

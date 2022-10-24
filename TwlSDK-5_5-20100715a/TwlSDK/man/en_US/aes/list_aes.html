@@ -1,0 +1,137 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META http-equiv="Content-Style-Type" content="text/css">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<BASE target="main">
+<TITLE>AES Cipher Library (AES) Function List</TITLE>
+<LINK rel="stylesheet" href="../css/apilist.css">
+</HEAD>
+<BODY>
+<H1>AES Cipher Library (AES) Function List</H1>
+<H3><A name="api">Basic API</A></H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TH width="25%"><A href="api/AES_Init.html" target="_self">AES_Init</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Initializes the AES library.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="api/AES_SetKey.html" target="_self">AES_SetKey</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Sets the key used for encryption/decryption.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="api/AES_Ctr.html" target="_self">AES_Ctr</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Performs encryption/decryption in CTR mode.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="api/AES_Ctr.html" target="_self">AES_CtrEncrypt</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Performs encryption/decryption in CTR mode.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="api/AES_Ctr.html" target="_self">AES_CtrDecrypt</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Performs encryption/decryption in CTR mode.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="api/AES_CcmEncryptAndSign.html" target="_self">AES_CcmEncryptAndSign</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Encrypts and signs data in CCM mode.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="api/AES_CcmDecryptAndVerify.html" target="_self">AES_CcmDecryptAndVerify</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Decrypts data and and verifies its signature in CCM mode.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="api/AES_AddToCounter.html" target="_self">AES_AddToCounter</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Adds a numerical value to the counter.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="api/AES_ReverseBytes.html" target="_self">AES_ReverseBytes</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Copies a byte array one byte at a time in reverse order.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="api/AES_SwapEndianEach128.html" target="_self">AES_SwapEndianEach128</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Copies a byte array one byte at a time, reversing the order of each 16-byte chunk.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="api/AESCallback.html" target="_self">AESCallback</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Type of the callback function that is called when encryption or decryption completes.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="api/AESKey.html" target="_self">AESKey</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Union that stores an AES key.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="api/AESCounter.html" target="_self">AESCounter</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Union that stores the initial counter value used in CTR mode.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="api/AESNonce.html" target="_self">AESNonce</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Union that stores the nonce used in CCM mode.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="api/AESResult.html" target="_self">AESResult</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Enumerated type that indicates the result of an AES operation.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="api/AESMac.html" target="_self">AESMac</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Union that stores the MAC used in CCM mode.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="api/AESMacLength.html" target="_self">AESMacLength</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Enumerated type that specifies the length of the MAC used in CCM mode.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H3><A name="util">High-Level API</A></H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TH width="25%"><A href="util/AES_Rand.html" target="_self">AES_Rand</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Generates a pseudo-random number using the AES algorithm.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="util/AES_Encrypt.html" target="_self">AES_Encrypt</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Uses the AES algorithm to encrypt data.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="util/AES_Decrypt.html" target="_self">AES_Decrypt</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Decrypts data that was encrypted using <code>AES_Encrypt</code>.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="util/AES_EncryptAndSign.html" target="_self">AES_EncryptAndSign</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Uses the AES algorithm to encrypt and sign data.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="util/AES_DecryptAndVerify.html" target="_self">AES_DecryptAndVerify</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Decrypts and verifies the signature of data that was encrypted and signed using <code>AES_EncryptAndSign</code>.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<table border="0" height="100%"><tr><td style="background-color : white;"></td></tr></table>
+
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

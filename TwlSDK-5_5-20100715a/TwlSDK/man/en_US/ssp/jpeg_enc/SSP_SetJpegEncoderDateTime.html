@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title>SSP_SetJpegEncoderDateTime</title>
+<link rel="stylesheet" href="../../css/nitro.css" type="text/css" />
+</head>
+<body>
+
+<h1>SSP_SetJpegEncoderDateTime <img src="../../image/NTR.gif" align="middle"><img src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+
+<pre><code>
+void SSP_SetJpegEncoderDateTime(u8 *buffer);
+</code></pre>
+
+<h2>Arguments</h2>
+<table style="width:100%">
+<tbody>
+<tr>
+<td style="width:13%"><SPAN class="argument">buffer</SPAN></td>
+<td style="width:87%">Date and time the camera took the photo, which is embedded in the image when it is encoded.<br/>Use the 20-character string format &quot;<CODE>YYYY:MM:DD HH:MM:DD</CODE>&quot; and terminate it with <CODE>0x00</CODE>.</td>
+</tr>
+</tbody>
+</table>
+
+
+<h2>Return Values</h2>
+<p>None.</p>
+
+<h2>Description</h2>
+<p>Registers the date and time information to embed in the JPEG file as the date and time the photo was taken. This information is registered as the <CODE>IFD0 DateTime</CODE>, <CODE>ExifIFD DateTimeOriginal</CODE>, and <CODE>DateTimeDigitized</CODE> tags.<br> <br> <B>Note:</B> After the <a href="SSP_StartJpegEncoder.html"><CODE>SSP_StartJpegEncoder</CODE></a> function completes, date and time information set by this function are cleared, regardless of whether encoding succeeds or fails.<br>If multiple images are to be encoded, note that date and time information must be registered before each encoding.
+</p>
+
+<h2>See Also</h2>
+<p><a href="SSP_SetJpegEncoderDateTimeNow.html"><CODE>SSP_SetJpegEncoderDateTimeNow</CODE></a><BR> <a href="SSP_StartJpegEncoder.html"><CODE>SSP_StartJpegEncoder</CODE></a></p>
+
+<h2>Revision History</h2>
+<p>
+2008/11/04 Added a description of conditions under which date and time information is cleared.<br> 2008/09/15 Initial version.
+</p>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

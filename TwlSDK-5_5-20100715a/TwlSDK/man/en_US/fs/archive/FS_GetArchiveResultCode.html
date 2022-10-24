@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title>FS_GetArchiveResultCode</title>
+<link rel="stylesheet" href="../../css/nitro.css" type="text/css" />
+</head>
+<body>
+
+<h1 style="text-align:left">FS_GetArchiveResultCode <img src="../../image/NTR.gif"align="middle"><img src="../../image/TWL.gif" align="middle"></h1>
+<h2>Syntax</h2>
+
+<pre><code>
+#include &lt;nitro/fs.h&gt;
+
+<a href="../fs_result_const.html">FSResult</a> FS_GetArchiveResultCode(const void *path_or_archive);
+</code></pre>
+
+<h2>Arguments</h2>
+<table style="width:100%">
+  <tbody>
+    <tr>
+<td style="width:13%"><em><strong>path_or_archive</strong></em></td>
+<td style="width:87%">Either a pointer to an <code>FSArchive</code> structure, or a string indicating the path (including the target archive name). For example, specifying <code>rom:</code> indicates the <a href="../archive_rom_spec.html">ROM archive</a>, and specifying <code>sdmc:/foo.txt</code> indicates an <a href="../archive_sdmc_spec.html">SD card archive</a>. <B>Note:</B> Specifying just the archive name without including the colon (for example, &quot;<code>rom</code>&quot;) will be treated as a relative path.</span></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Return Values</h2>
+<p>Gets the result of the last process executed by the specified archive. <a href="../fs_result_const.html"><code>FS_RESULT_ERROR</code></a> will be returned if the specified pointer is neither an archive nor a valid path string.
+</p>
+
+<h2>Description</h2>
+<p>Gets the result of the last process executed by the specified archive. <a href="../fs_result_const.html"><code>FS_RESULT_ERROR</code></a> will be returned if the specified pointer is neither an archive nor a valid path string. The result is undefined if this function is called on an archive for which a process is being performed.
+</p>
+<p>If you want to get the result of the last operation that was performed on a specific file handle, use <code><a href="../file/FS_GetResultCode.html">FS_GetResultCode()</a></code>.
+</p>
+
+
+<h2>See Also</h2>
+<p><code><a href="../fs_archive_type.html">FSArchive</a><BR> <a href="../fs_result_const.html">FSResult</a><br /> <a href="../file/FS_GetResultCode.html">FS_GetResultCode</a></code></p>
+
+<h2>Revision History</h2>
+<p>
+2008/07/14 Added an example and caution about the <code>path_or_archive</code> argument.<br />2007/11/02 Initial version.<br />
+</p>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

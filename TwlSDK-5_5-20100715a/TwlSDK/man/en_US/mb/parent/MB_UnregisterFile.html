@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>MB_UnregisterFile</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">MB_UnregisterFile <IMG src="../../image/NTR.gif" width="24" height="12" border="0" align=middle><IMG src="../../image/TWL.gif" width="24" height="12" border="0" align=middle></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/mb.h&gt;</CODE><BR>
+  <BR>
+  <CODE>void* MB_UnregisterFile(const <A href="../mb_game_registry_type.html">MBGameRegistry</A> *game_reg);</CODE><br>
+  <br>
+  </dd>
+</dl>
+<h2>Arguments</h2>
+<p>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+      <TD width="13%"><EM><STRONG>game_reg</STRONG></EM></TD>
+      <TD width="87%">Pointer to a <CODE><A href="../mb_game_registry_type.html">MBGameRegistry</A></CODE> structure that stores the information of the registered program to unregister.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</p>
+
+<h2>Return Values</h2>
+<p>Returns a pointer if it successfully unregisters the registered program. Otherwise, it returns NULL.</p>
+
+<H2>Description</H2>
+<P>This function unregisters a specified, registered program from the download program list. As part of this unregistration process, the segment information's memory buffer specified by the <CODE><A href="MB_RegisterFile.html">MB_RegisterFile</A></CODE> function will be released to the user side.<br> <br>
+<H2>Note</H2>
+<p><font color="#800000">The <CODE>MB_RegisterFile</CODE> function cannot be called after this function has been called once or more.<br> To change the program's registered contents, you must first temporarily close the MB library by calling the <CODE>MB_End</CODE> function, change the TGID, and then restart the library.</font> <br></CODE></p>
+<h2>See Also</h2>
+<p><CODE><A href="../mb_game_registry_type.html">MBGameRegistry</A>, <A href="MB_GetSegmentLength.html">MB_GetSegmentLength</A>, <A href="MB_ReadSegment.html">MB_ReadSegment</A>, <A href="MB_RegisterFile.html">MB_RegisterFile</A></CODE></P>
+<H2>Revision History</H2>
+<P>
+2004/10/18 Added a Caution about the restriction affecting <CODE>MB_RegisterFile</CODE>.<br> 2004/09/30 Changed return values.<br> 2004/09/09 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

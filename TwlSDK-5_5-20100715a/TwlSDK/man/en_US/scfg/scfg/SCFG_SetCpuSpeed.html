@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>SCFG_SetCpuSpeed</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">SCFG_SetCpuSpeed <IMG src="../../image/TWL.gif" width="24" height="12" border="0" align="middle"></H1>
+<H2>Syntax</H2>
+<DL>
+  <DD>
+<PRE><CODE>#include &lt;twl/scfg.h&gt;</CODE></PRE>
+  <PRE><CODE>static inline void SCFG_SetCpuSpeed( SCFGCpuSpeed cpuSpeed );
+  </CODE></PRE>
+</DL>
+<H2>Arguments</H2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="13%"><SPAN class="argument">cpuSpeed</SPAN></TD>
+<TD width="87%">CPU frequency setting.<BR><CODE>SCFG_CPU_SPEED_1X</CODE>: 67.03 MHz (equal to NITRO) <BR><CODE>SCFG_CPU_SPEED_2X</CODE>: 134.06 MHz (double NITRO's speed)</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>Return Values</H2>
+<P>None.</P>
+<H2>Description</H2>
+<P>Configures the operating frequency of the ARM9 CPU.</P>
+<P>In TWL mode, the ARM9 CPU's operating frequency can be switched between 67.03 MHz (equal to NITRO) and 134.06 MHz (double speed).</P>
+<P>Call this function with the setting value in <SPAN class="argument">cpuSpeed</SPAN>. If the value is the same as the current setting, this function does nothing and returns. Code runs on the ITCM when the switch occurs. Although a fixed dummy loop is required after the switch, developers do not need to be aware of this because it is performed inside this function.</P>
+<P>In TWL mode, the frequency becomes double-speed when the process enters the <CODE>NitroMain</CODE> function. This setting is not changed even by the <A href="../../os/init/OS_Init.html"><CODE>OS_Init</CODE></A> function.</P>
+<P><FONT color="#ff0000"><B>Note:</B> This function is enabled only when running on TWL hardware.</FONT></P>
+<P>However, because the system is designed so that there is no problem with calling this function on NITRO hardware, there is no need to detect the hardware and distinguish between systems. Calling this function on NITRO hardware has no effect on the operating frequency.</P>
+<H2>See Also</H2>
+<P><A href="../overview_scfg.html">SCFG Overview</A><BR> <A href="SCFG_GetCpuSpeed.html"><CODE>SCFG_GetCpuSpeed</CODE></A></P>
+<H2>Revision History</H2>
+<P>2008/10/29 Revised the explanation about ARM9 operating frequency at initial operation.<BR> 2007/10/03 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

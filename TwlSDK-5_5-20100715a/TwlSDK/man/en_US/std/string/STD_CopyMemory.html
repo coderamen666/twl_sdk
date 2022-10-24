@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 8.0.2.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>STD_CopyMemory</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">STD_CopyMemory<img src="../../image/NTR.gif"align="middle"><img src="../../image/TWL.gif" align="middle"></h1>
+<h2>Syntax</h2>
+<dl>
+  <dd><PRE><CODE>#include &lt;nitro/std.h&gt;
+
+void* STD_CopyMemory(void *destp, const void *srcp, u32 size);</CODE></PRE>
+<PRE><CODE>void* STD_MemCpy(void *destp, const void *srcp, u32 size);
+</CODE></PRE></dd>
+</dl>
+
+<h2>Arguments</h2>
+<table border="1" width="100%">
+  <TBODY>
+    <TR>
+      <TD width="13%"><EM><STRONG>src</STRONG></EM></TD>
+      <TD width="87%">The transfer source address.</TD>
+    </TR>
+    <TR>
+      <TD width="13%"><EM><STRONG>dest</STRONG></EM></TD>
+      <TD width="87%">The transfer destination address.</TD>
+    </TR>
+    <TR>
+      <TD><EM><STRONG>size</STRONG></EM></TD>
+      <TD>Transfer size.
+      </TD>
+    </TR>
+  </TBODY>
+</table>
+
+<h2>Return Values</h2>
+<p>
+<p>None.</p>
+</p>
+
+<H2>Description</H2>
+<P>Uses CPU to perform memory copy. It carries out the same operation as the C standard function <CODE>memcpy()</CODE>.</P>
+<p><CODE>STD_MemCpy()</CODE> is defined as another name for <CODE>STD_CopyMemory()</CODE>.</p>
+<p>When accessing VRAM, use one of the following functions: <CODE><A href="../../mi/memory/MI_CpuCopy.html">MI_CpuCopy8(), MI_CpuCopy16(), MI_CpuCopy32(), MI_CpuCopyFast()</A></CODE>.</p>
+
+<h2>See Also</h2>
+<p><CODE><A href="../../mi/memory/MI_CpuCopy.html">MI_CpuCopy*</A>, <CODE><A href="STD_MoveMemory.html">STD_MoveMemory</A></p>
+
+<H2>Revision History</H2>
+<P>
+2007/12/10 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

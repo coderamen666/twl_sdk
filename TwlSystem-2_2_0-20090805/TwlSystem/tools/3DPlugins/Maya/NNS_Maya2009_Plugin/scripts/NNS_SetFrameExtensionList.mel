@@ -1,0 +1,209 @@
+/******************************************************************************
+	NINTENDO NITRO-System Maya Plugin
+
+	File:         NNS_SetFrameExtensionList.mel
+	Description:  set frame extension list to file node
+	Date:         2007/02/26
+	Author:       Takashi Endo
+
+	Copyright 2003-2009 Nintendo. All rights reserved.
+******************************************************************************/
+
+// NNS_SetFrameExtensionList
+
+/******************************************************************************
+	variables
+******************************************************************************/
+global int $nnsSetFrameExtensionList_AttrJob = -1;
+
+/******************************************************************************
+	add attribute
+******************************************************************************/
+proc AddAttribute(string $file)
+{
+	addAttr -ln "nns_fe_list" -dt "string" $file;
+}
+
+/******************************************************************************
+	delete attr change job
+******************************************************************************/
+proc DeleteAttrChangeJob()
+{
+	global int $nnsSetFrameExtensionList_AttrJob;
+
+	if (`window -ex nnsSetFrameExtensionList_Win` &&
+		$nnsSetFrameExtensionList_AttrJob != -1 &&
+		`scriptJob -ex $nnsSetFrameExtensionList_AttrJob`)
+		scriptJob -k $nnsSetFrameExtensionList_AttrJob;
+
+	$nnsSetFrameExtensionList_AttrJob = -1;
+}
+
+/******************************************************************************
+	set attr change job
+******************************************************************************/
+proc SetAttrChangeJob(string $file)
+{
+	global int $nnsSetFrameExtensionList_AttrJob;
+
+	DeleteAttrChangeJob();
+
+	if (!`attributeQuery -n $file -ex "nns_fe_list"`)
+		AddAttribute($file);
+
+	$nnsSetFrameExtensionList_AttrJob = `scriptJob -kws -p nnsSetFrameExtensionList_Win
+		-ac ($file + ".nns_fe_list")
+		("nnsSetFrameExtensionList_UpdateWindow(0, \"" + $file + "\")")`;
+}
+
+/******************************************************************************
+	set attribute
+******************************************************************************/
+proc SetAttribute(string $file, string $list)
+{
+	if (`nodeType $file` != "file")
+		error ("Not file node: " + $file);
+
+	if (match("^-", $list) != "")
+		error ("Invalid frame extension list: " + $list);
+
+	if (!`attributeQuery -n $file -ex "nns_fe_list"`)
+		AddAttribute($file);
+	setAttr ($file + ".nns_fe_list") -typ "string" $list;
+}
+
+/******************************************************************************
+	list callback
+******************************************************************************/
+global proc nnsSetFrameExtensionList_ListCB(string $file)
+{
+	SetAttribute($file, `textFieldGrp -q -tx nnsSetFrameExtensionList_List`);
+}
+
+/******************************************************************************
+	update window
+******************************************************************************/
+global proc nnsSetFrameExtensionList_UpdateWindow(int $set_job_flag,
+	string $file)
+{
+
+//-----------------------------------------------------------------------------
+// set file node name
+	text -e -l $file nnsSetFrameExtensionList_NodeName;
+
+//-----------------------------------------------------------------------------
+// set current list
+	string $list = "";
+	if (`attributeQuery -n $file -ex "nns_fe_list"`)
+		$list = `getAttr ($file + ".nns_fe_list")`;
+	textFieldGrp -e -tx $list nnsSetFrameExtensionList_List;
+
+//-----------------------------------------------------------------------------
+// set attr change job
+	if ($set_job_flag)
+		SetAttrChangeJob($file);
+}
+
+/******************************************************************************
+	main
+******************************************************************************/
+global proc NNS_SetFrameExtensionList()
+{
+	
+//-----------------------------------------------------------------------------
+// get selection
+	string $files[] = `ls -sl -typ file`;
+	if (size($files) == 0) {
+		string $mats[] = `ls -sl -mat`;
+		for ($mat in $mats) {
+			string $hist[] = `listHistory $mat`;
+			for ($node in $hist) {
+				if (`nodeType $node` == "file") {
+					$files[size($files)] = $node;
+					break;
+				}
+			}
+		}
+	}
+	if (size($files) == 0)
+		error "No file node is selected";
+	if (size($files) > 1)
+		error "More than one file node is selected";
+
+	string $file = $files[0];
+	if (!`getAttr ($file + ".ufe")`)
+		error ("Turn on Use Frame Extension attribute: " + $file);
+
+//-----------------------------------------------------------------------------
+// create window
+	int $wd = 400;
+	int $ht = 180;
+	if (!`window -exists nnsSetFrameExtensionList_Win`) {
+		window -t "NITRO Set Frame Extension List" -wh $wd $ht -mxb 0
+			nnsSetFrameExtensionList_Win;
+		columnLayout -adj 1 -cat "both" 4 -cal "center" -rs 4;
+
+		//-----------------------------------------------------------------------------
+		// node name
+		frameLayout -lv 0 -cll 0 -cl 0 -bv 1 -bs "etchedIn";
+			columnLayout -adj 1 -cal "center" -rs 8;
+			
+			text -l "" nnsSetFrameExtensionList_NodeName;
+
+			setParent ..; // columnLayout
+		setParent ..; // formLayout
+
+		//-----------------------------------------------------------------------------
+		// attribute
+		frameLayout -lv 0 -cll 0 -cl 0 -bv 1 -bs "etchedIn";
+			columnLayout -adj 1 -rs 8;
+
+			textFieldGrp -l "" -tx "" -cw2 1 360
+				-cc ("nnsSetFrameExtensionList_ListCB(\"" + $file + "\")")
+				nnsSetFrameExtensionList_List;
+			text -l "ex.  \"1,2,3\"  or  \"1-3\"  or  \"1-3,10\"";
+
+			setParent ..; // columnLayout
+		setParent ..; // formLayout
+
+		//-----------------------------------------------------------------------------
+		// close button
+		string $close_cmd = "deleteUI nnsSetFrameExtensionList_Win";
+		string $form = `formLayout -nd 100`;
+			string $btn_close       = `button -h 26 -l "Close" -c $close_cmd`;
+			formLayout -e
+				-af $btn_close "top" 0
+				-af $btn_close "left" 0
+				-af $btn_close "bottom" 0
+				-af $btn_close "right" 0
+				$form;
+		setParent ..; // formLayout
+
+		setParent ..; // columnLayout
+
+		//setFocus $btn_close;
+		setFocus nnsSetFrameExtensionList_List;
+
+		//-----------------------------------------------------------------------------
+		// set window delete job
+		scriptJob -uid nnsSetFrameExtensionList_Win "$nnsSetFrameExtensionList_AttrJob = -1";
+	}
+	if (`window -q -w nnsSetFrameExtensionList_Win` < $wd)
+	{
+		window -e -w $wd nnsSetFrameExtensionList_Win;
+	}
+	if (`window -q -h nnsSetFrameExtensionList_Win` < $ht)
+	{
+		window -e -h $ht nnsSetFrameExtensionList_Win;
+	}
+	//window -e -wh $wd $ht nnsSetFrameExtensionList_Win;
+
+//-----------------------------------------------------------------------------
+// update window
+	nnsSetFrameExtensionList_UpdateWindow(1, $file);
+
+//-----------------------------------------------------------------------------
+// show window
+	showWindow nnsSetFrameExtensionList_Win;
+}
+

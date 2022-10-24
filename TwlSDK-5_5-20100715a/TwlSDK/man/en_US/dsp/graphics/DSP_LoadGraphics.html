@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title>DSP_LoadGraphics</title>
+<link rel="stylesheet" href="../../css/nitro.css" type="text/css" />
+</head>
+<body>
+
+<h1>DSP_LoadGraphics <IMG src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+
+<pre><code>
+BOOL DSP_LoadGraphics(FSFile *file, int slotB, int slotC);
+</code></pre>
+
+<h2>Arguments</h2>
+<table style="width:100%">
+<tbody>
+<tr>
+<td style="width:13%"><em><strong>file</strong></em></td>
+<td style="width:87%">Graphics component file.<br />You must either provide this using the <code><a href="DSP_OpenStaticComponentGraphics.html">DSP_OpenStaticComponentGraphics</a></code> function, or open the <CODE>$TwlSDK/dspcomponents/graphics/graphics.a</CODE> file image that was saved to ROM in advance. The file will be used within this function alone and does not need to be maintained after the function has been called.</td>
+</tr>
+<tr>
+<td style="width:13%"><em><strong>slotB</strong></em></td>
+<td style="width:87%">Bit field that shows the WRAM-B slots that may be used for DSP code memory.<br />For example, this would be specified as <CODE>(1&lt;&lt;4)|(1&lt;&lt;5)|(1&lt;&lt;6)=0x70</CODE> to provide slots 4, 5, and 6 for the DSP.</td>
+</tr>
+<tr>
+<td style="width:13%"><em><strong>slotC</strong></em></td>
+<td style="width:87%">Bit field that shows the WRAM-C slots that may be used for DSP code memory.<br />For example, this would be specified as <CODE>(1&lt;&lt;4)|(1&lt;&lt;5)|(1&lt;&lt;6)=0x70</CODE> to provide slots 4, 5, and 6 for the DSP.</td>
+</tr>
+</tbody>
+</table>
+
+
+<h2>Return Values</h2>
+<p>Returns <CODE>TRUE</CODE> if the graphics component was successfully loaded to the DSP.<br />Returns <CODE>FALSE</CODE> if loading failed due to an insufficient number of open WRAM-B or WRAM-C slots.</p>
+
+<h2>Description</h2>
+<p>Loads to the DSP a component to support image data scaling and color space conversion. Calling this function allows you to use the following functions.</p>
+<ul><code>
+<li><a href="DSP_ConvertYuvToRgb.html">DSP_ConvertYuvToRgb()</a></li>
+<li><a href="DSP_Scaling.html">DSP_Scaling()</a></li>
+<li><a href="DSP_Scaling.html">DSP_ScalingEx()</a></li>
+<li><a href="DSP_Scaling.html">DSP_ScalingAsync()</a></li>
+<li><a href="DSP_Scaling.html">DSP_ScalingAsyncEx()</a></li>
+</code></ul>
+<p>While loading, the library will automatically allocate only the necessary number of WRAM-B and WRAM-C slots. The number of required WRAM-B and WRAM-C slots are each defined by the following macros.</p>
+<ul>
+<li>DSP_SLOT_B_COMPONENT_GRAPHICS</li>
+<li>DSP_SLOT_C_COMPONENT_GRAPHICS</li>
+</ul>
+<p>You can use the <code><a href="DSP_UnloadGraphics.html">DSP_UnloadGraphics</a></code> function to unload the graphics component if it is no longer necessary.</p>
+
+<h2>Note</h2>
+<ul>
+<li>Always specify only component files that are saved in the SDK library currently being used. Operations will not be guaranteed if the versions do not match each other.</li>
+</ul>
+
+<h2>See Also</h2>
+<p><code><a href="DSP_OpenStaticComponentGraphics.html">DSP_OpenStaticComponentGraphics</a>, <a href="DSP_UnloadGraphics.html">DSP_UnloadGraphics</a>, <a href="DSP_ConvertYuvToRgb.html">DSP_ConvertYuvToRgb</a>, <a href="DSP_ConvertYuvToRgb.html">DSP_ConvertYuvToRgbAsync</a>,<br> <a href="DSP_Scaling.html">DSP_Scaling</a>, <a href="DSP_Scaling.html">DSP_ScalingEx</a>, <a href="DSP_Scaling.html">DSP_ScalingAsync</a>, <a href="DSP_Scaling.html">DSP_ScalingAsyncEx</a></code></p>
+
+<h2>Revision History</h2>
+<p>
+2008/06/13 Added definitions for the WRAM slots required to load the component. <br />2008/05/22 Initial version.
+</p>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

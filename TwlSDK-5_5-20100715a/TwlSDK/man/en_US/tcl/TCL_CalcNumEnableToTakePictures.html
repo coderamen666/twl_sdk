@@ -1,0 +1,43 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title>TCL_CalcNumEnableToTakePictures</title>
+<link rel="stylesheet" href="../css/nitro.css" type="text/css">
+</head>
+<body>
+<h1 align="left">TCL_CalcNumEnableToTakePictures <img src="../image/TWL.gif" align="middle"></h1>
+
+<h2>Definition</h2>
+<dl>
+	<dd>
+	<code>#include &lt;twl/tcl.h&gt;</code><br/>
+	<br/>
+	<pre><code>
+int TCL_CalcNumEnableToTakePictures( const TCLAccessor* pAccessor );
+	</code></pre>
+</dl>
+
+<h2>Arguments</h2>
+<p>
+<table>
+<tr><td><CODE>pAccessor</CODE><td><a href="TCLAccessor.html">Accessor</a>
+</table>
+</p>
+
+<h2>Return Values</h2>
+<p>The number of photos that can be taken. A negative return value indicates the function failed.</p>
+
+<h2>Description</h2>
+<p>Calculates the number of photos that can be taken.<br>A slight margin is taken in the available space with this function, so if a value greater than 1 is returned, more than one photo can be saved.</p>
+<p>The accessor must be initialized by the <a href="TCL_LoadTable.html"><code>TCL_LoadTable</code></a> or <a href="TCL_CreateTable.html"><code>TCL_CreateTable</code></a> function.</p>
+
+<h2>See Also</h2>
+
+<h2>Revision History</h2>
+<p>
+2009/06/29 Added explanation related to the method of calculating the number of photos that can be captured.<br> 2008/10/07 Initial version.
+</p>
+
+<hr><p>CONFIDENTIAL</p></body>
+</html>

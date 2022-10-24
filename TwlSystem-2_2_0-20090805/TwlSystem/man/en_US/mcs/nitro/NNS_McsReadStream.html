@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 Trial for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>NNS_McsReadStream</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">NNS_McsReadStream</h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+		
+  <pre><CODE>#include &lt;nnsys/mcs.h&gt;</CODE></pre>
+	  
+  <pre><CODE>BOOL NNS_McsReadStream(
+         u16         channel,
+         void*       data,
+         u32         size,
+         u32*        pReadSize);</CODE></pre>
+	</dd>
+</dl><h2>Arguments</h2>
+
+<table border="1" width="100%">
+ <tr> 
+<td width="13%"><CODE>channel</CODE></td>
+<td width="87%">Value for identifying a stream. You can specify in the range 0 to 0x3FFF. 0x4000 to 0x7FFF is reserved for TWL-System applications. 0x8000 to 0xFFFF is reserved for the MCS system.</td>
+ </tr>
+ <tr> 
+<td width="13%"><CODE>data</CODE></td>
+<td width="87%">Pointer to the buffer where read data is to be stored.</td>
+ </tr>
+ <tr> 
+<td width="13%"><CODE>size</CODE></td>
+<td width="87%">Size of the buffer where read data is to be stored.</td>
+ </tr>
+ <tr> 
+<td width="13%"><CODE>pReadSize</CODE></td>
+<td width="87%">Size of data that was actually read.</td>
+ </tr>
+</table>
+<h2>Return Values</h2>
+<p><CODE>TRUE</CODE> if the function operates successfully. <CODE>FALSE</CODE> if it fails.</p>
+<H2>Description</H2>
+<p>Acts to receive data.</p>
+<p>If the length of received data exceeds the size of the buffer as specified by <CODE>size</CODE>, only this <CODE>size</CODE> portion of the data is read into the buffer. If this occurs, the function returns <CODE>FALSE</CODE>. Use the <a href="NNS_McsGetStreamReadableSize.html"><CODE>NNS_McsGetStreamReadableSize</CODE></a> function to get the remaining size.</p>
+<h2>See Also</h2>
+<p><A href="NNS_McsWriteStream.html"><CODE>NNS_McsWriteStream</CODE></A></p>
+<H2>Revision History</H2>
+<P>
+2008/06/20 Changed NITRO-System to TWL-System.<br>2004/10/08 Added a description of the <CODE>channel</CODE> argument.<br>2004/08/26 Corrected <B>Description</B> and changed the type of the argument <CODE>channel</CODE>.<br />2004/06/01 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

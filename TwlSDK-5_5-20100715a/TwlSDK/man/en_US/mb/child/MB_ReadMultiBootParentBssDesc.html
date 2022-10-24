@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>MB_Init</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">MB_ReadMultiBootParentBssDesc <IMG src="../../image/NTR.gif" width="24" height="12" border="0" align=middle></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/mb.h&gt;</CODE><BR>
+  <BR>
+  <CODE>void    MB_ReadMultiBootParentBssDesc(<A href="../../wm/wm/WMBssDesc.html">WMBssDesc</A>* p_desc,<br>
+    u16 parent_max_size, u16 child_max_size, BOOL ks_flag, BOOL cs_flag);</CODE><br>
+  <br>
+  </dd>
+</dl>
+<h2>Arguments</h2>
+<p>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+      <TD width="13%"><EM><STRONG>p_desc</STRONG></EM></TD>
+      <TD width="87%">Pointer to the <CODE><A href="../../wm/wm/WMBssDesc.html">WMBssDesc</A></CODE> structure that will store the parent information.</TD>
+    </TR>
+    <TR>
+      <TD width="13%"><EM><STRONG>parent_max_size</STRONG></EM></TD>
+      <TD width="87%">The maximum transmission size for an MP parent, as configured with the <CODE><a href="../../wm/wm/WM_SetParentParameter.html">WM_SetParentParameter</a></CODE> function by the parent to be connected.<BR>
+      This size must be decided upon by the application before it is specified.</TD>
+    </TR>
+    <TR>
+      <TD width="13%"><EM><STRONG>child_max_size</STRONG></EM></TD>
+      <TD width="87%">The maximum transmission size for an MP child, as configured with the <CODE><a href="../../wm/wm/WM_SetParentParameter.html">WM_SetParentParameter</a></CODE> function by the parent to be connected.<BR>
+      This size must be decided upon by the application before it is specified.</TD>
+    </TR>
+    <TR>
+      <TD width="13%"><EM><STRONG>ks_flag</STRONG></EM></TD>
+      <TD width="87%">The key sharing flag configured with the <CODE><a href="../../wm/wm/WM_SetParentParameter.html">WM_SetParentParameter</a></CODE> function by the parent to be connected.<BR>
+      This setting must be decided upon by the application before it is specified.</TD>
+    </TR>
+    <TR>
+      <TD width="13%"><EM><STRONG>cs_flag</STRONG></EM></TD>
+      <TD width="87%">The continuous transfer flag configured with the <CODE><a href="../../wm/wm/WM_SetParentParameter.html">WM_SetParentParameter</a></CODE> function by the parent to be connected.<BR>
+      This setting must be decided upon by the application before it is specified.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</p>
+
+<h2>Return Values</h2>
+<p>None.</p>
+
+<H2>Description</H2>
+<P>If the local device is a multiboot child, this function stores connection information to the specified memory based on the parent information retrieved with the <CODE><A href="../common/MB_GetMultiBootParentBssDesc.html">MB_GetMultiBootParentBssDesc</A></CODE> function.<BR>The <CODE><A href="../../wm/wm/WMBssDesc.html">WMBssDesc</A></CODE> structure saved by this function can be handled in the same way as parent information retrieved with the <CODE><a href="../../wm/wm/WM_StartScan.html">WM_StartScan</a></CODE> function, and can be given as an argument to the <CODE><a href="../../wm/wm/WM_StartConnect.html">WM_StartConnect</a></CODE> function.<BR> <BR>
+<h2>See Also</h2>
+<p><a href="../../wm/wm/WM_SetParentParameter.html">WM_SetParentParameter</a></code>, <code><a href="../../wm/wm/WM_StartScan.html">WM_StartScan<a></code>, <code><a href="../../wm/wm/WM_StartConnect.html">WM_StartConnect</a></code>, <code><a href="../common/MB_GetMultiBootParentBssDesc.html">MB_GetMultiBootParentBssDesc</a></code></P>
+<H2>Revision History</H2>
+<P>
+2004/10/05 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

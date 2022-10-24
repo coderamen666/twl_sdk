@@ -1,0 +1,50 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title>TCLSortType</title>
+<link rel="stylesheet" href="../css/nitro.css" type="text/css">
+</head>
+<body>
+<h1 align="left">TCLSortType <img src="../image/TWL.gif" align="middle"></h1>
+
+<h2>Definition</h2>
+<dl>
+	<dd>
+	<code>#include &lt;twl/tcl.h&gt;</code><br/> <br/>
+	<pre><code>
+typedef enum
+{
+    TCL_SORT_TYPE_DATE = 0 ,
+    TCL_SORT_TYPE_FAVORITE_1 ,
+    TCL_SORT_TYPE_FAVORITE_2 ,
+    TCL_SORT_TYPE_FAVORITE_3 ,
+    TCL_SORT_TYPE_FAVORITE_ALL ,
+    TCL_SORT_TYPE_FRAME ,
+    TCL_SORT_TYPE_MAX
+} TCLSortType;
+	</code></pre>
+</dl>
+
+<h2>Description</h2>
+<p>Defines the criteria used by <a href="TCL_SortTable.html"><code>TCL_SortTable</code></a> to sort the management file.</p>
+<p>The sort types are explained in the following list.</p>
+<table>
+<tr><td>TCL_SORT_TYPE_DATE<td>Photos take precedence (not frames) and are sorted by date.
+<tr><td>TCL_SORT_TYPE_FAVORITE_1<td>Sorted by the first favorite.
+<tr><td>TCL_SORT_TYPE_FAVORITE_2<td>Sorted by the second favorite.
+<tr><td>TCL_SORT_TYPE_FAVORITE_3<td>Sorted by the third favorite.
+<tr><td>TCL_SORT_TYPE_FAVORITE_ALL<td>Sorted by all favorites. Sorted in order of first, second and third favorites, and then others.
+<tr><td>TCL_SORT_TYPE_FRAME<td>Frames take precedence and are sorted by date.
+</table>
+
+<h2>See Also</h2>
+<p><code><a href="TCL_SortTable.html">TCL_SortTable</a></code></p>
+
+<h2>Revision History</h2>
+<p>
+2008/10/24 Added <code>TCL_SORT_TYPE_FAVORITE_ALL</code><br/>2008/10/07 Initial version<br/>
+</p>
+
+<hr><p>CONFIDENTIAL</p></body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title>WFS_RequestClientRead</title>
+<link rel="stylesheet" href="../../css/nitro.css" type="text/css" />
+</head>
+
+<body>
+
+<h1>WFS_RequestClientRead <img src="../../image/NTR.gif"><img src="../../image/TWL.gif"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<code>#include &lt;nitro/wfs.h&gt;</code><br />
+  <br />
+  <code>void WFS_RequestClientRead(WFSClientContext *context, void *buffer, u32 offset, u32 length,
+                                   <a href="../WFSRequestClientReadDoneCallback.html">WFSRequestClientReadDoneCallback</a> callback, void *arg);</code><br />
+  <br />
+  </dd>
+</dl>
+
+<h2>Arguments</h2>
+<table border="1" width="100%">
+  <tbody>
+    <tr>
+      <td style="width:13%"><em><strong>context</strong></em></td>
+      <td style="width:87%">Pointer to the <CODE>WFSClientContext</CODE> structure.</td>
+    </tr>
+    <tr>
+      <td style="width:13%"><em><strong>buffer</strong></em></td>
+      <td style="width:87%">Memory buffer for storing the data that is read.</td>
+    </tr>
+    <tr>
+      <td style="width:13%"><em><strong>offset</strong></em></td>
+      <td style="width:87%">Address of the data to read within the device.</td>
+    </tr>
+    <tr>
+      <td style="width:13%"><em><strong>length</strong></em></td>
+      <td style="width:87%">Data size to read.</td>
+    </tr>
+    <tr>
+      <td style="width:13%"><em><strong>callback</strong></em></td>
+      <td style="width:87%">Read completion callback in <a href="../WFSRequestClientReadDoneCallback.html"><CODE>WFSRequestClientReadDoneCallback</CODE></a> format.<br />
+      Specify NULL if not needed.</td>
+    </tr>
+    <tr>
+      <td style="width:13%"><em><strong>arg</strong></em></td>
+      <td style="width:87%">Optional argument passed to the read completion callback.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Return Values</h2>
+<p>None.</p>
+
+<h2>Description</h2>
+<p>Issues a ROM image read request to the parent (server). Block transfer is automatically executed within the library using a subsequent MP communication hook function.<BR>If the request completes or <a href="WFS_EndClient.html"><code>WFS_EndClient</code></a> is called when the request is being processed, notification will be made using a completion callback in <a href="../WFSRequestClientReadDoneCallback.html"><code>WFSRequestClientReadDoneCallback</code></a> format.</p>
+<p>
+This function cannot be used until client preparations are complete and <a href="../WFSEventType.html">WFS_EVENT_CLIENT_READY</a> event notification has been issued. Furthermore, this function cannot be called again until the previous request has been completed.
+</p>
+<p>
+Use <a href="WFS_GetClientReadProgress.html"><code>WFS_GetClientReadProgress</code></a> to check the current status of a request.
+</p>
+<h2>See Also</h2>
+<p>
+<a href="../WFSEventCallback.html">WFSEventCallback</a>, <a href="../WFSEventType.html">WFSEventType</a>, <br /> <a href="WFS_GetClientReadProgress.html">WFS_GetClientReadProgress</a>
+</p>
+
+<h2>Revision History</h2>
+<p>
+2007/06/11 Added argument. <br />2007/06/06 Initial version.<BR>
+</p>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

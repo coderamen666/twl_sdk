@@ -1,0 +1,174 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META http-equiv="Content-Style-Type" content="text/css">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<BASE target="main">
+<TITLE>ELF Loader (EL) API Function List</TITLE>
+<LINK rel="stylesheet" href="../css/apilist.css">
+</HEAD>
+<BODY>
+<H1>ELF Loader (EL) API Function List</H1>
+
+<H3><A name="Init">Initialization</A></H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TH nowrap width="25%"><A href="EL_Init.html" target="_self">EL_Init</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Initializes the EL library.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<H3><A name="Entry">Dynamic Module Registration</A></H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TH nowrap width="25%"><A href="EL_Link.html" target="_self">EL_Link</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Relocates an ELF object or its archive using a user-specified READ function.<br>We recommend using <a href="EL_LinkEx.html"><CODE>EL_LinkEx</CODE></a> instead of this function.</TD>
+    </TR>
+    <TR>
+<TH nowrap width="25%"><A href="EL_Link.html" target="_self">EL_LinkFile</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Relocates an ELF object or its archive from a file to a buffer.<br>We recommend using <a href="EL_LinkEx.html"><CODE>EL_LinkFileEx</CODE></a> instead of this function.</TD>
+    </TR>
+    <TR>
+<TH nowrap width="25%"><A href="EL_Link.html" target="_self">EL_LinkImage</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Relocates an ELF object or its archive from memory to a buffer.<br>We recommend using <a href="EL_LinkEx.html"><CODE>EL_LinkImageEx</CODE></a> instead of this function.</TD>
+    </TR>
+    <TR>
+<TH nowrap width="25%"><A href="EL_LinkEx.html" target="_self">EL_LinkEx</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Relocates an ELF object or its archive using a developer-specified read function.</TD>
+    </TR>
+    <TR>
+<TH nowrap width="25%"><A href="EL_LinkEx.html" target="_self">EL_LinkFileEx</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Relocates an ELF object or its archive from a file to a buffer.</TD>
+    </TR>
+    <TR>
+<TH nowrap width="25%"><A href="EL_LinkEx.html" target="_self">EL_LinkImageEx</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Relocates an ELF object or its archive from memory to a buffer.</TD>
+    </TR>
+    <TR>
+<TH nowrap width="25%"><A href="EL_CalcEnoughBufferSizeforLink.html" target="_self">EL_CalcEnoughBufferSizeforLink</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Determines the required buffer size for relocation.</TD>
+    </TR>
+    <TR>
+<TH nowrap width="25%"><A href="EL_CalcEnoughBufferSizeforLink.html" target="_self">EL_CalcEnoughBufferSizeforLinkFile</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Determines the required buffer size for relocation.</TD>
+    </TR>
+    <TR>
+<TH nowrap width="25%"><A href="EL_CalcEnoughBufferSizeforLink.html" target="_self">EL_CalcEnoughBufferSizeforLinkImage</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Determines the required buffer size for relocation.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+
+<H3><A name="Link">Link Processing</A></H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TH nowrap width="25%"><A href="EL_ResolveAll.html" target="_self">EL_ResolveAll</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Uses the address table to resolve unresolved symbols.</TD>
+    </TR>
+    <TR>
+<TH nowrap width="25%"><A href="EL_Export.html" target="_self">EL_Export</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Adds entries to the address table.</TD>
+    </TR>
+    <TR>
+<TH nowrap width="25%"><A href="EL_AddStaticSym.html" target="_self">EL_AddStaticSym</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Adds static entries to the address table.</TD>
+    </TR>
+    <TR>
+<TH nowrap width="25%"><A href="EL_GetGlobalAdr.html" target="_self">EL_GetGlobalAdr</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Returns the address corresponding to the specified string from the address table.</TD>
+    </TR>
+    <TR>
+<TH nowrap width="25%"><A href="EL_Unlink.html" target="_self">EL_Unlink</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Unlinks an object.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<H3><A name="Other">Other</A></H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TH nowrap width="25%"><A href="EL_IsResolved.html" target="_self">EL_IsResolved</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Checks an object for unresolved external references.</TD>
+    </TR>
+    <TR>
+<TH nowrap width="25%"><A href="EL_GetLibSize.html" target="_self">EL_GetLibSize</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Finds the size of an ELF object.</TD>
+    </TR>
+    <TR>
+<TH nowrap width="25%"><A href="EL_GetResultCode.html" target="_self">EL_GetResultCode</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets the result of the last process executed.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<H3><A name="Const">Constants</A></H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TH nowrap width="25%"><A href="ELResult.html" target="_self">ELResult</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Indicates the result of the link process.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<H3><A name="Struct">Types and Structures</A></H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TH nowrap width="25%"><A href="ELAdrEntry.html" target="_self">ELAdrEntry</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Structure that stores export symbol information.</TD>
+    </TR>
+    <TR>
+<TH nowrap width="25%"><A href="ELAlloc.html" target="_self">ELAlloc</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Developer-specified memory allocation function to pass to the EL library.</TD>
+    </TR>
+    <TR>
+<TH nowrap width="25%"><A href="ELFree.html" target="_self">ELFree</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Developer-specified memory deallocation function to pass to the EL library.</TD>
+    </TR>
+    <TR>
+<TH nowrap width="25%"><A href="ELReadImage.html" target="_self">ELReadImage</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Developer-specified function to load an object file.</TD>
+    </TR>
+    <TR>
+<TH nowrap width="25%"><A href="ELLinkMode.html" target="_self">ELLinkMode</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Enumeration type that represents the mode used when the dynamic link is tested.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<table border="0" height="100%"><tr><td style="background-color : white;"></td></tr></table>
+
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

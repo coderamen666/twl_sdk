@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 8.0.2.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>WM_StartScan</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">WM_StartScan <img src="../../image/NTR.gif"><img src="../../image/TWL.gif"></H1>
+<h2>Syntax</h2>
+<dl>
+  <dd><PRE><CODE>#include &lt;nitro/wm.h&gt;
+
+<A href="WMErrCode.html">WMErrCode</A> WM_StartScan( <A href="WMCallbackFunc.html">WMCallbackFunc</A> callback , const <A href="WMScanParam.html">WMScanParam</A>* param );
+</CODE></PRE></dd>
+</dl>
+
+<h2>Arguments</h2>
+<table border="1" width="100%">
+  <tbody>
+    <TR>
+      <TD width="200"><EM><STRONG><FONT face="Courier New">callback</FONT></STRONG></EM></TD>
+      <TD width="800">Designates the callback function to call when the asynchronous process completes. This callback is called from within the interrupt handler.</TD>
+    </TR>
+    <TR>
+      <TD width="200"><EM><STRONG><FONT face="Courier New">param</FONT></STRONG></EM></TD>
+      <TD width="800">Pointer to the structure that shows scan information.<BR>
+      <STRONG>Note:</STRONG> The ARM7 processor writes the scan result information directly to <code>param-&gt;scanBuf</code>, so you must pay careful attention to the cache.</TD>
+    </TR>
+  </tbody>
+</table>
+
+<h2>Return Values</h2>
+<p>Returns the results of the <CODE><A href="WMErrCode.html">WMErrCode</A></CODE> enumerated type process.</p>
+
+<H2>Description</H2>
+<P><font color="red">Use of this function is NOT recommended. </font>In a wireless environment with multiple access points and parents, this function sometimes requires several tens of seconds to find a parent. Instead of this function, consider using the <A href="WM_StartScanEx.html"><CODE>WM_StartScanEX</CODE></A> function, which can get multiple sets of beacon information all at once.</P>
+<P>Starts the scan for a parent. This function is only executable when the WM is in either the <A href="wm_state_diagram.html"><code>IDLE</code></A> or <A href="wm_state_diagram.html"><code>SCAN</code></A> state. If the WM is in the <A href="wm_state_diagram.html"><code>IDLE</code></A> state, this function changes the state to <A href="wm_state_diagram.html"><code>SCAN</code></A>. If the return value is <code>WM_ERRCODE_OPERATING</code>, a callback is generated after the scanning process has started properly. The callback is also generated when the scan process has completed. One callback can obtain information for no more than one parent machine. To obtain information from several parent machines, this function must be called several times. However, by doing so, there may be a possibility of getting the information from the same parent machine. If a parent could not be found after completing the scan, a callback is generated to indicate that no parent was found. You may continuously call <code>WM_StartScan</code> without calling <A href="WM_EndScan.html"><CODE>WM_EndScan</CODE></A>. Basically, this function searches only the wireless channel specified by <em><strong><code>param</code></strong></em>. However, there is a possibility of picking up the parent information on neighboring channels. When searching for the parent on all channels, use <CODE><A href="WM_GetAllowedChannel.html">WM_GetAllowedChannel</A></CODE> to make a guess at the channels that the parent may be using, and then make the application search for it.</P>
+
+<h2>See Also</h2>
+<p><A href="WM_EndScan.html"><code>WM_EndScan</code></A>, <A href="WM_StartConnect.html"><code>WM_StartConnect</code></A>, <A href="WM_Disconnect.html"><code>WM_Disconnect</code></A>, <a href="WM_GetAllowedChannel.html"><code>WM_GetAllowedChannel</code></a></p>
+
+<H2>Revision History</H2>
+<P>
+2007/10/04 Clearly noted that use of this function is not recommended.<BR>2005/06/08 Indicated that callbacks are called from the interrupt handler.<br>2004/10/22 Changed the return value type.<BR>2004/09/21 Made additions to Description.<BR>2004/08/10 Revised Description.<BR>2004/08/02 Standardized structure names.<BR>2004/07/29 Added to Description.<br>2004/07/23 Initial version.<BR>
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>OS_WaitIrq</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">OS_WaitIrq <IMG src="../../image/NTR.gif" align="middle"><IMG src="../../image/TWL.gif" align="middle"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/os.h&gt;</CODE><BR> <BR> <CODE>void OS_WaitIrq( BOOL clear, OSIrqMask irqFlags );</CODE></dd>
+</dl><h2>Arguments</h2>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+<TD><CODE>clear</CODE></TD>
+<TD>Whether check flags should be cleared.</TD>
+    </TR>
+    <TR>
+<TD><CODE>irqFlags</CODE></TD>
+<TD>The mask value of the interrupt generation for which the function is waiting. You can specify more than one by using a logical sum.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<h2>Return Values</h2>
+<p>None.</p>
+<H2>Description</H2>
+<p>Waits for the generation of a specified IRQ interrupt cause.</p>
+<p>Use <code>irqFlags</code> to specify multiple interrupt sources by logical OR-ing the mask values. Generation of any of the interrupts included here will cause a return from the function. Refer to the following information for the types of interrupts.</p>
+<p><A href="interrupts_list.html">Types of Interrupts</A></p>
+<BLOCKQUOTE style="background-color:#ffffcc;"><CODE>(Example) Waits for either VBLANK or TIMER0.</CODE><BR> <BR> <CODE>OS_WaitIrq( TRUE, OS_IE_V_BLANK | OS_IE_TIMER0 );</CODE></BLOCKQUOTE>
+<p>To determine if an interrupt occurred, examine whether the interrupt check flag has been set. To set this flag, the user must explicitly call the <A href="OS_SetIrqCheckFlag.html"><CODE>OS_SetIrqCheckFlag</CODE></A> function from within the interrupt handler.</p>
+<p>If <CODE>clear</CODE> is set to <CODE>TRUE</CODE>, the interrupt check flags specified in <CODE>irqFlags</CODE> will be reset before waiting for the interrupt to occur. If <CODE>FALSE</CODE>, they will not be reset. If they are not reset and the check flag you want to wait on is set when this function is reached, control will return from this function immediately.</p>
+<H3> Differences Between the OS_WaitInterrupt and OS_WaitIrq Functions</H3>
+<P>The difference between the <A href= "../system/OS_WaitInterrupt.html"><code>OS_WaitInterrupt</code></a> and <CODE>OS_WaitIrq</CODE> functions is the following. While <code>OS_WaitInterrupt</code> is waiting for an interrupt cause, it uses <a href="../system/OS_Halt.html"><code>OS_Halt</code></a> to stop. While <code>OS_WaitIrq</code> is waiting for an interrupt cause, it switches processing to another thread. It restarts operation after an interrupt is generated. If no threads are used, both functions behave the same.</P>
+<H3> <BR> When Multiple Threads Are Waiting for the Same Interrupt</H3>
+<P>Care must be taken when multiple threads have the same interrupt. It is possible to have a situation in which only one thread is run, and the others are not.</P>
+<P>For example, consider the following program.</P>
+<BLOCKQUOTE style="background-color:#ffffcc;"><CODE>void TwlMain(void)<BR> {<BR> :<BR>OS_CreateThread( &amp;thread1, proc1, ..., 10 );<BR> OS_CreateThread( &amp;thread2, proc2, ..., 11 );<BR> :<BR>}<BR> <BR> //---- Thread1<BR> void proc1(void* arg)<BR> {<BR> while(1)<BR> {<BR> OS_WaitIrq( TRUE, OS_IE_V_BLANK );<BR> OS_Printf(&quot;proc1\n&quot;);<BR> }<BR> }<BR> <BR> //---- Thread2<BR> void proc2(void* arg)<BR> {<BR> while(1)<BR> {<BR> OS_WaitIrq( TRUE, OS_IE_V_BLANK );<BR> OS_Printf(&quot;proc2\n&quot;);<BR> }<BR> }<BR> <BR> //---- V-Blank interrupt handler<BR> void VBlankHandler( void )<BR> {<BR> OS_SetIrqCheckFlag( OS_IE_V_BLANK );<BR> }</CODE></BLOCKQUOTE>
+<P>Thread 1 and thread 2 wait for VBLANK. Once a VBLANK occurs, the VBLANK interrupt check flag is set within the handler. Then thread 1 and thread 2 will enter the <EM>runnable </EM> state, but thread 1 will run first due to the order of thread priorities. Thread 1 will display &quot;<CODE>proc1</CODE>&quot; and  then reenter the <CODE>OS_WaitIrq</CODE> function and wait for a VBLANK. Since at this time the first argument is <CODE>TRUE</CODE>, the thread will reset the VBLANK interrupt check flag and go to sleep. Next, thread 2 will be given the right to run, but because the VBLANK interrupt check flag has already been cleared, it will go back to sleep without returning from the <CODE>OS_WaitIrq</CODE> function. This cycle will also be repeated during the next VBLANK. In other words, this program will just keep displaying &quot;<CODE>proc1</CODE>&quot; without ever displaying &quot;<CODE>proc2</CODE>&quot;.</P>
+<P>That said, the first argument of the <CODE>OS_WaitIrq</CODE> function cannot be set to <CODE>FALSE</CODE>. If it is set to <CODE>FALSE</CODE>, no matter how many times the <CODE>OS_WaitIrq</CODE> function is called after a VBLANK occurs, control will return immediately.</P>
+<h2>See Also</h2>
+<p><A href="OS_SetIrqCheckFlag.html"><CODE>OS_SetIrqCheckFlag</CODE></A><BR> <A href="../system/OS_WaitInterrupt.html"><CODE>OS_WaitInterrupt</CODE></A><BR> <A href="OS_WaitAnyIrq.html"><CODE>OS_WaitAnyIrq</CODE></A><br></p>
+<H2>Revision History</H2>
+<P>2008/07/01 Added a note about invoking from multiple threads.<BR> 2005/03/08 Standardized the Japanese term for &quot;interrupt.&quot;<BR> 2004/05/24 Clarified the differences from the <CODE>OS_WaitInterrupt</CODE> function.<br> 2004/05/01 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

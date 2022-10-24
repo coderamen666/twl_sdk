@@ -1,0 +1,125 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<LINK rel="stylesheet" type="text/css" href="../../css/nitro.css">
+<TITLE>Tips Demos</TITLE>
+</HEAD>
+<BODY>
+<H1>Other Sample Demos: Tips</H1>
+<H2>Location</H2>
+<P><CODE>$TwlSDK/build/demos/tips</CODE></P>
+
+<H2>Compilation</H2>
+<P>Move to the <CODE>$TwlSDK/build/demos/tips</CODE> directory and enter the following.</P>
+<BLOCKQUOTE><CODE>% make</CODE></BLOCKQUOTE>
+<P> The compilation begins, and the SRL executable file and the NEF or TEF files with binary information are generated in the following directory.</P>
+<BLOCKQUOTE><CODE>$TwlSDK/build/demos/tips/(sample name)/bin/(platform)/(target)/</CODE></BLOCKQUOTE>
+<P>    For example:</P>
+<BLOCKQUOTE><CODE>$TwlSDK/build/demos/tips/MultiLink/bin/ARM9-TS/Release/main.srl</CODE></BLOCKQUOTE>
+<P>is the executable file for the <CODE>MultiLink</CODE> demo.</P>
+
+<H2>Execution</H2>
+<H3>For NITRO ROMs</H3>
+<P>If using the Ensata emulator:</P>
+<UL>
+<LI>Execute NEF and SRL files with ensata
+</UL>
+<P>If using IS-NITRO-DEBUGGER:</P>
+<UL>
+<LI>Load and execute an NLF file with IS-NITRO-DEBUGGER
+<LI>Execute an SRL file with IS-NITRO-DEBUGGER
+<LI>Execute an SRL file with IS-NITRO-DEBUGGER using the <CODE>loadrun.exe</CODE> tool from the command line
+</UL>
+<P>If using IS-TWL-DEBUGGER:</P>
+<UL>
+<LI>Load and execute an NLF file with IS-TWL-DEBUGGER
+<LI>Execute an SRL file with IS-TWL-DEBUGGER
+<LI>Execute an SRL file with IS-TWL-DEBUGGER using the <CODE>loadrun.TWL.exe</CODE> tool from the command line
+</UL>
+<H3>For TWL/NITRO HYBRID ROMs</H3>
+<P>If using IS-NITRO-DEBUGGER:</P>
+<UL>
+<LI>Execute an SRL file with IS-NITRO-DEBUGGER
+<LI>Execute an SRL file with IS-NITRO-DEBUGGER using the <CODE>loadrun.exe</CODE> tool from the command line
+</UL>
+<P>If using IS-TWL-DEBUGGER:</P>
+<UL>
+<LI>Load and execute a TLF file with IS-TWL-DEBUGGER
+<LI>Execute an SRL file with IS-TWL-DEBUGGER
+<LI>Execute an SRL file with IS-TWL-DEBUGGER using the <CODE>loadrun.TWL.exe</CODE> tool from the command line
+</UL>
+<H3>For TWL LIMITED ROMs</H3>
+<P>If using IS-TWL-DEBUGGER:</P>
+<UL>
+<LI>Load and execute a TLF file with IS-TWL-DEBUGGER
+<LI>Execute an SRL file with IS-TWL-DEBUGGER
+<LI>Execute an SRL file with IS-TWL-DEBUGGER using the <CODE>loadrun.TWL.exe</CODE> tool from the command line
+</UL>
+
+<H2>Description</H2>
+<TABLE width="720">
+  <TBODY>
+    <TR>
+<TH>Name</TH>
+<TH>Directory</TH>
+<TH>Operation</TH>
+    </TR>
+    <TR>
+<TD width="187"><EM><STRONG><CODE>BuildFinalRom</CODE></STRONG></EM></TD>
+<TD><CODE>demos</CODE></TD>
+<TD width="525">Shows an example of the process that incorporates files that need to be included in the final ROM. For building from the upper directory, this directory is built only when <CODE>TWL_FINALROM</CODE> is defined.</TD>
+    </TR>
+    <TR>
+<TD width="187"><EM><STRONG><CODE>DisplayLogo</CODE></STRONG></EM></TD>
+<TD><CODE>demos</CODE></TD>
+<TD width="525">Shows a sample display of the Licensed by Nintendo logo with gray letters on a white background. During display, further display can be skipped by pressing the A Button.</TD>
+    </TR>
+    <TR>
+<TD width="187"><EM><STRONG><CODE>MultiLink</CODE></STRONG></EM></TD>
+<TD><CODE>demos</CODE></TD>
+<TD width="525">Compiles source files in their respective multiple subdirectories and links them in the parent directory.</TD>
+    </TR>
+    <TR>
+<TD width="187"><EM><STRONG><CODE>MyBuildMessages</CODE></STRONG></EM></TD>
+<TD><CODE>demos</CODE></TD>
+<TD width="525">Changes messages for individual build-time commands such as CC and LD.</TD>
+    </TR>
+    <TR>
+<TD width="187"><EM><STRONG><CODE>SwapCrossOver</CODE></STRONG></EM></TD>
+<TD><CODE>demos</CODE></TD>
+<TD width="525">Use this procedure to check for process omissions in 3D screen drawing processes. It sends dummy polygons to the graphics engine and checks by counting polygons.</TD>
+    </TR>
+    <TR>
+<TD width="187"><EM><STRONG><CODE>NTRBanner</CODE></STRONG></EM></TD>
+<TD><CODE>demos</CODE></TD>
+<TD width="525">Converts a source image into an NTR banner and embeds it in ROM.</TD>
+    </TR>
+    <TR>
+<TD width="187"><EM><STRONG><CODE>TWLBanner_anim1</CODE></STRONG></EM></TD>
+<TD><CODE>demos.TWL</CODE></TD>
+<TD width="525">Converts source Nitro-Character data into an animated TWL banner and embeds it in ROM.</TD>
+    </TR>
+    <TR>
+<TD width="187"><EM><STRONG><CODE>TWLBanner_anim2</CODE></STRONG></EM></TD>
+<TD><CODE>demos.TWL</CODE></TD>
+<TD width="525">Converts a source comprising 8 bitmap files and an XML file into an animated TWL banner and embeds it in ROM.</TD>
+    </TR>
+    <TR>
+<TD width="187"><EM><STRONG><CODE>TWLBanner_image</CODE></STRONG></EM></TD>
+<TD><CODE>demos.TWL</CODE></TD>
+<TD width="525">Converts a source image into a still-image TWL banner and embeds it in ROM.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>Operation</H2>
+<P><CODE>The <CODE>MultiLink</CODE> demo is related to the linking process.<BR>The <CODE>SwapCrossOver</CODE> demo does not work properly with Ensata.<BR> <CODE>NTRBanner</CODE> functions normally only when using NITRO ROM.</CODE></P>
+<H2>See Also</H2>
+<H2>Revision History</H2>
+<P>
+2009/11/10 Added a DisplayLogo demo.<BR>2008/09/29 Added a banner demo.<BR>2008/07/11 Changed the description to match TWL.<BR>2005/03/02 Revised the description to match current support environment conditions.<BR>2004/08/17 Standardized the notation for IS-NITRO-EMULATOR.<BR>2004/07/10 Initial version.</P>
+<BR>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

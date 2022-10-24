@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>OS_DisableIrqMask</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">OS_DisableIrqMask <IMG src="../../image/NTR.gif" align="middle"><IMG src="../../image/TWL.gif" align="middle"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/os.h&gt;</CODE><BR>
+  <BR>
+  <CODE>OSIrqMask OS_DisableIrqMask( OSIrqMask intr );</CODE></dd>
+</dl><h2>Arguments</h2>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+      <TD><B><I>intr</I></B></TD>
+      <TD>The IRQ interrupt cause to be prohibited (expressed as a logical sum)</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<h2>Return Values</h2>
+<p>Returns the IRQ interrupt cause parameters from before this function was called. See below for information about causes. The return value is the logical sum of the causes that were formerly set.</p>
+<p><A href="interrupts_list.html">Types of Interrupts</A></p>
+<H2>Description</H2>
+<P>Sets IRQ interrupt parameters. Changes the 'enable' bit of the specified causes from their current setting to 'prohibited'.</P>
+<H3><B><BR> Types of Interrupts</B></H3>
+<P>Specify the interrupt causes to enable using the <B><I>intr</I></B> argument. See below for information on the types of interrupts.</P>
+<P><A href="interrupts_list.html">Types of Interrupts</A></P>
+<H3><B><BR> Example</B></H3>
+<BLOCKQUOTE style="background-color:#ffffd0;"><CODE>// Prohibit both V-Blank and DMA0 interrupts<BR> OS_DisableIrqMask( OS_IE_V_BLANK | OS_IE_DMA0 );</CODE></BLOCKQUOTE>
+<h2>Internal Operation</h2>
+<P>Operates on one of the I/O registers, IE (Interrupt Enable).</P>
+
+<h2>See Also</h2>
+<p><a href="OS_EnableIrqMask.html"><code>OS_EnableIrqMask</code></a>, <a href="OS_SetIrqMask.html"><code>OS_SetIrqMask</code></a></p>
+<H2>Revision History</H2>
+<P>2008/05/30 Moved the types of interrupts to a separate page.<BR>2005/03/08 Standardized the Japanese term for &quot;interrupt.&quot;<br> 2003/12/01 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

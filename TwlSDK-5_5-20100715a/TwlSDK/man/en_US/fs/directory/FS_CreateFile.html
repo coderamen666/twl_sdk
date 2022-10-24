@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title>FS_CreateFile</title>
+<link rel="stylesheet" href="../../css/nitro.css" type="text/css" />
+</head>
+<body>
+
+<h1>FS_CreateFile <img src="../../image/NTR.gif"align="middle"><img src="../../image/TWL.gif" align="middle"></h1>
+<h2>Syntax</h2>
+<pre><code>
+#include &lt;nitro/fs.h&gt;
+
+BOOL FS_CreateFile(const char *path, u32 permit);
+</code></pre>
+
+<h2>Arguments</h2>
+<table style="width:100%">
+<tbody>
+<tr>
+<td style="width:13%"><em><strong>path</strong></em></td>
+<td style="width:87%">Path name of the file to be created.</td>
+</tr>
+<tr>
+<td style="width:13%"><em><strong>permit</strong></em></td>
+<td style="width:87%">Specifies the combination of <a href="../FS_PERMIT.html"><code>FS_PERMIT_*</code></a> flags that indicate the access rights to the file.</td>
+</tr>
+</tbody>
+</table>
+
+<h2>Return Values</h2>
+<p>Returns TRUE if the file was created properly; returns FALSE otherwise. In case of failure, the error details can be obtained using <code><a href="../archive/FS_GetArchiveResultCode.html">FS_GetArchiveResultCode()</a></code>.</p>
+
+<h2>Description</h2>
+<p>Creates the new file specified by the arguments. The function returns FALSE in the following situations:
+</p>
+<ul>
+<li>If the target archive does not support the creation of new files.</li>
+<li>If a file of the same name already exists.</li>
+</ul>
+
+<h2>Note</h2>
+<ul>
+<li>This function cannot be called from the interrupt handler (IRQ mode). Also note that in some cases processing may not end if interrupts are left prohibited.</li>
+</ul>
+
+<h2>See Also</h2>
+<p><code><a href="../FS_PERMIT.html">FS_PERMIT_*</a> <br /> <a href="FS_DeleteFile.html">FS_DeleteFile</A> <a href="FS_RenameFile.html">FS_RenameFile</A> <a href="../file/FS_GetResultCode.html">FS_GetResultCode</A></code></p>
+
+<h2>Revision History</h2>
+<p>
+2007/09/18 Initial version.
+</p>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

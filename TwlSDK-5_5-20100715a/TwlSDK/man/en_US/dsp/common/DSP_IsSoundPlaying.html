@@ -1,0 +1,36 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title>DSP_IsSoundPlaying</title>
+<link rel="stylesheet" href="../../css/nitro.css" type="text/css" />
+</head>
+<body>
+
+<h1>DSP_IsSoundPlaying <IMG src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+
+<pre><code>
+BOOL DSP_IsSoundPlaying(void);
+</code></pre>
+
+<h2>Arguments</h2>
+<p>None.</p>
+
+<h2>Return Values</h2>
+<p>Returns <CODE>TRUE</CODE> if sound output from the DSP is currently being played; <CODE>FALSE</CODE> otherwise.</p>
+
+<h2>Description</h2>
+<p>Determines if the DSP sound output is being played by the <a href="DSP_PlaySound.html"><CODE>DSP_PlaySound</CODE></a> function. This function can be used if any of the DSP components have been loaded.<br><br><font color="red"><B>Note:</B></font> When playing a shutter sound using <code><a href="DSP_PlayShutterSound.html">DSP_PlayShutterSound</a></code>, use <code><a href="DSP_IsShutterSoundPlaying.html">DSP_IsShutterSoundPlaying</a></code> instead of <code>DSP_IsSoundPlaying</code> to check whether playback has ended.
+</p>
+
+<h2>See Also</h2>
+<p><code><a href="DSP_PlaySound.html">DSP_PlaySound</a> <BR><a href="DSP_IsShutterSoundPlaying.html">DSP_IsShutterSoundPlaying</a></code></p>
+
+<h2>Revision History</h2>
+<p>
+2008/10/23 Added reference to DSP_IsShutterSoundPlaying to determine if shutter-sound playback has ended.<br>2008/07/09 Added information about the <code>DSP_PlayShutterSound</code> function.<BR> 2008/05/27 Initial version.<br />
+</p>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

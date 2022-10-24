@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>MI_IsCacheLoading</title>
+<link rel="stylesheet" href="../../css/nitro.css" type="text/css" />
+</head>
+<body>
+<h1>MI_IsCacheLoading <IMG src="../../image/NTR.gif" align="middle"><IMG src="../../image/TWL.gif" align="middle"></h1>
+<h2>Syntax</h2>
+<dl>
+  <dd>
+<code>#include &lt;nitro/mi.h&gt;<br />
+  <br />
+  void MI_IsCacheLoading(const <A href="MICache.html">MICache</A> *cache);</code></dd>
+</dl>
+
+<h2>Arguments</h2>
+<table border="1" width="100%">
+  <tbody>
+    <tr>
+      <td width="13%"><em><strong>cache</strong></em></td>
+      <td width="87%">Pointer to the <CODE><A href="MICache.html">MICache</A></CODE> structure.<br />
+      The cache must have been initialized using <CODE><A href="MI_InitCache.html">MI_InitCache()</A></CODE>.</td>
+    </tr>
+  </TBODY>
+</table>
+
+<h2>Return Values</h2>
+<p>Returns TRUE if there is one or more pages in the load-wait state; otherwise, returns FALSE. </p>
+
+<h2>Description</h2>
+<p>Determines whether a page that has entered the &quot;waiting to load&quot; state as a result of a call to <CODE><A href="MI_ReadCache.html">MI_ReadCache()</A></CODE> exists.<br />Pages that are in the &quot;waiting to load&quot; state can be switched to the &quot;loaded&quot; state by calling <CODE><A href="MI_LoadCache.html">MI_LoadCache()</A></CODE>.
+</p>
+<p>
+This feature is a utility that enables efficient read access to devices. For more information, see the reference for the <a href="MICache.html"><CODE>MICache</CODE></a> structure.
+</p>
+
+<h2>See Also</h2>
+<p><code><a href="MI_ReadCache.html">MI_ReadCache</a> <a href="MI_LoadCache.html">MI_LoadCache</a> <a href="MI_IsCacheLoading.html">MI_IsCacheLoading</a><br /> <a href="MICache.html">MICache</a></code></p>
+<h2>Revision History</h2>
+<p>
+2007/05/16 Initial version.
+</p>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

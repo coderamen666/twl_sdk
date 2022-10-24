@@ -1,0 +1,218 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<base target="main" />
+<title>Wireless File System (WFS) Library Function List</title>
+<link rel="stylesheet" href="../css/apilist.css" />
+</head>
+<body>
+<h1>Wireless File System (WFS) Library Function List</h1>
+<h3><a name="server" id="server">Parent (Server)</a></h3>
+<h4>Initialization</h4>
+<table border="1" width="100%">
+  <tbody>
+    <tr>
+      <th style="width:25%"><a href="server/WFS_InitServer.html" target="_self">WFS_InitServer</a></th>
+      <td width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></td>
+      <td>Initializes the WFS library parent (server-side) context.</td>
+    </tr>
+    <tr>
+      <th style="width:25%"><a href="server/WFS_EndServer.html" target="_self">WFS_EndServer</a></th>
+      <td width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></td>
+      <td>Terminates the WFS library parent (server-side) context.</td>
+    </tr>
+    <tr>
+      <th style="width:25%"><a href="server/WFS_RegisterServerTable.html" target="_self">WFS_RegisterServerTable</a></th>
+      <td width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></td>
+      <td>Loads the ROM file table to be distributed and registers it with the server.</td>
+    </tr>
+    <tr>
+      <th style="width:25%"><a href="server/WFS_ExecuteRomServerThread.html" target="_self">WFS_ExecuteRomServerThread</a></th>
+      <td width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></td>
+      <td>Registers the ROM file table to be distributed and executes a thread for automatically responding to requests.</td>
+    </tr>
+  </tbody>
+</table>
+<h4>Hook</h4>
+<table border="1" width="100%">
+  <tbody>
+    <tr>
+      <th style="width:25%"><a href="server/WFS_CallServerConnectHook.html" target="_self">WFS_CallServerConnectHook</a></th>
+      <td width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></td>
+      <td>Notifies the library that a new child (client) has connected.</td>
+    </tr>
+    <tr>
+      <th style="width:25%"><a href="server/WFS_CallServerDisconnectHook.html" target="_self">WFS_CallServerDisconnectHook</a></th>
+      <td width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></td>
+      <td>Notifies the library that a child (client) has disconnected.</td>
+    </tr>
+    <tr>
+      <th style="width:25%"><a href="server/WFS_CallServerPacketSendHook.html" target="_self">WFS_CallServerPacketSendHook</a></th>
+      <td width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></td>
+      <td>Gets MP communication packet data that needs to be sent to children (clients).</td>
+    </tr>
+    <tr>
+      <th style="width:25%"><a href="server/WFS_CallServerPacketRecvHook.html" target="_self">WFS_CallServerPacketRecvHook</a></th>
+      <td width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></td>
+      <td>Analyzes MP communication packet data received from children (clients).</td>
+    </tr>
+  </tbody>
+</table>
+<h4>Settings</h4>
+<table border="1" width="100%">
+  <tbody>
+    <tr>
+      <th style="width:25%"><a href="server/WFS_GetServerConnectedBitmap.html" target="_self">WFS_GetServerConnectedBitmap</a></th>
+      <td width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></td>
+      <td>Gets the status of currently connected children (clients) as a bitmap.</td>
+    </tr>
+    <tr>
+      <th style="width:25%"><a href="server/WFS_GetServerBusyBitmap.html" target="_self">WFS_GetServerBusyBitmap</a></th>
+      <td width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></td>
+      <td>Gets the status of children (clients) currently issuing requests as a bitmap.</td>
+    </tr>
+    <tr>
+      <th style="width:25%"><a href="server/WFS_GetServerSyncBitmap.html" target="_self">WFS_GetServerSyncBitmap</a></th>
+      <td width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></td>
+      <td>Gets the status of children (clients) for which request-response synchronization is set as a bitmap.</td>
+    </tr>
+    <tr>
+      <th style="width:25%"><a href="server/WFS_GetServerPacketLength.html" target="_self">WFS_GetServerPacketLength</a></th>
+      <td width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></td>
+      <td>Gets the MP communication packet size of the parent (server).</td>
+    </tr>
+    <tr>
+      <th style="width:25%"><a href="server/WFS_SetServerPacketLength.html" target="_self">WFS_SetServerPacketLength</a></th>
+      <td width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></td>
+      <td>Sets the MP communication packet size of the parent (server).</td>
+    </tr>
+    <tr>
+      <th style="width:25%"><a href="server/WFS_SetServerSync.html" target="_self">WFS_SetServerSync</a></th>
+      <td width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></td>
+      <td>Sets the synchronization group to use when a parent (server) responds to requests from children (clients).</td>
+    </tr>
+  </tbody>
+</table>
+<h3><a name="client" id="client">Child (Client)</a></h3>
+<h4>Initialization</h4>
+<table border="1" width="100%">
+  <tbody>
+    <tr>
+      <th style="width:25%"><a href="client/WFS_InitClient.html" target="_self">WFS_InitClient</a></th>
+      <td width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></td>
+      <td>Initializes the WFS library child (client) context.</td>
+    </tr>
+    <tr>
+      <th style="width:25%"><a href="client/WFS_EndClient.html" target="_self">WFS_EndClient</a></th>
+      <td width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></td>
+      <td>Terminates the WFS library child (client) context.</td>
+    </tr>
+    <tr>
+      <th style="width:25%"><a href="client/WFS_StartClient.html" target="_self">WFS_StartClient</a></th>
+      <td width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></td>
+      <td>Starts the child (client) communication process.</td>
+    </tr>
+  </tbody>
+</table>
+<h4>Hook</h4>
+<table border="1" width="100%">
+  <tbody>
+    <tr>
+      <th style="width:25%"><a href="client/WFS_CallClientConnectHook.html" target="_self">WFS_CallClientConnectHook</a></th>
+      <td width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></td>
+      <td>Notifies the library that connection to the parent (server) has been established.</td>
+    </tr>
+    <tr>
+      <th style="width:25%"><a href="client/WFS_CallClientDisconnectHook.html" target="_self">WFS_CallClientDisconnectHook</a></th>
+      <td width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></td>
+      <td>Notifies the library that the connection to the parent (server) has ended.</td>
+    </tr>
+    <tr>
+      <th style="width:25%"><a href="client/WFS_CallClientPacketSendHook.html" target="_self">WFS_CallClientPacketSendHook</a></th>
+      <td width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></td>
+      <td>Gets MP communication packet data that needs to be sent to the parent (server).</td>
+    </tr>
+    <tr>
+      <th style="width:25%"><a href="client/WFS_CallClientPacketRecvHook.html" target="_self">WFS_CallClientPacketRecvHook</a></th>
+      <td width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></td>
+      <td>Analyzes MP communication packet data received from the parent (server).</td>
+    </tr>
+  </tbody>
+</table>
+<h4>Operation</h4>
+<table border="1" width="100%">
+  <tbody>
+    <tr>
+      <th style="width:25%"><a href="client/WFS_IsClientReady.html" target="_self">WFS_IsClientReady</a></th>
+      <td width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></td>
+      <td>Determines whether the child (client) is ready.</td>
+    </tr>
+    <tr>
+      <th style="width:25%"><a href="client/WFS_GetTableFormat.html" target="_self">WFS_GetTableFormat</a></th>
+      <td width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></td>
+      <td>Accesses the ROM file table received from the parent (server).</td>
+    </tr>
+    <tr>
+      <th style="width:25%"><a href="client/WFS_RequestClientRead.html" target="_self">WFS_RequestClientRead</a></th>
+      <td width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></td>
+      <td>Issues a ROM read request to the parent (server).</td>
+    </tr>
+    <tr>
+      <th style="width:25%"><a href="client/WFS_GetClientReadProgress.html" target="_self">WFS_GetClientReadProgress</a></th>
+      <td width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></td>
+      <td>Gets the progress status of a ROM read request.</td>
+    </tr>
+    <tr>
+      <th style="width:25%"><a href="client/WFS_ReplaceRomArchive.html" target="_self">WFS_ReplaceRomArchive</a></th>
+      <td width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></td>
+      <td>Directly mounts the WFS library to the &quot;rom&quot; archive of the FS library.</td>
+    </tr>
+  </tbody>
+</table>
+<h3><a name="struct" id="struct">Types and Structures</a></h3>
+<table border="1" width="100%">
+  <tbody>
+    <tr>
+      <th style="width:25%"><a href="WFSEventType.html" target="_self">WFSEventType</a></th>
+      <td width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></td>
+      <td>Enumerated value indicating the various types of notification events of the WFS library.</td>
+    </tr>
+    <tr>
+      <th style="width:25%"><a href="WFSEventCallback.html" target="_self">WFSEventCallback</a></th>
+      <td width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></td>
+      <td>The event notification callback function format for the WFS library.</td>
+    </tr>
+    <tr>
+      <th style="width:25%"><a href="WFSRequestClientReadDoneCallback.html" target="_self">WFSRequestClientReadDoneCallback</a></th>
+      <td width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></td>
+      <td>The callback function format for the <a href="client/WFS_RequestClientRead.html"><code>WFS_RequestClientRead</code></a> function.</td>
+    </tr>
+    <tr>
+      <th style="width:25%"><a href="WFSPacketBuffer.html" target="_self">WFSPacketBuffer</a></th>
+      <td width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></td>
+      <td>An argument structure used by the WFS library's hook functions.</td>
+    </tr>
+    <tr>
+      <th style="width:25%"><a href="WFSPeerInfo.html" target="_self">WFSPeerInfo</a></th>
+      <td width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></td>
+      <td>An argument structure used by the WFS library's hook functions.</td>
+    </tr>
+    <tr>
+      <th style="width:25%"><a href="WFSSegmentBuffer.html" target="_self">WFSSegmentBuffer</a></th>
+      <td width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></td>
+      <td>The argument structure used for WFS library event notifications.</td>
+    </tr>
+    <tr>
+      <th style="width:25%"><a href="WFSTableFormat.html" target="_self">WFSTableFormat</a></th>
+      <td width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></td>
+      <td>This structure represents file table information to be retrieved by children (clients).</td>
+    </tr>
+  </tbody>
+</table>
+
+<table border="0" style="border-width:0px;height:100%;"><tr><td style="background-color:white;"></td></tr></table>
+
+<hr><p>CONFIDENTIAL</p></body>
+</html>

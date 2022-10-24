@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>MI_InitCache</title>
+<link rel="stylesheet" href="../../css/nitro.css" type="text/css" />
+</head>
+<body>
+<h1>MI_InitCache <IMG src="../../image/NTR.gif" align="middle"><IMG src="../../image/TWL.gif" align="middle"></h1>
+<h2>Syntax</h2>
+<dl>
+  <dd>
+<code>#include &lt;nitro/mi.h&gt;<br />
+  <br />
+  void MI_InitCache(<A href="MICache.html">MICache</A> *cache, u32 page, void *buffer, u32 length);</code></dd>
+</dl>
+
+<h2>Arguments</h2>
+<table border="1" width="100%">
+  <tbody>
+    <tr>
+      <td width="13%"><em><strong>cache</strong></em></td>
+      <td width="87%">Pointer to the <A href="MICache.html">MICache</A> structure to be initialized.</td>
+    </tr>
+    <tr>
+      <td width="13%"><em><strong>page</strong></em></td>
+      <td width="87%">Size of each cache page.<br />
+                      This size must be 4 bytes or greater, and must be a power of 2.</td>
+    </tr>
+    <tr>
+      <td width="13%"><em><strong>buffer</strong></em></td>
+      <td width="87%">Buffer used for cache page management information.</td>
+    </tr>
+    <tr>
+      <td width="13%"><em><strong>length</strong></em></td>
+      <td width="87%">Byte size of <EM><STRONG>buffer</STRONG></EM>.
+                      The library creates as many cache pages as possible of the specified size.<br />
+                      For more details, see the Description section below.</td>
+    </tr>
+  </TBODY>
+</table>
+
+<h2>Return Values</h2>
+<p>None.</p>
+
+<h2>Description</h2>
+<p>Specifies the buffer and page size for the management information, and initializes the <A href="MICache.html">MICache</A> structure.<br />This structure uses the buffer internally to prepare a cache page list.<br />This structure can be used to call <CODE><A href="MI_ReadCache.html">MI_ReadCache()</A></CODE> and <A href="MI_LoadCache.html"><CODE>MI_LoadCache()</CODE></A>.
+</p>
+<p>
+The size of the buffer for management information can be specified to whatever size meets the application.<BR>The library uses the values specified for <B><CODE>page</CODE></B> and  <B><CODE>length</CODE></B> to automatically calculate the number of pages using the expression:
+</p>
+<p style="background-color:#FFFFF8;padding:2px;margin:1px">  <CODE>length / ( sizeof(MICachePage) + page )</CODE></p>
+<p>
+It also internally manages the computation as a list structure. Conversely, if you want to compute the requisite byte size from the page size and the total number of pages, you can use the macro:
+</p>
+<p style="background-color:#FFFFF8;padding:2px;margin:1px">  <CODE>MI_CACHE_BUFFER_WORKSIZE(page, total)</CODE></p>
+<p>
+ 
+</p>
+<p>
+This feature is a utility that enables efficient read access to devices. For more information, see the reference for the <a href="MICache.html"><CODE>MICache</CODE></a> structure.
+</p>
+
+<h2>See Also</h2>
+<p><code><a href="MI_ReadCache.html">MI_ReadCache</a> <a href="MI_LoadCache.html">MI_LoadCache</a> <a href="MI_IsCacheLoading.html">MI_IsCacheLoading</a><br /> <a href="MICache.html">MICache</a></code></p>
+<h2>Revision History</h2>
+<p>
+2007/05/16 Initial version.
+</p>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

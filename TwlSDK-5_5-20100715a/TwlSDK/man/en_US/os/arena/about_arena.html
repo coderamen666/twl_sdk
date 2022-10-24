@@ -1,0 +1,139 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>Arena: Overview </TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">Arena: Overview <IMG src="../../image/NTR.gif" align="middle"><IMG src="../../image/TWL.gif" align="middle"></H1>
+<BLOCKQUOTE><A HREF="#arenaid">Arena ID</A><BR><A HREF="#itcmarena">Arena in ITCM</A><BR><A HREF="#mainarena">Arenas in Main Memory, Expanded Main Memory, DTCM and Shared Regions</A><BR><A HREF="#main_nitro">NITRO mode</A><BR><A HREF="#main_twl">TWL mode</A><BR><A HREF="#main_start">Starting Address of Main Memory Arena</A><BR><A HREF="#workarena">Arenas in Work RAM</A><BR> <A HREF="#work_nitro">NITRO mode</A><BR> <A HREF="#work_twl">TWL mode</A><BR><A HREF="#allocarena">Managing Arenas and Allocating Memory</A></BLOCKQUOTE>
+
+<A NAME="arenaid"></A>
+<H2>Arena ID</H2>
+<P>The TWL-SDK allows you to define nine different arena regions: main memory (one for ARM9 and one for ARM7), extended main memory, ITCM, DTCM, a shared memory user portion, shared work RAM (one for ARM9 and one for ARM7), and an ARM7-dedicated work RAM. Each region as assigned an ID that is an <CODE>OSArenaId</CODE> enumerated type value.<BR>
+</P>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+<TH>ArenaID</TH>
+<TH>Purpose of arena</TH>
+    </TR>
+    <TR>
+<TD>OS_ARENA_MAIN</TD>
+<TD>Arena in main memory for ARM9</TD>
+    </TR>
+    <TR>
+<TD>OS_ARENA_MAIN_SUBPRIV</TD>
+<TD>Arena in main memory for ARM7</TD>
+    </TR>
+    <TR>
+<TD>OS_ARENA_MAINEX</TD>
+<TD>Expanded arena in main memory</TD>
+    </TR>
+    <TR>
+<TD>OS_ARENA_ITCM</TD>
+<TD>Arena in ICTM</TD>
+    </TR>
+    <TR>
+<TD>OS_ARENA_DTCM</TD>
+<TD>Arena in DTCM</TD>
+    </TR>
+    <TR>
+<TD>OS_ARENA_SHARED</TD>
+<TD>User information arena in shared memory</TD>
+    </TR>
+    <TR>
+<TD>OS_ARENA_WRAM_MAIN</TD>
+<TD>Arena for ARM9 in shared work RAM</TD>
+    </TR>
+    <TR>
+<TD>OS_ARENA_WRAM_SUB</TD>
+<TD>Arena for ARM7 in shared work RAM</TD>
+    </TR>
+    <TR>
+<TD>OS_ARENA_WRAM_SUBPRIV</TD>
+<TD>Arena in ARM7 work RAM</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P> </P>
+<P>These arenas are initialized by <CODE><A href="OS_InitArena.html">OS_InitArena()</A></CODE>, and some are initialized by <CODE>OS_InitArenaEx()</CODE>. ARM7 configures arena regions in the following locations: main memory, shared work RAM, and ARM7 work RAM. The rest of the arenas are configured by ARM9.</P>
+<BLOCKQUOTE>    <IMG src="image_arenaMap.gif" border="0">   </BLOCKQUOTE>
+<P><BR> <BR>
+</P>
+
+<A NAME="itcmarena"></A>
+<H2>Arena in ITCM</a></H2>
+<BLOCKQUOTE>This area is the same for NITRO mode and TWL mode. </BLOCKQUOTE>
+<BLOCKQUOTE>ITCM is located in a 32KB block in the lower portion of main memory (<CODE>0x01FF8000 - 0x01FFFFFF</CODE>). The lowermost portion of this area stores the SDK's program code, such as interrupt handlers. If the user specifies the overlay module, it is placed next. By taking into consideration the maximum address used by the overlay, the portion that follows determines the ITCM arena. If there is no overlay, the ITCM arena begins at <CODE>SDK_AUTOLOAD_ITCM_BSS_END</CODE>. </BLOCKQUOTE>
+<BLOCKQUOTE>The starting address of this ITCM arena is determined automatically in the <CODE>lcf</CODE> file as <CODE>SDK_SECTION_ARENA_ITCM_START</CODE>. </BLOCKQUOTE>
+<BLOCKQUOTE>Examples of code placed in ITCM include interrupt handlers and some of the DMA functions. This part is transferred to ITCM by the <CODE>autoload</CODE> feature before <CODE>TwlMain()</CODE> starts. You can also specify what code to transfer.</BLOCKQUOTE>
+<BLOCKQUOTE><IMG src="image_arenaITCM.gif" border="0"><BR> <BR>
+</BLOCKQUOTE>
+
+<A NAME="mainarena"></A>
+<H2>Arenas in Main Memory, Expanded Memory, DTCM, and Shared Regions</H2>
+<BLOCKQUOTE>This section describes the arenas in main memory, expanded memory, DTCM, and shared regions. These areas have significant differences between NITRO mode and TWL mode.</BLOCKQUOTE>
+<A NAME="main_nitro"></A>
+<H3>For NITRO Mode:</H3>
+<BLOCKQUOTE>The following explanation applies to both NITRO ROM and TWL HYBRID ROM operating in NITRO mode. As you read this section, be sure to note the difference between the two starting addresses for ARM9 program placement.</BLOCKQUOTE>
+<BLOCKQUOTE>If the main memory size set with the <CODE><A href="OS_EnableMainExArena.html">OS_EnableMainExArena</A></CODE> function is 8MB, then the main memory extended arena can be used. But if the main memory size was set to 4MB with the <CODE><A href="OS_DisableMainExArena.html">OS_DisableMainExArena</A></CODE> function or the application is running on an actual console, the main memory extended arena cannot be used. (Functions that declare whether the extended arena in main memory is used must be called before the <CODE><A href="../init/OS_Init.html">OS_Init</A></CODE> or <CODE><A href="OS_InitArena.html">OS_InitArena</A></CODE> function.)</BLOCKQUOTE>
+<BLOCKQUOTE>The following two figures show examples of when the main memory size is set to 8MB and 4MB, respectively. Symbols that start with <code>SDK_</code> are defined automatically in the <CODE>.lcf</CODE> file. Symbols that start with <CODE>HW_</CODE>  are constants.</BLOCKQUOTE>
+<BLOCKQUOTE>The data region used for the interrupt process is allocated in the lower address of DTCM. The user can also allocate this region by adding a specification to do so. However, no program code can be placed in DTCM. Like ITCM, the area used by the overlay module is taken into consideration to determine the DTCM arena starting address <CODE>SDK_SECTION_ARENA_DTCM_START</CODE>. When there is no overlay, this has the same value as <CODE>SDK_AUTOLOAD_DTCM_BSS_END</CODE>.</BLOCKQUOTE>
+<BLOCKQUOTE><IMG src="image_arenaMainRAM_8m.gif" border="0"><BR> <BR> <BR> <BR> <IMG src="image_arenaMainRAM_4m.gif" border="0"></BLOCKQUOTE>
+<BLOCKQUOTE>The two previous figures (NITRO MODE:MEMSIZE=8M and NITRO MODE:MEMSIZE=4M) <B>both</B> refer to NITRO ROMs operating in NITRO mode. In the case of TWL HYBRID ROM operating in NITRO mode, program placement for ARM9 starts at 0x02004000, not at 0x02000000. The following figure shows the correct placement.</BLOCKQUOTE>
+<BLOCKQUOTE><IMG src="image_arenaMainRAM_HYB.gif" border="0"></BLOCKQUOTE>
+<BR> <A NAME="main_twl"></A>
+<H3>For TWL Mode:</H3>
+<BLOCKQUOTE>The following explanation applies to both TWL HYBRID ROM and TWL LIMITED ROM operating in TWL mode.</BLOCKQUOTE>
+<BLOCKQUOTE>If the main memory size set with the <CODE><A href="OS_EnableMainExArena.html">OS_EnableMainExArena</A></CODE> function is 32 MB, then the main memory extended arena can be used. But if the main memory size was set to 16 MB with the <CODE><A href="OS_DisableMainExArena.html">OS_DisableMainExArena</A></CODE> function or the application is running on an actual console, the main memory extended arena cannot be used. (Functions that declare whether the extended arena in main memory is used must be called before the <CODE><A href="../init/OS_Init.html">OS_Init</A></CODE> or <CODE><A href="OS_InitArena.html">OS_InitArena</A></CODE> function.)</BLOCKQUOTE>
+<BLOCKQUOTE>The following two figures show examples of when the main memory size is set to 32 MB and 16 MB, respectively. Symbols that start with <code>SDK_</code> are defined automatically in the <CODE>.lcf</CODE> file. Symbols that start with <CODE>HW_</CODE>  are constants.</BLOCKQUOTE>
+<BLOCKQUOTE>The data region used for the interrupt process is allocated in the lower address of DTCM. The user can also allocate this region by adding a specification to do so. However, no program code can be placed in DTCM. Like ITCM, the area used by the overlay module is taken into consideration to determine the DTCM arena starting address <CODE>SDK_SECTION_ARENA_DTCM_START</CODE>. When there is no overlay, this has the same value as <CODE>SDK_AUTOLOAD_DTCM_BSS_END</CODE>.</BLOCKQUOTE>
+<BLOCKQUOTE>
+<BLOCKQUOTE><IMG src="image_arenaMainRAM_32m.gif" border="0"><BR> <BR> <BR> <BR> <IMG src="image_arenaMainRAM_16m.gif" border="0"></BLOCKQUOTE>
+</BLOCKQUOTE>
+<A NAME="main_start"></A>
+<H3>Starting Address of Main Memory Arena</H3>
+<BLOCKQUOTE>The starting address for the main memory arena, <CODE>SDK_MAIN_ARENA_LO</CODE>, is placed in the position farthest back behind the static part of main memory, the program loaded by <CODE>overlay</CODE>, and the <CODE>overlay</CODE> portion of the BSS region. These considerations are the same as those for the overlays in ITCM, DTCM, and extended main memory.<BR> <BR> <IMG src="image_arenaMainRAM_ol.gif" border="0"></BLOCKQUOTE>
+
+<A NAME="workarena"></A>
+<H2>Arenas in Work RAM</H2>
+<A NAME="work_nitro"></A>
+<H3>For NITRO Mode:</H3>
+<BLOCKQUOTE>For NITRO, there are two arenas of work RAM: ARM7-dedicated WRAM (64 KB) and ARM9/ARM7 shared WRAM (32 KB; WRAM-0/1). On NITRO, the standard practice is to allocate all work RAM to the ARM7, so it is assumed that these arenas will also be used by the ARM7. Also, each of these arenas is laid out as a contiguous region, but they will store the ARM7 program, and the usable heap will be determined by the size of the program.</BLOCKQUOTE>
+<BLOCKQUOTE>First, let's consider the case where the ARM7 program is 32 KB or greater in size, and WRAM-0/1 are completely used. In this case, the ARM7-dedicated WRAM arena (arena ID <CODE>OS_ARENA_WRAM_SUBPRIV</CODE>) will be the region starting from the upper limit of program use and ending at the ARM7-dedicated WRAM's system region or stack. There will be no ARM7 WRAM arena (that is, arena ID <CODE>OS_ARENA_WRAM_SUB</CODE>). There will be no ARM9 WRAM arena (arena ID <CODE>OS_ARENA_WRAM_MAIN</CODE>) either, because there is no WRAM on the ARM9.</BLOCKQUOTE>
+<BLOCKQUOTE><IMG src="image_arenaWRAM1.gif" border="0"></BLOCKQUOTE>
+<BLOCKQUOTE>On the other hand, if the ARM7 program is less than 32 KB and fits within WRAM-0/1, an ARM7-dedicated WRAM arena can be created as shown in the figure below. There won't be an ARM9 WRAM arena in this case either.</BLOCKQUOTE>
+<BLOCKQUOTE><IMG src="image_arenaWRAM2.gif" border="0"></BLOCKQUOTE>
+
+<A NAME="work_twl"></A>
+<H3>For TWL Mode:</H3>
+<BLOCKQUOTE>In TWL mode, there is more WRAM available than there is in NITRO mode. There is 256 KB of ARM9/ARM7 shared WRAM (WRAM-A), as well as two 256 KB areas of ARM9/ARM7/DSP shared WRAM (WRAM-B and WRAM-C). However, WRAM-A is always used by the ARM7 with the TWL-SDK.</BLOCKQUOTE>
+<BLOCKQUOTE>There are slight differences between TWL/NITRO hybrid ROMs and TWL-exclusive ROMs with regard to where WRAM is positioned. Specifically, with hybrid ROMs, WRAM-0/1 and the ARM7-dedicated WRAM will be positioned adjacently, just like NITRO. With TWL-exclusive ROMs, on the other hand, WRAM-A and the ARM7-dedicated WRAM will be positioned adjacently. For details, see <A href="../../mi/wram/about_Wram.html">MI Overview (Work RAM)</A>.</BLOCKQUOTE>
+<BLOCKQUOTE>There are also multiple heap configurations that are independent of the arena configurations. For details, see &quot;Memory Allocation&quot; in the OS Overview.</BLOCKQUOTE>
+<BLOCKQUOTE>Here, we describe the case of TWL-exclusive ROMs (the case when WRAM-A and the ARM7-dedicated WRAM are adjacent). In this regard, TWL/NITRO hybrid ROMs are the same as NITRO mode, so for those refer to the &quot;For NITRO Mode:&quot; section above.</BLOCKQUOTE>
+<BLOCKQUOTE>The case illustrated below assumes that the ARM7 program is 256 KB or larger, and that WRAM-A is completely used. In this case, the ARM7-dedicated WRAM arena will be created as shown in the figure below. An ARM7 WRAM arena cannot be created. There will be no ARM9 WRAM arena either.</BLOCKQUOTE>
+<BLOCKQUOTE><IMG src="image_arenaWRAM3.gif" border="0"></BLOCKQUOTE>
+<BLOCKQUOTE>If the ARM7 program is less than 256KB, and fits within WRAM-A, an ARM7-dedicated WRAM arena can be created in WRAM-A as shown in the figure below. There won't be an ARM9 WRAM arena in this case either.</BLOCKQUOTE>
+<BLOCKQUOTE><IMG src="image_arenaWRAM4.gif" border="0"></BLOCKQUOTE>
+
+<A NAME="allocarena"></A>
+<H2>Managing Arenas and Securing Memory</H2>
+<BLOCKQUOTE>The Arena region depends on the pointers that indicate the start and the end of the region.</BLOCKQUOTE>
+<BLOCKQUOTE><IMG src="image_arenaArea1.gif" border="0"></BLOCKQUOTE>
+<BLOCKQUOTE>The system stores only these two pointers and information regarding whether the arena has been initialized. In other words, there is no information regarding the extent to which the arena is used, the initial locations of the pointers, or the content of the arena.</BLOCKQUOTE>
+<BLOCKQUOTE>For each arena, there are pointers for the start and end of the arena region and the information about initialization. This data is collected together and placed in a system-shared region.</BLOCKQUOTE>
+<BLOCKQUOTE>When memory blocks are secured from an arena, they can be secured from either the start or the end of the region. Accordingly, the memory region boundary moves on its own. For example, to allocate a block of <CODE>size1</CODE> bytes from the start of the region (the low end), after calling <code><A href="OS_GetArenaLo.html">OS_GetArenaLo()</A></code>, you must call <CODE><A href="OS_SetArenaLo.html">OS_SetArenaLo()</A></CODE> to set the returned value as the boundary.</BLOCKQUOTE>
+<BLOCKQUOTE><IMG src="image_arenaArea2.gif" border="0"></BLOCKQUOTE>
+<BLOCKQUOTE><BR> <BR> In the following figure, a block of <code>size2</code> bytes is allocated from the tail end of the arena (that is, from the high-order end). In this case as well, you must set the boundary for the arena region using <CODE><A href="OS_GetArenaHi.html">OS_SetArenaHi()</A></CODE>.</BLOCKQUOTE>
+<BLOCKQUOTE><IMG src="image_arenaArea3.gif" border="0"></BLOCKQUOTE>
+<BLOCKQUOTE><BR> <BR>This series of tasks can be performed automatically by the two functions <CODE><A href="OS_AllocFromArenaLo.html">OS_AllocFromArenaLo()</A></CODE> and <CODE><A href="OS_AllocFromArenaHi.html">OS_AllocFromArenaHi()</A></CODE>, which allocate memory from the start (low end) or the tail end (high end) of the memory region. We recommend that you use these functions for the arena.<BR> <BR>Arenas are not suitable for frequently securing and releasing memory during the game. They are most often used for general assignments like securing lump regions for various purposes at the time of initialization. The OS has a memory allocation system for repeatedly allocating and releasing memory during the game using <code><a href="../alloc/OS_AllocFromHeap.html">OS_AllocFromHeap()</a></code>. Refer to <A href="../alloc/about_alloc.html">OS Overview - &quot;Memory Allocation&quot;</A> for details.</BLOCKQUOTE>
+<H2>See Also</H2>
+<P><a href="../list_os.html#Arena">OS Function List (Arena)</a><BR> <a href="../list_os.html#Alloc">OS Function List (Alloc)</a></P>
+<H2>Revision History</H2>
+<P>2008/12/02 Adjusted the ARM9 program starting address for TWL HYBRID/LIMITED ROM.<BR>2006/03/16 Revised figure depicting arena management and securing memory and added a description.<BR>2005/08/27 Made revisions in line with ITCM, DTCM, and extended main memory arena overlay support.<BR>2005/07/28 Corrected mistakes. <BR>2005/04/15 Changed the locations of main memory and the arena in DTCM.<BR>2004/12/13 Revised terminology and word endings.<BR>2004/10/25 Initial version. Split off from OS_InitArena()</CODE></P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>G3X_IsMtxStackOverflow</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">G3X_IsMtxStackOverflow <img src="../../image/NTR.gif"align="middle"><img src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+
+<dl>
+  <dd>
+<PRE><CODE>#include &lt;nitro/gx/g3x.h&gt;
+
+s32 G3X_IsMtxStackOverflow(s32 *overflow);<BR></CODE></PRE>
+  </dd>
+</dl><h2>Arguments</h2>
+<TABLE width="100%" border=1>
+<TBODY>
+<TR>
+<TD width=224><em><strong><font face="Courier New">overflow</font></strong></em></TD>
+<TD width=622>Pointer to <code>s32</code> type</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<h2>Return Values</h2>
+<P>Whether results were obtained (0) or the matrix stack is busy (not 0).</P>
+<H2>Description</H2>
+<P>Determines whether or not overflow/underflow is generated in the matrix stack. If the value returned is non-zero, current overflow or underflow status cannot be acquired because the matrix stack is busy. If the value returned is zero, whether the matrix stack is overflow or underflow is stored in * overflow.</P>
+<P>If an overflow occurs, this function will return the overflow status until the <CODE><A href="G3X_ResetMtxStackOverflow.html">G3X_ResetMtxStackOverflow</A></CODE> function is called.</P>
+<h2>See Also</h2>
+<H2>Revision History</H2>
+<P>2004/03/02</P>
+<UL>
+  <LI>Added busy status decision for matrix stack
+</UL>
+<P>2004/01/19 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>Animation_Overview</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+<h1 align="left">Animations Possible on the TWL-System</h1>
+
+<H2>Description</H2>
+<P>In the TWL-System 2D development environment, game characters that carry out pattern animation are formed using cells and multicells. These concepts (cells and multicells) are described below.</P>
+
+<h2>Cell and Cell List</h2>
+<P><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size: 12.0pt;font-family:Century;mso-fareast-font-family:"MS P??";mso-bidi-font-family: "Times New Roman";mso-font-kerning:1.0pt;mso-ansi-language:EN-US;mso-fareast-language: JA;mso-bidi-language:AR-SA'><IMG width="574" height="150" src="clip_image001.gif" v:shapes="_x0000_i1025"></span></P>
+<P>A cell combines and arranges multiple OBJs to form one game character.<BR> By planning the conversion of each piece of image data, the character data can be used more efficiently instead of just displaying the game character as one large OBJ. For example, in a bilaterally symmetrical game character only half of the character data needs to be created. That data can be flipped and used for the other half.<BR> By combining multiple OBJs it is possible to form a game character that exceeds the OBJ size limit.<BR> A cell list is a compilation of multiple cells and is referenced from cell animations, which are described below.</P>
+
+<h2>Cell Animations</h2>
+<P>Cell animations are rendered by interchanging multiple cells one after the other. The cells registered in the Cell List make up the animations. The display time (number of frames) can be specified for each cell of the animation. The cell is displayed only for the specified number of frames, and interchanges to the next cell.</P>
+
+<h2>Multicells and Multicell Lists</h2>
+<P><span lang=EN-US style='font-size:9.0pt;mso-bidi-font-size: 12.0pt;font-family:Century;mso-fareast-font-family:"MS P??";mso-bidi-font-family: "Times New Roman";mso-font-kerning:1.0pt;mso-ansi-language:EN-US;mso-fareast-language: JA;mso-bidi-language:AR-SA'><IMG width="539" height="166" src="clip_image002.gif" v:shapes="_x0000_i1025"></span></P>
+<P> A multicell is an arrangement of multiple cell animations combined together.<BR> Multiple cell animations are composited to create one large game character.<BR> A multicell list is a compilation of several multicells and is referenced from multicell animations, which are described below.</P>
+
+<h2>Multicell Animations</h2>
+<P>Multicell animations are rendered by interchanging multicells one after the other. The multicells registered in the Multicell List make up the animations. The display time (number of frames) for each multicell of the animation can be specified. The multicell is displayed only for the specified number of frames, and changes to the next multicell. The parts that make up a multicell (known as cell animations) carry out animation based on the timing configured in their individual settings. In other words, the individual parts of a game character execute animations with different timing. This method helps create game characters with complex movements.</P>
+
+<h2>VRAM Transfer Animations</h2>
+<P>The animations previously described were implemented by changing the reference target for the image (character) data displayed by the cell. However, the maximum capacity of the image data becomes a problem when attempting colorful animations using multiple image data types. A VRAM transfer animation consists of an animation implemented by the cell image (VRAM) data being appropriately transferred and rewritten. Using VRAM animation lets you create an animation with a large amount of image data while keeping hardware overhead to a minimum. In the development of 2D games, VRAM transfer animation is typically used for main characters, which have a very large number of animation patterns.<BR><BR> To use VRAM transfer animation, options must be specified as special VRAM transfer data, and a conversion must be performed. The source NITRO-CHARACTER data should have no character compression and should be in 1D mapping mode format.)<BR> More specifically, processing is performed in the G2D Library up to the point that the VRAM transfer task request is made. The actual processing for the VRAM transfer execution and task management is left to an external module. The GFD library provides the standard implementation of the module that performs the VRAM transfer processing. Refer to the GFD Library document.</P>
+
+<h2>See Also</h2>
+<p>
+None.
+</p>
+<H2>Revision History</H2>
+<P>
+2008/06/20 Changed NITRO-System to TWL-System.<BR> 2004/12/06 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

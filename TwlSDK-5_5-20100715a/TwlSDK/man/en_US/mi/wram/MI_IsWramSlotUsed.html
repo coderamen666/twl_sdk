@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>MI_IsWramSlotUsed</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">MI_IsWramSlotUsed* <IMG src="../../image/TWL.gif" align="middle"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;twl/mi.h&gt;</CODE><BR> <BR> <CODE>BOOL MI_IsWramSlotUsed( MIWramPos wram, int num )</CODE></dd>
+</dl>
+<dl>
+<dd><br> <CODE>(define)</CODE><br> <CODE>BOOL MI_IsWramSlotUsed_A( int num )</CODE><br> <CODE>BOOL MI_IsWramSlotUsed_B( int num )</CODE><br> <CODE>BOOL MI_IsWramSlotUsed_C( int num )</CODE></dd>
+</dl>
+<h2>Arguments</h2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="13%"><CODE>wram</CODE></TD>
+<TD width="87%">The WRAM to get information about.</TD>
+    </TR>
+    <TR>
+<TD><CODE>num</CODE></TD>
+<TD>The slot number of the WRAM to get information about.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<h2>Return Values</h2>
+<p>Indicates whether the specified WRAM slot has been allocated and is in use by one of the processors. If TRUE, the specified slot is in use. If FALSE, it has not been allocated.</p>
+
+<H2>Description</H2>
+<P>Determines whether the specified WRAM slot is in use.</P>
+<P><CODE>num</CODE> indicates which slot number of the designated WRAM to check for use.</P>
+<P>The <CODE><A href="MI_GetUsedWramSlot.html">MI_GetUsedWramSlot*</A></CODE> functions are also available. These functions get all the information about the specified WRAM at once.</P>
+<P><CODE>MI_IsWramSlotUsed_A()</CODE> is the #define directive of <CODE>MI_IsWramSlotUsed( MI_WRAM_A, ... )</CODE>. <BR><CODE>MI_IsWramSlotUsed_B()</CODE> is the #define directive of <CODE>MI_IsWramSlotUsed( MI_WRAM_B, ... )</CODE>. <BR><CODE>MI_IsWramSlotUsed_C()</CODE> is the #define directive of <CODE>MI_IsWramSlotUsed( MI_WRAM_C, ... )</CODE>. </P>
+<h2>See Also</h2>
+<P><A href="MI_GetUsedWramSlot.html"><CODE>MI_GetUsedWramSlot*</CODE></A><BR> <A href="../mi_constant.html">MI-Related Constants</A> <BR> <A href="about_Wram.html">Overview (Work RAM)</A></P>
+
+<H2>Revision History</H2>
+<P>2008/05/29 Added info about the <CODE><A href="MI_GetUsedWramSlot.html">MI_GetUsedWramSlot*</A></CODE> functions.<BR>2007/10/08 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

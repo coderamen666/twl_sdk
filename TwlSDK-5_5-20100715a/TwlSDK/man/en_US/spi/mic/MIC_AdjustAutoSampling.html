@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 8.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+<TITLE>MIC_AdjustAutoSampling</TITLE>
+</HEAD>
+
+<BODY>
+
+<H1 align="left">MIC_AdjustAutoSampling <img src="../../image/NTR.gif"><img src="../../image/TWL.gif"></H1>
+
+<H2>Syntax</H2>
+<DL>
+  <DD>
+<CODE>#include &lt;nitro/spi.h&gt;</CODE><BR>
+  <PRE><CODE><A href="MICResult.html">MICResult</A> MIC_AdjustAutoSampling( u32 rate );</CODE></PRE>
+  </DD>
+</DL>
+
+<H2>Arguments</H2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="300"><EM><STRONG><FONT face="Courier New">rate</FONT></STRONG></EM></TD>
+<TD width="700">Sampling rate. Directly specifies ARM7 CPU timer cycles.<br>Can also be selected from the <A href="MICSamplingRate.html"><CODE>MICSamplingRate</CODE></A> enumerated type.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<H2>Return Values</H2>
+<P>
+Returns the processing result as a <A href="MICResult.html"><CODE>MICResult</CODE></A> enumerated type. Returns <CODE>MIC_RESULT_SUCCESS</CODE> if processing completes successfully, and some other value if the process fails for some reason.
+</P>
+
+<H2>Description</H2>
+<P>
+Synchronously adjusts the sampling rate of the microphone's auto-sampling. This function issues an auto-sampling adjustment request to ARM7, waits for a response from ARM7, and returns the process result. This is the synchronous version of the <A href="MIC_AdjustAutoSamplingAsync.html"><CODE>MIC_AdjustAutoSamplingAsync</CODE></A> function. This is only valid when auto-sampling has already begun. The CPU timer cycle is updated when the ARM7 receives the request, not earlier.
+</P>
+<P>
+This function returns <CODE>MIC_RESULT_INVALID_COMMAND</CODE> when the CODEC is running in CODEC-TWL mode because auto-sampling cannot be run at an arbitrary frequency in CODEC-TWL mode. In other words, this function can only be used when the CODEC is running in CODEC-DS mode.
+</P>
+
+<H2>Note</H2>
+<P>
+<FONT color=red>This function waits for a PXI interrupt for synchronization purposes. Do not call it when PXI interrupts are prohibited.</FONT>
+</P>
+
+<H2>See Also</H2>
+<P>
+<a href="MIC_AdjustAutoSamplingAsync.html"><CODE>MIC_AdjustAutoSamplingAsync</CODE></a><BR> <a href="MIC_StartAutoSampling.html"><CODE>MIC_StartAutoSampling</CODE></a><BR> <a href="MIC_StopAutoSampling.html"><CODE>MIC_StopAutoSampling</CODE></a>
+</P>
+
+<H2>Revision History</H2>
+<P>
+2009/05/14 Added the TWL icon and a description related to CODEC. <BR>2008/01/09 Revised a description of differences in behavior due to the CODEC mode. <BR>2007/11/17 Added a description of operations on the TWL platform. <BR>2005/03/08 Standardized the Japanese notation of the term for &quot;interrupt.&quot; <br>2005/01/11 Initial version.<BR>
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

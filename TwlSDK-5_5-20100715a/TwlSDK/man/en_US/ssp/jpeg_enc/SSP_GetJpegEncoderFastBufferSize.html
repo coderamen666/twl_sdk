@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title>SSP_GetJpegEncoderFastBufferSize</title>
+<link rel="stylesheet" href="../../css/nitro.css" type="text/css" />
+</head>
+<body>
+
+<h1>SSP_GetJpegEncoderFastBufferSize <img src="../../image/NTR.gif" align="middle"><img src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+
+<pre><code>
+u32 SSP_GetJpegEncoderFastBufferSize(u32 option);
+</code></pre>
+
+<h2>Arguments</h2>
+<table style="width:100%">
+<tbody>
+<tr>
+<td style="width:13%"><SPAN class="argument">option</SPAN></td>
+<td style="width:87%">Encoding option (<CODE>SSP_JPEG_RGB555</CODE>, <CODE>SSP_JPEG_YUV422</CODE>, or <CODE>SSP_JPEG_THUMBNAIL</CODE>).</td>
+</tr>
+</tbody>
+</table>
+
+
+<h2>Return Values</h2>
+<p>Returns the buffer size required to encode.</p>
+
+<h2>Description</h2>
+<p>Gets the working buffer size required when encoding with the <a href="SSP_StartJpegEncoderFast.html"><CODE>SSP_StartJpegEncoderFast</CODE></a> function. Give this function the same arguments as the <a href="SSP_StartJpegEncoderFast.html"><CODE>SSP_StartJpegEncoderFast</CODE></a> function.
+</p>
+
+<h2>See Also</h2>
+<p><a href="SSP_StartJpegEncoderFast.html"><code>SSP_StartJpegEncoderFast</code></a></p>
+
+<h2>Revision History</h2>
+<p>
+2009/06/29 Initial version.
+</p>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

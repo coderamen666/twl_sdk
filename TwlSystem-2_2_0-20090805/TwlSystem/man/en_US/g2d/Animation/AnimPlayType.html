@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>Animation Playback Type</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+<h1 align="left">Animation Playback Mode</h1>
+
+
+<H2>Description</H2>
+In general, the Animation Controller has two methods for playing back animations, one-time playback mode and repeat playback mode. These playback modes are explained below.
+
+
+<h2>One-time Playback Mode</h2>
+<P><IMG src="AnimType001.gif"></P>
+This mode plays back the animation once. It stops the animation after the final frame is played.
+<h2>Repeat Playback Mode</h2>
+<P><IMG src="clip_image0021.gif"></P>
+This mode plays back the animation repeatedly. The animation has a repeat frame. After playing back the final frame it repeats animation playback by jumping to the specified repeat frame. Frames between the animation start and repeat frame are played back only once.
+<h2>Loop Playback Mode</h2>
+<P><IMG src="clip_image0022.gif"><BR>
+</P>
+After playing back the final frame, the animation is played backed in reverse to the repeat frame. After the repeat frame is displayed, reverse playback stops. Frames between the animation start and repeat frame are played back only once.
+<h2>Loop Repeat Playback Mode</h2>
+<P><IMG src="clip_image0023.gif"></P>
+This mode repeats loop playback between the repeat frame and final frame of the animation. Frames between the animation start and repeat frame are played back only once.
+<h1>Special Playback Feature for Animation</h1>
+<H2>Description</H2>
+The Animation Controller can perform special playback of animations as shown below.
+
+<H2>Reverse Playback</H2>
+<P><IMG src="clip_image0024.gif"><BR>
+</P>
+It is possible to play the animation in reverse starting from the final frame. In one-time playback mode the animation stops after playing the first frame. In repeat playback mode, it jumps to the final frame after playing the repeat frame. Therefore, when doing reverse playback in repeat playback mode, the frames from the starting frame to the repeat frame are not played.
+<H2>Changing the Updated Frame Magnification</H2>
+
+The Animation Controller can change the animation update frame magnification when updating an animation. The update frame magnification is specified with an <code>fx32</code>&ndash;argument. If the value is more than <code>1.0</code> the animation will speed up, and if it is less than <code>1.0</code> the animation will slow down. The animation playback speed is multiplied by the update frame magnification in the Controller, and the actual update frame number is determined. A negative value cannot be set for the update frame magnification.
+
+<H2>Callback Function Call Feature</H2>
+The Animation Controller has a feature to call callback functions so the user can carry out processing when a particular frame of an animation is being played. Callback functions can be set up to be called with the three types of timing shown below.<BR>- The callback functions are called every time the cells or multicells that form the animation are switched.<BR>- The callback functions are called when a specified cell or multicell in an animation is displayed.<BR>- The callback functions are called in the final frame of the animation.<BR><BR> Only 1 out of the 4 bytes of data specified by the user can be passed to the callback function.<BR>
+
+<h2>See Also</h2>
+<p>
+None.
+</p>
+<H2>Revision History</H2>
+<P>2004/12/06 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

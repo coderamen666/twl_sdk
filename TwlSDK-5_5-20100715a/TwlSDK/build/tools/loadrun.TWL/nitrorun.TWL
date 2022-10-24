@@ -1,0 +1,249 @@
+#!/bin/bash -f
+
+#---------------------------------------------------------------------------
+#  Project:  TwlSDK - tools - loadrun
+#  File:     nitrorun.TWL
+#
+#  Copyright 2008 Nintendo. All rights reserved.
+#
+#  These coded instructions, statements, and computer programs contain
+#  proprietary information of Nintendo of America Inc. and/or Nintendo
+#  Company Ltd., and are protected by Federal copyright law. They may
+#  not be disclosed to third parties or copied or duplicated in any form,
+#  in whole or in part, without the prior written consent of Nintendo.
+#
+#  $Date:: 2007-00-00#$
+#  $Rev: 0 $
+#  $Author: nobody $
+#---------------------------------------------------------------------------
+
+#---- SDK root directory
+SDKROOT=`cygpath -u "$TWLSDK_ROOT"`
+
+#---- Run command
+LOADRUN=$SDKROOT/tools/bin/loadrun.TWL.exe
+BURYARG=$SDKROOT/tools/bin/buryarg.TWL.exe
+COMMANDNAME=`basename $0`
+
+#---- Command options
+BOPTION=""
+LOPTION=""
+
+#---- Run flags
+gVerboseMode=0
+gHelpMode=0
+gIsError=0
+gNoExecMode=0
+
+#---- Temporary filename
+tmpFile=_nitrorun_TWL_tmp@@.$$
+
+#----------------------------------------------------------------
+# showVersion
+#		Display the version
+#
+function showVersion()
+{
+    echo "$COMMANDNAME  1.0  Copyright 2008 Nintendo. All right reserved."
+    #
+    # 1.0  First release (copied and revised nitrorun)
+    #
+}
+
+#----------------------------------------------------------------
+# showUsage
+#		Display the usage
+#
+function showUsage()
+{
+    echo "Usage: $COMMANDNAME [OPTION] [<TwlSrlFile> [ARGUMENT]...]"
+    echo "Execute buryarg and loadrun."
+    echo ""
+    echo "Options:"
+    echo "  -h, --help            show this help."
+    echo "      --version         show version."
+    echo "  -v, --verbose         verbose mode."
+    echo "      --bopt            specify options for buryarg.TWL."
+    echo "      --lopt            specify options for loadrun.TWL."
+    echo "  -n, --noexec          do not execute commands. (for test)"
+    echo ""
+    echo "Example:"
+    echo "  $COMMANDNAME --lopt \"-t30 -a\\\"ABORT\\\" -l\" main.srl 100 300"
+    echo "      is done as:  "    
+    echo "  buryarg.TWL --stdout main.srl 100 300 > temporaryFile"
+    echo "  loadrun.TWL -t30 -a\"ABORT\" -l temporaryFile"
+}
+
+#----------------------------------------------------------------
+# checkError
+# 		Error check up to here
+#
+function checkError
+{
+	local isShowUsage=0
+
+	if [ $gIsError -eq 1 ];
+	then
+		exit 1
+	fi;
+
+	if [ $gHelpMode -eq 1 ];
+	then
+		isShowUsage=1
+	fi;
+
+	if [ $ARGC -eq 0 ];
+	then
+		isShowUsage=1
+	fi;
+
+	if [ $isShowUsage -eq 1 ];
+	then
+		showUsage
+		exit 1
+	fi;
+}
+
+#----------------------------------------------------------------
+# checkExistence
+#		Check existence of file
+#
+function checkExistence()
+{
+	#---- Does the buryarg command exist?
+	if [ ! -e $BURYARG ];
+	then
+		gIsError=1
+		echo "*** Error: $COMMANDNAME: buryarg.TWL command not exist"
+		return
+	fi;
+
+	#---- Does the loadrun command exist?
+	if [ ! -e $LOADRUN ];
+	then
+		gIsError=1
+		echo "*** Error: $COMMANDNAME: loadrun.TWL command not exist"
+		return
+	fi;
+
+	#---- Does the SRL file exist?
+	if [ ! -e $1 ];
+	then
+		gIsError=1
+		echo "*** Error: $COMMANDNAME: srl file not exist"
+		return
+	fi;
+
+	#---- Can create temporary file?
+	touch $tmpFile
+	if [ ! -e $tmpFile ];
+	then
+		gIsError=1
+		echo "*** Error: $COMMANDNAME: cannot create temporary file"
+		return
+	fi;
+}
+
+function deleteExit
+{
+    \rm -f $tmpFile
+    exit $1
+}
+
+#================================================================
+# Main
+#		Main
+#
+
+#---- Signal trap
+trap deleteExit 1 INT
+trap deleteExit 2 HUP
+trap deleteExit 3 QUIT
+
+#---------------- Check options
+while [ 1 ];
+do
+	case $1 in
+		# Help
+		--help|-help|-h)
+			gHelpMode=1
+			shift 1
+			continue
+			;;
+		# Version
+		--version|-version)
+			showVersion
+			exit 1
+			;;
+		# Options passed to buryarg
+		--bopt*|-bopt*)
+			BOPTION=$2
+			shift 2
+			continue
+			;;
+		# Options passed to loadrun
+		--lopt*|-lopt*)
+			LOPTION=$2
+			shift 2
+			continue
+			;;
+		# Verbose mode
+		--verbose|-v)
+			gVerboseMode=1
+			shift 1
+			continue
+			;;
+		# Do not execute
+		--noexec|-n)
+			gNoExecMode=1
+			shift 1
+			continue
+			;;
+		# Other options
+		-*)
+			gIsError=1
+			echo "*** Error: $COMMANDNAME: Illegal option"
+			break;
+			;;
+		# Non-options
+		*)
+			break;
+			;;
+	esac
+
+done
+
+#---------------- Error check for whether file exists or not
+ARGC=$#
+
+if [ $gIsError -eq 0 ];
+then
+	checkExistence $1
+fi;
+
+checkError
+
+#---------------- Execute command
+{
+	if [ $gVerboseMode -eq 1 ];
+	then
+		echo "buryarg.TWL option: $BOPTION"
+		echo "loadrun.TWL option: $LOPTION"
+	fi;
+
+	if [ $gVerboseMode -eq 1 ];
+	then
+		echo "$BURYARG $BOPTION --stdout $@  > $tmpFile"
+		echo "$LOADRUN $LOPTION $tmpFile"
+	fi;
+
+
+	if [ $gNoExecMode -eq 0 ];
+	then
+		#---- Sequentially execute two commands
+		$BURYARG $BOPTION --stdout "$@"  > $tmpFile
+		$LOADRUN $LOPTION $tmpFile
+	fi;
+}
+
+deleteExit 0

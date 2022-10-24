@@ -1,0 +1,97 @@
+#! make -f
+#----------------------------------------------------------------------------
+# Project:  TwlSDK
+# File:     commondefs.compat.pre
+#
+# Copyright 2007-2009 Nintendo.  All rights reserved.
+#
+# These coded instructions, statements, and computer programs contain
+# proprietary information of Nintendo of America Inc. and/or Nintendo
+# Company Ltd., and are protected by Federal copyright law. They may
+# not be disclosed to third parties or copied or duplicated in any form,
+# in whole or in part, without the prior written consent of Nintendo.
+#
+# $Date:: 2009-06-04#$
+# $Rev: 10698 $
+# $Author: okubata_ryoma $
+#----------------------------------------------------------------------------
+
+# workaround for compatibility
+
+ifneq ($(TWL_BUILD_TYPE),)
+NITRO_BUILD_TYPE	:= $(TWL_BUILD_TYPE)
+else
+TWL_BUILD_TYPE		:= $(NITRO_BUILD_TYPE)
+endif
+
+ifneq ($(TWL_BUILD_DIR),)
+NITRO_BUILD_DIR		:= $(TWL_BUILD_DIR)
+else
+TWL_BUILD_DIR		:= $(NITRO_BUILD_DIR)
+endif
+
+# Don't use ":=" because the CODEGEN_ARCH value within the *_BUILDTYPE definition is changed by modulerules
+ifneq ($(TWL_BUILDTYPE),)
+NITRO_BUILDTYPE		 = $(TWL_BUILDTYPE)
+else
+TWL_BUILDTYPE		 = $(NITRO_BUILDTYPE)
+endif
+
+ifneq ($(TWL_NO_STD_PCHDR),)
+NITRO_NO_STD_PCHDR	 = $(TWL_NO_STD_PCHDR)
+else
+TWL_NO_STD_PCHDR	 = $(NITRO_NO_STD_PCHDR)
+endif
+
+ifneq ($(TWL_STD_PCHDR),)
+NITRO_STD_PCHDR		 = $(TWL_STD_PCHDR)
+else
+TWL_STD_PCHDR		 = $(NITRO_STD_PCHDR)
+endif
+
+ifneq	($(filter TWL,$(TARGET_PLATFORM_LIST)),)
+ifdef NITRO_MEMSIZE
+#[TBD]
+#TWL_MEMSIZE				:= $(NITRO_MEMSIZE)
+endif
+
+NITRO_PLATFORM				?= $(TWL_PLATFORM)
+NITRO_LIBSUFFIX				?= $(TWL_LIBSUFFIX)
+NITRO_BUILD_TYPE			?= $(TWL_BUILD_TYPE)
+NITRO_BUILD_ARCH			?= $(TWL_BUILD_ARCH)
+NITRO_LIBTYPE				?= $(TWL_LIBTYPE)
+NITRO_CCTYPE				?= $(TWL_CCTYPE)
+NITROSDK_LANG				?= $(TWLSDK_LANG)
+NITRO_MAKEROM				?= $(TWL_MAKEROM)
+NITRO_COMPRESS				?= $(TWL_COMPRESS)
+NITRO_DIGEST				?= $(TWL_DIGEST)
+IS_NITRO_DIR				?= $(IS_TWL_DIR)
+NITRO_PROFILE				?= $(TWL_PROFILE)
+NITRO_PROFILE_TYPE			?= $(TWL_PROFILE_TYPE)
+NITRO_NO_OPT_G				?= $(TWL_NO_OPT_G)
+NITRO_ROMSPEED				?= $(TWL_ROMSPEED)
+NITRO_SVC_WAITVBLANK_COMPATIBLE	?= $(TWL_SVC_WAITVBLANK_COMPATIBLE)
+
+else
+ifneq	($(filter NITRO,$(TARGET_PLATFORM_LIST)),)
+NITROSDK_ROOT				?= $(TWLSDK_ROOT)
+
+TWL_PLATFORM				?= $(NITRO_PLATFORM)
+TWL_LIBSUFFIX				?= $(NITRO_LIBSUFFIX)
+TWL_BUILD_TYPE				?= $(NITRO_BUILD_TYPE)
+TWL_BUILD_ARCH				?= $(NITRO_BUILD_ARCH)
+TWL_LIBTYPE					?= $(NITRO_LIBTYPE)
+TWL_CCTYPE					?= $(NITRO_CCTYPE)
+TWLSDK_LANG					?= $(NITROSDK_LANG)
+TWL_MAKEROM					?= $(NITRO_MAKEROM)
+TWL_COMPRESS				?= $(NITRO_COMPRESS)
+TWL_DIGEST					?= $(NITRO_DIGEST)
+IS_TWL_DIR					?= $(IS_NITRO_DIR)
+TWL_PROFILE					?= $(NITRO_PROFILE)
+TWL_PROFILE_TYPE			?= $(NITRO_PROFILE_TYPE)
+TWL_NO_OPT_G				?= $(NITRO_NO_OPT_G)
+TWL_ROMSPEED				?= $(NITRO_ROMSPEED)
+TWL_SVC_WAITVBLANK_COMPATIBLE	?= $(NITRO_SVC_WAITVBLANK_COMPATIBLE)
+endif
+endif
+

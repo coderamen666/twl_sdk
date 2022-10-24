@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>CRYPTO_RC4FastEncrypt</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">CRYPTO_RC4FastEncrypt <IMG src="../../image/NTR.gif" width="23" height="12" border="0" align="middle"><IMG src="../../image/TWL.gif" width="23" height="12" border="0" align="middle"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+  <pre><CODE>#include &lt;nitro/crypto.h&gt;
+
+void CRYPTO_RC4FastEncrypt(<a href="CRYPTORC4FastContext.html">CRYPTORC4FastContext</a>* context, const void* in, u32 length, void* out);
+</CODE></pre>
+</dd>
+</dl>
+
+<h2>Arguments</h2>
+<TABLE border="1" width="100%" class="arguments">
+  <TBODY>
+    <TR>
+<TH>context</TH>
+<TD><A href="CRYPTORC4FastContext.html"><CODE>CRYPTORC4FastContext</CODE></A> structure, whose key has already been configured by the <A href="CRYPTO_RC4FastInit.html"><CODE>CRYPTO_RC4FastInit</CODE></A> function.</TD>
+    </TR>
+    <TR>
+<TH>in</TH>
+<TD>Pointer to the target data to encrypt or decrypt with the RC4 algorithm.</TD>
+    </TR>
+    <TR>
+<TH>length</TH>
+<TD>Length of the data specified by <SPAN class="argument">in</SPAN>.</TD>
+    </TR>
+    <TR>
+<TH>out</TH>
+<TD>Pointer to where the results of the encryption or decryption are stored.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<h2>Return Values</h2>
+<p>
+None.
+</p>
+
+<H2>Description</H2>
+<P>
+Performs encryption or decryption using the RC4 shared key encryption algorithm.<BR>The same function is used for both encryption and decryption in the RC4 algorithm.<BR>Data stored in <SPAN class="argument">in</SPAN> is processed, and the converted results are written to <SPAN class="argument">out</SPAN>. You can specify the same pointer for <SPAN class="argument">in</SPAN> and <SPAN class="argument">out</SPAN>, thereby overwriting them.
+</P>
+<P>
+The <CODE>CRYPTO_RC4*</CODE> and <CODE>CRYPTO_RC4Fast*</CODE> functions are the same, except that the <CODE>CRYPTO_RC4Fast*</CODE> functions are faster and require more stack memory. <BR>The size of the <CODE>CRYPTORC4Context</CODE> structure used by the <CODE>CRYPTO_RC4*</CODE> functions is 260 bytes. The size of the <CODE>CRYPTORC4FastContext</CODE> structure used by the <CODE>CRYPTO_RC4*</CODE> functions is 1032 bytes.<BR>With regard to speed, the <a href="CRYPTO_RC4FastEncrypt.html"><CODE>CRYPTO_RC4FastEncrypt</CODE></a> function processes data at approximately 1.5 times the normal processing speed when the data is sufficiently large. However, the difference in speed is caused by assigning the same pointer for <SPAN class="argument">in</SPAN> and <SPAN class="argument">out</SPAN>. If different pointers are assigned, there is almost no speed difference between the <a href="CRYPTO_RC4Encrypt.html"><CODE>CRYPTO_RC4Encrypt</CODE></a> and <CODE>CRYPTO_RC4FastEncrypt</CODE> functions.
+</P>
+<P>
+For detailed information on using the RC4 algorithm, see <A href="../overview/about_RC4.html"><B>Overview of Encryption Using RC4 Algorithm</B></A>.
+</P>
+
+<h2>See Also</h2>
+<p><A href="CRYPTO_RC4Fast.html"><CODE>CRYPTO_RC4Fast</CODE></A><br> <A href="CRYPTO_RC4FastInit.html"><CODE>CRYPTO_RC4FastInit</CODE></A></p>
+
+<H2>Revision History</H2>
+<P>
+2008/02/25 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

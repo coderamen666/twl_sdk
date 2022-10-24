@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>CARD_UnlockBackup</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">CARD_UnlockBackup <img src="../../image/NTR.gif"align="middle"><img src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/card.h&gt;</CODE><BR>
+  <BR>
+  <CODE>void	CARD_UnlockBackup(u16 lock_id);</CODE><br>
+  <br>
+  </dd>
+</dl>
+<h2>Arguments</h2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="13%"><SPAN class="argument">lock_id</SPAN></TD>
+<TD width="87%">ID used for locking a card</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<h2>Return Values</h2>
+<p>None.</p>
+
+<H2>Description</H2>
+<P>Unlocks the access bus to the CARD backup device.<BR>If another module (with another ID) is already waiting for the bus to unlock, access rights go to the waiting module. If the specified ID refers to a device that is currently locked, the bus is unlocked, and control is returned.<BR>If the ID refers to a device that is not currently locked, a warning message is output, and the <code><a href="../../os/debug/OS_Panic.html">OS_Panic</a></code> function forcibly stops the process.<BR>
+</P>
+<H2>Note</H2>
+<P>
+<FONT color="red">
+<ul>
+<li>All functions that access a CARD backup device must first lock the access bus. You cannot access a CARD ROM device and a backup device simultaneously. While one bus is locked, other bus locks are forced to wait.</li>
+<li>The access bus cannot be unlocked while the backup device is executing an asynchronous process. If you call this function at such a time, the CARD library will force the function to wait until after the asynchronous process has completed to unlock the bus.</li>
+</ul>
+</FONT>
+</P>
+<h2>See Also</h2>
+<p><A href="../../os/spinLock/OS_UnlockCard.html"><CODE>OS_UnlockCard</CODE></A><BR> <A href="../../os/spinLock/OS_UnlockCartridge.html"><CODE>OS_UnlockCartridge</CODE></A><BR> <A href="CARD_LockBackup.html"><CODE>CARD_LockBackup</CODE></A></p>
+
+<H2>Revision History</H2>
+<P>
+2009/01/30 Corrected the description of the behavior for invalid lock ID.<br /> 2007/04/04 Added text noting that the bus cannot be unlocked during the backup process.<br /> 2004/09/06 Corrected the description of the prototype.<br /> 2004/08/31 Added text noting that function always succeeds.<br /> 2004/07/23 Changed the lock ID type from <CODE>u32</CODE> to <CODE>u16</CODE>.<br /> 2004/07/13 Made additions regarding exclusive control of CARD ROM device and backup device.<br /> 2004/07/10 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>OS_IsOnMainMemory</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">OS_IsOnMainMemory / OS_IsOnWram <IMG src="../../image/NTR.gif" align="middle"><IMG src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+<DL>
+  <DD>
+  <PRE><CODE>#include &lt;nitro/os.h&gt;</CODE></PRE>
+
+<CODE>BOOL OS_IsOnMainMemory(void* ptr);<BR>
+
+BOOL OS_IsOnExtendedMainMemory(void* ptr);<BR>
+
+BOOL OS_IsOnWramA(void* ptr);<BR> BOOL OS_IsOnWramB(void* ptr);<BR> BOOL OS_IsOnWramC(void* ptr);<BR> BOOL OS_IsOnWram0(void* ptr);<BR> BOOL OS_IsOnWram1(void* ptr);<BR> BOOL OS_IsOnWram(void* ptr);<BR>
+
+BOOL OS_IsOnVram(void* ptr);<BR> BOOL OS_IsOnItcm(void* ptr);<BR> BOOL OS_IsOnDtcm(void* ptr);<BR> BOOL OS_IsOnArm7PrvWram(void* ptr);<BR>
+
+
+</CODE></PRE>
+
+</DL>
+<H2>Arguments</H2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="13%"><EM><STRONG>ptr</STRONG></EM></TD>
+<TD width="87%">Pointer to memory region to be checked.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>Return Values</H2>
+<P>Returns <CODE>TRUE</CODE> if the memory address indicated by <SPAN class="argument">ptr</SPAN> is in the memory to be checked.</P>
+<H2>Description</H2>
+<P>Checks the memory address indicated by <SPAN class="argument">ptr</SPAN>.</P>
+<P>The <CODE>OS_IsOnMainMemory</CODE> function checks whether the memory address indicated by the pointer exists in main memory.</P>
+<P>The <CODE>OS_IsOnExtendedMainMemory</CODE> function checks whether the memory address indicated by the pointer exists in extended main memory.</P>
+<P>The <CODE>OS_IsOnWramA</CODE> function checks whether the memory address indicated by the pointer exists in WRAM A. If this function is called from the ARM9 or a NITRO system, it always returns <CODE>FALSE</CODE>.</P>
+<P>The <CODE>OS_IsOnWramB</CODE> function checks whether the memory address indicated by the pointer exists in WRAM B. Always returns <CODE>FALSE</CODE> for NITRO.</P>
+<P>The <CODE>OS_IsOnWramC</CODE> function checks whether the memory address indicated by the pointer exists in WRAM C. Always returns <CODE>FALSE</CODE> for NITRO.</P>
+<P>The <CODE>OS_IsOnWram0</CODE> function checks whether the memory address indicated by the pointer exists in WRAM 0.</P>
+<P>The <CODE>OS_IsOnWram1</CODE> function checks whether the memory address indicated by the pointer exists in WRAM 1.</P>
+<P>The <CODE>OS_IsOnWram</CODE> function checks whether the memory address indicated by the pointer exists in either WRAM A, WRAM B, WRAM C, WRAM 0 or WRAM 1. </P>
+<P>The <CODE>OS_IsOnVram</CODE> function checks whether the memory address indicated by the pointer exists in VRAM.</P>
+<P>The <CODE>OS_IsOnItcm</CODE> function checks whether the memory address indicated by the pointer exists in ITCM. If this function is called from the ARM7, its check always returns <CODE>FALSE</CODE>.</P>
+<P>The <CODE>OS_IsOnDtcm</CODE> function checks whether the memory address indicated by the pointer exists in DTCM. If this function is called from the ARM7, its check always returns <CODE>FALSE</CODE>.</P>
+<P>The <CODE>OS_IsOnArm7PrvWram</CODE> function checks whether the memory address indicated by the pointer exists in ARM7-dedicated WRAM. If this function is called from the ARM9, its check always returns <CODE>FALSE</CODE>.</P>
+
+<H2>See Also</H2>
+<A href="OS_AllocFromHeap.html">OS_AllocFromHeap</A><BR></CODE></P>
+<H2>Revision History</H2>
+2009/04/13 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

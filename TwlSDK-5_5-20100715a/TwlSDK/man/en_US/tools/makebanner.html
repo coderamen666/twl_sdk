@@ -1,0 +1,127 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>makebanner</TITLE>
+<LINK rel="stylesheet" href="../css/nitro.css" type="text/css">
+<STYLE type="text/css">
+<!--
+.sample_source{
+  background-color : #e8e8e8;
+}
+H3{
+  color : teal;
+}
+.command_list{
+  margin-bottom : 16pt;
+}
+.command_desc{
+  }
+.command_item{
+  margin-top : 16pt;
+  background-color : #e8e8e8;
+}
+.blockquoted_table {
+  border : 1px;
+  width : 80%;
+}
+TD,TH{
+  border-color	: #c0d8d8;
+  padding       : 1pt 4pt 1pt 4pt;
+  border-width  : 1px;
+  border-style  : solid;
+}
+-->
+</STYLE>
+</HEAD>
+<BODY>
+<H1 align="left">makebanner <IMG src="../image/NTR.gif" align="middle"></H1>
+<H2>Description</H2>
+<P><FONT color=#ff0000>This command is for NITRO ROMs. See <A href="makebannerTWL.html"><CODE>makebanner.TWL</CODE></A> for details on TWL ROMs.</FONT></P>
+<P>The <CODE>makebanner</CODE> tool creates banner files. Banner files contain various information, including the image that identifies an application and is displayed in the launcher at startup of the TWL and the Nintendo DS and DS Lite systems.</P>
+<P> The banner file contains image data and game title information for each language. It is created based on the description in the banner specification file (BSF). Once the banner file is created, <A href="makerom.html"><CODE>makerom</CODE></A> writes it to the application ROM image.</P>
+<H2>How to Use</H2>
+<H3>Start Command</H3>
+<P><CODE>% makebanner [-d] [-N ICON_BASENAME] SPECFILE [BANNERFILE]</CODE></P>
+<P>This function links files according to the description in the banner specification file (<code>SPECFILE</code>, which is described below). It creates a file named <code>BANNERFILE</code>. Using <code>BANNERFILE</code> is optional and may be omitted. If you omit it, a file of the same name as that specified by <code>SPECFILE</code> with the extension <CODE>.bnr</CODE> is created.</P>
+<P> The <code>-N</code> option enables you to specify from the command line icon files of banners specified by normal banner spec files. It attaches the extensions <code>.nbfc</code> and <code>.nbfp</code> to the base names specified by <code>ICON_BASENAME</code>, turning the resultant files into an image file and image parameter file, respectively. This overwrites the values specified by <code>ImageFile:</code>and <code>PlttFile:</code>parameters in the banner <code>spec</code> file.</P>
+<P> The <code>-d</code> option is a debugging message output option for <CODE>makebanner</CODE>. It causes a debugging message to be generated at run time. This is usually not necessary.</P>
+<H3>Banner Specification File Format</H3>
+<P> The banner specification file is a text file that specifies an image data file and the game title in each language. It must be described and saved in Unicode (UTF-16LE with BOM). Notepad in MS Windows 2000/XP supports Unicode. Select <B>Unicode</B> from the <B>Encoding</B> drop-down list when saving the file.</P>
+<H3>Parameters</H3>
+<P> The delimiter between parameter specifications and values is a colon (<code>:</code>).</P>
+<H4>Image File Parameters</H4>
+<BLOCKQUOTE>
+<DL class="command_list">
+<DT class="command_item"><CODE>ImageFile:</CODE></CODE><I>[Image's image filename]</I>
+<DD class="command_desc">Specifies a binary image, 32x32 x 16 colors.<br />Store character data using one-dimensional mapping.<br />The first 512 bytes are written to the banner file.
+<DT class="command_item"><CODE>PlttFile:</CODE></CODE><I>[Image's palette filename]</I>
+<DD class="command_desc">Specifies a binary image palette.<br />The first 32 bytes are written to the banner file.
+</DL>
+</BLOCKQUOTE>
+<P>Use <code>ntexconv</code> (<code>-no</code> <code>-bg</code> <code>-bgb</code> <code>-bgnc</code>) or the like to create image and palette binary data from an image file.</P>
+<P>The <code>-N</code> option allows you to specify image file parameters from the command line.</P>
+<H4>Version Parameters</H4>
+<BLOCKQUOTE>
+<DL class="command_list">
+<DT class="command_item"><CODE>Version:</CODE> <I>[Banner Version]</I>
+<DD class="command_desc">Specifies the banner version.<BR>This parameter is only required in applications for China or Korea.<BR>For applications destined for China, specify <CODE>'2'</CODE>; for applications destined for Korea, specify <CODE>'3'</CODE>.
+</DL>
+</BLOCKQUOTE>
+<H4>Language Parameters</H4>
+<BLOCKQUOTE>
+<DL class="command_list">
+<DT class="command_item"><CODE>JP:</CODE> <I>[Japanese Game Title Name]</I><BR> <CODE>EN:</CODE><I>[English Game Title Name]</I><BR> <CODE>FR:</CODE><I>[French Game Title Name]</I><BR> <CODE>GE:</CODE><I>[German Game Title Name]</I><BR> <CODE>IT:</CODE><I>[Italian Game Title Name]</I><BR> <CODE>SP:</CODE><I>[Spanish Game Title Name]</I>
+<DD class="command_desc">Describes the game title name in each language. The maximum is three rows, 128 characters (including carriage returns). A string must be specified in the first line. If a line begins with a space or a tab, it is considered a continuation of the previous line. All content between a blank line and the next language parameter is destroyed. If you want to leave line 1 or 2 blank and write something in line 3, place content in the form of quotation marks (<code>&quot;&quot;</code>) in the line you want to leave blank. Always store in the banner file in the following order: Japanese, English, French, German, Italian, and Spanish. As in the banner specification file, the save format is UTF-16LE (without BOM). <BR>
+<DT class="command_item"><CODE>JP:</CODE><I>[English Game Title Name]</I><BR> <CODE>EN:</CODE><I>[English Game Title Name]</I><BR> <CODE>FR:</CODE><I>[English Game Title Name]</I><BR> <CODE>GE:</CODE><I>[English Game Title Name]</I><BR> <CODE>IT:</CODE><I>[English Game Title Name]</I><BR> <CODE>SP:</CODE><I>[English Game Title Name]</I><BR> <CODE>CN:</CODE><I>[Chinese Game Title Name]</I><BR>
+<DD class="command_desc">Use the format above to specify a Chinese-language banner for applications for the Chinese market.
+<DT class="command_item"><CODE>JP:</CODE><I>[English Game Title Name]</I><BR> <CODE>EN:</CODE><I>[English Game Title Name]</I><BR> <CODE>FR:</CODE><I>[English Game Title Name]</I><BR> <CODE>GE:</CODE><I>[English Game Title Name]</I><BR> <CODE>IT:</CODE><I>[English Game Title Name]</I><BR> <CODE>SP:</CODE><I>[English Game Title Name]</I><BR> <CODE>CN:</CODE><I>[English Game Title Name]</I><BR> <CODE>HN:</CODE><I>[Korean Game Title Name]</I>
+<DD class="command_desc">Use the format above to specify a banner for applications for the Korean market. At this time, describe all game title names in English, except for those for Korean.
+</DL>
+For more details on characters and character codes that can be used, see the separate document <I>DS IPL Banner Guidelines</I>.
+</BLOCKQUOTE>
+<H3>Format</H3>
+<P> Parameter specification must be made at the beginning of the name line. Lines beginning with <code>#</code> are treated as comments. With the exception of the spaces at the beginning of a line, all spaces are included in the string. If you want to include leading spaces, surround them with quotation marks (<code>&quot;</code> <code>&quot;</code>). Likewise, if you want to include quotation marks, surround them with quotation marks (<code>&quot;&quot;&quot;</code>).</P>
+<BLOCKQUOTE>
+<PRE class="sample_source"><code>#BSF --- Banner Spec File
+
+ImageFile: banner.nbfc
+PlttFile: banner.nbfp
+
+JP:  &#x30CB;&#x30C8;&#x30ED; <FONT color="#ff0000" face="Arial"><EM>(&quot;Nitro&quot; in Japanese)</EM></FONT>
+     &quot;&#x306B;&#x307B;&#x3093;&#x3054;&quot; <FONT color="#ff0000" face="Arial"><EM>(&quot;Japanese&quot; in Japanese)</EM></FONT>
+EN: Nitro1
+     English
+FR: Nitro2
+GE: Nitro3
+IT: Nitro4
+SP: Nitro5
+</CODE></PRE>
+</BLOCKQUOTE>
+<H3>Warnings</H3>
+<P>The following warning is displayed if the specified game title cannot be displayed correctly by the launcher when starting the TWL or Nintendo DS or DS Lite system.</P>
+<P>The following warning is displayed if characters that cannot be displayed by the launcher have been set.</P>
+<BLOCKQUOTE>
+<PRE class="sample_source"><CODE>Warning:!!!!  JP in line 1
+Warning:!!!!  Game title includes undisplayable characters.
+</CODE></PRE>
+</BLOCKQUOTE>
+<P>Although the Nintendo DS, DS Lite, and DSi systems can display some kanji and symbols, you cannot specify these characters. The useable character codes are distributed separately. See the <I>DS IPL Banner Guidelines</I>.
+</P>
+
+<P>The following warning is displayed if the game title cannot be displayed properly because the width of the game title is greater than the launcher display area.<BR>Check the displayable size of the TWL or Nintendo DS or DS Lite system. In the following example, the title for a TWL system is 1 pixel too wide.</P>
+<BLOCKQUOTE>
+<PRE class="sample_source"><CODE>Warning:!!!!  EN in line 1
+Warning:!!!!  Game title exceeds TWL menu size(240 pixel) by 1 pixel.
+</CODE></PRE>
+</BLOCKQUOTE>
+<H2>Location</H2>
+<P><CODE>$TwlSDK/tools/bin/makebanner.exe</CODE></P>
+<H2>See Also</H2>
+<P><A href="about_Banner.html">Banner Overview</A><BR> <A href="makerom.html"><CODE>makerom</CODE></A></P>
+<H2>Revision History</H2>
+<P>2009/06/18 Added explanation to see the <I>DS IPL Banner Guidelines</I> for characters that can be used.<BR> 2009/06/02 Removed kanji warning. Explained usable character codes. <BR>2009/05/08 Removed some ways of specifying the game title for applications for the Chinese market. <BR>2009/04/13 Added an explanation for applications for the Chinese market. <BR>2008/11/27 Revised game titles in examples and added a warning regarding the use of kanji. <BR>2008/10/20 Added a warning about the width of game titles. <BR>2008/10/17 Changed the link for documents related to Nintendo DS banners. <BR>2008/09/12 Added a link to documents related to Nintendo DS banners. <BR>2007/01/12 Added to <B>Description</B> about applications for China and Korea. <BR>2004/09/10 Added a link to a list of usable characters. <BR>2004/08/28 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

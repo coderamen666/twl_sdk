@@ -1,0 +1,259 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>MI_NDmaRecv*</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">MI_NDmaRecv* <IMG src="../../image/TWL.gif" width="24" height="12" border="0" align=middle></H1>
+<H2>Syntax</H2>
+<DL>
+<DD><CODE>#include &lt;twl/mi.h&gt;</CODE><BR> <BR> <CODE>void MI_NDmaRecv( u32 ndmaNo,</CODE>
+<DT>                    <CODE>volatile const void* src,</CODE>
+<DT>                    <CODE>void*         dest,</CODE>
+<DT>                    <CODE>u32              size );</CODE>
+</DL>
+<DL>
+<DD><CODE>void MI_NDmaRecv_SetUp( u32 ndmaNo,</CODE>
+<DT>                    <CODE>volatile const void* src,</CODE>
+<DT>                    <CODE>void* dest,</CODE>
+<DT>                    <CODE>u32 size );</CODE>
+</DL>
+<DL>
+<DD><CODE>void MI_NDmaRecvAsync( u32 dmaNo,</CODE>
+<DT>                    <CODE>volatile const void* src,</CODE>
+<DT>                    <CODE>void* dest,</CODE>
+<DT>                    <CODE>u32 size,</CODE>
+<DT>                    <CODE>MINDmaCallback callback,</CODE>
+<DT>                    <CODE>void*            arg );</CODE>
+</DL>
+<DL>
+<DD><CODE>void MI_NDmaRecvAsync_SetUp( u32 dmaNo,</CODE>
+<DT>                    <CODE>volatile const void* src,</CODE>
+<DT>                    <CODE>void* dest,</CODE>
+<DT>                    <CODE>u32 size,</CODE>
+<DT>                    <CODE>MINDmaCallback callback,</CODE>
+<DT>                    <CODE>void* arg );</CODE>
+</DL>
+<DL>
+<DD><CODE>void MI_NDmaRecvEx( u32 ndmaNo,</CODE>
+<DT>                    <CODE>volatile const void* src,</CODE>
+<DT>                    <CODE>void* dest,</CODE>
+<DT>                    <CODE>u32 size,</CODE>
+<DT>                    <CODE>MINDmaConfig *config );</CODE>
+</DL>
+<DL>
+<DD><CODE>void MI_NDmaRecvEx_SetUp( u32 ndmaNo,</CODE>
+<DT>                    <CODE>volatile const void* src,</CODE>
+<DT>                    <CODE>void* dest,</CODE>
+<DT>                    <CODE>u32 size,</CODE>
+<DT>                    <CODE>MINDmaConfig *config );</CODE>
+</DL>
+<DL>
+<DD><CODE>void MI_NDmaRecvExAsync( u32 ndmaNo,</CODE>
+<DT>                    <CODE>volatile const void* src,</CODE>
+<DT>                    <CODE>void* dest,</CODE>
+<DT>                    <CODE>u32 size,</CODE>
+<DT>                    <CODE>MINDmaCallback callback,</CODE>
+<DT>                    <CODE>void*      arg ,</CODE>
+<DT>                    <CODE> MINDmaConfig *config</CODE><CODE> );</CODE>
+</DL>
+<DL>
+<DD><CODE>void MI_NDmaRecvExAsync_SetUp( u32 ndmaNo,</CODE>
+<DT>                    <CODE>volatile const void* src,</CODE>
+<DT>                    <CODE>void* dest,</CODE>
+<DT>                    <CODE>u32 size,</CODE>
+<DT>                    <CODE>MINDmaCallback callback,</CODE>
+<DT>                    <CODE>void* arg,</CODE>
+<DT>                    <CODE> MINDmaConfig *config</CODE><CODE> );</CODE>
+</DL>
+<DL>
+<DD><CODE>void MI_NDmaRecv_Dev( u32 ndmaNo,</CODE>
+<DT>                    <CODE>volatile const void* src,</CODE>
+<DT>                    <CODE>void* dest,</CODE>
+<DT>                    <CODE>u32 size,</CODE>
+<DT>                    <CODE>MINDmaDevice dev );</CODE>
+</DL>
+<DL>
+<DD><CODE>void MI_NDmaRecv_Dev_SetUp( u32 ndmaNo,</CODE>
+<DT>                    <CODE>volatile const void* src,</CODE>
+<DT>                    <CODE>void* dest,</CODE>
+<DT>                    <CODE>u32 size,</CODE>
+<DT>                    <CODE>MINDmaDevice dev );</CODE>
+</DL>
+<DL>
+<DD><CODE>void MI_NDmaRecvAsync_Dev( u32 ndmaNo,</CODE>
+<DT>                    <CODE>volatile const void* src,</CODE>
+<DT>                    <CODE>void* dest,</CODE>
+<DT>                    <CODE>u32 size,</CODE>
+<DT>                    <CODE>MINDmaCallback callback,</CODE>
+<DT>                    <CODE>void* arg,</CODE>
+<DT>                    <CODE>MINDmaDevice dev );</CODE>
+</DL>
+<DL>
+<DD><CODE>void MI_NDmaRecvAsync_Dev_SetUp( u32 ndmaNo,</CODE>
+<DT>                    <CODE>volatile const void* src,</CODE>
+<DT>                    <CODE>void* dest,</CODE>
+<DT>                    <CODE>u32 size,</CODE>
+<DT>                    <CODE>MINDmaCallback callback,</CODE>
+<DT>                    <CODE>void* arg,</CODE>
+<DT>                    <CODE>MINDmaDevice dev );</CODE>
+</DL>
+<DL>
+<DD><CODE>void MI_NDmaRecvEx_Dev( u32 ndmaNo,</CODE>
+<DT>                    <CODE>volatile const void* src,</CODE>
+<DT>                    <CODE>void* dest,</CODE>
+<DT>                    <CODE>u32 size,</CODE>
+<DT>                    <CODE>MINDmaConfig *config,</CODE>
+<DT>                    <CODE>MINDmaDevice dev );</CODE>
+</DL>
+<DL>
+<DD><CODE>void MI_NDmaRecvEx_Dev_SetUp( u32 ndmaNo,</CODE>
+<DT>                    <CODE>volatile const void* src,</CODE>
+<DT>                    <CODE>void* dest,</CODE>
+<DT>                    <CODE>u32 size,</CODE>
+<DT>                    <CODE>MINDmaConfig *config,</CODE>
+<DT>                    <CODE>MINDmaDevice dev );</CODE>
+</DL>
+<DL>
+<DD><CODE>void MI_NDmaRecvExAsync_Dev( u32 ndmaNo,</CODE>
+<DT>                    <CODE>volatile const void* src,</CODE>
+<DT>                    <CODE>void* dest,</CODE>
+<DT>                    <CODE>u32 size,</CODE>
+<DT>                    <CODE>MINDmaCallback callback,</CODE>
+<DT>                    <CODE>void* arg,</CODE>
+<DT>                    <CODE>MINDmaConfig *config,</CODE>
+<DT>                    <CODE>MINDmaDevice dev );</CODE>
+</DL>
+<DL>
+<DD><CODE>void MI_NDmaRecvExAsync_Dev_SetUp( u32 ndmaNo,</CODE>
+<DT>                    <CODE>volatile const void* src,</CODE>
+<DT>                    <CODE>void* dest,</CODE>
+<DT>                    <CODE>u32 size,</CODE>
+<DT>                    <CODE>MINDmaCallback callback,</CODE>
+<DT>                    <CODE>void* arg,</CODE>
+<DT>                    <CODE>MINDmaConfig *config,</CODE>
+<DT>                    <CODE>MINDmaDevice dev );</CODE>
+</DL>
+<H2>Arguments</H2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="13%"><SPAN class="argument">ndmaNo</SPAN></TD>
+<TD width="87%">DMA channel to use (0-3 within the new DMA)</TD>
+    </TR>
+    <TR>
+<TD width="13%"><SPAN class="argument">src</SPAN></TD>
+<TD width="87%">Transfer source address</TD>
+    </TR>
+    <TR>
+<TD width="13%"><SPAN class="argument">dest</SPAN></TD>
+<TD width="87%">Transfer destination address</TD>
+    </TR>
+    <TR>
+<TD><SPAN class="argument">size</SPAN></TD>
+<TD>Transfer size</TD>
+    </TR>
+    <TR>
+<TD><SPAN class="argument">callback</SPAN></TD>
+<TD>Callback when DMA ends</TD>
+    </TR>
+    <TR>
+<TD><SPAN class="argument">arg</SPAN></TD>
+<TD>Callback argument when DMA ends</TD>
+    </TR>
+    <TR>
+<TD><SPAN class="argument">config</SPAN></TD>
+<TD>DMA configuration</TD>
+    </TR>
+    <TR>
+<TD><SPAN class="argument">dev</SPAN></TD>
+<TD>Device (if starting a device)</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>Return Values</H2>
+<P>None.</P>
+<H2>Description</H2>
+<P>Uses the new DMA to receive data from the same source transfer address.<BR> (The <CODE>*_SetUp</CODE> functions configure the DMA settings but do not transfer data.)</P>
+<P>The <CODE>MI_NDmaRecv*</CODE> functions uses the TWL's new DMA to repeatedly receive data in word (4-byte) units. Both the transfer source address (<SPAN class="argument">src</SPAN>) and the transfer destination address (<SPAN class="argument">dest</SPAN>) must be 4-byte aligned. The transfer size (<SPAN class="argument">size</SPAN>) needs to be a multiple of 4.</P>
+<P>Specify the new DMA to use as a number between 0 and 3, in <SPAN class="argument">ndmaNo</SPAN>.</P>
+<P>The <CODE>MI_NDmaRecv*</CODE> functions include functions for the separate operations given below.</P>
+<P>-Whether to wait for DMA shutdown inside the function<BR>-Whether to use defaults for advanced DMA settings or user specifications<BR>-Whether to start DMA immediately, or start it based on an interrupt from a peripheral device</P>
+<P> In addition, the <CODE>*_SetUp</CODE> functions only configure the given settings without starting DMA. To start DMA, call the <A href="MI_NDmaRestart.html"><CODE>MI_NDmaRestart</CODE></A> function.<BR>
+</P>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+<TH>Functions</TH>
+<TH>Wait for DMA Completion in the Function</TH>
+<TH>Detailed DMA Settings</TH>
+<TH>Start DMA</TH>
+    </TR>
+    <TR>
+<TD><CODE>MI_NDmaRecv</CODE></TD>
+<TD>Yes</TD>
+<TD>Default</TD>
+<TD>Immediately</TD>
+    </TR>
+    <TR>
+<TD><CODE>MI_NDmaRecvAsync</CODE></TD>
+<TD>No (Async)</TD>
+<TD>Default</TD>
+<TD>Immediately</TD>
+    </TR>
+    <TR>
+<TD><CODE>MI_NDmaRecvEx</CODE></TD>
+<TD>Yes</TD>
+<TD>User-defined</TD>
+<TD>Immediately</TD>
+    </TR>
+    <TR>
+<TD><CODE>MI_NDmaRecvExAsync</CODE></TD>
+<TD>No (Async)</TD>
+<TD>User-defined</TD>
+<TD>Immediately</TD>
+    </TR>
+    <TR>
+<TD><CODE>MI_NDmaRecv_Dev</CODE></TD>
+<TD>Yes</TD>
+<TD>Default</TD>
+<TD>Interrupt from peripheral device</TD>
+    </TR>
+    <TR>
+<TD><CODE>MI_NDmaRecvAsync_Dev</CODE></TD>
+<TD>No (Async)</TD>
+<TD>Default</TD>
+<TD>Interrupt from peripheral device</TD>
+    </TR>
+    <TR>
+<TD><CODE>MI_NDmaRecvEx_Dev</CODE></TD>
+<TD>Yes</TD>
+<TD>User-defined</TD>
+<TD>Interrupt from peripheral device</TD>
+    </TR>
+    <TR>
+<TD><CODE>MI_NDmaRecvExAsync_Dev</CODE></TD>
+<TD>No (Async)</TD>
+<TD>User-defined</TD>
+<TD>Interrupt from peripheral device</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P><BR>
+</P>
+<P>The <CODE>Async-type functions</CODE> calls the callback specified in <SPAN class="argument">callback</SPAN> upon DMA completion. The callback is of type <CODE>MINDmaCallback</CODE> (a <code>void</code>-type function that takes one of the <code>void*</code> arguments). The <SPAN class="argument">callback</SPAN> argument is called from the system DMA interrupt handler and therefore is called even if interrupts are prohibited.</P>
+<P>To achieve maximum functionality, it is necessary to understand how to use Async-type functions.<BR>For more information, see the <A href="../dma/MI_DmaCopy.html"><CODE>MI_DmaCopy</CODE></A> function.</P>
+<P>The <SPAN class="argument">config</SPAN> argument is a pointer to the structure that determines the details of the DMA behavior.</P>
+<P>The <SPAN class="argument">dev</SPAN> argument indicates the device when performing DMA upon startup of a peripheral device. For the values that can be set, see <A href="about_ndma.html#MINDmaDevice">&quot;DMA Start Timing&quot; in <B>New DMA: Overview</B></A></P>
+<H2>Internal Operation</H2>
+<P>Uses the new I/O DMA registers.</P>
+<H2>See Also</H2>
+<P><A href="MI_NDmaFill.html"><CODE>MI_NDmaFill*</CODE></A><BR> <A href="MI_NDmaClear.html"><CODE>MI_NDmaClear*</CODE></A><BR> <A href="MI_NDmaSend.html"><CODE>MI_NDmaSend*</CODE></A><BR> <A href="../dma/MI_DmaRecv.html"><CODE>MI_DmaRecv*</CODE></A><BR> <A href="../memory/MI_CpuRecv.html"><CODE>MI_CpuRecv*</CODE></A><BR> <A href="MI_NDmaRestart.html"><CODE>MI_NDmaRestart</CODE></A><BR> <A href="about_ndma.html">New DMA: Overview</A></P>
+<H2>Revision History</H2>
+<P>2008/11/19 Added the link for <CODE>MINDmaDevice</CODE>. <BR>2007/10/31 Added <CODE>_SetUp</CODE>. <BR>2007/10/23 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

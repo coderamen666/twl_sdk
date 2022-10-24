@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>OS_FExit</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">OS_FExit <img src="../../image/NTR.gif" align="middle"><img src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+<DL>
+  <DD><CODE>#include &lt;nitro/os.h&gt;</CODE><BR>
+  <BR>
+  <CODE>void OS_FExit( int console, int status );</CODE>
+</DL>
+<H2>Arguments</H2>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+      <TD><B><I>console</I></B></TD>
+      <TD>Output window.</TD>
+    </TR>
+    <TR>
+      <TD><EM><B>status</B></EM></TD>
+      <TD>Exit status</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>Return Values</H2>
+<P>None.</P>
+<H2>Description</H2>
+<P>Displays a termination message, puts the CPU in HALT status, and loops.</P>
+<P>The only difference between this function and <CODE><A href="OS_Exit.html">OS_Exit()</A></CODE> is that this function allows the output destination to be specified. For a description of the rest, refer to the function reference for <CODE><A href="OS_Exit.html">OS_Exit()</A></CODE>.</P>
+<P><B><I>console</I></B> is used to specify the output destination and can take values from 0 to 3, indicating the window number. Specify <CODE>OS_PRINT_OUTPUT_NONE</CODE> to output nothing. Specifying <CODE>OS_PRINT_OUTPUT_CURRENT</CODE> will output to the error output destination that was specified using <CODE><A href="../debug/OS_SetPrintOutput.html">OS_SetPrintOutput()</A></CODE>.</P>
+<H2>See Also</H2>
+<P><CODE><A href="OS_Exit.html">OS_Exit</A>, <A href="../debug/OS_SetPrintOutput.html">OS_SetPrintOutput</A></CODE></P>
+<H2>Revision History</H2>
+<P>2008/05/23 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

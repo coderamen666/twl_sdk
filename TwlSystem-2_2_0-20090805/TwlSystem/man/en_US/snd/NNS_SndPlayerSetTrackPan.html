@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"><html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>NNS_SndPlayerSetTrackPan</title>
+<link rel="stylesheet" href="../css/nitro.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.65.1">
+</head>
+<body>
+<div class="refentry" lang="ja"><a name="IDAKKWT"></a><div class="titlepage">
+<div></div>
+<div></div>
+</div>
+<h1>NNS_SndPlayerSetTrackPan</h1>
+<h2>Syntax</h2>
+<dl>
+<dd><pre class="funcsynopsisinfo"><code>#include &lt;nnsys/snd.h&gt;</code></pre></dd>
+<dd><pre class="funcprototype"><code class="funcprototype">void NNS_SndPlayerSetTrackPan(
+        NNSSndHandle* <var>handle</var>,
+        u16 <var>trackBitMask</var>,
+        int <var>pan</var> );</code><br></pre></dd>
+</dl>
+<div class="refsection" lang="ja"><a name="IDAHMWT"></a>
+<h2>Arguments</h2>
+      
+      <div class="variablelist">
+<table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><code>handle</code></td>
+<td>Sound handle pointer.</td>
+</tr>
+<tr>
+<td><code>trackBitMask</code></td>
+<td>Track bit mask.</td>
+</tr>
+<tr>
+<td><code>pan</code></td>
+<td>Change value for pan (position). Takes a value between -128 and 127.</td>
+</tr>
+</tbody>
+</table>
+</div>
+    </div>
+<div class="refsection" lang="ja"><a name="IDAENWT"></a>
+<h2>Return Values</h2>
+
+<p>None.</p>
+    </div>
+<div class="refsection" lang="ja"><a name="IDALNWT"></a>
+<h2>Description</h2>
+      <p>
+Changes the pan position for a sequence track.
+</p>
+      <p>
+This function changes the track pan for the sequence linked to the sound handle <code>handle</code>. This function does not perform any action if the sound handle is invalid. 
+</p>
+      <p>
+Use <code>trackBitMask</code> to specify the tracks to be set. The tracks are identified from the lower bit in sequence: Track 0, Track 1, Track 2 .... All tracks with enabled bits will have their pan changed. For example, to change the pan of Track 2 and Track 5, use  (1 &lt;&lt; 2) | (1 &lt;&lt; 5); that is, <CODE>0x0024</CODE>. 
+</p>
+      <p>
+The <code>pan</code> argument is added to the original pan value. When <code>pan</code> is positive, motion is to the right; when <code>pan</code> is negative, motion is to the left. (Does not accumulate each time the function is called.) 
+</p>
+    </div>
+<h2>See Also</h2>
+<p>None.</p>
+<h2>Revision History</h2>
+<p>2004/06/01 Revised <B>Description</B> to state that the sound handle binds to the sequence.<br> 2004/04/01 Initial version.</p>
+</div>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

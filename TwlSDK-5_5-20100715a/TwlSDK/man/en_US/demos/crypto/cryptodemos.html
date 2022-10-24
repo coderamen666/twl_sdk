@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!--==========================================================================
+  Copyright 2008 Nintendo.  All rights reserved.
+
+  These coded instructions, statements, and computer programs contain
+  proprietary information of Nintendo of America Inc. and/or Nintendo
+  Company Ltd., and are protected by Federal copyright law.  They may
+  not be disclosed to third parties or copied or duplicated in any form,
+  in whole or in part, without the prior written consent of Nintendo.
+ ==========================================================================-->
+<HTML>
+<HEAD>
+	<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+	<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+	<META http-equiv="Content-Style-Type" content="text/css">
+	<LINK rel="stylesheet" type="text/css" href="../../css/nitro.css">
+	<TITLE>CRYPTO Demos</TITLE>
+</HEAD>
+<BODY>
+<H1>CRYPTO Library (CRYPTO) Sample Demos</H1>
+<H2>Location</H2>
+<P><CODE>$TwlSDK/build/demos/crypto</CODE></P>
+
+<H2>Compilation</H2>
+<P>Move to the <CODE>$TwlSDK/build/demos/crypto</CODE> (or <CODE>$TwlSDK/build/demos.TWL/crypto</CODE>) directory and enter the following.</P>
+<BLOCKQUOTE><CODE>% make</CODE></BLOCKQUOTE>
+<P>&nbsp; The compilation begin, and the SRL executable file and the NEF or TEF files with binary information are generated in <CODE>$TwlSDK/build/demos/fs/(sample name)/bin/(platform)/(target)/</CODE>.</P>
+<BLOCKQUOTE><CODE>$TwlSDK/build/demos/crypto/(sample name)/bin/(platform)/(target)/</CODE><BR> <CODE>$TwlSDK/build/demos.TWL/crypto/(sample name)/bin/(platform)/(target)/</CODE></BLOCKQUOTE>
+<P>&nbsp;&nbsp;For example:</P>
+<BLOCKQUOTE><CODE>$TwlSDK/build/demos/crypto/rc4-1/bin/ARM9-TS/Release/main.srl</CODE></BLOCKQUOTE>
+<P>is the executable file for the <CODE>rc4-1</CODE> demo.</P>
+
+<H2>Execution</H2>
+<H3>For NITRO ROMs:</H3>
+<P>If using the Ensata emulator:</P>
+<UL>
+<LI>Execute NEF and SRL files with ensata
+</UL>
+<P>If using IS-NITRO-DEBUGGER:</P>
+<UL>
+<LI>Load and execute an NLF file with IS-NITRO-DEBUGGER
+<LI>Execute an SRL file with IS-NITRO-DEBUGGER
+<LI>Execute an SRL file with IS-NITRO-DEBUGGER using the <CODE>loadrun.exe</CODE> tool from a command line
+</UL>
+<P>If using IS-TWL-DEBUGGER:</P>
+<UL>
+<LI>Load and execute an NLF file with IS-TWL-DEBUGGER
+<LI>Execute an SRL file with IS-TWL-DEBUGGER
+<LI>Execute an SRL file with IS-TWL-DEBUGGER using the <CODE>loadrun.TWL.exe</CODE> tool from a command line
+</UL>
+<H3>For TWL/NITRO Hybrid ROMs</H3>
+<P>If using IS-NITRO-DEBUGGER:</P>
+<UL>
+<LI>Execute an SRL file with IS-NITRO-DEBUGGER
+<LI>Execute an SRL file with IS-NITRO-DEBUGGER using the <CODE>loadrun.exe</CODE> tool from a command line
+</UL>
+<P>If using IS-TWL-DEBUGGER:</P>
+<UL>
+<LI>Load and execute a TLF file with IS-TWL-DEBUGGER
+<LI>Execute an SRL file with IS-TWL-DEBUGGER
+<LI>Execute an SRL file with IS-TWL-DEBUGGER using the <CODE>loadrun.TWL.exe</CODE> tool from a command line
+</UL>
+<H3>For TWL Limited ROMs</H3>
+<P>If using IS-TWL-DEBUGGER:</P>
+<UL>
+<LI>Load and execute a TLF file with IS-TWL-DEBUGGER
+<LI>Execute an SRL file with IS-TWL-DEBUGGER
+<LI>Execute an SRL file with IS-TWL-DEBUGGER using the <CODE>loadrun.TWL.exe</CODE> tool from a command line
+</UL>
+
+<H2>Description</H2>
+<TABLE width="720">
+  <TBODY>
+    <TR>
+<TH>Name</TH>
+<TH>Directories</TH>
+<TH>Operation</TH>
+    </TR>
+    <TR>
+<TD width="187"><CODE>rc4-1</CODE></TD>
+<TD><CODE>demos</CODE></TD>
+<TD width="525">This sample whether encryption/decription using the RC4 algorithm is working correctly.</TD>
+    </TR>
+    <TR>
+<TD width="187"><CODE>rc4-2</CODE></TD>
+<TD><CODE>demos</CODE></TD>
+<TD width="525">This sample measures the difference in speed between the two types of RC4 functions.</TD>
+    </TR>
+    <TR>
+<TD width="187"><CODE>rc4-3</CODE></TD>
+<TD><CODE>demos</CODE></TD>
+<TD width="525">This sample performs highly secure encryption through the combined use of the RC4 function and the SHA-1 function in the SDK. A pseudorandom number generator is set up to create a safe IV.</TD>
+    </TR>
+    <TR>
+<TD width="187"><CODE>sign-1</CODE></TD>
+<TD><CODE>demos</CODE></TD>
+<TD width="525">This sample checks if the digital signature verification function is working correctly.</TD>
+    </TR>
+    <TR>
+<TD width="187"><CODE>sign-2</CODE></TD>
+<TD><CODE>demos.TWL</CODE></TD>
+<TD width="525">This sample checks if the digital signature creation function is working correctly.</TD>
+    </TR>
+    <TR>
+<TD width="187"><CODE>rsa-1</CODE></TD>
+<TD><CODE>demos.TWL</CODE></TD>
+<TD width="525">This sample whether encryption/decription using the RSA algorithm is working correctly.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>Operation</H2>
+<P>Operates normally in all operating environments.</P>
+<H2>See Also</H2>
+<P><A href="../../crypto/list_crypto.html">List of CRYPTO Functions</A></P>
+<H2>Revision History</H2>
+<P>
+2008/10/31 Changed the demo directory name.<BR> 2008/07/11 Changed notation to correspond with TWL.<BR> 2006/04/22 Added <CODE>sign-2</CODE>.<br> 2007/03/27 TWL-SDK port: initial version.<br> 2006/03/08 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

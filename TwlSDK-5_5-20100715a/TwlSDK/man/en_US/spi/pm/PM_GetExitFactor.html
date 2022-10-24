@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>PM_GetExitFactor</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">PM_GetExitFactor <IMG src="../../image/TWL.gif" width="24" height="12" border="0" align="middle"></H1>
+<H2>Syntax</H2>
+<DL>
+  <DD>
+  <PRE><CODE>#include &lt;twl/spi.h&gt;</CODE></PRE>
+  <PRE><CODE>PMExitFactor PM_GetExitFactor( void );
+  </CODE></PRE>
+</DL>
+<H2>Arguments</H2>
+<P>None.</P>
+<H2>Return Values</H2>
+<P>Cause for exit processing.</P>
+<H2>Description</H2>
+<P>Gets the cause that led to exit processing.</P>
+<P>The return values have the following meanings. When the system has not entered exit processing, the return value is <CODE>PM_EXIT_FACTOR_NONE</CODE>.<BR>
+</P>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+      <TH><CODE>Return Values</CODE></TH>
+      <TH>Cause for exit processing       </TH>
+    </TR>
+    <TR>
+      <TD><CODE>PM_EXIT_FACTOR_PWSW</CODE></TD>
+      <TD>The Power Button was detected to be held down longer than a fixed amount of time</TD>
+    </TR>
+    <TR>
+      <TD><CODE>PM_EXIT_FACTOR_BATTERY</CODE></TD>
+      <TD>The ARM7 detected a drop in battery power</TD>
+    </TR>
+    <TR>
+      <TD><CODE>PM_EXIT_FACTOR_USER</CODE></TD>
+      <TD>The user forced a hardware reset or power-off</TD>
+    </TR>
+    <TR>
+      <TD><CODE>PM_EXIT_FACTOR_NONE</CODE></TD>
+      <TD>(Not in exit processing.)</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P><B><BR> <BR> Reset or Power-Off Transition</B></P>
+<P>When the value is <CODE>PM_EXIT_FACTOR_PWSW</CODE>, it is not yet known whether this will lead to a hardware reset or whether it will lead to a power-off. Which sequence it becomes depends upon the time at which the Power Button is released.</P>
+<P>When the value is <CODE>PM_EXIT_FACTOR_BATTERY</CODE>, the power-off sequence will begin.</P>
+<P>When the value is <CODE>PM_EXIT_FACTOR_USER</CODE>, the <CODE><A href="PM_ForceToResetHardware.html">PM_ForceToResetHardware</A></CODE> or <CODE><A href="PM_ForceToPowerOff.html">PM_ForceToPowerOff</A></CODE> function has been called, so the hardware reset or shutdown sequence will begin.</P>
+<P>In any case, the exit callback must end promptly.</P>
+<P><BR> <BR> <B><CODE>The <CODE>PM_EXIT_FACTOR_USER</CODE> Return Value</CODE></B> </P>
+<P>This value is set when execution has passed through the <CODE><A href="PM_ForceToResetHardware.html">PM_ForceToResetHardware</A></CODE> or <CODE><A href="PM_ForceToPowerOff.html">PM_ForceToPowerOff</A></CODE> function. A value of <CODE>PM_EXIT_FACTOR_USER</CODE> will be set even if these functions are called ultimately from another system function rather than directly by the user. For example, a call to the <CODE><a href="../../os/appJump/OS_JumpToSystemMenu.html">OS_JumpToSystemMenu</a></CODE> function ultimately causes execution to reach the <CODE><A href="PM_ForceToResetHardware.html">PM_ForceToResetHardware</A></CODE> function.</P>
+<H2>See Also</H2>
+<P><CODE><A href="PM_SetExitCallbackInfo.html">PM_SetExitCallbackInfo</A>, <A href="PM_SetAutoExit.html">PM_SetAutoExit</A>, <A href="PM_GetAutoExit.html">PM_GetAutoExit</A><BR></CODE></P>
+<H2>Revision History</H2>
+<P>2008/05/01 Added <CODE>PM_EXIT_FACTOR_USER</CODE>. 2008/02/07 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 8.0.2.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>WM_SetWEPKeyEx</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">WM_SetWEPKeyEx&nbsp;<img src="../../image/NTR.gif"><img src="../../image/TWL.gif"></H1>
+<h2>Syntax</h2>
+<dl>
+  <dd><PRE><CODE>#include &lt;nitro/wm.h&gt;
+
+<A href="WMErrCode.html">WMErrCode</A> WM_SetWEPKeyEx(
+        <A href="WMCallbackFunc.html">WMCallbackFunc</A>  callback ,
+        u16             wepmode ,
+        u16             wepkeyid ,
+        const u8*       wepkey
+);
+</CODE></PRE></dd>
+</dl>
+
+<h2>Arguments</h2>
+<TABLE width="100%">
+  <tbody>
+    <TR>
+<TD width="200"><CODE>callback</CODE></TD>
+<TD width="800">Callback function to call when the asynchronous process completes. This callback is called from within the interrupt handler.</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>wepmode</CODE></TD>
+<TD width="800">Operations mode of the encryption communications feature. Use a value from 0-3, as shown below.
+<UL><LI>0: No encryption features<BR>
+<LI>1: RC4 ( 40-bit) encryption mode <BR>
+<LI>2: RC4 ( 104-bit) encryption mode <BR>
+<LI>3: RC4 (128-bit) encryption mode
+      </UL></TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>wepkeyid</CODE></TD>
+<TD width="800">Value from 0 to 3 that indicates which of the 4 WEP keys will be used.</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>wepkey</CODE></TD>
+<TD width="800">Pointer to the  encryption  key data (80 bytes).<BR>The key data is made up of 4 data items, each of which are 20 bytes. Of each 20 bytes,
+<UL><LI>In 40-bit mode, 5 bytes
+<LI>In 104-bit mode, 13 bytes
+<LI>In 128-bit mode, 16 bytes
+      </UL>
+are used.<BR>Note that this data is forcibly cached.</TD>
+    </TR>
+  </tbody>
+</table>
+
+<h2>Return Values</h2>
+<p>Returns the results of the <CODE><A href="WMErrCode.html">WMErrCode</A></CODE> enumerated type process.</p>
+
+<H2>Description</H2>
+<P>
+Configures the encryption feature and the encryption keys. Configure advanced settings with the <A href="WM_SetWEPKey.html"><CODE>WM_SetWEPKey</CODE></A> function. It is executable when WM is in an <A href="wm_state_diagram.html">IDLE state</A>. If the return value of the function was <code>WM_ERRCODE_OPERATING</code>, the callback is generated after the encryption feature configuration process has completed. WEP key encryption is applied to the authentication process when connecting and to the sending and receiving of data in infrastructure mode. The <code>wepmode</code> argument must be configured in the same way as its communications partner. The <CODE>wepkeyid</CODE> argument is used in the selection of the encryption data string when sending data. Conversely, the WEP key of the ID designated by the send side is used in decryption when data is received. Since it can be confirmed that the keys are identical by encrypting the child device and decrypting the parent device in shared key authentication, designation of an ID on the parent device has no real meaning. Also, the IDs of the WEP keys designated by the access point must be identical when encrypting receive data in infrastructure mode. Be aware that when connecting the parent that performed the WEP encryption configuration as a child through this function, once the WEP configurations have been performed with this function, the <code>authMode</code> of the <A href="WM_StartConnectEx.html"><CODE>WM_StartConnectEx</CODE></A> function must be designated as shared key authentication (<code>WM_AUTHMODE_SHARED_KEY</code>).
+</P>
+
+<H2>Notes</H2>
+<P>The <CODE>wepkey</CODE> data is forcibly stored in the internal cache. To avoid overwriting surrounding memory regions, be sure to pass data that is 32-byte aligned.<BR>See the Wireless Communication Library Manual (AboutWirelessManager.pdf) for additional details.</P>
+
+<h2>See Also</h2>
+<p><A href="WM_SetWEPKey.html"><CODE>WM_SetWEPKey</CODE></A><BR> <A href="WM_StartConnectEx.html"><CODE>WM_StartConnectEx</CODE></A></p>
+
+<H2>Revision History</H2>
+<P>
+2008/12/17 Added a note about how data passed in arguments is forcibly cached internally.<BR>2005/06/08 Added the fact that the callback is called from the interrupt handler.<BR>2005/03/07 Made addition to Description.<BR>2005/03/02 Added mention of the specifiable range of the wepmode argument.<BR>2005/02/14 Initial version.<BR>
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

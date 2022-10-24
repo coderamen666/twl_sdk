@@ -1,0 +1,34 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>OS_GetArgumentBuffer</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">OS_GetArgumentBuffer <IMG src="../../image/NTR.gif" align="middle"><IMG src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+<DL>
+  <DD>
+  <PRE><CODE>#include &lt;nitro/os.h&gt;</CODE></PRE>
+  <PRE><CODE>const char* OS_GetArgumentBuffer( void );
+ </CODE></PRE>
+</DL>
+<H2>Arguments</H2>
+<P>None.</P>
+<H2>Return Values</H2>
+<P>Returns a pointer to the current argument buffer.</P>
+
+<H2>Description</H2>
+<P>Gets a pointer to the argument buffer that is currently set.</P>
+<P>Although the argument buffer region held in the system is set by default (argument data can be embedded here with the <A href="../../tools/buryarg.html"><CODE>buryarg</CODE></A> or <A href="../../tools/buryarg.html"><CODE>buryarg.TWL</CODE></A> tool), you can change the region with the <A href="OS_SetArgumentBuffer.html"><CODE>OS_SetArgumentBuffer</CODE></A> function.</P>
+
+<P>Always returns <CODE>NULL</CODE> when FINALROM builds.</P>
+<H2>See Also</H2>
+<P><A href="OS_GetArgv.html"><CODE>OS_GetArgv</CODE></A><BR> <A href="OS_GetArgc.html"><CODE>OS_GetArgc</CODE></A><BR> <A href="OS_GetOpt.html"><CODE>OS_GetOpt</CODE></A><BR> <A href="../../tools/buryarg.html"><CODE>buryarg</CODE> Tool</A><BR> <A href="../../tools/buryarg.html"><CODE>buryarg.TWL</CODE> Tool</A><BR> <A href="OS_SetArgumentBuffer.html"><CODE>OS_SetArgumentBuffer</CODE></A><BR> <A href="OS_ConvertToArguments.html"><CODE>OS_ConvertToArguments</CODE></A></P>
+<H2>Revision History</H2>
+<P>2008/07/09 Added information on <A href="../../tools/buryarg.html"><CODE>buryarg.TWL</CODE></A>.<BR> 2005/09/09 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

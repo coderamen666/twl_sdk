@@ -1,0 +1,65 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title>TCLPictureInfo</title>
+<link rel="stylesheet" href="../css/nitro.css" type="text/css">
+</head>
+<body>
+<h1 align="left">TCLPictureInfo <img src="../image/TWL.gif" align="middle"></h1>
+
+<h2>Definition</h2>
+<dl>
+	<dd>
+	<code>#include &lt;twl/tcl.h&gt;</code><br/> <br/>
+	<pre><code>
+typedef struct
+{
+    s64 second;
+    int favoriteOrder;
+
+    union
+    {
+        u32 bitField;
+        struct
+        {
+            u32 validity     :  1;
+            u32 dirIdx       : 10;
+            u32 fileIdx      :  7;
+            u32 favoriteType :  2;
+            u32 imageType    :  2;
+            u32 keyType      :  2;
+            u32 defaultFrame :  1;
+            u32 reserved     :  7;
+        };
+    };
+} TCLPictureInfo;
+	</code></pre>
+</dl>
+
+<h2>Description</h2>
+<p>This structure defines the image information stored in the management file.</p>
+<p>The direct use of any of its members from an application is prohibited.</p>
+<p>The details of each member are explained in the following list.</p>
+<table>
+<tr><td>second<td>The time when the photo was taken, expressed in seconds.
+<tr><td>favoriteOrder<td>The ordering of favorites when favorites are specified.
+<tr><td>validity<td>Whether photo is valid or invalid.
+<tr><td>dirIdx<td>The directory where the photo is stored.<br/>If set to 0, the photo is stored in <CODE>DCIM/100NIN02</CODE>.
+<tr><td>fileIdx<td>The name of the photo file.<br/>If set to 0, the photo is stored in <CODE>HNI_0001.JPG</CODE>.
+<tr><td>favoriteType<td>The favorite type specified by <a href="TCLFavoriteType.html"><code>TCLFavoriteType</code></a>.
+<tr><td>keyType<td>The key type represented by <a href="TCLKeyType.html"><code>TCLKeyType</code></a>.
+<tr><td>defaultFrame<td>This value is used internally.
+<tr><td>reserved<td>A reserved region.
+</table>
+
+<h2>See Also</h2>
+<p><a href="TCL_SearchNextPictureInfo.html"><CODE>TCL_SearchNextPictureInfo</CODE></a><BR> <a href="TCL_SearchPictureInfoByIndex.html"><CODE>TCL_SearchPictureInfoByIndex</CODE></a><BR> <a href="TCL_PrintPicturePath.html"><CODE>TCL_PrintPicturePath</CODE></a></p>
+
+<h2>Revision History</h2>
+<p>
+2008/10/07 Initial version.
+</p>
+
+<hr><p>CONFIDENTIAL</p></body>
+</html>

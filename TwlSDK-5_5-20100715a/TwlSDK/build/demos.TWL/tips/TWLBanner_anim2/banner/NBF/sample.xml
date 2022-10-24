@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="Shift_JIS"?>
+<banner>
+<character_array>
+	<character>image0.nbfc</character>
+	<character>image1.nbfc</character>
+	<character>image2.nbfc</character>
+	<character>image3.nbfc</character>
+	<character>image4.nbfc</character>
+	<character>image5.nbfc</character>
+	<character>image6.nbfc</character>
+	<character>image7.nbfc</character>
+</character_array>
+<palette_array>
+	<palette>image1.nbfp</palette>
+</palette_array>
+<animation loop_mode="loop">
+	20 0 0 N
+	20 1 0 N
+	20 2 0 N
+	20 3 0 N
+	20 4 0 N
+	20 5 0 N
+	20 6 0 N
+	20 7 0 N
+
+	10 7 0 N
+	10 7 0 N
+	10 7 0 N
+	10 7 0 N
+
+	10 6 0 N
+	10 5 0 N
+	10 4 0 N
+	10 3 0 N
+</animation>
+</banner>

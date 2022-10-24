@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>CARD_IsExecutableOnTWL</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">CARD_IsExecutableOnTWL<img src="../../image/NTR.gif"align="middle"><img src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/card.h&gt;</CODE><BR>
+  <BR>
+  <CODE>void	CARD_IsExecutableOnTWL(const <code><a href="../card_rom_header_type.html">CARDRomHeader</a></code> *header);</CODE><br>
+  <br>
+  </dd>
+</dl>
+<h2>Arguments</h2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+      <TD width="13%"><SPAN class="argument">header</SPAN></TD>
+      <TD width="87%">Pointer to the buffer storing the ROM header information of the program to be evaluated</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<h2>Return Values</h2>
+<p>Returns <CODE>TRUE</CODE> if the program can be started in TWL mode. If not, returns <CODE>FALSE</CODE>.</p>
+
+<H2>Description</H2>
+<P>Determines from the ROM header information whether the program can be run in TWL mode.<br /> This function returns <CODE>TRUE</CODE> if the program is compatible with Nintendo DSi and built in LIMITED or HYBRID mode. If the program is only for Nintendo DS and built in NITRO mode, the function returns <CODE>FALSE</CODE>.
+</P>
+<h2>See Also</h2>
+<p><A href="../card_rom_header_type.html"><CODE>CARDRomHeader</CODE></A></p>
+
+<H2>Revision History</H2>
+<P>
+2008/11/27 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

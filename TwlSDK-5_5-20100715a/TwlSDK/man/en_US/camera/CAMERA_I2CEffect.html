@@ -1,0 +1,64 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>CAMERA_I2CEffect*</TITLE>
+<LINK rel="stylesheet" href="../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">CAMERA_I2CEffect* <IMG src="../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+<DL>
+  <DD>
+<CODE>#include &lt;twl/camera.h&gt;</CODE><BR> <BR> <CODE><A href="CAMERAResult.html">CAMERAResult</A> CAMERA_I2CEffect(<A href="CAMERASelect.html">CAMERASelect</A> camera, <A href="CAMERAEffect.html">CAMERAEffect</A> effect);</CODE> <BR> <CODE><A href="CAMERAResult.html">CAMERAResult</A> CAMERA_I2CEffectAsync(<A href="CAMERASelect.html">CAMERASelect</A> camera, <A href="CAMERAEffect.html">CAMERAEffect</A> effect, <A href="CAMERACallback.html">CAMERACallback</A> callback, void *arg);</CODE> <BR> <CODE><A href="CAMERAResult.html">CAMERAResult</A> CAMERA_I2CEffectEx(<A href="CAMERASelect.html">CAMERASelect</A> camera, <A href="CAMERAContext.html">CAMERAContext</A> context, <A href="CAMERAEffect.html">CAMERAEffect</A> effect);</CODE> <BR> <CODE><A href="CAMERAResult.html">CAMERAResult</A> CAMERA_I2CEffectExAsync(<A href="CAMERASelect.html">CAMERASelect</A> camera, <A href="CAMERAContext.html">CAMERAContext</A> context, <A href="CAMERAEffect.html">CAMERAEffect</A> effect, <A href="CAMERACallback.html">CAMERACallback</A> callback, void *arg);</CODE>
+</DL>
+<H2>Arguments</H2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="13%"><EM><STRONG>camera</STRONG></EM></TD>
+<TD width="87%">Camera to configure (<CODE>CAMERA_SELECT_IN</CODE>, <CODE>CAMERA_SELECT_OUT</CODE>, or <CODE>CAMERA_SELECT_BOTH</CODE>).</TD>
+    </TR>
+    <TR>
+<TD width="13%"><EM><STRONG>context</STRONG></EM></TD>
+<TD width="87%">Context to change.</TD>
+    </TR>
+    <TR>
+<TD width="13%"><EM><STRONG>effect</STRONG></EM></TD>
+<TD width="87%">Effect to set.</TD>
+    </TR>
+    <TR>
+<TD width="13%"><EM><STRONG>callback</STRONG></EM></TD>
+<TD width="87%">Function that is called when asynchronous processing has completed.</TD>
+    </TR>
+    <TR>
+<TD width="13%"><EM><STRONG>arg</STRONG></EM></TD>
+<TD width="87%">Arguments when the callback function is invoked.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<H2>Return Values</H2>
+<P>Returns <CODE>CAMERA_RESULT_SUCCESS</CODE> if configuration was successful.</P>
+
+<H2>Description</H2>
+<P>
+Changes the camera effects.<BR><BR> The <code>CAMERA_I2CEffectEx</code> function is used to change the setting with the context specified. The non-Ex functions change the setting for both context A and B. See <A href="CAMERAContext.html"><CODE>CAMERAContext</CODE></A> for information on contexts.<BR><BR> Unlike <code>CAMERA_I2CEffect</code>, the <code>CAMERA_I2CEffectAsync</code> function returns control immediately and runs asynchronously. Use <SPAN class="argument">callback</SPAN> to confirm that processing has completed.<BR><BR><B>Note:</B> When specifying an effect with this function, you can vary the result of the effect by changing another setting at the same time.
+<ol>
+<li>When <CODE>CAMERA_EFFECT_NEGAFILM</CODE> is specified, you can emphasize red tones by raising the color temperature of the white balance (<CODE>CAMERA_WHITE_BALANCE_SHADE</CODE>).</li>
+<li>When <CODE>CAMERA_EFFECT_SEPIA</CODE> is set, a soft impression can be obtained by lowering the sharpness setting.</li>
+</ol>
+</P>
+<P>
+<font color="red"><B>Note:</B></font><br> If camera settings are changed using any of the <code>CAMERA_I2C*</code> functions, the changes may be delayed for approximately one frame before they are applied. If camera settings are changed during image capture, therefore, an application's timing may make it impossible to get an image with the changes applied.<br><br> <font color="red">Occasional Shifting of Captured Images</font><br> The captured image may shift if this function is called during image capture.<br>Before calling this function, first stop the image capture with <code><a href="CAMERA_StopCapture.html">CAMERA_StopCapture</a></code>. Then call this function. After this function completes execution, restart the image capture with <code><a href="CAMERA_StartCapture.html">CAMERA_StartCapture</a></code>.
+</P>
+
+<H2>See Also</H2>
+<P><A href="CAMERASelect.html"><CODE>CAMERASelect</CODE></A><BR> <A href="CAMERAContext.html"><CODE>CAMERAContext</CODE></A><BR> <A href="CAMERAEffect.html"><CODE>CAMERAEffect</CODE></A><BR> <A href="CAMERACallback.html"><CODE>CAMERACallback</CODE></A><BR> <A href="CAMERAResult.html"><CODE>CAMERAResult</CODE></A></P>
+<H2>Revision History</H2>
+<P>
+2009/11/11 Explained occasional shifting of captured images.<br>2009/03/25 Added information about changing camera settings during capture operations.<br>2008/10/30 Added that <CODE>CAMERA_SELECT_BOTH</CODE> can also be specified.<br>2008/03/17 Added a description of combinations with other settings.<BR>2007/10/12 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

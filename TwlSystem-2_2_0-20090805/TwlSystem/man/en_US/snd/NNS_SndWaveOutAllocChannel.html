@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"><html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>NNS_SndWaveOutAllocChannel</title>
+<link rel="stylesheet" href="../css/nitro.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.65.1">
+</head>
+<body>
+<div class="refentry" lang="ja"><a name="IDAEMWT"></a><div class="titlepage">
+<div></div>
+<div></div>
+</div>
+<h1>NNS_SndWaveOutAllocChannel</h1>
+<h2>Syntax</h2>
+<dl>
+<dd><pre class="funcsynopsisinfo"><code>#include &lt;nnsys/snd.h&gt;</code></pre></dd>
+<dd><pre class="funcprototype"><code class="funcprototype">NNSSndWaveOutHandle NNS_SndWaveOutAllocChannel( int <var>chNo</var> );</code><br></pre></dd>
+</dl>
+<div class="refsection" lang="ja"><a name="IDAQNWT"></a>
+<h2>Arguments</h2>
+      
+      <div class="variablelist">
+<table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><em><strong><code>chNo</code></strong></em></td>
+<td>Number of the channel to be allocated. Specify a value between 0 to 15.</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+    </div>
+<div class="refsection" lang="ja"><a name="IDA5NWT"></a>
+<h2>Return Values</h2>
+
+<p>Returns a waveform playback handle. If the channel allocation fails, it returns <code>NNS_SND_WAVEOUT_INVALID_HANDLE</code>.</p>
+    </div>
+<div class="refsection" lang="ja"><a name="IDAJOWT"></a>
+<h2>Description</h2>
+      <p>
+Allocates a channel for the waveform playback.</p>
+      <p>
+If the specified channel is currently generating audio via sequence playback, the audio being generated will be forcibly stopped. However, if the specified channel is being used for reverb or any other purpose besides sequence playback, this function will fail.</p>
+      <p>
+The allocated channel will be occupied until it is released with the <code><a href="NNS_SndWaveOutFreeChannel.html">NNS_SndWaveOutFreeChannel</a></code> function.
+</p>
+      <p>
+Although you can specify the channel number <em><strong><code>chNo</code></strong></em> from 0 - 15, different channel numbers are used for different features. Therefore you must consider cooperation with other uses when specifying. For example, channels number 14 or 15 should probably not be used here if the sequence playback is going to need them for playing noise.
+</p>
+      
+      
+<div class="table"><a name="IDAAPWT"></a><p class="title"><b>Table: Use of each channel and its functionality</b></p>
+<table summary="ƒ`ƒƒƒ“ƒlƒ‹‚Ì”Ô†•Ê‹@”\" border="1">
+<colgroup><col><col></colgroup>
+<thead>
+<tr>
+<th>Channel  Number</th>
+<th>Features</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0, 2</td>
+<td>Can play PCM/ADPCM. Output from these channels can also be used for input to sound capture.</td>
+</tr>
+<tr>
+<td>1, 3</td>
+<td>Can play PCM/ADPCM. Because these channels share sound capture and timer, when sound capture is used these channels can only be used as sound capture output channels.</td>
+</tr>
+<tr>
+<td>4 ~ 7</td>
+<td>Can play PCM/ADPCM. These channels are used preferentially when playing back waveform data on sequence playback.</td>
+</tr>
+<tr>
+<td>8 ~ 13</td>
+<td>Can play PCM/ADPCM and PSG square waves.</td>
+</tr>
+<tr>
+<td>14, 15</td>
+<td>Can play PCM/ADPCM and white noise.</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+    </div>
+<h2>See Also</h2>
+<p><a href="NNS_SndWaveOutFreeChannel.html">NNS_SndWaveOutFreeChannel</a></p>
+<h2>Revision History</h2>
+<p>2004/07/01 Initial version.<br></p>
+</div>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

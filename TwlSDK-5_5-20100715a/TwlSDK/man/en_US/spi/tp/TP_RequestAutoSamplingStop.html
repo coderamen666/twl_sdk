@@ -1,0 +1,36 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 8.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>TP_RequestAutoSamplingStop</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">TP_RequestAutoSamplingStop <img src="../../image/NTR.gif"><img src="../../image/TWL.gif"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/spi.h&gt;</CODE><BR>
+  <PRE><CODE>u32 TP_RequestAutoSamplingStop( void );</CODE></PRE>
+  </dd>
+</dl>
+<h2>Arguments</h2>
+<P>None.</P>
+<h2>Return Values</h2>
+<p>Returns 0 if the request succeeds; returns non-zero value if it fails. For details, see <CODE><A href="TPRequestResult.html">TPRequestResult</A></CODE>.</p>
+<H2>Description</H2>
+<P>This function issues a request to ARM7 to stop auto-sampling touch screen values, and waits internally for the request to complete. This is the synchronous version of the <CODE><A href="TP_RequestAutoSamplingStopAsync.html">TP_RequestAutoSamplingStopAsync</A></CODE> function.</P>
+<H2>Note</H2>
+<P><FONT color="#ff0000">This function uses an interrupt to wait for a completion response from ARM7. Note that if this function is called while FIFO receive interrupts from ARM7 are prohibited, it will not return from waiting.</FONT></P>
+<h2>See Also</h2>
+<P><CODE><A href="TP_RequestAutoSamplingStart.html">TP_RequestAutoSamplingStart</A><BR><A href="TP_RequestAutoSamplingStopAsync.html">TP_RequestAutoSamplingStopAsync</A></CODE></P>
+<H2>Revision History</H2>
+<P>2009/04/28 Added <CODE>TPRequestResult</CODE> to the return value description. <br>2004/04/21 Created an asynchronous version and made this version synchronous. <BR>2004/04/16 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

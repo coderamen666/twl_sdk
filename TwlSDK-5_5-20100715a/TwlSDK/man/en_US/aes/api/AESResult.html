@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>AESResult</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">AESResult <IMG src="../../image/TWL.gif" width="23" height="12" border="0" align="middle"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<pre><CODE>#include &lt;twl/aes.h&gt;
+
+typedef enum AESResult
+{
+    AES_RESULT_NONE,
+    AES_RESULT_SUCCESS,
+    AES_RESULT_VERIFICATION_FAILED,
+    AES_RESULT_INVALID,
+    AES_RESULT_BUSY,
+    AES_RESULT_ON_DS,
+    AES_RESULT_UNKNOWN,
+    AES_RESULT_MAX
+}
+AESResult;
+</CODE></pre><br>
+</dd>
+</dl>
+
+<H2>Elements</H2>
+<TABLE border="1" width="100%" class="members">
+  <TBODY>
+    <TR>
+      <TH>AES_RESULT_NONE</TH>
+      <TD>Used internally in the library. This value will never be passed to the application.</TD>
+    </TR>
+    <TR>
+      <TH>AES_RESULT_SUCCESS</TH>
+      <TD>The operation ran normally.</TD>
+    </TR>
+    <TR>
+      <TH>AES_RESULT_VERIFICATION_FAILED</TH>
+      <TD>MAC verification failed during decryption in CCM mode.</TD>
+    </TR>
+    <TR>
+      <TH>AES_RESULT_INVALID</TH>
+      <TD>An argument is invalid.</TD>
+    </TR>
+    <TR>
+      <TH>AES_RESULT_BUSY</TH>
+      <TD>Another AES process is currently running. Only one AES process can be run at a given time.</TD>
+    </TR>
+    <TR>
+      <TH>AES_RESULT_ON_DS</TH>
+      <TD>The AES library cannot be used because the application is running on a Nintendo DS.</TD>
+    </TR>
+    <TR>
+      <TH>AES_RESULT_UNKNOWN</TH>
+      <TD>A state was detected within the library that should not have occurred.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<H2>Description</H2>
+<P>
+Enumerated type that indicates the result of an AES operation.
+</P>
+
+<H2>Revision History</H2>
+<P>
+2007/12/25 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

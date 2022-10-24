@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<LINK rel="stylesheet" type="text/css" href="../../css/nitro.css">
+<TITLE>SSL Demos</TITLE>
+</HEAD>
+<BODY>
+<H1>SSP Library (SSP) Demos</H1>
+<H2>Location</H2>
+<P><CODE>$TwlSDK/build/demos/ssp</CODE></P>
+<H2>Compilation</H2>
+<P>Move to the <CODE>$TwlSDK/build/demos/ssp</CODE> directory and enter the following.</P>
+<BLOCKQUOTE><CODE>% make</CODE></BLOCKQUOTE>
+<P>&nbsp; The compilation begin, and the SRL executable file and the NEF or TEF files with binary information are generated in <CODE>$TwlSDK/build/demos/fs/(sample name)/bin/(platform)/(target)/</CODE>.</P>
+<BLOCKQUOTE><CODE>$TwlSDK/build/demos/ssp/(sample_name)/bin/(platform)/(target)/</CODE></BLOCKQUOTE>
+<P> For example:</P>
+<BLOCKQUOTE><CODE>$TwlSDK/build/demos/jpegDecoder/bin/ARM9-TS/Release/main.srl</CODE></BLOCKQUOTE>
+<P>is the executable file for the <CODE>jpegDecoder</CODE> demo.</P>
+
+<H2>Running the Tool</H2>
+<H3>For NITRO ROMs</H3>
+
+<P>If using the Ensata emulator:</P>
+<UL>
+<LI>Execute NEF and SRL files with ensata
+</UL>
+<P>If using IS-NITRO-DEBUGGER:</P>
+<UL>
+<LI>Load and execute an NLF file with IS-NITRO-DEBUGGER
+<LI>Execute an SRL file with IS-NITRO-DEBUGGER
+<LI>Execute an SRL file with IS-NITRO-DEBUGGER using the <CODE>loadrun.exe</CODE> tool from a command line
+</UL>
+<P>If using IS-TWL-DEBUGGER:</P>
+<UL>
+<LI>Load and execute an NLF file with IS-TWL-DEBUGGER
+<LI>Execute an SRL file with IS-TWL-DEBUGGER
+<LI>Execute an SRL file with IS-TWL-DEBUGGER using the <CODE>loadrun.TWL.exe</CODE> tool from a command line
+</UL>
+<H3>For TWL/NITRO Hybrid ROMs</H3>
+<P>If using IS-NITRO-DEBUGGER:</P>
+<UL>
+<LI>Execute an SRL file with IS-NITRO-DEBUGGER
+<LI>Execute an SRL file with IS-NITRO-DEBUGGER using the <CODE>loadrun.exe</CODE> tool from a command line
+</UL>
+<P>If using IS-TWL-DEBUGGER:</P>
+<UL>
+<LI>Load and execute a TLF file with IS-TWL-DEBUGGER
+<LI>Execute an SRL file with IS-TWL-DEBUGGER
+<LI>Execute an SRL file with IS-TWL-DEBUGGER using the <CODE>loadrun.TWL.exe</CODE> tool from a command line
+</UL>
+<H3>For TWL Limited ROMs</H3>
+<P>If using IS-TWL-DEBUGGER:</P>
+<UL>
+<LI>Load and execute a TLF file with IS-TWL-DEBUGGER
+<LI>Execute an SRL file with IS-TWL-DEBUGGER
+<LI>Execute an SRL file with IS-TWL-DEBUGGER using the <CODE>loadrun.TWL.exe</CODE> tool from a command line
+</UL>
+<H2>Description</H2>
+<BR>
+<TABLE width="720">
+  <TBODY>
+    <TR>
+<TH>Name</TH>
+<TH>Directory</TH>
+<TH>Operation</TH>
+    </TR>
+    <TR>
+<TD width="187"><CODE>jpegDecoder</CODE></TD>
+<TD><CODE>demos</CODE></TD>
+<TD width="525">This demo performs JPEG decoding.</TD>
+    </TR>
+    <TR>
+<TD width="187"><CODE>jpegEncoder</CODE></TD>
+<TD><CODE>demos</CODE></TD>
+<TD width="525">This demo performs JPEG encoding.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>Operation</H2>
+<P>Operates normally in all operating environments.</P>
+<H2>See Also</H2>
+<P><A href="../../ssp/list_ssp.html">SSP Function List</A></P>
+<H2>Revision History</H2>
+<P>
+2008/12/16 Made revisions to reflect standardization of demos.<br> 2008/12/12 Made changes to reflect revision of demos.<br> 2008/10/09 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

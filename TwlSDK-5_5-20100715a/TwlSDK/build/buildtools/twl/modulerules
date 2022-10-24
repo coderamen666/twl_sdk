@@ -1,0 +1,390 @@
+#! make -f
+#----------------------------------------------------------------------------
+# Project:  TwlSDK
+# File:     modulerules
+#
+# Copyright 2007-2008 Nintendo. All rights reserved.
+#
+# These coded instructions, statements, and computer programs contain
+# proprietary information of Nintendo of America Inc. and/or Nintendo
+# Company Ltd., and are protected by Federal copyright law. They may
+# not be disclosed to third parties or copied or duplicated in any form,
+# in whole or in part, without the prior written consent of Nintendo.
+#
+# $Date:: 2009-08-28#$
+# $Rev: 11023 $
+# $Author: okubata_ryoma $
+#----------------------------------------------------------------------------
+ifndef TWLSDK_MODULERULES_
+
+ifneq	($(FORCE_BUILD),)
+
+ifeq	($(filter clean clobber,$(MAKECMDGOALS)),)
+include $(BUILDTOOLSDIR)/modulerules.cctype.$(TWL_CCTYPE)
+include $(TWL_BUILDTOOLSDIR)/modulerules.cctype.$(TWL_CCTYPE)
+endif
+
+# Common Rules
+
+# .bin .srl
+ifdef	TWL_MAKEROM
+#
+# MAKEROM
+#
+
+ROM_SPEC			?= $(DEFAULT_ROM_SPEC)
+MAKEROM_ARM9		?= $(DEFAULT_MAKEROM_ARM9)
+MAKEROM_ARM7_BASE	?= $(DEFAULT_MAKEROM_ARM7_BASE)
+MAKEROM_ARM7		?= $(DEFAULT_MAKEROM_ARM7)
+MAKEROM_ROMROOT		?= $(DEFAULT_MAKEROM_ROMROOT)
+MAKEROM_ROMFILES	?= $(DEFAULT_MAKEROM_ROMFILES)
+MAKEROM_ROMSPEED	?= $(DEFAULT_MAKEROM_ROMSPEED)
+MAKEROM_FLAGS		?= 
+MAKEROM_FLAGS		+= $(if $(TWL_FINALROM),,-F)
+
+MAKEROM_CERT_PRIV	?= $(DEFAULT_MAKEROM_CERT_PRIV)
+MAKEROM_CERT_PRIV_M	:= $(call cygpathm,$(MAKEROM_CERT_PRIV))
+
+# Convert Unix and Windows format paths
+ROOT_M				:= $(call empath,$(ROOT))
+MAKEROM_ROMROOT_M	:= $(call empath,$(MAKEROM_ROMROOT))
+BINDIR_M			:= $(call empath,$(BINDIR))
+TWL_COMPONENTSDIR_M	:= $(ROOT_M)/components
+
+MAKEROM_ARM7_BASE_M	:= $(call empath,$(MAKEROM_ARM7_BASE))
+MAKEROM_ARM7_M		:= $(call empath,$(basename $(MAKEROM_ARM7)))
+MAKEROM_ARM9_M		:= $(call empath,$(basename $(MAKEROM_ARM9)))
+ROM_SPEC_M			:= $(call empath,$(ROM_SPEC))
+
+MAKEROM_DEFS		 = -DTWLSDK_ROOT='$(ROOT_M)'						\
+					   -DTARGET_NAME='$(TARGET_NAME)'					\
+					   -DMAKEROM_ROMROOT='$(MAKEROM_ROMROOT_M)'			\
+					   -DMAKEROM_ROMFILES='$(MAKEROM_ROMFILES)'			\
+					   -DMAKEROM_ROMSPEED='$(MAKEROM_ROMSPEED)'			\
+					   -DBINDIR='$(BINDIR_M)'							\
+					   -DCOMPDIR='$(TWL_COMPONENTSDIR_M)'				\
+					   -DCOMPTYPE9='$(TWL_BUILDTYPE_ARM9)'				\
+					   -DCOMPTYPE7='$(TWL_BUILDTYPE_ARM7)'				\
+					   -DPROC='$(CODEGEN_PROC)'							\
+					   -DPLATFORM='$(TWL_PLATFORM)'						\
+					   -DCODEGEN='$(TWL_LIBSUFFIX)'						\
+					   -DARCHGEN='$(ARCHGEN_TYPE)'						\
+					   -DLIBSUFFIX='$(TWL_LIBSUFFIX)'					\
+					   -DBUILD='$(TWL_BUILD_DIR)'						\
+					   -DCOMPSUFFIX9='$(COMPSUFFIX)'					\
+					   -DCOMPSUFFIX7=''
+
+ifeq	($(TWL_ARCHGEN),HYBRID)
+MAKEROM_DEFS		+= -DTARGET_PLATFORM='TWL-HYB'					\
+					   -DMAKEROM_WRAM_MAPPING='MAP2_$(TWL_PLATFORM)_HYB'	\
+					   -DMAKEROM_CODEC_MODE=$(MAKEROM_CODEC_MODE)
+else
+ifeq	($(TWL_ARCHGEN),LIMITED)
+MAKEROM_DEFS		+= -DTARGET_PLATFORM='TWL-LTD'							\
+					   -DMAKEROM_WRAM_MAPPING='MAP2_$(TWL_PLATFORM)_LTD'	\
+					   -DMAKEROM_CODEC_MODE=$(MAKEROM_CODEC_MODE)
+else
+ifeq	($(TWL_ARCHGEN),LIMITED_ferret)
+MAKEROM_DEFS		+= -DTARGET_PLATFORM='TWL-LTD'							\
+					   -DMAKEROM_WRAM_MAPPING='MAP2_$(TWL_PLATFORM)_LTD'	\
+					   -DMAKEROM_CODEC_MODE=$(MAKEROM_CODEC_MODE)
+endif
+endif
+endif
+
+TARGET_ROM			 = $(strip $(findstring .srl,$(TARGET_BIN))			\
+					           $(findstring .bin,$(TARGET_BIN))			\
+					           $(findstring .tad,$(TARGET_BIN)) )
+
+ifneq	($(strip $(OBJS) $(LLIBRARIES)),)	# Any object?
+ifeq	($(CODEGEN_PROC),ARM9)
+SDEPENDS_BIN		 =	$(BINDIR)/%.$(TWL_ELF_EXT) $(MAKEROM_ARM7)
+MAKEROM_DEFS		+=	-DMAKEROM_ARM9='$(BINDIR)/$(TARGET_NAME)'	\
+						-DMAKEROM_ARM7_BASE='$(MAKEROM_ARM7_BASE_M)'	\
+						-DMAKEROM_ARM7='$(MAKEROM_ARM7_M)'
+else	# !ARM9
+SDEPENDS_BIN		 =	$(BINDIR)/%.$(TWL_ELF_EXT) $(MAKEROM_ARM9)
+MAKEROM_DEFS		+=	-DMAKEROM_ARM9='$(MAKEROM_ARM9_M)'					\
+						-DMAKEROM_ARM7_BASE='$(call empath,$(basename $@))'	\
+						-DMAKEROM_ARM7='$(call empath,$(basename $@))'
+endif	# -ARM9
+else	# !OBJS !LLIBRARIES
+SDEPENDS_BIN		 =	$(MAKEROM_ARM9) $(MAKEROM_ARM7)
+MAKEROM_DEFS		+=	-DMAKEROM_ARM9='$(MAKEROM_ARM9_M)'				\
+						-DMAKEROM_ARM7_BASE='$(MAKEROM_ARM7_BASE_M)'	\
+						-DMAKEROM_ARM7='$(MAKEROM_ARM7_M)'
+endif	# -OBJS -LLIBRARIES
+
+# Unnecessary during clean or clobber (supports make3.80)
+ifneq	($(filter clean clobber,$(MAKECMDGOALS)),)
+else
+ifndef	USE_MY_RULE_BIN
+#special rule for %bin
+#$(BINDIR)/%.bin $(BINDIR)/%.srl: $(OBJS) $(MAKEFILE) $(LDEPENDS_NEF) $(EDEPENDS_NEF) $(ALIBRARIES) $(LDRES_FILE) $(CW_LIBCXX) $(LCFILE_AUTOGEN)
+#	$(LD) $(LDFLAGS) $(LIBRARY_DIRS) @$(LDRES_FILE) $(LCFILE) -o $@
+
+$(BINDIR)/%.bin $(BINDIR)/%.$(INT_ROM_EXT) $(BINDIR)/%.srl:	$(SDEPENDS_BIN) $(ROM_SPEC) $(LDEPENDS_BIN) $(EDEPENDS_BIN)
+ifdef SILENT
+	echo $(TWLSDK_MSG_MAKE_SRL) $(notdir $@)
+endif
+	$(MAKEROM) $(MAKEROM_FLAGS) $(MAKEROM_DEFS) $(ROM_SPEC_M) $(call empath,$@)
+endif	# -USE_MY_RULE_BIN
+endif	# not clean/clobber
+
+$(BINDIR)/$(TARGET_SIGN_BIN): $(BINDIR)/$(TARGET_BIN)
+ifdef SILENT
+	echo $(TWLSDK_MSG_SIGN) $(notdir $@)
+endif
+	$(ATTACHSIGN) -D $(addprefix $(BINDIR)/,$(TARGET_BIN))
+
+else	# !TWL_MAKEROM
+#
+# ELFTOBIN
+#
+ifndef	USE_MY_RULE_BIN
+ifeq	($(CODEGEN_PROC),ARM9)
+$(BINDIR)/%.bin $(BINDIR)/%.srl: $(BINDIR)/%.$(TWL_ELF_EXT) $(LDEPENDS_BIN) $(EDEPENDS_BIN)
+	$(ELFTOBIN) $< $(ELFTOBIN_ARM7) $(ELFTOBIN_ROMHEADER) -o $@
+else	# !ARM9
+$(BINDIR)/%.bin $(BINDIR)/%.srl: $(BINDIR)/%.$(TWL_ELF_EXT) $(LDEPENDS_BIN) $(EDEPENDS_BIN)
+	$(ELFTOBIN) $(ELFTOBIN_ARM9) $< $(ELFTOBIN_ROMHEADER) -o $@
+endif	# -ARM9
+endif	# -USE_MY_RULE_BIN
+endif	# -TWL_MAKEROM
+
+ifeq	($(TWL_NANDAPP),TRUE)
+ifndef USE_MY_RULE_TAD
+.PRECIOUS: $(BINDIR)/%.$(INT_ROM_EXT)
+
+MAKETAD_OPTION	+= -v $(TITLE_VERSION_LO)
+
+ifeq	($(CODEGEN_PROC),ARM9)
+%.tad:	%.$(INT_ROM_EXT) $(MAKETAD)
+ifdef SILENT
+	echo $(TWLSDK_MSG_MAKE_TAD) $(notdir $@)
+endif
+	$(MAKETAD) $< $(MAKETAD_OPTION) -o $@
+endif	# -ARM9
+endif	# -USE_MY_RULE_TAD
+endif	# -TWL_NANDAPP
+
+endif	# -FORCE_BUILD
+
+# .bnr .bsf
+%.bnr:		%.bsf
+ifdef SILENT
+	echo $(TWLSDK_MSG_MAKE_BNR) $(notdir $@)
+endif
+		$(MAKEBANNER) $(MAKEBANNER_FLAGS) $< $@
+
+%.nbfs %.nbfc %.nbfp:	%.bmp
+		$(NTEXCONV) -no -bg -bgb -bgnc $(NTEXCONV_FLAGS) $< >/dev/null
+
+%.ban:	$(BANNERCVTR_SRCS)
+	$(BANNERCVTR) -o $@ $<
+
+# rsf rules
+
+ifneq	($(ROM_SPEC),$(DEFAULT_ROM_SPEC))
+ifneq	($(ROM_SPEC_TEMPLATE),)
+ifneq	($(ROM_SPEC_PARAM),)
+
+LDIRT_CLEAN		+=	$(ROM_SPEC)
+
+$(ROM_SPEC): $(ROM_SPEC_TEMPLATE) $(MAKERSF) $(MAKEFILE)
+ifdef SILENT
+	echo " make rsf:" $@
+endif
+	$(MAKERSF) $< $@ $(ROM_SPEC_PARAM)
+
+endif	# ifneq	($(ROM_SPEC_PARAM),)
+endif	# ifneq	($(ROM_SPEC_TEMPLATE),)
+endif	# ifneq	($(ROM_SPEC),$(DEFAULT_ROM_SPEC))
+
+
+# .sbin 
+# The SBIN files are created by the linker at the same time as $(TWL_ELF_EXT)
+%.TWL.FLX.sbin:			%.$(TWL_ELF_EXT);
+%_defs.TWL.FLX.sbin:	%.$(TWL_ELF_EXT);
+%_table.TWL.FLX.sbin:	%.$(TWL_ELF_EXT);
+%.TWL.LTD.sbin:			%.$(TWL_ELF_EXT);
+%_defs.TWL.LTD.sbin:	%.$(TWL_ELF_EXT);
+%_table.TWL.LTD.sbin:	%.$(TWL_ELF_EXT);
+
+#----------------------------------------------------------------------------
+#  MAKE TARGETS
+#----------------------------------------------------------------------------
+
+%_for_ltd_arm   %_for_hyb_arm:   CODEGEN_ARCH=
+%_for_ltd_arm   %_for_hyb_arm:   BUILD_CODEGEN=ARM
+%_for_ltd_thumb %_for_hyb_thumb: CODEGEN_ARCH=.thumb
+%_for_ltd_thumb %_for_hyb_thumb: BUILD_CODEGEN=THUMB
+%_for_ltd_arm   %_for_ltd_thumb: ARCHGEN_TYPE=.LTD
+%_for_ltd_arm   %_for_ltd_thumb: BUILD_ARCHGEN=LIMITED
+%_for_hyb_arm   %_for_hyb_thumb: ARCHGEN_TYPE=.HYB
+%_for_hyb_arm   %_for_hyb_thumb: BUILD_ARCHGEN=HYBRID
+
+# In the case of a nightly build, also build LIMITED ROMs that use the ferret component
+ifeq	($(SDK_NIGHTLY_BUILD),TRUE)
+%_for_ltd_ferret_arm   %_for_ltd_ferret_thumb: ARCHGEN_TYPE=.LTD
+%_for_ltd_ferret_arm   %_for_ltd_ferret_thumb: COMP_TYPE=.ferret
+%_for_ltd_ferret_arm   %_for_ltd_ferret_thumb: BUILD_ARCHGEN=LIMITED_ferret
+%_for_ltd_ferret_arm:                          CODEGEN_ARCH=
+%_for_ltd_ferret_arm:                          BUILD_CODEGEN=ARM
+%_for_ltd_ferret_thumb:                        CODEGEN_ARCH=.thumb
+%_for_ltd_ferret_thumb:                        BUILD_CODEGEN=THUMB
+endif
+#----------------------------------------------------------------------------
+#  Make build
+#----------------------------------------------------------------------------
+.PHONY: do-build build_and_install
+.PHONY: build_for_% build_platform
+
+ifeq	($(PARALLEL_BUILD),TRUE)
+build_platform:      build_for_hyb_thumb  build_for_hyb_arm build_for_ltd_thumb build_for_ltd_arm
+else
+build_platform:      build_for_hyb_thumb
+build_for_hyb_thumb: build_for_hyb_arm
+build_for_hyb_arm:   build_for_ltd_thumb
+build_for_ltd_thumb: build_for_ltd_arm
+endif
+
+ifeq	($(SDK_NIGHTLY_BUILD),TRUE)
+ifeq	($(PARALLEL_BUILD),TRUE)
+build_platform:      build_for_ltd_ferret_arm build_for_ltd_ferret_thumb
+else
+build_for_ltd_arm:          build_for_ltd_ferret_arm
+build_for_ltd_ferret_arm:   build_for_ltd_ferret_thumb
+endif
+endif
+
+build_for_%: 
+	+$(if $(filter $(BUILD_CODEGEN),$(TARGET_CODEGEN_LIST)),	\
+		$(if $(filter $(BUILD_ARCHGEN),$(TWL_ARCHGEN_LIST)),	\
+			@$(ECHO_CURDIR)										\
+			$(DO_MAKEDIR)										\
+			$(REMAKE) TWL_ARCHGEN=$(BUILD_ARCHGEN) TARGET_CODEGEN=$(BUILD_CODEGEN) SKIP_SUBDIR=TRUE INSTALL_DEPENDS=do-build INSTALL_FOR=$* build_and_install ))
+
+build_and_install: install_for_$(INSTALL_FOR)
+
+#----------------------------------------------------------------------------
+#  Make install
+#----------------------------------------------------------------------------
+
+.PHONY: install_for_% install_platform
+
+ifeq	($(PARALLEL_BUILD),TRUE)
+install_platform:      install_for_hyb_thumb install_for_hyb_arm install_for_ltd_thumb install_for_ltd_arm
+else
+install_platform:      install_for_hyb_thumb
+install_for_hyb_thumb: install_for_hyb_arm
+install_for_hyb_arm:   install_for_ltd_thumb
+install_for_ltd_thumb: install_for_ltd_arm
+endif
+
+ifeq	($(SDK_NIGHTLY_BUILD),TRUE)
+ifeq	($(PARALLEL_BUILD),TRUE)
+install_platform:      install_for_ltd_ferret_arm install_for_ltd_ferret_thumb
+else
+install_for_ltd_arm:          install_for_ltd_ferret_arm
+install_for_ltd_ferret_arm:   install_for_ltd_ferret_thumb
+endif
+endif
+
+install_for_%: $(INSTALL_DEPENDS)
+	+$(if $(filter $(BUILD_CODEGEN),$(TARGET_CODEGEN_LIST)),	\
+		$(if $(filter $(BUILD_ARCHGEN),$(TWL_ARCHGEN_LIST)),	\
+			$(if $(INSTALL_TARGETS),							\
+				@$(ECHO_CURDIR)									\
+				$(DO_INSTALL) )))
+
+#----------------------------------------------------------------------------
+#  Autotest using IS-TWL-EMULATOR
+#----------------------------------------------------------------------------
+ifdef	IS_TWL_DIR
+
+AUTOTESTLOG	:= $(ROOT)/autotest.log
+
+.PHONY: 	autotest do-autotest do-autotest-test
+
+autotest:
+	@+$(REMAKE) clobber
+	@+$(REMAKE) build TWL_AUTOTEST=TRUE
+	@$(RM) $(AUTOTESTLOG)
+	@+$(REMAKE) do-autotest
+	@$(SED) -e 's/\r//g;s/$$/\r/g;' $(AUTOTESTLOG) > $(AUTOTESTLOG).tmp
+	@$(MV)  $(AUTOTESTLOG).tmp $(AUTOTESTLOG)
+
+do-autotest: make-sub
+	@$(ECHO_CURDIR)
+ifneq	($(TARGET_ROM),)
+	@+$(REMAKE) test-run
+endif
+endif
+
+
+#----------------------------------------------------------------------------
+#  Make clobber & clean
+#----------------------------------------------------------------------------
+.PHONY: 	clobber-installed
+.PHONY:		clobber_for_%
+
+clobber-installed:     clobber_for_hyb_thumb
+clobber_for_hyb_thumb: clobber_for_hyb_arm
+clobber_for_hyb_arm:   clobber_for_ltd_thumb
+clobber_for_ltd_thumb: clobber_for_ltd_arm
+
+clobber_for_%:
+	+-$(if $(filter $(BUILD_CODEGEN),$(TARGET_CODEGEN_LIST)),	\
+		$(if $(filter $(BUILD_ARCHGEN),$(TWL_ARCHGEN_LIST)),	\
+			$(RM) $(GDIRT_INSTALLED) ))
+
+#----------------------------------------------------------------------------
+
+
+#----------------------------------------------------------------------------
+#  Source file dependencies
+#----------------------------------------------------------------------------
+
+#
+# Dynamic dependency generation
+#   Like as $(OBJDIR)/main.o: main.c
+#
+DEP_SRCS_ALL = $(SRCS) $(SRCS_AUTOLOAD) $(SRCS_OVERLAY) $(SRCS_LTDAUTOLOAD) $(SRCS_LTDOVERLAY)
+
+define RuleCtoObj
+$$(OBJDIR)/$$(notdir $$(basename $(1))).o: $(1)
+
+endef
+endif	# TWLSDK_MODULERULES_
+
+# Put this sentence out of include-guard to avoid $(eval xxx) limitation
+$(foreach FILE,$(DEP_SRCS_ALL),$(eval $(call RuleCtoObj,$(FILE))))
+
+
+ifndef	TWLSDK_MODULERULES_
+#
+# Include dependencies file
+#
+ifneq	($(filter build_and_install,$(MAKECMDGOALS)),)
+ifdef	SRCS
+-include $(DEPENDDIR)/*.d
+endif
+endif
+
+#----------------------------------------------------------------------------
+#  For IS-TWL-EMULATOR
+#----------------------------------------------------------------------------
+ifdef	IS_TWL_DIR
+-include $(TWL_BUILDTOOLSDIR)/modulerules.emtype.IS
+endif
+
+#----------------------------------------------------------------------------
+#  Load add-ins' modulerules
+#----------------------------------------------------------------------------
+-include $(TWL_BUILDTOOLSDIR)/modulerules.add-ins.*
+
+#----------------------------------------------------------------------------
+TWLSDK_MODULERULES_ = TRUE
+endif	# TWLSDK_MODULERULES_
+#----- End of modulerules -----

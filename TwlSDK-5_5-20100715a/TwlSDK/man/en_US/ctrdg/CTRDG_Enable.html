@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>CTRDG_Enable</title>
+<LINK rel="stylesheet" href="../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">CTRDG_Enable <IMG src="../image/NTR.gif" align="middle"></H1>
+<H2>Syntax</H2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/ctrdg.h&gt;</CODE><BR>
+  <BR>
+  <CODE>void CTRDG_Enable(BOOL enable);</CODE><br>
+  <br>
+  </dd>
+</dl>
+<h2>Arguments</h2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="13%"><SPAN class="argument">enable</SPAN></TD>
+<TD width="87%">AGB Cartridge access permission setting.<br> Access is enabled when set to <code>TRUE</code> and disabled when set to <code>FALSE</code>.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<h2>Return Values</h2>
+<p>None.</p>
+
+<H2>Description</H2>
+<P>Toggles whether access to the AGB Game Pak is enabled or disabled. The program forcibly halts if an attempt is made to access the AGB Game Pak while access is disabled. The following is a list of the CTRDG library functions which are affected by the access permission setting made using this function. <br></p>
+<ul>
+<li><a href="CTRDG_DmaCopy.html"><CODE>CTRDG_DmaCopy*</CODE></a>
+<li><a href="CTRDG_CpuCopy.html"><CODE>CTRDG_CpuCopy*</CODE></a>
+<li><a href="CTRDG_Read.html"><CODE>CTRDG_Read*</CODE></a>
+<li><a href="CTRDG_Write.html"><CODE>CTRDG_Write*</CODE></a>
+</ul>
+<p>The default value for the access permission status is <CODE>FALSE</CODE>. </p>
+<H2>Note</H2>
+<P>
+If you are going to use this function to enable access, be sure to follow the stipulations in the <I>Programming Guidelines</I>. Confirm that the procedure is correct before calling the function.
+</p>
+<h2>See Also</h2>
+<p>
+<A href="CTRDG_Init.html"><CODE>CTRDG_Init</CODE></A><BR> <A href="CTRDG_IsEnabled.html"><CODE>CTRDG_IsEnabled</CODE></A><BR> <A href="CTRDG_CheckEnabled.html"><CODE>CTRDG_CheckEnabled</CODE></A><BR> <A href="CTRDG_GetAgbMakerCode.html"><CODE>CTRDG_GetAgbMakerCod</CODE>e</A><BR> <A href="CTRDG_GetAgbGameCode.html"><CODE>CTRDG_GetAgbGameCode</CODE></A>
+</P>
+<H2>Revision History</H2>
+<P>
+2005/12/01 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

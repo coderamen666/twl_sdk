@@ -1,0 +1,75 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title>TCLResult</title>
+<link rel="stylesheet" href="../css/nitro.css" type="text/css">
+</head>
+<body>
+<h1 align="left">TCLResult <img src="../image/TWL.gif" align="middle"></h1>
+
+<h2>Definition</h2>
+<dl>
+	<dd>
+	<code>#include &lt;twl/tcl.h&gt;</code><br/> <br/>
+	<pre><code>
+typedef enum
+{
+    TCL_RESULT_SUCCESS = 0 ,
+    TCL_RESULT_ERROR_FS_OPEN_FILE_EX ,
+    TCL_RESULT_ERROR_FS_CLOSE_FILE ,
+    TCL_RESULT_ERROR_FS_CREATE_FILE_AUTO ,
+    TCL_RESULT_ERROR_FS_GET_FILE_LENGTH ,
+    TCL_RESULT_ERROR_FS_READ_FILE ,
+    TCL_RESULT_ERROR_FS_WRITE_FILE ,
+    TCL_RESULT_ERROR_FS_DELETE_FILE ,
+    TCL_RESULT_ERROR_FS_OPEN_DIRECTORY ,
+    TCL_RESULT_ERROR_FS_CLOSE_DIRECTORY ,
+    TCL_RESULT_ERROR_FS_GET_ARCHIVE_RESOURCE ,
+    TCL_RESULT_ERROR_OVER_NUM_PICTURES ,
+    TCL_RESULT_ERROR_NO_TABLE_FILE ,
+    TCL_RESULT_ERROR_BROKEN_TABLE_FILE ,
+    TCL_RESULT_ERROR_NO_NEXT_INDEX ,
+    TCL_RESULT_ERROR_EXIST_OTHER_FILE ,
+    TCL_RESULT_ERROR_ALREADY_MANAGED ,
+    TCL_RESULT_ERROR_NO_FIND_PICTURE ,
+    TCL_RESULT_ERROR_OTHER ,
+    TCL_RESULT_MAX
+} TCLResult;
+	</code></pre>
+</dl>
+
+<h2>Description</h2>
+<p>The functions return values that indicate processing results.</p>
+<p>The values are explained in the following list.</p>
+<table>
+<tr><td>TCL_RESULT_SUCCESS<td>The function succeeded.
+<tr><td>TCL_RESULT_ERROR_FS_OPEN_FILE_EX<td>The function failed due to <code>FS_OpenFileEx</code> within the function.
+<tr><td>TCL_RESULT_ERROR_FS_CLOS_FILE<td>The function failed due to <code>FS_CloseFile</code> within the function.
+<tr><td>TCL_RESULT_ERROR_FS_CREATE_FILE_AUTO<td>The function failed due to <code>FS_CreateFileAuto</code> within the function.
+<tr><td>TCL_RESULT_ERROR_FS_GET_FILE_LENGTH<td>The function failed due to <code>FS_GetFileLength</code> within the function.
+<tr><td>TCL_RESULT_ERROR_FS_READ_FILE<td>The function failed due to <code>FS_ReadFile</code> within the function.
+<tr><td>TCL_RESULT_ERROR_FS_WRITE_FILE<td>The function failed due to <code>FS_WriteFile</code> within the function.
+<tr><td>TCL_RESULT_ERROR_FS_DELETE_FILE<td>The function failed due to <code>FS_DeleteFile</code> within the function.
+<tr><td>TCL_RESULT_ERROR_FS_OPEN_DIRECTORY<td>The function failed due to <code>FS_OpenDirectory</code> within the function.
+<tr><td>TCL_RESULT_ERROR_FS_CLOSE_DIRECTORY<td>The function failed due to <code>FS_CloseDirectory</code> within the function.
+<tr><td>TCL_RESULT_ERROR_FS_GET_ARCHIVE_RESOURCE<td>The function failed due to <code>FS_GetArchiveResource</code> within the function.
+<tr><td>TCL_RESULT_ERROR_OVER_NUM_PICTURES<td>The process could not be performed because the manageable maximum has been exceeded.
+<tr><td>TCL_RESULT_ERROR_NO_TABLE_FILE<td>The management file does not exist.
+<tr><td>TCL_RESULT_ERROR_BROKEN_TABLE_FILE<td>The management file is corrupted.
+<tr><td>TCL_RESULT_ERROR_NO_NEXT_INDEX<td>The next save location does not exist.
+<tr><td>TCL_RESULT_ERROR_EXIST_OTHER_FILE<td>A file already exists in the next save location.
+<tr><td>TCL_RESULT_ERROR_ALREADY_MANAGED<td>The file in the path specified for the next save location is already being managed.
+<tr><td>TCL_RESULT_ERROR_NO_FIND_PICTURE<td>No search result photo or frame was found.
+<tr><td>TCL_RESULT_ERROR_OTHER<td>The error is not defined.
+</table>
+
+<h2>See Also</h2>
+
+<h2>Revision History</h2>
+<p>
+2008/10/07 Initial version.
+</p>
+
+<hr><p>CONFIDENTIAL</p></body>
+</html>

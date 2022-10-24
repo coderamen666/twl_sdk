@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>RTC_GetDateTimeExFromSWClock</title>
+<LINK rel="stylesheet" href="../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">RTC_GetDateTimeExFromSWClock <img src="../image/NTR.gif" align="middle"><img src="../image/TWL.gif" align="middle"></h1>
+
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/rtc.h&gt;</CODE><BR>
+  <PRE><CODE><A href="RTCResult.html">RTCResult</A> RTC_GetDateTimeExFromSWClock( <A href="RTCDate.html">RTCDate</A>* date ,<A href="RTCTimeEx.html">RTCTimeEx</A>* time );</CODE></PRE>
+  </dd>
+
+</dl><h2>Arguments</h2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+      <TD width="300"><em><strong><font face="Courier New">date</font></strong></em></TD>
+      <TD width="700">Pointer to the buffer where date information will be stored.</TD>
+    </TR>
+    <TR>
+      <TD><em><strong><font face="Courier New">timeEx</font></strong></em></TD>
+      <TD>Pointer to the buffer where time information will be stored.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<h2>Return Values</h2>
+<P>
+Returns the results from the last call to the <code><A href="RTC_SyncSWClock.html">RTC_SyncSWClock</A></code> function. If a nonzero value is returned, software clock synchronization has failed.
+</P>
+
+<h2>Description</h2>
+<P>
+Uses the software clock to get date and time data. This function works in a similar way to <code><A href="RTC_GetDateTime.html">RTC_GetDateTime</A></code> function, but specifies <code><A href="RTCTimeEx.html">RTCTimeEx</A></code> as a buffer to store the time data, instead of <code><A href="RTCTime.html">RTCTime</A></code>. <code><A href="RTCTimeEx.html">RTCTimeEx</A></code> stores time data to millisecond accuracy.
+</P>
+
+<h2>See Also</h2>
+<P><CODE><A href="RTC_SyncSWClock.html">RTC_SyncSWClock</A>, <A href="RTCResult.html">RTCResult</A>, <A href="RTCDate.html">RTCDate</A>, <A href="RTCTimeEx.html">RTCTimeEx</A></CODE></P>
+
+<H2>Revision History</H2>
+<P>
+2008/04/17 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>NNSG2dOamExEntryFunctions</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+<h1 align="left">NNSG2dOamExEntryFunctions</h1>
+<H2>Structure Definitions</H2>
+<pre>
+typedef struct NNSG2dOamExEntryFunctions
+{
+    NNSG2dGetOamCpacityFuncPtr        getOamCapacity;
+    NNSG2dGetOamCpacityFuncPtr        getAffineCapacity;
+    NNSG2dEntryNewOamFuncPtr          entryNewOam;
+    NNSG2dEntryNewOamAffineFuncPtr    entryNewAffine;
+    
+}NNSG2dOamExEntryFunctions;
+
+typedef u16     (*NNSG2dGetOamCpacityFuncPtr)(); 
+typedef u16     (*NNSG2dGetOamAffineCpacityFuncPtr)(); 
+typedef BOOL    (*NNSG2dEntryNewOamFuncPtr)( const GXOamAttr* pOam, u16 index ); 
+typedef u16     (*NNSG2dEntryNewOamAffineFuncPtr)( const MtxFx22* mtx, u16 index ); 
+
+</pre>
+
+
+
+<H2>NNSG2dOamExEntryFunctions.getOamCapacity</H2>
+Pointer to a function that can use the Extended OAM Manager and get the number of OAM attributes.<BR><BR> The function in question returns the number of OAM attributes. This returned value represents the number of OAM attributes that can actually be loaded in the hardware OAM.<BR> <BR><STRONG>Note:</STRONG> this differs from the number of OAM chunks (<CODE><STRONG><EM>numPooledOam</EM></STRONG></CODE>), which is given as a parameter when the Extended OAM Manager is initialized.<BR> <BR> If the registered number of chunks is greater than the value returned by <CODE>getOamCapacity()</CODE>, the Extended OAM Manager displays the registered OBJs over multiple frames using time-sharing.<BR>
+
+
+
+
+
+<H2>NNSG2dOamExEntryFunctions.getAffineCapacity</H2>
+Pointer to a function that can use the Extended OAM Manager and get the number of OAM affine parameters.<BR>If the Extended OAM Manager does not manage affine parameters, you can set this to <CODE>NULL</CODE>.<BR><BR> If the registered number of affine parameters is greater than the value returned by <CODE>getAffineCapacity()</CODE>, the Extended OAM Manager loads the registered affine parameters over multiple frames using time-sharing, and displays the OBJs that are using affine parameters.
+
+
+
+
+<H2>NNSG2dOamExEntryFunctions.entryNewOam</H2>
+Pointer to the function that registers OAM attributes.<BR>It takes the OAM attribute and the OAM attribute number as arguments. The OAM attribute number <CODE><STRONG><EM>index</EM></STRONG></CODE> is equal to the number of times that <CODE>entryNewOam</CODE> has been called.<BR>Bear in mind, if the OAM manager supplied with G2d is used for implementing <CODE>entryNewOam</CODE>, the <CODE><STRONG><EM>index</EM></STRONG></CODE> parameter is not used.
+
+<H3>Example of implementation using OAM manager</H3>
+<pre>
+static u16 OamMgrExCBEntryOamAffine_( const MtxFx22* pMtx, u16 index )
+{
+#pragma unused( index )
+return NNS_G2dEntryOamManagerAffine( &amp;myOamMgr_, pMtx );
+}
+</pre>
+
+<H3>Example of implementation where OAM manager is not used</H3>
+<pre>
+static BOOL CallBackEntryNewOam(const GXOamAttr* pOam, u16 index)
+{
+    const u32 szByte = sizeof( GXOamAttr );
+
+    DC_FlushRange( (void*)pOam, szByte );
+    GX_LoadOAM( pOam, index * szByte, szByte );
+
+    return TRUE;
+}
+</pre>
+
+
+
+
+<H2>NNSG2dOamExEntryFunctions.entryNewAffine</H2>
+Pointer to the function that registers OAM affine parameters. The function takes the matrix storing the affine parameter and the affine parameter number as arguments. If the Extended OAM Manager does not manage affine parameters, you can set this to <CODE>NULL</CODE>.<BR>As with <CODE>entryNewOam</CODE>, the affine parameter number <CODE><STRONG><EM>index</EM></STRONG></CODE> is equal to the number of times that <CODE>entryNewAffine</CODE> has been called.
+
+<H3>Example of implementation using OAM manager</H3>
+<pre>
+static u16 OamMgrExCBEntryOamAffine_( const MtxFx22* pMtx, u16 index )
+{
+#pragma unused( index )
+return NNS_G2dEntryOamManagerAffine( &amp;myOamMgr_, pMtx );
+}
+</pre>
+
+<BR>
+<h2>See Also</h2>
+<p>
+<code><a href="NNS_G2dSetOamManExEntryFunctions.html">NNS_G2dSetOamManExEntryFunctions</a>, <a href="NNS_G2dGetOamManExInstance.html">NNS_G2dGetOamManExInstance</a></code>
+</p>
+<H2>Revision History</H2>
+<P>2005/06/06 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

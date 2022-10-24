@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 8.0.2.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>STD_CompareLString</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">STD_CompareLString <img src="../../image/NTR.gif"align="middle"><img src="../../image/TWL.gif" align="middle"></h1>
+<h2>Syntax</h2>
+<dl>
+  <dd><PRE><CODE>#include &lt;nitro/std.h&gt;
+
+int STD_CompareLString( const char* str1, const char* str2, int len );</CODE></PRE>
+  <PRE><CODE>int STD_StrLCmp( const char* str1, const char* str2, int len );
+</CODE></PRE></dd>
+</dl>
+
+<h2>Arguments</h2>
+<table border="1" width="100%">
+  <tbody>
+    <TR>
+<TD width="200"><SPAN class="argument">str1</SPAN></TD>
+<TD width="800">Pointer to the compared string.</TD>
+    </TR>
+    <TR>
+<TD width="200"><SPAN class="argument">str2</SPAN></TD>
+<TD width="800">Pointer to the compared string.</TD>
+    </TR>
+    <TR>
+<TD width="200"><SPAN class="argument">len</SPAN></TD>
+<TD width="800">Length of the string to compare.</TD>
+    </TR>
+  </tbody>
+</table>
+
+<h2>Return Values</h2>
+<p>
+Returns 0 if the compared strings are the same.
+</p>
+
+<H2>Description</H2>
+<P>
+Compares only <SPAN class="argument">len</SPAN> characters between the two strings <SPAN class="argument">str1</SPAN> and <SPAN class="argument">str2</SPAN>. This has the same behavior as the <CODE>strlcmp</CODE> function.
+</P>
+<P>
+The difference when compared to the <CODE>STD_CompareNString</CODE> function lies in the fact that the two strings are not considered a match even if the length of <SPAN class="argument">len</SPAN> is compared and found to match, but the next character in <SPAN class="argument">str1</SPAN> is not <CODE>NULL</CODE>.
+<P>
+When detecting the difference between buffers as a means to prevent buffer overflow, it is possible to prevent the comparison of addresses that come after the buffer length, by replacing a comparison function without a length restriction check with a function that includes a length restriction check.
+</P>
+<P>
+Although replacing the <CODE>strcmp</CODE> function with the <CODE>strncmp</CODE> function serves as an actual example, if you simply specify the buffer size in the <SPAN class="argument">len</SPAN> parameter used to specify length when using the <CODE>strncmp</CODE> function, if the result of comparison is a match, the result &quot;match&quot; is returned even if the buffer overflows. Buffer overflow can therefore also be detected based on the fact that the result &quot;match&quot; is not returned if the <CODE>NULL</CODE> character is not found within (<SPAN class="argument">len</SPAN>+1) characters when using the <CODE>strlcmp</CODE> function.
+</P>
+<P>
+It is therefore best to use the <CODE>STD_CompareLString</CODE> function when using string comparison for the purpose of checking buffers.
+</P>
+<P>
+<CODE>STD_StrLCmp</CODE> is defined as another name for <CODE>STD_StrCompareLString</CODE>.
+</P>
+
+<h2>See Also</h2>
+<p><A href="STD_CompareString.html"><CODE>STD_CompareString</CODE></A><BR> <A href="STD_CompareNString.html"><CODE>STD_CompareNString</CODE></A></p>
+
+<H2>Revision History</H2>
+<P>
+2008/10/06 Added a description of the difference with the <CODE>STD_CompareNString</CODE> function.<BR> 2008/09/26 Revised definitions.<BR> 2005/10/05 Initial version.<BR>
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

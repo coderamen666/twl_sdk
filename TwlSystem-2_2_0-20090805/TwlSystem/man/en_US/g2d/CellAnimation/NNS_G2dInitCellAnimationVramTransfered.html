@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>NNS_G2dInitCellAnimationVramTransfered</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+<h1 align="left">NNS_G2dInitCellAnimationVramTransfered</h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+		<pre><CODE>#include &lt;nnsys/g2d/g2d_CellAnimation.h&gt;</CODE></pre>
+  <pre>void NNS_G2dInitCellAnimationVramTransfered(
+                                NNSG2dCellAnimation*        pCellAnim, 
+                                const NNSG2dAnimSequence*   pAnimSeq, 
+                                const NNSG2dCellDataBank*   pCellBank,
+                                u32                         vramSettingHandle,
+                                u32                         dstAddr3D,
+                                u32                         dstAddr2DMain,
+                                u32                         dstAddr2DSub,
+                                const void*                 pSrcNCGR,
+                                const void*                 pSrcNCBR,
+                                u32                         szSrcData );
+  </CODE></pre>
+  </dd>
+</dl><h2>Arguments</h2>
+
+<table border="1" width="100%">
+  <tr>
+<td width="13%"><CODE>pCellAnim</CODE></td>
+<td width="87%">[OUT] Cell animation.</td>
+  </tr>
+  <tr>
+<td width="13%"><CODE>pAnimSeq</CODE></td>
+<td width="87%">[IN] Animation sequence.</td>
+  </tr>
+  <tr>
+<td width="13%"><CODE>pCellBank</CODE></td>
+<td width="87%">[IN] Cell data bank.</td>
+  </tr>
+  <tr>
+<td width="13%"><CODE>vramSettingHandle</CODE></td>
+<td width="87%">[IN] Handle for the cell transfer state object.</td>
+  </tr>
+  <tr>
+<td width="13%"><CODE>dstAddr3D</CODE></td>
+<td width="87%">[IN] VRAM transfer destination address.</td>
+  </tr>
+  <tr>
+<td width="13%"><CODE>dstAddr2DMain</CODE></td>
+<td width="87%">[IN] VRAM transfer destination address.</td>
+  </tr>
+  <tr>
+<td width="13%"><CODE>dstAddr2DSub</CODE></td>
+<td width="87%">[IN] VRAM transfer destination address.</td>
+  </tr>
+  <tr>
+<td width="13%"><CODE>pSrcNCGR</CODE></td>
+<td width="87%">[IN] VRAM transfer source data (character data for 2D).</td>
+  </tr>
+  <tr>
+<td width="13%"><CODE>pSrcNCBR</CODE></td>
+<td width="87%">[IN] VRAM transfer source data (texture data for 3D).</td>
+  </tr>
+  <tr>
+<td width="13%"><CODE>szSrcData</CODE></td>
+<td width="87%">[IN] VRAM transfer source data size.</td>
+  </tr>
+  </table>
+<h2>Return Values</h2>
+<p>None.
+</p>
+<H2>Description</H2>
+<P>
+Initializes cell animation for the VRAM transfer animation. Specify <code>NNS_G2D_VRAM_ADDR_NONE</code> as the transfer destination address specification for any unused VRAM. For <code>pSrcNCAGR</code> and <code>pSrcNCBR</code> of the transfer source data, specify <CODE>NULL</CODE> if they are not used. Specifying <code>NNS_G2D_VRAM_ADDR_NONE</code> for each of <code>dstAddr3d</code>, <code>dstAddr2DMain</code>, and <code>dstAddr2DSub</code> results in an assertion failure. Specifying <CODE>NULL</CODE> for both <code>pSrcNCGR</code> and <code>pSrcNCBR</code> results in an assertion failure. For <code>pCellBank</code>, use the data that contains the VRAM transfer information and is output exclusively for VRAM transfer.<BR>
+
+<BR>This function was previously called <code>NNS_G2dInitializeCellAnimationVramTransfered</code>. The previous function will remain to maintain compatibility.
+</p>
+
+<h2>See Also</h2>
+<p>
+<A href="NNS_G2dInitializeCellAnimationVramTransfered.html"><CODE>NNS_G2dInitializeCellAnimationVramTransfered</CODE></A>
+</p>
+<H2>Revision History</H2>
+<P>2007/11/26 Added <CODE>const</CODE> keyword to the arguments for loading.</P>
+<P>2004/07/20 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

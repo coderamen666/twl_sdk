@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 8.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<LINK rel="stylesheet" type="text/css" href="../../css/nitro.css">
+<TITLE>MATH Demos</TITLE>
+</HEAD>
+<BODY>
+<H1>Arithmetic Functions (MATH) Sample Demo</H1>
+<H2>Location</H2>
+<P><CODE>$TwlSDK/build/demos/math</CODE></P>
+<H2>Compilation</H2>
+<P>Move to the <CODE>$TwlSDK/build/demos/math</CODE> directory and enter</P>
+<BLOCKQUOTE><CODE>% make</CODE></BLOCKQUOTE>
+<P>&nbsp;The compilation will begin, and the SRL executable file and the NEF or TEF files having binary information will be generated in <CODE>$TwlSDK/build/demos/fs/(sample name)/bin/(platform)/(target)/</CODE>.</P>
+<BLOCKQUOTE><CODE>$TwlSDK/build/demos/math/(sample name)/bin/(platform)/(target)/</CODE></BLOCKQUOTE>
+<P>&nbsp;For example:</P>
+<BLOCKQUOTE><CODE>$TwlSDK/build/demos/math/misc-1/bin/ARM9-TS/Release/main.srl</CODE></BLOCKQUOTE>
+<P>will be the executable file for the <CODE>misc-1</CODE> demo.</P>
+
+<H2>Execution</H2>
+<H3>For NITRO ROMs:</H3>
+
+<P>If using the Ensata emulator:</P>
+<UL>
+<LI>Execute NEF and SRL files with ensata.
+</UL>
+<P>If using IS-NITRO-DEBUGGER:</P>
+<UL>
+<LI>Load and execute a NLF file with IS-NITRO-DEBUGGER.
+<LI>Execute an SRL file with IS-NITRO-DEBUGGER
+<LI>Execute an SRL file with IS-NITRO-DEBUGGER using the <CODE>loadrun.exe</CODE> tool from a command line.
+</UL>
+<P>If using IS-TWL-DEBUGGER:</P>
+<UL>
+<LI>Load and execute an NLF file with IS-TWL-DEBUGGER.
+<LI>Execute an SRL file with IS-TWL-DEBUGGER.
+<LI>Execute an SRL file with IS-TWL-DEBUGGER using the <CODE>loadrun.TWL.exe</CODE> tool from a command line.
+</UL>
+<H3>For TWL/NITRO HYBRID ROMs:</H3>
+<P>If using IS-NITRO-DEBUGGER:</P>
+<UL>
+<LI>Execute an SRL file with IS-NITRO-DEBUGGER
+<LI>Execute an SRL file with IS-NITRO-DEBUGGER using the <CODE>loadrun.exe</CODE> tool from a command line.
+</UL>
+<P>If using IS-TWL-DEBUGGER:</P>
+<UL>
+<LI>Load and execute a TLF file with IS-TWL-DEBUGGER.
+<LI>Execute an SRL file with IS-TWL-DEBUGGER.
+<LI>Execute an SRL file with IS-TWL-DEBUGGER using the <CODE>loadrun.TWL.exe</CODE> tool from a command line.
+</UL>
+<H3>For TWL LIMITED ROMs:</H3>
+<P>If using IS-TWL-DEBUGGER:</P>
+<UL>
+<LI>Load and execute a TLF file with IS-TWL-DEBUGGER.
+<LI>Execute an SRL file with IS-TWL-DEBUGGER.
+<LI>Execute an SRL file with IS-TWL-DEBUGGER using the <CODE>loadrun.TWL.exe</CODE> tool from a command line.
+</UL>
+
+<H2>Description</H2>
+<BR>
+<TABLE width="720">
+  <TBODY>
+    <TR>
+<TH>Name</TH>
+<TH>Directories</TH>
+<TH>Operation</TH>
+    </TR>
+    <TR>
+<TD><EM><STRONG><CODE>misc-1</CODE></STRONG></EM></TD>
+<TD><CODE>demos</CODE></TD>
+<TD>Tests the operation of various math functions. The results are displayed on the debug output.</TD>
+    </TR>
+    <TR>
+<TD width="187"><EM><STRONG><CODE>rand_lc</CODE></STRONG></EM></TD>
+<TD><CODE>demos</CODE></TD>
+<TD width="525">Random number test using linear congruential generators.</TD>
+    </TR>
+    <TR>
+<TD><EM><STRONG><CODE>qsort</CODE></STRONG></EM></TD>
+<TD><CODE>demos</CODE></TD>
+<TD>A test of the quicksort function. When the A Button is pressed, it rearranges data generated with random numbers.</TD>
+    </TR>
+    <TR>
+<TD><EM><STRONG><CODE>fft-1</CODE></STRONG></EM></TD>
+<TD><CODE>demos</CODE></TD>
+<TD>Carries out an operational test for the fast Fourier transform function. The results are displayed on the debug output.</TD>
+    </TR>
+    <TR>
+<TD><EM><STRONG><CODE>fft-2</CODE></STRONG></EM></TD>
+<TD><CODE>demos</CODE></TD>
+<TD>Runs the fast Fourier transform function on microphone input and carries out spectral display.</TD>
+    </TR>
+    <TR>
+<TD><EM><STRONG><CODE>dgt-1</CODE></STRONG></EM></TD>
+<TD><CODE>demos</CODE></TD>
+<TD>Tests the operation of the message digest and hash functions. The results are displayed in the debug output.</TD>
+    </TR>
+    <TR>
+<TD><EM><STRONG><CODE>dgt-2</CODE></STRONG></EM></TD>
+<TD><CODE>demos</CODE></TD>
+<TD>Compares the operation speed of the message digest and hash functions. The results are displayed in the debug output.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>Operation</H2>
+<P>Operates normally in all operating environments.</P>
+<H2>See Also</H2>
+<P><A href="../../math/list_math.html"><CODE>MATH Features List</CODE></A></P>
+<H2>Revision History</H2>
+<P>
+2008/07/11 Changed descriptions to support TWL.<BR> 2005/07/05 Added a description of the fft-2 demo.<BR> 2005/05/13 Added a description of the fft-1 demo.<BR> 2005/05/10 Added a description of the misc-1 sample.<BR>2005/04/18 Added descriptions for <code>dgt-1</code>, <code>dgt-2</code> demos.<br /> 2005/04/12 Added <code>qsort</code> demo.<br /> 2005/03/02 Revised descriptions to reflect current support environment conditions.<br /> 2004/12/15 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

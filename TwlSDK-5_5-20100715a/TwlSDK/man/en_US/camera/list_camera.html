@@ -1,0 +1,380 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META http-equiv="Content-Style-Type" content="text/css">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<BASE target="main">
+<TITLE>Camera Library (CAMERA) Function List</TITLE>
+<LINK rel="stylesheet" href="../css/apilist.css">
+</HEAD>
+<BODY>
+<H1>Camera Library (CAMERA) Function List</H1>
+
+<H3><A name="Init">Initialization</A></H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+      <TH nowrap width="25%"><A href="CAMERA_Init.html" target="_self">CAMERA_Init</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Initializes the camera library.</TD>
+    </TR>
+    <TR>
+      <TH nowrap width="25%"><A href="CAMERA_End.html" target="_self">CAMERA_End</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Shuts down the camera library.</TD>
+    </TR>
+    <TR>
+      <TH nowrap width="25%"><FONT color="gray">CAMERA_Reset</FONT></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Resets the camera.<BR>
+          (This does not need to be called because <A href="CAMERA_Init.html" target="_self"><CODE>CAMERA_Init</CODE></A> calls it internally.)</TD>
+    </TR>
+    <TR>
+      <TH nowrap width="25%"><FONT color="gray">CAMERA_I2CInit*</FONT></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Initializes the camera registers.<BR>
+          (This does not need to be called because <A href="CAMERA_Init.html" target="_self"><CODE>CAMERA_Init</CODE></A> calls it.)</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<H3><A name="Capture">Capture-Related</A></H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+      <TH nowrap width="25%"><A href="CAMERA_Start.html" target="_self">CAMERA_Start</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>High-level function to start the camera and begin capturing.</TD>
+    </TR>
+    <TR>
+      <TH nowrap width="25%"><A href="CAMERA_Stop.html" target="_self">CAMERA_Stop</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>High-level function to stop capturing and put the camera in standby mode.</TD>
+    </TR>
+    <TR>
+      <TH nowrap width="25%"><A href="CAMERA_I2CActivate.html" target="_self">CAMERA_I2CActivate*</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Specifies the inner or outer camera and activates it.</TD>
+    </TR>
+    <TR>
+      <TH nowrap width="25%"><A href="CAMERA_StartCapture.html" target="_self">CAMERA_StartCapture</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Starts capturing.</TD>
+    </TR>
+    <TR>
+      <TH nowrap width="25%"><A href="CAMERA_StopCapture.html" target="_self">CAMERA_StopCapture</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Stops capturing.</TD>
+    </TR>
+    <TR>
+      <TH nowrap width="25%"><A href="CAMERA_DmaRecv.html" target="_self">CAMERA_DmaRecv</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Receives frame data from the camera buffer.</TD>
+    </TR>
+    <TR>
+      <TH nowrap width="25%"><A href="CAMERA_DmaRecvAsync.html" target="_self">CAMERA_DmaRecvAsync</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Receives frame data asynchronously from the camera buffer.</TD>
+    </TR>
+    <TR>
+      <TH nowrap width="25%"><A href="CAMERA_DmaPipeInfinity.html" target="_self">CAMERA_DmaPipeInfinity</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Continues to receive consecutive data from the camera buffer.</TD>
+    </TR>
+    <TR>
+      <TH nowrap width="25%"><A href="CAMERA_IsBusy.html" target="_self">CAMERA_IsBusy</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Returns whether the camera is currently getting image data.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<H3><A name="Config">Camera Settings</A></H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+      <TH nowrap width="25%"><A href="CAMERA_SetTrimmingParamsCenter.html" target="_self">CAMERA_SetTrimmingParamsCenter</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Configures trimming values for the camera based around a center point.</TD>
+    </TR>
+    <TR>
+      <TH nowrap width="25%"><A href="CAMERA_SetTrimmingParams.html" target="_self">CAMERA_SetTrimmingParams</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Configures trimming values for the camera.</TD>
+    </TR>
+    <TR>
+      <TH nowrap width="25%"><A href="CAMERA_GetTrimmingParams.html" target="_self">CAMERA_GetTrimmingParams</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Gets the trimming values for the camera.</TD>
+    </TR>
+    <TR>
+      <TH nowrap width="25%"><A href="CAMERA_SetTrimming.html" target="_self">CAMERA_SetTrimming</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Enables or disables trimming for the camera.</TD>
+    </TR>
+    <TR>
+      <TH nowrap width="25%"><A href="CAMERA_IsTrimming.html" target="_self">CAMERA_IsTrimming</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Determines whether trimming is enabled or disabled for the camera.</TD>
+    </TR>
+    <TR>
+      <TH nowrap width="25%"><A href="CAMERA_I2CSize.html" target="_self">CAMERA_I2CSize*</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Sets the camera resolution.</TD>
+    </TR>
+    <TR>
+      <TH nowrap width="25%"><A href="CAMERA_I2CFrameRate.html" target="_self">CAMERA_I2CFrameRate*</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Sets the camera's frame rate.</TD>
+    </TR>
+    <TR>
+      <TH nowrap width="25%"><A href="CAMERA_I2CEffect.html" target="_self">CAMERA_I2CEffect*</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Configures effects for camera images.</TD>
+    </TR>
+    <TR>
+      <TH nowrap width="25%"><A href="CAMERA_I2CFlip.html" target="_self">CAMERA_I2CFlip*</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Configures flipping on camera images.</TD>
+    </TR>
+    <TR>
+      <TH nowrap width="25%"><A href="CAMERA_I2CPhotoMode.html" target="_self">CAMERA_I2CPhotoMode*</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Sets the camera's photo mode.</TD>
+    </TR>
+    <TR>
+      <TH nowrap width="25%"><A href="CAMERA_I2CWhiteBalance.html" target="_self">CAMERA_I2CWhiteBalance*</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Sets the camera's white balance.</TD>
+    </TR>
+    <TR>
+      <TH nowrap width="25%"><A href="CAMERA_I2CExposure.html" target="_self">CAMERA_I2CExposure*</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Configures the camera's exposure.</TD>
+    </TR>
+    <TR>
+      <TH nowrap width="25%"><A href="CAMERA_I2CSharpness.html" target="_self">CAMERA_I2CSharpness*</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Sets the camera's sharpness.</TD>
+    </TR>
+    <TR>
+      <TH nowrap width="25%"><A href="CAMERA_I2CAutoExposure.html" target="_self">CAMERA_I2CAutoExposure*</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Enables or disables the camera's automatic exposure feature.</TD>
+    </TR>
+    <TR>
+      <TH nowrap width="25%"><A href="CAMERA_I2CAutoWhiteBalance.html" target="_self">CAMERA_I2CAutoWhiteBalance*</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Enables or disables the auto-adjustment feature for the camera's white balance.</TD>
+    </TR>
+    <TR>
+      <TH nowrap width="25%"><A href="CAMERA_SetOutputFormat.html" target="_self">CAMERA_SetOutputFormat</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Sets the camera's output format.</TD>
+    </TR>
+    <TR>
+      <TH nowrap width="25%"><A href="CAMERA_GetOutputFormat.html" target="_self">CAMERA_GetOutputFormat</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Gets the camera's output format.</TD>
+    </TR>
+    <TR>
+      <TH nowrap width="25%"><A href="CAMERA_GetErrorStatus.html" target="_self">CAMERA_GetErrorStatus</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Checks the error flag for the line buffer.</TD>
+    </TR>
+    <TR>
+      <TH nowrap width="25%"><A href="CAMERA_ClearBuffer.html" target="_self">CAMERA_ClearBuffer</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Clears the line buffer and the error flag.</TD>
+    </TR>
+    <TR>
+      <TH nowrap width="25%"><A href="CAMERA_SetVsyncCallback.html" target="_self">CAMERA_SetVsyncCallback</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Sets the callback function that is invoked during a camera VSync interrupt.</TD>
+    </TR>
+    <TR>
+      <TH nowrap width="25%"><A href="CAMERA_SetBufferErrorCallback.html" target="_self">CAMERA_SetBufferErrorCallback</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Sets the callback function that is invoked during a camera buffer error interrupt.</TD>
+    </TR>
+    <TR>
+      <TH nowrap width="25%"><A href="CAMERA_SetRebootCallback.html" target="_self">CAMERA_SetRebootCallback</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Sets the callback function that is invoked after the camera has finished restarting.</TD>
+    </TR>
+    <TR>
+      <TH nowrap width="25%"><A href="CAMERA_SetTransferLines.html" target="_self">CAMERA_SetTransferLines</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Sets the number of lines to transfer to the buffer at once.</TD>
+    </TR>
+    <TR>
+      <TH nowrap width="25%"><A href="CAMERA_GetTransferLines.html" target="_self">CAMERA_GetTransferLines</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Gets the number of lines to transfer to the buffer at once.</TD>
+    </TR>
+    <TR>
+      <TH nowrap width="25%"><A href="CAMERA_I2CContextSwitch.html" target="_self">CAMERA_I2CContextSwitch*</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Switches the camera context.</TD>
+    </TR>
+    <TR>
+      <TH nowrap width="25%"><A href="CAMERA_SetLED.html" target="_self">CAMERA_SetLED*</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Switches the outer camera LED between lit and blinking.</TD>
+    </TR>
+    <TR>
+      <TH nowrap width="25%"><A href="CAMERA_SwitchOffLED.html" target="_self">CAMERA_SwitchOffLED*</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Turns off the outer camera LED for the duration of a single blink.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<H3><A name="Utility">Utility Functions</A></H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+      <TH nowrap width="25%"><A href="CAMERA_SizeToWidth.html" target="_self">CAMERA_SizeToWidth</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Returns the width of the specified camera resolution.</TD>
+    </TR>
+    <TR>
+      <TH nowrap width="25%"><A href="CAMERA_SizeToHeight.html" target="_self">CAMERA_SizeToHeight</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Returns the height of the specified camera resolution.</TD>
+    </TR>
+    <TR>
+      <TH nowrap width="25%"><A href="CAMERA_SizeToPixels.html" target="_self">CAMERA_SizeToPixels</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Returns the number of pixels for the specified camera resolution.</TD>
+    </TR>
+    <TR>
+      <TH nowrap width="25%"><A href="CAMERA_WidthHeightToSize.html" target="_self">CAMERA_WidthHeightToSize</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Returns the camera resolution that corresponds to the specified width and height.</TD>
+    </TR>
+    <TR>
+      <TH nowrap width="25%"><A href="CAMERA_WidthToSize.html" target="_self">CAMERA_WidthToSize</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Returns the camera resolution that corresponds to the specified width.</TD>
+    </TR>
+    <TR>
+      <TH nowrap width="25%"><A href="CAMERA_HeightToSize.html" target="_self">CAMERA_HeightToSize</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Returns the camera resolution that corresponds to the specified height.</TD>
+    </TR>
+    <TR>
+      <TH nowrap width="25%"><A href="CAMERA_PixelsToSize.html" target="_self">CAMERA_PixelsToSize</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Returns the camera resolution that corresponds to the specified number of pixels.</TD>
+    </TR>
+    <TR>
+      <TH nowrap width="25%"><A href="CAMERA_GetMaxLinesRound.html" target="_self">CAMERA_GetMaxLinesRound</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Rounds the <A href="CAMERA_GET_MAX_LINES.html"><CODE>CAMERA_GET_MAX_LINES</CODE></A> value to one that is suitable for <A href="CAMERA_SetTransferLines.html"><CODE>CAMERA_SetTransferLines</CODE></A>.</TD>
+    </TR>
+    <TR>
+      <TH nowrap width="25%"><A href="CAMERA_GetBytesAtOnce.html" target="_self">CAMERA_GetBytesAtOnce</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Returns the one-time transfer size when data is received from the camera buffer.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<H3><A name="Macro">Macros</A></H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+      <TH nowrap width="25%"><A href="CAMERA_GET_MAX_LINES.html" target="_self">CAMERA_GET_MAX_LINES</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Calculates the number of lines to transfer at once.</TD>
+    </TR>
+    <TR>
+      <TH nowrap width="25%"><A href="CAMERA_GET_LINE_BYTES.html" target="_self">CAMERA_GET_LINE_BYTES</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Calculates the number of bytes to transfer with a single line.</TD>
+    </TR>
+    <TR>
+      <TH nowrap width="25%"><A href="CAMERA_GET_FRAME_BYTES.html" target="_self">CAMERA_GET_FRAME_BYTES</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Calculates the number of bytes to transfer with a single frame.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<H3><A name="Struct">Constants and Structures</A></H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+      <TH nowrap width="25%"><A href="CAMERASelect.html" target="_self">CAMERASelect</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>This is an enumerated type that is used to specify the camera.</TD>
+    </TR>
+    <TR>
+      <TH nowrap width="25%"><A href="CAMERAContext.html" target="_self">CAMERAContext</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>This is an enumerated type that is used to specify the camera setting context.</TD>
+    </TR>
+    <TR>
+      <TH nowrap width="25%"><A href="CAMERASize.html" target="_self">CAMERASize</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>This is an enumerated type that is used to specify the camera's resolution.</TD>
+    </TR>
+    <TR>
+      <TH nowrap width="25%"><A href="CAMERAEffect.html" target="_self">CAMERAEffect</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>This is an enumerated type that is used to specify the effects to apply to the camera's output data.</TD>
+    </TR>
+    <TR>
+      <TH nowrap width="25%"><A href="CAMERAFlip.html" target="_self">CAMERAFlip</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>This is an enumerated type that is used to specify flipping for the camera's output data.</TD>
+    </TR>
+    <TR>
+      <TH nowrap width="25%"><A href="CAMERAPhotoMode.html" target="_self">CAMERAPhotoMode</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>This is an enumerated type that is used to specify the camera's photo mode.</TD>
+    </TR>
+    <TR>
+      <TH nowrap width="25%"><A href="CAMERAWhiteBalance.html" target="_self">CAMERAWhiteBalance</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>This is an enumerated type that is used to specify the camera's white balance.</TD>
+    </TR>
+    <TR>
+      <TH nowrap width="25%"><A href="CAMERAFrameRate.html" target="_self">CAMERAFrameRate</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>This is an enumerated type that is used to specify the camera's frame rate.</TD>
+    </TR>
+    <TR>
+      <TH nowrap width="25%"><A href="CAMERAIntrVsync.html" target="_self">CAMERAIntrVsync</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>This enumerated type is used to specify when camera VSync interrupts will occur.</TD>
+    </TR>
+    <TR>
+      <TH nowrap width="25%"><A href="CAMERAOutput.html" target="_self">CAMERAOutput</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>This is an enumerated type that is used to specify the camera's output data format.</TD>
+    </TR>
+    <TR>
+      <TH nowrap width="25%"><A href="CAMERACallback.html" target="_self">CAMERACallback</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>This is the callback function type invoked when asynchronous camera processing has completed.</TD>
+    </TR>
+    <TR>
+      <TH nowrap width="25%"><A href="CAMERAIntrCallback.html" target="_self">CAMERAIntrCallback</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>This is the callback function type invoked when each kind of camera interrupt occurs.</TD>
+    </TR>
+    <TR>
+      <TH nowrap width="25%"><A href="CAMERAResult.html" target="_self">CAMERAResult</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>This enumerated type indicates the result of a camera operation.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<table border="0" height="100%"><tr><td style="background-color : white;"></td></tr></table>
+
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

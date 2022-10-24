@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>addbanner</TITLE>
+<LINK rel="stylesheet" href="../css/nitro.css" type="text/css">
+<STYLE type="text/css">
+<!--
+.sample_source{
+  background-color : #e8e8e8;
+}
+H3{
+  color : teal;
+}
+.command_list{
+  margin-bottom : 16pt;
+}
+.command_desc{
+  }
+.command_item{
+  margin-top : 16pt;
+  background-color : #e8e8e8;
+}
+.blockquoted_table {
+  border : 1px;
+  width : 80%;
+}
+TD,TH{
+  border-color	: #c0d8d8;
+  padding       : 1pt 4pt 1pt 4pt;
+  border-width  : 1px;
+  border-style  : solid;
+}
+-->
+</STYLE>
+</HEAD>
+<BODY>
+<H1 align="left">addbanner <IMG src="../image/NTR.gif" align="middle"><IMG src="../image/TWL.gif" align="middle"></H1>
+<H2>Description</H2>
+<P> The <CODE>addbanner</CODE> tool checks exactly how a banner file created by the <A href="makebanner.html"><CODE>makebanner</CODE></A> or <A href="makebannerTWL.html"><CODE>makebanner.TWL</CODE></A> tool will be displayed on the launcher screen of a TWL or DS/DS Lite unit.<BR>This can be used to check the game titles set for various languages, the banner displayed during DS Single-Card Play, and the animation data in a TWL banner.</P>
+<P> <FONT color=#ff0000>With a TWL or DS/DS Lite unit, the width of the character font and character area differ. Be sure to set a game title that will not extend beyond the borders of either screen.<BR>However, TWL hardware use a card application screen. Be sure to check the display of user NAND applications by importing TAD files to a TWL unit for development or IS-TWL-DEBUGGER using <A href="../romfiles/TwlNmenu.html"><CODE>TwlNmenu</CODE></A>.</P></FONT>
+
+<P>As the name indicates, <CODE>addbanner</CODE> was originally a tool for inserting banner files in ROM files, but it does not need to be used for this purpose now because this is usually done with the <A href="makerom.html"><CODE>makerom</CODE></A> or <A href="makerom.html"><CODE>makerom.TWL</CODE></A> tool.</P>
+
+<H2>Using the Tool</H2>
+<H3>Start Command</H3>
+<P><CODE>% addbanner [-t VIEWER_TEMPLATE] BANNERFILE [VIEWER]</CODE></P>
+<P>Outputs an executable ROM file with the filename in <CODE>VIEWER</CODE>. This file is used to display the banner file specified by <CODE>BANNERFILE</CODE> to the screen on the DS, DS Lite, or TWL system. <CODE>VIEWER</CODE> can be omitted. When <code>VIEWER</code> is omitted, this uses a filename with <CODE>.srl</CODE> as the extension part of the filename specified by <CODE>BANNERFILE</CODE>.</P>
+<P> <CODE>addbanner</CODE> uses the <CODE>BannerViewerTemplate.srl</CODE> in the same directory as <CODE>addbanner.exe</CODE> for the template ROM file that becomes the <CODE>VIEWER</CODE> creation source file. <CODE>addbanner</CODE> replaces the banner file of the template ROM file with the file specified by <CODE>BANNERFILE</CODE>, and is only output with the name specified by <CODE>VIEWER</CODE>.</P>
+<P> The <CODE>-t</CODE> option changes the template ROM file responsible for VIEWER creation. This is usually not necessary.</P>
+<H3>How to Use the Generated VIEWER</H3>
+<P><CODE>NTR</CODE> is displayed for <CODE>Platform:</CODE> on screens for the DS/DS Lite in the case of an NTR banner, and <CODE>TWL</CODE> is displayed in the case of TWL banners.<BR>An illegal banner will cause &quot;<CODE>Banner is invalid.</CODE>&quot; to be displayed.</P>
+
+<P><TABLE border="1">
+  <TBODY>
+    <TR>
+<TH>Button</TH>
+<TH>Content</TH>
+    </TR><TR>
+<TD>Up/Down Buttons</TD>
+<TD>Changes the language.</TD>
+    </TR><TR>
+<TD>A Button</TD>
+<TD>Switches the upper and lower screens.</TD>
+    </TR></P>
+  </TBODY>
+</TABLE>
+<H2>Location</H2>
+<P><CODE>$TwlSDK/tools/bin/addbanner.exe</CODE><BR> <CODE>$TwlSDK/tools/bin/BannerViewerTemplate.srl</CODE></P>
+<H2>See Also</H2>
+<P><A href="about_Banner.html">Banner Overview</A><BR> <A href="makebanner.html"><CODE>makebanner</CODE></A><BR> <A href="makebannerTWL.html"><CODE>makebanner.TWL</CODE></A></P>
+<H2>Revision History</H2>
+<P>2008/11/11 Official support for the TWL launcher screen.<BR> 2008/09/24 Made revisions in line with TWL banner support.<BR> 2008/09/16 Added information about TWL banner.<BR> 2004/09/21 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

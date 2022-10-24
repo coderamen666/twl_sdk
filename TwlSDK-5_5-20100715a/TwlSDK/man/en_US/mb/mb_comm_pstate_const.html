@@ -1,0 +1,139 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>MBCommPState</title>
+<LINK rel="stylesheet" href="../css/nitro.css" type="text/css">
+</head>
+<body>
+<h1 align="left">MBCommPState <IMG src="../image/NTR.gif" width="24" height="12" border="0" align=middle><IMG src="../image/TWL.gif" width="24" height="12" border="0" align=middle></h1>
+<h2>Definition</h2>
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/mb.h&gt;</CODE>
+<PRE><CODE>
+typedef enum
+{
+    MB_COMM_PSTATE_NONE, 
+    MB_COMM_PSTATE_INIT_COMPLETE,
+    MB_COMM_PSTATE_CONNECTED, 
+    MB_COMM_PSTATE_DISCONNECTED, 
+    MB_COMM_PSTATE_KICKED, 
+    MB_COMM_PSTATE_REQ_ACCEPTED, 
+    MB_COMM_PSTATE_SEND_PROCEED, 
+    MB_COMM_PSTATE_SEND_COMPLETE, 
+    MB_COMM_PSTATE_BOOT_REQUEST, 
+    MB_COMM_PSTATE_BOOT_STARTABLE, 
+    MB_COMM_PSTATE_REQUESTED,
+    MB_COMM_PSTATE_MEMBER_FULL,
+    MB_COMM_PSTATE_END,
+    MB_COMM_PSTATE_ERROR,
+    MB_COMM_PSTATE_WAIT_TO_SEND,
+    
+    MB_COMM_PSTATE_WM_EVENT = 0x80000000
+} MBCommPState;
+</CODE></PRE>
+  </dd>
+</dl>
+<H2>Description</H2>
+<P>Indicates the enumerator constant showing the state of the multi-boot parent. The meaning of each enumerator constant is shown in the following table:
+<TABLE border="0">
+  <TBODY>
+    <TR>
+      <TD>Constant</TD>
+      <TD>Description</TD>
+    </TR>
+    <TR>
+      <TD><B><I>MB_COMM_PSTATE_NONE</B></I></TD>
+      <TD>Indicates the parent idle state.
+	  </TD>
+    </TR>
+    <TR>
+      <TD><B><I>MB_COMM_PSTATE_INIT_COMPLETE</B></I></TD>
+      <TD>Indicates the completion callback for the <CODE><A href="./parent/MB_StartParent.html">MB_StartParent</A></CODE> function.<br>The <CODE><a href="../wm/wm/WMCallback.html">WMCallback</a></CODE>-type pointer passed as the completion callback argument to the <CODE><a href="../wm/wm/WM_SetParentParameter.html">WM_SetParentParameter</a></CODE> function will also be passed as the <CODE>arg</CODE> argument to the <CODE><A href="parent/MB_CommSetParentStateCallback.html">MB_CommSetParentStateCallback</A></CODE> function's callback.<br>This is not a callback for the status of a specific child, so zero is passed to the <CODE>child_aid</CODE> argument.
+	  </TD>
+    </TR>
+    <TR>
+      <TD><B><I>MB_COMM_PSTATE_CONNECTED</B></I></TD>
+      <TD>Indicates the state immediately following connection from a child. The <CODE><a href="../wm/wm/WMStartParentCallback.html">WMStartParentCallback</a></CODE>-type pointer for the <CODE>WM_STATECODE_CHILD_CONNECTED</CODE> state will be passed as the <CODE>arg</CODE> argument to the <CODE><A href="parent/MB_CommSetParentStateCallback.html">MB_CommSetParentStateCallback</A></CODE> function's callback.<br>The number of the target child is passed to the <CODE>child_aid</CODE> argument.
+	  </TD>
+    </TR>
+    <TR>
+      <TD><B><I>MB_COMM_PSTATE_DISCONNECTED</B></I></TD>
+      <TD>Indicates the status immediately after disconnection of a child. The <CODE><a href="../wm/wm/WMStartParentCallback.html">WMStartParentCallback</a></CODE>-type pointer for the <CODE>WM_STATECODE_DISCONNECTED</CODE> state will be passed as the <CODE>arg</CODE> argument to the <CODE><A href="parent/MB_CommSetParentStateCallback.html">MB_CommSetParentStateCallback</A></CODE> function's callback.<br>The number of the target child is passed to the <CODE>child_aid</CODE> argument.
+	  </TD>
+    </TR>
+    <TR>
+      <TD><B><I>MB_COMM_PSTATE_KICKED</B></I></TD>
+      <TD>Indicates the status immediately after the completion of the connection rejection response to a child. <code>NULL</code> will be passed as the <CODE>arg</CODE> argument to the <CODE><A href="parent/MB_CommSetParentStateCallback.html">MB_CommSetParentStateCallback</A></CODE> function's callback.<br> The number of the target child is passed to the <CODE>child_aid</CODE> argument.
+	  </TD>
+    </TR>
+    <TR>
+      <TD><B><I>MB_COMM_PSTATE_REQ_ACCEPTED</B></I></TD>
+      <TD>Indicates the state immediately after the connection request to a child has completed. <code>NULL</code> will be passed as the <CODE>arg</CODE> argument to the <CODE><A href="parent/MB_CommSetParentStateCallback.html">MB_CommSetParentStateCallback</A></CODE> function's callback.<br> The number of the target child is passed to the <CODE>child_aid</CODE> argument.
+      </TD>
+    </TR>
+    <TR>
+      <TD><B><I>MB_COMM_PSTATE_WAIT_TO_SEND</B></I></TD>
+      <TD>Indicates that a child has entered the download standby state.<br /><code>NULL</code> will be passed as the <CODE>arg</CODE> argument to the <CODE><A href="parent/MB_CommSetParentStateCallback.html">MB_CommSetParentStateCallback</A></CODE> function's callback.<br> The number of the target child is passed to the <CODE>child_aid</CODE> argument.
+      </TD>
+    </TR>
+    <TR>
+      <TD><B><I>MB_COMM_PSTATE_SEND_PROCEED</B></I></TD>
+      <TD>Indicates the state in which the download to a child is proceeding normally. <code>NULL</code> will be passed as the <CODE>arg</CODE> argument to the <CODE><A href="parent/MB_CommSetParentStateCallback.html">MB_CommSetParentStateCallback</A></CODE> function's callback.<br>Callback is called only once when the download started. The number of the target child is passed to the <CODE>child_aid</CODE> argument.
+	  </TD>
+    </TR>
+    <TR>
+      <TD><B><I>MB_COMM_PSTATE_SEND_COMPLETE</B></I></TD>
+      <TD>Indicates the state immediately after the download to a child had completed. <code>NULL</code> will be passed as the <CODE>arg</CODE> argument to the <CODE><A href="parent/MB_CommSetParentStateCallback.html">MB_CommSetParentStateCallback</A></CODE> function's callback.<br> The number of the target child is passed to the <CODE>child_aid</CODE> argument.
+	  </TD>
+    </TR>
+    <TR>
+      <TD><B><I>MB_COMM_PSTATE_BOOT_REQUEST</B></I></TD>
+      <TD>Indicates the state where the boot request is being sent to a child. A transition to this state will occur when the <CODE><A href="parent/MB_CommBootRequest.html">MB_CommBootRequest</A></CODE> or <CODE><A href="parent/MB_CommBootRequestAll.html">MB_CommBootRequestAll</A></CODE> function is called.<br> The number of the target child is passed to the <CODE>child_aid</CODE> argument.
+	  </TD>
+    </TR>
+    <TR>
+      <TD><B><I>MB_COMM_PSTATE_BOOT_STARTABLE</B></I></TD>
+      <TD>Indicates the state where immediately after the boot request to a child has completed properly. <code>NULL</code> will be passed as the <CODE>arg</CODE> argument to the <CODE><A href="parent/MB_CommSetParentStateCallback.html">MB_CommSetParentStateCallback</A></CODE> function's callback.<br> The number of the target child is passed to the <CODE>child_aid</CODE> argument.
+	  </TD>
+    </TR>
+    <TR>
+      <TD><B><I>MB_COMM_PSTATE_REQUESTED</B></I></TD>
+      <TD>Indicates the state that is immediately after receiving the download request from a child. A pointer to the <CODE><a href="mb_user_info_type.html">MBUserInfo</a></CODE> that stores the child device's user data will be passed as the <CODE>arg</CODE> argument to the <CODE><A href="parent/MB_CommSetParentStateCallback.html">MB_CommSetParentStateCallback</A></CODE> function's callback.<br> The number of the target child is passed to the <CODE>child_aid</CODE> argument.
+	  </TD>
+    </TR>
+    <TR>
+      <TD><B><I>MB_COMM_PSTATE_MEMBER_FULL</B></I></TD>
+      <TD>Indicates the state immediately after the download process from a child was forcibly cancelled because it has reached the maximum number of people. <code>NULL</code> will be passed as the <CODE>arg</CODE> argument to the <CODE><A href="parent/MB_CommSetParentStateCallback.html">MB_CommSetParentStateCallback</A></CODE> function's callback.<br> The number of the target child is passed to the <CODE>child_aid</CODE> argument.
+	  </TD>
+    </TR>
+    <TR>
+      <TD><B><I>MB_COMM_PSTATE_END</B></I></TD>
+      <TD>Indicates the completion callback for the <CODE><A href="./common/MB_End.html">MB_End</A></CODE> function.<br> <code>NULL</code> is passed as the <CODE>arg</CODE> argument to the <CODE><A href="parent/MB_CommSetParentStateCallback.html">MB_CommSetParentStateCallback</A></CODE> function's callback.<br>This is not a callback for the status of a specific child, so zero is passed to the <CODE>child_aid</CODE> argument.
+	  </TD>
+    </TR>
+    <TR>
+      <TD><B><I>MB_COMM_PSTATE_ERROR</B></I></TD>
+      <TD>Indicates the callback that notifies the various errors that were generated in the MP library. A pointer to the <CODE><a href="mb_error_status_type.html">MBErrorStatus</a></CODE> that stores the cause of the error will be passed as the <CODE>arg</CODE> argument to the <CODE><A href="parent/MB_CommSetParentStateCallback.html">MB_CommSetParentStateCallback</A></CODE> function's callback.<br>
+	  </TD>
+    </TR>
+    <TR>
+      <TD><font color="#808080">MB_COMM_PSTATE_WM_EVENT</font></TD>
+      <TD><font color="#808080">Used internally in the library.</font>
+	  </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<BR>
+</P>
+<h2>See Also</h2>
+<p><code><a href="parent/MB_CommSetParentStateCallback.html">MB_CommSetParentStateCallback</a></code><BR> <code><a href="parent/MB_CommGetParentState.html">MB_CommGetParentState</a></code></p>
+<H2>Revision History</H2>
+<P>
+2004/10/05 Added enumerator types. <BR>2004/09/30 Added enumerator types. <BR>2004/09/27 Revised descriptions. <BR>2004/09/10 Added descriptions for the arguments to the <CODE>MB_CommSetParentStateCallback</CODE> function's arguments. <BR>2004/08/09 Initial version.<BR>
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

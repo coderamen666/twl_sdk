@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>FS_GetPathLength</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">FS_GetPathLength <img src="../../image/NTR.gif"align="middle"><img src="../../image/TWL.gif" align="middle"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/fs.h&gt;</CODE><BR>
+  <BR>
+  <CODE>s32 FS_GetPathLength( <A href="../fs_file_type.html">FSFile</a> *p_file );</CODE><br>
+  <br>
+  </dd>
+</dl>
+<h2>Arguments</h2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+      <TD width="13%"><EM><STRONG>p_file</STRONG></EM></TD>
+      <TD width="87%">Address of the <A href="../fs_file_type.html"><CODE>FSFile</CODE></A> structure.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<BR>
+
+<h2>Return Values</h2>
+<p>If it succeeds, it returns the length of the path name, including the terminating character &quot;\0&quot;. If it fails, it returns a value of -1.</p>
+
+<H2>Description</H2>
+<P>Gets the length of the path name (including the terminating character &quot;\0&quot;) of the specified file or directory. If you prepare at least as much memory as the return value before calling the <code><A href="FS_GetPathName.html">FS_GetPathName</A></code> function, it is guaranteed that the function will always succeed. <BR>
+</P>
+<H2>Note</H2>
+<p><font color="#800000">This function cannot be called from the interrupt handler (IRQ mode).<br> Also note that in some cases processing may not end if interrupts are left prohibited.<br></font></p>
+<BR>
+<h2>See Also</h2>
+<p><CODE><A href="FS_GetPathName.html">FS_GetPathName</A></CODE></p>
+
+<H2>Revision History</H2>
+<P>
+2004/09/24 Added the description in the Caution section regarding the conditions for calling this function.<br> 2004/06/15 Changed terminating NUL to terminating character &quot;\0&quot;.<br> 2004/05/19 Initial version
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

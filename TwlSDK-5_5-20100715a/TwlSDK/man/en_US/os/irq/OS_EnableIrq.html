@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>OS_EnableIrq</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">OS_EnableIrq <IMG src="../../image/NTR.gif" align="middle"><IMG src="../../image/TWL.gif" align="middle"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/os.h&gt;</CODE><BR>
+  <BR>
+  <CODE>BOOL OS_EnableIrq( void );</CODE></dd>
+</dl><h2>Arguments</h2>
+<P>None.</P>
+
+<h2>Return Values</h2>
+<p>The IRQ interrupt enable state before calling this function.</p>
+<p>Enabled if <CODE>TRUE</CODE>; disabled if <CODE>FALSE</CODE>.</p>
+<H2>Description</H2>
+<P>This function enables IRQ interrupts.</P>
+<P>This function manipulates the master enable flag for all IRQ interrupts. Even if IRQ interrupt factors are individually enabled, no IRQ interrupts will occur if the master enable flag is not enabled.</P>
+<P>The returned value is the IRQ interrupt enable state before calling this function. Returns <CODE>TRUE</CODE> if enable; <CODE>FALSE</CODE> if disabled.</P>
+
+<h2>Internal Operation</h2>
+<P>Operates the I/O Register's IME (Interrupt Master Enable).</P>
+
+<h2>See Also</h2>
+<p><CODE><A href="OS_GetIrq.html">OS_GetIrq</A>, <A href="OS_DisableIrq.html">OS_DisableIrq</A>, <A href="OS_RestoreIrq.html">OS_RestoreIrq</A><br></CODE></p>
+
+<H2>Revision History</H2>
+<P>
+2005/03/08 Standardized the Japanese term for &quot;interrupt.&quot;<br> 2003/12/01 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>MI_LoadCache</title>
+<link rel="stylesheet" href="../../css/nitro.css" type="text/css" />
+</head>
+<body>
+<h1>MI_LoadCache <IMG src="../../image/NTR.gif" align="middle"><IMG src="../../image/TWL.gif" align="middle"></h1>
+<h2>Syntax</h2>
+<dl>
+  <dd>
+<code>#include &lt;nitro/mi.h&gt;<br />
+  <br />
+  void MI_LoadCache(<A href="MICache.html">MICache</A> *cache, <a href="../device/MIDevice.html">MIDevice</a> *device);</code></dd>
+</dl>
+
+<h2>Arguments</h2>
+<table border="1" width="100%">
+  <tbody>
+    <tr>
+      <td width="13%"><em><strong>cache</strong></em></td>
+      <td width="87%">Pointer to the <A href="MICache.html"><CODE>MICache</CODE></A> structure to access.<br />
+      The cache must have been initialized using <A href="MI_InitCache.html"><CODE>MI_InitCache()</CODE></A>.</td>
+    </tr>
+    <tr>
+      <td width="13%"><em><strong>device</strong></em></td>
+      <td width="87%">Pointer to the <a href="../device/MIDevice.html"><CODE>MIDevice</CODE></a> structure that indicates the device to load.<br />
+      The device must have been initialized using <a href="../device/MI_InitDevice.html"><CODE>MI_InitDevice()</CODE></a>.</td>
+    </tr>
+  </TBODY>
+</table>
+
+<h2>Return Values</h2>
+<p>None.</p>
+
+<h2>Description</h2>
+<p>
+Loads data from the device for all pages waiting to be loaded on the cache page list. From within this function, <a href="../device/MI_ReadDevice.html"><CODE>MI_ReadDevice()</CODE></a> is called and the page will be in the loaded state. <a href="MI_ReadCache.html"><CODE>MI_ReadCache()</CODE></a>, which failed previously after called, will succeed when it is called the next time.<br />
+</p>
+<p>
+This function is thread-safe. Other threads can use it even while <a href="MI_ReadCache.html"><CODE>MI_ReadCache()</CODE></a> is being called.
+</p>
+<p>
+Use <a href="MI_IsCacheLoading.html"><CODE>MI_IsCacheLoading()</CODE></a> in order to determine whether there are any pages waiting to be loaded.<br />The application must call this function at the appropriate time to load pages waiting to be loaded. If there are no pages waiting to be loaded, this function will do nothing when it is called.
+</p>
+<p>
+This feature is a utility that enables efficient read access to devices. For more information, see the reference for the <a href="MICache.html"><CODE>MICache</CODE></a> structure.
+</p>
+
+<h2>See Also</h2>
+<p><code><a href="MI_InitCache.html">MI_InitCache</a> <a href="MI_ReadCache.html">MI_ReadCache</a> <a href="MI_IsCacheLoading.html">MI_IsCacheLoading</a><br /> <a href="MICache.html">MICache</a></code></p>
+<h2>Revision History</h2>
+<p>
+2007/05/16 Initial version.
+</p>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

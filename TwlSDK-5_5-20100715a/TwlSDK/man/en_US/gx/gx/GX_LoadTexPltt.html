@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>GX_LoadTexPltt</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+<body>
+<h1 align="left">GX_LoadTexPltt <img src="../../image/NTR.gif"align="middle"><img src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/gx/gx_load.h&gt;</CODE><BR>
+  <BR>
+  <CODE>void GX_LoadTexPltt(const void *pSrc, u32 destSlotAddr, u32 szByte);</CODE></dd>
+</dl><h2>Arguments</h2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+      <TD width="190"><em><strong><font face="Courier New">pSrc</font></strong></em></TD>
+      <TD width="512">Pointer to transfer origin</TD>
+    </TR>
+    <TR>
+      <TD width="190"><em><strong><font face="Courier New">destSlotAddr</font></strong></em></TD>
+      <TD width="512">Address in transfer destination texture palette slot</TD>
+    </TR>
+    <TR>
+      <TD width="190"><em><strong><font face="Courier New">szByte</font></strong></em></TD>
+      <TD width="512">Transfer size (in bytes)</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<h2>Return Values</h2>
+<p>None.</p>
+<H2>Description</H2>
+<P>This function uses DMA to transfer texture palette data to the texture palette. The transfer destination address (in the texture palette) can be specified. Use the <code>GX_DMAID</code> DMA channel (defined in <code>gxcommon.h</code>). Both <em><strong><code>destSlotAddr</code></strong></em> and <em><strong><code>szByte</code></strong></em> must be 4-byte aligned. Call this function between the <CODE><A href="GX_BeginLoadTexPltt.html">GX_BeginLoadTexPltt</A></CODE> and <CODE><A href="GX_EndLoadTexPltt.html">GX_EndLoadTexPltt</A></CODE> functions.<BR><BR> <B>Notes:</B> Because the DMA transfer is carried out internally, the transfer source data must be written to main memory in advance using a function such as <CODE><A href="../../os/cache/DC_FlushRange.html" target="_self">DC_FlushRange</A></CODE>.<BR>If the regions for transfer source and transfer destination overlap, the operation result is undefined. Do not call <A href="GX_SetBankForTexPltt.html"><CODE>GX_SetBankForTexPltt</CODE></A>, <A href="GX_ResetBankForTexPltt.html"><CODE>GX_ResetBankForTexPltt</CODE></A>, or <A href="GX_DisableBankForTexPltt.html"><CODE>GX_DisableBankForTexPltt</CODE></A> between <CODE><A href="GX_BeginLoadTexPltt.html">GX_BeginLoadTexPltt</A></CODE> and <CODE><A href="GX_EndLoadTexPltt.html">GX_EndLoadTexPltt</A></CODE>.</P>
+<h2>See Also</h2>
+<P><code><A href="GX_BeginLoadTexPltt.html">GX_BeginLoadTexPltt</A></code><BR> <code><A href="GX_EndLoadTexPltt.html">GX_EndLoadTexPltt</A></code></P>
+<H2>Revision History</H2>
+<P>2004/02/09</P>
+<UL>
+  <LI>Revised and expanded the description.
+</UL>
+<P>2004/01/19 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

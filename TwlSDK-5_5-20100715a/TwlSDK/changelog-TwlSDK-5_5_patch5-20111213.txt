@@ -1,0 +1,77 @@
+﻿■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+■
+■  changelog-TwlSDK-5_5_patch5-20111213.txt
+■
+■  Plus Patch for TWL-SDK 5.5
+■
+■  December 13, 2011
+■
+■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+
+
+Revisions 
+
+    Revised Content in TwlSDK-5_5_patch5-20111213
+    --------------------------------------------------------------------------
+
+    - (SND) Adjusted target value for SNDEX_SetIirFilterAsync and SNDEX_SetIirFilter functions
+
+      Deleted target values for speaker output from SNDEX_SetIirFilterAsync and SNDEX_SetIirFilter functions.
+
+
+    - (TOOL) Fixed bug where mb_child_TWL.srl debug log would not be output
+
+      Fixed a bug in TWL-SDK version 5.5 and later where the debug log would not be output while mb_child_TWL.srl was running.
+
+
+    Revised Content in TwlSDK-5_5_patch4-20110712
+    --------------------------------------------------------------------------
+
+    - (WM) Fixed bug where the parent device channel would be invalid when starting DS wireless communication in TWL mode.
+
+      Fixed a bug where the channel obtainable by the child device scanning would be different from the channel on which the parent device is actually transmitting. This would occur after stopping the DS wireless communication and then immediately calling either the WM_Initialize function again or calling the WM_PowerOn function to initialize the DS wireless communication.
+
+
+    Revised Content in TwlSDK-5_5_patch3-20110416
+    --------------------------------------------------------------------------
+
+    - (DevEnv) Changed makelcf[.TWL]
+
+      There was a bug where library and filenames that specified force parameters would not be recognized if the name contained two or more periods. This has been fixed.
+
+
+    - (NA) Prohibiting the Flip Setting in Sub-Banners
+
+      Due to a bug in the CTR HOME Menu, the flip setting for sub-banners has been prohibited.
+      When a flip setting is entered, note that NA_SaveSubBanner will return an error.
+
+      In addition, to reflect this change, the demos.TWL/nandApp/SubBanner sub-banner demo has been revised.
+
+
+    - (TOOL) Prohibiting the Flip Setting for TWL Banners
+
+      Due to a bug in the CTR HOME Menu, the flip setting for TWL banners has been prohibited.
+      When a previously used flip setting is entered, note that bannercvtr and makebanner.TWL will return an error.
+
+      In addition the demos.TWL/tips/TWLBanner_anim2 TWL banner demo has been revised to reflect this change.
+
+
+    Revised Content in TwlSDK-5_5_patch2-20110118
+    --------------------------------------------------------------------------
+
+    - (OS) Modified the Chinese version ISBN screen
+
+      When the OS_InitChina function is called and the ISBN screen is displayed, the image displayed on the lower screen has been modified.
+
+
+    Revised Content in TwlSDK-5_5_patch1-20100825
+    --------------------------------------------------------------------------
+
+    - (TOOL) Rolled back version of commondefs
+
+      TWL-SDK 5.5 added support in commondefs for file paths that have parentheses, but this added processing caused build times with TWL-SDK 5.5 to take much longer than with TWL-SDK 5.4. The version of commondefs has been rolled back to an equivalent of that provided with TWL-SDK 5.4.
+      
+      In situations requiring a version of commondefs that supports parentheses in file paths (such as in 64-bit Windows environments where the compiler or debugger is installed below the "Program Files(x86)" directory), replace commondefs with a renamed version of the "commondefs.parens" file provided in the same directory.
+
+
+End

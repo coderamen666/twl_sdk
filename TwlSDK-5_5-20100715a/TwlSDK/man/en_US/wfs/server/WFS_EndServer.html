@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title>WFS_EndServer</title>
+<link rel="stylesheet" href="../../css/nitro.css" type="text/css" />
+</head>
+<body>
+
+<h1>WFS_EndServer <img src="../../image/NTR.gif"><img src="../../image/TWL.gif"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<code>#include &lt;nitro/wfs.h&gt;</code><br />
+  <br />
+  <code>void WFS_EndServer(WFSServerContext *context);</code><br />
+  <br />
+  </dd>
+</dl>
+<h2>Arguments</h2>
+<table border="1" width="100%">
+  <tbody>
+    <tr>
+      <td style="width:13%"><em><strong>context</strong></em></td>
+      <td style="width:87%">Pointer to the <CODE>WFSServerContext</CODE> structure to be deallocated</td>
+    </tr>
+  </tbody>
+</table>
+<h2>Return Values</h2>
+<p>None.</p>
+
+<h2>Description</h2>
+<p>Frees the WFS server context structure initialized by the <a href="WFS_InitServer.html"><CODE>WFS_InitServer</CODE></a> function.<br />If there is memory allocated dynamically within the WFS library, it is automatically deallocated by this function call.<BR>This function has absolutely no impact on the status of the OS or wireless communications because it only deallocates the contents of the <CODE>WFSClientContext</CODE> structure.<BR>
+</p>
+
+<h2>See Also</h2>
+<p><code><a href="WFS_InitServer.html">WFS_InitServer</a> <br /></code></p>
+
+<h2>Revision History</h2>
+<p>
+2007/06/06 Initial version.
+</p>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

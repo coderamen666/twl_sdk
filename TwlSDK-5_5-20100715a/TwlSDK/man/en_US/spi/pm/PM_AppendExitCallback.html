@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>PM_[Append|Prepend|Insert]*ExitCallback</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">PM_[Append|Prepend|Insert]*ExitCallback <IMG src="../../image/TWL.gif" width="24" height="12" border="0" align="middle"></H1>
+<H2>Syntax</H2>
+<DL>
+  <DD>
+  <PRE><CODE>#include &lt;twl/spi.h&gt;</CODE></PRE>
+  <PRE><CODE>void PM_AppendPreExitCallback( PMExitCallbackInfo info );
+void PM_PrependPreExitCallback( PMExitCallbackInfo info );
+void PM_InsertPreExitCallback( PMExitCallbackInfo info, int priority );
+
+void PM_AppendPostExitCallback( PMExitCallbackInfo info );
+void PM_PrependPostExitCallback( PMExitCallbackInfo info );
+void PM_InsertPostExitCallback( PMExitCallbackInfo info, int priority );
+
+typedef void (*PMExitCallback)( void* );</CODE></PRE>
+</DL>
+<H2>Arguments</H2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="13%"><SPAN class="argument">info</SPAN></TD>
+<TD width="87%">Pointer to a structure that contains the information of the exit callback to add.</TD>
+    </TR>
+    <TR>
+<TD><SPAN class="argument">priority</SPAN></TD>
+<TD>Priority level. Used to determine the registration order in the callback list. Takes a value from 0 to 255.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>Return Values</H2>
+<P>None.</P>
+<H2>Description</H2>
+<P>Adds an exit callback. This function is exclusive to TWL mode.</P>
+<P>Adds an exit callback to be invoked when the hardware detects something that will cause either hardware reset or power-off (such as when the Power Button is pressed, or the remaining battery life is depleted). These situations are actually detected by the ARM7. The ARM9 invokes the callbacks configured here when it receives a notification from the ARM7. The ARM9 then tells the ARM7 that exit preparations are complete, and the power is turned OFF or the hardware is reset. The exit callbacks must return promptly.</P>
+<P>The callbacks are <CODE>void</CODE> functions that take a single <CODE>void*</CODE> argument.</P>
+<P>Multiple callbacks can be registered and are connected by a list. There are two callback lists: one that performs pre-processing and one that performs post-processing. Each callback has a priority, and is ordered in the list and run in ascending priority order.</P>
+<P>Use the <A href="PM_SetExitCallbackInfo.html"><CODE>PM_SetExitCallbackInfo</CODE></A> function to register the callback and callback argument in the exit callback information structure pointed to by <SPAN class="argument">info</SPAN>. This function registers <SPAN class="argument">info</SPAN> on the callback list. If <SPAN class="argument">info</SPAN> has already been added to the list, this function returns without doing anything. When a callback is registered on the callback list, it is ordered according to the callback priority given by <SPAN class="argument">priority</SPAN>. The value of <SPAN class="argument">priority</SPAN> can range from -255 (<CODE>PM_CALLBACK_PRIORITY_MIN</CODE>) to 255 (<CODE>PM_CALLBACK_PRIORITY_MAX</CODE>).</P>
+<P>The <CODE>PM_AppendPreExitCallback</CODE> function registers a callback at the end of the pre-processing list, giving it a priority of 255.</P>
+<P>The <CODE>PM_PrependPreExitCallback</CODE> function registers a callback at the start of the pre-processing list , giving it a priority of -255.</P>
+<P>The <CODE>PM_InsertPreExitCallback</CODE> function registers a callback in the pre-processing list and gives it the specified priority.</P>
+<P>The <CODE>PM_AppendPostExitCallback</CODE> function registers a callback at the end of the post-processing list, giving it a priority of 255.</P>
+<P>The <CODE>PM_PrependPostExitCallback</CODE> function registers a callback at the start of the post-processing list, giving it a priority of -255.</P>
+<P>The <CODE>PM_InsertPostExitCallback</CODE> function registers a callback in the post-processing list and gives it the specified priority.</P>
+<P>When a callback is registered using an &quot;<CODE>Append</CODE>&quot; function, it is placed <I>after</I> any other existing callbacks that also have a priority of 255. When a callback is registered using a &quot;<CODE>Prepend</CODE>&quot; function, it is placed <I>before</I> any other existing callbacks that also have a priority of 0. When a callback is registered using an &quot;<CODE>Insert</CODE>&quot; function, it is placed after any other existing callbacks that have the same priority. In other words, specifying a priority of 255 to an <CODE>Insert</CODE> function causes it to behave identically to an <CODE>Append</CODE> function. However, specifying a priority of -255 to an <CODE>Insert</CODE> function does not result in the same behavior as a <CODE>Prepend</CODE> function.</P>
+<P> <B>Causes for the Exit Callback</B></P>
+<P>The <A href="PM_GetExitFactor.html"><CODE>PM_GetExitFactor</CODE></A> function can be used in an exit callback to determine what caused it to be invoked.</P>
+<P> <B>Callbacks Registered with the Post-processing List</B></P>
+<P>Callbacks registered with this list are called from an interrupt handler or an application thread, depending on the system state. They are called from an interrupt handler if the system has been configured to run all processing automatically when it detects something that will cause hardware reset or power-off. They are called by the application from the <A href="PM_ReadyToExit.html"><CODE>PM_ReadyToExit</CODE></A> function if <A href="PM_SetAutoExit.html"><CODE>PM_SetAutoExit( FALSE )</CODE></A> has been run to disable automatic processing.</P>
+<P>When the application has called the <A href="PM_ForceToResetHardware.html"><CODE>PM_ForceToResetHardware</CODE></A> or <A href="PM_ForceToPowerOff.html"><CODE>PM_ForceToPowerOff*</CODE></A> functions, callbacks registered with the post-processing list are invoked, but callbacks registered with the pre-processing list are not.</P>
+<P> <B>Callback Removal</B></P>
+<P>Call the <A href="PM_DeleteExitCallback.html"><CODE>PM_DeletePreExitCallback</CODE></A> or <A href="PM_DeleteExitCallback.html"><CODE>PM_DeletePostExitCallback</CODE></A> functions to remove callbacks from the lists.</P>
+<H2>See Also</H2>
+<P><A href="PM_SetExitCallbackInfo.html"><CODE>PM_SetExitCallbackInfo</CODE></A><BR> <A href="PM_GetExitFactor.html"><CODE>PM_GetExitFactor</CODE></A><BR> <A href="PM_DeleteExitCallback.html"><CODE>PM_DeletePreExitCallback</CODE></A><BR> <A href="PM_DeleteExitCallback.html"><CODE>PM_DeletePostExitCallback</CODE></A><BR> <A href="PM_SetAutoExit.html"><CODE>PM_SetAutoExit</CODE></A><BR> <A href="PM_ReadyToExit.html"><CODE>PM_ReadyToExit</CODE></A></P>
+<H2>Revision History</H2>
+<P>2008/07/15 Changed the lowest priority value available to developers from 0 to -255. <BR>2008/06/11 Added &quot;insert&quot; functions. <BR>2008/03/13 Added a clarification about callbacks in the post-processing list. <BR>2008/02/07 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

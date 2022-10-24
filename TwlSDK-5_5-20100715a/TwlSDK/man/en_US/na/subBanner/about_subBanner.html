@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>Sub-Banners: Overview</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+<STYLE type="text/css">
+<!--
+.sample_source{
+  background-color : #e8e8e8;
+}
+H3{
+  color : teal;
+}
+.command_list{
+  margin-bottom : 16pt;
+}
+.command_desc{
+  }
+.command_item{
+  margin-top : 16pt;
+  background-color : #e8e8e8;
+}
+.blockquoted_table {
+  border : 1px;
+  width : 80%;
+}
+TD,TH{
+  border-color	: #c0d8d8;
+  padding       : 1pt 4pt 1pt 4pt;
+  border-width  : 1px;
+  border-style  : solid;
+}
+-->
+</STYLE>
+</HEAD>
+<BODY>
+
+<H1 align="left">Sub-Banners: Overview</H1>
+
+<H2>Description</H2>
+<P>
+The TWL launcher displays application banners, but also displays separate banners, called &quot;sub-banners,&quot; in addition to those specified in <A href="../../tools/makerom.html">ROM specification file</A>.<BR>A NAND application can overwrite sub-banners, which makes it possible to implement a banner image that changes as the game progresses. However, you cannot change the game title in the banner.
+</P>
+<P>
+If a sub-banner exits, the launcher gives priority to it and displays it. Otherwise, the launcher displays the normal banner. This has the same behavior in the Software Management screen in System Settings.
+</P>
+<P>
+Because a sub-banner is a NAND file, once set, it is saved in that state, even if the power is turned off, and is always displayed unless it is unset.
+</P>
+<P>
+To create a sub-banner file, prepare a BSF file set with graphic data output by <A href="../../tools/bannercvtr.html"><CODE>bannercvtr</CODE></A>, graphic data output by <A href="../../tools/ntexconv.html"><CODE>ntexconv</CODE></A> and a banner comment. In <CODE><A href="../../tools/makebannerTWL.html">makebanner.TWL</A></CODE>, you can create a sub-banner by specifying the <CODE>-s</CODE> option.<BR>For information on creating an ordinary banner, see <A href="../../tools/about_Banner.html">Banner: Overview</A>.
+</P>
+<P>
+Only NAND applications can use sub-banners. Card applications cannot use them.
+</P>
+<H2>Implementation in Applications</H2>
+<P>Sub-banners can be used if <CODE>TRUE</CODE> is specified for <CODE>SubBannerFile</CODE> of the RSF file in the <A href="../../tools/makerom.html">ROM specification file</A>.
+<BLOCKQUOTE>
+<PRE class="sample_source"><CODE>   #  ROM SPEC FILE
+
+AppendProperty
+{
+    ....
+    #
+    # Enable SubBannerFile
+    SubBannerFile    TRUE
+}</CODE></PRE>
+</BLOCKQUOTE>
+<P>
+Use <A href="../../na/subBanner/NA_SaveSubBanner.html"><CODE>NA_SaveSubBanner</CODE></A> to display a sub-banner. If <A href="../../na/subBanner/NA_SaveSubBanner.html"><CODE>NA_SaveSubBanner</CODE></A> is successful, a sub-banner is displayed. Use <A href="../../na/subBanner/NA_DeleteSubBanner.html"><CODE>NA_DeleteSubBanner</CODE></A> to hide a sub-banner.
+</P>
+<P>
+You can dynamically create sub-banners in a program. Edit the <CODE>anime</CODE> member of the <A href="../../na/subBanner/NASubBanner.html"><CODE>NASubBanner</CODE></A> structure. Use <A href="../../na/subBanner/NA_MakeSubBannerHeader.html"><CODE>NA_MakeSubBannerHeader</CODE></A> to set the <CODE>header</CODE> member. See <A href="../../na/subBanner/NASubBanner.html"><CODE>NASubBanner</CODE></A> for information on the sub-banner structure.
+</P>
+<P>
+Use <A href="../../na/subBanner/NA_LoadSubBanner.html"><CODE>NA_LoadSubBanner</CODE></A> to get the sub-banner that is currently set.
+</P>
+<H2>See Also</H2>
+<P><A href="../list_na.html#subBanner">NA Function List: Sub-Banners</A><BR> <A href="../../demos/nandApp/nandAppdemos.html">NAND Application Sample Demo</A><BR> <A href="../../tools/about_Banner.html">Banner: Overview</A></P>
+
+<H2>Revision History</H2>
+<P>
+2009/03/10 Corrected method to create sub-banner.<BR> 2008/10/30 Mentioned that this can be overwritten by NAND applications.<BR> 2008/09/26 Added information about the Software Management screen.<BR> 2008/09/25 Added links to the RSF and banner overview.<BR> 2008/09/16 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

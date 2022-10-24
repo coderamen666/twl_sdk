@@ -1,0 +1,1476 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>Programming Guide</TITLE>
+<BASE target="main">
+<LINK rel="stylesheet" href="css/titles.css">
+</HEAD>
+<BODY>
+
+<P class="toc">
+</P>
+
+<H3 class="category"><A target=_self name="OS">Operating System (OS)</A></H3>
+<DL>
+<DD>[ <A href="os/os.html" target="_self">Full List</A> / <A href="os/list_os.html">Function List</A> / <A href="os/overview_os.html">Overview</A> ]
+</DL>
+<TABLE>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="os/list_os.html#Init" target="main">Initialization</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="os/list_os.html#Reset" target="main">Reset</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/BPT.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="os/list_os.html#AppJump" target="main">Jumping to the System Menu or NAND Applications</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="os/list_os.html#Cpsr" target="main">System State</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="os/list_os.html#Tcm" target="main">TCM</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="os/list_os.html#ProtectionUnit" target="main">Protection Unit</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="os/list_os.html#Exception" target="main">Exceptions</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="os/list_os.html#Irq" target="main">Interrupts</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="os/list_os.html#Timer" target="main">Timer</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="os/list_os.html#Alarm" target="main">Alarms</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="os/list_os.html#VAlarm" target="main">V-Count Alarms</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="os/list_os.html#Time" target="main">Time</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="os/list_os.html#Thread" target="main">Thread</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="os/list_os.html#Mutex" target="main">Exclusion Control</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="os/list_os.html#Context" target="main">Context</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="os/list_os.html#Message" target="main">Messages</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="os/list_os.html#Event" target="main">Events</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="os/list_os.html#Cache" target="main">Cache</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="os/list_os.html#Arena" target="main">Arena</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="os/list_os.html#Alloc" target="main">Memory Allocation</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="os/list_os.html#Owner">System Information</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="os/list_os.html#BootInfo">Boot Information</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="os/list_os.html#Environment" target="main">Operating Environment</A></TD>
+</TR>
+</TABLE>
+<DL>
+<DT><A target=_self>Debug</A>
+</DL>
+<TABLE>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="os/list_os.html#Debug-Print" target="main">String Display</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="os/list_os.html#Debug-Assert" target="main">Assert</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="os/list_os.html#Debug-CallTrace" target="main">Function Call Trace</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="os/list_os.html#Debug-FunctionCost" target="main">Function Cost Measurement</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="os/list_os.html#Debug-Stack" target="main">Stack Overflow Check</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="os/list_os.html#Debug-Argument" target="main">Arguments</A></TD>
+</TR>
+</TABLE>
+<H3 class="category">Graphics (GX/G2/G3/G3X)</H3>
+<DL>
+<DD>[ <A href="gx/gx.html" target="_self">Full List</A> / <A href="gx/list_gx.html">Function List</A> ]
+</DL>
+
+<B><A target=_self name="GX">General 2D/3D Graphics (GX)</A></B>
+
+<TABLE>
+<TR>
+<TD colspan=2><B>Common to the 2D Graphics Engines</B></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="gx/list_gx.html#Power">Power Control</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="gx/list_gx.html#Init2D">Initialization</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="gx/list_gx.html#VRAM1">VRAM Bank Allocation</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="gx/list_gx.html#VRAM1_1">VRAM Bank Acquisition</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="gx/list_gx.html#VRAM2">Switching to LCDC</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="gx/list_gx.html#VRAM3">Releasing Allocation</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="gx/list_gx.html#Interrupt">Interrupts and Miscellaneous</A></TD>
+</TR>
+</TABLE>
+
+<TABLE>
+<TR>
+<TD colspan=2><B>Main 2D Graphics Engine</B></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="gx/list_gx.html#GraphicsMode">Display Mode</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="gx/list_gx.html#Visibility">Show/Hide</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="gx/list_gx.html#OffsetMem">Offset</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="gx/list_gx.html#MappingMode">OBJ Mapping Mode</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="gx/list_gx.html#ResLoadG2Util">Loading Resources (2D)</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="gx/list_gx.html#ResLoadG3Util">Loading Resources (3D)</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="gx/list_gx.html#MiscA">Other</A></TD>
+</TR>
+</TABLE>
+
+<TABLE>
+<TR>
+<TD colspan=2><B>Sub 2D Graphics Engine</B></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="gx/list_gx.html#GraphicsModeB">Display Mode</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="gx/list_gx.html#VisibilityB">Show/Hide</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="gx/list_gx.html#MappingModeB">OBJ Mapping Mode</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="gx/list_gx.html#ResLoadB">Loading Resources</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="gx/list_gx.html#MiscB">Other</A></TD>
+</TR>
+</TABLE>
+
+
+<BR> <B><A target=_self name="G2">2D Graphics (G2)</A></B><BR>
+<DL>
+<DD>[ <A href="gx/gx.html#g2" target="_self">Full List</A> / <A href="gx/list_gx.html#g2">Function List</A> ]
+</DL>
+
+
+<TABLE>
+<TR>
+<TD colspan=2><B>Common to the 2D Graphics Engines</B></TD>
+</TR>
+<TR>
+      <TD width="52"><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD width="143"><A href="gx/list_gx.html#OAM">OAM</A></TD>
+    </TR>
+</TABLE>
+
+<TABLE>
+<TR>
+<TD colspan=2><B>Main 2D Graphics Engine</B></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="gx/list_gx.html#BGCNT">Background Control</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="gx/list_gx.html#BGPriority">Setting Background Display Priority Levels</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="gx/list_gx.html#BGMosaicApply">Background Mosaic</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="gx/list_gx.html#GetPointer">Getting Pointers</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="gx/list_gx.html#Offset2D">Background Plane Offset</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="gx/list_gx.html#BGAffine">Background Plane Affine Conversion</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="gx/list_gx.html#Window">Setting Windows</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="gx/list_gx.html#BGMosaic">Mosaic</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="gx/list_gx.html#Effect">Color Special Effects</A></TD>
+</TR>
+</TABLE>
+
+<TABLE>
+<TR>
+<TD colspan=2><B>Sub 2D Graphics Engine</B></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="gx/list_gx.html#BGCNTB">Background Control</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="gx/list_gx.html#BGPriorityB">Setting Background Display Priority Levels</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="gx/list_gx.html#BGMosaicApplyB">Background Mosaic</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="gx/list_gx.html#GetPointerB">Getting Pointers</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="gx/list_gx.html#Offset2DB">Background Plane Offset</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="gx/list_gx.html#BGAffineB">Background Plane Affine Conversion</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="gx/list_gx.html#WindowB">Setting Windows</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="gx/list_gx.html#BGMosaicB">Mosaic</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="gx/list_gx.html#EffectB">Color Special Effects</A></TD>
+</TR>
+</TABLE>
+
+
+<BR> <B><A target=_self name="G3">3D Geometry (G3*)</A></B>
+
+<DL>
+<DD>[ <A href="gx/gx.html#g3" target="_self">Full List</A> / <A href="gx/list_gx.html#g3">Function List</A> ]
+</DL>
+
+<TABLE>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="gx/list_gx.html#GeometryCommandCycle">Geometry Command Cycle List</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="gx/list_gx.html#GeometryAndVertices" target="main">Geometry and Vertices</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="gx/list_gx.html#MatrixAndViewport" target="main">Matrix and Viewport</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="gx/list_gx.html#Lighting" target="main">Lighting</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="gx/list_gx.html#Texture" target="main">Textures</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="gx/list_gx.html#GeometryEngine" target="main">Control</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="gx/list_gx.html#ViewingTest" target="main">Geometry Visibility Determination</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="gx/list_gx.html#DirectWrite">Direct Write</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="gx/list_gx.html#MatrixG3Util">Utilities</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="gx/list_gx.html#DL">Dynamic Creation of Display Lists</A></TD>
+</TR>
+</TABLE>
+
+<BR> <B><A target=_self name="G3X">3D Graphics Control (G3X)</A></B>
+<DL>
+<DD>[ <A href="gx/gx.html#g3x" target="_self">Full List</A> / <A href="gx/list_gx.html#g3x">Function List</A> ]
+</DL>
+
+<TABLE>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="gx/list_gx.html#Init3D">Initialization</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="gx/list_gx.html#Funcs3D">Enabling and Disabling Each Function</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="gx/list_gx.html#Toon">Toon/Highlighting</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="gx/list_gx.html#EdgeColor">Edge Color</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="gx/list_gx.html#Fog">Fog</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="gx/list_gx.html#Offset3D">Offset Settings</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="gx/list_gx.html#ClearColor">Clear Color</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="gx/list_gx.html#Test3D">Test Results and Calculation Results</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="gx/list_gx.html#Misc3D">Other</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="gx/list_gx.html#Type">Main Types And Macros</A></TD>
+</TR>
+</TABLE>
+
+
+<H3 class="category"><A target=_self name="MI">Memory Interface (MI)</A></H3>
+<DL>
+<DD>[ <A href="mi/mi.html" target="_self">Full List</A> / <A href="mi/list_mi.html">Function List</A> / <A href="mi/overview_mi.html">Overview</A> ]
+</DL>
+<TABLE>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="mi/list_mi.html#init" target="main">Initialization</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="mi/list_mi.html#memory" target="main">CPU Memory Operations</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="mi/list_mi.html#dma" target="main">DMA Memory Operations</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="mi/list_mi.html#exMemory" target="main">External Memory Control</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="mi/list_mi.html#wram" target="main">Work RAM Settings</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="mi/list_mi.html#swap" target="main">Memory Swap</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="mi/list_mi.html#uncompress" target="main">Expanding Compressed Data</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="mi/list_mi.html#byteAccess" target="main">Byte Access</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="mi/list_mi.html#endian" target="main">Endian-Aware Memory Access</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="mi/list_mi.html#struct" target="main">Types and Structures</A></TD>
+</TR>
+</TABLE>
+
+<H3 class="category"><A target=_self name="FX">Fixed Decimal (FX)</A></H3>
+<DL>
+<DD>[ <A href="fx/fx.html" target="_self">Full List</A> / <A href="fx/list_fx.html">Function List</A> ]
+</DL>
+<DL>
+<DT><A target=_self name="FX_TYPE">Data Type</A>
+</DL>
+<TABLE>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="fx/list_fx.html#TypeFixed">Fixed Decimal Type</A></TD>
+</TR>
+</TABLE>
+
+<DL>
+<DT><A target=_self name="FX_INIT">Initialization</A>
+</DL>
+<TABLE>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="fx/list_fx.html#Init">Initialization</A></TD>
+</TR>
+</TABLE>
+<DL>
+<DT><A target=_self name="FX_CALC">Calculation</A>
+</DL>
+<TABLE>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="fx/list_fx.html#CalcSync">Calculation of Fixed Decimal</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="fx/list_fx.html#CalcAsync">Calculation of Fixed Decimal (Asynchronous)</A></TD>
+</TR>
+</TABLE>
+<DL>
+<DT><A target=_self name="FX_MACRO">Macro</A>
+</DL>
+<TABLE>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="fx/fx16_macros.html">fx16 Type Macros</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="fx/fx32_macros.html">fx32 Type Macros</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="fx/fx64_macros.html">fx64 Type Macros</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="fx/fx64c_macros.html">fx64c Type Macros</A></TD>
+</TR>
+</TABLE>
+
+<DL>
+<DT><A target=_self name="FX_CONST">Constant</A>
+</DL>
+<TABLE>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="fx/fx16_const.html">fx16 Type Constant Macros</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="fx/fx32_const.html">fx32 Type Constant Macros</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="fx/fx64c_const.html">fx64c Type Constant Macros</A></TD>
+</TR>
+</TABLE>
+<DL>
+<DT><A target="_self" name="MTX">Matrix (MTX)</A>
+</DL>
+<DL>
+<DT><A target=_self name="FX_DATA">Data Type</A>
+</DL>
+<TABLE>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="fx/list_fx.html#TypeMtxVec">Matrix Type</A></TD>
+</TR>
+</TABLE>
+<DL>
+<DT><A target=_self name="FX_MTX">Matrix Calculation</A>
+</DL>
+
+<TABLE>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="fx/list_fx.html#Calc2x2Mtx">2x2 Matrix Calculation</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="fx/list_fx.html#Calc3x3Mtx">3x3 Matrix Calculation</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="fx/list_fx.html#Calc4x3Mtx">4x3 Matrix Calculation</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="fx/list_fx.html#Calc4x4Mtx">4x4 Matrix Calculation</A></TD>
+</TR>
+</TABLE>
+<DL>
+<DT><A target="_self" name="VEC">Vector (VEC)</A>
+</DL>
+<DL>
+<DT><A target=_self name="FX_DATA">Data Type</A>
+</DL>
+<TABLE>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="fx/list_fx.html#TypeMtxVec">Vector Type</A></TD>
+</TR>
+</TABLE>
+<DL>
+<DT><A target=_self name="FX_VEC">Vector Calculation</A>
+</DL>
+<TABLE>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="fx/list_fx.html#CalcVec">Vector Calculation</A></TD>
+</TR>
+</TABLE>
+<P>
+<BR>
+</P>
+<H3 class="category"><A target=_self name="CP">Co-Processor (CP)</A></H3>
+<DL>
+<DD>[ <A href="cp/cp.html" target="_self">Full List</A> / <A href="cp/list_cp.html">Function List</A> / <A href="cp/overview_cp.html">Overview</A> ]
+</DL>
+<TABLE>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="cp/list_cp.html#divider">Divider</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="cp/list_cp.html#sqrt">Square Root Calculator</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="cp/list_cp.html#context">Context Operations</A></TD>
+</TR>
+</TABLE>
+
+<H3 class="category"><A target=_self name="MATH">Mathematical Functions (MATH)</A></H3>
+<DL>
+<DD>[ <A href="math/math.html" target="_self">Full List</A> / <A href="math/list_math.html">Function List</A> / <A href="math/overview_math.html">Overview</A> ]
+</DL>
+<TABLE>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="math/list_math.html#Utility">Utility Functions</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="math/list_math.html#IntegerOperation">Integer Operations</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="math/list_math.html#BitOperation">Bit Operations</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="math/list_math.html#Random">Random Number-Related Features</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="math/list_math.html#Random">Sort-Related Functions</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="math/list_math.html#FFT">Fast Fourier Transforms</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="math/list_math.html#Hash">Hash Value-Related Functions</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="math/list_math.html#Digest">Message Digest Functions</A></TD>
+</TR>
+</TABLE>
+
+<H3 class="category"><A target=_self name="PAD">Controller (PAD)</A></H3>
+<DL>
+<DD>[ <A href="pad/pad.html" target="_self">Full List</A> / <A href="pad/list_pad.html">Function List</A> ]
+</DL>
+<TABLE>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="pad/list_pad.html">Pad</A></TD>
+</TR>
+</TABLE>
+
+
+<H3 class="category">ARM7 Processor Peripheral Device (SPI)</H3>
+<DL>
+<DD>[ <A href="spi/spi.html" target="_self">Full List</A> / <A href="spi/list_spi.html">Function List</A> / <A href="spi/overview_spi.html">Overview</A> ]
+</DL>
+<DL>
+<DT><A target=_self name="TP">Touch Panel (TP)</A>
+</DL>
+<TABLE>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="spi/list_spi.html#TP_Init">Initialization</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="spi/list_spi.html#TP_SamplingNow">Sampling with Request</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="spi/list_spi.html#TP_SamplingAuto">Auto-Sampling</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="spi/list_spi.html#TP_Calibration">Calibration</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="spi/list_spi.html#TP_Check">Pass/Fail Determination</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="spi/list_spi.html#TP_Struct">Types and Structures</A></TD>
+</TR>
+</TABLE>
+
+<DL>
+</DL>
+<DL>
+<DT><A target=_self name="MIC">Microphone (MIC)</A>
+</DL>
+<TABLE>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="spi/list_spi.html#MIC_Init">Initialization</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="spi/list_spi.html#MIC_Sampling">Sampling</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="spi/list_spi.html#MIC_Auto">Auto-Sampling</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="spi/list_spi.html#MIC_Type">Types and Structures</A></TD>
+</TR>
+</TABLE>
+
+<DL>
+<DT><A target=_self name="PM">Power Management (PM)</A>
+</DL>
+<table>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="spi/list_spi.html#PM_Utility">PMIC Operation</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="spi/list_spi.html#PM_GetPMIC">PMIC Status</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="spi/list_spi.html#PM_Battery">Battery</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="spi/list_spi.html#PM_Sleep">Sleep</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="spi/list_spi.html#PM_Shutdown">Hardware Reset and Shutdown</A></TD>
+</TR>
+</table>
+
+
+
+<H3 class="category"><A target=_self name="PRC">Pattern Recognition (PRC)</A></H3>
+<DL>
+<DD>[ <A href="prc/prc.html" target="_self">Full List</A> / <A href="prc/list_prc.html">Function List</A> ]
+</DL>
+<TABLE>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="prc/list_prc.html#Init" target="main">Initialization</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="prc/list_prc.html#Stroke" target="main">Input Point Processing</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="prc/list_prc.html#PrototypeList" target="main">Sample Pattern DB Operations</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="prc/list_prc.html#Input" target="main">Input Pattern Operations</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="prc/list_prc.html#Recognize" target="main">Pattern Recognition</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="prc/list_prc.html#type" target="main">Types and Structures</A></TD>
+</TR>
+</TABLE>
+
+<H3 class="category"><A target=_self name="RTC">Real-Time Clock (RTC)</A></H3>
+<DL>
+<DD>[ <A href="rtc/rtc.html" target="_self">Full List</A> / <A href="rtc/list_rtc.html" target="main">Function List</A> ]
+</DL>
+<TABLE>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="rtc/list_rtc.html#Init" target="main">Initialization</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="rtc/list_rtc.html#Time" target="main">Date, Time</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="rtc/list_rtc.html#Alarm" target="main">Alarms</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="rtc/list_rtc.html#Convert" target="main">Conversions</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="rtc/list_rtc.html#Type" target="main">Types and Structures</A></TD>
+</TR>
+</TABLE>
+
+<H3 class="category"><A target=_self name="SND">Sound (SND, SNDEX)</A></H3>
+<DL>
+<DD>[ <A href="snd/snd.html" target="_self">Full List</A> / <A href="snd/list_snd.html">Function List</A> / <A href="snd/overview_snd.html">Overview</A> ]
+</DL>
+<TABLE>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="snd/list_snd.html#Init" target="main">Initialization</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="snd/list_snd.html#Command" target="main">ARM7 Command Processes</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="snd/list_snd.html#Seq_Command" target="main">Sequence Commands</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="snd/list_snd.html#Channel_Command" target="main">Channel Commands</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="snd/list_snd.html#Capture_Command" target="main">Capture Commands</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="snd/list_snd.html#Alarm_Command" target="main">Alarm Commands</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="snd/list_snd.html#Timer_Command" target="main">Timer Commands</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="snd/list_snd.html#Global_Command" target="main">Global Settings Commands</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="snd/list_snd.html#Invalidate_Command" target="main">Data Invalidation Commands</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="snd/list_snd.html#DriverInfo_Command" target="main">Driver Information Commands</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="snd/list_snd.html#Bank" target="main">Bank</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="snd/list_snd.html#GetInfo" target="main">Getting Information</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="snd/list_snd.html#Utility" target="main">Utilities</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/BPT.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="snd/list_snd.html#Extra" target="main">Extended Features (SNDEX)</A></TD>
+</TR>
+</TABLE>
+
+<H3 class="category"><A target=_self name="FS">File System (FS)</A></H3>
+<DL>
+<DD>[ <A href="fs/fs.html" target="_self">Full List</A> / <A href="fs/list_fs.html">Function List</A> / <A href="fs/overview_fs.html">Overview</A> ]
+</DL>
+<TABLE>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="fs/list_fs.html#Init" target="main">Initialization</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="fs/list_fs.html#File" target="main">File Access</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="fs/list_fs.html#Directory" target="main">Directory Access</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="fs/list_fs.html#Overlay" target="main">Overlay</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="fs/list_fs.html#Archive" target="main">Archives</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="fs/list_fs.html#const" target="main">Constants</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="fs/list_fs.html#type" target="main">Types and Structures</A></TD>
+</TR>
+</TABLE>
+
+<H3 class="category"><A target=_self name="SVC">Supervisor Call (SVC)</A></H3>
+<DL>
+<DD>[ <A href="svc/svc.html" target="_self">Full List</A> / <A href="svc/list_svc.html">Function List</A> ]
+</DL>
+<TABLE>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="svc/list_svc.html#IntrWait" target="main">Wait for Interrupt</A>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="svc/list_svc.html#Wait" target="main">Waiting</A>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="svc/list_svc.html#Memory" target="main">Memory Operations</A>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="svc/list_svc.html#Uncompress" target="main">Expanding Compressed Data</A>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="svc/list_svc.html#Calc" target="main">Arithmetic Operations</A>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="svc/list_svc.html#Crc" target="main">CRC</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/BPT.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="svc/list_svc.html#Sign" target="main">Signature</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/BPT.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="svc/list_svc.html#Sha-1" target="main">Hash</A></TD>
+</TR>
+</TABLE>
+
+<H3 class="category"><A target=_self name="CARD">CARD Module (CARD)</A></H3>
+<DL>
+<DD>[ <A href="card/card.html" target="_self">Full List</A> / <A href="card/list_card.html">Function List</A> / <A href="card/overview_card.html">Overview</A> ]
+</DL>
+<TABLE>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="card/list_card.html#Init" target="main">Initialization</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="card/list_card.html#Common" target="main">Common</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="card/list_card.html#Backup" target="main">General Backup</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="card/list_card.html#Eeprom" target="main">Backup: EEPROM device</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="card/list_card.html#FLASH" target="main">Backup: FLASH Device</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="card/list_card.html#Rom" target="main">ROM Access</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="card/list_card.html#pulledOut" target="main">Removal Detection</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="card/list_card.html#const" target="main">Constants</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="card/list_card.html#struct" target="main">Structures</A></TD>
+</TR>
+</TABLE>
+
+<H3 class="category"><A target=_self name="CTRDG">Game Pak Module (CTRDG)</A></H3>
+<DL>
+<DD>[ <A href="ctrdg/ctrdg.html" target="_self">Full List</A> / <A href="ctrdg/list_ctrdg.html">Function List</A> ]
+</DL>
+
+<TABLE>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="ctrdg/list_ctrdg.html#Init" target="main">Initialization</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/BPT.gif"></TD>
+<TD><A href="ctrdg/list_ctrdg.html#PulledOut" target="main">Removal Detection</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/BPT.gif"></TD>
+<TD><A href="ctrdg/list_ctrdg.html#Cart" target="main">Types of Game Paks</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/BPT.gif"></TD>
+<TD><A href="ctrdg/list_ctrdg.html#AgbInfo" target="main">AGB Game Pak Information</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/BPT.gif"></TD>
+<TD><A href="ctrdg/list_ctrdg.html#Copy" target="main">Data Transfer</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/BPT.gif"></TD>
+<TD><A href="ctrdg/list_ctrdg.html#Backup" target="main">AGB Backup Overview</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/BPT.gif"></TD>
+<TD><A href="ctrdg/list_ctrdg.html#Flash" target="main">FLASH Device</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/BPT.gif"></TD>
+<TD><A href="ctrdg/list_ctrdg.html#Sram" target="main">SRAM Device</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/BPT.gif"></TD>
+<TD><A href="ctrdg/list_ctrdg.html#Phi" target="main">PHI Output Terminal</A></TD>
+</TR>
+</TABLE>
+
+<H3 class="category"><A target=_self name="VIB">Rumble Pak (VIB)</A></H3>
+<DL>
+<DD>[ <A href="vib/vib.html" target="_self">Full List</A> / <A href="vib/list_vib.html">Function List</A> / <A href="vib/about_vib.html">Overview</A> ]
+</DL>
+<TABLE>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/BPT.gif"></TD>
+<TD><A href="vib/list_vib.html#function" target="main">Functions</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/BPT.gif"></TD>
+<TD><A href="vib/list_vib.html#struct" target="main">Structures</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/BPT.gif"></TD>
+<TD><A href="vib/list_vib.html#macro" target="main">Constants</A></TD>
+</TR>
+</TABLE>
+
+<H3 class="category"><A target=_self name="WVR">Wireless  Driver Operation Control  Library (WVR)</A></H3>
+<DL>
+
+<DD>[ <A href="wvr/wvr.html" target="_self">Full List</A> / <A href="wvr/list_wvr.html">Function List</A> ]
+</DL>
+<TABLE>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/BPT.gif"></TD>
+<TD><A href="wvr/list_wvr.html#Drive" target="main">Driver Operation Control</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/BPT.gif"></TD>
+<TD><A href="wvr/list_wvr.html#const" target="main">Constants and Types</A></TD>
+</TR>
+</TABLE>
+
+<H3 class="category"><A target=_self name="WM">Wireless Manager (WM)</A></H3>
+<DL>
+
+<DD>[ <A href="wm/wm.html" target="_self">Full List</A> / <A href="wm/list_wm.html">Function List</A> ]
+</DL>
+
+<TABLE>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="wm/list_wm.html#Init" target="main">Initialization</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="wm/list_wm.html#Config" target="main">Initial Settings</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="wm/list_wm.html#MP" target="main">MP Communication</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="wm/list_wm.html#DCF" target="main">Infrastructure Mode Communications</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="wm/list_wm.html#Other" target="main">Other</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="wm/list_wm.html#const" target="main">Constants</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="wm/list_wm.html#Type" target="main">Types and Structures</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="wm/list_wm.html#Misc" target="main">Figures and Information</A></TD>
+</TR>
+</TABLE>
+
+<H3 class="category"><A target=_self name="WBT">WM Block Transfer Library (WBT)</A></H3>
+<DL>
+
+<DD>[ <A href="wbt/wbt.html" target="_self">Full List</A> / <A href="wbt/list_wbt.html">Function List</A> / <A href="wbt/overview_wbt.html">Overview</A> ]
+</DL>
+<TABLE>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="wbt/list_wbt.html#Init" target="main">Initialization</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="wbt/list_wbt.html#Common" target="main">Common</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="wbt/list_wbt.html#Parent" target="main">Parent Device Settings</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="wbt/list_wbt.html#Child" target="main">Child Device Settings</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="wbt/list_wbt.html#Command" target="main">Commands</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="wbt/list_wbt.html#const" target="main">Constants and Macros</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="wbt/list_wbt.html#struct" target="main">Structures</A></TD>
+</TR>
+</TABLE>
+
+<h3 class="category"><a target="_self" name="WFS" id="WFS">Wireless File System (WFS) Library</a></h3>
+<dl>
+<dd>[ <a href="wfs/wfs.html" target="_self">Full List</a> / <a href="wfs/list_wfs.html">Function List</a> / <a href="wfs/overview_wfs.html">Overview</a> ]</dd>
+</dl>
+<TABLE>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><a href="wfs/list_wfs.html#server" target="main">Parent (Server)</a></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><a href="wfs/list_wfs.html#client" target="main">Child (Client)</a></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><a href="wfs/list_wfs.html#struct" target="main">Types and Structures</a></TD>
+</TR>
+</TABLE>
+
+<H3 class="category"><A target=_self name="MB">DS Download Play Library (MB)</A></H3>
+<DL>
+
+<DD>[ <A href="mb/mb.html" target="_self">Full List</A> / <A href="mb/list_mb.html">Function List</A> / <a href="mb/overview/mb_for_twl.html">Overview</a> ]
+</DL>
+<TABLE>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="mb/list_mb.html#Init" target="main">Initialization</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/BPT.gif"></TD>
+<TD><A href="mb/list_mb.html#Child" target="main">Child (After Multiboot)</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="mb/list_mb.html#Parent" target="main">Parent</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="mb/list_mb.html#FakeChild" target="main">Fake Multiboot Child</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="mb/list_mb.html#const" target="main">Constants and Structures</A></TD>
+</TR>
+</TABLE>
+
+<H3 class="category"><A target=_self name="CHT">PictoChat Library (CHT)</A></H3>
+<DL>
+<DD>[ <A href="cht/cht.html" target="_self">Full List</A> / <A href="cht/list_cht.html">Function List</A> ]
+</DL>
+<TABLE>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="cht/list_cht.html#catch" target="main">PictoChat Search</A>
+</TR>
+</TABLE>
+
+<H3 class="category"><A target=_self name="EXT">Other Libraries (EXT)</A></H3>
+<DL>
+<DD>[ <A href="ext/ext.html" target="_self">Full List</A> / <A href="ext/list_ext2.html">Function List</A> ]
+</DL>
+<TABLE>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="ext/list_ext2.html" target="main">Auto-Test</A></TD>
+</TR>
+</TABLE>
+
+<H3 class="category"><A target=_self name="ENV">Environment Resource Management (ENV) Library</A></H3>
+<DL>
+<DD>[ <A href="env/env.html" target="_self">Full List</A> / <A href="env/list_env.html">Function List</A> / <A href="env/about_env.html">Overview</A> ]
+</DL>
+<TABLE>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="env/list_env.html#Init" target="main">Initialization</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="env/list_env.html#ResSet" target="main">Resource Set Configuration</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="env/list_env.html#Res" target="main">Resource Acquisition</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="env/list_env.html#Class" target="main">Class Configuration</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="env/list_env.html#Iter" target="main">Conditional Searches</A></TD>
+</TR>
+</TABLE>
+
+<H3 class="category"><A target=_self name="STD">Standard Library (STD)</A></H3>
+<DL>
+<DD>[ <A href="std/std.html" target="_self">Full List</A> / <A href="std/list_std.html">Function List</A> ]
+</DL>
+<TABLE>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="std/list_std.html#String" target="main">String Functions</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="std/list_std.html#Unicode" target="main">Encoding Conversion Functions</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="std/list_std.html#Type" target="main">Types and Structures</A></TD>
+</TR>
+<TR>
+  <TD><img src="image/NTR.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="std/list_std.html#Const" target="main">Constants</A></TD>
+</TR>
+</TABLE>
+
+<H3 class="category"><A target=_self name="SCFG">System Configuration Library (SCFG)</A></H3>
+<DL>
+<DD>[ <A href="scfg/scfg.html" target="_self">Full List</A> / <A href="scfg/list_scfg.html">Function List</A> / <A href="scfg/overview_scfg.html" target="main">Overview</A> ]
+</DL>
+<TABLE>
+ <TR>
+  <TD><img src="image/BPT.gif"><img src="image/TWL.gif"></TD>
+<TD><A href="scfg/list_scfg.html#Config" target="main">Configuration</A></TD>
+ </TR>
+</TABLE>
+
+<H3 class="category"><A target=_self name="AES">AES Cipher Library (AES)</A></H3>
+<DL>
+<DD>[ <A href="aes/aes.html" target="_self">Full List</A> / <A href="aes/list_aes.html">Function List</A> / <A href="aes/overview_aes.html" target="main">Overview</A> ]
+</DL>
+<DL>
+<DD><img src="image/BPT.gif"><img src="image/TWL.gif"> <A href="aes/list_aes.html#api" target="main">Basic API</A>
+<DD><img src="image/BPT.gif"><img src="image/TWL.gif"> <A href="aes/list_aes.html#util" target="main">High-Level API</A>
+</DL>
+
+<H3 class="category"><A target=_self name="EL">ELF Loader (EL)</A></H3>
+<DL>
+<DD>[ <A href="el/el.html" target="_self">Full List</A> / <A href="el/list_el.html">Function List</A> / <A href="el/about_el.html" target="main">Overview</A> ]
+</DL>
+<DL>
+<DD><img src="image/BPT.gif"><img src="image/TWL.gif"> <A href="el/list_el.html#Init" target="main">Initialization</A>
+<DD><img src="image/BPT.gif"><img src="image/TWL.gif"> <A href="el/list_el.html#Entry" target="main">Dynamic Module Registration</A>
+<DD><img src="image/BPT.gif"><img src="image/TWL.gif"> <A href="el/list_el.html#Link" target="main">Link Processing</A>
+<DD><img src="image/BPT.gif"><img src="image/TWL.gif"> <A href="el/list_el.html#Other" target="main">Other</A>
+<DD><img src="image/BPT.gif"><img src="image/TWL.gif"> <A href="el/list_el.html#Const" target="main">Constants</A>
+<DD><img src="image/BPT.gif"><img src="image/TWL.gif"> <A href="el/list_el.html#Struct" target="main">Types and Structures</A>
+</DL>
+
+<H3 class="category"><A target=_self name="CAMERA">Camera Library (CAMERA)</A></H3>
+<DL>
+<DD>[ <A href="camera/camera.html" target="_self">Full List</A> / <A href="camera/list_camera.html">Function List</A> / <A href="camera/overview_camera.html">Overview</A> ]
+</DL>
+<DL>
+<DD><img src="image/BPT.gif"><img src="image/TWL.gif"> <A href="camera/list_camera.html#Init" target="main">Initialization</A>
+<DD><img src="image/BPT.gif"><img src="image/TWL.gif"> <A href="camera/list_camera.html#Capture" target="main">Capture-Related</A>
+<DD><img src="image/BPT.gif"><img src="image/TWL.gif"> <A href="camera/list_camera.html#Config" target="main">Camera Settings</A>
+<DD><img src="image/BPT.gif"><img src="image/TWL.gif"> <A href="camera/list_camera.html#Utility" target="main">Utility Functions</A>
+<DD><img src="image/BPT.gif"><img src="image/TWL.gif"> <A href="camera/list_camera.html#Macro" target="main">Macros</A>
+<DD><img src="image/BPT.gif"><img src="image/TWL.gif"> <A href="camera/list_camera.html#Struct" target="main">Constants and Structures</A>
+</DL>
+
+<H3 class="category"><A target=_self name="DSP">DSP Library (DSP)</A></H3>
+<DL>
+<DD>[ <A href="dsp/dsp.html" target="_self">Full List</A> / <A href="dsp/list_dsp.html">Function List</A> / <!-- <A href="dsp/overview_dsp.html"> --><A href="dsp/overview/about_component.html">Overview</A> ]
+</DL>
+<DL>
+<DD><img src="image/BPT.gif"><img src="image/TWL.gif"> <A href="dsp/list_dsp.html#G711" target="main">G.711 Encoding and Decoding</A>
+<DD><img src="image/BPT.gif"><img src="image/TWL.gif"> <A href="dsp/list_dsp.html#Graphics" target="main">Graphics</A>
+<DD><img src="image/BPT.gif"><img src="image/TWL.gif"> <A href="dsp/list_dsp.html#Common" target="main">Common</A>
+</DL>
+
+<H3 class="category"><A target=_self name="CRYPTO">Software Encryption Library (CRYPTO)</A></H3>
+<DL>
+<DD>[ <A href="crypto/crypto.html" target="_self">Full List</A> / <A href="crypto/list_crypto.html">Function List</A> / <A href="crypto/overview_crypto.html">Overview</A> ]
+</DL>
+<DL>
+<DD><img src="image/BPT.gif"><img src="image/TWL.gif"> <A href="crypto/list_crypto.html#sign" target="main">Digital Signatures</A>
+<DD><img src="image/NTR.gif"><img src="image/TWL.gif"> <A href="crypto/list_crypto.html#rc4" target="main">RC4 Encryption</A>
+<DD><img src="image/BPT.gif"><img src="image/TWL.gif"> <A href="crypto/list_crypto.html#rsa" target="main">RSA Encryption</A>
+<DD><img src="image/NTR.gif"><img src="image/TWL.gif"> <A href="crypto/list_crypto.html#misc" target="main">Other</A>
+</DL>
+
+<H3 class="category"><A target=_self name="NA">NAND Application (NA)</A></H3>
+<DL>
+<DD>[ <A href="na/na.html" target="_self">Full List</A> / <A href="na/list_na.html">Function List</A> / <A href="na/overview_na.html">Overview</A> ]
+</DL>
+<DL>
+<DD><img src="image/BPT.gif"><img src="image/TWL.gif"> <A href="na/list_na.html#archive" target="main">Archives</A>
+<DD><img src="image/BPT.gif"><img src="image/TWL.gif"> <A href="na/list_na.html#SharedFont" target="main">Internal Fonts</A>
+<DD><img src="image/BPT.gif"><img src="image/TWL.gif"> <A href="na/list_na.html#SubBanner" target="main">Sub-Banners</A>
+</DL>
+
+<H3 class="category"><A target=_self name="SSP">SSP Library (SSP)</A></H3>
+<DL>
+<DD>[ <A href="ssp/ssp.html" target="_self">Full List</A> / <A href="ssp/list_ssp.html">Function List</A> ]
+</DL>
+<DL>
+<DD><img src="image/NTR.gif"><img src="image/TWL.gif"> <A href="ssp/list_ssp.html#JPEG_ENC" target="main">JPEG Encoding</A>
+<DD><img src="image/NTR.gif"><img src="image/TWL.gif"> <A href="ssp/list_ssp.html#JPEG_DEC" target="main">JPEG Decoding</A>
+<DD><img src="image/NTR.gif"><img src="image/TWL.gif"> <A href="ssp/list_ssp.html#BMP" target="main">BMP Conversion</A>
+</DL>
+
+<H3 class="category"><A target=_self name="TCL">TCL Library (TCL)</A></H3>
+<DL>
+<DD>[ <A href="tcl/tcl.html" target="_self">Full List</A> / <A href="tcl/list_tcl.html">Function List</A> / <A href="tcl/overview_tcl.html">Overview</A> ]
+</DL>
+<DL>
+<DD><img src="image/BPT.gif"><img src="image/TWL.gif"> <A href="tcl/list_tcl.html#general" target="main">General</A>
+<DD><img src="image/BPT.gif"><img src="image/TWL.gif"> <A href="tcl/list_tcl.html#admin_file" target="main">Using Management Files</A>
+<DD><img src="image/BPT.gif"><img src="image/TWL.gif"> <A href="tcl/list_tcl.html#search" target="main">Search-Related</A>
+<DD><img src="image/BPT.gif"><img src="image/TWL.gif"> <A href="tcl/list_tcl.html#photo" target="main">Photo-Related</A>
+<DD><img src="image/BPT.gif"><img src="image/TWL.gif"> <A href="tcl/list_tcl.html#const" target="main">Constants</A>
+<DD><img src="image/BPT.gif"><img src="image/TWL.gif"> <A href="tcl/list_tcl.html#struct" target="main">Types and Structures</A>
+</DL>
+
+<H3 class="category"><A target=_self name="WXC">Chance Encounter Communications Library (WXC)</A></H3>
+<DL>
+<DD>[ <A href="wxc/wxc.html" target="_self">Full List</A> / <A href="wxc/list_wxc.html">Function List</A> ]
+</DL>
+<DL>
+<DD><img src="image/NTR.gif"><img src="image/TWL.gif"> <A href="wxc/list_wxc.html#common" target="main">Common</A>
+<DD><img src="image/NTR.gif"><img src="image/TWL.gif"> <A href="wxc/list_wxc.html#const" target="main">Constants</A>
+<DD><img src="image/NTR.gif"><img src="image/TWL.gif"> <A href="wxc/list_wxc.html#struct" target="main">Types and Structures</A>
+</DL>
+
+<H3 class="category"><A target=_self name="HOSTIO">Host I/O Library</A></H3>
+<DL>
+<DD>Supported by the MCS library of the TWL-System package
+</DL>
+
+<H3 class="category"><A target=_self name="SAMPLE">Sample Demos</A></H3>
+<DL>
+<DD><A href="demos/os/osdemos.html">OS Sample Demos</A>
+<DD><A href="demos/gx/gxdemos.html">Graphics Sample Demos</A>
+<DD><A href="demos/mi/midemos.html">MI Sample Demos</A>
+<DD><A href="demos/fx/fxdemos.html">FX Sample Demos</A>
+<DD><A href="demos/cp/cpdemos.html">CP Sample Demos</A>
+<DD><A href="demos/math/mathdemos.html">MATH Sample Demos</A>
+<DD><A href="demos/pad/paddemos.html">PAD Sample Demos</A>
+<DD><A href="demos/spi/spidemos.html">SPI Sample Demos</A>
+<DD><A href="demos/prc/prcdemos.html">PRC Sample Demos</A>
+<DD><A href="demos/rtc/rtcdemos.html">RTC Sample Demos</A>
+<DD><A href="demos/snd/snddemos.html">SND Sample Demos</A>
+<DD><A href="demos/fs/fsdemos.html">FS Sample Demos</A>
+<DD><A href="demos/card/carddemos.html">Card Sample Demos</A>
+<DD><A href="demos/ctrdg/ctrdgdemos.html">CTRDG Sample Demos</A>
+<DD><A href="demos/vib/vibdemos.html">VIB Sample Demos</A>
+<DD><A href="demos/wvr/wvrdemos.html">WVR Sample Demos</A>
+<DD><A href="demos/wm/wmdemos.html">WM Sample Demos</A>
+<DD><A href="demos/wbt/wbtdemos.html">WBT Sample Demos</A>
+<DD><A href="demos/wfs/wfsdemos.html">WFS Sample Demos</A>
+<DD><A href="demos/mb/mbdemos.html">MB Sample Demos</A>
+<DD><A href="demos/cht/chtdemos.html">CHT Demos</A>
+<DD><A href="demos/env/envdemos.html">ENV Sample Demos</A>
+<DD><A href="demos/std/stddemos.html">STD Sample Demos</A>
+<DD><A href="demos/aes/aesdemos.html">AES Sample Demos</A>
+<DD><A href="demos/el/eldemos.html">EL Sample Demos</A>
+<DD><A href="demos/camera/camerademos.html">CAMERA Sample Demos</A>
+<DD><A href="demos/dsp/dspdemos.html">DSP Sample Demos</A>
+<DD><A href="demos/crypto/cryptodemos.html">CRYPTO Sample Demos</A>
+<DD><A href="demos/nandApp/nandAppdemos.html">NAND Application Sample Demos</A>
+<DD><A href="demos/ssp/sspdemos.html">SSP Sample Demos</A>
+<DD><A href="demos/tcl/tcldemos.html">TCL Sample Demos</A>
+<DD><A href="demos/wxc/wxcdemos.html">WXC Sample Demos</A>
+<DD><A href="demos/tips/tipsdemos.html">Miscellaneous Sample Demos</A>
+</DL>
+<H3 class="category"><A target=_self name="TOOL">Tools and Commands</A></H3>
+<DL>
+<DD>[ <A href="tools/tools.html" target="_self">Full List</A> / <A href="tools/list_tools.html">Function List</A> / <A href="tools/overview_tools.html">Overview</A> ]
+</DL>
+<DL>
+<DD><A href="tools/list_tools.html#Rom"  target="main">Tools Related to ROM Images</A>
+<DD><A href="tools/list_tools.html#Conv" target="main">Data Conversion Tools</A>
+<DD><A href="tools/list_tools.html#Demo" target="main">Demo Tools</A>
+</DL>
+
+<H3 class="category"><A target=_self name="ROMFILES">Compiled Programs</A></H3>
+<DL>
+<DD>[ <A href="romfiles/romfiles.html" target="_self">Full List</A> / <A href="romfiles/list_romfiles.html">Function List</A> ]
+</DL>
+<DL>
+<DD><A href="romfiles/list_romfiles.html#Wireless"  target="main">Wireless-Related</A>
+<DD><A href="romfiles/list_romfiles.html#NandApp"  target="main">NAND Application-Related</A>
+<DD><A href="romfiles/list_romfiles.html#TCL"  target="main">TCL-Related</A>
+</DL>
+
+<H3 class="category"><A target=_self name="HAEADERFILES">Related Information</A></H3>
+<DL>
+<DD><A href="information/list_information.html#HeaderFiles" target="main">Description of Header Files</A>
+<DD><A href="information/list_information.html#CompileTarget" target="main">Description of Compile Targets</A>
+<DD><A href="information/list_information.html#ResourceData" target="main">Description of Resource Data</A>
+</DL>
+<BR> <BR> <BR> <BR> <BR> <BR> <BR> <BR> <BR> <BR> <BR> <BR> <BR> <BR> <BR> <BR> <BR> <BR> <BR> <BR> <BR>
+
+<BR> <BR> <BR> <BR> <BR> <BR> <BR> <BR> <BR> <BR> <BR> <BR> <BR> <BR> <BR> <BR>
+
+<BR> <BR> <BR> <BR> <BR> <BR> <BR> <BR> <BR> <BR> <BR> <BR> <BR> <BR> <BR> <BR>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

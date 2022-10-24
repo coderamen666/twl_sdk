@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>WXCUserInfo</title>
+<LINK rel="stylesheet" href="../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">WXCUserInfo <img src="../image/NTR.gif"align="middle"><img src="../image/TWL.gif" align="middle"></h1>
+<h2>Definition</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/wxc.h&gt;</CODE><BR> <BR>
+<PRE>
+<font color="#008000">/* The user information stored by WXC for each AID. (obtained with WXC_GetUserInfo()) */</font>
+typedef struct WXCUserInfo
+{
+    u16             aid;
+    u8      macAddress[6];
+}
+WXCUserInfo;
+</PRE>
+</CODE><br> <br>
+  </dd>
+</dl>
+
+<h2>Elements</h2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="200"><SPAN class="argument">aid</SPAN></TD>
+<TD width="800">AID of a currently connected user.
+      </TD>
+    </TR>
+    <TR>
+<TD width="200"><SPAN class="argument">macAddress</SPAN></TD>
+<TD width="800">MAC address of the currently connected user.
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<H2>Description</H2>
+<P>This is user information that the WXC library maintains for each AID.
+
+</P>
+<h2>See Also</h2>
+<p><CODE><A href="common/WXC_GetUserInfo.html">WXC_GetUserInfo</A></CODE></p>
+
+<H2>Revision History</H2>
+<P>
+2005/08/18 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

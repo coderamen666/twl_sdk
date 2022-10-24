@@ -1,0 +1,35 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 8.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>TP_WaitAllBusy</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">TP_WaitAllBusy <img src="../../image/NTR.gif"><img src="../../image/TWL.gif"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/spi.h&gt;</CODE><BR>
+  <PRE><CODE>void TP_WaitAllBusy( void );</CODE></PRE>
+  </dd>
+</dl><h2>Arguments</h2>
+<P>None.</P>
+<h2>Return Values</h2>
+<p>None.</p>
+<H2>Description</H2>
+<P>This function waits until processing is finished for the touch panel request instructions that have been sent to ARM7.</P>
+<H2>Note</H2>
+<P>This function uses an interrupt to wait for a completion response from ARM7. If it is called while FIFO receive interrupts from ARM7 are prohibited, it may not be possible to return from wait.</P>
+<h2>See Also</h2>
+<P><CODE><A href="TP_RequestAutoSamplingStart.html">TP_RequestAutoSamplingStart</A>, <A href="TP_RequestAutoSamplingStop.html">TP_RequestAutoSamplingStop</A>,<A href="TP_RequestSetStability.html">TP_RequestSetStability</A>, <A href="TP_CheckError.html">TP_CheckError</A></CODE></P>
+<H2>Revision History</H2>
+<P>2004/04/16 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

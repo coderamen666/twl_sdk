@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 8.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>WVRResult</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">WVRResult <img src="../../image/NTR.gif"></h1>
+
+<h2>Definition</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/wvr.h&gt;</CODE><BR>
+  <PRE><CODE>typedef enum WVRResult
+{
+    WVR_RESULT_SUCCESS          = 0 ,
+    WVR_RESULT_OPERATING        = 1 ,
+    WVR_RESULT_DISABLE          = 2 ,
+    WVR_RESULT_INVALID_PARAM    = 3 ,
+    WVR_RESULT_FIFO_ERROR       = 4 ,
+    WVR_RESULT_ILLEGAL_STATUS   = 5 ,
+    WVR_RESULT_VRAM_LOCKED      = 6 ,
+    WVR_RESULT_FATAL_ERROR      = 7
+
+} WVRResult;</CODE></PRE>
+  </dd>
+
+</dl><h2>Members</h2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="200"><CODE>WVR_RESULT_SUCCESS</CODE></TD>
+<TD width="800">The process completed normally.</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>WVR_RESULT_OPERATING</CODE></TD>
+<TD width="800">An asynchronous process has begun normally.</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>WVR_RESULT_DISABLE</CODE></TD>
+<TD width="800">The ARM7 component is not supported in the WVR library. The ARM7 components for the TWL platform do not support the WVR library, so the return value of the WVR functions will always be this value.</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>WVR_RESULT_INVALID_PARAM</CODE></TD>
+<TD width="800">The parameter assigned to the function is an invalid value.</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>WVR_RESULT_FIFO_ERROR</CODE></TD>
+<TD width="800">There was a communications failure via the FIFO with ARM7.</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>WVR_RESULT_ILLEGAL_STATUS</CODE></TD>
+<TD width="800">The process could not be executed due to the internal state of the WVR. Occurs if the next asynchronous function was called before the callback for an asynchronous function was called, or when operations to start and stop the wireless library overlapped each other.</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>WVR_RESULT_VRAM_LOCKED</CODE></TD>
+<TD width="800">The process could not be executed because the VRAM bank is being allocated for other applications via another library (GX).</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>WVR_RESULT_FATAL_ERROR</CODE></TD>
+<TD width="800">The process has failed due to some unforeseen reason that does not normally occur. <BR> When this error is generated, the cause is generally thought to be due to damage outside the memory that the library uses.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<H2>Description</H2>
+<P>
+Enumerated type that shows the results of the shared process in the WVR function. It is shared with the <code>result</code> argument that is passed to the callback function of the asynchronous process function.
+</P>
+
+<H2>Revision History</H2>
+<P>
+2008/05/22 Added an explanation about the return values of the functions on the TWL platform.<BR> 2005/02/16 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

@@ -1,0 +1,55 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title>WFS_InitClient</title>
+<link rel="stylesheet" href="../../css/nitro.css" type="text/css" />
+</head>
+<body>
+
+<h1>WFS_InitClient <img src="../../image/NTR.gif"><img src="../../image/TWL.gif"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<code>#include &lt;nitro/wfs.h&gt;</code><br /> <br /> <code>void WFS_InitClient(WFSClientContext *context, void *userdata, <a href="../WFSEventCallback.html">WFSEventCallback</a> callback, <a href="../../mi/allocator/MIAllocator.html">MIAllocator</a> *allocator);</code><br /> <br />
+  </dd>
+</dl>
+<h2>Arguments</h2>
+<table border="1" width="100%">
+  <tbody>
+    <tr>
+<td style="width:13%"><em><strong><CODE>context</CODE></strong></em></td>
+<td style="width:87%">Pointer to the <CODE>WFSClientContext</CODE> structure to be initialized</td>
+    </tr>
+    <tr>
+<td style="width:13%"><em><strong><CODE>userdata</CODE></strong></em></td>
+<td style="width:87%">Any user-defined value to be linked with the context</td>
+    </tr>
+    <tr>
+<td style="width:13%"><em><strong><CODE>callback</CODE></strong></em></td>
+<td style="width:87%">A callback function that receives an event notification from the WFS library.<br />Specify NULL if unnecessary.</td>
+    </tr>
+    <tr>
+<td style="width:13%"><em><strong><CODE>allocator</CODE></strong></em></td>
+<td style="width:87%">The allocator used internally by the library</td>
+    </tr>
+  </tbody>
+</table>
+<h2>Return Values</h2>
+<p>None.</p>
+
+<h2>Description</h2>
+<p>Initializes the WFS library child (client) context structure. This function must be called at least once before using the <CODE>WFSClientContext</CODE> structure. This function has absolutely no impact on the status of the OS or wireless communications because it only initializes the contents of the <CODE>WFSClientContext</CODE> structure.<BR><br>The WFS library specification establishes the MP send packet size that can be used by child devices to be <code><a href="../../wbt/wbt_packet_size_min_const.html">WBT_PACKET_SIZE_MIN</a></code>.<br>
+</p>
+
+<h2>See Also</h2>
+<p><code><a href="../WFSEventCallback.html">WFSEventCallback</a><BR> <a href="WFS_StartClient.html">WFS_StartClient</a><BR> <a href="WFS_EndClient.html">WFS_EndClient</a><BR> <a href="WFS_GetTableFormat.html">WFS_GetTableFormat</a><BR> <a href="WFS_RequestClientRead.html">WFS_RequestClientRead</a><BR> <a href="WFS_GetClientReadProgress.html">WFS_GetClientReadProgress</a><BR> <a href="WFS_CallClientConnectHook.html">WFS_CallClientConnectHook</a><BR> <a href="WFS_CallClientDisconnectHook.html">WFS_CallClientDisconnectHook</a><BR> <a href="WFS_CallClientPacketSendHook.html">WFS_CallClientPacketSendHook</a><BR> <a href="WFS_CallClientPacketRecvHook.html">WFS_CallClientPacketRecvHook</a> </code></p>
+
+<h2>Revision History</h2>
+<p>
+2009/11/11 Added the MP send packet size that can be used by child devices with WFS.<br>2007/06/06 Initial version.<br>
+</p>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

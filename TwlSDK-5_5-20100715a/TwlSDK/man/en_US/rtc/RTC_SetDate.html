@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>RTC_SetDate</title>
+<LINK rel="stylesheet" href="../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">RTC_SetDate <img src="../image/NTR.gif" align="middle"><img src="../image/TWL.gif" align="middle"></h1>
+
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/rtc.h&gt;</CODE><BR>
+  <PRE><CODE><A href="RTCResult.html">RTCResult</A> RTC_SetDate( const <A href="RTCDate.html">RTCDate</A>* date );</CODE></PRE>
+  </dd>
+
+</dl><h2>Arguments</h2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="300"><em><strong><font face="Courier New">date</font></strong></em></TD>
+<TD width="700">Pointer to the buffer storing date data.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<h2>Return Values</h2>
+<p>If the request succeeds, it returns 0. If the request fails, it returns a numeric value other than 0.</p>
+
+<H2>Description</H2>
+<P>This function writes date data to the real time clock. It sends date data to ARM7 and returns the process result once it is received. This is a synchronous version of the <code><A href="RTC_SetDateAsync.html">RTC_SetDateAsync</A></code> function.</P>
+
+<h2>Note</h2>
+<P><FONT color=red>Do not define parameter values of nonexistent years, months, or days. However, you may specify a day of the week that does not match the actual calendar. This function requires a PXI interrupt for synchronization. It cannot be used in situations where PXI interrupts are prohibited.</FONT><BR><FONT color=red>Because applications cannot change the date, use this function only for debugging during development.<br /> In FINALROM builds, this function always fails and <CODE>RTC_RESULT_INVALID_COMMAND</CODE> is returned.</FONT></P>
+
+<h2>See Also</h2>
+<P><code><a href="RTC_SetDateAsync.html">RTC_SetDateAsync</a><br> <a href="RTC_GetDate.html">RTC_GetDate</a><br> <a href="RTC_GetDateAsync.html">RTC_GetDateAsync</a><br> <a href="RTCResult.html">RTCResult</a><br> <a href="RTCDate.html">RTCDate</a></code></P>
+
+<H2>Revision History</H2>
+<P>
+2009/07/29 Explained that the time setting command always fails in FINALROM builds.<br /> 2005/03/08 Standardized the Japanese term for <I>interrupt</I>.<br> 2004/05/18 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

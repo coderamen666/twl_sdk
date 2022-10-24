@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>AES_Decrypt</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">AES_Decrypt <IMG src="../../image/TWL.gif" width="23" height="12" border="0" align="middle"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+  <pre><CODE>#include &lt;twl/aes.h&gt;
+
+#define AES_ENCRYPT_HEADER_SIZE 16
+
+<a href="../api/AESResult.html">AESResult</a> AES_Decrypt(
+            const void* src,
+            u32         srcSize,
+            void*       dst,
+            <a href="../api/AESCallback.html">AESCallback</a> callback,
+            void*       arg );
+</CODE></pre>
+</dd>
+</dl>
+
+<h2>Arguments</h2>
+<TABLE border="1" width="100%" class="arguments">
+  <TBODY>
+    <TR>
+<TH>src</TH>
+<TD>Pointer to ciphertext. Must be 4-byte aligned. In addition, it must point to a location in main memory.</TD>
+    </TR>
+    <TR>
+<TH>srcSize</TH>
+<TD>Ciphertext size. Must be greater than zero.</TD>
+    </TR>
+    <TR>
+<TH>dst</TH>
+<TD>Pointer to the buffer that will store the plaintext. Must be 4-byte aligned. In addition, it must point to a location in main memory. An area of size <span class="argument">srcSize</span> - <code>AES_ENCRYPT_HEADER_SIZE</code> bytes is required.</TD>
+    </TR>
+    <TR>
+<TH>callback</TH>
+<TD>Pointer to the callback function to call when decryption completes. It is possible to specify <CODE>NULL</CODE>.</TD>
+    </TR>
+    <TR>
+<TH>arg</TH>
+<TD>User-defined parameter that is passed to the above callback function. Can be any value, including <CODE>NULL</CODE>.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<h2>Return Values</h2>
+<p>
+Returns <CODE>AES_RESULT_SUCCESS</CODE> if the AES operation was started successfully. Any other return values indicate an error.
+</p>
+
+<H2>Description</H2>
+<P>
+Decrypts data that was encrypted using <code><a href="AES_Encrypt.html">AES_Encrypt()</a></code>.
+</p>
+
+<p>
+This function uses the key set with <code><a href="../api/AES_SetKey.html">AES_SetKey()</a></code> to decrypt <span class="argument">srcSize</span> bytes starting from <span class="argument">src</span>. The decrypted result is written to a region starting at <span class="argument">dst</span> whose size is <span class="argument">srcSize</span> - <code>AES_ENCRYPT_HEADER_SIZE</code> bytes. When the decryption process completes, <span class="argument">callback</span> is called, using the decrypted result and <span class="argument">arg</span> as arguments. <span class="argument">callback</span> is called from the interrupt handler, so it might be called even when interrupts are disabled. Conversely, <span class="argument">callback</span> will not be called when interrupts are disabled.
+</p>
+
+<p>
+This function returns control immediately once it has started the processing. If processing starts without a problem, this function will return <code>AES_RESULT_SUCCESS</code>, but if an error occurs during subsequent processing, it will call <span class="argument">callback</span> with the error value and <span class="argument">arg</span> as arguments. <B>Note:</B> Error notification using this callback is started from the interrupt handler, so depending on the situation, it is possible that the callback can deliver error notification before control returns from the function.
+</p>
+
+<p>
+The decryption key must be set beforehand using <code><a href="../api/AES_SetKey.html">AES_SetKey()</a></code>.
+</p>
+
+
+<h2>See Also</h2>
+<p><CODE><A href="AES_Encrypt.html">AES_Encrypt</A></CODE></p>
+
+<H2>Revision History</H2>
+<P>
+2008/07/11 Added <CODE>AES_ENCRYPT_HEADER_SIZE</CODE>. <br>2007/12/25 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<NitroSoundMakerProject version="1.0.0">
+  <head>
+    <generator name="NITRO_SoundMaker" version="1.4.0.0" />
+  </head>
+  <body>
+    <PostConvertCommandArray />
+    <PreConvertCommandArray />
+    <SoundArchiveFiles>
+      <File name="sound_data" path="sound_data.sarc" />
+    </SoundArchiveFiles>
+  </body>
+</NitroSoundMakerProject>

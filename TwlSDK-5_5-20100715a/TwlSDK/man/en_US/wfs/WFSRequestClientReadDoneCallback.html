@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title>WFSRequestClientReadDoneCallback</title>
+<link rel="stylesheet" href="../css/nitro.css" type="text/css" />
+</head>
+
+<body>
+
+<h1>WFSRequestClientReadDoneCallback</h1>
+<h2>Definition</h2>
+
+<dl>
+  <dd>
+<code>#include &lt;nitro/wfs.h&gt;</code><br />
+  <br />
+<pre>
+typedef void (*WFSRequestClientReadDoneCallback)(WFSClientContext *context, BOOL succeeded, void *arg);
+</pre>
+  <br />
+  </dd>
+</dl>
+
+<h2>Description</h2>
+<p>Declares the prototype for the completion callback used by <a href="client/WFS_RequestClientRead.html"><code>WFS_RequestClientRead</code></a>. The arguments are described below:</p>
+
+<h2>Elements</h2>
+<table border="1" width="100%">
+  <tbody>
+    <tr>
+      <td>context</td>
+      <td>Pointer to the <CODE>WFSClientContext</CODE> structure.</td>
+    </tr>
+   <tr>
+      <td>succeeded</td>
+      <td>TRUE if the request completed normally; FALSE if it failed.<br />
+      If <a href="client/WFS_EndClient.html"><code>WFS_EndClient</code></a> is called while a request is in progress, it will fail.</td>
+   </tr>
+   <tr>
+      <td>arg</td>
+      <td>Optional argument specified to <a href="client/WFS_RequestClientRead.html"><code>WFS_RequestClientRead</code></a>.</td>
+   </tr>
+  </tbody>
+</table>
+
+<h2>See Also</h2>
+<p><code><a href="client/WFS_RequestClientRead.html">WFS_RequestClientRead</a>, <a href="client/WFS_EndClient.html">WFS_EndClient</a></code></p>
+
+<h2>Revision History</h2>
+<p>
+2007/06/11 Initial version.
+</p>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

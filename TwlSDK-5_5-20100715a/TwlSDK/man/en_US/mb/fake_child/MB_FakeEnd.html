@@ -1,0 +1,39 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 8.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>MB_FakeEnd</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">MB_FakeEnd <IMG src="../../image/NTR.gif" width="24" height="12" border="0" align=middle><IMG src="../../image/TWL.gif" width="24" height="12" border="0" align=middle></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/mb/mb_fake_child.h&gt;</CODE><BR>
+  <BR>
+  <CODE>void MB_FakeEnd( void );</CODE><br>
+  <br>
+  </dd>
+</dl>
+<h2>Arguments</h2>
+<P>None.</P>
+<h2>Return Values</h2>
+<p>None.</p>
+
+<H2>Description</H2>
+<P>Ends processing performed as a fake multiboot child. This processing was started by the <CODE><A href="MB_FakeInit.html">MB_FakeInit</A></CODE> function. If this function is called in a state prior to <code>MB_COMM_CSTATE_BOOTREQ_ACCEPTED</code>, the entry to the MB parent will be cancelled. At this time, first the <code>MB_COMM_CSTATE_CANCELED</code> callback and then the <code>MB_COMM_CSTATE_FAKE_END</code> callback are notified by the function set by the <CODE><A href="MB_FakeSetCStateCallback.html">MB_FakeSetCStateCallback</A></CODE> function. When an <code>MB_COMM_CSTATE_FAKE_END</code> notification has been sent, it is safe to release the work area that was allocated with the <CODE><A href="MB_FakeInit.html">MB_FakeInit</A></CODE> function. After <code>MB_COMM_CSTATE_BOOTREQ_ACCEPTED</code> is issued, the parent will be notified that the download has completed normally. At this point, after the <code>MB_COMM_CSTATE_BOOT_READY</code> callback is issued, <code>MB_COMM_CSTATE_FAKE_END</code> will be issued. When the <code>MB_COMM_CSTATE_FAKE_END</code> callback has been notified, it is safe to release the work area that was allocated with the <CODE><A href="MB_FakeInit.html">MB_FakeInit</A></CODE> function.
+</p>
+<h2>See Also</h2>
+<p><CODE><A href="MB_FakeInit.html">MB_FakeInit</A><BR></CODE></P>
+<H2>Revision History</H2>
+<P>2005/03/15 Added note about cancel processing.<br /> 2004/11/25 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

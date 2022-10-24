@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>nitrorun.TWL</TITLE>
+<LINK rel="stylesheet" href="../css/nitro.css" type="text/css">
+<STYLE type="text/css">
+<!--
+.sample_source{
+  background-color : #e8e8e8;
+}
+H3{
+  color : teal;
+}
+.command_list{
+  margin-bottom : 16pt;
+}
+.command_desc{
+  }
+.command_item{
+  margin-top : 16pt;
+  background-color : #e8e8e8;
+}
+.blockquoted_table {
+  border : 1px;
+  width : 80%;
+}
+TD,TH{
+  border-color	: #c0d8d8;
+  padding       : 1pt 4pt 1pt 4pt;
+  border-width  : 1px;
+  border-style  : solid;
+}
+-->
+</STYLE>
+</HEAD>
+<BODY>
+<H1 align="left">nitrorun.TWL <IMG src="../image/TWL.gif" align="middle"></H1>
+
+<H2>Description</H2>
+<P><FONT color=#ff0000>This command is for TWL ROMs. See <A href="nitrorun.html"><CODE>nitrorun</CODE></A> for details on NITRO ROMs.</FONT></P>
+<P>  The <CODE>nitrorun.TWL</CODE> script executes the following series of operations: starting <A href="buryarg.html"><CODE>buryarg.TWL</CODE></A> and <A href="loadrunTWL.html"><CODE>loadrun.TWL</CODE></A>, passing arguments from the command line, overwriting the argument region of the SRL file, downloading the data to IS-TWL-DEBUGGER and/or another device, and executing the code.</P>
+<P>Specifically:</P>
+<BLOCKQUOTE><CODE><A href="buryarg.html">buryarg.TWL</A> --stdout ... &gt; temporaryFile<BR> <A href="loadrunTWL.html">loadrun.TWL</A> ... temporaryFile</CODE></BLOCKQUOTE>
+<P>This will call <A href="buryarg.html"><CODE>buryarg.TWL</CODE></A> and <A href="loadrunTWL.html"><CODE>loadrun.TWL</CODE></A> in sequence. With <A href="nitrorun.html"><CODE>nitrorun</CODE></A>, these commands were joined with pipes, but with TWL, a different method loads SRL files in the debugger, so the original method cannot be used. As a result, we have broken it into two commands.</P>
+<P>The reasons that the command name &quot;<CODE>nitrorun.TWL</CODE>&quot; is used even though this command is run on TWL ROMs are (1) to match the <A href="nitrorun.html"><CODE>nitrorun</CODE></A> command that has been around since the former NITRO-SDK, and (2) to follow the command-naming convention wherein &quot;.TWL&quot; is added to indicate that the command is for TWL.</P>
+<H2>Using the Tool</H2>
+<H3>Start Command</H3>
+<P><CODE>% nitrorun.TWL [OPTION]... [[TWLSRLFILE] [ARGUMENT]...]</CODE></P>
+<P><CODE>TWLSRLFILE</CODE> is the ROM file to execute. You can specify SRL files.</P>
+<P>The <CODE>-h</CODE> or <CODE>--help</CODE> options display simple instructions.</P>
+<P>The <CODE>--bopt</CODE> option specifies options to be passed to the <A href="buryarg.html"><CODE>buryarg.TWL</CODE></A> command. However, the <CODE>--stdin</CODE> option does not need to be described because it will be attached in advance.</P>
+<P>The <CODE>--lopt</CODE> option specifies options to be passed to the <A href="loadrunTWL.html"><CODE>loadrun.TWL</CODE></A> command.</P>
+<P>If the <CODE>-v</CODE> or <CODE>--verbose</CODE> option is specified, detailed operation descriptions are displayed.</P>
+<P>Specifying the <CODE>-n</CODE> or <CODE>--noexec</CODE> option does not execute the command. When used in conjunction with the <CODE>-v</CODE> option, you can check which type of command will be executed.</P>
+<P>The <CODE>--version</CODE> option displays the command version.</P>
+<P><B>Example 1</B></P>
+<BLOCKQUOTE><CODE>nitrorun.TWL <FONT color="#ff6600">main.srl</FONT> <FONT color="#cc0099">100 300</FONT></CODE></BLOCKQUOTE>
+<BLOCKQUOTE>executes the following commands.</BLOCKQUOTE>
+<BLOCKQUOTE><CODE><A href="buryarg.html">buryarg.TWL</A> --stdout <FONT color="#ff6600">main.srl</FONT> <FONT color="#cc0099">100 300</FONT> &gt; tmpFile<BR> <A href="loadrunTWL.html">loadrun.TWL</A> tmpFile</CODE></BLOCKQUOTE>
+<BLOCKQUOTE> </BLOCKQUOTE>
+<P><B>Example 2</B></P>
+<BLOCKQUOTE><CODE>nitrorun.TWL --bopt &quot;<FONT color="#00cc66">-f rep.dat</FONT>&quot; --lopt &quot;<FONT color="#ff0033">-t 300 -a \&quot;ABORT\&quot;</FONT> &quot; <FONT color="#ff6600">main.srl</FONT> <FONT color="#cc0099">100 300</FONT></CODE></BLOCKQUOTE>
+<BLOCKQUOTE>executes the following commands.</BLOCKQUOTE>
+<BLOCKQUOTE><CODE><A href="buryarg.html">buryarg.TWL</A> --stdout <FONT color="#00cc66">-f rep.dat</FONT> <FONT color="#ff6600">main.srl</FONT> <FONT color="#cc0099">100 300</FONT> &gt; tmpFile<BR> <A href="loadrunTWL.html">loadrun.TWL</A> <FONT color="#ff0033">-t 300 -a &quot;ABORT&quot;</FONT> tmpFile</CODE></BLOCKQUOTE>
+<BLOCKQUOTE><CODE>  </CODE></BLOCKQUOTE>
+<H2>Location</H2>
+<P><CODE>$TwlSDK/tools/bin/nitrorun.TWL</CODE></P>
+<H2>See Also</H2>
+<P><A href="buryarg.html"><CODE>buryarg.TWL</CODE></A><BR> <A href="loadrunTWL.html"><CODE>loadrun.TWL</CODE></A><BR> <A href="nitrorun.html"><CODE>nitrorun</CODE></A></P>
+<H2>Revision History</H2>
+<P>2008/07/10 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

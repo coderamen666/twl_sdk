@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>Backup Access: Overview</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">Backup Access: Overview</H1>
+<H2>Description</H2>
+<P>The backup device is connected to the SPI bus housed within a Nintendo DS Card. By conducting serial communication of commands through the IO register, you can perform operations such as state checks and data transfer. The type and limitations of the commands prepared depend on the device type and size, but there are features as listed below that are generally shared.<br>
+<ul>
+<li>All empty memory is divided depending on specific page sizes, and each page waits individually for the write count lifespan.
+<li>If a write-related command is generated, the device goes into a busy state until it finishes.
+<li>The amount of time it's in a busy state is proportionally longer than the write count accumulation, and it will never end within the given period of time.
+<li>This does not depend on the write count and there is also a period of data maintenance for the whole device.
+</ul>
+</P>
+<HR>
+<P><B>Device Types</B></P>
+The following are the main backup device types and their features supported by the current CARD library.
+<table>
+<tr><td>Device Types</td><td>Features</td></tr>
+<tr><td>EEPROM</td><td>Standard feature, a relatively small amount of memory.</td></tr>
+<tr><td>FLASH</td><td>Memory with large capacity but comparatively slow writing speed.<br />For particularly large-capacity flash memory devices, the process of rewriting data can be somewhat complicated. &nbsp;</td></tr>
+</table>
+<br>There is no way to automatically determine which type of backup device is housed in the DS Card, so the application must be aware of the device type that it will use and explicitly specify it with the <A href="../common/CARD_IdentifyBackup.html"><CODE>CARD_IdentifyBackup</CODE></a> function before any function call to backup access functions. You must follow the guidelines and make sure that ROM header information is determined in advance to prevent problems such as data being destroyed by carelessly accessing a DS Card whose details are uncertain. This is especially important for applications that are not started from a DS Card, such as in DS Download Play. Under those conditions, restrictions in the CARD library are applied automatically, and the card cannot be accessed as long as the <A href="../common/CARD_Enable.html"><CODE>CARD_Enable</CODE></a> function is not called. The ROM header information for the inserted DS Card can be referenced with the <A href="../common/CARD_GetRomHeader.html"><CODE>CARD_GetRomHeader</CODE></a> function.<br><br />As mentioned above, different types of flash devices can use different types of commands and have different restrictions. In particular, the <CODE>Write</CODE> command that performs a simple rewrite operation cannot be used with flash memory devices above a certain capacity. To perform a rewrite operation on such devices, you must use a combination of the <CODE>EraseSector</CODE> operation to erase data at the sector level, and the <CODE>Program</CODE> operation to write data to sectors after they have been erased. <br />The table below lists currently supported devices and their operating characteristics.
+<table>
+<tr><td style="text-align:center">Device Types</td><td style="text-align:center" colspan="3">EEPROM</td><td style="text-align:center" colspan="5">FLASH</td></tr>
+<tr><td>Size</td><td>4 KB</td><td>64 KB</td><td>512 KB</td><td>2 MB</td><td>4 MB</td><td>8 MB</td><td>16 MB</td><td>64 MB</td></tr>
+<tr><td>Page Size</td><td style="text-align:center" colspan="3"><font color="gray">(Total Capacity)</font></td><td style="text-align:center" colspan="5">256 Bytes</td></tr>
+<tr><td>Sector Size</td><td style="text-align:center" colspan="3"><font color="gray">(Total Capacity)</font></td><td style="text-align:center" colspan="5">65536 Bytes</td></tr>
+<tr><td>Write (a direct write operation that does not require erasing)</td><td style="text-align:center" colspan="3">Yes</td><td style="text-align:center" colspan="4">Yes</td><td style="text-align:center;background-color:#FFC0C0" colspan="1">No</td></tr>
+<tr><td>Program (a write operation that takes place after erasures)</td><td style="text-align:center" colspan="3">No</td><td style="text-align:center" colspan="5">Yes</td></tr>
+<tr><td>EraseSector (the sector-erase operation)</td><td style="text-align:center" colspan="3">No</td><td style="text-align:center" colspan="5">Yes</td></tr>
+</table>
+<br />
+</P>
+<HR>
+<P><B>Flow of Access Functions</B></P>
+<P>This is an explanation of the flow of operations after backup access functions are called.</P>
+<BLOCKQUOTE><IMG src="image_BackupAccess.gif" border="0"></BLOCKQUOTE>
+<ol>
+<li>Most device commands related to data transfer are limited to a unique size by pages or sectors, so the CARD library automatically divides content specified by the user into several appropriately sized commands.
+<li>The divided commands are each issued in order. Issuing of commands and the busy determination that follows need to be managed from beginning to end directly by the CPU, so this operation is mounted by a relatively low-priority thread on the ARM7 component side. Command issuance requests are notified one at a time from ARM9 through PXI.
+<li>When the command is finished in ARM7, ARM9 is notified of the result in the same way through PXI.
+<li>If there are any remaining divided commands, a command issuance request is notified from ARM9 again at this point. This is repeated until processing is complete, ends in failure, or has been canceled by the <a href="../backup/CARD_CancelBackupAsync.html"><CODE>CARD_CancelBackupAsync</CODE></a> function. Because waiting for completion or requesting re-issue here sometimes take a long time for operations such as copying memory, these processes are executed by an internal thread in the CARD library instead of with the PXI interrupt handler.
+<li>When the operation is complete, a notification is sent to the caller of the specified callback. The processing result can be referenced with the <a href="../common/CARD_GetResultCode.html"><CODE>CARD_GetResultCode</CODE></a> function as a <a href="../card_result_const.html"><CODE>CARDResult</CODE></a> enumerated type.
+</ol>
+<P>
+<H2>See Also</H2>
+<P><CODE><A href="../list_card.html">CARD Function List</A><BR></CODE></P>
+<H2>Revision History</H2>
+<P>
+2009/04/10 Replaced symbols used in the tables with standard notation.<br />2008/11/27 Deleted <CODE>CARD_BACKUP_TYPE_FRAM_256KBITS</CODE> from the lineup of usable types.<br> 2007/08/22 Added explanation about large-capacity FLASH devices and a table showing their characteristics.<br> 2006/01/01 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

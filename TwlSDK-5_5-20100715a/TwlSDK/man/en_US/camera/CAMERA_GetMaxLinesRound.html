@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>CAMERA_GetMaxLinesRound</TITLE>
+<LINK rel="stylesheet" href="../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">CAMERA_GetMaxLinesRound <IMG src="../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+<DL>
+  <DD>
+  <CODE>#include &lt;twl/camera.h&gt;</CODE><BR>
+  <BR>
+  <CODE>int CAMERA_GetMaxLinesRound(u16 width, u16 height);</CODE>
+</DL>
+<H2>Arguments</H2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+      <TD width="13%"><EM><STRONG>width</STRONG></EM></TD>
+      <TD width="87%">Width (in pixels)</TD>
+    </TR>
+    <TR>
+      <TD width="13%"><EM><STRONG>height</STRONG></EM></TD>
+      <TD width="87%">Height (in pixels)</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<H2>Return Values</H2>
+<P>
+Returns the maximum value that can be specified for <SPAN class="argument">lines</SPAN> in the <code><A href="CAMERA_SetTransferLines.html">CAMERA_SetTransferLines</A></code> function to avoid fractions at the end of a frame.
+</P>
+
+<H2>Description</H2>
+<P>
+As described in <code><A href="CAMERA_SetTransferLines.html">CAMERA_SetTransferLines()</A></code>, if the line count and the height specified by a <code><A href="CAMERA_I2CSize.html">CAMERA_I2CSize*</A></code> function or the <code><A href="CAMERA_SetTrimmingParams.html">CAMERA_SetTrimmingParams</A></code> function are not divisible, a new DMA will be started synchronously with the start of a camera V-Blank and the odd amount remaining at the end of the frame will be transferred. In this case, the new DMA will be left running in the camera V-Blank. In order to avoid this, it is possible to find the maximum line count that will keep odd amounts from occurring.
+</P>
+
+<H2>See Also</H2>
+<P><CODE><A href="CAMERA_SetTransferLines.html">CAMERA_SetTransferLines</A>, <A href="CAMERA_I2CSize.html">CAMERA_I2CSize*</A>, <A href="CAMERA_SetTrimmingParams.html">CAMERA_SetTrimmingParams</A></CODE></P>
+<H2>Revision History</H2>
+<P>2007/11/14 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

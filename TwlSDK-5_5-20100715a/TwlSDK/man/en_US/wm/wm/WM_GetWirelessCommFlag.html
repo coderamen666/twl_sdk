@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 8.0.2.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>WM_GetWirelessCounter</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">WM_GetWirelessCommFlag&nbsp;<img src="../../image/BPT.gif"><img src="../../image/TWL.gif"></H1>
+<h2>Syntax</h2>
+<dl>
+  <dd><PRE><CODE>#include &lt;nitro/wm.h&gt;
+
+u8 WM_GetWirelessCommFlag( void );
+
+</CODE></PRE></dd>
+</dl>
+
+<h2>Arguments</h2>
+<P>None.</P>
+
+<h2>Return Values</h2>
+<P>Gets the current TWL wireless mode.</P>
+
+<H2>Description</H2>
+<P>Gets the TWL wireless mode that is set in the <STRONG>Wireless Communications</STRONG> item in the TWL's System Settings. This function can be run before the library is initialized by <CODE><A href="WM_Init.html">WM_Init</A></CODE> or <CODE><A href="WM_Initialize.html">WM_Initialize</A></CODE>, so you can use it to get the TWL wireless mode prior to initialization.</P>
+<P>Because this item doesn't exist on these systems, <CODE>WM_WIRELESS_COMM_FLAG_UNKNOWN</CODE> will be returned for applications running on the Nintendo DS or DS Lite.</P>
+<P>The function can obtain the following values:</P>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+<TH>Value</TH>
+<TH>Description</TH>
+    </TR>
+    <TR>
+<TD><CODE>WM_WIRELESS_COMM_FLAG_OFF</CODE></TD>
+<TD>Disabled</TD>
+    </TR>
+    <TR>
+<TD><CODE>WM_WIRELESS_COMM_FLAG_ON</CODE></TD>
+<TD>Enabled</TD>
+    </TR>
+    <TR>
+<TD><CODE>WM_WIRELESS_COMM_FLAG_UNKNOWN</CODE></TD>
+<TD> Unable to determine, because the application is running on a Nintendo DS or DS Lite</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+
+<H2>See Also</H2>
+<p><CODE><A href="WM_Init.html">WM_Init</A><BR><A href="WM_Initialize.html">WM_Initialize</A>
+
+</CODE></p>
+
+<H2>Revision History</H2>
+<P>
+2009/06/08 Added usage information to <B>Description</B>. <BR>2008/09/12 Initial version.<BR>
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

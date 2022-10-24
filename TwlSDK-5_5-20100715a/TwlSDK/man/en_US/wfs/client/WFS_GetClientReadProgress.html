@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title>WFS_GetClientReadProgress</title>
+<link rel="stylesheet" href="../../css/nitro.css" type="text/css" />
+</head>
+
+<body>
+
+<h1>WFS_GetClientReadProgress&nbsp;<img src="../../image/NTR.gif"><img src="../../image/TWL.gif"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<code>#include &lt;nitro/wfs.h&gt;</code><br />
+  <br />
+  <code>void WFS_GetClientReadProgress(WFSClientContext *context, int *current, int *total);</code><br />
+  <br />
+  </dd>
+</dl>
+
+<h2>Arguments</h2>
+<table border="1" width="100%">
+  <tbody>
+    <tr>
+      <td style="width:13%"><em><strong>context</strong></em></td>
+      <td style="width:87%">Pointer to the <CODE>WFSClientContext</CODE> structure.</td>
+    </tr>
+    <tr>
+      <td style="width:13%"><em><strong>current</strong></em></td>
+      <td style="width:87%">Pointer to the int variable used to retrieve the number of packets already received</td>
+    </tr>
+    <tr>
+      <td style="width:13%"><em><strong>total</strong></em></td>
+      <td style="width:87%">Pointer to the int variable used to retrieve the total number of packets expected to be received</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Return Values</h2>
+<p>None.</p>
+
+<h2>Description</h2>
+<p>Gets the current status of a ROM image read request that was issued using <a href="WFS_RequestClientRead.html"><CODE>WFS_RequestClientRead</CODE></a>. Progress status can be retrieved in the format <em>(number of packets already received) / (total number of packets expected)</em>.
+</p>
+<h2>See Also</h2>
+<p>
+<a href="WFS_RequestClientRead.html"><CODE>WFS_RequestClientRead</CODE></a>
+</p>
+
+<h2>Revision History</h2>
+<p>
+2007/06/06 Initial version.
+</p>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

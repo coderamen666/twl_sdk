@@ -1,0 +1,100 @@
+/******************************************************************************
+	NINTENDO NITRO-System Maya Plugin
+
+	File:         NNS_ShowBillboard.mel
+	Description:  show billboard
+	Date:         2007/03/06
+	Author:       Takashi Endo
+
+	Copyright 2003-2009 Nintendo. All rights reserved.
+******************************************************************************/
+
+/******************************************************************************
+	show	
+******************************************************************************/
+global proc nnsShowBillboard_Show(int $billboardShow)
+{
+	int $nodeCount = 0;
+	select -cl;
+	string $xforms[] = `ls -typ transform`;
+	for ($node in $xforms)
+	{
+		int $billboard = (`attributeQuery -n $node -ex "nns_billboard"`) ?
+			`getAttr ($node + ".nns_billboard")` : 0;
+		if ($billboard == $billboardShow)
+		{
+			select -add $node;
+			++$nodeCount;
+		}
+	}
+
+	if ($nodeCount == 0)
+	{
+		print "Not found\n";
+	}
+	else
+	{
+		string $msg = "Found: " + $nodeCount + " transform node";
+		if ($nodeCount >= 2)
+		{
+			$msg += "s";
+		}
+		print ($msg + "\n");
+	}
+}
+
+/******************************************************************************
+	main
+******************************************************************************/
+global proc NNS_ShowBillboard()
+{
+	//-----------------------------------------------------------------------------
+	// backup selection
+	string $selBak[] = `ls -sl`;
+	string $selBakStr;
+	for ($sel in $selBak)
+		$selBakStr += ($sel + " ");
+	select -cl;
+	
+	//-----------------------------------------------------------------------------
+	// create window
+	int $wd = 400;
+	int $ht = 146;
+	if (!`window -exists nnsShowBillboard_Win`)
+	{
+		string $closeCmd = "deleteUI nnsShowBillboard_Win";
+		string $remainCmd = "if (!`checkBoxGrp -q -v1 nnsShowBillboard_KeepSelecion`) {"
+			+ "select -cl;select -ne " + $selBakStr + ";}";
+
+		window -t "NITRO Show Billboard" -wh $wd $ht -mxb 0
+			nnsShowBillboard_Win;
+
+		columnLayout -adj 1 -cat "both" 4 -cal "center" -rs 15;
+			radioButtonGrp -nrb 2 -l ""
+				-la2 "Billboard" "Y-Billboard"
+				-cw 1 100
+				-onc "nnsShowBillboard_Show(`radioButtonGrp -q -sl nnsShowBillboard_Billboard`)"
+				nnsShowBillboard_Billboard;
+			checkBoxGrp -ncb 1 -l "" -l1 "Keep Selection" -v1 1
+				-cw 1 140
+				nnsShowBillboard_KeepSelecion;
+			string $closeBtn = `button -h 26 -l "Close"
+				-c ($remainCmd + $closeCmd)`;
+		setParent ..;	// columnLayout
+
+		setFocus $closeBtn;
+	}
+	if (`window -q -w nnsShowBillboard_Win` < $wd)
+	{
+		window -e -w $wd nnsShowBillboard_Win;
+	}
+	if (`window -q -h nnsShowBillboard_Win` < $ht)
+	{
+		window -e -h $ht nnsShowBillboard_Win;
+	}
+	//window -e -wh $wd $ht nnsShowBillboard_Win;
+
+	//-----------------------------------------------------------------------------
+	// show window
+	showWindow nnsShowBillboard_Win;
+}

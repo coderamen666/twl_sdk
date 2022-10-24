@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 8.0.2.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>WVR_TerminateAsync</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">WVR_TerminateAsync <img src="../../image/NTR.gif"></h1>
+<h2>Syntax</h2>
+<dl>
+  <dd><PRE><CODE>#include &lt;nitro/wvr.h&gt;
+
+<A href="WVRResult.html">WVRResult</A> WVR_TerminateAsync(
+    <A href="WVRCallbackFunc.html">WVRCallbackFunc</A> callback ,
+    void*           arg
+);
+</CODE></PRE></dd>
+</dl>
+
+<h2>Arguments</h2>
+<table border="1" width="100%">
+  <tbody>
+    <TR>
+<TD width="200"><SPAN class="argument">callback</SPAN></TD>
+<TD width="800">Callback function to call when the asynchronous process completes. This callback is called from inside the interrupt handler.</TD>
+    </TR>
+    <TR>
+<TD width="200"><SPAN class="argument">arg</SPAN></TD>
+<TD width="800">Optional arguments to be passed to the callback function called when the asynchronous process is complete.</TD>
+    </TR>
+  </tbody>
+</table>
+
+<h2>Return Values</h2>
+<p>Returns the results of the <A href="WVRResult.html"><CODE>WVRResult</CODE></A> enumerated type process.</p>
+
+<H2>Description</H2>
+<P>
+Forcibly stops the wireless driver that is operating on the ARM7 side and deallocates the VRAM bank it was using. If the return value was <code>WVR_RESULT_OPERATING</code>, the callback function is called from inside the PXI receive interrupt handler when the asynchronous process is complete.<BR>This function is relevant only when the ichneumon or ichneumon.TWL components, which contains features for operating the wireless driver in VRAM, are being used. For all other components, <CODE>WVR_RESULT_DISABLE</CODE> is returned, and this function fails. If the ichneumon/ichneumon.TWL component is being used, stops the driver only if the wireless driver has been started by the <code><A href="WVR_StartUpAsync.html">WVR_StartUpAsync</A></code> function.<BR><BR>If the asynchronous process for this component completes as expected, the wireless communication features become unusable. If the communications process was running using the WM library after the driver was started up via the <A href="WVR_StartUpAsync.html"><CODE>WVR_StartUpAsync</CODE></A> function, the internal state of the WM library will forcibly be put into a <A href="../../wm/wm/wm_state_diagram.html">READY state</A>. Until the wireless driver is restarted via the <A href="WVR_StartUpAsync.html"><CODE>WVR_StartUpAsync</CODE></A> function again, subsequent WM asynchronous operation functions will return <code>WM_ERRCODE_DISABLE</code> to the callbacks. <font color="red">This does not mean that the WM library will be reset to a &quot;pre-initialization state.&quot;</font>Call the <A href="../../wm/wm/WM_Finish.html"><CODE>WM_Finish</CODE></A> function inside the callback of this function when you need to completely shut down the WM library.
+</P>
+
+<h2>See Also</h2>
+<p><A href="WVR_StartUpAsync.html"><CODE>WVR_StartUpAsync</CODE></A><BR> <A href="../../wm/wm/WM_Finish.html"><CODE>WM_Finish</CODE></A></p>
+
+<H2>Revision History</H2>
+<P>
+2009/06/15 Added description related to the ichneumon.TWL component.</BR> 2005/06/27 Added statement about callback being called from the interrupt handler.</BR> 2005/03/14 Corrected mistake with link destination.<br> 2005/03/08 Standardized the use of the term &quot;interrupt&quot; in Japanese.</BR> 2005/03/01 Added to <B>Description</B>.<BR> 2005/02/16 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

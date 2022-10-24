@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 8.0.2.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>STD_CopyLStringZeroFill</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">STD_CopyLStringZeroFill<img src="../../image/NTR.gif"align="middle"><img src="../../image/TWL.gif" align="middle"></h1>
+<h2>Syntax</h2>
+<dl>
+  <dd><PRE><CODE>#include &lt;nitro/std.h&gt;
+
+int STD_CopyLStringZeroFill( char* destp, const char* srcp, int n );
+</CODE></PRE></dd>
+</dl>
+
+<h2>Arguments</h2>
+<table border="1" width="100%">
+  <tbody>
+    <TR>
+<TD width="200"><SPAN class="argument">destp</SPAN></TD>
+<TD width="800">Pointer to a copy destination.</TD>
+    </TR>
+    <TR>
+<TD width="200"><SPAN class="argument">srcp</SPAN></TD>
+<TD width="800">Pointer to the copy source.</TD>
+    </TR>
+    <TR>
+<TD width="200"><SPAN class="argument">n</SPAN></TD>
+<TD width="800">Size of the write buffer of the copy destination.</TD>
+    </TR>
+  </tbody>
+</table>
+
+<h2>Return Values</h2>
+<p>
+Returns the copy target string pointer.
+</p>
+
+<H2>Description</H2>
+<P>
+Copies (<SPAN class="argument">n</SPAN>-1) characters from the string <SPAN class="argument">srcp</SPAN> to the string <SPAN class="argument">destp</SPAN>.<BR>You must designate a value lower than or equal to the buffer size of the copy destination in the argument <SPAN class="argument">n</SPAN>.</P>
+
+<P>
+The <CODE>STD_CopyLStringZeroFill</CODE> function fills the remainder with a zero when the copy source buffer size is smaller than the size to be copied.<BR>A <CODE>NULL</CODE> will always be copied to the end of the copy destination string.
+</P>
+<P>
+<FONT color="red">Caution:</FONT> This function name includes an 'L', but it behaves differently from the standard <CODE>strlcpy</CODE> function. The same behavior as the <CODE>strlcpy</CODE> function is provided by the <A href="STD_CopyLString.html"><CODE>STD_CopyLString</CODE></A> function.
+</P>
+<h2>See Also</h2>
+<p><A href="STD_CopyString.html"><CODE>STD_CopyString</CODE></A><BR> <A href="STD_CopyLString.html"><CODE>STD_CopyLString</CODE></A></p>
+
+<H2>Revision History</H2>
+<P>
+2006/06/06 Migrated from the old <CODE>STD_CopyLString</CODE>.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

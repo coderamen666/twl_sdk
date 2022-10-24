@@ -1,0 +1,44 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title>TCL_GetNumPictures</title>
+<link rel="stylesheet" href="../css/nitro.css" type="text/css">
+</head>
+<body>
+<h1 align="left">TCL_GetNumPictures <img src="../image/TWL.gif" align="middle"></h1>
+
+<h2>Definition</h2>
+<dl>
+	<dd>
+	<code>#include &lt;twl/tcl.h&gt;</code><br/> <br/>
+	<pre><code>
+int TCL_GetNumPictures( const TCLAccessor* pAccessor , const TCLSearchObject* pSearchObj );
+	</code></pre>
+</dl>
+
+<h2>Arguments</h2>
+<p>
+<table>
+<tr><td><CODE>pAccessor</CODE><td><a href="TCLAccessor.html">Accessor</a>
+<tr><td><code>pSearchObj</code><td><a href="TCLSearchObject.html">Search object</a>
+</table>
+</p>
+
+<h2>Return Values</h2>
+<p>The number of photos matching the search conditions.</p>
+
+<h2>Description</h2>
+<p>Returns the number of photos that completely match the search conditions specified by the search object.</p>
+<p>The accessor must be initialized by the <a href="TCL_LoadTable.html"><code>TCL_LoadTable</code></a> or <a href="TCL_CreateTable.html"><code>TCL_CreateTable</code></a> functions.</p>
+
+<h2>See Also</h2>
+<p><code><a href="TCL_InitSearchObject.html">TCL_InitSearchObject</a></code></p>
+
+<h2>Revision History</h2>
+<p>
+2008/10/07 Initial version.
+</p>
+
+<hr><p>CONFIDENTIAL</p></body>
+</html>

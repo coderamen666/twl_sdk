@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>MBCommResponseRequestType</title>
+<LINK rel="stylesheet" href="../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">MBCommResponseRequestType <IMG src="../image/NTR.gif" width="24" height="12" border="0" align=middle><IMG src="../image/TWL.gif" width="24" height="12" border="0" align=middle></h1>
+<h2>Definition</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/mb.h&gt;</CODE>
+<PRE><CODE>
+typedef	enum
+{
+    MB_COMM_RESPONSE_REQUEST_KICK,
+    MB_COMM_RESPONSE_REQUEST_ACCEPT,
+    MB_COMM_RESPONSE_REQUEST_DOWNLOAD,
+    MB_COMM_RESPONSE_REQUEST_BOOT
+} MBCommResponseRequestType;
+</CODE></PRE>
+  <br>
+  </dd>
+</dl>
+
+<H2>Description</H2>
+<P>This function displays the list constant that indicates the connection response that notifies the child device from the multiboot parent device. The meaning of each enumerator constant is shown in the following table:
+<TABLE border="0">
+  <TBODY>
+
+    <TR>
+      <TD>Constant</TD>
+      <TD>Description</TD>
+    </TR>
+
+    <TR>
+      <TD><B><I>MB_COMM_RESPONSE_REQUEST_KICK</B></I></TD>
+      <TD>Indicates that the child device connection has been denied and disconnected.<BR>
+	  </TD>
+    </TR>
+
+    <TR>
+      <TD><B><I>MB_COMM_RESPONSE_REQUEST_ACCEPT</B></I></TD>
+      <TD>Indicates that the child device has permission to connect, and that the entry request is accepted.<BR>
+	  </TD>
+    </TR>
+
+    <TR>
+      <TD><B><I>MB_COMM_RESPONSE_REQUEST_DOWNLOAD</B></I></TD>
+      <TD>Indicates that the download request from a child is accepted and that the start of the download process has been acknowledged.
+	  The <CODE><a href="parent/MB_CommStartSending.html">MB_CommStartSending</a></CODE> function is equivalent to calling the <CODE><A href="parent/MB_CommResponseRequest.html">MB_CommResponseRequest</A></CODE> function with this constant specified.
+	  </TD>
+    </TR>
+
+    <TR>
+      <TD><B><I>MB_COMM_RESPONSE_REQUEST_BOOT</B></I></TD>
+      <TD>Indicates the boot request from a child is accepted and that the boot start has been acknowledged.
+	  The <CODE><a href="parent/MB_CommBootRequest.html">MB_CommBootRequest</a></CODE> function is equivalent to calling the <CODE><A href="parent/MB_CommResponseRequest.html">MB_CommResponseRequest</A></CODE> function with this constant specified.
+	  </TD>
+    </TR>
+
+  </TBODY>
+</TABLE>
+<BR>
+</P>
+<h2>See Also</h2>
+<p><A href="parent/MB_CommResponseRequest.html"><code>MB_CommResponseRequest</code></A>, <a href="parent/MB_CommStartSending.html"><code>MB_CommStartSending</code></a>, <a href="parent/MB_CommBootRequest.html"><code>MB_CommBootRequest</code></a></p>
+
+<H2>Revision History</H2>
+<P>
+2004/09/27 Added enumerator values.<br> 2004/08/27 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

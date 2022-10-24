@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title>SD Card Archives</title>
+<link rel="stylesheet" href="../css/nitro.css" type="text/css" />
+</head>
+<body>
+<h1>SD Card Archives <img src="../image/TWL.gif" align="middle"></h1>
+<h2>Overview</h2>
+<p>
+This section explains the SD Card Archive that is prepared by default in the file system.
+</p>
+<h2>Specifications</h2>
+<p>
+Basic SD Card archive operations are shown below.
+</p>
+<ul>
+<li>Uses the system-reserved archive name <CODE>sdmc</CODE>.</li>
+<li>Mounted automatically the first time the <a href="archive/FS_InitFatDriver.html"><CODE>FS_InitFatDriver</CODE></a> function is called.<br /> The types and number of NAND archives that are mounted are determined by the system launcher based on the settings in the RSF file, and are decided on during a boot.</li>
+<li>Because any file or directory can be created or deleted, this does not support commands that require file IDs or directory IDs. (<a href="fs_result_const.html"><code>FS_RESULT_UNSUPPORTED</code></a> will be returned if such functions are called.)</li>
+<li>If either the buffer address or the transfer size is not aligned to a 32-byte boundary, the asynchronous read/write functions behave like the synchronous versions of the functions if called. When this is the case, processing performance declines because data is sent via a temporary buffer inside the library.</li>
+</ul>
+<h2>Implementation</h2>
+<p>
+Because the memory space within SD Cards is not in NitroROM format, the internal implementation of archives does not use the sort of procedure mechanism used for <a href="archive_rom_spec.html">ROM archives</a>. As a result, it supports several new functions that did not exist in NITRO-SDK. On the other hand, it does not support several existing functions. The FS functions that can be used with SD Card archives are shown below.
+</p>
+<table style="width:30%">
+<tr><td style="border:solid 1px black;background-color:#FFFFF8">Usable Function</td></tr>
+<tr><td style="border:solid 1px black;background-color:#C0C0C0">Unusable Function</td></tr>
+</table>
+<br />
+<table>
+<tr><td style="text-align:left;width:30%">Functions</td><td style="width:20%">Comments</td></tr>
+<tr><td style="border:solid 1px black;background-color:#FFFFF8"><a href="file/FS_OpenFileEx.html">FS_OpenFileEx</a> <font size="-1">(<a href="file/FS_OpenFile.html">FS_OpenFile</a>)</font></td><td></td></tr>
+<tr><td style="border:solid 1px black;background-color:#C0C0C0"><a href="file/FS_OpenFileFast.html">FS_OpenFileFast</a></td><td rowspan="2">Commands that use file IDs are not supported.</td></tr>
+<tr><td style="border:solid 1px black;background-color:#C0C0C0"><a href="file/FS_ConvertPathToFileID.html">FS_ConvertPathToFileID</a></td></tr>
+<tr><td style="border:solid 1px black;background-color:#FFFFF8"><a href="file/FS_CloseFile.html">FS_CloseFile</a></td><td></td></tr>
+<tr><td style="border:solid 1px black;background-color:#C0C0C0"><a href="file/FS_OpenFileDirect.html">FS_OpenFileDirect</a></td><td rowspan="3">Commands that directly access a device's address space are not supported.</td></tr>
+<tr><td style="border:solid 1px black;background-color:#C0C0C0"><a href="file/FS_GetFileImageTop.html">FS_GetFileImageTop</a></td></tr>
+<tr><td style="border:solid 1px black;background-color:#C0C0C0"><a href="file/FS_GetFileImageBottom.html">FS_GetFileImageBottom</a></td></tr>
+<tr><td style="border:solid 1px black;background-color:#FFFFF8"><a href="file/FS_GetFileLength.html">FS_GetFileLength</a></td><td></td></tr>
+<tr><td style="border:solid 1px black;background-color:#FFFFF8"><a href="file/FS_SetFileLength.html">FS_SetFileLength</a></td><td></td></tr>
+<tr><td style="border:solid 1px black;background-color:#FFFFF8"><a href="file/FS_GetFilePosition.html">FS_GetFilePosition</a></td><td></td></tr>
+<tr><td style="border:solid 1px black;background-color:#FFFFF8"><a href="file/FS_SeekFile.html">FS_SeekFile</a><br /><a href="file/FS_SeekFileToBegin.html">FS_SeekFileToBegin</a><br /><a href="file/FS_SeekFileToEnd.html">FS_SeekFileToEnd</a></td><td></td></tr>
+<tr><td style="border:solid 1px black;background-color:#FFFFF8"><a href="file/FS_ReadFile.html">FS_ReadFile</a></td><td></td></tr>
+<tr><td style="border:solid 1px black;background-color:#FFFFF8"><a href="file/FS_ReadFileAsync.html">FS_ReadFileAsync</a></td><td></td></tr>
+<tr><td style="border:solid 1px black;background-color:#FFFFF8"><a href="file/FS_WriteFile.html">FS_WriteFile</a></td><td></td></tr>
+<tr><td style="border:solid 1px black;background-color:#FFFFF8"><a href="file/FS_WriteFileAsync.html">FS_WriteFileAsync</a></td><td></td></tr>
+<tr><td style="border:solid 1px black;background-color:#FFFFF8"><a href="file/FS_FlushFile.html">FS_FlushFile</a></td><td></td></tr>
+<tr><td style="border:solid 1px black;background-color:#FFFFF8"><a href="directory/FS_OpenDirectory.html">FS_OpenDirectory</a> <font size="-1">(<a href="file/FS_FindDir.html">FS_FindDir</a>)</font></td><td></td></tr>
+<tr><td style="border:solid 1px black;background-color:#FFFFF8"><a href="directory/FS_ReadDirectory.html">FS_ReadDirectory</a> <font size="-1">(<a href="file/FS_ReadDir.html">FS_ReadDir</a>)</font></td><td></td></tr>
+<tr><td style="border:solid 1px black;background-color:#FFFFF8"><a href="directory/FS_CloseDirectory.html">FS_CloseDirectory</a></td><td></td></tr>
+<tr><td style="border:solid 1px black;background-color:#C0C0C0"><a href="file/FS_TellDir.html">FS_TellDir</a></td><td rowspan="3">Commands that use directory IDs are not supported.</td></tr>
+<tr><td style="border:solid 1px black;background-color:#C0C0C0"><a href="file/FS_SeekDir.html">FS_SeekDir</a></td></tr>
+<tr><td style="border:solid 1px black;background-color:#C0C0C0"><a href="file/FS_RewindDir.html">FS_RewindDir</a></td></tr>
+<tr><td style="border:solid 1px black;background-color:#C0C0C0"><a href="file/FS_GetPathName.html">FS_GetPathName</a></td><td rowspan="2">Commands that search through handles for a path name are not supported.</td></tr>
+<tr><td style="border:solid 1px black;background-color:#C0C0C0"><a href="file/FS_GetPathLength.html">FS_GetPathLength</a></td></tr>
+
+
+<tr><td style="border:solid 1px black;background-color:#FFFFF8"><a href="directory/FS_CreateFile.html">FS_CreateFile</a></td><td></td></tr>
+<tr><td style="border:solid 1px black;background-color:#FFFFF8"><a href="directory/FS_DeleteFile.html">FS_DeleteFile</a></td><td></td></tr>
+<tr><td style="border:solid 1px black;background-color:#FFFFF8"><a href="directory/FS_RenameFile.html">FS_RenameFile</a></td><td></td></tr>
+
+<tr><td style="border:solid 1px black;background-color:#FFFFF8"><a href="directory/FS_CreateDirectory.html">FS_CreateDirectory</a></td><td></td></tr>
+<tr><td style="border:solid 1px black;background-color:#FFFFF8"><a href="directory/FS_DeleteDirectory.html">FS_DeleteDirectory</a></td><td></td></tr>
+<tr><td style="border:solid 1px black;background-color:#FFFFF8"><a href="directory/FS_RenameDirectory.html">FS_RenameDirectory</a></td><td></td></tr>
+
+
+</table>
+
+
+<h2>See Also</h2>
+<p><a href="file/FS_Init.html"><CODE>FS_Init</CODE></a></p>
+
+<h2>Revision History</h2>
+<P>
+2009/02/27 Corrected the text regarding the behavior of asynchronous functions.<br /> 2008/07/14 Made slight revision to text regarding archive name.<br /> 2007/09/26 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>MI_GetNDmaIntervalPrescaler</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">MI_GetNDmaIntervalPrescaler <IMG src="../../image/TWL.gif" width="24" height="12" border="0" align=middle></H1>
+<H2>Syntax</H2>
+<DL>
+  <DD><CODE>#include &lt;twl/mi.h&gt;</CODE><BR>
+  <BR>
+  <CODE>u32 MI_GetNDmaIntervalPrescaler( u32 ndmaNo );</CODE>
+  </DL>
+<H2>Arguments</H2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+      <TD><EM><STRONG>ndmaNo</STRONG></EM></TD>
+      <TD>DMA number to get settings for (0-3).</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>Return Values</H2>
+<P>Prescaler value of the block transfer interval timer.</P>
+<H2>Description</H2>
+<P>Gets the prescaler setting of the block transfer interval timer.</P>
+<P>It gets the prescaler setting of the block transfer interval timer for the new TWL DMA specified in <B><I>ndmaNo</I></B>.</P>
+<P>The function can obtain the following values:</P>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+      <TH>Value</TH>
+      <TH>Description</TH>
+    </TR>
+    <TR>
+      <TD><CODE>MI_NDMA_INTERVAL_PS_1</CODE></TD>
+      <TD>System clock (33.514 MHz)</TD>
+    </TR>
+    <TR>
+      <TD><CODE>MI_NDMA_INTERVAL_PS_4</CODE></TD>
+      <TD>1/4th of the system clock</TD>
+    </TR>
+    <TR>
+      <TD><CODE>MI_NDMA_INTERVAL_PS_16</CODE></TD>
+      <TD>1/16th of the system clock</TD>
+    </TR>
+    <TR>
+      <TD><CODE>MI_NDMA_INTERVAL_PS_64</CODE></TD>
+      <TD>1/64th of the system clock</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>See Also</H2>
+<P><CODE><A href="MI_SetNDmaInterval.html">MI_SetNDmaInterval</A><BR></CODE></P>
+<H2>Revision History</H2>
+<P>2007/09/07 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

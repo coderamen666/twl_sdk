@@ -1,0 +1,37 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>AES High-Level API: Overview</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">AES Cipher High-Level API: Overview</h1>
+
+<H2>Description</H2>
+
+<h3 class="inline">Overview</h3>
+<p>
+The AES cipher high-level API is used to generate the initial counter value and nonce that are required for encryption by the basic API. With this high-level API appropriate values are generated internally by the library. The output data contains all the data required for decryption except the key, so decryption can be performed simply by passing the output of the encryption function to the decryption function.
+</p>
+
+
+
+<h3 class="inline">Random Number Generator</h3>
+<p>
+In the AES cipher high-level API, we have implemented a random number generator that uses AES to generate the initial counter value and nonce within the library. This random number generator can also be used on its own, but its strength is not guaranteed.
+</p>
+
+
+<H2>Revision History</H2>
+<P>
+2007/09/10 Initial version.
+</P>
+
+<hr><p>CONFIDENTIAL</p></body>
+</html>

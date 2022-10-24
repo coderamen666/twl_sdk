@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>MI_ReserveWram</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">MI_ReserveWram* <IMG src="../../image/TWL.gif" width="24" height="12" border="0" align="middle"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;twl/mi.h&gt;</CODE><BR> <BR> <CODE>u32 MI_ReserveWram( <A href="../mi_constant.html">MIWramPos</A> wram, <A href="../mi_constant.html">MIWramSize</A> size, <A href="../mi_constant.html">MIWramProc</A> proc )</CODE><BR> <CODE>u32 MI_ReserveWramSlot( <A href="../mi_constant.html">MIWramPos</A> wram, int slot, <A href="../mi_constant.html">MIWramSize</A> size, <A href="../mi_constant.html">MIWramProc</A> proc )</CODE><BR> <BR>
+  </dd>
+<dd><CODE>(#define)<BR> <font color="#7f7f7f">#define MI_ReserveWram_A( size, proc )</font><br> #define MI_ReserveWram_B( size, proc )<BR></CODE></dd>
+<dd><CODE>#define MI_ReserveWram_C( size, proc )</CODE></dd>
+<dd><font color="#7f7f7f"><CODE>#define MI_ReserveWramSlot_A( slot, size, proc )</CODE></font></dd>
+<dd><CODE>#define MI_ReserveWramSlot_B( slot, size, proc )</CODE></dd>
+  <dd>
+<CODE>#define MI_ReserveWramSlot_C( slot, size, proc )</CODE></dd>
+</dl>
+<h2>Arguments</h2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="13%"><EM><STRONG>wram</STRONG></EM></TD>
+<TD width="87%">WRAM to reserve.</TD>
+    </TR>
+    <TR>
+<TD><EM><STRONG>slot</STRONG></EM></TD>
+<TD>Slot number.</TD>
+    </TR>
+    <TR>
+<TD><EM><STRONG>size</STRONG></EM></TD>
+<TD>Size to reserve.</TD>
+    </TR>
+    <TR>
+<TD><STRONG><EM>proc</EM></STRONG></TD>
+<TD>Processor to reserve for.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<h2>Return Values</h2>
+<p>Returns the starting address if the reservation was successful.<BR>Returns 0 if the reservation failed.</p>
+<H2>Description</H2>
+<P>Reserves WRAM for the specified processor.</P>
+<P>Call this function if you are not quite ready to actually allocate and use WRAM, but you want to reserve the WRAM for a certain processor. It is acceptable to reserve WRAM for a processor other than the one this function is called from. In other words, reservations for the ARM7 can be made from the ARM9.</P>
+
+<P>The <SPAN class="argument">wram</SPAN> argument indicates the target WRAM. This is of type <CODE><A href="../mi_constant.html">MIWramPos</A></CODE> and is <CODE>MI_WRAM_A</CODE>, <CODE>MI_WRAM_B</CODE>, or <CODE>MI_WRAM_C</CODE>.</P>
+<P>The <SPAN class="argument">slot</SPAN> argument is the starting slot number when specifying the location.</P>
+<P>The <SPAN class="argument">size</SPAN> argument indicates the size to reserve. This is of type <A href="../mi_constant.html"><CODE>MIWramSize</CODE></A> and is between <CODE>MI_WRAM_SIZE_32KB</CODE> and <CODE>MI_WRAM_SIZE_256KB</CODE>. WRAM can have a separate reservation for each slot: that is, 64 KB for WRAM-A, and 32 KB for WRAM-B and WRAM-C.</P>
+<P>The <SPAN class="argument">proc</SPAN> argument indicates which processor the reservation is for. This is of type <A href="../mi_constant.html"><CODE>MIWramProc</CODE></A> and is <CODE>MI_WRAM_ARM9</CODE>, <CODE>MI_WRAM_ARM7</CODE>, or <CODE>MI_WRAM_DSP</CODE>.</P>
+<P>If WRAM reservations are made with the <CODE>MI_ReserveWram</CODE> function, the system starts searching through contiguous unused slots in the target WRAM for areas that are of the requested size, starting from the lower-order addresses. Once found, the function returns immediately. With the <CODE>MI_ReserveWramSlot</CODE> function, the location is user-specified. This fails if there is a region for which even one slot cannot be reserved.</P>
+<P>If the reservation was successful, the starting address is returned by the function. If it failed, 0 is returned.</P>
+<P>A reserved region can only be allocated by the processor for which it was reserved. No other processors can allocate the region.</P>
+<P><CODE><font color="#7f7f7f">MI_ReserveWram_A</CODE></font> is the #define directive of <CODE><font color="#7f7f7f">MI_ReserveWram( MI_WRAM_A, ... )</CODE></font>.<BR><CODE>MI_ReserveWram_B</CODE> is the #define directive of <CODE>MI_ReserveWram( MI_WRAM_B, ... )</CODE>. <BR><CODE>MI_ReserveWram_C</CODE> is the #define directive of <CODE>MI_ReserveWram( MI_WRAM_C, ... )</CODE>. <BR><font color="#7f7f7f"><CODE>MI_ReserveWramSlot_A</CODE></font> is the #define directive of <font color="#7f7f7f"><CODE>MI_ReserveWramSlot( MI_WRAM_A, ... )</CODE></font>.<BR><CODE>MI_ReserveWramSlot_B</CODE> is the #define directive of <CODE>MI_ReserveWramSlot( MI_WRAM_B, ... )</CODE>. <BR><CODE>MI_ReserveWramSlot_C</CODE> is the #define directive of <CODE>MI_ReserveWramSlot( MI_WRAM_C, ... )</CODE>. <BR></P>
+<P>To cancel a reservation, call one of the <CODE><A href="MI_CancelWram.html">MI_CancelWram*</A></CODE> functions.</P>
+<P><BR> Example: Here, we reserve 64 KB from WRAM-C for the DSP.</P>
+<P><CODE>MI_ReserveWram( MI_WRAM_C, MI_WRAM_SIZE_64KB, MI_WRAM_DSP );</CODE><BR> OR<BR> <CODE>MI_ReserveWram_C( MI_WRAM_SIZE_64KB, MI_WRAM_DSP );</CODE><BR>
+</P>
+<h2>See Also</h2>
+<P><A href="about_Wram.html">Overview: Work RAM</A><BR> <A href="../mi_constant.html">MI-Related Constants</A></P>
+<H2>Revision History</H2>
+<P>2007/08/20 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

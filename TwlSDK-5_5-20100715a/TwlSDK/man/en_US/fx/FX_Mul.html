@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>FX_Mul</title>
+<LINK rel="stylesheet" href="../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">FX_Mul <img src="../image/NTR.gif"align="middle"><img src="../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+
+<dl>
+  <dd>
+<PRE><CODE>#include &lt;nitro/fx/fx.h&gt;
+
+fx32 FX_Mul(fx32 v1, fx32 v2);</CODE></PRE>
+  </dd>
+</dl><h2>Arguments</h2>
+
+<table border="1" width="100%">
+  
+    <tr>
+<TD width="109"><SPAN class="argument">v1</SPAN></TD>
+<TD width="593">An <code><A href="fx32.html">fx32</A></code>-type fixed decimal.</TD>
+    </tr>
+    <TR>
+<TD><SPAN class="argument">v2</SPAN></TD>
+<TD>An <code><A href="fx32.html">fx32</A></code>-type fixed decimal.</TD>
+    </TR>
+  </table>
+<h2>Return Values</h2>
+<p>Result of multiplying <SPAN class="argument">v1</SPAN> and <SPAN class="argument">v2</SPAN>.</p>
+<H2>Description</H2>
+<P>This function multiplies two <CODE><A href="fx32.html">fx32</A></CODE> types. It returns the result as an <CODE><A href="fx32.html">fx32</A></CODE> type. The calculations are performed internally using <CODE><A href="fx64.html">fx64</A></CODE> types. Values that are less than 1/4096 are rounded off. If this function is written in a section of THUMB code it is handled as a function call. If it is written in ARM code it is expanded as an inline function.<br>For this reason, if your program internally switches between ARM and THUMB code, do not use <code>#pragma thumb on</code>. Instead use <code>#include &lt;twl/code16.h&gt;</code>.<br>See the <a href="../information/headerfiles.html">Description of Header Files</a> page for a description of <CODE>code16.h</CODE>.
+</P>
+<P><A href="../os/debug/SDK_WARNING.html"><CODE>SDK_WARNING</CODE></A> displays a warning message when the number of digits overflows during calculations.</P>
+
+<h2>See Also</h2>
+<P><code><A href="FX_Div.html">FX_Div</A><BR> <A href="FX_Sqrt.html">FX_Sqrt</A><BR> <A href="FX_Inv.html">FX_Inv</A></code></P>
+<H2>Revision History</H2>
+<P>
+2009/04/28 Added description of method if switching between THUMB and ARM code.<br> 2006/04/28 Added digit overflow check.<br> 2004/01/19 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

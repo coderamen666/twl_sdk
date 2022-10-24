@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>MI_ReadCache</title>
+<link rel="stylesheet" href="../../css/nitro.css" type="text/css" />
+</head>
+<body>
+<h1>MI_ReadCache <IMG src="../../image/NTR.gif" align="middle"><IMG src="../../image/TWL.gif" align="middle"></h1>
+<h2>Syntax</h2>
+<dl>
+  <dd>
+<code>#include &lt;nitro/mi.h&gt;<br />
+  <br />
+  BOOL MI_ReadCache(<A href="MICache.html">MICache</A> *cache, void *buffer, u32 offset, u32 length);</code></dd>
+</dl>
+
+<h2>Arguments</h2>
+<table border="1" width="100%">
+  <tbody>
+    <tr>
+      <td width="13%"><em><strong>cache</strong></em></td>
+      <td width="87%">Pointer to the <A href="MICache.html"><CODE>MICache</CODE></A> structure to access.<br />
+      The cache must have been initialized using <A href="MI_InitCache.html"><CODE>MI_InitCache()</CODE></A>.</td>
+    </tr>
+    <tr>
+      <td width="13%"><em><strong>buffer</strong></em></td>
+      <td width="87%">The destination memory to store the loaded data.
+      Specifying NULL indicates cache preloading for the specified area.<br />
+      For more details, see the Description section below.</td>
+    </tr>
+    <tr>
+      <td width="13%"><em><strong>offset</strong></em></td>
+      <td width="87%">The start address of the device to which data should be read.</td>
+    </tr>
+    <tr>
+      <td width="13%"><em><strong>length</strong></em></td>
+      <td width="87%">Data size to load.</td>
+    </tr>
+  </TBODY>
+</table>
+
+<h2>Return Values</h2>
+<p>Returns TRUE if the cache is hit and the read succeeds; otherwise, returns FALSE. </p>
+
+<h2>Description</h2>
+<p>Reads data from the cache page list of the <A href="MICache.html"><CODE>MICache</CODE></A> structure.</p>
+<p>If the data in the specified range has already been loaded with <a href="MI_LoadCache.html"><CODE>MI_LoadCache()</CODE></a>, it will copy data from the cache page list and return TRUE.</p>
+<p>If part or all of the specified range does not exist in the cache page list, it will destroy the least-used page within the cache page list, set it to the &quot;waiting to load&quot; state, and return FALSE.</p>
+<p>Pages that enter the &quot;waiting to load&quot; state will actually be loaded during the subsequent call to <a href="MI_LoadCache.html"><CODE>MI_LoadCache()</CODE></a>.
+</p>
+<p>If NULL is specified for <em><strong>buffer</strong></em> (the destination memory for the transfer), nothing will happen if there is a hit in the cache, but the same processing will apply for putting pages in areas that didn't have hits into the &quot;waiting to load&quot; state. Therefore, this function can be used to instruct <I>to prepare for prefetch</I> the specified range.</p>
+<p>
+This function is thread-safe. This function can be used even while <a href="MI_LoadCache.html"><CODE>MI_LoadCache()</CODE></a> or other such functions are being called in other threads.
+</p>
+<p>
+This feature is a utility that enables efficient read access to devices. For more information, see the reference for the <a href="MICache.html"><CODE>MICache</CODE></a> structure.
+</p>
+
+<h2>See Also</h2>
+<p><code><a href="MI_InitCache.html">MI_InitCache</a>, <a href="MI_LoadCache.html">MI_LoadCache</a>, <a href="MI_IsCacheLoading.html">MI_IsCacheLoading</a><br /> <a href="MICache.html">MICache</a></code></p>
+<h2>Revision History</h2>
+<p>2007/05/16 Initial version.</p>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

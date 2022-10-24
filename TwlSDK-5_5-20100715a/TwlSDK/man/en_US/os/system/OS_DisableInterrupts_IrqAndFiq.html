@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>OS_DisableInterrupts_IrqAndFiq</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+<body>
+<h1 align="left">OS_DisableInterrupts_IrqAndFiq <img src="../../image/NTR.gif" align="middle"><img src="../../image/TWL.gif" align="middle"></h1>
+<h2>Syntax</h2>
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/os.h&gt;</CODE><BR>
+  <BR>
+  <CODE>OSIntrMode OS_DisableInterrupts_IrqAndFiq( void );</CODE></dd>
+</dl><h2>Arguments</h2>
+<P>None.</P>
+<h2>Return Values</h2>
+<p>Returns a value that indicates the state before this function was called.</p>
+<p>The return value type is <CODE>OSIntrMode</CODE> (a <CODE>u32</CODE> typedef), but the return value is the logical sum of the <CODE>OSIntrMode_Irq</CODE> and <CODE>OSIntrMode_Fiq</CODE> enumerated types.<BR><BR> The <CODE>OSIntrMode_Irq</CODE> enumerated type:</p>
+<TABLE cellspacing="2">
+  <TBODY>
+    <TR>
+      <TH>Value</TH>
+      <TH>Previous state</TH>
+    </TR>
+    <TR>
+      <TD>OS_INTRMODE_IRQ_DISABLE</TD>
+      <TD>IRQ Disable (prohibited)</TD>
+    </TR>
+    <TR>
+      <TD>OS_INTRMODE_IRQ_ENABLE</TD>
+      <TD>IRQ Enable (permitted)</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p><BR> The <CODE>OSIntrMode_Fiq</CODE> enumerated type:</P>
+<TABLE cellspacing="2">
+  <TBODY>
+    <TR>
+      <TH>Value</TH>
+      <TH>Previous state</TH>
+    </TR>
+    <TR>
+      <TD>OS_INTRMODE_FIQ_DISABLE</TD>
+      <TD>FIQ Disable (prohibited)</TD>
+    </TR>
+    <TR>
+      <TD>OS_INTRMODE_FIQ_ENABLE</TD>
+      <TD>FIQ Enable (permitted)</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>Description</H2>
+<P>This function disables IRQ and FIQ interrupts.</P>
+<P>The master enable flag for all interrupts (the Interrupt Master Enable Flag) is what is disabled here. If IRQs are disabled with this function, no interrupts will occur even if IRQ interrupt causes are individually set to enable.</P>
+<P>The return value indicates the state prior to calling the function.</P>
+<h2>Internal Operation</h2>
+<P>The CPSR register (current program status register) IRQ and FIQ interrupt control bit are set (the set is disabled).</P>
+<h2>See Also</h2>
+<p><CODE><A href="OS_EnableInterrupts_IrqAndFiq.html">OS_EnableInterrupts_IrqAndFiq</A><BR>
+ <A href="OS_RestoreInterrupts_IrqAndFiq.html">OS_RestoreInterrupts_IrqAndFiq</A><BR>
+ <A href="OS_DisableInterrupts.html">OS_DisableInterrupts</A><br></CODE></p>
+<H2>Revision History</H2>
+<P>
+2005/03/08 Standardized the Japanese word for &quot;interrupt&quot;.<br /> 2004/03/04 Moved from <CODE>OS_DisableInterrupts</CODE>.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

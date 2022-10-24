@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 8.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>MB_SetLifeTime</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+<body>
+<h1 align="left">MB_SetLifeTime <IMG src="../../image/NTR.gif" width="24" height="12" border="0" align=middle><IMG src="../../image/TWL.gif" width="24" height="12" border="0" align=middle></h1>
+<h2>Syntax</h2>
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/mb.h&gt;</CODE><BR>
+  <BR>
+  <CODE>void MB_SetLifeTime(u16 tableNumber, u16 camLifeTime, u16 frameLifeTime, u16 mpLifeTime);</CODE><br>
+  <br>
+  </dd>
+</dl>
+<h2>Arguments</h2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+      <TD width="200"><EM><STRONG><FONT face="Courier New">tableNumber</FONT></STRONG></EM></TD>
+      <TD width="800">CAM table number that will have its lifetime set.<br>
+	  This is set to <CODE>0xFFFF</CODE> (&quot;all&quot;) by default.<br>
+	  The meaning of this argument is the same as in the <CODE><a href="../../wm/wm/WM_SetLifeTime.html">WM_SetLifeTime</a></CODE> function.</TD>
+    </TR>
+    <TR>
+      <TD width="200"><EM><STRONG><FONT face="Courier New">camLifeTime</FONT></STRONG></EM></TD>
+      <TD width="800">Lifetime of the CAM table.<br>
+	  This is set to 40 (4 seconds) by default.<br>
+	  The meaning of this argument is the same as in the <CODE><a href="../../wm/wm/WM_SetLifeTime.html">WM_SetLifeTime</a></CODE> function.</TD>
+    </TR>
+    <TR>
+      <TD width="200"><EM><STRONG><FONT face="Courier New">frameLifeTime</FONT></STRONG></EM></TD>
+      <TD width="800">Lifetime while in infrastructure mode.<br>
+	  This is set to 5 by default.<br>
+	  The meaning of this argument is the same as in the <CODE><a href="../../wm/wm/WM_SetLifeTime.html">WM_SetLifeTime</a></CODE> function.</TD>
+    </TR>
+    <TR>
+      <TD width="200"><EM><STRONG><FONT face="Courier New">mpLifeTime</FONT></STRONG></EM></TD>
+      <TD width="800">MP communications lifetime.<br>
+	  This is set to 40 (4 seconds) by default.<br>
+	  The meaning of this argument is the same as in the <CODE><a href="../../wm/wm/WM_SetLifeTime.html">WM_SetLifeTime</a></CODE> function.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<h2>Return Values</h2>
+<p>None.</p>
+<H2>Description</H2>
+<P>Specifies the various lifetimes for the WM library that is used internally in the MB library. The internal values specified by this function are used unchanged as arguments to the <CODE><a href="../../wm/wm/WM_SetLifeTime.html">WM_SetLifeTime</a></CODE> function. In a normal game application, the default setting is appropriate, so there is no need to call this function explicitly.<br> This function can be called only after the <CODE><a href="../common/MB_Init.html">MB_Init</a></CODE> function and before the <CODE><A href="MB_StartParent.html">MB_StartParent</A></CODE> function. <br>
+</p>
+<h2>See Also</h2>
+<p><CODE><A href="../common/MB_Init.html">MB_Init</A><BR> <A href="MB_StartParent.html">MB_StartParent</A><BR> <a href="../../wm/wm/WM_SetLifeTime.html">WM_SetLifeTime</a></CODE></P>
+<H2>Revision History</H2>
+<P>
+2006/07/19 Changed default values.<BR> 2005/04/11 Initial version.<BR>
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

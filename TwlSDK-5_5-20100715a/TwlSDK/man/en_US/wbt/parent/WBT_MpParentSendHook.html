@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>WBT_MpParentSendHook</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">WBT_MpParentSendHook&nbsp;<img src="../../image/NTR.gif"><img src="../../image/TWL.gif"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/wbt.h&gt;</CODE><BR> <BR> <CODE>int WBT_MpParentSendHook(void *sendbuf, int send_size);</CODE><br> <br>
+  </dd>
+</dl>
+<h2>Arguments</h2>
+<p>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="13%"><CODE>sendbuf</CODE></TD>
+<TD width="87%">Parent's send buffer, used for WBT by functions such as <a href="../../wm/wm/WM_SetMPDataToPort.html">WM_SetMPDataToPort</a> during MP communications.</TD>
+    </TR>
+    <TR>
+<TD width="13%"><CODE>send_size</CODE></TD>
+<TD width="87%"><CODE>sendbuf</CODE> parent packet size allocated for WBT. This value must be larger than <CODE>WBT_PACKET_SIZE_MIN</CODE>.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</p>
+
+<h2>Return Values</h2>
+<p>Returns the byte size stored by the actual data to send.</p>
+
+<H2>Description</H2>
+<P>Stores in the send buffer the data the WBT library parent sends by MP communication. Data based on the WBT library protocol is set in the send buffer. Various commands are executed by repeating this function during the MP transmission. <B>Note:</B> This function merely stores data in the buffer. After this, send the buffer using a function such as <A href="../../wm/wm/WM_SetMPDataToPort.html"><code>WM_SetMPDataToPort</code></A>.)<br> <br> When data receipt is requested by <A href="../command/WBT_GetBlock.html"><code>WBT_GetBlock</code></A> from any communication destination, a <A href="../wbt_command_type_const.html"><code>WBT_CMD_PREPARE_SEND_DATA</code></A> callback may be generated in this call, depending on settings. <br>
+<h2>See Also</h2>
+<p>
+<A href="WBT_MpParentRecvHook.html"><CODE>WBT_MpParentRecvHook</CODE></A>
+</P>
+<H2>Revision History</H2>
+<P>
+2005/03/14 Corrected link destination error.<br /> 2005/02/18 Added cautionary notes about the relationship with the WM library.<br /> 2004/09/31 Initial version
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

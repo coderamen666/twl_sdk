@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!--==========================================================================
+  Copyright 2008 Nintendo.  All rights reserved.
+
+  These coded instructions, statements, and computer programs contain
+  proprietary information of Nintendo of America Inc. and/or Nintendo
+  Company Ltd., and are protected by Federal copyright law.  They may
+  not be disclosed to third parties or copied or duplicated in any form,
+  in whole or in part, without the prior written consent of Nintendo.
+ ==========================================================================-->
+<HTML>
+<HEAD>
+	<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+	<META http-equiv="Content-Style-Type" content="text/css">
+	<TITLE>CRYPTO_VerifySignatureWithHash</TITLE>
+	<LINK rel="stylesheet" href="../../css/nitro.css">
+	<BASE target="main">
+</HEAD>
+<BODY>
+<H1>CRYPTO_VerifySignatureWithHash <IMG src="../../image/NTR.gif" width="23" height="12" border="0" align="middle"><IMG src="../../image/TWL.gif" width="23" height="12" border="0" align="middle"></H1>
+<H2>Syntax</H2>
+<DL>
+	<DD>
+		<PRE><CODE>
+#include &lt;nitro/crypto/sign.h&gt;
+
+int CRYPTO_VerifySignatureWithHash(
+const void* hash_ptr,
+const void* sign_ptr,
+const void* mod_ptr
+);
+		</CODE></PRE>
+	</DD>
+</DL>
+<H2>Arguments</H2>
+<TABLE border="1">
+	<TBODY>
+		<TR>
+			<TD width="25%"><EM><STRONG><CODE>hash_ptr</CODE></STRONG></EM></TD>
+			<TD width="75%">Pointer to a 20-byte SHA-1 hash value for data requiring digital signature verification.</TD>
+		</TR>
+		<TR>
+			<TD><EM><STRONG><CODE>sign_ptr</CODE></STRONG></EM></TD>
+			<TD>Pointer to the digital signature (128 bytes).</TD>
+		</TR>
+		<TR>
+			<TD><EM><STRONG><CODE>mod_ptr</CODE></STRONG></EM></TD>
+			<TD>Pointer to the public-key modulus (128 bytes).</TD>
+		</TR>
+	</TBODY>
+</TABLE>
+<H2>Return Values</H2>
+<P>
+	Returns one of the following process results.
+</P>
+<TABLE border="1">
+	<TBODY>
+		<TR>
+			<TD width="25%"><EM><STRONG><CODE>TRUE</CODE></STRONG></EM></TD>
+			<TD width="75%">Digital signature verification succeeded.</TD>
+		</TR>
+		<TR>
+			<TD><EM><STRONG><CODE>FALSE</CODE></STRONG></EM></TD>
+			<TD>Verification failed. Failure results because either the signature and the data differ, the public key and the signature do not match, or the signature format is incorrect.</TD>
+		</TR>
+	</TBODY>
+</TABLE>
+<H2>Description</H2>
+<P>
+	Digital signatures are used to verify whether data is correct.<BR>hash_ptr is assigned a pointer to a 20-byte hash value derived from an application of the SHA-1 algorithm for data requiring verification. sign_ptr is assigned 128 bytes of signature data. The signature data uses PKCS#1 v.1.5 formatting for a 1024-bit RSA key length, hashed with the SHA-1 algorithm.<BR><CODE>mod_ptr</CODE> is a byte sequence of the 128-byte public-key modulus, arranged in order from the upper byte. <B>Note:</B> The public exponent for the public key is fixed as 65537 (0x10001). This function does not support RSA keys with a public exponent other than 65537.<BR>
+</P>
+<P>
+	Dynamically allocates memory for calculations during the call. The memory management function specified by <code><A href="../util/CRYPTO_SetMemAllocator.html">CRYPTO_SetMemAllocator()</A></code> is used. However, among the memory management functions that can be specified for this function, the memory size-changing function (the <EM><STRONG><CODE>realloc</CODE></STRONG></EM> argument) is not used. <BR>The amount of memory used varies depending on the data to verify. This is usually not a problem if 4KB is provided in advance. This function returns FALSE if memory allocation fails and NULL is passed by the memory management function.
+</P>
+<P>
+	Normally, the <A href="CRYPTO_VerifySignature.html"><CODE>CRYPTO_VerifySignature</CODE></A> function is useful, which calculates the SHA-1 hash value internally. Use this function when not all of the data is available in memory, for whatever reason.
+</P>
+<P>
+	Due to licensing issues, this API will only work with the TWL. If you need to verify a signature on a NITRO system, link and use the same function in the NITRO-Crypto package.
+</P>
+<P>
+	For detailed information on electronic signatures, see <A href="../overview/about_Signature.html">Digital Signature Overview</A>.
+</P>
+<H2>See Also</H2>
+<P>
+	<CODE><A href="CRYPTO_VerifySignature.html">CRYPTO_VerifySignature</A></CODE>
+</P>
+<H2>Revision History</H2>
+<P>
+	2008/03/27 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

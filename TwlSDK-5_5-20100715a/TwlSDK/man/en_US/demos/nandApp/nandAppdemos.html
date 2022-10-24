@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<LINK rel="stylesheet" type="text/css" href="../../css/nitro.css">
+<TITLE>nandApp Demos</TITLE>
+</HEAD>
+<BODY>
+<H1>NAND Application Sample Demos</H1>
+<H2>Location</H2>
+<P><CODE>$TwlSDK/build/demos.TWL/nandApp</CODE></P>
+<H2>Compilation</H2>
+<P>Move to the <CODE>$TwlSDK/build/demos.TWL/nandApp</CODE> directory and enter the following.</P>
+<BLOCKQUOTE><CODE>% make</CODE></BLOCKQUOTE>
+<P>
+&nbsp; Compilation starts, and a TAD file in NAND application format is created in
+</P>
+<BLOCKQUOTE><CODE>$TwlSDK/build/demos.TWL/nandApp/(sample_name)/bin/(platform)/(target)/</CODE></BLOCKQUOTE>
+<P>
+ For example:
+</P>
+<BLOCKQUOTE><CODE>$TwlSDK/build/demos.TWL/nandApp/simple/bin/ARM9-TS.LTD/Release/simple.tad</CODE></BLOCKQUOTE>
+<P>
+is the file used to import the <CODE>simple</CODE> demo.
+</P>
+
+<H2>Running the Tool</H2>
+<P>Perform either of the following procedures:</P>
+<UL>
+<LI>Open a TAD file using the IS-TWL-DEBUGGER software, and then import and run it.
+<LI>Use <CODE>$TwlSDK/bin/ARM9-TS/Release/TwlNmenu.srl</CODE> to import and then run a TAD file that is stored on an SD Card.
+</UL>
+
+<H2>Description</H2>
+<TABLE width="720">
+  <TBODY>
+    <TR>
+<TH>Name</TH>
+<TH>Directories</TH>
+<TH>Operation</TH>
+    </TR>
+    <TR>
+<TD width="187"><CODE>simple</CODE></TD>
+<TD><CODE>demos.TWL</CODE></TD>
+<TD width="525">A sample demonstrating how to create a simple NAND application using a ROM archive.</TD>
+    </TR>
+    <TR>
+<TD width="187"><CODE>backup</CODE></TD>
+<TD><CODE>demos.TWL</CODE></TD>
+<TD width="525">A sample demonstrating the use of the save data region of a NAND application.</TD>
+    </TR>
+    <TR>
+<TD width="187"><CODE>other_backup</CODE></TD>
+<TD><CODE>demos.TWL</CODE></TD>
+<TD width="525">A sample demonstrating the use of the save data region of another NAND application.</TD>
+    </TR>
+    <TR>
+<TD width="187"><CODE>sharedFont</CODE></TD>
+<TD><CODE>demos.TWL</CODE></TD>
+<TD width="525">A sample demonstrating how to load the system's internal fonts.</TD>
+    </TR>
+    <TR>
+<TD width="187"><CODE>SubBanner</CODE></TD>
+<TD><CODE>demos.TWL</CODE></TD>
+<TD width="525">A sample demonstrating the use of sub-banners.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>Operation</H2>
+<P>These demos do not work properly with Ensata.</P>
+<H2>See Also</H2>
+<P>
+</P>
+<H2>Revision History</H2>
+<P>
+2008/09/16 Added <CODE>sharedFont</CODE>. Updated the content to match the current implementation.<br> 2008/07/11 Added <CODE>SubBanner</CODE>.<br> 2007/12/01 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

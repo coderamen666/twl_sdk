@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>OS_SetProtectionRegion</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">OS_SetProtectionRegion* <img src="../../image/NTR.gif" align="middle"><img src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+<DL>
+  <DD>
+<P><CODE>#include &lt;nitro/os.h&gt;</CODE><BR> <BR> (<CODE>Specify address and size</CODE>)<BR> <CODE>#define OS_SetProtectionRegion( regionNo, address, sizeStr );</CODE><BR> <CODE>void OS_SetProtectionRegionEx( int regionNo, u32 address, u32 sizeDef );</CODE><BR> <BR> (<CODE>Specify parameters</CODE>)<BR> <CODE>void OS_SetProtectionRegionParam( int regionNo, u32 param );</CODE><BR> <CODE>void OS_SetProtectionRegion0( u32 param )</CODE>;<BR> <CODE>void OS_SetProtectionRegion1( u32 param );</CODE><BR> <CODE>void OS_SetProtectionRegion2( u32 param );</CODE><BR> <CODE>void OS_SetProtectionRegion3( u32 param );</CODE><BR> <CODE>void OS_SetProtectionRegion4( u32 param );</CODE><BR> <CODE>void OS_SetProtectionRegion5( u32 param );</CODE><BR> <CODE>void OS_SetProtectionRegion6( u32 param );</CODE><BR> <CODE>void OS_SetProtectionRegion7( u32 param );</CODE><BR>
+</DL>
+<H2>Arguments</H2>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+<TD><B><I>regionNo</I></B></TD>
+<TD>Protection Region number. Specify a value between 0 and 7.</TD>
+    </TR>
+    <TR>
+<TD><B><I>address</I></B></TD>
+<TD>Base address (starting address). Specify as type u32.</TD>
+    </TR>
+    <TR>
+<TD><B><I>sizeStr</I></B></TD>
+<TD>String indicating area size. Only certain strings such as 4KB, 8KB, etc. can be specified.</TD>
+    </TR>
+    <TR>
+<TD><B><I>sizeDef</I></B></TD>
+<TD>Value indicating the area size. It is of the form &quot;<CODE>OS_PR_SIZE_xxx</CODE>,&quot; where &quot;<CODE>xxx</CODE>&quot; is 4KB, 8KB, ... 4GB.</TD>
+    </TR>
+    <TR>
+<TD><B><I>param</I></B></TD>
+<TD>Logical sum of specified base address and area size values. This logical sum value is set in CP15.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>Return Values</H2>
+<P>None.</P>
+<H2>Description</H2>
+<P>Sets the Protection Region's base address (starting address) and size. Also, with the <CODE>OS_SetProtectionRegion</CODE> function, the protection unit is enabled at the same time.</P>
+<P><font color="red">The Protection Region's settings are closely related to system behavior. When making these settings, be sure you understand the design of the Protection Region and how each area is used.</font></P>
+<H3><CODE>OS_SetProtectionRegion </CODE></H3>
+<P>The <CODE>OS_SetProtectionRegion</CODE> function is a macro. The <SPAN class="argument">regionNo</SPAN> argument is the region number of the Protection Region being set. The string itself is used as the argument by the macro, so you cannot use the value to specify a variable. You should specify a number between 0 and 7.</P>
+<P>The <SPAN class="argument">address</SPAN> argument is the base address (starting address) of the Protection Region being set. Specify as type u32. The alignment restrictions of the specified address will vary, depending on the size of the Protection Region. The Protection Region's starting address must be a multiple of the area size. Thus, if the Protection Region is 4KB, then the lower 12 bits of the address expressed as a u32 value must be 0.</P>
+<P>The <SPAN class="argument">sizeStr</SPAN> argument is a string that indicates the size of the Protection Region. It takes one of the values shown below.</P>
+<BLOCKQUOTE>
+<P>4KB 8KB 16KB 32KB 64KB 128KB 256KB 512KB<BR> 1MB 2MB 4MB 8MB 16MB 32MB 64MB 128MB 256MB 512MB<BR> 1GB 2GB 4GB</P>
+</BLOCKQUOTE>
+<BLOCKQUOTE>Example:<BR> <CODE>OS_SetProtectionRegion( 2, 0x02080000, 32KB );</CODE><BR>
+</BLOCKQUOTE>
+<P>Regardless of the status before calling the <CODE>OS_SetProtectionRegion</CODE> function, the region becomes enabled.</P>
+<H3><CODE>OS_SetProtectionRegionEx</CODE></H3>
+<P>The <CODE>OS_SetProtectionRegionEx</CODE> function was created to make it possible to pass variables for region numbers for which this was not possible because the <CODE>OS_SetProtectionRegion</CODE> function was a macro.</P>
+<P>The <SPAN class="argument">regionNo</SPAN> argument is the region number of the Protection Region being set. It ranges from 0 to 7.</P>
+<P>The <SPAN class="argument">address</SPAN> argument is the base address (starting address) of the Protection Region being set. Everything else is the same as with the <CODE>OS_SetProtectionRegion</CODE> function.</P>
+<P>The <SPAN class="argument">sizeDef</SPAN> argument is a value of the form <CODE>OS_PR_SIZE_xxx</CODE>. Any of the following can be specified in <CODE>xxx</CODE>.</P>
+<BLOCKQUOTE>4KB 8KB 16KB 32KB 64KB 128KB 256KB 512KB<BR> 1MB 2MB 4MB 8MB 16MB 32MB 64MB 128MB 256MB 512MB<BR> 1GB 2GB 4GB</BLOCKQUOTE>
+<P> </P>
+<BLOCKQUOTE>Example:<BR> <CODE>OS_SetProtectionRegionEx( 2, 0x02080000, OS_PR_SIZE_32KB );</CODE></BLOCKQUOTE>
+<H3><CODE>OS_SetProtectionRegionParam</CODE></H3>
+<P>The <CODE>OS_SetProtectionRegionParam</CODE> function is used to set the base address and region size, using the Protection Region's internal parameter format. The <SPAN class="argument">regionNo</SPAN> argument is the same as in the <CODE>OS_SetProtectionRegionEx</CODE> function. The <SPAN class="argument">param</SPAN> parameter is the bitwise OR of the base address and <CODE>HW_C6_PR_SIZE_<I>xxx</I></CODE>, which is the value set for the region size. <CODE><I>xxx</I></CODE> takes the string given for <SPAN class="argument">sizeStr</SPAN> (4KB, 8KB, or any of the other possible values up to 4GB). To enable the region, also include <CODE>HW_C6_PR_ENABLE</CODE> in the bitwise OR operation.</P>
+<BLOCKQUOTE>Example: <BR> <CODE>OS_SetProtectionRegionParam( 2, 0x02080000 | HW_C6_PR_32KB | HW_C6_PR_ENABLE );</CODE><BR>
+</BLOCKQUOTE>
+<H3><CODE>OS_SetProtectionRegion0 - OS_SetProtectionRegion7</CODE></H3>
+<P>The functions <CODE>OS_SetProtectionRegion0</CODE> through <CODE>OS_SetProtectionRegion7</CODE> are used for specifying the region numbers of <CODE>OS_SetProtectionRegionParam</CODE> using the function names. The <SPAN class="argument">param</SPAN> argument is the same as in the <CODE>OS_SetProtectionRegionParam</CODE> function.</P>
+<H2>Internal Operation</H2>
+<P>Modifies register 6 of the system control co-processor CP15.</P>
+
+<H2>See Also</H2>
+<P><A href="OS_EnableProtectionUnit.html"><CODE>OS_EnableProtectionUnit</CODE></A><BR> <A href="OS_DisableProtectionUnit.html"><CODE>OS_DisableProtectionUnit</CODE></A><BR> <A href="OS_GetProtectionRegion.html"><CODE>OS_GetProtectionRegion*</CODE></A></P>
+<H2>Revision History</H2>
+<P>2007/10/25 Added the <CODE>OS_SetProtectionRegionEx</CODE> function. Also added other descriptions.<BR>2004/07/08 Described <CODE>HW_C6_PR_ENABLE</CODE>.<BR> 2004/05/28 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

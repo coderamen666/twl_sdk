@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title>WFSSegmentBuffer</title>
+<link rel="stylesheet" href="../css/nitro.css" type="text/css" />
+</head>
+
+<body>
+
+<h1>WFSSegmentBuffer</h1>
+<h2>Definition</h2>
+
+<dl>
+  <dd>
+<code>#include &lt;nitro/wfs.h&gt;</code><br />
+  <br />
+<pre>
+typedef struct WFSSegmentBuffer
+{
+    u32     offset;
+    u32     length;
+    void   *buffer;
+}
+WFSSegmentBuffer;
+</pre>
+  <br />
+  </dd>
+</dl>
+
+<h2>Elements</h2>
+<table border="1" width="100%">
+  <tbody>
+    <tr>
+      <td>offset</td>
+      <td>Address of the data to read within the device.</td>
+    </tr>
+    <tr>
+      <td>length</td>
+      <td>Size of data to be read.</td>
+    </tr>
+    <tr>
+      <td>buffer</td>
+      <td>Buffer where the read data is stored.<br />
+      <br />
+      If this member is NULL, indicates that the specified data segment will be needed later on.<br />
+      Although it is not necessary to prepare associated data inside a callback at this time, an event callback with the same content will be notified again later, so the appropriate data must be prepared before that time.<BR>
+      <br />
+      If this member is not NULL, the specified data segment is actually required.<br />
+      You must prepare the corresponding data, store it in the buffer pointed to by this member, and return.<br />
+      If the data being requested here has not been prepared, replace this member with NULL and return.<br />
+      Notification of an event callback with the same content will be made again later, so the data must be prepared before that time.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<h2>Description</h2>
+<p>This data structure represents data segment information that is passed as an argument of the <a href="WFSEventType.html">WFS_EVENT_SERVER_SEGMENT_REQUEST</a> event notification.<br />In order to respond to read requests from a child (client), the parent (server) must read the data in the region specified by this structure from the device.
+</p>
+
+<h2>See Also</h2>
+<p><code><a href="server/WFS_CallServerPacketSendHook.html">WFS_CallServerPacketSendHook</a>, <a href="server/WFS_CallServerPacketRecvHook.html">WFS_CallServerPacketRecvHook</a>, <a href="client/WFS_CallClientPacketSendHook.html">WFS_CallClientPacketSendHook</a>, <a href="client/WFS_CallClientPacketRecvHook.html">WFS_CallClientPacketRecvHook</a></code></p>
+
+<h2>Revision History</h2>
+<p>
+2007/06/06 Initial version.
+</p>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

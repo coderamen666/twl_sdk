@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 8.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>G2S_SetBlendBrightnessExt</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">G2S_SetBlendBrightnessExt <img src="../../image/NTR.gif"align="middle"><img src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+
+<dl>
+  <dd>
+<PRE>
+<CODE>#include &lt;nitro/gx/g2.h&gt;</CODE><BR>
+<CODE>void G2S_SetBlendBrightnessExt(<BR>    int plane1 /* GXBlendPlaneMask */,<BR>    int plane2 /* GXBlendPlaneMask */,<BR>    int ev1,<BR>    int ev2,<BR>    int brightness<BR>);<BR>
+</CODE></PRE></dd>
+</dl><h2>Arguments</h2>
+
+<table border="1" width="100%">
+  
+    <tr>
+<td width="13%"><CODE>plane1</CODE></td>
+<td width="87%">Selects the plane where the brightness will be changed (result of a logical OR with the <code>GXBlendPlaneMask</code> type values)</td>
+  </tr>
+    <TR>
+<TD><CODE>plane2</CODE></TD>
+<TD>Selects the screen where alpha-blending is performed on the translucent OBJ, bitmap OBJ, and 3D screen.</TD>
+    </TR>
+    <TR>
+<TD><CODE>ev1</CODE></TD>
+<TD>Alpha-blending coefficient for translucent OBJ, bitmap OBJ, and 3D screen. (0 &le; <SPAN class="argument">ev1</SPAN> &le; 31)</TD>
+    </TR>
+    <TR>
+<TD><CODE>ev2</CODE></TD>
+<TD>Alpha-blending coefficient for <SPAN class="argument">plane2</SPAN>. (0 &le; <SPAN class="argument">ev2</SPAN> &le; 31)</TD>
+    </TR>
+    <TR>
+<TD><CODE>brightness</CODE></TD>
+<TD>Specifies the coefficient to change the brightness of <em><strong><code>plane1</code></strong></em> (-16 &le; <em><strong><code>brightness</code></strong></em> &le; 16)</TD>
+    </TR>
+  </table>
+<h2>Return Values</h2>
+<p>None.</p>
+<H2>Description</H2>
+<P>If the value of <SPAN class="argument">ev1</SPAN> or <SPAN class="argument">ev2</SPAN> is greater than 16, the alpha-blending coefficient that is actually set is 16.<BR><BR>This function uses the sub 2D Engine to change the brightness of the plane that was specified by <em><strong><CODE>plane1</CODE></strong></em>. If <em><strong><code>brightness</code></strong></em> is positive, the brightness increases; if it is negative, the brightness decreases. Furthermore, alpha-blending is performed on the translucent OBJ, bitmap OBJ, 3D screen, and the screen specified by <em><strong><code>plane2</code></strong></em>. Refer to the <CODE><A href="G2S_SetBlendAlpha.html">G2S_SetBlendAlpha</A></CODE> function for details on the <code>GXBlendPlaneMask</code> type.</P>
+<h2>See Also</h2>
+<P><CODE><A href="G2S_BlendNone.html">G2S_BlendNone</A><BR> <A href="G2S_SetBlendAlpha.html">G2S_SetBlendAlpha</A><BR> <A href="G2S_SetBlendBrightness.html">G2S_SetBlendBrightness</A><BR> <A href="G2S_ChangeBlendAlpha.html">G2S_ChangeBlendAlpha</A><BR> <A href="G2S_ChangeBlendBrightness.html">G2S_ChangeBlendBrightness</A></CODE></P>
+<H2>Revision History</H2>
+<P>2008/10/30 Added description of the alpha-blending coefficients.</P>
+<P>2004/02/09 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

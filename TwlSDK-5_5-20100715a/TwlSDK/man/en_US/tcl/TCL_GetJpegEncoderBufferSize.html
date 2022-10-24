@@ -1,0 +1,44 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title>TCL_GetJpegEncoderBufferSize</title>
+<link rel="stylesheet" href="../css/nitro.css" type="text/css">
+</head>
+<body>
+<h1 align="left">TCL_GetJpegEncoderBufferSize <img src="../image/TWL.gif" align="middle"></h1>
+
+<h2>Definition</h2>
+<dl>
+	<dd>
+	<code>#include &lt;twl/tcl.h&gt;</code><br/>
+	<br/>
+	<pre><code>
+u32 TCL_GetJpegEncoderBufferSize( u32 option );
+	</code></pre>
+</dl>
+
+<h2>Arguments</h2>
+<p>
+<table>
+<tr><td><SPAN class="argument">option</SPAN><td>Option passed to <code>SSP_GetJpegEncoderFastBufferSize</code>.</table>
+</p>
+
+<h2>Return Values</h2>
+<p>Return value for <code>SSP_GetJpegEncoderFastBufferSize</code>.</p>
+
+<h2>Description</h2>
+<p>Returns the JPEG encoding work buffer size when calling the <a href="TCL_EncodeAndWritePicture.html"><code>TCL_EncodeAndWritePicture(Ex)</code></a> functions.</p>
+<p><code>SSP_JPEG_THUMBNAIL</code> is automatically added to the <code>option</code> passed here.</p>
+<p>The <code>option</code> passed to this function and the <code>option</code> passed to the <a href="TCL_EncodeAndWritePicture.html"><code>TCL_EncodeAndWritePicture(Ex)</code></a> functions should be the same.</p>
+
+<h2>See Also</h2>
+<p><a href="TCL_EncodeAndWritePicture.html"><code>TCL_EncodeAndWritePicture(Ex)</code></a></p>
+
+<h2>Revision History</h2>
+<p>
+2009/06/29 Changed the SSP function that is called.<br> 2009/04/30 Changed the SSP function that is called.<br> 2008/12/05 Initial version.
+</p>
+
+<hr><p>CONFIDENTIAL</p></body>
+</html>

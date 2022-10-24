@@ -1,0 +1,266 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>Work RAM: Overview</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">Work RAM: Overview</H1>
+<H2>Types of WRAM</H2>
+<P>TWL includes the following WRAM regions. The background color of the cells within the table correspond to the colors of the regions in the figure immediately below.</P>
+<TABLE>
+<TR>
+<TH width=48>Platform</TH>
+<TH width="276">Master Processor</TH>
+<TH width="32">Capacity (KB)</TH>
+<TH width="347">Address</TH>
+<TH>ARM9</TH>
+<TH width="85">ARM7</TH>
+<TH width="200">Name</TH>
+    </TR>
+<TR>
+      <TD style="background-color: #ffccff;" width=48><img src="../../image/NTR.gif"><img src="../../image/TWL.gif"></TD>
+<TD style="background-color: #ffccff;" width="276">ARM7-Exclusive</TD>
+      <TD style="background-color: #ffccff;" width="32">64</TD>
+<TD style="background-color: #ffccff;" width="347">0x3800000 - 0x380FFFF</TD>
+      <TD style="background-color: #ffccff;" align="center">&times;</TD>
+      <TD style="background-color: #ffccff;" align="center" width="85">O</TD>
+<TD style="background-color: #ffccff;" width="200">ARM7-Exclusive WRAM</TD>
+    </TR>
+<TR>
+      <TD style="background-color: #ffffcc;" width="48"><img src="../../image/NTR.gif"><img src="../../image/TWL.gif"></TD>
+<TD style="background-color: #ffffcc;" width="276">ARM9/ARM7 Shared <B><FONT color="#ff0000">*1</FONT></B></TD>
+      <TD style="background-color: #ffffcc;" width="32">32</TD>
+<TD style="background-color: #ffffcc;" width="347"><B><FONT color="#3300ff">(NITRO)<BR></FONT></B>0x37F8000~0x37FFFFF<BR> <B><FONT color="#3300ff">(TWL/NITRO)<BR></FONT></B>0x37F8000~0x37FFFFF<BR> <B><FONT color="#3300ff">(TWL)<BR></FONT></B>0x3040000~0x3047FFF</TD>
+      <TD style="background-color: #ffffcc;" align="center">&times;</TD>
+      <TD style="background-color: #ffffcc;" align="center" width="85">O</TD>
+<TD style="background-color: #ffffcc;" width="200">WRAM-0<BR> /WRAM-1</TD>
+    </TR>
+    <TR>
+      <TD style="background-color: #ccccff;"><img src="../../image/BPT.gif"><img src="../../image/TWL.gif"></TD>
+<TD style="background-color: #ccccff;" width="276">ARM9<BR> /ARM7<BR> /DSP (data region) Shared</TD>
+      <TD style="background-color: #ccccff;" width="32">256</TD>
+<TD style="background-color: #ccccff;" width="347">0x3700000 - 0x373FFFF</TD>
+      <TD style="background-color: #ccccff;" align="center">O</TD>
+      <TD style="background-color: #ccccff;" align="center" width="85">O</TD>
+<TD style="background-color: #ccccff;" width="200">WRAM-C</TD>
+    </TR>
+<TR>
+      <TD style="background-color: #9999ff;"><img src="../../image/BPT.gif"><img src="../../image/TWL.gif"></TD>
+<TD style="background-color: #9999ff;" width="276">ARM9<BR> /ARM7<BR> /DSP (code region) Shared</TD>
+      <TD style="background-color: #9999ff;" width="32">256</TD>
+<TD style="background-color: #9999ff;" width="347">0x3740000 - 0x377FFFF</TD>
+      <TD style="background-color: #9999ff;" align="center">O</TD>
+      <TD style="background-color: #9999ff;" align="center" width="85">O</TD>
+<TD style="background-color: #9999ff;" width="200">WRAM-B</TD>
+    </TR>
+<TR>
+      <TD style="background-color: #99ccff;"><img src="../../image/BPT.gif"><img src="../../image/TWL.gif"></TD>
+<TD style="background-color: #99ccff;" width="276">ARM9/ARM7 Shared <B><FONT color="#ff0000">*1</FONT></B></TD>
+      <TD style="background-color: #99ccff;" width="32">256</TD>
+<TD style="background-color: #99ccff;" width="347"><FONT color="#3300ff"><B>(TWL/NITRO)</B></FONT><B><FONT color="#ff0000"><BR></FONT></B>0x3000000~0x303FFFF<BR> <B><FONT color="#3300ff">(TWL)<BR></FONT></B>0x37C0000~0x37FFFFF</TD>
+      <TD style="background-color: #99ccff;" align="center">&times;</TD>
+      <TD style="background-color: #99ccff;" align="center" width="85">O</TD>
+<TD style="background-color: #99ccff;" width="200">WRAM-A</TD>
+    </TR>
+</TABLE>
+<P><FONT color="#ff0000">   <B>*1</B> This region is assigned to the ARM7, so it cannot be changed to the ARM9 by the SDK, even though this is possible in terms of the hardware.</FONT></P>
+<P>The three new 256-KB WRAM regions added to the TWL system are called WRAM-A, WRAM-B, and WRAM-C. The WRAM regions can be freely mapped within certain areas of the memory map to some extent, but with TWL-SDK, they are fixed to the positions in the table above and used that way.</P>
+<CENTER><IMG src="image_map1-0.gif" border="0"><IMG src="image_map1-1.gif" border="0"><IMG src="image_map1-2.gif" border="0"></CENTER>
+<P>WRAM-A has four 64-KB slots, and WRAM-B and WRAM-C have eight 32-KB slots. Different processors can be assigned for each, and it is possible to change whether each slot can be used. In terms of the original physical hardware design, the slot assignment addresses can be changed within a certain range, but with TWL-SDK, the addresses are fixed to the values shown below. However, for TWL-exclusive ROMs, it is possible to place a larger ARM7 component by using the image region of WRAM-B or WRAM-C (described below).</P>
+<P align="center"><BR> <IMG src="image_map2.gif" border="0"></P>
+<H2>Extending Component Regions for TWL-Exclusive ROMs</H2>
+<P>With TWL-exclusive ROMs, it is possible to place a larger ARM7 component by using the image region of WRAM-B. (WRAM-B and WRAM-C images also exist in TWL/NITRO hybrid ROMs, but these areas are inappropriate for the ARM7 components to be placed as described here.)</P>
+<P>The WRAM-B image region appears in 0x03780000 - 0x037BFFFF, as shown in the figure below.</P>
+<P><IMG src="image_map1-3.gif" border="0"></P>
+<P>Normally, the ARM7 component program, system region, and stack region are placed in an combined area comprising WRAM-A (256 KB) and the ARM7-exclusive WRAM (64 KB), so the maximum total size was limited to 320 KB. However, considering that the WRAM-B image region is adjacent to WRAM-A, this combined area can be extended to a total of 586 KB if the WRAM-B image region (256 KB), WRAM-A (256 KB), and the ARM7-exclusive WRAM (64 KB) are used for this purpose. A caveat of this method is that the user will not be able to use WRAM-B.</P>
+<P><IMG src="image_map1-4.gif" border="0"></P>
+<P>If it is critically important for the user to be able to use WRAM-B, special settings can be used to make the WRAM-C image contiguous with WRAM-A, which makes it possible to place a ARM7 component program that is larger than normal in the same manner. The user will not be able to use WRAM-C in this case.</P>
+<P><IMG src="image_map1-5.gif" border="0"></P>
+<P>Refer to separate documentation for how to use either WRAM-B or WRAM-C to use the larger ARM7 component programs in this way. (*Not yet prepared)</P>
+<H2>WRAM Manager (WRAM-A/B/C)</H2>
+<P>TWL-SDK provides a WRAM manager in order for the ARM9, ARM7, and DSP to use WRAM-A/B/C efficiently. <FONT color="#ff0000">WRAM-A is used by the ARM7, however, so its assignment cannot be changed. Only WRAM-B and WRAM-C can be used by the ARM9 and DSP.</FONT><FONT color="#ff0000">If the WRAM-B or WRAM-C image is assigned to the ARM7 component program region, as well, the assignment of this part cannot be changed.</FONT></P>
+<P>This WRAM manager is for use with WRAM-A/B/C, although there may be WRAM regions that the user cannot change, as described above. Accordingly, any references to &quot;shared WRAM&quot; within the following description of the WRAM manager refer only to these three 256-KB WRAM regions. Moreover, the notation &quot;(WRAM-A/B/C)&quot; will appear in the titles for these regions.</P>
+<P>The role of the WRAM manager is to arbitrate requests from each processor to prevent the ARM9, ARM7, and DSP from using the shared WARM without permission. Specifically, the main work performed by the WRAM manager is shown below.</P>
+<UL>
+<LI>Reserves a processor's use of a given shared WRAM slot and prevents other processors from allocating these reserved regions.</LI>
+<LI>Assigns WRAM based on requests from the processors.</LI>
+</UL>
+<P>The WRAM manager is started by calling the <A href="MI_InitWramManager.html"><CODE>MI_InitWramManager</CODE></A> function. It must be started on both the ARM9 and the ARM7. You do not usually have to call this function because it is called by the <A href="../../os/init/OS_Init.html"><CODE>OS_Init</CODE></A> function.</P>
+<P><FONT color="#ff0000">Immediately after initialization, all WRAM regions will be reserved and allocated by the ARM9, ARM7, or DSP. </FONT>This is to reflect the information in the registers that configure the WRAM. The hardware is designed so that in the register, each WRAM slot is always owned by something. As a result, it is not possible to determine when a given WRAM slot has not been allocated by anything (at least immediately after initialization), which explains why the system has been set up like this. Free the slots or cancel the reservations if necessary.</P>
+<H3><B>Reservations</B></H3>
+<P>It is possible to specify a processor and reserve a shared WRAM slot using the WRAM manager. The reserved WRAM slot can only be allocated for the specified processor. The reservation is made based on the designated shared WRAM type and size.</P>
+<P>When not specifying the location to reserve, reservations can be made using either the <A href="MI_ReserveWram.html"><CODE>MI_ReserveWram</CODE></A> or <A href="MI_ReserveWram.html"><CODE>MI_ReserveWram_A</CODE></A>, <A href="MI_ReserveWram.html"><CODE>MI_ReserveWram_B</CODE></A>, or <A href="MI_ReserveWram.html"><CODE>MI_ReserveWram_C</CODE></A> function. When specifying the slot to reserve, use the <A href="MI_ReserveWram.html"><CODE>MI_ReserveWramSlot</CODE></A> function or use the <A href="MI_ReserveWram.html"><CODE>MI_ReserveWramSlot_A</CODE></A>, <A href="MI_ReserveWram.html"><CODE>MI_ReserveWramSlot_B</CODE></A>, or <A href="MI_ReserveWram.html"><CODE>MI_ReserveWramSlot_C</CODE></A> function.</P>
+<P>Regions that are already reserved for another processor or already in use cannot be reserved.</P>
+<P>(Example)<BR> Assume that WRAM-B and WRAM-C are not allocated at all, and are not reserved. Here, we'll reserve 128 KB for the ARM9, 64 KB for the DSP, and 32 KB for the ARM7, all from WRAM-B without specifying the location.</P>
+
+<TABLE>
+    <TR>
+      <TD>
+      <PRE><CODE>
+addr1 = MI_ReserveWram_B( MI_WRAM_SIZE_128KB, MI_WRAM_ARM9 );
+addr2 = MI_ReserveWram_B( MI_WRAM_SIZE_64KB, MI_WRAM_DSP );
+addr3 = MI_ReserveWram_B( MI_WRAM_SIZE_64KB, MI_WRAM_ARM7 );
+
+OS_Printf(&quot;ARM9:%x DSP:%x ARM7:%x&quot;, addr1, addr2, addr3 );</CODE></PRE>
+      </TD>
+    </TR>
+</TABLE>
+<BLOCKQUOTE><IMG src="image_res1.gif"  border="0"></BLOCKQUOTE>
+
+<P><BR>(Example)<BR> Assume that WRAM-B and WRAM-C are not allocated at all, and are not reserved. Here, we'll reserve 128 KB from slot 4 for the ARM9, 64 KB from slot 0 for the DSP, and 32 KB from slot 2 for the ARM7.</P>
+
+<TABLE>
+    <TR>
+      <TD>
+      <PRE><CODE>
+addr1 = MI_ReserveWramSlot_B( 4, MI_WRAM_SIZE_128KB, MI_WRAM_ARM9 );
+addr2 = MI_ReserveWramSlot_B( 0, MI_WRAM_SIZE_64KB, MI_WRAM_DSP );
+addr3 = MI_ReserveWramSlot_B( 2, MI_WRAM_SIZE_32KB, MI_WRAM_ARM7 );
+
+OS_Printf(&quot;ARM9:%x DSP:%x ARM7:%x&quot;, addr1, addr2, addr3 );</CODE></PRE>
+      </TD>
+    </TR>
+  
+</TABLE>
+<BLOCKQUOTE><IMG src="image_res2.gif"  border="0"><BR>
+</BLOCKQUOTE>
+<H3>Cancelling Reservations</H3>
+<P>Reservations for shared WRAM slots can be cancelled. Even if the given slot is in use, all that's happening is that the internal reservation information is being overwritten, so the reservation is cancelled with no effect on the current content.</P>
+
+<P>Use the <CODE><A href="MI_CancelWram.html">MI_CancelWram</A></CODE> function or use the <CODE><A href="MI_CancelWram.html">MI_CancelWram_A</A></CODE>, <CODE><A href="MI_CancelWram.html">MI_CancelWram_B</A></CODE>, or <CODE><A href="MI_CancelWram.html">MI_CancelWram_C</A></CODE> function to cancel reservations in the specified WRAM region for the specified processor. To specify the area, use the <CODE><A href="MI_CancelWram.html">MI_CancelWramSlot</A></CODE> function or use the <CODE><A href="MI_CancelWram.html">MI_CancelWramSlot_A</A></CODE>, <CODE><A href="MI_CancelWram.html">MI_CancelWramSlot_B</A></CODE>, or <CODE><A href="MI_CancelWram.html">MI_CancelWramSlot_C</A></CODE> function.</P>
+<P>(Example)<BR>Here, we'll cancel WRAM slots within WRAM-B that are reserved by the ARM9.</P>
+
+<TABLE>
+    <TR>
+      <TD>
+      <PRE><CODE>
+MI_CancelWram_B( MI_WRAM_ARM9 );</CODE></PRE>
+      </TD>
+   </TR>
+</TABLE>
+<BLOCKQUOTE><IMG src="image_can1.gif"  border="0"></BLOCKQUOTE>
+
+<P><BR> (Example)<BR>Here, we'll cancel the reservation of a 128-KB WRAM slot reserved by the ARM9 that begins at slot 1 in WRAM-B.</P>
+
+<TABLE>
+    <TR>
+      <TD>
+      <PRE><CODE>
+MI_CancelWramSlot_B( 1, MI_SIZE_128KB, MI_WRAM_ARM9 );</CODE></PRE>
+      </TD>
+   </TR>
+</TABLE>
+<BLOCKQUOTE><BR> <IMG src="image_can2.gif"  border="0"></BLOCKQUOTE>
+
+<H3>Allocation</H3>
+<P>When you require a WRAM region, you can make an assignment request to the WRAM manager.</P>
+<P>WRAM can be allocated in 64-KB chunks from WRAM-A and in 32-KB chunks from WRAM-B and WRAM-C. When the shared WRAM size is specified, the WRAM manager will attempt to allocate a contiguous region of WRAM of the designated size, starting with the lowest slot number for the specified WRAM.</P>
+<P>Allocation will start with either unused and unreserved slots or slots that are reserved for the specified processor.</P>
+<P>When not specifying a region, use the <CODE><A href="MI_AllocWram.html">MI_AllocWram</A></CODE> function or use the <CODE><A href="MI_AllocWram.html">MI_AllocWram_A</A></CODE>, <CODE><A href="MI_AllocWram.html">MI_AllocWram_B</A></CODE>, or <CODE><A href="MI_AllocWram.html">MI_AllocWram_C</A></CODE> function. To allocate by specifying a region, use the <CODE><A href="MI_AllocWram.html">MI_AllocWramSlot</A></CODE> function or use the <CODE><A href="MI_AllocWram.html">MI_AllocWramSlot_A</A></CODE>, <CODE><A href="MI_AllocWram.html">MI_AllocWramSlot_B</A></CODE>, or <CODE><A href="MI_AllocWram.html">MI_AllocWramSlot_C</A></CODE> function.</P>
+<P>Example:<BR> Here, we will allocate 96 KB from WRAM-B for the ARM9.</P>
+
+<TABLE>
+    <TR>
+      <TD>
+      <PRE><CODE>
+addr = MI_AllocWram_B( MI_WRAM_SIZE_96KB, MI_WRAM_ARM9 );</CODE></PRE>
+      </TD>
+   </TR>
+</TABLE>
+<BLOCKQUOTE><IMG src="image_alloc1.gif"  border="0"></BLOCKQUOTE>
+
+<P><BR> Example:<BR> Here, we will allocate 64 KB from WRAM-B for the ARM9, starting with slot 2.</P>
+
+<TABLE>
+    <TR>
+      <TD>
+      <PRE><CODE>
+addr = MI_AllocWramSlot_B( 2, MI_WRAM_SIZE_64KB, MI_WRAM_ARM9 );</CODE></PRE>
+      </TD>
+   </TR>
+</TABLE>
+<BLOCKQUOTE><IMG src="image_alloc2.gif"  border="0"><BR>
+</BLOCKQUOTE>
+
+<P>Example:<BR>Here, we will allocate 96 KB from WRAM-B for the ARM9, starting with slot 2.</P>
+
+<TABLE>
+    <TR>
+      <TD>
+      <PRE><CODE>
+addr = MI_AllocWramSlot_B( 2, MI_WRAM_SIZE_96KB, MI_WRAM_ARM9 );</CODE></PRE>
+      </TD>
+   </TR>
+</TABLE>
+<BLOCKQUOTE>In the case illustrated by the figure below, 96 KB starting from slot 2 in WRAM-B cannot be allocated for the ARM9. This is because slot 4 is reserved for the DSP.<BR> <IMG src="image_alloc3.gif"  border="0"></BLOCKQUOTE>
+
+<H3>Deallocation</H3>
+<P>Shared WRAM allocated by the WRAM manager can be deallocated. However, even if a given WRAM is deallocated, the reservation information for that WRAM will not be cancelled.</P>
+<P>Use the <A href="MI_FreeWram.html"><CODE>MI_FreeWram</CODE></A> function or use the <A href="MI_FreeWram.html"><CODE>MI_FreeWram_A</CODE></A>, <A href="MI_FreeWram.html"><CODE>MI_FreeWram_B</CODE></A>, or <A href="MI_FreeWram.html"><CODE>MI_FreeWram_C</CODE></A> function to deallocate regions within the specified WRAM that are assigned to the specified processor. To allocate by specifying a region, use the <A href="MI_FreeWram.html"><CODE>MI_FreeWramSlot</CODE></A> function or use the <A href="MI_FreeWram.html"><CODE>MI_FreeWramSlot_A</CODE></A>, <A href="MI_FreeWram.html"><CODE>MI_FreeWramSlot_B</CODE></A>, or <A href="MI_FreeWram.html"><CODE>MI_FreeWramSlot_C</CODE></A> function.</P>
+<P>(Example)<BR> Here, we'll free a WRAM region in WRAM-B that has been allocated for the ARM9.</P>
+
+<TABLE>
+    <TR>
+      <TD>
+      <PRE><CODE>
+MI_FreeWram_B( MI_WRAM_ARM9 );</CODE></PRE>
+      </TD>
+   </TR>
+</TABLE>
+<BLOCKQUOTE><IMG src="image_free1.gif"  border="0"></BLOCKQUOTE>
+
+<P>(Example)<BR> Here, we'll free a 128-KB region that was allocated for the ARM9. The region being freed begins at slot 1 in WRAM-B.</P>
+
+<TABLE>
+    <TR>
+      <TD>
+      <PRE><CODE>
+MI_FreeWramSlot_B( 1, MI_WRAM_SIZE_128KB, MI_WRAM_ARM9 );</CODE></PRE>
+      </TD>
+   </TR>
+</TABLE>
+<BLOCKQUOTE><IMG src="image_free2.gif"  border="0"></BLOCKQUOTE>
+
+<H3>Switching Masters</H3>
+<P>Allocated WRAM slots can be changed from their current configuration for a separate processor.</P>
+<P>The functions to do this are <CODE><A href="MI_SwitchWram.html">MI_SwitchWram</A></CODE> or <CODE><A href="MI_SwitchWram.html">MI_SwitchWram_A</A></CODE>, <CODE><A href="MI_SwitchWram.html">MI_SwitchWram_B</A></CODE>, and <CODE><A href="MI_SwitchWram.html">MI_SwitchWram_C</A></CODE>. To switch by specifying a slot, use the <CODE><A href="MI_SwitchWram.html">MI_SwitchWramSlot</A></CODE> function or use the <CODE><A href="MI_SwitchWram.html">MI_SwitchWramSlot_A</A></CODE>, <CODE><A href="MI_SwitchWram.html">MI_SwitchWramSlot_B</A></CODE>, or <CODE><A href="MI_SwitchWram.html">MI_SwitchWramSlot_C</A></CODE> function.</P>
+<P>(Example) Here, we take a region in WRAM-B that is allocated to the ARM9 and switch it to the DSP.</P>
+
+<TABLE>
+    <TR>
+      <TD>
+      <PRE><CODE>
+MI_SwitchWram_B( MI_WRAM_ARM9, MI_WRAM_DSP );
+</CODE></PRE>
+      </TD>
+   </TR>
+</TABLE>
+<BLOCKQUOTE>In the figure below, slot 0 and slot 1 are reserved for the ARM9. The reserved processor will not change, even if the allocated processor changes. (Reservations are only used to make decisions when allocating a given region.)<BR> <BR> <IMG src="image_swi1.gif" border="0"></BLOCKQUOTE>
+
+<P>(Example)<BR> Here, we take a region in WRAM-B that is allocated to the ARM9 and switch it to the DSP. The region being reallocated is 128 KB and begins at slot 2.</P>
+<TABLE>
+    
+    <TR>
+      <TD>
+      <PRE><CODE>
+MI_SwitchWramSlot_B( 2, MI_WRAM_SIZE_128KB, MI_WRAM_ARM9, MI_WRAM_DSP );
+</CODE></PRE>
+      </TD>
+   </TR>
+
+</TABLE>
+<BLOCKQUOTE><IMG src="image_swi2.gif" border="0"></BLOCKQUOTE>
+
+<H2>Getting the Status of Shared RAM (WRAM-A/B/C)</H2>
+<P>The following functions have been created to get the current settings of the shared WRAM. These functions get the status by reading the values of the I/O register.<BR><BR><CODE><A href="MI_GetWramBankMaster.html">MI_GetWramBankMaster</A></CODE> gets the master processor for the specified WRAM slot.<BR><CODE><A href="MI_GetWramBankEnable.html">MI_GetWramBankEnable</A></CODE> gets a value indicating whether the specified WRAM slot is accessible. <BR> <CODE><A href="MI_GetWramBankOffset.html">MI_GetWramBankOffset</A></CODE> gets the offset for the specified WRAM slot. <BR> <CODE><A href="MI_GetWramMapStart.html">MI_GetWramMapStart</A></CODE> gets the start of the mapped addresses for the specified WRAM. <BR> <A href="MI_GetWramMapEnd.html"><CODE>MI_GetWramMapEnd</CODE></A> gets the end of the mapped addresses for the specified WRAM. <BR> <CODE><A href="MI_GetWramMapImage.html">MI_GetWramMapImage</A></CODE> gets the image occurrence settings for the specified WRAM region. <BR> <CODE><A href="MI_IsWramSlotLocked.html">MI_IsWramSlotLocked</A></CODE> gets a value indicating whether the specified WRAM slot has been locked. <BR> <BR> The following functions have been provided to get management information maintained by the WRAM manager.<BR><BR> <CODE><A href="MI_IsWramSlotUsed.html">MI_IsWramSlotUsed</A></CODE> gets a value indicating whether the specified WRAM slot has already been allocated. <BR> <CODE><A href="MI_GetWramReservation.html">MI_GetWramReservation</A></CODE> gets the processor to which the specified WRAM slot has been allocated. <BR> <CODE><A href="MI_GetAllocatableWramSlot.html">MI_GetAllocatableWramSlot</A></CODE> gets combined information for the WRAM slots that can be allocated with the specified processor. <BR> <CODE><A href="MI_GetFreeWramSlot.html">MI_GetFreeWramSlot</A></CODE> gets combined information for free WRAM slots that have not been reserved or allocated. <BR> <CODE><A href="MI_GetFreeWramSlot.html">MI_GetUsedWramSlot</A></CODE> gets combined information for WRAM slots that have been allocated from some processor.</P>
+<H2>Displaying the States (WRAM-A/B/C)</H2>
+<P>The <A href="MI_DumpWramList.html"><CODE>MI_DumpWramList</CODE></A> and <CODE><A href="MI_DumpWramList.html">MI_DumpWramListAll</A></CODE> debug functions have been created to determine the current assignments. These functions will not do anything in FINALROM builds.</P>
+<H2>See Also</H2>
+<P><A href="../list_mi.html#Wram">MI Function List (Work RAM Settings)</A><BR></P>
+<H2>Revision History</H2>
+<P>2008/03/03 Removed descriptions of WRAM locking functions. <BR>2008/01/23 Revised WRAM mapping diagrams. <BR>2007/08/09 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body></HTML>

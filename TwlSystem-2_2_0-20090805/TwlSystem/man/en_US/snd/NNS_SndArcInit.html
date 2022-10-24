@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"><html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>NNS_SndArcInit*</title>
+<link rel="stylesheet" href="../css/nitro.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.65.1">
+</head>
+<body>
+<div class="refentry" lang="ja"><a name="IDAKKWT"></a><div class="titlepage">
+<div></div>
+<div></div>
+</div>
+<h1>NNS_SndArcInit*</h1>
+<h2>Syntax</h2>
+<dl>
+<dd><pre class="funcsynopsisinfo"><code>#include &lt;nnsys/snd.h&gt;</code></pre></dd>
+<dd><pre class="funcprototype"><code class="funcprototype">void NNS_SndArcInit(
+        NNSSndArc* <var>arc</var>,
+        const char* <var>filePath</var>,
+        NNSSndHeapHandle <var>heap</var>,
+        BOOL <var>symbolLoadFlag</var> );</code><br><code class="funcprototype">BOOL NNS_SndArcInitWithResult(
+        NNSSndArc* <var>arc</var>,
+        const char* <var>filePath</var>,
+        NNSSndHeapHandle <var>heap</var>,
+        BOOL <var>symbolLoadFlag</var> );</code><br></pre></dd>
+</dl>
+<div class="refsection" lang="ja"><a name="IDAUNWT"></a>
+<h2>Arguments</h2>
+      
+      <div class="variablelist">
+<table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><code>arc</code></td>
+<td>Pointer to the <code>NNSSndArc</code> structure that manages the sound archive.</td>
+</tr>
+<tr>
+<td><code>filePath</code></td>
+<td>Path in the ROM file system of the sound archive data.</td>
+</tr>
+<tr>
+<td><code>heap</code></td>
+<td>Sound heap handle.</td>
+</tr>
+<tr>
+<td><code>symbolLoadFlag</code></td>
+<td>Flag that determines whether to load symbol data.</td>
+</tr>
+</tbody>
+</table>
+</div>
+    </div>
+<div class="refsection" lang="ja"><a name="IDAYOWT"></a>
+<h2>Return Values</h2>
+
+<p>The <tt class="function">NNS_SndArcInit</tt> function does not have a return value.</p>
+<p>The <tt class="function">NNS_SndArcInitWithResult</tt> function returns whether or not initialization was successful.</p>
+    </div>
+<div class="refsection" lang="ja"><a name="IDAFPWT"></a>
+<h2>Description</h2>
+      <p>
+Initializes the sound archive structure. We recommend that you allocate the sound archive structure statically. If you choose to allocate dynamically, be aware of the following.
+</p>
+      <p>
+This function initializes the sound archive structure using the sound archive data file <code>filePath</code> in the ROM file system. The file system must be validated in advance.
+</p>
+      <p>
+The data necessary for the management of the sound archive is loaded into the sound heap <CODE>heap</CODE>. If this region is deallocated, the sound archive becomes unusable. To make it usable again, call the <a href="NNS_SndArcSetup.html"><CODE>NNS_SndArcSetup</CODE></a> function.
+</p>
+     <p>
+If you set the symbol load flag <code>symbolLoadFlag</code> to TRUE, this function can use the <a href="NNS_SndArcGetSymbol.html"><code>NNS_SndArcGet*Symbol</code></a> function to acquire symbol names. However, this consumes more of the sound <i>heap</i>.
+</p>
+     <p>
+The initialized sound archive is automatically set to the current sound archive. Use <a href="NNS_SndArcSetCurrent.html"><CODE>NNS_SndArcSetCurrent</CODE></a> to modify the current sound archive.
+</p>
+      <p>
+With the <code>NNS_SndArcInit</code> function, assertion fails when initialization fails, but the <code>NNS_SndArcInitWithResult</code> function returns whether or not initialization was successful as a return value.
+</p>
+     <p>
+When not using the file system or when placing all of the sound archive data in memory, use the <a href="NNS_SndArcInitOnMemory.html"><CODE>NNS_SndArcInitOnMemory</CODE></a> function instead of these functions.
+</p>
+      <div class="note">
+<h3 class="title">Note</h3>
+<p>
+The sound archive data files in NAND and SD Card archives cannot be used.
+</p>
+<p>
+The sound archive structure can be discarded after releasing all sound heaps. Memory may be damaged if even a single heap region remains. Note that the pointer to the discarded sound archive structure may be set as the current sound archive.
+</p>
+<p>
+The primary reason that initialization fails is when the sound archive data fails to load. In situations when file loading may fail, use <code>NNS_SndArcInitWithResult</code> and check the return value.
+</p>
+</div>
+    </div>
+<h2>See Also</h2>
+<p><a href="NNS_SndArcSetup.html"><CODE>NNS_SndArcSetup</CODE></a><br /> <a href="NNS_SndArcGetSymbol.html"><CODE>NNS_SndArcGet*Symbol</CODE></a><br /> <a href="NNS_SndArcSetCurrent.html"><CODE>NNS_SndArcSetCurrent</CODE></a><br /> <a href="NNS_SndArcInitOnMemory.html"><CODE>NNS_SndArcInitOnMemory</CODE></a></p>
+<h2>Revision History</h2>
+<p>
+2008/06/03 Added note about NAND and SD Card archives. <br> 2005/08/18 Added explanation of the <CODE>NNS_SndArcInitWithResult</CODE> function. <br> 2004/09/06 Added note about dynamically allocating the <CODE>NNS_SndArc</CODE> structure. <br> 2004/09/02 Added explanation of the <CODE>NNS_SndArcSetup</CODE> function. <br> 2004/06/01 Initial version.<br>
+</p>
+</div>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

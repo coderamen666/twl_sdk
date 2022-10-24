@@ -1,0 +1,110 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>NNS_McsOpenStreamEx</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">NNS_McsOpenStreamEx</h1>
+<h2>Syntax</h2>
+
+<dl> 
+ <dd> 
+  <pre><CODE>#include &lt;nnsys/mcs.h&gt;
+
+struct NNSMcsStreamInfo
+{
+    DWORD   structBytes;
+    DWORD   deviceType;
+};
+
+HANDLE NNS_McsOpenStreamEx(
+           USHORT            channel,
+           DWORD             flags,
+           NNSMcsStreamInfo* pStreamInfo);</CODE></pre>
+ </dd>
+</dl>
+<h2>Arguments</h2>
+
+<table border="1" width="100%">
+  <tr>
+<td width="13%"><CODE>channel</CODE></td>
+    
+<td width="87%">Value for identifying a stream. Specify in the range 0 to <CODE>0x3FFF</CODE>. The range of <CODE>0x4000</CODE> to <CODE>0x7FFF</CODE> is reserved for TWL-System applications. The range of <CODE>0x8000</CODE> to <CODE>0xFFFF</CODE> is reserved for the MCS system.</td>
+  </tr>
+  <tr>
+<td width="13%"><CODE>flags</CODE></td>
+    
+<td width="87%">Flags specified when stream is opened. (For details, see <B>Description</B>.)</td>
+  </tr>
+  <tr>
+<td width="13%"><CODE>pStreamInfo</CODE></td>
+    
+<td width="87%">Pointer to the structure storing supplemental information related to the opened stream.</td>
+  </tr>
+</table>
+<h2>Return Values</h2>
+<p>If the stream is successfully opened, returns the stream's handle. If the process fails, returns <code>INVALID_HANDLE_VALUE</code>. Use <code>GetLastError</code> to get details about the error.</p>
+<H2>Description</H2>
+<p>Opens a stream for Multiple Channel Stream. Streams are actually pipes that have attached message type names in the Win32 system, and the return value is a handle for one of these name-attached pipes. The function <code>NNS_McsOpenStream</code> opens a pipe with an attached message type name, and registers the value identifying the stream specified by the argument <CODE>channel</CODE> to the MCS server.</P>
+<p>To read and write to the stream, use the Win32 API's <code>ReadFile(Ex)</code> and <code>WriteFile(Ex)</code> functions.</P>
+<p>For the argument <CODE>flag</CODE>, specify 0 or the values shown below. This value is passed to the sixth argument (<code>dwFlagsAndAttributes</code>) in the Win32 API's <code>CreateFile</code> function.</p>
+<table border="1">
+  <tbody>
+    <tr>
+<td><CODE>FILE_FLAG_OVERLAPPED</CODE></td>
+<td>Inputs/outputs asynchronously (overlapped I/O). For details, see the explanation of <code>CreateFile</code> in the Win32 API.</td>
+    </tr>
+  </tbody>
+</table>
+<p>Sets the supplemental information related to the opened stream to be stored in the <code>NNSMcsStreamInfo</code> structure specified by <code>pStreamInfo</code>. Details about the <code>NNSMcsStreamInfo</code> structure members are described below.</p>
+<table border="1" width="100%">
+  <tr>
+<td width="13%"><CODE>structBytes</CODE></td>
+    
+<td width="87%">Size of the structure. Set <code>sizeof(NNSMcsStreamInfo)</code> before calling the function.</td>
+  </tr>
+  <tr>
+<td width="13%"><CODE>deviceType</CODE></td>
+    
+<td width="87%">Indicates the device type.</td>
+  </tr>
+</table>
+<p>Here is a list of the device types that can be set in <code>deviceType</code>.</p>
+<table border="1" width="100%">
+  <tr>
+<td width="13%"><CODE>NNS_MCS_DEVICE_TYPE_UNKNOWN</CODE></td>
+    
+<td width="87%">Unknown device</td>
+  </tr>
+  <tr>
+<td width="13%"><CODE>NNS_MCS_DEVICE_TYPE_NITRO_DEBUGGER</CODE></td>
+    
+<td width="87%">IS-NITRO-EMULATOR</td>
+  </tr>
+  <tr>
+<td width="13%"><CODE>NNS_MCS_DEVICE_TYPE_NITRO_UIC</CODE></td>
+    
+<td width="87%">IS-NITRO-UIC</td>
+  </tr>
+  <tr>
+<td width="13%"><CODE>NNS_MCS_DEVICE_TYPE_ENSATA</CODE></td>
+<td width="87%">Ensata</td>
+  </tr>
+  <tr>
+<td width="13%"><CODE>NNS_MCS_DEVICE_TYPE_TWL</CODE></td>
+<td width="87%">IS-TWL-DEBUGGER Hardware</td>
+  </tr>
+</table>
+<h2>See Also</h2>
+<p><a href="NNS_McsOpenStream.html"><CODE>NNS_McsOpenStream</CODE></a></p>
+<H2>Revision History</H2>
+<P>
+2009/02/10 Corrected inappropriate device name (IS-TWL-EMULATOR changed to IS-TWL-DEBUGGER hardware).<br>2008/06/20 Changed NITRO-System to TWL-System.<br>2008/02/08 Added IS-TWL-EMULATOR to the device types.<br>2005/01/11 Added <B>Description</B>. Deleted IS-CGB-EMULATOR from the device types and added Ensata.<br>2004/10/08 Added a description of the <CODE>channel</CODE> argument.<br>2004/07/20 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

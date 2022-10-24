@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>CAMERAContext</TITLE>
+<LINK rel="stylesheet" href="../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">CAMERAContext <IMG src="../image/TWL.gif" align="middle"></H1>
+<H2>Definition</H2>
+<DL>
+  <DD>
+  <CODE>#include &lt;twl/camera.h&gt;</CODE><BR>
+  <BR>
+  <PRE><CODE>
+typedef enum
+{
+    CAMERA_CONTEXT_A     = (1&lt;&lt;0),
+    CAMERA_CONTEXT_B     = (1&lt;&lt;1),
+    CAMERA_CONTEXT_BOTH  = (CAMERA_CONTEXT_A|CAMERA_CONTEXT_B)
+}
+CAMERAContext;
+</CODE></PRE>
+</DL>
+
+<H2>Elements</H2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="13%"><CODE>CAMERA_CONTEXT_A</CODE></TD>
+<TD width="87%">Camera setting context A.</TD>
+    </TR>
+    <TR>
+<TD width="13%"><CODE>CAMERA_CONTEXT_B</CODE></TD>
+<TD width="87%">Camera setting context B.</TD>
+    </TR>
+    <TR>
+<TD width="13%"><CODE>CAMERA_CONTEXT_BOTH</CODE></TD>
+<TD width="87%">Both context A and B.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<H2>Description</H2>
+<P>
+An enumerated type that specifies the camera setting context.<BR><BR> Think of a &quot;context&quot; here as a place to save the state for camera settings.<BR> The library currently allows you to save combinations of settings for the resolution, effect, and flipping in two contexts: A and B. By default, both the inner and outer camera use context A when started. See the section on default values in the <A href="about_camera.html"><B>Overview</B></A> for more details.<BR><BR>Contexts are used as follows. If the <A href="CAMERA_I2CSize.html"><CODE>CAMERA_I2CSizeEx</CODE></A>, <A href="CAMERA_I2CEffect.html"><CODE>CAMERA_I2CEffectEx</CODE></A>, and <A href="CAMERA_I2CFlip.html"><CODE>CAMERA_I2CFlipEx</CODE></A> functions are used to set the necessary values in context B, the <code><A href="CAMERA_I2CContextSwitch.html">CAMERA_I2CContextSwitch</A></code> function is then called to switch the current context to context B when those settings are required. It is faster to switch settings in this way than to individually change camera settings on demand.
+</P>
+
+<H2>Revision History</H2>
+<P>
+2008/11/13 Corrected errors.<br> 2007/11/09 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

@@ -1,0 +1,34 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>OS_PrintServer</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">OS_PrintServer <IMG src="../../image/NTR.gif" align="middle"><IMG src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+<DL>
+<DD><CODE>#include &lt;nitro/os.h&gt;</CODE><BR> <BR> <CODE>void OS_PrintServer( void );</CODE>
+</DL>
+<H2>Arguments</H2>
+<P>None.</P>
+<H2>Return Values</H2>
+<P>None.</P>
+<H2>Description</H2>
+<P>Displays debug messages from the ARM7.</P>
+<P>Because this function is an SDK library debugging function, there is no need to use it in ordinary applications. It is presumed that mainly library and middleware developers will use it.
+<P>This function writes the content of the output buffer written by the ARM7 and should be set to be called periodically (approximately once every frame). See <A href="OS_InitPrintServer.html"><CODE>OS_InitPrintServer</CODE></A> for more details.
+
+<P>Nothing happens if you call the <CODE>OS_PrintServer</CODE> function when the <A href="OS_InitPrintServer.html"><CODE>OS_InitPrintServer</CODE></A> function has not been called.
+
+<P>In FINALROM builds, the <A href="OS_InitPrintServer.html"><CODE>OS_InitPrintServer</CODE></A> and <A href="OS_PrintServer.html"><CODE>OS_PrintServer</CODE></A> functions are replaced with code that does nothing.
+
+<H2>See Also</H2>
+<P><A href="OS_InitPrintServer.html"><CODE>OS_InitPrintServer</CODE></A></P>
+<H2>Revision History</H2>
+<P>2009/06/26 Described the method for using the function.<BR> 2005/08/19 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

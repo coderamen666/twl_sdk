@@ -1,0 +1,40 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>OS_GetArgc</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">OS_GetArgc <IMG src="../../image/NTR.gif" align="middle"><IMG src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+<DL>
+  <DD>
+  <DIV align="left">
+  <PRE><CODE>#include &lt;nitro/os.h&gt;</CODE></PRE>
+  </DIV>
+  <PRE><CODE>int OS_GetArgc( void );
+ </CODE></PRE>
+</DL>
+<H2>Arguments</H2>
+<P>None.</P>
+<H2>Return Values</H2>
+
+<P>The number of arguments including the program name are returned.</P>
+<P>However, if argument data is not stored in the argument buffer, zero is returned. If data is stored in the argument buffer and there are no arguments, one is returned.</P>
+<H2>Description</H2>
+
+<P>Returns the number of arguments according to the argument data embedded in the ROM file.</P>
+<P>For NITRO ROMs, arguments are embedded as argument data in the ROM file with the <A href="../../tools/buryarg.html"><CODE>buryarg</CODE></A> tool. For TWL ROMs, arguments are embedded as argument data in the ROM file with the <A href="../../tools/buryarg.html"><CODE>buryarg.TWL</CODE></A> tool. This function looks up the the number of arguments within the argument data, but because the program name (the ROM filename specified when <A href="../../tools/buryarg.html"><CODE>buryarg</CODE></A> is executed) is included in the count, this function returns 1 even though there are no arguments.</P>
+<P>Zero is returned if no argument data has been embedded.</P>
+<P><FONT color="#ff0000">Always returns zero with FINALROM builds.</FONT></P>
+<P><B>Example</B></P>
+<BLOCKQUOTE style="background-color:#ffffc0">If <CODE>buryarg main.srl A B C</CODE> was specified, running the following code will display <CODE>argc=3</CODE>. <BR><BR><CODE>OS_Printf( &quot;argc=%d\n&quot;, OS_GetArgc() );</CODE><BR><BR> (The same is true with <CODE>buryarg.TWL</CODE>.)</BLOCKQUOTE>
+<H2>See Also</H2>
+<P><A href="OS_GetArgv.html"><CODE>OS_GetArgv</CODE></A><BR> <A href="OS_GetOpt.html"><CODE>OS_GetOpt</CODE></A><BR> <A href="../../tools/buryarg.html"><CODE>buryarg</CODE> Tool</A><BR> <A href="../../tools/buryarg.html"><CODE>buryarg.TWL</CODE> Tool</A></P>
+<H2>Revision History</H2>
+<P>2008/06/23 Split into separate cases for NITRO and TWL.<BR>2005/07/21 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>ENV_SearchByType</TITLE>
+<LINK rel="stylesheet" href="../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">ENV_SearchByType <img src="../image/NTR.gif"align="middle"><img src="../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+<DL>
+  <DD>
+  <PRE><CODE>#include &lt;nitro/env.h&gt;</CODE></PRE>
+  <PRE><CODE>ENVResource* ENV_SearchByMember(
+           ENVResourceIter*  iter,
+           u16               type );
+  </CODE></PRE>
+</DL>
+<H2>Arguments</H2>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+<TD><SPAN class="argument">iter</SPAN></TD>
+<TD>Resource iterator</TD>
+    </TR>
+    <TR>
+<TD><SPAN class="argument">type</SPAN></TD>
+<TD>Type of resource to search for (<CODE>ENV_RESTYPE_xxx</CODE>)</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>Return Values</H2>
+<P>Returns a pointer to the resource if it was obtainable. If the pointer is unobtainable, it returns <CODE>NULL</CODE>.</P>
+<H2>Description</H2>
+<P>Searches for and gets the designated resource of the resource type.</P>
+<P>Be sure to prepare a resource iterator in advance and initialize it with <A href="ENV_InitIter.html"><CODE>ENV_InitIter</CODE></A>. By continuously searching with this iterator, you can successively get resources that match the conditions.</P>
+<P>For more information about resource types, see the <A href="ENV_GetType.html"><CODE>ENV_GetType</CODE></A> function.</P>
+
+<P><B>Example:</B><BR>
+Following is an example of getting a resource of resource type <CODE>u32</CODE>.</P>
+
+<BLOCKQUOTE style="background-color:#ffffcc"><PRE><FONT color=#ff0033>ENVResourceIter  iter;</FONT>
+ENVResource*    p;
+
+<FONT color=#ff0033>ENV_InitIter( &amp;iter );</FONT>
+while( (p = <FONT color=#ff0033>ENV_SearchByType( &amp;iter, ENV_RESTYPE_U32 )</FONT> ) )
+{
+   OS_Printf( &quot;resource = %s\n&quot;, p-&gt;name );
+}</PRE></BLOCKQUOTE>
+
+<H2>See Also</H2>
+<P><A href="ENV_Init.html"><CODE>ENV_Init</CODE></A><BR>
+ <A href="ENV_GetType.html"><CODE>ENV_GetType</CODE></A><BR>
+ <A href="ENV_InitIter.html"><CODE>ENV_InitIter</CODE></A><BR>
+ <A href="ENV_SearchByClass.html"><CODE>ENV_SearchByClass</CODE></A><BR>
+ <A href="ENV_SearchByMember.html"><CODE>ENV_SearchByMember</CODE></A><BR>
+ <A href="ENV_SearchByPartialName.html"><CODE>ENV_SearchByPartialName</CODE></A><BR>
+ <A href="ENV_GetLastResourceSetFromIter.html"><CODE>ENV_GetLastResourceSetFromIter</CODE></A></P>
+<H2>Revision History</H2>
+<P>2005/08/18 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

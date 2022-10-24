@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title>WFS_EndClient</title>
+<link rel="stylesheet" href="../../css/nitro.css" type="text/css" />
+</head>
+<body>
+
+<h1>WFS_EndClient <img src="../../image/NTR.gif"><img src="../../image/TWL.gif"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<code>#include &lt;nitro/wfs.h&gt;</code><br /> <br /> <code>void WFS_EndClient(WFSClientContext *context);</code><br /> <br />
+  </dd>
+</dl>
+<h2>Arguments</h2>
+<table border="1" width="100%">
+  <tbody>
+    <tr>
+<td style="width:13%"><CODE>context</CODE></td>
+<td style="width:87%">Pointer to the <CODE>WFSClientContext</CODE> structure to be deallocated.</td>
+    </tr>
+  </tbody>
+</table>
+<h2>Return Values</h2>
+<p>None.</p>
+
+<h2>Description</h2>
+<p>Frees the WFS child (client) context structure initialized by the <a href="WFS_InitClient.html"><code>WFS_InitClient</code></a> function. If there is memory allocated dynamically within the WFS library, it is automatically deallocated by this function call.<BR>This function has absolutely no impact on the status of the OS or wireless communications because it only deallocates the contents of the <CODE>WFSClientContext</CODE> structure.<BR>
+</p>
+
+<h2>Note</h2>
+<ul>
+<li><font color="red">If MP communications are terminated while a child (client) is accessing a file from the parent (server), there will be no notification of completion, and the process will continue to be blocked unless this function is called.</font></li>
+</ul>
+
+<h2>See Also</h2>
+<p><a href="WFS_InitClient.html"><CODE>WFS_InitClient</CODE></a></p>
+
+<h2>Revision History</h2>
+<p>
+2007/09/27 Added cautions for children/clients related to completion processing.<br /> 2007/06/06 Initial version.<br />
+</p>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

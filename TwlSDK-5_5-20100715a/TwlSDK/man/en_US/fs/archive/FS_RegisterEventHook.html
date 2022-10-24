@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title>FS_RegisterEventHook</title>
+<link rel="stylesheet" href="../../css/nitro.css" type="text/css" />
+</head>
+<body>
+
+<h1>FS_RegisterEventHook <img src="../../image/NTR.gif"align="middle"><img src="../../image/TWL.gif" align="middle"></h1>
+<h2>Syntax</h2>
+
+<pre><code>
+#include &lt;nitro/fs.h&gt;
+
+typedef u32 FSEvent;
+#define FS_EVENT_MEDIA_INSERTED 0x00000001
+#define FS_EVENT_MEDIA_REMOVED  0x00000002
+
+typedef void (*FSEventFunction)(void *userdata, FSEvent event, void *argument);
+
+void FS_RegisterEventHook(const char *arcname, FSEventHook *hook, FSEventFunction callback, void *userdata);
+</code></pre>
+
+
+<h2>Arguments</h2>
+<table style="width:100%">
+<tbody>
+<tr>
+<td style="width:13%"><em><strong>arcname</strong></em></td>
+<td style="width:87%">Name of archive to register.</td>
+</tr>
+<tr>
+<td style="width:13%"><em><strong>hook</strong></em></td>
+<td style="width:87%">Pointer to the hook structure to use for registration.</td>
+</tr>
+<tr>
+<td style="width:13%"><em><strong>callback</strong></em></td>
+<td style="width:87%">Callback that should be called when the event occurs.</td>
+</tr>
+<tr>
+<td style="width:13%"><em><strong>userdata</strong></em></td>
+<td style="width:87%">Optional user-defined data that can be passed to the callback arguments (NULL if not required).</td>
+</tr>
+</tbody>
+</table>
+
+<h2>Return Values</h2>
+<p>None.</p>
+
+<h2>Description</h2>
+<p>Registers a hook in response to an event notification for the specified archive. This function is mostly used to monitor events in so-called &quot;removable media&quot; like DS Game Cards or SD Memory Cards. The events that trigger notification are as follows:
+</p>
+<table>
+<tr><td>event</td><td>Description</td><td>arg</td></tr>
+<tr><td>FS_EVENT_MEDIA_INSERTED</td><td>Indicates that media related to the archive was inserted.</td><td>Always NULL.</td></tr>
+<tr><td>FS_EVENT_MEDIA_REMOVED</td><td>Indicates that media related to the archive was removed.</td><td>Always NULL.</td></tr>
+</table>
+
+<h2>Note</h2>
+<ul>
+<li>Registered callback functions will be called from the interrupt handler.</li>
+</ul>
+
+<h2>See Also</h2>
+<p><code><a href="FS_UnregisterEventHook.html">FS_UnregisterEventHook</a></code></p>
+
+<h2>Revision History</h2>
+<p>
+2007/12/06 Initial version.
+</p>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

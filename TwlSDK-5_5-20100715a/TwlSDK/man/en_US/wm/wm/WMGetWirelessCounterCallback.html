@@ -1,0 +1,213 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 8.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>WMGetWirelessCounterCallback</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+<body>
+<h1 align="left">WMGetWirelessCounterCallback</h1>
+<h2>Definition</h2>
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/wm.h&gt;</CODE><BR>
+  <PRE><CODE>typedef struct WMGetWirelessCounterCallback
+{
+    u16     apiid;
+    u16     errcode;
+    u16     wlCmdID;
+    u16     wlResult;
+    u32     TX_Success;
+    u32     TX_Failed;
+    u32     TX_Retry;
+    u32     TX_AckError;
+    u32     TX_Unicast;
+    u32     TX_Multicast;
+    u32     TX_WEP;
+    u32     TX_Beacon;
+    u32     RX_RTS;
+    u32     RX_Fragment;
+    u32     RX_Unicast;
+    u32     RX_Multicast;
+    u32     RX_WEP;
+    u32     RX_Beacon;
+    u32     RX_FCSError;
+    u32     RX_DuplicateError;
+    u32     RX_MPDuplicateError;
+    u32     RX_ICVError;
+    u32     RX_FrameCtrlError;
+    u32     RX_LengthError;
+    u32     RX_PLCPError;
+    u32     RX_BufferOverflowError;
+    u32     RX_PathError;
+    u32     RX_RateError;
+    u32     RX_FCSOK;
+    u32     TX_MP;
+    u32     TX_KeyData;
+    u32     TX_NullKey;
+    u32     RX_MP;
+    u32     RX_MPACK;
+    u32     MPKeyResponseError[15];
+} WMGetWirelessCounterCallback;</CODE></PRE>
+  </dd>
+</dl><h2>Elements</h2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="200"><CODE>apiid</CODE></TD>
+<TD width="800">ID of the API that acts as the source for the callback generation. It is equivalent to the <A href="WMApiid.html"><code>WMApiid</code></A> enumerated type. Fixed here by <code>WM_APIID_GET_W_COUNTER</code>.
+      </TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>errcode</CODE></TD>
+<TD width="800">Result of the asynchronous process. It is equivalent to the <A href="WMErrCode.html"><code>WMErrCode</code></A> enumerated type.</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>wlCmdID</CODE></TD>
+<TD width="800">If <CODE>errcode</CODE> is <code>WM_ERRCODE_FAILED</code>, this function will store the ID of the command that was in error in the wireless firmware.</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>wlResult</CODE></TD>
+<TD width="800">If <CODE>errcode</CODE> is <code>WM_ERRCODE_FAILED</code>, this function will store the code was the source of the error in the wireless firmware.</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>TX_Success</CODE></TD>
+<TD width="800">Number of times that the function was able to send normally.</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>TX_Failed</CODE></TD>
+<TD width="800">Number of times that the function failed to send normally.</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>TX_Retry</CODE></TD>
+<TD width="800">Number of times that the function retried.</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>TX_AckError</CODE></TD>
+<TD width="800">Number of times the function was unable to receive the desired ACK frame.</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>TX_Unicast</CODE></TD>
+<TD width="800">Number of Unicast address frames that were sent normally.</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>TX_Multicast</CODE></TD>
+<TD width="800">Number of Multicast address frames that were sent normally.</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>TX_WEP</CODE></TD>
+<TD width="800">Number of code frames that were sent normally.</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>TX_Beacon</CODE></TD>
+<TD width="800">Number of Beacon frames that were sent normally.</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>RX_RTS</CODE></TD>
+<TD width="800">Number of times the function received RTS and performed CTS response. (See note.)</FONT></TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>RX_Fragment</CODE></TD>
+<TD width="800">Number of times fragmented frames were received.</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>RX_Unicast</CODE></TD>
+<TD width="800">Number of times Unicast address frames were received.</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>RX_Multicast</CODE></TD>
+<TD width="800">Number of times Multicast address frames were received.</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>RX_WEP</CODE></TD>
+<TD width="800">Number of times code frames were received that could be decoded normally. (See note.)</FONT></TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>RX_Beacon</CODE></TD>
+<TD width="800">Number of times that beacon frames were received.</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>RX_FCSError</CODE></TD>
+<TD width="800">Number of times FCS errors occurred. (See note.)</FONT></TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>RX_DuplicateError</CODE></TD>
+<TD width="800">Number of occurrences of duplication errors. (See note.)</FONT></TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>RX_MPDuplicateError</CODE></TD>
+<TD width="800">Number of occurrences of MP frame duplication errors. (See note.)</FONT></TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>RX_ICVError</CODE></TD>
+<TD width="800">Number of occurrences of ICV errors. (See note.)</FONT></TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>RX_FrameCtrlError</CODE></TD>
+<TD width="800">Number of times frames having illegal <CODE>FrameCtrl</CODE> were received. (See note.)</FONT></TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>RX_LengthError</CODE></TD>
+<TD width="800">Number of times frames shorter or longer than the set length were received. (See note.)</FONT></TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>RX_PLCPError</CODE></TD>
+<TD width="800">Number of occurrences of CRC errors of the PLCP. (See note.)</FONT></TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>RX_BufferOverflowError</CODE></TD>
+<TD width="800">Number of times the receive buffer overflowed. (See note.)</FONT></TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>RX_PathError</CODE></TD>
+<TD width="800">Number of occurrences of errors in the receive block. (See note.)</FONT></TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>RX_RateError</CODE></TD>
+<TD width="800">Number of times frames with illegal receive rates were received. (See note.)</FONT></TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>RX_FCSOK</CODE></TD>
+<TD width="800">Number of times a frame with a normal FCS was received. (See note.)</FONT></TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>TX_MP</CODE></TD>
+<TD width="800">Number of times an MP frame was sent.</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>TX_KeyData</CODE></TD>
+<TD width="800">Number of times MP-KeyData frames were sent.</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>TX_NullKey</CODE></TD>
+<TD width="800">Number of times MP-NullKey frames were sent.</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>RX_MP</CODE></TD>
+<TD width="800">Number of times normal MP frames were received.</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>RX_MPACK</CODE></TD>
+<TD width="800">Number of times normal MPACK frames were received.</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>MPKeyResponseError</CODE></TD>
+<TD width="800">Number of times each child did not respond normally to Key requests.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>
+<FONT color=red><B>Note:</B></FONT> Sometimes a value does not meet the actual total results due to the possibility that the counter in hardware may be cleared unexpectedly.
+</P>
+<H2>Description</H2>
+<P>
+This structure is passed to the callback function for the <A href="WM_GetWirelessCounter.html"><code>WM_GetWirelessCounter</code></A> function.
+</P>
+<H2>Revision History</H2>
+<P>
+2005/11/11 Added a note.<BR>2004/08/11 Initial version.<BR>
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

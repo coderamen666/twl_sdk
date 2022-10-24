@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>CARD_ReadRom</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">CARD_ReadRom <img src="../../image/NTR.gif"align="middle"><img src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/card.h&gt;</CODE><BR>
+  <BR>
+  <CODE>void	CARD_ReadRom(u32 dma, const void *src, void *dst, u32 len);</CODE><br>
+  <br>
+  </dd>
+</dl>
+<h2>Arguments</h2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="13%"><SPAN class="argument">dma</SPAN></TD>
+<TD width="87%">The DMA channel to use for the transfer between 0 and <CODE>MI_DMA_MAX_NUM</CODE>.<br />If the program is running in TWL mode, the parent DMA channel can be specified in the range of <CODE>(MI_DMA_USING_NEW+0)</CODE> to <CODE>(MI_DMA_USING_NEW+MI_DMA_MAX_NUM)</CODE>.<br />The CPU processes the transfer directly without using DMA transfer if an out-of-range channel has been specified or if <CODE>MI_DMA_NOT_USE</CODE> has been explicitly specified.</TD>
+    </TR>
+    <TR>
+<TD width="13%"><SPAN class="argument">src</SPAN></TD>
+<TD width="87%">The transfer source CARD ROM address.</TD>
+    </TR>
+    <TR>
+<TD width="13%"><SPAN class="argument">dst</SPAN></TD>
+<TD width="87%">Transfer destination memory address.</TD>
+    </TR>
+    <TR>
+<TD width="13%"><SPAN class="argument">len</SPAN></TD>
+<TD width="87%">Length of data being read, in bytes.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<h2>Return Values</h2>
+<p>None.</p>
+
+<h2>Description</h2>
+<p>Synchronously reads data from a device that has ROM. This function is equivalent to calling the <a href="CARD_ReadRomAsync.html"><code>CARD_ReadRomAsync</code></A> function with no callback specified and then unconditionally waiting for it to complete.</p>
+<p>For details on internal function operations, see the explanation for the <a href="CARD_ReadRomAsync.html"><code>CARD_ReadRomAsync</code></A> function.</p>
+
+<h2>Note</h2>
+<p>
+<ul style='color:red;'>
+<li>To use this function, you must first lock the access bus with the <a href="CARD_LockRom.html"><CODE>CARD_LockRom</CODE></A> function.</li>
+<li>If a valid DMA channel is specified by this function, that DMA channel will not be available until transfer is complete.</li>
+<li>The transfer source for Card access is an IO register, so you cannot specify DMA channel 0 unless the program is running in TWL mode and the <a href="../../scfg/scfg/SCFG_IsDmacFixed.html"><code>SCFG_IsDmacFixed</code></a> function has returned <CODE>TRUE</CODE>.</li>
+<li>Note that this function uses interrupts internally, so processing will not complete if it continues to wait while interrupts are prohibited.</li>
+</ul>
+</p>
+
+<h2>See Also</h2>
+<p><A href="CARD_LockRom.html"><CODE>CARD_LockRom</CODE></A><BR> <A href="CARD_ReadRomAsync.html"><CODE>CARD_ReadRomAsync</CODE></A></p>
+
+<H2>Revision History</H2>
+<P>
+2008/11/19 Added information about the relationship between the DMA channel range and the operating mode.<br /> 2008/01/24 Added a note on the range of DMA channels to specify.<br /> 2005/04/28 Explained that DMA channel 0 cannot be specified.<br /> 2004/11/02 Corrected argument names to match the header file.<br /> 2004/07/13 Added notes about using DMA.<br> 2004/07/09 Revised descriptions due to function format changes.<br> 2004/07/05 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

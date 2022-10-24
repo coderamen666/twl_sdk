@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>RTC_SyncSWClock</title>
+<LINK rel="stylesheet" href="../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">RTC_SyncSWClock <img src="../image/NTR.gif" align="middle"><img src="../image/TWL.gif" align="middle"></h1>
+
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/rtc.h&gt;</CODE><BR>
+<PRE><CODE><A href="RTCResult.html">RTCResult</A> RTC_SyncSWClock( void );</CODE></PRE>
+  </dd>
+
+</dl><h2>Arguments</h2>
+<p>None.</p>
+
+<h2>Return Values</h2>
+<p>
+Returns the results of calling <code><A href="RTC_GetDateTime.html">RTC_GetDateTime</A></code> within the function.
+</p>
+
+<H2>Description</H2>
+<P>
+Synchronizes the software clock with the current RTC time. Do not call this function while PXI interrupts are disabled, because it calls the <code><A href="RTC_GetDateTime.html">RTC_GetDateTime</A></code> function internally.
+</P>
+<P>
+This function is also invoked from the callback that is added by the <code><A href="RTC_InitSWClock.html">RTC_InitSWClock</A></code> function and triggered when recovering from Sleep Mode.
+</P>
+<P>
+You can call the <code><A href="RTC_GetLastSyncSWClockResult.html">RTC_GetLastSyncSWClockResult</A></code> function to get the return value from the last call to the <code>RTC_SyncSWClock</code> function.
+</P>
+
+<h2>See Also</h2>
+<P><CODE><A href="RTC_InitSWClock.html">RTC_InitSWClock</A>, <A href="RTC_GetLastSyncSWClockResult.html">RTC_GetLastSyncSWClockResult</A>, <A href="RTCResult.html">RTCResult</A></CODE></P>
+
+<H2>Revision History</H2>
+<P>
+2008/04/17 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

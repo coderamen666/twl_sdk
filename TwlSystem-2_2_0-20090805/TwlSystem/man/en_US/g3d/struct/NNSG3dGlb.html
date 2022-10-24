@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META http-equiv="Content-Style-Type" content="text/css">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+	<TITLE>NNSG3dGlb</TITLE>
+	<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+
+<BODY>
+
+<H1 align="left">NNSG3dGlb</H1>
+<H2>Structure Definition</H2>
+<PRE class="construction">#include &lt;nnsys/g3d/glbstate.h&gt;
+
+typedef struct
+{
+    u32     cmd0;             // G3_MtxMode -&gt; G3_LoadMtx44 -&gt; G3_MtxMode -&gt; G3_LoadMtx43
+    u32     mtxmode_proj;     // GX_MTXMODE_PROJECTION
+    MtxFx44 projMtx;          // Projection matrix
+    //
+    u32     mtxmode_posvec;   // GX_MTXMODE_POSITION_VECTOR
+    MtxFx43 cameraMtx;        // Camera matrix
+    
+    u32     cmd1;             // G3_LightVector * 4
+    u32     lightVec[4];      // Light vector
+
+    u32     cmd2;             // G3_MatColorDiffAmb -&gt; G3_MatColorSpecEmi -&gt; G3_PolygonAttr -&gt; G3_ViewPort
+    u32     prmMatColor0;
+    u32     prmMatColor1;
+    u32     prmPolygonAttr;
+    u32     prmViewPort;
+
+    u32     cmd3;             // G3_LightColor * 4
+    u32     lightColor[4];    // Light color
+
+    u32     cmd4;             // G3_MultMtx43 -&gt; G3_Scale -&gt; G3_TexImageParam
+    MtxFx33 prmBaseRot;
+    VecFx32 prmBaseTrans;
+    VecFx32 prmBaseScale;
+    u32     prmTexImageParam;
+
+    u32 flag;   // NNSG3dGlbFlag
+    MtxFx43 invCameraMtx;
+    MtxFx43 srtCameraMtx;
+    MtxFx43 invSrtCameraMtx;
+
+    MtxFx43 invBaseMtx;
+
+    MtxFx44 invProjMtx;
+    MtxFx44 invCameraProjMtx;
+
+    VecFx32 camPos;
+    VecFx32 camUp;
+    VecFx32 camTarget;
+}
+NNSG3dGlb;</PRE>
+
+<H2>Description</H2>
+<P>The <code>NNSG3dGlb</code> structure manages the types of data used for multiple models and entire scenes, such as projection matrices, light color and direction, and camera position and direction. The structure stores data for the following.</P>
+<UL>
+<LI>Projection matrix
+<LI>Camera matrix (camera's position, viewpoint, and upward vector)
+<LI>Light direction
+<LI>Light color
+<LI>Viewport
+<LI>Object's world transformation matrix (SRT)
+<LI>Default material color, polygon attributes
+<LI>Various cached matrices
+</UL>
+<P>The <code>NNSG3dGlb</code> structure's only instance is the <code>NNS_G3dGlb</code> global variable, which you can initialize before use by calling the <a href="../glbstate/NNS_G3dGlbInit.html"><code>NNS_G3dGlbInit</code></a> function. To access the data members held in this structure, use the <CODE>NNS_G3dGlb*</CODE> functions.<BR><BR> To apply the <code>NNSG3dGlb</code> structure's data in the Geometry Engine before you render with the <a href="../sbc/NNS_G3dDraw.html"><code>NNS_G3dDraw</code></a> function, call the <a href="../glbstate/NNS_G3dGlbFlush.html"><code>NNS_G3dGlbFlushP</code></a>, <a href="../glbstate/NNS_G3dGlbFlushVP.html"><code>NNS_G3dGlbFlushVP</code></a>, or <a href="../glbstate/NNS_G3dGlbFlushAlt.html"><code>NNS_G3dGlbFlushWVP</code></a> function. When the <code>NNS_G3dMdlUseGlbXXXXX</code> functions are used on model resources, the settings in this structure are used for such items as the default material color.<BR><BR>Note that G3D will sometimes use the data stored in the <code>NNSG3dGlb</code> structure when information such as the camera matrix is needed while rendering models, such as those including billboards.</P>
+<H2>See Also</H2>
+<P><A href="../list_g3d.html#GlobalState">Global State</A></P>
+<H2>Revision History</H2>
+<P>2007/05/17 Added structure definition.<BR> 2004/10/12 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+
+</HTML>

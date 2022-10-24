@@ -1,0 +1,159 @@
+/******************************************************************************
+	NINTENDO NITRO-System Maya Plugin
+
+	File:         NNS_CreateMenu.mel
+	Description:  create menu
+	Date:         2009/02/04
+	Author:       Takashi Endo
+
+	Copyright 2003-2009 Nintendo. All rights reserved.
+******************************************************************************/
+
+/******************************************************************************
+	show about plugin
+******************************************************************************/
+global proc NNS_ShowAboutPlugin()
+{
+	string $supportVer = `NNS_GetSupportMayaVer`;
+
+	string $pluginVer = "?";
+	string $pluginDate = "?";
+	if (`pluginInfo -q -l "NNS_Export.mll"`)
+	{
+		string $verDate = eval("NNS_ExportInfoCmd -p");
+		$pluginVer = match("^[0-9]+\\.[0-9]+\\.[0-9]+", $verDate);
+		string $date = match("[0-9]+$", $verDate);
+		$pluginDate = substring($date, 1, 4) + "/"
+			+ substring($date, 5, 6) + "/" + substring($date, 7, 8);
+	}
+
+	confirmDialog -t "About NINTENDO NITRO-System"
+		-m ("NINTENDO NITRO-System Plugin for Maya " + $supportVer + "\n\n"
+			+ "Ver " + $pluginVer + "  ( " + $pluginDate + " )\n\n"
+			+ "Copyright (C) 2003-2009 Nintendo Co.,Ltd.")
+		-b "OK" -db "OK" -ma "center";
+}
+
+/******************************************************************************
+	main
+******************************************************************************/
+global proc NNS_CreateMenu()
+{
+	global string $gMainWindow;
+
+	//-----------------------------------------------------------------------------
+	// check UI exist
+	if ($gMainWindow == "" || !`window -ex $gMainWindow`)
+	{
+		return;
+	}
+
+	//-----------------------------------------------------------------------------
+	// get version
+	float $mayaVer = getApplicationVersionAsFloat();
+
+	//-----------------------------------------------------------------------------
+	// set parent
+	setParent $gMainWindow;
+
+	//-----------------------------------------------------------------------------
+	// delete old menu
+	if (`menu -q -ex nnsMainMenu`)
+	{
+		deleteUI nnsMainMenu;
+	}
+
+	//-----------------------------------------------------------------------------
+	// create menu
+	menu -p $gMainWindow -l "NITRO-System"
+	     -allowOptionBoxes 0 -tearOff 1
+	     nnsMainMenu;
+
+		//-----------------------------------------------------------------------------
+		// export
+		menuItem -l "NITRO Export"
+			-ann "Export intermediate files & Use 3D Material Editor"
+			-c "NNS_ExpDirect";
+
+		menuItem -l "NITRO Export with Settings..."
+			-ann "NITRO Export Options"
+			-c "NNS_ExpDialog";
+
+		menuItem -d 1;
+
+		//-----------------------------------------------------------------------------
+		// material attr
+		menuItem -l "NITRO Set Material Attribute..."
+			-ann "Set material attributes of selected shadingEngine (material) node"
+			-c "NNS_SetMaterialAttr";
+
+		menuItem -l "NITRO Show Lighting..."
+			-ann "Show lighting mode by selection"
+			-c "NNS_ShowLighting";
+
+		menuItem -l "NITRO Show Display Face..."
+			-ann "Show display face mode by selection"
+			-c "NNS_ShowDispFace";
+
+		menuItem -d 1;
+
+		//-----------------------------------------------------------------------------
+		// render priority
+		menuItem -l "NITRO Set Render Priority..."
+			-ann "Set render priority of selected shadingEngine (material) node"
+			-c "NNS_SetRenderPriority";
+
+		menuItem -d 1;
+
+		//-----------------------------------------------------------------------------
+		// billboard
+		menuItem -l "NITRO Set Billboard..." 
+			-ann "Set billboard mode of selected transform node"
+			-c "NNS_SetBillboard";
+
+		menuItem -l "NITRO Show Billboard..." 
+			-ann "Show billboard by selection"
+			-c "NNS_ShowBillboard";
+
+		menuItem -d 1;
+
+		//-----------------------------------------------------------------------------
+		// no cut node
+		menuItem -l "NITRO Set No Cut Node..." 
+			-ann "Set no cut flag of selected transform node"
+			-c "NNS_SetNoCutNode";
+
+		menuItem -l "NITRO Show No Cut Node" 
+			-ann "Show no cut node by selection"
+			-c "NNS_ShowNoCutNode";
+
+		menuItem -d 1;
+
+		//-----------------------------------------------------------------------------
+		// texture
+		menuItem -l "NITRO Set Frame Extension List..."
+			-ann "Set output frame extension list for texture pattern animation"
+			-c "NNS_SetFrameExtensionList";
+
+		menuItem -d 1;
+
+		//-----------------------------------------------------------------------------
+		// utility
+		menuItem -l "NITRO Replace Character..."
+			-ann "Replace characters of object & material name"
+			-c "NNS_ReplaceCharacter";
+
+		menuItem -l "NITRO Rename Over 16 Characters..."
+			-ann "Search & rename elements over 16 characters"
+			-c "NNS_RenameOver16";
+
+		menuItem -d 1;
+
+		//-----------------------------------------------------------------------------
+		// about
+		menuItem -l "About NINTENDO NITRO-System..."
+			-ann "Show the infomation about this plugin"
+			-c "NNS_ShowAboutPlugin";
+
+	setParent -m ..;
+}

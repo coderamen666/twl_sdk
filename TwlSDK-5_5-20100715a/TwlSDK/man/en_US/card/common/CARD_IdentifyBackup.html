@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>CARD_IdentifyBackup</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">CARD_IdentifyBackup<img src="../../image/NTR.gif"align="middle"><img src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/card.h&gt;</CODE><BR>
+  <BR>
+  <CODE>BOOL	CARD_IdentifyBackup(CARDBackupType type);</CODE><br>
+  <br>
+  </dd>
+</dl>
+<h2>Arguments</h2>
+<p>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+      <TD width="13%"><EM><STRONG>type</STRONG></EM></TD>
+      <TD width="87%">The type of backup device that is mounted in a Game Card.<br>
+	  <font color="Red">You cannot specify <A href="../card_backup_type_const.html"><CODE>CARD_BACKUP_TYPE_NOT_USE</CODE></A>.</font></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</p>
+
+<h2>Return Values</h2>
+<p>Returns <CODE>TRUE</CODE> if a single byte was successfully read from the device. Returns <CODE>FALSE</CODE> if the Game Card has been removed or the Game Card is not making proper contact.</p>
+
+<H2>Description</H2>
+<p>Specifies the backup device that is mounted in a Game Card. The function identifies the device and test-reads the first byte. If the read is successful, it returns TRUE. If not, it returns FALSE. Detailed <A href="../card_result_const.html"><CODE>CARDResult</CODE></A>-type result values relating to success or failure can be obtained with the <code><a href="CARD_GetResultCode.html">CARD_GetResultCode</a></code> function.</p>
+
+<h2>Note</h2>
+<ul style="color:Red">
+<li>Once this function is used to specify a device, CARD functions will run under the assumption that the relevant device is actually mounted. Do not access a device by specifying a device that is not actually mounted because it can cause the improper operation of the program and damage to the mounted device.</li>
+<li>This function's return value can confirm that there is poor contact with a Game Card, but it cannot confirm whether the mounted device is of the correct type. Note that even when the return value is <CODE>TRUE</CODE>, it is possible for a different device to actually be mounted.</li>
+<li>This function communicates with the ARM7 processor internally via PXI. The process will not end if PXI interrupts are not enabled.</li>
+<li>To use this function, you must lock the access bus beforehand with the <A href="../backup/CARD_LockBackup.html"><CODE>CARD_LockBackup</CODE></A> function.</li>
+</ul>
+
+<h2>See Also</h2>
+<p><CODE><A href="../card_result_const.html">CARDResult</A>, <A href="../card_backup_type_const.html">CARDBackupType</A>, <A href="CARD_GetBackupTotalSize.html">CARD_GetBackupTotalSize</A>, <A href="CARD_GetBackupSectorSize.html">CARD_GetBackupSectorSize</A>, <A href="CARD_GetCurrentBackupType.html">CARD_GetCurrentBackupType</A></CODE><BR></P>
+
+<H2>Revision History</H2>
+<P>
+2008/09/06 Added a note stating that the return value cannot be used to confirm the mounted device. <br />2005/06/20 Added a clear statement that <code>CARD_BACKUP_TYPE_NOT_USE</code> cannot be specified. <br>2005/04/05 Added a statement and description about internal test reads and the necessity of locking the access bus. <br>2004/12/09 Changed descriptions from &quot;IO Processor&quot; to &quot;ARM7 Processor.&quot; <br>2004/09/10 Added a statement that it is strongly prohibited to specify devices that are not mounted. <br>2004/08/18 Added a statement about PXI interrupts. <br>2004/07/05 Initial version.<BR>
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

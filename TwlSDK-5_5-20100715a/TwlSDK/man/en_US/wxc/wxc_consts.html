@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>Constants</title>
+<LINK rel="stylesheet" href="../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">WXC-Related Constants <img src="../image/NTR.gif"align="middle"><img src="../image/TWL.gif" align="middle"></h1>
+<h2>Definition</h2>
+
+<pre>
+#define WXC_WORK_SIZE              0x4000
+
+/* Library's MP send/receive packet size */
+#define WXC_PACKET_SIZE_MIN        20
+#define WXC_PACKET_SIZE_MAX        WM_SIZE_MP_DATA_MAX
+#define WXC_REGISTER_DATA_MAX      16
+#define WXC_MAX_DATA_SIZE          (32 * 1024)
+</pre>
+
+<H2>Description</H2>
+<P>Constants defined in the WXC library. Explanation of each constant is shown below: <BR>
+<TABLE border="0">
+  <TBODY>
+
+   <TR>
+<TD>WXC_WORK_SIZE</TD>
+<TD>Required size for the Work memory allocated with the <A href="common/WXC_Init.html"><CODE>WXC_Init</CODE></A> function.</TD>
+    </TR>
+   <TR>
+<TD>WXC_PACKET_SIZE_MIN</TD>
+<TD>Minimum send size that can be specified with the <A href="common/WXC_SetParentParameter.html"><CODE>WXC_SetParentParameter</CODE></A> function.</TD>
+    </TR>
+   <TR>
+<TD>WXC_PACKET_SIZE_MAX</TD>
+<TD>Maximum send size that can be specified with the <A href="common/WXC_SetParentParameter.html"><CODE>WXC_SetParentParameter</CODE></A> function.</TD>
+    </TR>
+   <TR>
+<TD>WXC_REGISTER_DATA_MAX</TD>
+<TD>Maximum number of data blocks that can be registered with the <A href="common/WXC_RegisterCommonData.html"><CODE>WXC_RegisterCommonData</CODE></A> function.</TD>
+    </TR>
+   <TR>
+<TD>WXC_MAX_DATA_SIZE</TD>
+<TD>Maximum send/receive data size that can be specified in the <A href="common/WXC_RegisterCommonData.html"><CODE>WXC_RegisterCommonData</CODE></A> function.</TD>
+    </TR>
+
+  </TBODY>
+</TABLE>
+
+<BR>
+</P>
+<h2>See Also</h2>
+<p><CODE><A href="common/WXC_Init.html">WXC_Init</A><BR> <A href="common/WXC_Init.html">WXC_SetParentParameter</A></CODE></p>
+
+<H2>Revision History</H2>
+<P>
+2006/08/10 Revised links. <br>2006/02/20 Added <CODE>WXC_REGISTER_DATA_MAX</CODE> and <CODE>WXC_MAX_DATA_SIZE</CODE>. <br>2005/08/09 Added <CODE>WXC_PACKET_SIZE_MIN</CODE> and <CODE>WXC_PACKET_SIZE_MAX</CODE>. <br>2005/08/04 Initial version.<br>
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

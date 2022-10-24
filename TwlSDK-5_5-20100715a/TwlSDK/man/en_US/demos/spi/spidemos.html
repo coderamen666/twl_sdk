@@ -1,0 +1,151 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<LINK rel="stylesheet" type="text/css" href="../../css/nitro.css">
+<TITLE>SPI Demos</TITLE>
+</HEAD>
+<BODY>
+<H1>ARM7 Processor Peripheral Sample Demos</H1>
+
+<H2>Location</H2>
+<P><CODE>$TwlSDK/build/demos/spi<BR> $TwlSDK/build/demos.TWL/spi</CODE></P>
+
+<H2>Compilation</H2>
+<P>Move to the <CODE>$TwlSDK/build/demos/spi</CODE> (or <CODE>$TwlSDK/build/demos.TWL/spi</CODE>) directory and enter the following.</P>
+<BLOCKQUOTE><CODE>% make</CODE></BLOCKQUOTE>
+<P>&nbsp; The compilation begin, and the SRL executable file and the NEF or TEF files with binary information are generated in <CODE>$TwlSDK/build/demos/fs/(sample name)/bin/(platform)/(target)/</CODE>.</P>
+<BLOCKQUOTE><CODE>$TwlSDK/build/demos/spi/(sample name)/bin/(platform)/(target)/</CODE><BR> <CODE>$TwlSDK/build/demos.TWL/spi/(sample name)/bin/(platform)/(target)/</CODE></BLOCKQUOTE>
+<P>&nbsp;For example:</P>
+<BLOCKQUOTE><CODE>$TwlSDK/build/demos/spi/tp-1/bin/ARM9-TS/Release/main.srl</CODE></BLOCKQUOTE>
+<P>is the executable file for the <CODE>tp-1</CODE> demo.</P>
+
+<H2>Execution</H2>
+<H3>For NITRO ROMs</H3>
+<P>If using the Ensata emulator:</P>
+<UL>
+<LI>Execute NEF and SRL files with ensata
+</UL>
+<P>If using IS-NITRO-DEBUGGER:</P>
+<UL>
+<LI>Load and execute an NLF file with IS-NITRO-DEBUGGER
+<LI>Execute an SRL file with IS-NITRO-DEBUGGER
+<LI>Execute an SRL file with IS-NITRO-DEBUGGER using the <CODE>loadrun.exe</CODE> tool from a command line
+</UL>
+<P>If using IS-TWL-DEBUGGER:</P>
+<UL>
+<LI>Load and execute an NLF file with IS-TWL-DEBUGGER
+<LI>Execute an SRL file with IS-TWL-DEBUGGER
+<LI>Execute an SRL file with IS-TWL-DEBUGGER using the <CODE>loadrun.TWL.exe</CODE> tool from a command line
+</UL>
+<H3>For TWL/NITRO Hybrid ROMs</H3>
+<P>If using IS-NITRO-DEBUGGER:</P>
+<UL>
+<LI>Execute an SRL file with IS-NITRO-DEBUGGER
+<LI>Execute an SRL file with IS-NITRO-DEBUGGER using the <CODE>loadrun.exe</CODE> tool from a command line
+</UL>
+<P>If using IS-TWL-DEBUGGER:</P>
+<UL>
+<LI>Load and execute a TLF file with IS-TWL-DEBUGGER
+<LI>Execute an SRL file with IS-TWL-DEBUGGER
+<LI>Execute an SRL file with IS-TWL-DEBUGGER using the <CODE>loadrun.TWL.exe</CODE> tool from a command line
+</UL>
+<H3>For TWL Limited ROMs</H3>
+<P>If using IS-TWL-DEBUGGER:</P>
+<UL>
+<LI>Load and execute a TLF file with IS-TWL-DEBUGGER
+<LI>Execute an SRL file with IS-TWL-DEBUGGER
+<LI>Execute an SRL file with IS-TWL-DEBUGGER using the <CODE>loadrun.TWL.exe</CODE> tool from a command line
+</UL>
+<H2>Description</H2>
+<br>
+
+<TABLE width="720">
+  <TBODY>
+    <TR>
+<TH>Name</TH>
+<TH>Directory</TH>
+<TH>Operation</TH>
+    </TR>
+    <TR>
+<TD width="187"><CODE>tp-1</CODE></TD>
+<TD><CODE>demos</CODE></TD>
+<TD width="525">Displays touch panel input positions on the screen.</TD>
+    </TR>
+    <TR>
+<TD width="187"><CODE>tp-2</CODE></TD>
+<TD><CODE>demos</CODE></TD>
+<TD width="525">Displays the track of touch panel input positions on the screen.</TD>
+    </TR>
+    <TR>
+<TD width="187"><CODE>mic-1</CODE></TD>
+<TD><CODE>demos</CODE></TD>
+<TD width="525">Displays the microphone voice input status on the screen as a waveform.</TD>
+    </TR>
+    <TR>
+<TD width="187"><CODE>mic-2</CODE></TD>
+<TD><CODE>demos</CODE></TD>
+<TD width="525">Displays microphone voice input status on the screen as a waveform, and outputs text data. <br> The <a href="../../tools/mic2wav.html"><code>mic2wav.exe</code></a> tool can convert the obtained data into a WAV file.</TD>
+    </TR>
+    <TR>
+<TD><CODE>mic-3</CODE></TD>
+<TD><CODE>demos.TWL</CODE></TD>
+<TD>Displays a waveform on the screen indicating the state of audio input, based on the TWL's own microphone auto-sampling methods.</TD>
+    </TR>
+    <TR>
+<TD><CODE>mic-4</CODE></TD>
+<TD><CODE>demos.TWL</CODE></TD>
+<TD>Displays a waveform on the screen indicating the audio input status, based on the TWL's own microphone auto-sampling methods, and outputs it as text data.<BR><br> The <a href="../../tools/mic2wav.html"><code>mic2wav.exe</code></a> tool can convert the obtained data into a WAV file.</TD>
+    </TR>
+    <TR>
+<TD width="187"><CODE>spiMonkey</CODE></TD>
+<TD><CODE>demos</CODE></TD>
+<TD width="525">Displays touch screen and microphone input status on the screen while playing the background music.</TD>
+    </TR>
+    <TR>
+<TD width="187"><CODE>spiMonkey2</CODE></TD>
+<TD><CODE>demos</CODE></TD>
+<TD width="525">Displays touch screen and microphone input status on the screen while playing BGM.<BR>Unlike <code>spiMonkey</code>, it uses automatic sampling to sample the microphone.</TD>
+    </TR>
+    <TR>
+<TD><CODE>spiMonkey3</CODE></TD>
+<TD><CODE>demos.TWL</CODE></TD>
+<TD>Displays touch screen and microphone input status on the screen while playing BGM.<BR>Unlike <code>spiMonkey2</code>, it uses the TWL's own auto-sampling method to sample the microphone.</TD>
+    </TR>
+    <TR>
+<TD width="187"><CODE>pm-1</CODE></TD>
+<TD><CODE>demos</CODE></TD>
+<TD width="525">Enters sleep mode or power save mode by pressing the power button or closing the cover.</TD>
+    </TR>
+    <TR>
+<TD width="187"><CODE>pm-2</CODE></TD>
+<TD><CODE>demos.TWL</CODE></TD>
+<TD width="525">When the power button is pressed, the system will wait for the user operation to actually exit the application.</TD>
+    </TR>
+    <TR>
+<TD><CODE>pmAmpGain</CODE></TD>
+<TD><CODE>demos</CODE></TD>
+<TD>Manipulates the gain of the audio input through the microphone.<BR>The results of sampling the audio input are displayed on the screen as a waveform, much like with the <CODE>mic-1</CODE> demo.</TD>
+    </TR>
+    <TR>
+<TD><CODE>pmAmpGainLevel</CODE></TD>
+<TD><CODE>demos.TWL</CODE></TD>
+<TD>Manipulates the gain of the audio input through the microphone.<BR>Unlike <CODE>pmAmpGain</CODE>, this demo can manipulate the gain with a finer resolution thanks to the TWL's unique features.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<H2>Operation</H2>
+<P><CODE>mic-1</CODE>, <CODE>mic-2</CODE>, <CODE>spiMonkey</CODE>, <CODE>spiMonkey2</CODE>, and <CODE>pm-1</CODE> do not function properly with <CODE>ensata</CODE>.<BR> <CODE>mic-1</CODE> and <CODE>mic-2</CODE> function normally only when using NITRO ROM.<BR> <code>tp-1</code>, <code>tp-2</code>, <code>spiMonkey</code>, and <code>spiMonkey2</code> attempt to read touch panel calibration values from the non-volatile memory (NVRAM) in the DS. If they do not succeed they will terminate with an exception. In this case, use the DS Start menu that is built into the Nintendo DS to store calibration results in NVRAM.</P>
+
+<H2>See Also</H2>
+<P><A href="../../spi/list_spi.html">SPI Function List</A></P>
+
+<H2>Revision History</H2>
+<P>2008/11/13 Added text about <CODE>pm-2</CODE>.<BR> 2008/07/15 Added descriptions about <CODE>mic-3</CODE>, <CODE>mic-4</CODE>, <CODE>spiMonkey3</CODE>, <CODE>pmAmpGain</CODE>, and <CODE>pmAmpGainLevel</CODE>.<BR> 2008/07/11 Changed notation to correspond with TWL.<BR> 2008/04/25 Touched up the table. Changed the lists for TWL.<BR>2005/05/10 Added information about <code>spiMonkey2</code>.<br /> 2005/03/02 Revised descriptions to reflect current support environment conditions.<br /> 2004/08/17 Standardized the notation of IS-NITRO-EMULATOR.<br /> 2004/08/03 Added <CODE>pm-1</CODE>.<br /> 2004/07/10 Changed from <code>.bin</code> to <code>.srl</code>.<br>2004/06/18 Initial version.
+</P>
+
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

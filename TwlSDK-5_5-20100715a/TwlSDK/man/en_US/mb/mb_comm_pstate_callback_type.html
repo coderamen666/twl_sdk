@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>MBCommPStateCallback</title>
+<LINK rel="stylesheet" href="../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">MBCommPStateCallback <IMG src="../image/NTR.gif" width="24" height="12" border="0" align=middle><IMG src="../image/TWL.gif" width="24" height="12" border="0" align=middle></h1>
+<h2>Definition</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/mb.h&gt;</CODE><BR> <BR> <CODE>typedef void (*MBCommPStateCallback)(u16 child_aid, u32 status, void* arg);</CODE><br> <br>
+  </dd>
+</dl>
+
+<H2>Description</H2>
+<P>Defines the format of the callback function, which is called every time the parent state changes. The arguments are described below:<BR>
+<TABLE border="0">
+  <TBODY>
+    <TR>
+<TD>Arguments</TD>
+<TD>Description</TD>
+    </TR>
+    <TR>
+<TD><B><I>child_aid</B></I></TD>
+<TD>When a callback is a notification for one specific child, shows the <i>aid</i> of that child. You can get details for a specific child by calling the <CODE><A href="./parent/MB_CommGetChildUser.html">MB_CommGetChildUser</A></CODE> function and specifying this value.
+	  </TD>
+    </TR>
+    <TR>
+<TD><B><I>status</B></I></TD>
+<TD>Indicates one of the states shown by <CODE><A href="mb_comm_pstate_const.html">MBCommPState</A></CODE>.
+	  </TD>
+    </TR>
+    <TR>
+<TD><B><I>arg</B></I></TD>
+<TD>The variable corresponding to the state to be notified is passed. For details on each state, see the description of <code><A href="mb_comm_pstate_const.html">MBCommPState</A></code>.
+	  </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</P>
+<BR>
+</P>
+<h2>See Also</h2>
+<p><code><A href="mb_comm_pstate_const.html">MBCommPState</A><BR> <A href="parent/MB_CommGetChildUser.html">MB_CommGetChildUser</A><BR> <A href="parent/MB_CommSetParentStateCallback.html">MB_CommSetParentStateCallback</A><BR> <A href="parent/MB_CommGetParentState.html">MB_CommGetParentState</A></code></p>
+
+<H2>Revision History</H2>
+<P>
+2004/09/10 Added description regarding the expansion of the argument <em><strong><code>arg</code></strong></em>.<br /> 2004/08/09 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

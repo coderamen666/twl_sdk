@@ -1,0 +1,39 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>Archives: Overview</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">Archives: Overview</H1>
+<H2>Description</H2>
+<P>
+Since NAND applications store save data to system memory, a NAND application can read and write save data from another NAND application.
+</P>
+<P>
+The <a href="NA_LoadOtherTitleArchive.html"><CODE>NA_LoadOtherTitleArchive</CODE></a> function will load save data of a specified NAND application as an <CODE>otherPub</CODE> or <CODE>otherPrv</CODE> archive. By using the FS library to access these archives, you can access save data of the specified NAND application.
+</P>
+<P>
+The <a href="NA_LoadOtherTitleArchive.html"><CODE>NA_LoadOtherTitleArchive</CODE></a> function can only load a single save data region at a time. To access both public and private save data, or to access save data for multiple NAND applications, unload save data regions with the <a href="NA_UnloadOtherTitleArchive.html"><CODE>NA_UnloadOtherTitleArchive</CODE></a> function each time you access a single save data region.
+</P>
+<P>
+Only NAND applications can access save data from other NAND applications.
+</P>
+<H2>Sample Demos</H2>
+<P>
+The NAND application sample demo <CODE>other_backup</CODE> reads and writes save data from another NAND application (the <CODE>backup</CODE> demo).
+</P>
+<P>
+The <CODE>other_backup</CODE> demo is in the <code>$TwlSDK/build/demos.TWL/nandApp/other_backup</code> folder. The <CODE>backup</CODE> demo is in the <code>$TwlSDK/build/demos.TWL/nandApp/backup</code> folder.
+</P>
+<H2>See Also</H2>
+<P><A href="../list_na.html#subBanner">NA Function List (Archives)</A><BR> <A href="../../demos/nandApp/nandAppdemos.html">NAND Application Sample Demo</A></CODE></P>
+<H2>Revision History</H2>
+<P>
+2008/09/16 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

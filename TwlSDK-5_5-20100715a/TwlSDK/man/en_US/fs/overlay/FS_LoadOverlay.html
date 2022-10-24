@@ -1,0 +1,122 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>FS_LoadOverlay</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">FS_LoadOverlay <img src="../../image/NTR.gif"align="middle"><img src="../../image/TWL.gif" align="middle"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/fs.h&gt;</CODE><BR> <BR> <CODE>BOOL FS_LoadOverlay(MIProcessor target, <A href="../fs_overlay_id_types.html">FSOverlayID</a> id);</CODE><br> <br>
+  </dd>
+</dl>
+<h2>Arguments</h2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="13%"><EM><STRONG>target</STRONG></EM></TD>
+<TD width="87%">Load target (ARM9 processor/ARM7 processor).</TD>
+    </TR>
+    <TR>
+<TD width="13%"><EM><STRONG>id</STRONG></EM></TD>
+<TD width="87%">ID of module to load.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<h2>Return Values</h2>
+<p>Returns TRUE if the module is loaded properly; FALSE otherwise.</p>
+
+<H2>Description</H2>
+<P>This function loads an overlay module that is associated with a specified processor and a specified number.<br> <font color="#800000">When loading an overlay whose area conflicts with an existing loaded overlay, you must unload the previous overlay using the <code><A href="FS_UnloadOverlay.html">FS_UnloadOverlay</A></code> function.</font><br> This function is equivalent to using the <A href="../fs_overlay_info_type.html"><code>FSOverlayInfo</code></A> function to acquire overlay module information, and calling the <A href="FS_LoadOverlayImage.html"><code>FS_LoadOverlayImage</code></A> and <A href="FS_StartOverlay.html"><code>FS_StartOverlay</code></A> functions. For information about its relationship to other overlay functions that perform equivalent processes, see the following.
+<pre>
+Example:
+<font color="#008000">
+/*********************************************************
+ Overlay load method (all processes are internally equivalent)
+ *********************************************************/</font>
+
+FS_EXTERN_OVERLAY(overlay_x);
+FSOverlayID   overlay_id = FS_OVERLAY_ID(overlay_x);
+MIProcessor   target = MI_PROCESSOR_ARM9;
+
+<font color="#008000">/* Method 1: Runs everything synchronously.*/</font>
+{
+    <A href="FS_LoadOverlay.html">FS_LoadOverlay</A>(target, overlay_id);
+}
+
+<font color="#008000">/* Method 2: Runs manually in sections (synchronous) */</font>
+{
+    FSOverlayInfo  info;
+    <A href="FS_LoadOverlayInfo.html">FS_LoadOverlayInfo</A>(&amp;info, target, overlay_id);
+    <A href="FS_LoadOverlayImage.html">FS_LoadOverlayImage</A>(&amp;info);
+    <A href="FS_StartOverlay.html">FS_StartOverlay</A>(&amp;info);
+}
+
+<font color="#008000">/* Method 3: Runs everything manually (asynchronous) */</font>
+{
+    FSOverlayInfo  info;
+    <A href="FS_LoadOverlayInfo.html">FS_LoadOverlayInfo</A>(&amp;info, target, overlay_id);
+    {
+        FSFile         file;
+        FS_InitFile(&amp;file);
+        <A href="FS_LoadOverlayImageAsync.html">FS_LoadOverlayImageAsync</A>(&amp;info, &amp;file);
+        while(FS_IsBusy(&amp;file))
+        {
+            <font color="#008000">/* Process the framework or message pump */</font>
+        }
+        FS_CloseFile(&amp;file);
+    }
+    <A href="FS_StartOverlay.html">FS_StartOverlay</A>(&amp;info);
+}
+
+<font color="#008000">/* Method 4: Execute all using low-level functions */</font>
+{
+    FSOverlayInfo  info;
+    <A href="FS_LoadOverlayInfo.html">FS_LoadOverlayInfo</A>(&amp;info, target, overlay_id);
+    {
+        FSFile         file;
+        FS_InitFile(&amp;file);
+        <font color="#008000">/* Open the overlay image file directly and initialize the overlay region's memory  */</font>
+        FS_OpenFileFast(&amp;file, <a href="FS_GetOverlayFileID.html">FS_GetOverlayFileID</a>(&amp;info));
+        <a href="FS_ClearOverlayImage.html">FS_ClearOverlayImage</a>(&amp;info);
+        <font color="#008000">/*
+         * If you want to replay stream sounds in parallel, 
+         * divide the application into convenient units and load.
+         */</font>
+        {
+            int len, pos;
+            int small_size = 1024 * 32;
+            for (pos = 0; pos &lt; FS_GetFileLength(&amp;file); pos += len)
+            {
+                len = FS_ReadFileAsync(&amp;file, small_size);
+                while(FS_IsBusy(&amp;file))
+                {
+                    <font color="#008000">/* Process the framework or message pump */</font>
+                }
+            }
+        }
+        FS_CloseFile(&amp;file);
+    }
+    <A href="FS_StartOverlay.html">FS_StartOverlay</A>(&amp;info);
+}
+</pre>
+
+<h2>See Also</h2>
+<p><A href="FS_LoadOverlay.html"><CODE>FS_LoadOverlay</CODE></A><BR><A href="FS_LoadOverlayImage.html"><CODE>FS_LoadOverlayImage</CODE></A><BR> <A href="FS_LoadOverlayImageAsync.html"><CODE>FS_LoadOverlayImageAsync</CODE></A><BR><A href="FS_LoadOverlayInfo.html"><CODE>FS_LoadOverlayInfo</CODE></A><BR> <A href="../fs_overlay_id_types.html"><CODE>FS_OVERLAY_ID</CODE></A><BR><A href="../fs_overlay_info_type.html"><CODE>FSOverlayInfo</CODE></A><BR><A href="FS_StartOverlay.html"><CODE>FS_StartOverlay</CODE></A><BR> <A href="FS_UnloadOverlay.html"><CODE>FS_UnloadOverlay</CODE></A></p>
+
+<H2>Revision History</H2>
+<P>
+2008/10/02 Revised the sample code.<br>2007/04/16 Added sample code.<br />2005/06/02 Changed &amp; to &amp;amp;.<br />2004/11/17 Revised sample code due to the elimination of <br>FS_RegisterOverlayToDebugger<code>.</code>2004/11/16 Partially revised sample code and added a precaution concerning <BR>FS_UnloadOverlay<code>.</code>2004/10/19 Revised part of the sample code.</code>2004/09/24 Added text to the example concerning the relationship between the various types of overlay functions.</code>2004/06/11 Made revisions reflecting the addition of overlay functions.</code>2004/04/08 Revised description due to changes in the <br>FSOverlayID<code> type.</code>2004/04/05 Revised description due to addition of <br>FSOverlayID<code>.</code>2004/04/01 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

@@ -1,0 +1,1035 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META http-equiv="Content-Style-Type" content="text/css">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<BASE target="main">
+<TITLE>Memory Interface (MI) Function List</TITLE>
+<LINK rel="stylesheet" href="../css/apilist.css">
+</HEAD>
+<BODY>
+<H1>Memory Interface (MI) Function List</H1>
+
+<H3><A name="init">Initialization</A></H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TH width="25%"><A href="init/MI_Init.html" target="_self">MI_Init</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Initializes the MI library.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+
+<H3><A name="memory">CPU Memory Operations</A></H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TH nowrap width="25%"><A href="memory/MI_CpuCopy.html" target="_self">MI_CpuCopy*</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Copies data.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="memory/MI_CpuMove.html" target="_self">MI_CpuMove*</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Moves data.</TD>
+    </TR>
+    <TR>
+<TH nowrap width="25%"><A href="memory/MI_CpuFill.html" target="_self">MI_CpuFill*</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Fills memory with specified data.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="memory/MI_CpuClear.html" target="_self">MI_CpuClear*</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Zero-clears memory.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="memory/MI_CpuSend.html" target="_self">MI_CpuSend*</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Sends data with fixed address.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="memory/MI_CpuRecv.html" target="_self">MI_CpuRecv*</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Reads data from a fixed address.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="memory/MI_CpuPipe.html" target="_self">MI_CpuPipe*</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Sends data from a fixed address to a fixed address.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="memory/MI_CpuFind.html" target="_self">MI_CpuFind*</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Searches through memory for the specified data.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="memory/MI_CpuComp.html" target="_self">MI_CpuComp*</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Compares data.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+
+<H3><A name="dma">DMA Memory Operations</A></H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TH width="25%"><A href="dma/MI_DmaCopy.html" target="_self">MI_DmaCopy*</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Copies data.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="ndma/MI_NDmaCopy.html" target="_self">MI_NDmaCopy*</A></TH>
+      <TD><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Copies data.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="dma/MI_DmaFill.html" target="_self">MI_DmaFill*</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Fills memory with specified data.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="ndma/MI_NDmaFill.html" target="_self">MI_NDmaFill*</A></TH>
+      <TD><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Fills memory with specified data.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="dma/MI_DmaClear.html" target="_self">MI_DmaClear*</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Zero-clears memory.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="ndma/MI_NDmaClear.html" target="_self">MI_NDmaClear*</A></TH>
+      <TD><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Zero-clears memory.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="dma/MI_DmaSend.html" target="_self">MI_DmaSend*</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Sends data with fixed address.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="ndma/MI_NDmaSend.html" target="_self">MI_NDmaSend*</A></TH>
+      <TD><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Sends data with fixed address.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="dma/MI_DmaRecv.html" target="_self">MI_DmaRecv*</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Reads data from a fixed address.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="ndma/MI_NDmaRecv.html" target="_self">MI_NDmaRecv*</A></TH>
+      <TD><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Reads data from a fixed address.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="dma/MI_DmaPipe.html" target="_self">MI_DmaPipe*</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Sends data from a fixed address to a fixed address.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="ndma/MI_NDmaPipe.html" target="_self">MI_NDmaPipe*</A></TH>
+      <TD><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Sends data from a fixed address to a fixed address.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="dma/MI_DmaRestart.html" target="_self">MI_DmaRestart</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Starts DMA once it has been configured.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="ndma/MI_NDmaRestart.html" target="_self">MI_NDmaRestart</A></TH>
+      <TD><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Starts DMA once it has been configured.</TD>
+    </TR>
+ <TR><TD class="separator" colspan=3></TD></TR>
+    <TR>
+<TH width="25%"><A href="dma/MI_HBlankDmaCopy.html" target="_self">MI_HBlankDmaCopy*</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Uses H-Blank DMA to copy data.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="ndma/MI_HBlankNDmaCopy.html" target="_self">MI_HBlankNDmaCopy*</A></TH>
+      <TD><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Uses H-Blank DMA to copy data.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="dma/MI_VBlankDmaCopy.html" target="_self">MI_VBlankDmaCopy*</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Uses V-Blank DMA to copy data.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="ndma/MI_VBlankNDmaCopy.html" target="_self">MI_VBlankNDmaCopy*</A></TH>
+      <TD><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Uses V-Blank DMA to copy data.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="dma/MI_DispMemDmaCopy.html" target="_self">MI_DispMemDmaCopy</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Sets main memory display DMA copies.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="dma/MI_SendGXCommand.html" target="_self">MI_SendGXCommand*</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Uses DMA to send geometry commands to command FIFO.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="ndma/MI_SendNDmaGXCommand.html" target="_self">MI_SendNDmaGXCommand*</A></TH>
+      <TD><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Uses DMA to send geometry commands to command FIFO.</TD>
+    </TR>
+
+    <TR>
+<TH width="25%"><A href="ndma/MI_TimerNDmaCopy.html" target="_self">MI_TimerNDmaCopy</A></TH>
+      <TD><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Sets up a DMA copy based on a timer startup.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="ndma/MI_Card_NDmaCopy.html" target="_self">MI_Card_NDmaCopy</A></TH>
+      <TD><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Sets up a DMA copy based on memory card transfer startup.</TD>
+    </TR>
+ <TR><TD class="separator" colspan=3></TD></TR>
+    <TR>
+<TH width="25%"><A href="dma/MI_IsDmaBusy.html" target="_self">MI_IsDmaBusy</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Checks whether the specified DMA channel is being used.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="ndma/MI_IsNDmaBusy.html" target="_self">MI_IsNDmaBusy</A></TH>
+      <TD><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Checks whether the specified DMA channel is being used.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="dma/MI_WaitDma.html" target="_self">MI_WaitDma</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Waits for the specified end of DMA.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="ndma/MI_WaitNDma.html" target="_self">MI_WaitNDma</A></TH>
+      <TD><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Waits for the specified end of DMA.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="dma/MI_StopDma.html" target="_self">MI_StopDma</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Stops specified DMA.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="ndma/MI_StopNDma.html" target="_self">MI_StopNDma</A></TH>
+      <TD><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Stops specified DMA.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="dma/MI_StopAllDma.html" target="_self">MI_StopAllDma</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Stops all DMA channels. (Legacy DMA)</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="ndma/MI_StopAllNDma.html" target="_self">MI_StopAllNDma</A></TH>
+      <TD><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Stops all DMA channels. (New DMA)</TD>
+    </TR>
+ <TR><TD class="separator" colspan=3></TD></TR>
+    <TR>
+<TH width="25%"><A href="ndma/MI_SetNDmaArbitrament.html" target="_self">MI_SetNDmaArbitrament</A></TH>
+      <TD><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Sets the arbitration method for the new DMA.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="ndma/MI_GetNDmaArbitrament.html" target="_self">MI_GetNDmaArbitramentMode</A></TH>
+      <TD><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets the arbitration method for the new DMA.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="ndma/MI_GetNDmaArbitramentRoundRobinCycle.html" target="_self">MI_GetNDmaArbitramentRoundRobinCycle</A></TH>
+      <TD><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets the number of cycles that can be run on the ARM7 when the arbitration method for the new DMA is set to round-robin.</TD>
+    </TR>
+ <TR><TD class="separator" colspan=3></TD></TR>
+    <TR>
+<TH width="25%"><A href="ndma/MI_InitNDmaConfig.html" target="_self">MI_InitNDmaConfig</A></TH>
+      <TD><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Initializes the config structure that controls the behavior of the new DMA.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="ndma/MI_GetNDmaConfig.html" target="_self">MI_GetNDmaConfig</A></TH>
+      <TD><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets the config structure for the new DMA.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="ndma/MI_SetNDmaConfig.html" target="_self">MI_SetNDmaConfig</A></TH>
+      <TD><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Sets the config structure for the new DMA.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="ndma/MI_SetNDmaInterval.html" target="_self">MI_SetNDmaInterval</A></TH>
+      <TD><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Sets the Interval information for the specified config structure.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="ndma/MI_GetNDmaIntervalTimer.html" target="_self">MI_GetNDmaIntervalTimer</A></TH>
+      <TD><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets the IntervalTimer information for the specified config structure.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="ndma/MI_GetNDmaIntervalPrescaler.html" target="_self">MI_GetNDmaIntervalPrescaler</A></TH>
+      <TD><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets the IntervalPrescaler information for the specified config structure.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="ndma/MI_SetNDmaBlockWord.html" target="_self">MI_SetNDmaBlockWord</A></TH>
+      <TD><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets the BlockWord information for the specified config structure.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="ndma/MI_GetNDmaBlockWord.html" target="_self">MI_GetNDmaBlockWord</A></TH>
+      <TD><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets the BlockWord information for the specified config structure.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="ndma/MI_SetNDmaWordCount.html" target="_self">MI_SetNDmaWordCount</A></TH>
+      <TD><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Sets the WordCount information for the specified config structure.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="ndma/MI_GetNDmaWordCount.html" target="_self">MI_GetNDmaWordCount</A></TH>
+      <TD><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets the WordCount information for the specified config structure.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<H3><A name="exMemory">External Memory Control</A></H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TH width="25%"><A href="exmemory/MI_SetMainMemoryPriority.html" target="_self">MI_SetMainMemoryPriority</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Sets access priority to main memory.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="exmemory/MI_GetMainMemoryPriority.html" target="_self">MI_GetMainMemoryPriority</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets settings for access priority to main memory.</TD>
+    </TR>
+
+    <TR>
+<TH width="25%"><A href="exmemory/MI_GetCardProcessor.html" target="_self">MI_GetCardProcessor</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets settings for access rights to card.</TD>
+    </TR>
+
+    <TR>
+<TH width="25%"><A href="exmemory/MI_GetCartridgeProcessor.html" target="_self">MI_GetCartridgeProcessor</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets settings for access rights to Game Pak.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="exmemory/MI_SetCartridgeRomCycle1st.html" target="_self">MI_SetCartridgeRomCycle1st</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Sets the first access cycle to the Game Pak ROM region.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="exmemory/MI_GetCartridgeRomCycle1st.html" target="_self">MI_GetCartridgeRomCycle1st</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets the settings for the first access cycle to the Game Pak ROM region.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="exmemory/MI_SetCartridgeRomCycle2nd.html" target="_self">MI_SetCartridgeRomCycle2nd</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Sets the second access cycle to the Game Pak ROM region.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="exmemory/MI_GetCartridgeRomCycle2nd.html" target="_self">MI_GetCartridgeRomCycle2nd</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets the setting for the second access cycle to access the Game Pak's ROM region.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="exmemory/MI_SetCartridgeRamCycle.html" target="_self">MI_SetCartridgeRamCycle</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Sets the access cycle to the Game Pak RAM region.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="exmemory/MI_GetCartridgeRamCycle.html" target="_self">MI_GetCartridgeRamCycle</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets the settings for the access cycle to the Game Pak RAM region.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="exmemory/MI_SetAgbCartridgeFastestRomCycle.html" target="_self">MI_SetAgbCartridgeFastestRomCycle</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Sets the high-speed access cycle to the AGB Game Pak ROM region.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+
+<H3><A name="wram">Work RAM Settings</A></H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TH width="25%"><A href="wram/MI_SetWramBank.html" target="_self"><font color="#808080">MI_SetWramBank</font></A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/BPT.gif"></TD>
+
+<TD><font color="#808080">This function is only used by the system.</font></TD>
+    </TR>
+    <TR>
+      <TD class="separator" colspan=3></TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="wram/MI_GetWramBankMaster.html" target="_self">MI_GetWramBankMaster*</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets the master processor assigned to the shared WRAM (256 KB x 3).</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="wram/MI_GetWramBankOffset.html" target="_self">MI_GetWramBankOffset*</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets the offset position of the shared WRAM (256 KB x 3) banks.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="wram/MI_GetWramBankEnable.html" target="_self">MI_GetWramBankEnable*</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets whether the banks in the shared WRAM (256 KB x 3) can be used.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="wram/MI_GetWramMapStart.html" target="_self">MI_GetWramMapStart*</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets the starting address of the shared WRAM (256 KB x 3).</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="wram/MI_GetWramMapEnd.html" target="_self">MI_GetWramMapEnd*</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets the ending address of the shared WRAM (256 KB x 3).</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="wram/MI_GetWramMapImage.html" target="_self">MI_GetWramMapImage*</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets the image occurrence setting of the shared WRAM (256 KB x 3).</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="wram/MI_IsWramSlotLocked.html" target="_self">MI_IsWramSlotLocked*</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Determines whether the shared WRAM (256 KB x 3) slots are locked.</TD>
+    </TR>
+    <TR>
+      <TD class="separator" colspan=3></TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="wram/MI_GetAllocatableWramSlot.html" target="_self">MI_GetAllocatableWramSlot*</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets which slots in the shared WRAM (256 KB x 3) can be allocated by the specified processor.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="wram/MI_GetFreeWramSlot.html" target="_self">MI_GetFreeWramSlot*</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets which slots in the shared WRAM (256 KB x 3) are neither reserved nor assigned.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="wram/MI_GetUsedWramSlot.html" target="_self">MI_GetUsedWramSlot*</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets which slots in the shared WRAM (256 KB x 3) are assigned.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="wram/MI_GetWramReservation.html" target="_self">MI_GetWramReservation*</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets the processor that has reserved the shared WRAM (256 KB x 3) slot.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="wram/MI_IsWramSlotUsed.html" target="_self">MI_IsWramSlotUsed*</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets whether the shared WRAM (256 KB x 3) slots are assigned.</TD>
+    </TR>
+    <TR>
+ <TD class="separator" colspan=3></TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="wram/MI_InitWramManager.html" target="_self">MI_InitWramManager</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Initializes the shared WRAM (256 KB x 3) manager.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="wram/MI_AllocWram.html" target="_self">MI_AllocWram*</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Makes a request for WRAM assignment to the shared WRAM (256 KB x 3) manager.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="wram/MI_FreeWram.html" target="_self">MI_FreeWram*</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Sends a request to the shared WRAM (256 KB x 3) manager to free some WRAM.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="wram/MI_SwitchWram.html" target="_self">MI_SwitchWram*</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Notifies the shared WRAM (256 KB x 3) manager of changes to the assigned WRAM master.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="wram/MI_ReserveWram.html" target="_self">MI_ReserveWram*</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Notifies the shared WRAM manager (256 KB x 3) of a reservation of WRAM by a processor.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="wram/MI_CancelWram.html" target="_self">MI_CancelWram*</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Notifies the shared WRAM manager (256 KB x 3) of a cancelled reservation of WRAM by a processor.</TD>
+    </TR>
+    <TR>
+      <TD class="separator" colspan=3></TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="wram/MI_DumpWramList.html" target="_self">MI_DumpWramList*</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Displays the WRAM assignment status maintained by the WRAM (256 KB x 3) manager for a given WRAM region.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="wram/MI_DumpWramList.html" target="_self">MI_DumpWramListAll</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Displays the WRAM assignment status maintained by the WRAM (256 KB x 3) manager for all WRAM regions.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+
+<H3><A name="swap">Memory Swap</A></H3>
+
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TH width="25%"><A href="swap/MI_Swap.html" target="_self">MI_SwapByte</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Swaps specified byte data and memory data.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="swap/MI_Swap.html" target="_self">MI_SwapWord</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Swaps specified word data and memory data.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+
+<H3><A name="uncompress">Expanding Compressed Data</A></H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TH width="25%"><A href="uncompress/MI_UnpackBits.html" target="_self">MI_UnpackBits</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Expands the data filled with fixed 0.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="uncompress/MI_UncompressLZ.html" target="_self">MI_UncompressLZ8</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Expands the LZ77-compressed data in 8-bit units.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="uncompress/MI_UncompressLZ.html" target="_self">MI_UncompressLZ16</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Expands the LZ77-compressed data in 16-bit units.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="uncompress/MI_UncompressHuffman.html" target="_self">MI_UncompressHuffman</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Expands Huffman-compressed data in 32-bit units.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="uncompress/MI_UncompressRL.html" target="_self">MI_UncompressRL8</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Expands run-length compressed data in 8-bit units.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="uncompress/MI_UncompressRL.html" target="_self">MI_UncompressRL16</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Expands run-length compressed data in 16-bit units.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="uncompress/MI_UncompressRL.html" target="_self">MI_UncompressRL32</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Expands run-length compressed data in 32-bit units.</TD>
+    </TR>
+    <TR>
+<TH><A href="uncompress/MI_UnfilterDiff.html" target="_self">MI_UnfilterDiff8</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Expands the data that the difference filter was applied to in 8-bit units.</TD>
+    </TR>
+    <TR>
+<TH><A href="uncompress/MI_UnfilterDiff.html" target="_self">MI_UnfilterDiff16</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Expands the data that the difference filter was applied to in 16-bit units.</TD>
+    </TR>
+    <TR>
+<TH><A href="uncompress/MI_UnfilterDiff.html" target="_self">MI_UnfilterDiff32</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Expands the data that the difference filter was applied to in 32-bit units.</TD>
+    </TR>
+    <TR>
+<TH><A href="uncompress/MI_SecureUncompressAny.html" target="_self">MI_SecureUncompressAny</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Detects the compression format from the data header and executes the appropriate decompression process. (Includes buffer overrun check.)</TD>
+    </TR>
+    <TR>
+<TH><A href="uncompress/MI_SecureUncompressRL.html" target="_self">MI_SecureUncompressRL</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Decompresses run-length compressed data once. (Includes buffer overrun check.)</TD>
+    </TR>
+    <TR>
+<TH><A href="uncompress/MI_SecureUncompressLZ.html" target="_self">MI_SecureUncompressLZ</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Decompresses LZ77-compressed data once. (Includes buffer overrun check.)</TD>
+    </TR>
+    <TR>
+<TH><A href="uncompress/MI_SecureUncompressBLZ.html" target="_self">MI_SecureUncompressBLZ</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Decompresses BLZ-compressed data once. (Includes buffer overrun check.)</TD>
+    </TR>
+    <TR>
+<TH><A href="uncompress/MI_SecureUncompressHuffman.html" target="_self">MI_SecureUncompressHuffman</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Decompresses Huffman-compressed data once. (Includes buffer overrun check.)</TD>
+    </TR>
+    <TR>
+<TH><A href="uncompress/MI_SecureUnfilterDiff.html" target="_self">MI_SecureUnfilterDiff</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Decompresses data that a difference filter has been applied to. (Includes buffer overrun check.)</TD>
+    </TR>
+    <TR>
+<TH><A href="uncompress/MI_GetUncompressedSize.html" target="_self">MI_GetUncompressedSize</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets the size of the expanded data.</TD>
+    </TR>
+    <TR>
+<TH><A href="uncompress/MI_GetCompressionType.html" target="_self">MI_GetCompressionType</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets the compression format of the compressed data.</TD>
+    </TR>
+    <TR>
+<TH><A href="uncompress/MI_InitUncompContextRL.html" target="_self">MI_InitUncompContextRL</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Initializes run-length compression streaming decode context.</TD>
+    </TR>
+    <TR>
+<TH><A href="uncompress/MI_InitUncompContextLZ.html" target="_self">MI_InitUncompContextLZ</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Initializes LZ77 compression streaming decode context.</TD>
+    </TR>
+    <TR>
+<TH><A href="uncompress/MI_InitUncompContextHuffman.html" target="_self">MI_InitUncompContextHuffman</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Initializes the Huffman compression streaming decode context.</TD>
+    </TR>
+    <TR>
+<TH><A href="uncompress/MI_ReadUncompRL.html" target="_self">MI_ReadUncompRL*</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Runs run-length compression streaming decoding.</TD>
+    </TR>
+    <TR>
+<TH><A href="uncompress/MI_ReadUncompLZ.html" target="_self">MI_ReadUncompLZ*</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Runs LZ77-compression streaming decoding.</TD>
+    </TR>
+    <TR>
+<TH><A href="uncompress/MI_ReadUncompHuffman.html" target="_self">MI_ReadUncompHuffman</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Runs Huffman compression streaming decoding.</TD>
+    </TR>
+    <TR>
+<TH><A href="uncompress/MI_CompressRL.html" target="_self">MI_CompressRL</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Performs run-length compression on the data.</TD>
+    </TR>
+    <TR>
+<TH><A href="uncompress/MI_CompressLZ.html" target="_self">MI_CompressLZ</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Performs LZ77 compression on the data.</TD>
+    </TR>
+    <TR>
+<TH><A href="uncompress/MI_CompressLZ.html" target="_self">MI_CompressLZFast</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Performs LZ77 compression on the data. Processing is performed rather quickly in exchange for requiring a work buffer.</TD>
+    </TR>
+    <TR>
+<TH><A href="uncompress/MI_CompressHuffman.html" target="_self">MI_CompressHuffman</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Performs Huffman compression on the data.</TD>
+    </TR>
+    <TR>
+<TH><A href="uncompress/MI_FilterDiff.html" target="_self">MI_FilterDiff*</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Creates data that a difference filter has been applied to.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+
+
+<H3><A name="byteAccess">Byte Access</A></H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TH width="25%"><font color="gray">MI_ReadByte</font></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD><font color="gray">Reads the byte data from the memory.<BR>This function has been kept for compatibility. Do not use it.</font></TD>
+    </TR>
+    <TR>
+<TH width="25%"><font color="gray">MI_WriteByte</font></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD><font color="gray">Writes the byte data to the memory.<BR>This function has been kept for compatibility. Do not use it.</font></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<H3><A name="endian">Endian-Aware Memory Access</A></H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TH width="25%"><A href="endian/MI_SwapEndian.html" target="_self">MI_SwapEndian8</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Reverses the endian of a 8-bit value.<br><font color="gray">These 8-bit versions do not actually perform any conversions, but they have been included for uniform source code visibility.</font></TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="endian/MI_SwapEndian.html" target="_self">MI_SwapEndian16</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Reverses the endian of a 16-bit value.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="endian/MI_SwapEndian.html" target="_self">MI_SwapEndian32</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Reverses the endian of a 32-bit value.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="endian/MI_SwapEndian.html" target="_self">MI_SwapEndian64</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Reverses the endian of a 64-bit value.</TD>
+    </TR>
+    <TR>
+      <TD class="separator" colspan=3></TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="endian/MI_HTo.html" target="_self">MI_HToLE8</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Converts a 8-bit value from the current environment to little-endian.<br><font color="gray">These 8-bit versions do not actually perform any conversions, but they have been included for uniform source code visibility.</font></TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="endian/MI_HTo.html" target="_self">MI_HToLE16</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Converts a 16-bit value from the current environment to little-endian.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="endian/MI_HTo.html" target="_self">MI_HToLE32</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Converts a 32-bit value from the current environment to little-endian.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="endian/MI_HTo.html" target="_self">MI_HToLE64</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Converts a 64-bit value from the current environment to little-endian.</TD>
+    </TR>
+    <TR>
+      <TD class="separator" colspan=3></TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="endian/MI_HTo.html" target="_self">MI_HToBE8</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Converts a 8-bit value from the current environment to big-endian.<br><font color="gray">These 8-bit versions do not actually perform any conversions, but they have been included for uniform source code visibility.</font></TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="endian/MI_HTo.html" target="_self">MI_HToBE16</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Converts a 16-bit value from the current environment to big-endian.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="endian/MI_HTo.html" target="_self">MI_HToBE32</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Converts a 32-bit value from the current environment to big-endian.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="endian/MI_HTo.html" target="_self">MI_HToBE64</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Converts a 64-bit value from the current environment to big-endian.</TD>
+    </TR>
+    <TR>
+      <TD class="separator" colspan=3></TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="endian/MI_ToH.html" target="_self">MI_LEToH8</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Converts a 8-bit value from little-endian to the current environment.<br><font color="gray">These 8-bit versions do not actually perform any conversions, but they have been included for uniform source code visibility.</font></TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="endian/MI_ToH.html" target="_self">MI_LEToH16</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Converts a 16-bit value from little-endian to the current environment.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="endian/MI_ToH.html" target="_self">MI_LEToH32</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Converts a 32-bit value from little-endian to the current environment.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="endian/MI_ToH.html" target="_self">MI_LEToH64</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Converts a 64-bit value from little-endian to the current environment.</TD>
+    </TR>
+    <TR>
+      <TD class="separator" colspan=3></TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="endian/MI_ToH.html" target="_self">MI_BEToH8</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Converts a 8-bit value from big-endian to the current environment.<br><font color="gray">These 8-bit versions do not actually perform any conversions, but they have been included for uniform source code visibility.</font></TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="endian/MI_ToH.html" target="_self">MI_BEToH16</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Converts a 16-bit value from big-endian to the current environment.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="endian/MI_ToH.html" target="_self">MI_BEToH32</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Converts a 32-bit value from big-endian to the current environment.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="endian/MI_ToH.html" target="_self">MI_BEToH64</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Converts a 64-bit value from big-endian to the current environment.</TD>
+    </TR>
+    <TR>
+      <TD class="separator" colspan=3></TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="endian/MI_Load.html" target="_self">MI_LoadLE8</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Reads a 8-bit value from the specified address as little-endian.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="endian/MI_Load.html" target="_self">MI_LoadLE16</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Reads a 16-bit value from the specified address as little-endian.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="endian/MI_Load.html" target="_self">MI_LoadLE32</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Reads a 32-bit value from the specified address as little-endian.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="endian/MI_Load.html" target="_self">MI_LoadLE64</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Reads a 64-bit value from the specified address as little-endian.</TD>
+    </TR>
+    <TR>
+      <TD class="separator" colspan=3></TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="endian/MI_Load.html" target="_self">MI_LoadBE8</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Reads a 8-bit value from the specified address as big-endian.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="endian/MI_Load.html" target="_self">MI_LoadBE16</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Reads a 16-bit value from the specified address as big-endian.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="endian/MI_Load.html" target="_self">MI_LoadBE32</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Reads a 32-bit value from the specified address as big-endian.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="endian/MI_Load.html" target="_self">MI_LoadBE64</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Reads a 64-bit value from the specified address as big-endian.</TD>
+    </TR>
+    <TR>
+      <TD class="separator" colspan=3></TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="endian/MI_Store.html" target="_self">MI_StoreLE8</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Writes a 8-bit value to the specified address as little-endian.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="endian/MI_Store.html" target="_self">MI_StoreLE16</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Writes a 16-bit value to the specified address as little-endian.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="endian/MI_Store.html" target="_self">MI_StoreLE32</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Writes a 32-bit value to the specified address as little-endian.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="endian/MI_Store.html" target="_self">MI_StoreLE64</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Writes a 64-bit value to the specified address as little-endian.</TD>
+    </TR>
+    <TR>
+      <TD class="separator" colspan=3></TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="endian/MI_Store.html" target="_self">MI_StoreBE8</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Writes a 8-bit value to the specified address as big-endian.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="endian/MI_Store.html" target="_self">MI_StoreBE16</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Writes a 16-bit value to the specified address as big-endian.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="endian/MI_Store.html" target="_self">MI_StoreBE32</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Writes a 32-bit value to the specified address as big-endian.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="endian/MI_Store.html" target="_self">MI_StoreBE64</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Writes a 64-bit value to the specified address as big-endian.</TD>
+    </TR>
+
+  </TBODY>
+</TABLE>
+
+<H3><A name="utility">Utilities</A></H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+ 
+    <TR>
+<TH width="25%"><A href="allocator/MI_InitAllocator.html" target="_self">MI_InitAllocator</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Initializes the memory allocator structure.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="allocator/MI_CallAlloc.html" target="_self">MI_CallAlloc</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Allocates memory from the allocator.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="allocator/MI_CallFree.html" target="_self">MI_CallFree</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Deallocates memory back to the allocator.</TD>
+    </TR>
+    <TR>
+      <TD class="separator" colspan=3></TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="device/MI_InitDevice.html" target="_self">MI_InitDevice</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Initializes the device interface structure.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="device/MI_ReadDevice.html" target="_self">MI_ReadDevice</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Reads data from the device.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="device/MI_WriteDevice.html" target="_self">MI_WriteDevice</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Writes data to the device.</TD>
+    </TR>
+    <TR>
+      <TD class="separator" colspan=3></TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="cache/MI_InitCache.html" target="_self">MI_InitCache</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Initializes the cache structure.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="cache/MI_ReadCache.html" target="_self">MI_ReadCache</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Reads data from the cache page list.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="cache/MI_LoadCache.html" target="_self">MI_LoadCache</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Loads all pages that are in the load-wait state.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="cache/MI_IsCacheLoading.html" target="_self">MI_IsCacheLoading</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Determines whether there are any pages in the load-wait state.</TD>
+    </TR>
+
+  </TBODY>
+</TABLE>
+
+<BR>
+<H3><A name="struct">Types and Structures</A></H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TH width="25%"><A href="uncompress/MICompressionHeader.html">MICompressionHeader</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Compression data header information structure.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="uncompress/MIUncompContextRL.html" target="_self">MIUncompContextRL</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Context structure when using run-length compression streaming decoding.</TD>
+    </TR>
+    <TR>
+<TH><A href="uncompress/MIUncompContextLZ.html" target="_self">MIUncompContextLZ</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Context structure when using LZ77 compression streaming decoding.</TD>
+    </TR>
+    <TR>
+<TH><A href="uncompress/MIUncompContextHuffman.html" target="_self">MIUncompContextHuffman</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Context structure when using Huffman compression streaming decoding.</TD>
+    </TR>
+   
+    <TR>
+<TH><A href="allocator/MIAllocator.html" target="_self">MIAllocator</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Initializes the memory allocator interface.</TD>
+    </TR>
+    <TR>
+<TH><A href="allocator/MIAllocatorAllocFunction.html" target="_self">MIAllocatorAllocFunction</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Function prototype for the memory allocation callback.</TD>
+    </TR>
+    <TR>
+<TH><A href="allocator/MIAllocatorFreeFunction.html" target="_self">MIAllocatorFreeFunction</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Function prototype for the memory deallocation callback.</TD>
+    </TR>
+
+
+    <TR>
+<TH><A href="device/MIDevice.html" target="_self">MIDevice</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>The interface structure for wrapping device control.</TD>
+    </TR>
+    <TR>
+<TH><A href="device/MIDeviceReadFunction.html" target="_self">MIDeviceReadFunction</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>The function prototype for the callback for reading from the device.</TD>
+    </TR>
+    <TR>
+<TH><A href="device/MIDeviceWriteFunction.html" target="_self">MIDeviceWriteFunction</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>The function prototype for the callback for writing to the device.</TD>
+    </TR>
+    <TR>
+<TH><A href="cache/MICache.html" target="_self">MICache</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>The structure used to implement the memory cache.</TD>
+    </TR>
+    <TR>
+<TH><A href="ndma/MINDmaConfig.html" target="_self">MINDmaConfig</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>The structure used to specify the new DMA operation.</TD>
+    </TR>
+
+
+  </TBODY>
+</TABLE>
+
+<table border="0" height="100%"><tr><td style="background-color : white;"></td></tr></table>
+
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

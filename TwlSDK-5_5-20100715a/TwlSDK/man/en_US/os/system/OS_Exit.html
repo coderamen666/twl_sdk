@@ -1,0 +1,37 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>OS_Exit</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">OS_Exit <img src="../../image/NTR.gif" align="middle"><img src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+<DL>
+<DD><CODE>#include &lt;nitro/os.h&gt;</CODE><BR> <BR> <CODE>void OS_Exit( int status );</CODE>
+</DL>
+<H2>Arguments</H2>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+<TD><CODE>status</CODE></TD>
+<TD>Exit status</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>Return Values</H2>
+<P>None.</P>
+<H2>Description</H2>
+<P>Displays the reason for termination, puts the CPU in HALT status, and loops.</P>
+<P>There is no return from this function. The <A href="OS_Terminate.html"><CODE>OS_Terminate</CODE></A> function is called internally.)</P>
+<P>The status given in <CODE>status</CODE> will also appear when he termination message is displayed.</P>
+<P>If this function is called when using the <A href="../../tools/loadrun.html"><CODE>loadrun</CODE></A>, <A href="../../tools/nitrorun.html"><CODE>nitrorun</CODE></A>, or <A href="../../tools/loadrunTWL.html"><CODE>loadrun.TWL</CODE></A> function, the termination message appears, and control is then returned to the prompt on the console.</P>
+<H2>See Also</H2>
+<P><A href="OS_Terminate.html"><CODE>OS_Terminate</CODE></A><BR> <A href="../../tools/loadrun.html"><CODE>loadrun</CODE></A><BR> <A href="../../tools/nitrorun.html"><CODE>nitrorun</CODE></A><BR> <A href="../../tools/loadrunTwl.html"><CODE>loadrun.TWL</CODE></A></P>
+<H2>Revision History</H2>
+<P>2008/05/29 Added information on <A href="../../tools/loadrunTWL.html"><CODE>loadrun.TWL</CODE></A>.<BR> 2004/08/31 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

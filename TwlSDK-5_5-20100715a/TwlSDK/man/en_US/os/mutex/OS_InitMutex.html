@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>OS_InitMutex</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">OS_InitMutex <IMG src="../../image/NTR.gif" align="middle"><IMG src="../../image/TWL.gif" align="middle"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/os.h&gt;</CODE><BR> <BR> <CODE>void OS_InitMutex( OSMutex* mutex );</CODE></dd>
+</dl>
+
+<h2>Arguments</h2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="13%"><EM><STRONG>mutex</STRONG></EM></TD>
+<TD width="87%">Pointer to <CODE>OSMutex</CODE> structure to be initialized</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<h2>Return Values</h2>
+<p>None.</p>
+
+<H2>Description</H2>
+<P>This function initializes a <CODE>mutex</CODE>.</P>
+<P>A <CODE>mutex</CODE> is used to synchronize threads. Operations are unpredictable when a <code>mutex</code> in use is initialized.</P>
+<P>You need to initialize the <CODE>mutex</CODE> with this function before it can be locked by the <CODE><A href="OS_LockMutex.html">OS_LockMutex</A></CODE>, <CODE><A href="OS_LockMutexRW.html">OS_LockMutexR</A></CODE>, or <CODE><A href="OS_LockMutexRW.html">OS_LockMutexW</A></CODE> function.</P>
+<h2>See Also</h2>
+<p><CODE><A href="OS_LockMutex.html">OS_LockMutex</A><BR> <A href="OS_UnlockMutex.html">OS_UnlockMutex</A><BR> <A href="OS_TryLockMutex.html">OS_TryLockMutex</A></CODE><BR> <CODE><A href="OS_LockMutexRW.html">OS_LockMutexR</A><BR> <A href="OS_LockMutexRW.html">OS_LockMutexW</A><BR> <A href="OS_UnlockMutexRW.html">OS_UnlocMutexR</A><BR> <A href="OS_UnlockMutexRW.html">OS_UnlocMutexW</A><BR> <A href="OS_TryLockMutexRW.html">OS_TryLockMutexR</A><BR> <A href="OS_TryLockMutexRW.html">OS_TryLockMutexW</A><BR> <A href="OS_LockMutexFromToRW.html">OS_LockMutexFromRToW</A><BR> <A href="OS_LockMutexFromToRW.html">OS_LockMutexFromWToR<BR></A><A href="OS_TryLockMutexFromToRW.html">OS_TryLockMutexFromRToW</A><BR> <A href="OS_TryLockMutexFromToRW.html">OS_TryLockMutexFromWToR</A></CODE></p>
+<H2>Revision History</H2>
+<P>2008/12/17 Added the read/write lock mutex functions to See Also.<BR>2003/12/01 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

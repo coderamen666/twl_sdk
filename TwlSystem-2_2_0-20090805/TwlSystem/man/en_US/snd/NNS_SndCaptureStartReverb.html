@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"><html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>NNS_SndCaptureStartReverb</title>
+<link rel="stylesheet" href="../css/nitro.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.65.1">
+</head>
+<body>
+<div class="refentry" lang="ja"><a name="IDAKKWT"></a><div class="titlepage">
+<div></div>
+<div></div>
+</div>
+<h1>NNS_SndCaptureStartReverb</h1>
+<h2>Syntax</h2>
+<dl>
+<dd><pre class="funcsynopsisinfo"><code>#include &lt;nnsys/snd.h&gt;</code></pre></dd>
+<dd><pre class="funcprototype"><code class="funcprototype">BOOL NNS_SndCaptureStartReverb(
+        void* <var>buffer_p</var>,
+        u32 <var>bufSize</var>,
+        NNSSndCaptureFormat <var>format</var>,
+        int <var></var>sampleRate,
+        int <var></var>volume );</code><br></pre></dd>
+</dl>
+<div class="refsection" lang="ja"><a name="IDA0MWT"></a>
+<h2>Arguments</h2>
+      
+      <div class="variablelist">
+<table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><code>buffer_p</code></td>
+<td>Pointer to reverb buffer. Must have 32-byte alignment.</td>
+</tr>
+<tr>
+<td><code>bufSize</code></td>
+<td>Reverb buffer size. Must be a multiple of 64. The maximum value is <CODE>0x7ffc0</CODE>.</td>
+</tr>
+<tr>
+<td><code>format</code></td>
+<td>Format of the sample data.</td>
+</tr>
+<tr>
+<td><code>sampleRate</code></td>
+<td>Sampling rate.</td>
+</tr>
+<tr>
+<td><code>volume</code></td>
+<td>Volume of the reverb component. Set from 0 (minimum) to 63 (maximum).</td>
+</tr>
+</tbody>
+</table>
+</div>
+    </div>
+<div class="refsection" lang="ja"><a name="IDAFOWT"></a>
+<h2>Return Values</h2>
+
+<p>Returns a value that indicates whether reverb has started successfully.</p>
+    </div>
+<div class="refsection" lang="ja"><a name="IDAMOWT"></a>
+<h2>Description</h2>
+      <p>
+Starts the reverb feature.</p>
+      <p>
+Reverb is produced by using the capture feature to capture mixer output and then output back to the mixer after a delay. Two of the 16 channels (Channel 1 and Channel 3) are used during reverb. If channel 1 or 3 is being used by a sequence, the sounds from that channel are forcibly stopped.
+</p>
+      <p>
+Reverb requires a reverb buffer. The bigger the reverb buffer, the longer the delay and the deeper the reverb effect. The starting address <code>buffer_p</code> must have 32-byte alignment. The buffer size is specified with <code>bufSize</code> and must be a multiple of 64.
+</p>
+      <p>
+The <code>format</code> argument takes one of the two values shown in the following table for the sample data format. Although the 16-bit format has better sound quality, to have the same delay time, the required reverb buffer's size needs to be twice that of the 8-bit format.
+</p>
+<div class="table"><a name="IDAAPWT"></a><p class="title"><b>Table: <code>SNDCapture</code> Format</b></p>
+<table summary="NNSSndCaptureFormat" border="1">
+<colgroup><col><col></colgroup>
+<thead>
+<tr>
+<th>Label</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><CODE>NNS_SND_CAPTURE_FORMAT_PCM8</CODE></td>
+<td>8-bit PCM</td>
+</tr>
+<tr>
+<td><CODE>NNS_SND_CAPTURE_FORMAT_PCM16</CODE></td>
+<td>16-bit PCM</td>
+</tr>
+</tbody>
+</table>
+</div>
+      
+      <p>
+The <code>sampleRate</code> argument is the number of samples to be captured per unit of time. Although larger values result in reverb components of better sound quality, the delay time will be shortened by that amount. To preserve the same delay time, size of the reverb buffer must be increased.
+</p>
+      <p>
+The <code>volume</code> argument is the volume of reverb component. When set to the maximum of 63, about half of the mixer output volume is fed back as reverberation.
+</p>
+      <p>
+The equation for obtaining the reverb delay time is shown below. Note that when the format is 16-bit PCM, the delay time is half of that shown.
+</p>
+<pre class="programlisting">Delay Time[sec] = bufSize / sampleRate / 2</pre>
+      
+      <p>
+The following may cause reverb to fail to start. 
+</p>
+      <div class="itemizedlist">
+<ul type="disc">
+<li>Capture is being used for a feature other than reverb</li>
+<li>Channel 1 or 3 is being used to play something other than reverberation or a sequence </li>
+</ul>
+</div>
+
+      <div class="note">
+<h3 class="title">Note</h3>
+<p>
+If this function is called while sound is being played, the sound is interrupted.
+</p>
+</div>
+      
+    </div>
+<h2>See Also</h2>
+<p>None.</p>
+<h2>Revision History</h2>
+<p>
+2008/10/07 Corrected mistakes in delay time formula.<br> 2007/07/11 Corrected a mistake about the reverb buffer size limit.<br> 2005/01/06 Deleted the description of TEG.<br> 2004/07/01 Changed type of the <code>format</code> argument from <code>SNDCaptureFormat</code> to <code>NNSSndCaptureFormat</code>. <br>2004/04/01 Initial version.
+</p>
+</div>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META http-equiv="Content-Style-Type" content="text/css">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+	<TITLE>SBC and Callbacks</TITLE>
+	<LINK rel="stylesheet" href="../../css/nitro.css"   type="text/css">
+	<LINK rel="stylesheet" href="../../css/apilist.css" type="text/css">
+</HEAD>
+
+<BODY>
+
+<h1 align="left">SBC and Callbacks</h1>
+
+<h2>Description</h2>
+<P>The calculation for the rendering and animation is performed by processing the stream of multiple types of (user definable) SBC (structure byte code) byte code commands inside the model resource binary when <code>NNS_G3dDraw</code> executes. The SBC includes elements that: define the parent / child relationship of the joint, designate the material to be used, and designate the primitive to be rendered. Rendering and animation is performed by appropriately interpreting them at execution time.<BR><BR>Below is a table summarizing each of the SBC commands. The first byte of each command is split into 5-bit and 3-bit fields. The former corresponds to each SBC command, and its variations are designated by the latter. There are also cases in which each command has several arguments.
+</P>
+<TABLE border="0" width="100%">
+  <TBODY>
+    <TR>
+<TD width="249" align="left"><A href="SBC_NOP.html">NNS_G3D_SBC_NOP</A></TD>
+<TD width="573">Does nothing. <code>g3dcvtr</code> outputs this code to achieve 4-byte alignment at the end of the SBC command string.</TD>
+    </TR>
+    <TR>
+<TD width="249"><A href="SBC_RET.html">NNS_G3D_SBC_RET</A></TD>
+<TD width="573">Terminates the processing of the SBC command string.</TD>
+    </TR>
+    <TR>
+<TD width="249"><A href="SBC_NODE.html">NNS_G3D_SBC_NODE</A></TD>
+<TD width="573">Designates which node is currently being processed with the node ID of the argument. Also designates whether the primitive belonging to that node is visible or invisible. The visibility animation is processed by this command.</TD>
+    </TR>
+    <TR>
+<TD width="249"><A href="SBC_MTX.html">NNS_G3D_SBC_MTX</A></TD>
+<TD width="573">Loads the matrix from the designated location of the <code>position</code> / <code>vector</code> matrix stack in the geometry engine to the current matrix.</TD>
+    </TR>
+    <TR>
+<TD width="249"><A href="SBC_MAT.html">NNS_G3D_SBC_MAT</A></TD>
+<TD width="573">Designates which material to use with the material ID of the argument. Also sends the corresponding material information to the geometry engine. The material animation is processed by this command.</TD>
+    </TR>
+    <TR>
+<TD><A href="SBC_SHP.html">NNS_G3D_SBC_SHP</A></TD>
+<TD>Designates which shape to use with the shape ID of the argument. Also sends the corresponding shape (the display list of the primitive) to the geometry engine.</TD>
+    </TR>
+    <TR>
+<TD><A href="SBC_NODEDESC.html">NNS_G3D_SBC_NODEDESC</A></TD>
+<TD>Defines the node parent / child relationship with an argument. May also designate the ID of the matrix stack storing the <CODE>Position/Vector</CODE> matrix corresponding to the node. Joint animations are processed by this command.</TD>
+    </TR>
+    <TR>
+<TD><A href="SBC_BB.html">NNS_G3D_SBC_BB</A></TD>
+<TD>Performs billboard conversion. Some variations of this command can store the billboard-converted matrix on the stack.</TD>
+    </TR>
+    <TR>
+<TD><A href="SBC_BBY.html">NNS_G3D_SBC_BBY</A></TD>
+<TD>Performs Y axis billboard conversion. Some variations of this command can store the Y axis billboard-converted matrix on the stack.</TD>
+    </TR>
+    <TR>
+<TD><A href="SBC_NODEMIX.html">NNS_G3D_SBC_NODEMIX</A></TD>
+<TD>Calculates the matrix that is used in weighted envelope display. Stores the results in the matrix stack.</TD>
+    </TR>
+    <TR>
+<TD><A href="SBC_CALLDL.html">NNS_G3D_SBC_CALLDL</A></TD>
+<TD>Sends the display list that designated offset and size using arguments to the geometry engine. <code>g3dcvtr</code> does not output this SBC command.</TD>
+    </TR>
+    <TR>
+<TD><A href="SBC_POSSCALE.html">NNS_G3D_SBC_POSSCALE</A></TD>
+<TD>This is the SBC command output by <code>g3dcvtr</code> to process the <code>&lt;model_info&gt;::pos_scale</code> designated by the <code>.imd</code> format of the NITRO intermediate file.</TD>
+    </TR>
+    <TR>
+<TD><A href="SBC_ENVMAP.html">NNS_G3D_SBC_ENVMAP</A></TD>
+<TD>SBC command that performs texture matrix calculation for environment mapping.</TD>
+    </TR>
+    <TR>
+<TD><A href="SBC_PRJMAP.html">NNS_G3D_SBC_PRJMAP</A></TD>
+<TD>SBC command that performs texture matrix calculation for projection mapping.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>For each command, a maximum of three points in the process (timings) can be configured for callbacks. One callback can be set to each command. When you want to use only one callback, it can be designated by using the <code>NNS_G3dRenderObjSetCallBack</code> function. When you want to use multiple callbacks, multiple callbacks can be registered by registering the callback function that is executed immediately before rendering by using the <A href="../kernel/NNS_G3dRenderObjSetInitFunc.html" target="_self"><CODE>NNS_G3dRenderObjSetInitFunc</CODE></A> function, and using the <A href="NNSG3dRS.html#NNS_G3dRSSetCallBack" target="_self"><CODE>NNS_G3dRSSetCallBack</CODE></A> function in the callback function. Refer to the descriptions of each command for information about what sorts of applications are appropriate for each timing.</P>
+<H2>See Also</H2>
+
+
+<H2>Revision History</H2>
+<P>2004/10/11 Revised version.<br /> 2004/08/02 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+
+</HTML>

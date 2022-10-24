@@ -1,0 +1,72 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title>DSP_PlayShutterSound</title>
+<link rel="stylesheet" href="../../css/nitro.css" type="text/css" />
+</head>
+<body>
+
+<h1>DSP_PlayShutterSound <IMG src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+
+<pre><code>
+BOOL DSP_PlayShutterSound(const void *src, u32 len);
+</code></pre>
+
+<h2>Arguments</h2>
+<table style="width:100%">
+<tbody>
+<tr>
+<td style="width:13%"><SPAN class="argument">src</SPAN></td>
+<td style="width:87%">Wave format shutter sound data.<br />You can only specify the 32730-Hz and 47610-Hz data below the <CODE>$TwlSDK/data/shutter_sound</CODE> and <CODE>$TwlSDK/data/videorec_sound</CODE> directories. The sampling rate must match the I2S operating frequency obtained with the <a href="../../snd/sndex/SNDEX_GetI2SFrequency.html"><CODE>SNDEX_GetI2SFrequency</CODE></a> function.<br /><span style='color:Red'>The specified buffer has the same restrictions as a 16-bit DMA transfer. See <B>Note</B> below for more details.</span></td>
+</tr>
+<tr>
+<td style="width:13%"><SPAN class="argument">len</SPAN></td>
+<td style="width:87%">Byte size of the wave data.</td>
+</tr>
+</tbody>
+</table>
+
+<h2>Return Values</h2>
+<p>Returns <CODE>FALSE</CODE> if the specified shutter sound does not match the I2S operating frequency or if invalid data has been specified.</p>
+
+<h2>Description</h2>
+<p>Plays the shutter sound from the DSP.<br />Playing the sound specified by this function has priority over all other sound output. Internally it is exclusively controlled as follows.</p>
+<ul>
+<li>Before playback, the <a href="../../snd/sndex/SNDEX_GetI2SFrequency.html"><CODE>SNDEX_GetI2SFrequency</CODE></a> function is called to confirm that the sample rate of the shutter sound matches the I2S operating frequency, and then playback is set so that only DSP sound plays from the speaker. After playback, the original setting is restored.</li>
+<li>The <a href="DSP_PlaySound.html"><CODE>DSP_PlaySound</CODE></a> function is ignored if it is called during play.</li>
+<li>During the playback process, if a <CODE>SNDEX</CODE> function runs, it returns <CODE>SNDEX_RESULT_EXCLUSIVE</CODE> and does nothing until playback ends. (There are some exceptions, however.)</li>
+</ul>
+<p>
+This function can be used if any of the DSP components have been loaded.
+</p>
+<p>This function performs preprocessing using the <A href="../../snd/sndex/doc/aboutSNDEX.html">SNDEX library</A>.<br> Thus, depending on how the program is written, the preprocessing may in some cases fail because of exclusive control of the SNDEX library.<br> If preprocessing fails, this function retries until it succeeds.<br>The <A href="../../os/thread/OS_Sleep.html"><CODE>OS_Sleep</CODE></a> function is called from inside the retry process.<br> To always play the shutter sound without performing this internal retry process, you need to use the method below to eliminate the possibility of preprocess failure. </p>
+<ul>
+<li>Use the <a href="../../os/mutex/OS_LockMutex.html"><CODE>OS_LockMutex</CODE></a> function to run this function exclusively so that there is no overlap with processes of other SNDEX functions.</li>
+</ul>
+
+<h2>Notes</h2>
+<ul>
+<li><span style='color:Red'>The specified buffers must all satisfy the same conditions as 16-bit DMA transfers.</span>
+<ul>
+<li>Addresses must be 16-bit aligned.</li>
+<li>The buffer content must be cached in advance.</li>
+</ul>
+</li>
+<li>While the shutter sound is being played, an IIR filter that has been set by <A href="../../snd/sndex/SNDEX_SetIirFilter.html"><CODE>SNDEX_SetIirFilter[Async]</CODE></A> is disabled.
+</li>
+<li>Use the <a href="DSP_IsShutterSoundPlaying.html"><CODE>DSP_IsShutterSoundPlaying</CODE></a> function to determine whether playback of the shutter sound has completed.
+</li>
+</ul>
+
+<h2>See Also</h2>
+<p><a href="DSP_IsShutterSoundPlaying.html"><CODE>DSP_IsShutterSoundPlaying</CODE></a><BR> <a href="../g711/DSP_LoadG711.html"><CODE>DSP_LoadG711</CODE></a></p>
+
+<h2>Revision History</h2>
+<p>
+2009/09/02 Deleted a note stating that this cannot be used together with other component features. <br />2009/07/16 Added an explanation about using this together with other component features. <br>2009/01/07 Changed descriptions to say that internal function processing retries until the shutter sound is played successfully. <br>2008/11/26 Deleted the stereo and monaural specifications. <br>2008/11/14 Added a description of the kinds of shutter sounds that can be specified. <br>2008/11/07 Mentioned that SNDEX functions cannot be used during shutter sound playback, and added information for correctly playing the shutter sound. <br>2008/10/23 Added a description about the function to use to wait for shutter sound playback to end. <br>2008/09/26 Mentioned that IIR filters are disabled during shutter sound playback. <br>2008/09/25 Mentioned that sound output is controlled exclusively. <br />2008/07/09 Changed the size accepted as an argument from half-words to bytes. <BR>2008/06/24 Initial version.
+</p>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

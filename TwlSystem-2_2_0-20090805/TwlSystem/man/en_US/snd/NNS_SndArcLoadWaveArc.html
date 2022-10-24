@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"><html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>NNS_SndArcLoadWaveArc</title>
+<link rel="stylesheet" href="../css/nitro.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.65.1">
+</head>
+<body>
+<div class="refentry" lang="ja"><a name="IDAKKWT"></a><div class="titlepage">
+<div></div>
+<div></div>
+</div>
+<h1>NNS_SndArcLoadWaveArc</h1>
+<h2>Syntax</h2>
+<dl>
+<dd><pre class="funcsynopsisinfo"><code>#include &lt;nnsys/snd.h&gt;</code></pre></dd>
+<dd><pre class="funcprototype"><code class="funcprototype">BOOL NNS_SndArcLoadWaveArc( int <var>waveArcNo</var>, NNSSndHeapHandle <var>heap</var> );</code><br></pre></dd>
+</dl>
+<div class="refsection" lang="ja"><a name="IDA0LWT"></a>
+<h2>Arguments</h2>
+      
+      <div class="variablelist">
+<table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><code>waveArcNo</code></td>
+<td>Waveform archive number.</td>
+</tr>
+<tr>
+<td><code>heap</code></td>
+<td>Sound heap handle.</td>
+</tr>
+</tbody>
+</table>
+</div>
+    </div>
+<div class="refsection" lang="ja"><a name="IDAQMWT"></a>
+<h2>Return Values</h2>
+
+<p>Returns a value that indicates whether the load was successful.</p>
+    </div>
+<div class="refsection" lang="ja"><a name="IDAXMWT"></a>
+<h2>Description</h2>
+      <p>
+Loads the waveform archive to the heap.
+</p>
+      <p>
+The memory necessary for loading is automatically allocated from the sound heap <code>heap</code> with the <a href="NNS_SndHeapAlloc.html"><CODE>NNS_SndHeapAlloc</CODE></a> function. If memory allocation fails, the process is interrupted, and <code>FALSE</code> is returned.
+</p>
+      <p>
+The sound data already resident in memory is not loaded. Execution of the <a href="NNS_SndArcGetFileAddress.html"><CODE>NNS_SndArcGetFileAddress</CODE></a> function will determine if the sound data is resident in memory. In addition, the <a href="NNS_SndArcSetFileAddress.html"><CODE>NNS_SndArcSetFileAddress</CODE></a> function sets the address of the successfully loaded data.
+</p>
+      <p>
+If you want to limit the size of data that can be loaded at one time, use the <a href="NNS_SndArcSetLoadBlockSize.html"><CODE>NNS_SndArcSetLoadBlockSize</CODE></a> function to specify the load block size.
+</p>
+
+
+      <div class="note">
+<h3 class="title">Note</h3>
+<p>
+Use this function only for sound archives initialized using the <a href="NNS_SndArcInit.html"><CODE>NNS_SndArcInit</CODE></a> function. This function <I>cannot</I> be used with sound archives initialized using the <a href="NNS_SndArcInitOnMemory.html"><CODE>NNS_SndArcInitOnMemory</CODE></a> function.
+</p>
+
+<p>
+You can load waveforms individually by setting the <CODE>s</CODE> option in the waveform archive section of the sound archive definition file. However, when the <CODE>s</CODE> option is set, this function loads only the waveform archive header and the waveform table. (The waveform(s) themselves are loaded by use along with the <a href="NNS_SndArcLoadBank.html"><CODE>NNS_SndArcLoadBank</CODE></a> function and similar functions.) Conversely, if you do not set the <CODE>s</CODE> option, this function loads the entire waveform archive.
+</p>
+<p>
+Waveform tables loaded when the <CODE>s</CODE> option is set are used by the NITRO-Composer component to manage which waveforms have finished loading. The size of a waveform table increases by 32 bytes per every 4 waveforms, in direct proportion to the number of waveforms in the waveform archive.
+</p>
+
+</div>
+    </div>
+<h2>See Also</h2>
+<p><a href="NNS_SndHeapAlloc.html"><CODE>NNS_SndHeapAlloc</CODE></a><BR> <a href="NNS_SndArcGetFileAddress.html"><CODE>NNS_SndArcGetFileAddress</CODE></a><BR> <a href="NNS_SndArcSetFileAddress.html"><CODE>NNS_SndArcSetFileAddress</CODE></a><BR> <a href="NNS_SndArcSetLoadBlockSize.html"><CODE>NNS_SndArcSetLoadBlockSize</CODE></a><BR> <a href="NNS_SndArcInit.html"><CODE>NNS_SndArcInit</CODE></a><BR> <a href="NNS_SndArcInitOnMemory.html"><CODE>NNS_SndArcInitOnMemory</CODE></a></p>
+<h2>Revision History</h2>
+<p>
+2009/06/29 Added description of individual (segmented) loading.<br> 2007/10/17 Added description of the <code>NNS_SndArcSetLoadBlockSize</code> function.<br> 2004/06/01 Initial version.</p>
+</div>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

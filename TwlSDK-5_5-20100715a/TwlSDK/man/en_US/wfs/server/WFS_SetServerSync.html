@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title>WFS_SetServerSync</title>
+<link rel="stylesheet" href="../../css/nitro.css" type="text/css" />
+</head>
+<body>
+
+<h1>WFS_SetServerSync <img src="../../image/NTR.gif"><img src="../../image/TWL.gif"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<code>#include &lt;nitro/wfs.h&gt;</code><br />
+  <br />
+  <code>void WFS_SetServerSync(WFSServerContext *context, int bitmap);</code><br />
+  <br />
+  </dd>
+</dl>
+<h2>Arguments</h2>
+<table border="1" width="100%">
+  <tbody>
+    <tr>
+      <td style="width:13%"><em><strong>context</strong></em></td>
+      <td style="width:87%">Pointer to the <CODE>WFSServerContext</CODE> structure.</td>
+    </tr>
+    <tr>
+      <td style="width:13%"><em><strong>bitmap</strong></em></td>
+      <td style="width:87%">AID bitmap for the children (clients) to synchronize the responses for.<br />
+                            No response synchronization will be done if 0 is specified. (This is the default behavior.)<br />
+                            The lowest-order bit is always ignored.</td>
+    </tr>
+  </tbody>
+</table>
+<h2>Return Values</h2>
+<p>None.</p>
+
+<h2>Description</h2>
+<p>Sets the synchronization group to use when a parent (server) responds to read requests from children (clients). The WFS library assumes that the group of children (clients) specified with this function will issue read requests for the same content at the same time from the perspective of the parent (server). The library will wait to respond until all read requests have been issued from all of the children (clients) in question. Since the WFS library has excellent ability to broadcast the same content to all children, improved transfer efficiency can be expected.</p>
+<p style="color:red">
+The parent (server) will not start the response unless requests from all the specified children (clients) are in place, so be aware that certain application designs could result in a deadlock.
+</p>
+<p>
+If even one of the read requests issued by the children (clients) is different from the others, the synchronization setting will be cancelled.
+</p>
+
+<h2>See Also</h2>
+<p><code><a href="WFS_GetServerConnectedBitmap.html">WFS_GetServerConnectedBitmap</a>, <a href="WFS_GetServerBusyBitmap.html">WFS_GetServerBusyBitmap</a> <br /></code></p>
+
+<h2>Revision History</h2>
+<p>
+2007/06/06 Initial version.
+</p>
+<hr><p>CONFIDENTIAL</p></body>
+</html>
+

@@ -1,0 +1,185 @@
+#! make -f
+#----------------------------------------------------------------------------
+# Project:  TWL-System - tools - SoundPlayer
+# File:     SoundPlayer.rsf
+#
+# Copyright 2004-2009 Nintendo.  All rights reserved.
+#
+# These coded instructions, statements, and computer programs contain
+# proprietary information of Nintendo of America Inc. and/or Nintendo
+# Company Ltd., and are protected by Federal copyright law.  They may
+# not be disclosed to third parties or copied or duplicated in any form,
+# in whole or in part, without the prior written consent of Nintendo.
+#
+# $Revision: 1443 $
+#----------------------------------------------------------------------------
+#
+#  TWL ROM SPEC FILE
+#
+
+Arm9
+{
+	Static			"$(TWLSYSTEM_ROOT)/tools/SoundPlayer/components/ARM9/SoundPlayer.TWL.FLX.sbin$(COMPSUFFIX9)"
+	OverlayDefs		"$(TWLSYSTEM_ROOT)/tools/SoundPlayer/components/ARM9/SoundPlayer_defs.TWL.FLX.sbin$(COMPSUFFIX9)"
+	OverlayTable	"$(TWLSYSTEM_ROOT)/tools/SoundPlayer/components/ARM9/SoundPlayer_table.TWL.FLX.sbin$(COMPSUFFIX9)"
+	Elf				"$(TWLSYSTEM_ROOT)/tools/SoundPlayer/components/ARM9/SoundPlayer.tef"
+}
+
+Arm7
+{
+	Static			"$(TWLSYSTEM_ROOT)/tools/SoundPlayer/components/ARM7/SoundPlayer_sp.TWL.FLX.sbin$(COMPSUFFIX7)"
+	OverlayDefs		"$(TWLSYSTEM_ROOT)/tools/SoundPlayer/components/ARM7/SoundPlayer_sp_defs.TWL.FLX.sbin$(COMPSUFFIX7)"
+	OverlayTable	"$(TWLSYSTEM_ROOT)/tools/SoundPlayer/components/ARM7/SoundPlayer_sp_table.TWL.FLX.sbin$(COMPSUFFIX7)"
+	Elf				"$(TWLSYSTEM_ROOT)/tools/SoundPlayer/components/ARM7/SoundPlayer_sp.tef"
+}
+
+Arm9.Ltd
+{
+	Static			"$(TWLSYSTEM_ROOT)/tools/SoundPlayer/components/ARM9/SoundPlayer.TWL.LTD.sbin$(COMPSUFFIX9)"
+	OverlayDefs		"$(TWLSYSTEM_ROOT)/tools/SoundPlayer/components/ARM9/SoundPlayer_defs.TWL.LTD.sbin$(COMPSUFFIX9)"
+	OverlayTable	"$(TWLSYSTEM_ROOT)/tools/SoundPlayer/components/ARM9/SoundPlayer_table.TWL.LTD.sbin$(COMPSUFFIX9)"
+}
+
+Arm7.Ltd
+{
+	Static			"$(TWLSYSTEM_ROOT)/tools/SoundPlayer/components/ARM7/SoundPlayer_sp.TWL.LTD.sbin$(COMPSUFFIX7)"
+	OverlayDefs		"$(TWLSYSTEM_ROOT)/tools/SoundPlayer/components/ARM7/SoundPlayer_sp_defs.TWL.LTD.sbin$(COMPSUFFIX7)"
+	OverlayTable	"$(TWLSYSTEM_ROOT)/tools/SoundPlayer/components/ARM7/SoundPlayer_sp_table.TWL.LTD.sbin$(COMPSUFFIX7)"
+}
+
+Property
+{
+	###
+	### Settings for FinalROM
+	###
+	#### BEGIN
+	#
+	# TITLE NAME: Your product name within 12bytes
+	#
+	TitleName		"SoundPlayer"
+
+	#
+	# MAKER CODE: Your company ID# in 2 ascii words
+	#             issued by NINTENDO
+	#
+	MakerCode		"00"
+
+	#
+	# REMASTER VERSION: Mastering version
+	#
+	RomVersion		0
+
+	#
+	# ROM SPEED TYPE: [MROM/1TROM/UNDEFINED]
+	#
+	RomSpeedType	UNDEFINED
+
+	#
+	# ROM SIZE: in bit [64M/128M/256M/512M/1G/2G]
+	#
+	#RomSize		128M
+	#RomSize		256M
+
+	#
+	# ROM PADDING: TRUE if finalrom
+	#
+	#RomFootPadding 	TRUE
+
+	#
+	# ROM HEADER TEMPLATE: Provided to every product by NINTENDO
+	#
+	#RomHeaderTemplate	./etc/rom_header.template.sbin
+
+	#
+	# BANNER FILE: generated from Banner Spec File
+	#
+#	BannerFile		./etc/myGameBanner.bnr
+	BannerFile		$(TWLSDK_ROOT)/include/twl/specfiles/default.bnr
+
+	#
+	# Permit LandingNormalJump: for TWL "ApplicationJump" function [TRUE/FALSE]
+	#
+	#PermitLandingNormalJump	FALSE
+
+	#
+	# Permit LandingTmpJump: for TWL "ApplicationJump" function [TRUE/FALSE]
+	#
+	#PermitLandingTmpJump	FALSE
+
+	###
+	### Setting for TWL
+	###
+
+	#
+	# ROM HEADER Ltd: Provided to every product by NINTENDO
+	#
+	RomHeaderLtd	$(TWLSDK_ROOT)/tools/bin/rom_header.LTD.sbin
+
+	#
+	# Digest parameters:
+	#
+	DigestParam		1024 32
+
+	#
+	# WRAM mapping: [MAP_BB_HYB/MAP_BB_LTD/MAP_TS_HYB/MAP_TS_LTD
+	#                MAP2_BB_HYB/MAP2_BB_LTD/MAP2_TS_HYB/MAP2_TS_LTD]
+	#  don't have to edit
+	#
+	WramMapping		$(MAKEROM_WRAM_MAPPING)
+
+	#
+	# CardRegion: card region [Japan/America/Europe/Australia/China/Korea]
+	#
+	CardRegion	Japan
+
+	#
+	# CommonClientKey: launcher deliver common client Key [TRUE/FALSE]
+	#
+	#CommonClientKey	FALSE
+
+	#
+	# HwAESSlotB: launcher deliver HW AES slot B setting [TRUE/FALSE]
+	#
+	#HwAESSlotB	FALSE
+
+	#
+	# HwAESSlotC: launcher deliver HW AES slot C setting [TRUE/FALSE]
+	#
+	#HwAESSlotC	FALSE
+
+	#
+	# SDCardAccess: sd card access control [TRUE/FALSE]
+	#
+	# SDCardAccess	TRUE
+
+	#
+	# Codec mode:
+	#  don't have to edit
+	#
+	CodecMode		$(MAKEROM_CODEC_MODE)
+
+	#
+	# Enable Other Type Parental Controls
+	#OtherParentalControls	FALSE
+
+	#
+	# Use WiFiConnection
+	#WiFiConnection	TRUE
+
+	###
+	#### END
+}
+
+
+RomSpec
+{
+	Offset		0x00000000
+	Segment		ALL
+
+	Align		512
+	Padding		0xFF
+
+	HostRoot	.
+	Root		/data
+	File		$(SDAT_FILE)
+}

@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>CP_RestoreContext</title>
+<LINK rel="stylesheet" href="../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">CP_RestoreContext <img src="../image/NTR.gif"align="middle"><img src="../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+
+<dl>
+  <dd>
+  <CODE>#include &lt;nitro/cp.h&gt;</CODE><BR>
+  <dd><CODE>void CP_RestoreContext( CPContext* context );</CODE></dd>
+</dd>
+</dl>
+
+<h2>Arguments</h2>
+<p>Pointer to the context structure for the divider or square root calculator that you want to restore.</p>
+
+<h2>Return Values</h2>
+<p>None.</p>
+
+<H2>Description</H2>
+<P>This function restores divider and square root calculator status (context) that was saved by the <CODE><A href="CP_SaveContext.html">CP_SaveContext</A></CODE> function.</P>
+<P>
+When you use a divider or square root calculator inside an interrupt, use these functions to save the context of the divider or square root calculator before use.<BR>The absolute minimum amount of weighted processing necessary is performed to restore original status inside this function.
+</P>
+
+<P>During thread switch, the context are also automatically switched. Therefore, there is no need for this function to explicitly run a save process.</P>
+
+<BLOCKQUOTE style="background-color : #eeeeee;">
+<B>Example</B> Using a divider/square root calculator inside an interrupt<BR>
+<P><CODE>void intr_func( void ) <BR> {<BR> CPContext context;<BR> <BR> CP_SaveContext( &amp;context );<BR> CP_SetDiv32_32( 1000, 5 );<BR> CP_WaitDiv();<BR> result = CP_GetDivResult();<BR> CP_RestoreContext( &amp;context );<BR> }</CODE></P>
+</BLOCKQUOTE>
+
+
+<h2>See Also</h2>
+<p><CODE><A href="CP_SaveContext.html">CP_SaveContext</A>, <A href="div/CP_SetDiv.html">CP_SetDiv*</A>, <A href="sqrt/CP_SetSqrt.html">CP_SetSqrt*</A></CODE></p>
+
+<H2>Revision History</H2>
+<P>2006/08/09 Added a sample code fragment and revised the description in line with the change that it is no longer necessary to wait for status to finish being restored.<BR> 2004/05/06 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

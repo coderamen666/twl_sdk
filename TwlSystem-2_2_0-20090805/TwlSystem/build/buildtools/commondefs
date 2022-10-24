@@ -1,0 +1,92 @@
+#! make -f
+#----------------------------------------------------------------------------
+# Project:  TWL-System - buildtools
+# File:     commondefs
+#
+# Copyright 2004-2009 Nintendo.  All rights reserved.
+#
+# These coded instructions, statements, and computer programs contain
+# proprietary information of Nintendo of America Inc. and/or Nintendo
+# Company Ltd., and are protected by Federal copyright law.  They may
+# not be disclosed to third parties or copied or duplicated in any form,
+# in whole or in part, without the prior written consent of Nintendo.
+#
+# $Revision: 1155 $
+#----------------------------------------------------------------------------
+
+ifndef TWLSYSTEM_COMMONDEFS_
+TWLSYSTEM_COMMONDEFS_ := TRUE
+
+#----------------------------------------------------------------------------
+#
+# TWL-System Root directory
+#
+
+TWLSYSTEM_ROOT ?= C:/TwlSystem
+
+NNS_ALLLIBS := fnd mcs gfd g2d g3d snd
+
+NNS_LIB_MODULES = LibFnd LibMcs LibGfd LibG2d LibG3d LibSnd
+
+ROOT_MODULES := FND MCS GFD G2D G3D SND
+
+#----------------------------------------------------------------------------
+#
+# import TWL-SDK commondefs
+#
+
+include	$(TWLSDK_ROOT)/build/buildtools/commondefs
+
+NITRO_BUILDTYPE ?= $(TWL_BUILDTYPE)
+NITRO_LIBTYPE ?= $(TWL_LIBTYPE)
+NITRO_CCTYPE ?= $(TWL_CCTYPE)
+
+#----------------------------------------------------------------------------
+#
+# TWL-System Path settings
+#
+
+NNS_ROOT					:= $(call eupath,$(TWLSYSTEM_ROOT))
+
+TWLSYSTEM_BUILDTOOLSDIR	:= $(NNS_ROOT)/build/buildtools
+TWLSYSTEM_TOOLSDIR		:= $(NNS_ROOT)/tools
+
+# $(foreach module,$(ROOT_MODULES),$(eval TWLSYSTEM_$(module)_ROOT = $$(NNS_ROOT)))
+
+TWLSYSTEM_FND_ROOT = $(NNS_ROOT)
+TWLSYSTEM_MCS_ROOT = $(NNS_ROOT)
+TWLSYSTEM_GFD_ROOT = $(NNS_ROOT)
+TWLSYSTEM_G2D_ROOT = $(NNS_ROOT)
+TWLSYSTEM_G3D_ROOT = $(NNS_ROOT)
+TWLSYSTEM_SND_ROOT = $(NNS_ROOT)
+
+#----------------------------------------------------------------------------
+#  PRIVATE FLAGS
+#
+-include $(TWLSYSTEM_BUILDTOOLSDIR)/private/commondefs
+-include $(TWLSYSTEM_BUILDTOOLSDIR)/internal/commondefs
+
+#----------------------------------------------------------------------------
+#
+# TWLSYSTEM_INSTALL_ROOT
+#
+
+ifdef TWLSYSTEM_INSTALL_ROOT
+override TWLSYSTEM_INSTALL_ROOT := $(call eupath,$(TWLSYSTEM_INSTALL_ROOT))
+endif
+TWLSYSTEM_INSTALL_ROOT 		?= $(NNS_ROOT)
+
+TWLSYSTEM_INSTALL_INCDIR		:= $(TWLSYSTEM_INSTALL_ROOT)/include
+TWLSYSTEM_INSTALL_TOOLSDIR	:= $(TWLSYSTEM_INSTALL_ROOT)/tools
+TWLSYSTEM_INSTALL_LIBDIR		:= $(TWLSYSTEM_INSTALL_ROOT)/lib/$(NITRO_LIBTYPE)
+
+#----------------------------------------------------------------------------
+### Compiler settings
+
+-include $(TWLSYSTEM_BUILDTOOLSDIR)/commondefs.cctype.$(NITRO_CCTYPE)
+
+
+# TWLSYSTEM_COMMONDEFS_
+endif
+
+#----- End of commondefs -----

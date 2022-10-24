@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!--==========================================================================
+  Copyright 2008 Nintendo.  All rights reserved.
+
+  These coded instructions, statements, and computer programs contain
+  proprietary information of Nintendo of America Inc. and/or Nintendo
+  Company Ltd., and are protected by Federal copyright law.  They may
+  not be disclosed to third parties or copied or duplicated in any form,
+  in whole or in part, without the prior written consent of Nintendo.
+ ==========================================================================-->
+<HTML>
+<HEAD>
+	<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+	<META http-equiv="Content-Style-Type" content="text/css">
+	<TITLE>CRYPTO_SIGN_GetModulus</TITLE>
+	<LINK rel="stylesheet" href="../../css/nitro.css">
+	<BASE target="main">
+</HEAD>
+<BODY>
+<H1>CRYPTO_SIGN_GetModulus <IMG src="../../image/NTR.gif" width="23" height="12" border="0" align="middle"><IMG src="../../image/TWL.gif" width="23" height="12" border="0" align="middle"></H1>
+<H2>Syntax</H2>
+<DL>
+	<DD>
+		<PRE><CODE>
+#include &lt;nitro/crypto/sign.h&gt;
+
+int CRYPTO_SIGN_GetModulus(
+const void* pub_ptr
+);
+		</CODE></PRE>
+	</DD>
+</DL>
+<H2>Arguments</H2>
+<TABLE border="1">
+	<TBODY>
+		<TR>
+			<TD width="25%"><EM><STRONG><CODE>pub_ptr</CODE></STRONG></EM></TD>
+			<TD width="75%">Specifies the pointer to the public key.</TD>
+		</TR>
+	</TBODY>
+</TABLE>
+<H2>Return Values</H2>
+<P>
+	Returns one of the following process results.
+</P>
+<TABLE border="1">
+	<TBODY>
+		<TR>
+			<TD width="25%"><EM><STRONG><CODE>Not NULL</CODE></STRONG></EM></TD>
+			<TD width="75%">The analysis succeeded, and a pointer to the modulus of the public key is returned.</TD>
+		</TR>
+		<TR>
+			<TD><EM><STRONG><CODE>NULL</CODE></STRONG></EM></TD>
+			<TD>Analysis failed.</TD>
+		</TR>
+	</TBODY>
+</TABLE>
+<H2>Description</H2>
+<P>
+	Analyzes the location of the modulus of the public key, and returns a pointer to that location. In <EM><STRONG>pub_ptr</STRONG></EM>, provide a pointer to the public key to use during signature verification. The pointer that is returned can be specified for the <CODE>mod_ptr</CODE> argument of functions such as <A href="CRYPTO_VerifySignature.html">CRYPTO_VerifySignature</A> or <A href="CRYPTO_VerifySignatureWithHash.html">CRYPTO_VerifySignatureWithHash</A>.
+</P>
+<P>
+	Using this function makes it unnecessary to search for the modulus of the public key.
+</P>
+<H2>See Also</H2>
+<P>
+	<CODE><A href="CRYPTO_VerifySignature.html">CRYPTO_VerifySignature</A><BR> <A href="CRYPTO_VerifySignatureWithHash.html">CRYPTO_VerifySignatureWithHash</A></CODE>
+</P>
+<H2>Revision History</H2>
+<P>
+	2008/09/16 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

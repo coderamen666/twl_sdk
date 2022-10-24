@@ -1,0 +1,65 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Style-Type" content="text/css" text="text/css">
+<title>Using the <CODE>photo</CODE> Region</title>
+<link rel="stylesheet" href="../css/nitro.css">
+</head>
+<body>
+<h1>Using the photo Region</h1>
+
+<h2>Introduction</h2>
+<p>
+This page summarizes information related to the <CODE>photo</CODE> region, which is used to save photo data captured from the Nintendo DSi Menu or Nintendo DSi Camera.
+</p>
+
+<h2>The photo Region</h2>
+<p>
+The Nintendo DSi Menu and the photos captured with Nintendo DSi Camera are stored in the <CODE>photo</CODE> region in system (NAND) memory. You can write photo data in the <CODE>photo</CODE> region to an SD Card or load photo data from an SD Card to the <CODE>photo</CODE> region through the Nintendo DSi Camera.
+
+Accessing this <CODE>photo</CODE> region with the TCL library allows developers to use photo data captured using the Nintendo DSi Camera (or some other means) from within applications, and to save photo data captured from applications to the <CODE>photo</CODE> region, where it can then be viewed using the Nintendo DSi Camera's Album functionality.
+
+Note that as of TWL-SDK 5.1, the <CODE>photo</CODE> region can no longer be accessed if the RSF file is not configured appropriately. It is also prohibited to access the <CODE>photo</CODE> region without using the TCL library.
+</p>
+
+<h2>Data That Can Be Saved in the photo Region</h2>
+<p>
+To prevent the <CODE>photo</CODE> region from being used to store illegal data, from being taken over by an application, or from being put to some other purpose, a digital signature must be attached to all photo data stored in the <CODE>photo</CODE> region.
+
+As a result, an application must always attach a digital signature to photo data saved to the <CODE>photo</CODE> region.
+
+However, application developers do not need to pay particular attention to this when using the TCL library as long as the RSF file is configured properly, as described in the next section.
+</p>
+
+<h2>RSF File Settings</h2>
+<p>
+To access the <CODE>photo</CODE> region using the TCL library, you must set access rights to the <CODE>photo</CODE> region (described in <b>The <CODE>photo</CODE> Region</b>) and set the signature key for attaching a signature to photo data (described in <b>Data That Can Be Saved in the <CODE>photo</CODE> Region</b>).
+
+Specifically, add the following items to the <CODE>Property</CODE> section of the RSF file in environments that use TWL-SDK 5.2 or later.
+
+<ul>
+<li>Applications that can only read photo data: <br><CODE>PhotoAccess Read</CODE>
+<li>Applications that can read and write photo data: <br><CODE>PhotoAccess ReadWrite</CODE>
+</ul>
+</p>
+
+<h2>Other Notes</h2>
+<h5>The PhotoChecker Tool</h5>
+<p>
+The PhotoChecker tool has been provided to check for inappropriate data created in the <CODE>photo</CODE> region. You can use this tool to confirm that inappropriate data is not being created while developing an application that uses the <CODE>photo</CODE> region.
+</p>
+
+<h5>Photo Data Shown as Wallpaper on the Nintendo DSi Menu</h5>
+<p>
+A photo can be shown as the wallpaper for the Nintendo DSi Menu only if it was captured from the Nintendo DSi Menu or if it was captured from the Nintendo DSi Camera and is marked as a favorite (labeled with a &quot;star&quot; sticker). Consequently, photos saved by an application cannot be shown as the wallpaper for the Nintendo DSi Menu.
+
+<br><br><B>Note:</B> However, a photo saved by an application can be shown unchanged as the wallpaper for the Nintendo DSi Menu if <B>Edit</B> is selected for that photo from the Album menu in the Nintendo DSi Camera and the photo is saved without being modified.
+</p>
+
+<H2>Revision History</H2>
+<P>
+2009/04/13 Initial version.
+</p>
+
+<hr><p>CONFIDENTIAL</p></body>
+</html>

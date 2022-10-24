@@ -1,0 +1,110 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>Sleep: Overview</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">Sleep: Overview <IMG src="../../image/NTR.gif" align="middle"><IMG src="../../image/TWL.gif" align="middle"></H1>
+
+<H2>Description</H2>
+<P>To conserve power, the TWL system can enter sleep mode, separate from the normal (active) mode. Normally, games are created to enter sleep mode when the cover is closed and to recover from sleep mode when the cover is opened. This is not a hardware feature. The application detects that the cover was closed and calls a function to put the system to sleep. This document describes sleep-related functions.</P>
+<H2>Causes for Sleep Mode</H2>
+<P>Call the <A href="PM_GoSleepMode.html"><CODE>PM_GoSleepMode</CODE></A> function to enter sleep mode.</P>
+<P>You can specify the following causes for recovery from sleep mode with this command. You can specify several of these items by taking the logical OR of their values. See the <A href="PM_GoSleepMode.html"><CODE>PM_GoSleepMode</CODE></A> function for more information.
+</P>
+<TABLE border=1>
+<TBODY>
+<TR>
+<TH>Platform</TH>
+<TH>Value</TH>
+<TH>Cause of recovery</TH>
+    </TR>
+<TR>
+<TD>
+<CENTER><IMG src="../../image/NTR.gif"><IMG src="../../image/TWL.gif"></CENTER>
+      </TD>
+<TD><CODE>PM_TRIGGER_KEY</CODE></TD>
+<TD>A key interrupt</TD>
+    </TR>
+<TR>
+<TD>
+<CENTER><IMG src="../../image/NTR.gif"><IMG src="../../image/TWL.gif"></CENTER>
+      </TD>
+<TD><CODE>PM_TRIGGER_RTC_ALARM</CODE></TD>
+<TD>An RTC alarm interrupt</TD>
+    </TR>
+<TR>
+<TD>
+<CENTER><IMG src="../../image/NTR.gif"><IMG src="../../image/TWL.gif"></CENTER>
+      </TD>
+<TD><CODE>PM_TRIGGER_COVER_OPEN</CODE></TD>
+<TD>Opening the cover</TD>
+    </TR>
+<TR>
+<TD>
+<CENTER><IMG src="../../image/NTR.gif"><IMG src="../../image/TWL.gif"></CENTER>
+      </TD>
+<TD><CODE>PM_TRIGGER_CARD</CODE></TD>
+<TD>A card interrupt or Game Card removal</TD>
+    </TR>
+<TR>
+<TD>
+<CENTER><IMG src="../../image/NTR.gif"><IMG src="../../image/TWL.gif"></CENTER>
+      </TD>
+<TD><CODE>PM_TRIGGER_CARTRIDGE</CODE> <B><FONT color=#ff0000>(Note 1)</FONT></B></TD>
+<TD>A Game Pak interrupt or remove the Game Pak</TD>
+    </TR>
+<TR>
+<TD>
+<CENTER><IMG src="../../image/BPT.gif"><IMG src="../../image/TWL.gif"></CENTER>
+      </TD>
+<TD><CODE>PM_TRIGGER_SDIO</CODE></TD>
+<TD>SDIO interrupt</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P><FONT color=red> <B>Note 1:</B> Waking from sleep upon removal of a Game Pak is prohibited by the programming guidelines.</FONT> </P>
+<H2>Sleep Callback List</H2>
+<P>The sleep callback is defined as follows: <BR> <CODE>typedef void (*PMGenCallback) (void *);</CODE><BR> It is a <CODE>void</CODE> function that takes a single <CODE>void*</CODE> argument.</P>
+<P>The callback invoked immediately after entering sleep mode and the callback invoked immediately after recovering from sleep mode are each stored internally in a list. These are called the pre-sleep and post-sleep callbacks.</P>
+<P><IMG src="sleep_List1.gif" width="340" height="224" border="0"></P>
+<H2>Sleep Callback Registration</H2>
+<P>Callbacks have configurable priority levels. Applications can use priorities ranging from -255 (<CODE>PM_CALLBACK_PRIORITY_MIN</CODE>) to 255 (<CODE>PM_CALLBACK_PRIORITY_MAX</CODE>). The system (such as the SDK library and middleware) can use priorities ranging from -65,535 (<CODE>PM_CALLBACK_PRIORITY_SYSMIN</CODE>) to 65,535 (<CODE>PM_CALLBACK_PRIORITY_SYSMAX</CODE>). These priorities are used only to determine the order of the callback list. Items having smaller values are placed closer to the start of the list.</P>
+<P>Use the <CODE><A href="PM_SetSleepCallbackInfo.html">PM_SetSleepCallbackInfo</A></CODE> function to configure a callback function and its arguments in a callback information structure, and then register that structure to the list.</P>
+<P>It can be registered in one of three ways.</P>
+<UL>
+<LI>The <A href="PM_AppendSleepCallback.html"><CODE>PM_PrependPreSleepCallback</CODE></A> and <A href="PM_AppendSleepCallback.html"><CODE>PM_PrependPostSleepCallback</CODE></A> functions.<BR>Register in the list at priority level -255. If there is already a registered callback with a priority of -255, the new callback will be registered in front of it.<BR>In other words, if you consider it only in terms of the priorities that the application can use, this inserts the new callback at the front of the list.<BR> <BR>
+<LI>The <A href="PM_AppendSleepCallback.html"><CODE>PM_AppendPreSleepCallback</CODE></A> and <A href="PM_AppendSleepCallback.html"><CODE>PM_AppendPostSleepCallback</CODE></A> functions.<BR>Register in the list at priority level 255. If there is already a registered callback with a priority of 255, the new callback will be registered behind it.<BR>In other words, if you consider it only in terms of the priorities that the application can use, this inserts the new callback at the end of the list.<BR> <BR>
+<LI>The <A href="PM_AppendSleepCallback.html"><CODE>PM_InsertPreSleepCallback</CODE></A> and <A href="PM_AppendSleepCallback.html"><CODE>PM_InsertPostSleepCallback</CODE></A> functions.<BR>Specifies a priority level and registers in the appropriate position. It will be registered behind any other items with the same priority.<BR>
+</UL>
+<P>These specifications are the same as the exit callback, so see <B>Exit Callback Registration</B> in <A href="about_exit.html">Overview (Hardware Reset and Shutdown)</A>.</P>
+<H2>Sleep Callback Removal</H2>
+<P>The configured callbacks can be removed using the <A href="PM_DeleteSleepCallback.html"><CODE>PM_DeletePreSleepCallback</CODE></A> and <A href="PM_DeleteSleepCallback.html"><CODE>PM_DeletePostSleepCallback</CODE></A> functions.</P>
+<H2>Sleep Callback Display (For Debugging)</H2>
+<P>The <CODE><A href="PM_DumpSleepCallback.html">PM_DumpSleepCallback</A></CODE> function is used in debugging to display the list of callbacks. It will not do anything in FINALROM builds.</P>
+<H2>Preparations for Powering Down in Sleep Mode</H2>
+<P>It is difficult to perform the same shutdown processing (make the same guarantees) in sleep mode as in active mode because the overall system state is different. Necessary processing must therefore be done in advance when entering sleep mode, rather than during sleep mode.</P>
+<P>Consequently, a sudden power disruption during sleep mode does not have any ill effects on the TWL system. The resulting behavior is the same as if the Power Button was pressed in active mode.</P>
+<H2>Registered Sleep Callbacks</H2>
+<P>Sleep callbacks registered by the SDK run the processes described below.</P>
+<P>Pre-sleep callbacks are as follows.</P>
+<UL>
+<LI>Stop the Rumble feature (if necessary).
+<LI>Put the camera into standby mode.
+<LI>Stop the DSP.
+<LI>Wait until the process terminates during IIR filter configuration. Restore the speaker volume if a value has been saved by the <A href="../../snd/sndex/SNDEX_SetIgnoreHWVolume.html"><CODE>SNDEX_SetIgnoreHWVolume</CODE></A> function.
+<LI>Flash NAND memory.
+<LI>Disconnect from access points and stop any active TWL wireless communications.
+</UL>
+<P>Post-sleep callbacks are as follows.</P>
+<UL>
+<LI>Synchronize the software clock, which shifted while in sleep mode, with the real-time clock.
+</UL>
+<H2>Revision History</H2>
+<P>2009/04/13 Changed &quot;the Power Button or Reset Button&quot; to &quot;the Power Button.&quot; <BR>2009/02/03 Added a description of SNDEX processing in registered exit callbacks. <BR>2008/09/13 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

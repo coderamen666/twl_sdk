@@ -1,0 +1,34 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>CARD_CheckPulledOut</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">CARD_CheckPulledOut <img src="../../image/NTR.gif"align="middle"><img src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+<DL>
+  <DD>
+  <PRE><CODE>#include &lt;nitro/card.h&gt;</CODE></PRE>
+  <PRE><CODE>void CARD_CheckPulledOut( void );
+  </CODE></PRE>
+</DL>
+<H2>Arguments</H2>
+<P>None.</P>
+<H2>Return Values</H2>
+<P>None.</P>
+<H2>Description</H2>
+<P>
+Directly executes process from the ARM9 to detect Game Card removal. Normally the ARM9 does not need this detection process, since the ARM7 periodically performs the detection process and posts notification of detection via the PXI. However, by calling this function you can immediately determine if the Game Card has been removed without the delay inherent in waiting for notification. When removal of a Game Card has been detected, this function internally calls the user callback function and the <A href="CARD_TerminateForPulledOut.html"><CODE>CARD_TerminateForPulledOut</CODE></A> function. This is the same process that occurs when a notification is received from the ARM7.<br><br> To use this function, you must first call the <CODE><A href="../common/CARD_Init.html">CARD_Init</A></CODE> function. In addition, you need to call the <A href="../rom/CARD_LockRom.html"><CODE>CARD_LockRom</CODE></A> function and lock the CARD-ROM bus in advance. By default, the library will call the <CODE><A href="CARD_TerminateForPulledOut.html">CARD_TerminateForPulledOut</A></CODE> function when removal of a Game Card is detected. Because the program will stop at this point, if you are doing something like polling with the <code>CARD_IsPulledOut</code> function, you must use the <a href="CARD_SetPulledOutCallback.html"><code>CARD_SetPulledOutCallback</code></a> function to set a callback that returns FALSE.</P>
+<H2>See Also</H2>
+<P>
+<CODE><A href="../common/CARD_Init.html">CARD_Init</A><BR> <A href="../rom/CARD_LockRom.html">CARD_LockRom</A><BR> <A href="CARD_IsPulledOut.html">CARD_IsPulledOut</A><BR> <A href="CARD_SetPulledOutCallback.html">CARD_SetPulledOutCallback</A><BR> <A href="CARD_TerminateForPulledOut.html">CARD_TerminateForPulledOut</A></CODE></P>
+<H2>Revision History</H2>
+<P>
+2005/08/08 Stated that the <CODE>CARD_LockRom</CODE> function needs to be called in advance. <br>2005/06/01 Initial version.<br>
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>MI_DmaClear*</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">MI_DmaClear* <IMG src="../../image/NTR.gif" align="middle"><IMG src="../../image/TWL.gif" align="middle"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/mi.h&gt;</CODE><BR> <BR> <CODE>void MI_DmaClear32( u32 dmaNo,<BR> void* dest,<BR> u32 size );</CODE><BR> <BR> <CODE>void MI_DmaClear32_SetUp( u32 dmaNo,<BR> void* dest,<BR> u32 size );</CODE><BR> <BR> <CODE>void MI_DmaClear16( u32 dmaNo,<BR> void* dest,<BR> u32 size );</CODE><BR> <BR> <CODE>void MI_DmaClear16_SetUp( u32 dmaNo,<BR> void* dest,<BR> u32 size );</CODE><BR> <BR> <CODE>void MI_DmaClear32Async( u32 dmaNo,<BR> void* dest,<BR> u32 size,<BR> MIDmaCallback callback,<BR> void* arg );</CODE><BR> <BR> <CODE>void MI_DmaClear32Async_SetUp( u32 dmaNo,<BR> void* dest,<BR> u32 size,<BR> MIDmaCallback callback,<BR> void* arg );</CODE><BR> <BR> <CODE>void MI_DmaClear16Async( u32 dmaNo,<BR> void* dest,<BR> u32 size,<BR> MIDmaCallback callback,<BR> void* arg );</CODE><BR> <BR> <CODE>void MI_DmaClear16Async_SetUp( u32 dmaNo,<BR> void* dest,<BR> u32 size,<BR> MIDmaCallback callback,<BR> void* arg );</CODE> <BR>
+</dl>
+
+<h2>Arguments</h2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="13%"><EM><STRONG>dmaNo</STRONG></EM></TD>
+<TD width="87%">DMA channel used.</TD>
+    </TR>
+    <TR>
+<TD width="13%"><EM><STRONG>dest</STRONG></EM></TD>
+<TD width="87%">The address of the clear destination</TD>
+    </TR>
+    <TR>
+<TD><EM><STRONG>size</STRONG></EM></TD>
+<TD>Clear size
+      </TD>
+    </TR>
+    <TR>
+<TD><EM><STRONG>callback</STRONG></EM></TD>
+<TD>Callback when DMA ends.</TD>
+    </TR>
+    <TR>
+<TD><EM><STRONG>arg</STRONG></EM></TD>
+<TD>Callback argument when DMA ends.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<h2>Return Values</h2>
+<p>None.</p>
+
+<H2>Description</H2>
+<P>Uses DMA to zero-clear memory.</P>
+<P>The <CODE>*_SetUp</CODE> functions only configure the given settings without actually performing DMA. To actually start DMA, call the <CODE><A href="MI_DmaRestart.html">MI_DmaRestart</A></CODE> function.</P>
+<P><code>MI_DmaClear16()</code> and <code>MI_DmaClear16Async()</code> fill memory with zeros in 16-bit units. You must 2-byte align the clear destination address. <code>MI_DmaClear32()</code> and <code>MI_DmaClear32Async()</code> fill memory with zeros in 32-bit units. The clear destination address must be 4-byte aligned.</P>
+<P><code>MI_DmaClear16()</code> and <code>MI_DmaClear32()</code> wait within the function until DMA completes. <code>MI_DmaClear16Async()</code> and <code>MI_DmaClear32Async()</code> call a callback function when DMA ends. The callback, <code>callback</code>, is a <code>MIDmaCallback</code> type (a <code>void</code> type function which takes one <code>void*</code> argument). <code>callback</code> is called from the system DMA interrupt handler and therefore is called while interrupts are prohibited.</P>
+<h2>Internal Operation</h2>
+<P>Calls the <CODE><A href="MI_DmaFill.html">MI_DmaFill*</A></CODE> function.</P>
+<h2>See Also</h2>
+<p><CODE><A href="../memory/MI_CpuClear.html">MI_CpuClear*</A><BR><A href="MI_DmaCopy.html">MI_DmaCopy*</A><BR><A href="MI_DmaFill.html">MI_DmaFill*</A><BR><A href="MI_DmaRestart.html">MI_DmaRestart</A><BR><A href="MI_DmaSend.html">MI_DmaSend*</A></CODE></p>
+<H2>Revision History</H2>
+<P>2007/10/31 Added the <CODE>_SetUp</CODE> functions.<BR>2005/03/08 Standardized the Japanese term for &quot;interrupt.&quot;<CODE> 2004/12/22 Added a description regarding <em><strong><code>callback</code></strong></em>. </CODE> 2003/12/01 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

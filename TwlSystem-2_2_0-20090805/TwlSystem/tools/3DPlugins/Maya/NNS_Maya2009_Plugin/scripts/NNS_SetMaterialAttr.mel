@@ -1,0 +1,1495 @@
+/******************************************************************************
+	NINTENDO NITRO-System Maya Plugin
+
+	File:         NNS_SetMaterialAttr.mel
+	Description:  set material attribute
+	Date:         2007/03/06
+	Author:       Takashi Endo
+
+	Copyright 2003-2009 Nintendo. All rights reserved.
+******************************************************************************/
+
+// Apply
+// UpdateWindowT
+// Lighting ShininessTable Fog WireMode
+// DepthTestDecal XluUpdateDepth RenderOnePixel FarClip
+// PolyID DispFace PolyMode
+// TexGenMode TexGenStSrc TexGenMatSt TexEffectMtx NoCompress
+// SetAttrChangeJob
+
+/******************************************************************************
+	variables
+******************************************************************************/
+global int $nnsSetMaterialAttr_AttrJob_Lighting0 = -1;
+global int $nnsSetMaterialAttr_AttrJob_Lighting1 = -1;
+global int $nnsSetMaterialAttr_AttrJob_Lighting2 = -1;
+global int $nnsSetMaterialAttr_AttrJob_Lighting3 = -1;
+global int $nnsSetMaterialAttr_AttrJob_ShininessTable = -1;
+global int $nnsSetMaterialAttr_AttrJob_Fog = -1;
+global int $nnsSetMaterialAttr_AttrJob_WireMode = -1;
+global int $nnsSetMaterialAttr_AttrJob_DepthTestDecal = -1;
+global int $nnsSetMaterialAttr_AttrJob_XluUpdateDepth = -1;
+global int $nnsSetMaterialAttr_AttrJob_RenderOnePixel = -1;
+global int $nnsSetMaterialAttr_AttrJob_FarClip = -1;
+global int $nnsSetMaterialAttr_AttrJob_PolyID = -1;
+global int $nnsSetMaterialAttr_AttrJob_DispFace = -1;
+global int $nnsSetMaterialAttr_AttrJob_PolyMode = -1;
+global int $nnsSetMaterialAttr_AttrJob_TexGenMode = -1;
+global int $nnsSetMaterialAttr_AttrJob_TexGenStSrc = -1;
+//global int $nnsSetMaterialAttr_AttrJob_TexGenMatS = -1;
+//global int $nnsSetMaterialAttr_AttrJob_TexGenMatT = -1;
+global int $nnsSetMaterialAttr_AttrJob_TexEffectMtx = -1;
+global int $nnsSetMaterialAttr_AttrJob_NoCompress = -1;
+
+/******************************************************************************
+	get selected SG
+
+		return SG size
+******************************************************************************/
+proc int GetSelectedSG(string $sgs[])
+{
+	$sgs = `ls -sl -typ shadingEngine`;
+	if (size($sgs) == 0)
+	{
+		// get SG from selected material
+		string $mats[] = `ls -sl -mat`;
+		for ($mat in $mats)
+		{
+			string $connectedSgs[] = `listConnections -type shadingEngine $mat`;
+			for ($sg in $connectedSgs)
+			{
+				if ($sg != "initialParticleSE" &&
+					$sg != "swatchShadingGroup")
+				{
+					$sgs[size($sgs)] = $sg;
+				}
+			}
+		}
+	}
+	return size($sgs);
+}
+
+/******************************************************************************
+	get selection for set attr
+******************************************************************************/
+proc GetSelectionForSetAttr(string $sgs[])
+{
+	if (GetSelectedSG($sgs) == 0)
+	{
+		error "No shadingEngine (material) node is selected";
+	}
+}
+
+/******************************************************************************
+	is all light off
+******************************************************************************/
+proc int IsAllLightOff(string $sg, int $ilight_off)
+{
+	int $lighting0 = (`attributeQuery -n $sg -ex "nns_lighting"`) ?
+		`getAttr ($sg + ".nns_lighting")` : 1;
+	int $lighting1 = (`attributeQuery -n $sg -ex "nns_lighting1"`) ?
+		`getAttr ($sg + ".nns_lighting1")` : 0;
+	int $lighting2 = (`attributeQuery -n $sg -ex "nns_lighting2"`) ?
+		`getAttr ($sg + ".nns_lighting2")` : 0;
+	int $lighting3 = (`attributeQuery -n $sg -ex "nns_lighting3"`) ?
+		`getAttr ($sg + ".nns_lighting3")` : 0;
+
+	if ($ilight_off == 0)
+		$lighting0 = 0;
+	else if ($ilight_off == 1)
+		$lighting1 = 0;
+	else if ($ilight_off == 2)
+		$lighting2 = 0;
+	else if ($ilight_off == 3)
+		$lighting3 = 0;
+
+	return (!$lighting0 && !$lighting1 && !$lighting2 && !$lighting3);
+}
+
+/******************************************************************************
+	add attribute lighting
+******************************************************************************/
+proc AddAttribute_Lighting(string $sg, int $ilight)
+{
+	string $attr_name = "nns_lighting";
+	if ($ilight > 0)
+		$attr_name += $ilight;
+	addAttr -ln $attr_name -at "bool" -dv ($ilight == 0) $sg;
+}
+
+/******************************************************************************
+	set attribute lighting
+******************************************************************************/
+proc SetAttribute_Lighting(int $ilight, int $lighting)
+{
+	//-----------------------------------------------------------------------------
+	// get selection
+	string $sgs[];
+	GetSelectionForSetAttr($sgs);
+
+	//-----------------------------------------------------------------------------
+	// loop for SG
+	string $attr_name = "nns_lighting";
+	if ($ilight > 0)
+		$attr_name += $ilight;
+
+	for ($sg in $sgs) {
+		if (!`attributeQuery -n $sg -ex $attr_name`)
+			AddAttribute_Lighting($sg, $ilight);
+
+		// added (2004/10/21)
+		int $tex_gen_mode = (`attributeQuery -n $sg -ex "nns_tex_gen_mode"`) ?
+			`getAttr ($sg + ".nns_tex_gen_mode")` : 0;
+		if ($lighting == 0 && $tex_gen_mode == 2 && IsAllLightOff($sg, $ilight)) {
+			warning("You can't turn off all lights when \"Tex Gen Mode\" is Normal: " + $sg);
+			continue;		
+		}
+
+		setAttr ($sg + "." + $attr_name) $lighting;
+	}
+}
+
+/******************************************************************************
+	add attribute shininess table
+******************************************************************************/
+proc AddAttribute_ShininessTable(string $sg)
+{
+	addAttr -ln "nns_shininess_table" -at "bool" -dv 0 $sg;
+}
+
+/******************************************************************************
+	set attribute shininess table
+******************************************************************************/
+proc SetAttribute_ShininessTable(int $shininess_table)
+{
+	//-----------------------------------------------------------------------------
+	// get selection
+	string $sgs[];
+	GetSelectionForSetAttr($sgs);
+
+	//-----------------------------------------------------------------------------
+	// loop for SG
+	for ($sg in $sgs) {
+		if (!`attributeQuery -n $sg -ex "nns_shininess_table"`)
+			AddAttribute_ShininessTable($sg);
+		setAttr ($sg + ".nns_shininess_table") $shininess_table;
+	}
+}
+
+/******************************************************************************
+	add attribute fog
+******************************************************************************/
+proc AddAttribute_Fog(string $sg)
+{
+	addAttr -ln "nns_fog" -at "bool" -dv 0 $sg;
+}
+
+/******************************************************************************
+	set attribute fog
+******************************************************************************/
+proc SetAttribute_Fog(int $fog)
+{
+	//-----------------------------------------------------------------------------
+	// get selection
+	string $sgs[];
+	GetSelectionForSetAttr($sgs);
+
+	//-----------------------------------------------------------------------------
+	// loop for SG
+	for ($sg in $sgs) {
+		if (!`attributeQuery -n $sg -ex "nns_fog"`)
+			AddAttribute_Fog($sg);
+		setAttr ($sg + ".nns_fog") $fog;
+	}
+}
+
+/******************************************************************************
+	add attribute wire mode
+******************************************************************************/
+proc AddAttribute_WireMode(string $sg)
+{
+	addAttr -ln "nns_wire_mode" -at "bool" -dv 0 $sg;
+}
+
+/******************************************************************************
+	set attribute wire mode
+******************************************************************************/
+proc SetAttribute_WireMode(int $wire_mode)
+{
+	//-----------------------------------------------------------------------------
+	// get selection
+	string $sgs[];
+	GetSelectionForSetAttr($sgs);
+
+	//-----------------------------------------------------------------------------
+	// loop for SG
+	for ($sg in $sgs) {
+		if (!`attributeQuery -n $sg -ex "nns_wire_mode"`)
+			AddAttribute_WireMode($sg);
+		setAttr ($sg + ".nns_wire_mode") $wire_mode;
+	}
+}
+
+/******************************************************************************
+	add attribute depth test decal
+******************************************************************************/
+proc AddAttribute_DepthTestDecal(string $sg)
+{
+	addAttr -ln "nns_depth_test_decal" -at "bool" -dv 0 $sg;
+}
+
+/******************************************************************************
+	set attribute depth test decal
+******************************************************************************/
+proc SetAttribute_DepthTestDecal(int $depth_test_decal)
+{
+	//-----------------------------------------------------------------------------
+	// get selection
+	string $sgs[];
+	GetSelectionForSetAttr($sgs);
+
+	//-----------------------------------------------------------------------------
+	// loop for SG
+	for ($sg in $sgs) {
+		if (!`attributeQuery -n $sg -ex "nns_depth_test_decal"`)
+			AddAttribute_DepthTestDecal($sg);
+		setAttr ($sg + ".nns_depth_test_decal") $depth_test_decal;
+	}
+}
+
+/******************************************************************************
+	add attribute xlu update depth
+******************************************************************************/
+proc AddAttribute_XluUpdateDepth(string $sg)
+{
+	addAttr -ln "nns_xlu_update_depth" -at "bool" -dv 0 $sg;
+}
+
+/******************************************************************************
+	set attribute xlu update depth
+******************************************************************************/
+proc SetAttribute_XluUpdateDepth(int $xlu_update_depth)
+{
+	//-----------------------------------------------------------------------------
+	// get selection
+	string $sgs[];
+	GetSelectionForSetAttr($sgs);
+
+	//-----------------------------------------------------------------------------
+	// loop for SG
+	for ($sg in $sgs) {
+		if (!`attributeQuery -n $sg -ex "nns_xlu_update_depth"`)
+			AddAttribute_XluUpdateDepth($sg);
+		setAttr ($sg + ".nns_xlu_update_depth") $xlu_update_depth;
+	}
+}
+
+/******************************************************************************
+	add attribute render one pixel
+******************************************************************************/
+proc AddAttribute_RenderOnePixel(string $sg)
+{
+	addAttr -ln "nns_render_1_pixel" -at "bool" -dv 0 $sg;
+}
+
+/******************************************************************************
+	set attribute render one pixel
+******************************************************************************/
+proc SetAttribute_RenderOnePixel(int $render_1_pixel)
+{
+	//-----------------------------------------------------------------------------
+	// get selection
+	string $sgs[];
+	GetSelectionForSetAttr($sgs);
+
+	//-----------------------------------------------------------------------------
+	// loop for SG
+	for ($sg in $sgs) {
+		if (!`attributeQuery -n $sg -ex "nns_render_1_pixel"`)
+			AddAttribute_RenderOnePixel($sg);
+		setAttr ($sg + ".nns_render_1_pixel") $render_1_pixel;
+	}
+}
+
+/******************************************************************************
+	add attribute far clip
+******************************************************************************/
+proc AddAttribute_FarClip(string $sg)
+{
+	addAttr -ln "nns_far_clip" -at "bool" -dv 0 $sg;
+}
+
+/******************************************************************************
+	set attribute far clip
+******************************************************************************/
+proc SetAttribute_FarClip(int $far_clip)
+{
+	//-----------------------------------------------------------------------------
+	// get selection
+	string $sgs[];
+	GetSelectionForSetAttr($sgs);
+
+	//-----------------------------------------------------------------------------
+	// loop for SG
+	for ($sg in $sgs) {
+		if (!`attributeQuery -n $sg -ex "nns_far_clip"`)
+			AddAttribute_FarClip($sg);
+		setAttr ($sg + ".nns_far_clip") $far_clip;
+	}
+}
+
+/******************************************************************************
+	add attribute poly ID
+******************************************************************************/
+proc AddAttribute_PolyID(string $sg)
+{
+	addAttr -ln "nns_poly_id" -at "short" -min 0 -max 63 -dv 0 $sg;
+}
+
+/******************************************************************************
+	set attribute poly ID
+******************************************************************************/
+proc SetAttribute_PolyID(int $poly_id)
+{
+	//-----------------------------------------------------------------------------
+	// get selection
+	string $sgs[];
+	GetSelectionForSetAttr($sgs);
+
+	//-----------------------------------------------------------------------------
+	// loop for SG
+	for ($sg in $sgs) {
+		if (!`attributeQuery -n $sg -ex "nns_poly_id"`)
+			AddAttribute_PolyID($sg);
+		setAttr ($sg + ".nns_poly_id") $poly_id;
+	}
+}
+
+/******************************************************************************
+	add attribute disp face
+******************************************************************************/
+proc AddAttribute_DispFace(string $sg)
+{
+/*
+	addAttr -ln "nns_disp_face" -at "enum"
+		-en "Front Face=0:Back Face=1:Both Face=2:None=3" -dv 0 $sg;
+*/
+	addAttr -ln "nns_disp_face" -at "enum"
+		-en "Front Face=0:Back Face=1:Both Face=2" -dv 0 $sg;
+}
+
+/******************************************************************************
+	set attribute disp face
+******************************************************************************/
+proc SetAttribute_DispFace(int $disp_face)
+{
+	//-----------------------------------------------------------------------------
+	// get selection
+	string $sgs[];
+	GetSelectionForSetAttr($sgs);
+
+	//-----------------------------------------------------------------------------
+	// loop for SG
+	for ($sg in $sgs) {
+/*
+		if (`attributeQuery -n $sg -ex "nns_disp_face"`) {
+			float $range[] = `attributeQuery -n $sg -r "nns_disp_face"`;
+			if ($range[1] == 2.0)
+				deleteAttr ($sg + ".nns_disp_face");
+		}
+*/
+		if (!`attributeQuery -n $sg -ex "nns_disp_face"`)
+			AddAttribute_DispFace($sg);
+		setAttr ($sg + ".nns_disp_face") $disp_face;
+	}
+}
+
+/******************************************************************************
+	add attribute poly mode
+******************************************************************************/
+proc AddAttribute_PolyMode(string $sg)
+{
+	addAttr -ln "nns_poly_mode" -at "enum"
+		-en "Modulate=0:Decal=1:Toon / Highlight=2:Shadow=3" -dv 0 $sg;
+}
+
+/******************************************************************************
+	set attribute poly mode
+******************************************************************************/
+proc SetAttribute_PolyMode(int $poly_mode)
+{
+	//-----------------------------------------------------------------------------
+	// get selection
+	string $sgs[];
+	GetSelectionForSetAttr($sgs);
+
+	//-----------------------------------------------------------------------------
+	// loop for SG
+	for ($sg in $sgs) {
+		if (!`attributeQuery -n $sg -ex "nns_poly_mode"`)
+			AddAttribute_PolyMode($sg);
+		setAttr ($sg + ".nns_poly_mode") $poly_mode;
+	}
+}
+
+/******************************************************************************
+	add attribute tex gen mode
+******************************************************************************/
+proc AddAttribute_TexGenMode(string $sg)
+{
+	addAttr -ln "nns_tex_gen_mode" -at "enum"
+		-en "None=0:TexCoord=1:Normal=2:Vertex=3" -dv 0 $sg;
+}
+
+/******************************************************************************
+	set attribute tex gen mode
+******************************************************************************/
+proc SetAttribute_TexGenMode(int $tex_gen_mode)
+{
+	//-----------------------------------------------------------------------------
+	// get selection
+	string $sgs[];
+	GetSelectionForSetAttr($sgs);
+
+	//-----------------------------------------------------------------------------
+	// loop for SG
+	for ($sg in $sgs) {
+		if (!`attributeQuery -n $sg -ex "nns_tex_gen_mode"`)
+			AddAttribute_TexGenMode($sg);
+		// added (2004/10/21)
+		if ($tex_gen_mode == 2 && IsAllLightOff($sg, -1)) {
+			warning ("You can't choose Normal when all lights are turned off: " + $sg);
+			continue;		
+		}
+		setAttr ($sg + ".nns_tex_gen_mode") $tex_gen_mode;
+	}
+}
+
+/******************************************************************************
+	add attribute tex gen st src
+******************************************************************************/
+proc AddAttribute_TexGenStSrc(string $sg)
+{
+	addAttr -ln "nns_tex_gen_st_src" -at "enum"
+		-en "Polygon=0:Material=1" -dv 1 $sg; // changed (2005/01/12)
+}
+
+/******************************************************************************
+	set attribute tex gen st src
+******************************************************************************/
+proc SetAttribute_TexGenStSrc(int $tex_gen_st_src)
+{
+	//-----------------------------------------------------------------------------
+	// get selection
+	string $sgs[];
+	GetSelectionForSetAttr($sgs);
+
+	//-----------------------------------------------------------------------------
+	// loop for SG
+	for ($sg in $sgs) {
+		if (!`attributeQuery -n $sg -ex "nns_tex_gen_st_src"`)
+			AddAttribute_TexGenStSrc($sg);
+		setAttr ($sg + ".nns_tex_gen_st_src") $tex_gen_st_src;
+	}
+}
+
+/******************************************************************************
+	add attribute tex gen mat s
+******************************************************************************/
+//proc AddAttribute_TexGenMatS(string $sg)
+//{
+//	addAttr -ln "nns_tex_gen_s" -at "float" -min -2048.0 -max 2047.9375 -dv 0.0 $sg;
+//}
+
+/******************************************************************************
+	add attribute tex gen mat t
+******************************************************************************/
+//proc AddAttribute_TexGenMatT(string $sg)
+//{
+//	addAttr -ln "nns_tex_gen_t" -at "float" -min -2048.0 -max 2047.9375 -dv 0.0 $sg;
+//}
+
+/******************************************************************************
+	set attribute tex gen mat st
+******************************************************************************/
+//proc SetAttribute_TexGenMatSt(float $tex_gen_mat_s, float $tex_gen_mat_t)
+//{
+//
+////-----------------------------------------------------------------------------
+//// get selection
+//	string $sgs[];
+//	GetSelectionForSetAttr($sgs);
+//
+////-----------------------------------------------------------------------------
+//// loop for SG
+//	for ($sg in $sgs) {
+//		// st is added in a pair
+//		if (!`attributeQuery -n $sg -ex "nns_tex_gen_s"`)
+//			AddAttribute_TexGenMatS($sg);
+//		if (!`attributeQuery -n $sg -ex "nns_tex_gen_t"`)
+//			AddAttribute_TexGenMatT($sg);
+//		setAttr ($sg + ".nns_tex_gen_s") $tex_gen_mat_s;
+//		setAttr ($sg + ".nns_tex_gen_t") $tex_gen_mat_t;
+//	}
+//}
+
+/******************************************************************************
+	add attribute tex effect mtx
+******************************************************************************/
+proc AddAttribute_TexEffectMtx(string $sg)
+{
+	addAttr -ln "nns_tex_effect_mtx" -at "matrix" -h 1 $sg; // hidden
+	setAttr ($sg + ".nns_tex_effect_mtx") -type "matrix"
+		1 0 0 0
+		0 1 0 0
+		0 0 1 0
+		0 0 0 1;
+}
+
+/******************************************************************************
+	set attribute tex effect mtx
+******************************************************************************/
+proc SetAttribute_TexEffectMtx(float $mtx[])
+{
+	//-----------------------------------------------------------------------------
+	// get selection
+	string $sgs[];
+	GetSelectionForSetAttr($sgs);
+
+	//-----------------------------------------------------------------------------
+	// loop for SG
+	for ($sg in $sgs) {
+		if (!`attributeQuery -n $sg -ex "nns_tex_effect_mtx"`)
+			AddAttribute_TexEffectMtx($sg);
+		float $cur[16] = `getAttr ($sg + ".nns_tex_effect_mtx")`; 
+		// change only 4x2 element
+		setAttr ($sg + ".nns_tex_effect_mtx") -type "matrix"
+			$mtx[ 0] $mtx[ 1] $cur[ 2] $cur[ 3]
+			$mtx[ 4] $mtx[ 5] $cur[ 6] $cur[ 7]
+			$mtx[ 8] $mtx[ 9] $cur[10] $cur[11]
+			$mtx[12] $mtx[13] $cur[14] $cur[15];
+	}
+}
+
+/******************************************************************************
+	add attribute no compress
+******************************************************************************/
+proc AddAttribute_NoCompress(string $sg)
+{
+	addAttr -ln "nns_no_compress" -at "bool" -dv 0 $sg;
+}
+
+/******************************************************************************
+	set attribute no compress
+******************************************************************************/
+proc SetAttribute_NoCompress(int $no_compress)
+{
+	//-----------------------------------------------------------------------------
+	// get selection
+	string $sgs[];
+	GetSelectionForSetAttr($sgs);
+
+	//-----------------------------------------------------------------------------
+	// loop for SG
+	for ($sg in $sgs) {
+		if (!`attributeQuery -n $sg -ex "nns_no_compress"`)
+			AddAttribute_NoCompress($sg);
+		setAttr ($sg + ".nns_no_compress") $no_compress;
+	}
+}
+
+/******************************************************************************
+	set shininess table state
+******************************************************************************/
+proc SetShininessTableState(int $sel_ok_flag)
+{
+	if (!$sel_ok_flag) {
+		control -e -en 0 nnsSetMaterialAttr_ShininessTable;
+		return;	
+	}
+	int $lighting0 = `checkBoxGrp -q -v1 nnsSetMaterialAttr_Lighting`;
+	int $lighting1 = `checkBoxGrp -q -v2 nnsSetMaterialAttr_Lighting`;
+	int $lighting2 = `checkBoxGrp -q -v3 nnsSetMaterialAttr_Lighting`;
+	int $lighting3 = `checkBoxGrp -q -v4 nnsSetMaterialAttr_Lighting`;
+	int $any_light = ($lighting0 || $lighting1 || $lighting2 || $lighting3);
+	control -e -en $any_light nnsSetMaterialAttr_ShininessTable;
+}
+
+/******************************************************************************
+	set tex gen st src state
+******************************************************************************/
+proc SetTexGenStSrcState(int $sel_ok_flag)
+{
+	if (!$sel_ok_flag) {
+		control -e -en 0 nnsSetMaterialAttr_TexGenStSrc;
+//		control -e -en 0 nnsSetMaterialAttr_TexGenMatSt;
+		return;	
+	}
+
+	int $tex_gen_mode = `optionMenuGrp -q -sl nnsSetMaterialAttr_TexGenMode` - 1;
+
+	if ($tex_gen_mode == 2 || $tex_gen_mode == 3) { // Normal or Vertex
+		control -e -en 1 nnsSetMaterialAttr_TexGenStSrc;
+
+//		int $tex_gen_st_src = `optionMenuGrp -q -sl nnsSetMaterialAttr_TexGenStSrc` - 1;
+//		control -e -en ($tex_gen_st_src == 1) // Material
+//			nnsSetMaterialAttr_TexGenMatSt;
+	}
+	else { // None or TexCoord
+		control -e -en 0 nnsSetMaterialAttr_TexGenStSrc;
+//		control -e -en 0 nnsSetMaterialAttr_TexGenMatSt;
+	}
+
+}
+
+/******************************************************************************
+	set tex effect mtx state
+******************************************************************************/
+proc SetTexEffectMtxState(int $sel_ok_flag)
+{
+	int $tex_gen_mode = `optionMenuGrp -q -sl nnsSetMaterialAttr_TexGenMode` - 1;
+	int $enable_flag = $sel_ok_flag &&
+		($tex_gen_mode == 2 || $tex_gen_mode == 3);
+
+	control -e -en $enable_flag nnsSetMaterialAttr_TexEffectMtx0;
+	control -e -en $enable_flag nnsSetMaterialAttr_TexEffectMtx1;
+	control -e -en $enable_flag nnsSetMaterialAttr_TexEffectMtx2;
+	control -e -en $enable_flag nnsSetMaterialAttr_TexEffectMtx3;
+}
+
+/******************************************************************************
+	lighting callback
+******************************************************************************/
+global proc nnsSetMaterialAttr_LightingCB(int $ilight)
+{
+	int $lighting0 = `checkBoxGrp -q -v1 nnsSetMaterialAttr_Lighting`;
+	int $lighting1 = `checkBoxGrp -q -v2 nnsSetMaterialAttr_Lighting`;
+	int $lighting2 = `checkBoxGrp -q -v3 nnsSetMaterialAttr_Lighting`;
+	int $lighting3 = `checkBoxGrp -q -v4 nnsSetMaterialAttr_Lighting`;
+	int $any_light = ($lighting0 || $lighting1 || $lighting2 || $lighting3);
+
+	int $tex_gen_mode = `optionMenuGrp -q -sl nnsSetMaterialAttr_TexGenMode` - 1;
+	if (!$any_light && $tex_gen_mode == 2) {
+		confirmDialog -t "Warning"
+			-m "You can't turn off all lights when \"Tex Gen Mode\" is Normal"
+			-b "OK" -db "OK";
+		eval("checkBoxGrp -e -v" + ($ilight + 1) + " 1 nnsSetMaterialAttr_Lighting");
+		return;
+	}
+
+	if ($ilight == 0)
+		SetAttribute_Lighting(0, $lighting0);
+	else if ($ilight == 1)
+		SetAttribute_Lighting(1, $lighting1);
+	else if ($ilight == 2)
+		SetAttribute_Lighting(2, $lighting2);
+	else if ($ilight == 3)
+		SetAttribute_Lighting(3, $lighting3);
+
+	SetShininessTableState(1);
+}
+
+/******************************************************************************
+	shininess table callback
+******************************************************************************/
+global proc nnsSetMaterialAttr_ShininessTableCB()
+{
+	SetAttribute_ShininessTable(`checkBoxGrp -q -v1 nnsSetMaterialAttr_ShininessTable`);
+}
+
+/******************************************************************************
+	fog callback
+******************************************************************************/
+global proc nnsSetMaterialAttr_FogCB()
+{
+	SetAttribute_Fog(`checkBoxGrp -q -v1 nnsSetMaterialAttr_Fog`);
+}
+
+/******************************************************************************
+	wire mode callback
+******************************************************************************/
+global proc nnsSetMaterialAttr_WireModeCB()
+{
+	SetAttribute_WireMode(`checkBoxGrp -q -v1 nnsSetMaterialAttr_WireMode`);
+}
+
+/******************************************************************************
+	depth test decal callback
+******************************************************************************/
+global proc nnsSetMaterialAttr_DepthTestDecalCB()
+{
+	SetAttribute_DepthTestDecal(`checkBoxGrp -q -v1 nnsSetMaterialAttr_DepthTestDecal`);
+}
+
+/******************************************************************************
+	xlu update depth callback
+******************************************************************************/
+global proc nnsSetMaterialAttr_XluUpdateDepthCB()
+{
+	SetAttribute_XluUpdateDepth(`checkBoxGrp -q -v1 nnsSetMaterialAttr_XluUpdateDepth`);
+}
+
+/******************************************************************************
+	render one pixel callback
+******************************************************************************/
+global proc nnsSetMaterialAttr_RenderOnePixelCB()
+{
+	SetAttribute_RenderOnePixel(`checkBoxGrp -q -v1 nnsSetMaterialAttr_RenderOnePixel`);
+}
+
+/******************************************************************************
+	far clip callback
+******************************************************************************/
+global proc nnsSetMaterialAttr_FarClipCB()
+{
+	SetAttribute_FarClip(`checkBoxGrp -q -v1 nnsSetMaterialAttr_FarClip`);
+}
+
+/******************************************************************************
+	polygon ID callback
+******************************************************************************/
+global proc nnsSetMaterialAttr_PolyIDCB()
+{
+	//-----------------------------------------------------------------------------
+	// clamp ID in [0, 63]
+	int $id = `intFieldGrp -q -v1 nnsSetMaterialAttr_PolyID`;
+	//trace ("poly id CB: " + $id + "\n");
+	if ($id < 0)
+		intFieldGrp -e -v1 0 nnsSetMaterialAttr_PolyID;
+	else if ($id > 63)
+		intFieldGrp -e -v1 63 nnsSetMaterialAttr_PolyID;
+
+	SetAttribute_PolyID(`intFieldGrp -q -v1 nnsSetMaterialAttr_PolyID`);
+}
+
+/******************************************************************************
+	disp face callback
+******************************************************************************/
+global proc nnsSetMaterialAttr_DispFaceCB()
+{
+	SetAttribute_DispFace(`optionMenuGrp -q -sl nnsSetMaterialAttr_DispFace` - 1);
+}
+
+/******************************************************************************
+	poly mode callback
+******************************************************************************/
+global proc nnsSetMaterialAttr_PolyModeCB()
+{
+	SetAttribute_PolyMode(`optionMenuGrp -q -sl nnsSetMaterialAttr_PolyMode` - 1);
+}
+
+/******************************************************************************
+	tex gen mode callback
+******************************************************************************/
+global proc nnsSetMaterialAttr_TexGenModeCB()
+{
+	int $lighting0 = `checkBoxGrp -q -v1 nnsSetMaterialAttr_Lighting`;
+	int $lighting1 = `checkBoxGrp -q -v2 nnsSetMaterialAttr_Lighting`;
+	int $lighting2 = `checkBoxGrp -q -v3 nnsSetMaterialAttr_Lighting`;
+	int $lighting3 = `checkBoxGrp -q -v4 nnsSetMaterialAttr_Lighting`;
+	int $any_light = ($lighting0 || $lighting1 || $lighting2 || $lighting3);
+
+	int $tex_gen_mode = `optionMenuGrp -q -sl nnsSetMaterialAttr_TexGenMode` - 1;
+	if (!$any_light && $tex_gen_mode == 2) { // Normal
+		confirmDialog -t "Warning"
+			-m "You can't choose Normal when all lights are turned off"
+			-b "OK" -db "OK";
+		string $sgs[];
+		if (GetSelectedSG($sgs) > 0) {
+			string $sg = $sgs[0];
+			$tex_gen_mode = (`attributeQuery -n $sg -ex "nns_tex_gen_mode"`) ?
+				`getAttr ($sg + ".nns_tex_gen_mode")` : 0;
+		}
+		else
+			$tex_gen_mode = 0;
+		optionMenuGrp -e -sl ($tex_gen_mode + 1) nnsSetMaterialAttr_TexGenMode;
+	}
+	else {
+		SetAttribute_TexGenMode($tex_gen_mode);
+	}
+
+	SetTexGenStSrcState(1);
+	SetTexEffectMtxState(1);
+}
+
+/******************************************************************************
+	tex gen st src callback
+******************************************************************************/
+global proc nnsSetMaterialAttr_TexGenStSrcCB()
+{
+	SetAttribute_TexGenStSrc(`optionMenuGrp -q -sl nnsSetMaterialAttr_TexGenStSrc` - 1);
+	SetTexGenStSrcState(1);
+}
+
+/******************************************************************************
+	get clamp st value
+******************************************************************************/
+proc float GetClampStValue(float $v)
+{
+	$v *= 16.0;
+	int $iv = ($v >= 0.0) ? (int)($v + 0.5) : (int)($v - 0.5);
+	if ($iv < -32768)
+		$iv = -32768;
+	else if ($iv > 32767)
+		$iv = 32767;
+	return (float)$iv / 16.0;
+}
+
+/******************************************************************************
+	tex gen mat st callback
+******************************************************************************/
+//global proc nnsSetMaterialAttr_TexGenMatStCB()
+//{
+//	float $s = `floatFieldGrp -q -v1 nnsSetMaterialAttr_TexGenMatSt`;
+//	float $t = `floatFieldGrp -q -v2 nnsSetMaterialAttr_TexGenMatSt`;
+//
+//	$s = GetClampStValue($s);
+//	$t = GetClampStValue($t);
+//	SetAttribute_TexGenMatSt($s, $t);
+//
+//	floatFieldGrp -e -v1 $s -v2 $t
+//		nnsSetMaterialAttr_TexGenMatSt;
+//}
+
+/******************************************************************************
+	get clamp mtx value
+******************************************************************************/
+proc float GetClampMtxValue(float $v)
+{
+	$v *= 4096.0;
+	int $iv = ($v >= 0.0) ? (int)($v + 0.5) : (int)($v - 0.5);
+	return (float)$iv / 4096.0;
+}
+
+/******************************************************************************
+	tex effect mtx callback
+******************************************************************************/
+global proc nnsSetMaterialAttr_TexEffectMtxCB()
+{
+	float $mtx[16];
+	$mtx[ 0] = GetClampMtxValue(`floatFieldGrp -q -v1 nnsSetMaterialAttr_TexEffectMtx0`);
+	$mtx[ 1] = GetClampMtxValue(`floatFieldGrp -q -v2 nnsSetMaterialAttr_TexEffectMtx0`);
+	$mtx[ 2] = 0.0;
+	$mtx[ 3] = 0.0;
+	$mtx[ 4] = GetClampMtxValue(`floatFieldGrp -q -v1 nnsSetMaterialAttr_TexEffectMtx1`);
+	$mtx[ 5] = GetClampMtxValue(`floatFieldGrp -q -v2 nnsSetMaterialAttr_TexEffectMtx1`);
+	$mtx[ 6] = 0.0;
+	$mtx[ 7] = 0.0;
+	$mtx[ 8] = GetClampMtxValue(`floatFieldGrp -q -v1 nnsSetMaterialAttr_TexEffectMtx2`);
+	$mtx[ 9] = GetClampMtxValue(`floatFieldGrp -q -v2 nnsSetMaterialAttr_TexEffectMtx2`);
+	$mtx[10] = 1.0;
+	$mtx[11] = 0.0;
+	$mtx[12] = GetClampMtxValue(`floatFieldGrp -q -v1 nnsSetMaterialAttr_TexEffectMtx3`);
+	$mtx[13] = GetClampMtxValue(`floatFieldGrp -q -v2 nnsSetMaterialAttr_TexEffectMtx3`);
+	$mtx[14] = 0.0;
+	$mtx[15] = 1.0;
+	SetAttribute_TexEffectMtx($mtx);
+
+	floatFieldGrp -e -v1 $mtx[ 0] -v2 $mtx[ 1] nnsSetMaterialAttr_TexEffectMtx0;
+	floatFieldGrp -e -v1 $mtx[ 4] -v2 $mtx[ 5] nnsSetMaterialAttr_TexEffectMtx1;
+	floatFieldGrp -e -v1 $mtx[ 8] -v2 $mtx[ 9] nnsSetMaterialAttr_TexEffectMtx2;
+	floatFieldGrp -e -v1 $mtx[12] -v2 $mtx[13] nnsSetMaterialAttr_TexEffectMtx3;
+}
+
+/******************************************************************************
+	no compress callback
+******************************************************************************/
+global proc nnsSetMaterialAttr_NoCompressCB()
+{
+	SetAttribute_NoCompress(`optionMenuGrp -q -sl nnsSetMaterialAttr_NoCompress` - 1);
+}
+
+/******************************************************************************
+	clear attr change job variable (called when window deleted)
+******************************************************************************/
+global proc nnsSetMaterialAttr_ClearAttrChangeJobVariable()
+{
+	global int $nnsSetMaterialAttr_AttrJob_Lighting0;
+	global int $nnsSetMaterialAttr_AttrJob_Lighting1;
+	global int $nnsSetMaterialAttr_AttrJob_Lighting2;
+	global int $nnsSetMaterialAttr_AttrJob_Lighting3;
+	global int $nnsSetMaterialAttr_AttrJob_ShininessTable;
+	global int $nnsSetMaterialAttr_AttrJob_Fog;
+	global int $nnsSetMaterialAttr_AttrJob_WireMode;
+	global int $nnsSetMaterialAttr_AttrJob_DepthTestDecal;
+	global int $nnsSetMaterialAttr_AttrJob_XluUpdateDepth;
+	global int $nnsSetMaterialAttr_AttrJob_RenderOnePixel;
+	global int $nnsSetMaterialAttr_AttrJob_FarClip;
+	global int $nnsSetMaterialAttr_AttrJob_PolyID;
+	global int $nnsSetMaterialAttr_AttrJob_DispFace;
+	global int $nnsSetMaterialAttr_AttrJob_PolyMode;
+	global int $nnsSetMaterialAttr_AttrJob_TexGenMode;
+	global int $nnsSetMaterialAttr_AttrJob_TexGenStSrc;
+//	global int $nnsSetMaterialAttr_AttrJob_TexGenMatS;
+//	global int $nnsSetMaterialAttr_AttrJob_TexGenMatT;
+	global int $nnsSetMaterialAttr_AttrJob_TexEffectMtx;
+	global int $nnsSetMaterialAttr_AttrJob_NoCompress;
+
+	$nnsSetMaterialAttr_AttrJob_Lighting0 = -1;
+	$nnsSetMaterialAttr_AttrJob_Lighting1 = -1;
+	$nnsSetMaterialAttr_AttrJob_Lighting2 = -1;
+	$nnsSetMaterialAttr_AttrJob_Lighting3 = -1;
+	$nnsSetMaterialAttr_AttrJob_ShininessTable = -1;
+	$nnsSetMaterialAttr_AttrJob_Fog = -1;
+	$nnsSetMaterialAttr_AttrJob_WireMode = -1;
+	$nnsSetMaterialAttr_AttrJob_DepthTestDecal = -1;
+	$nnsSetMaterialAttr_AttrJob_XluUpdateDepth = -1;
+	$nnsSetMaterialAttr_AttrJob_RenderOnePixel = -1;
+	$nnsSetMaterialAttr_AttrJob_FarClip = -1;
+	$nnsSetMaterialAttr_AttrJob_PolyID = -1;
+	$nnsSetMaterialAttr_AttrJob_DispFace = -1;
+	$nnsSetMaterialAttr_AttrJob_PolyMode = -1;
+	$nnsSetMaterialAttr_AttrJob_TexGenMode = -1;
+	$nnsSetMaterialAttr_AttrJob_TexGenStSrc = -1;
+//	$nnsSetMaterialAttr_AttrJob_TexGenMatS = -1;
+//	$nnsSetMaterialAttr_AttrJob_TexGenMatT = -1;
+	$nnsSetMaterialAttr_AttrJob_TexEffectMtx = -1;
+	$nnsSetMaterialAttr_AttrJob_NoCompress = -1;
+}
+
+/******************************************************************************
+	delete one script job
+******************************************************************************/
+proc DeleteOneScriptJob(int $job_index)
+{
+	if ($job_index != -1 && `scriptJob -ex $job_index`)
+		scriptJob -k $job_index;
+}
+
+/******************************************************************************
+	delete attr change job
+******************************************************************************/
+proc DeleteAttrChangeJob()
+{
+	global int $nnsSetMaterialAttr_AttrJob_Lighting0;
+	global int $nnsSetMaterialAttr_AttrJob_Lighting1;
+	global int $nnsSetMaterialAttr_AttrJob_Lighting2;
+	global int $nnsSetMaterialAttr_AttrJob_Lighting3;
+	global int $nnsSetMaterialAttr_AttrJob_ShininessTable;
+	global int $nnsSetMaterialAttr_AttrJob_Fog;
+	global int $nnsSetMaterialAttr_AttrJob_WireMode;
+	global int $nnsSetMaterialAttr_AttrJob_DepthTestDecal;
+	global int $nnsSetMaterialAttr_AttrJob_XluUpdateDepth;
+	global int $nnsSetMaterialAttr_AttrJob_RenderOnePixel;
+	global int $nnsSetMaterialAttr_AttrJob_FarClip;
+	global int $nnsSetMaterialAttr_AttrJob_PolyID;
+	global int $nnsSetMaterialAttr_AttrJob_DispFace;
+	global int $nnsSetMaterialAttr_AttrJob_PolyMode;
+	global int $nnsSetMaterialAttr_AttrJob_TexGenMode;
+	global int $nnsSetMaterialAttr_AttrJob_TexGenStSrc;
+//	global int $nnsSetMaterialAttr_AttrJob_TexGenMatS;
+//	global int $nnsSetMaterialAttr_AttrJob_TexGenMatT;
+	global int $nnsSetMaterialAttr_AttrJob_TexEffectMtx;
+	global int $nnsSetMaterialAttr_AttrJob_NoCompress;
+
+	if (`window -ex nnsSetMaterialAttr_Win`) {
+		DeleteOneScriptJob($nnsSetMaterialAttr_AttrJob_Lighting0);
+		DeleteOneScriptJob($nnsSetMaterialAttr_AttrJob_Lighting1);
+		DeleteOneScriptJob($nnsSetMaterialAttr_AttrJob_Lighting2);
+		DeleteOneScriptJob($nnsSetMaterialAttr_AttrJob_Lighting3);
+		DeleteOneScriptJob($nnsSetMaterialAttr_AttrJob_ShininessTable);
+		DeleteOneScriptJob($nnsSetMaterialAttr_AttrJob_Fog);
+		DeleteOneScriptJob($nnsSetMaterialAttr_AttrJob_WireMode);
+		DeleteOneScriptJob($nnsSetMaterialAttr_AttrJob_DepthTestDecal);
+		DeleteOneScriptJob($nnsSetMaterialAttr_AttrJob_XluUpdateDepth);
+		DeleteOneScriptJob($nnsSetMaterialAttr_AttrJob_RenderOnePixel);
+		DeleteOneScriptJob($nnsSetMaterialAttr_AttrJob_FarClip);
+		DeleteOneScriptJob($nnsSetMaterialAttr_AttrJob_PolyID);
+		DeleteOneScriptJob($nnsSetMaterialAttr_AttrJob_DispFace);
+		DeleteOneScriptJob($nnsSetMaterialAttr_AttrJob_PolyMode);
+		DeleteOneScriptJob($nnsSetMaterialAttr_AttrJob_TexGenMode);
+		DeleteOneScriptJob($nnsSetMaterialAttr_AttrJob_TexGenStSrc);
+//		DeleteOneScriptJob($nnsSetMaterialAttr_AttrJob_TexGenMatS);
+//		DeleteOneScriptJob($nnsSetMaterialAttr_AttrJob_TexGenMatT);
+		DeleteOneScriptJob($nnsSetMaterialAttr_AttrJob_TexEffectMtx);
+		DeleteOneScriptJob($nnsSetMaterialAttr_AttrJob_NoCompress);
+	}
+
+	nnsSetMaterialAttr_ClearAttrChangeJobVariable();
+}
+
+/******************************************************************************
+	set attr change job
+******************************************************************************/
+proc SetAttrChangeJob(string $sg)
+{
+	global int $nnsSetMaterialAttr_AttrJob_Lighting0;
+	global int $nnsSetMaterialAttr_AttrJob_Lighting1;
+	global int $nnsSetMaterialAttr_AttrJob_Lighting2;
+	global int $nnsSetMaterialAttr_AttrJob_Lighting3;
+	global int $nnsSetMaterialAttr_AttrJob_ShininessTable;
+	global int $nnsSetMaterialAttr_AttrJob_Fog;
+	global int $nnsSetMaterialAttr_AttrJob_WireMode;
+	global int $nnsSetMaterialAttr_AttrJob_DepthTestDecal;
+	global int $nnsSetMaterialAttr_AttrJob_XluUpdateDepth;
+	global int $nnsSetMaterialAttr_AttrJob_RenderOnePixel;
+	global int $nnsSetMaterialAttr_AttrJob_FarClip;
+	global int $nnsSetMaterialAttr_AttrJob_PolyID;
+	global int $nnsSetMaterialAttr_AttrJob_DispFace;
+	global int $nnsSetMaterialAttr_AttrJob_PolyMode;
+	global int $nnsSetMaterialAttr_AttrJob_TexGenMode;
+	global int $nnsSetMaterialAttr_AttrJob_TexGenStSrc;
+//	global int $nnsSetMaterialAttr_AttrJob_TexGenMatS;
+//	global int $nnsSetMaterialAttr_AttrJob_TexGenMatT;
+	global int $nnsSetMaterialAttr_AttrJob_TexEffectMtx;
+	global int $nnsSetMaterialAttr_AttrJob_NoCompress;
+
+	DeleteAttrChangeJob();
+
+	if (!`attributeQuery -n $sg -ex "nns_lighting"`)
+		AddAttribute_Lighting($sg, 0);
+	$nnsSetMaterialAttr_AttrJob_Lighting0 = `scriptJob -kws -p nnsSetMaterialAttr_Win
+		-ac ($sg + ".nns_lighting") "nnsSetMaterialAttr_UpdateWindow(0)"`;
+	if (!`attributeQuery -n $sg -ex "nns_lighting1"`)
+		AddAttribute_Lighting($sg, 1);
+	$nnsSetMaterialAttr_AttrJob_Lighting1 = `scriptJob -kws -p nnsSetMaterialAttr_Win
+		-ac ($sg + ".nns_lighting1") "nnsSetMaterialAttr_UpdateWindow(0)"`;
+	if (!`attributeQuery -n $sg -ex "nns_lighting2"`)
+		AddAttribute_Lighting($sg, 2);
+	$nnsSetMaterialAttr_AttrJob_Lighting2 = `scriptJob -kws -p nnsSetMaterialAttr_Win
+		-ac ($sg + ".nns_lighting2") "nnsSetMaterialAttr_UpdateWindow(0)"`;
+	if (!`attributeQuery -n $sg -ex "nns_lighting3"`)
+		AddAttribute_Lighting($sg, 3);
+	$nnsSetMaterialAttr_AttrJob_Lighting3 = `scriptJob -kws -p nnsSetMaterialAttr_Win
+		-ac ($sg + ".nns_lighting3") "nnsSetMaterialAttr_UpdateWindow(0)"`;
+
+	if (!`attributeQuery -n $sg -ex "nns_shininess_table"`)
+		AddAttribute_ShininessTable($sg);
+	$nnsSetMaterialAttr_AttrJob_ShininessTable = `scriptJob -kws -p nnsSetMaterialAttr_Win
+		-ac ($sg + ".nns_shininess_table") "nnsSetMaterialAttr_UpdateWindow(0)"`;
+
+	if (!`attributeQuery -n $sg -ex "nns_fog"`)
+		AddAttribute_Fog($sg);
+	$nnsSetMaterialAttr_AttrJob_Fog = `scriptJob -kws -p nnsSetMaterialAttr_Win
+		-ac ($sg + ".nns_fog") "nnsSetMaterialAttr_UpdateWindow(0)"`;
+
+	if (!`attributeQuery -n $sg -ex "nns_wire_mode"`)
+		AddAttribute_WireMode($sg);
+	$nnsSetMaterialAttr_AttrJob_WireMode = `scriptJob -kws -p nnsSetMaterialAttr_Win
+		-ac ($sg + ".nns_wire_mode") "nnsSetMaterialAttr_UpdateWindow(0)"`;
+
+	if (!`attributeQuery -n $sg -ex "nns_depth_test_decal"`)
+		AddAttribute_DepthTestDecal($sg);
+	$nnsSetMaterialAttr_AttrJob_DepthTestDecal = `scriptJob -kws -p nnsSetMaterialAttr_Win
+		-ac ($sg + ".nns_depth_test_decal") "nnsSetMaterialAttr_UpdateWindow(0)"`;
+
+	if (!`attributeQuery -n $sg -ex "nns_xlu_update_depth"`)
+		AddAttribute_XluUpdateDepth($sg);
+	$nnsSetMaterialAttr_AttrJob_XluUpdateDepth = `scriptJob -kws -p nnsSetMaterialAttr_Win
+		-ac ($sg + ".nns_xlu_update_depth") "nnsSetMaterialAttr_UpdateWindow(0)"`;
+
+	if (!`attributeQuery -n $sg -ex "nns_render_1_pixel"`)
+		AddAttribute_RenderOnePixel($sg);
+	$nnsSetMaterialAttr_AttrJob_RenderOnePixel = `scriptJob -kws -p nnsSetMaterialAttr_Win
+		-ac ($sg + ".nns_render_1_pixel") "nnsSetMaterialAttr_UpdateWindow(0)"`;
+
+	if (!`attributeQuery -n $sg -ex "nns_far_clip"`)
+		AddAttribute_FarClip($sg);
+	$nnsSetMaterialAttr_AttrJob_FarClip = `scriptJob -kws -p nnsSetMaterialAttr_Win
+		-ac ($sg + ".nns_far_clip") "nnsSetMaterialAttr_UpdateWindow(0)"`;
+
+	if (!`attributeQuery -n $sg -ex "nns_poly_id"`)
+		AddAttribute_PolyID($sg);
+	$nnsSetMaterialAttr_AttrJob_PolyID = `scriptJob -kws -p nnsSetMaterialAttr_Win
+		-ac ($sg + ".nns_poly_id") "nnsSetMaterialAttr_UpdateWindow(0)"`;
+
+	if (!`attributeQuery -n $sg -ex "nns_disp_face"`)
+		AddAttribute_DispFace($sg);
+	$nnsSetMaterialAttr_AttrJob_DispFace = `scriptJob -kws -p nnsSetMaterialAttr_Win
+		-ac ($sg + ".nns_disp_face") "nnsSetMaterialAttr_UpdateWindow(0)"`;
+
+	if (!`attributeQuery -n $sg -ex "nns_poly_mode"`)
+		AddAttribute_PolyMode($sg);
+	$nnsSetMaterialAttr_AttrJob_PolyMode = `scriptJob -kws -p nnsSetMaterialAttr_Win
+		-ac ($sg + ".nns_poly_mode") "nnsSetMaterialAttr_UpdateWindow(0)"`;
+
+	if (!`attributeQuery -n $sg -ex "nns_tex_gen_mode"`)
+		AddAttribute_TexGenMode($sg);
+	$nnsSetMaterialAttr_AttrJob_TexGenMode = `scriptJob -kws -p nnsSetMaterialAttr_Win
+		-ac ($sg + ".nns_tex_gen_mode") "nnsSetMaterialAttr_UpdateWindow(0)"`;
+
+	if (!`attributeQuery -n $sg -ex "nns_tex_gen_st_src"`)
+		AddAttribute_TexGenStSrc($sg);
+	$nnsSetMaterialAttr_AttrJob_TexGenStSrc = `scriptJob -kws -p nnsSetMaterialAttr_Win
+		-ac ($sg + ".nns_tex_gen_st_src") "nnsSetMaterialAttr_UpdateWindow(0)"`;
+//	if (!`attributeQuery -n $sg -ex "nns_tex_gen_s"`)
+//		AddAttribute_TexGenMatS($sg);
+//	$nnsSetMaterialAttr_AttrJob_TexGenMatS = `scriptJob -kws -p nnsSetMaterialAttr_Win
+//		-ac ($sg + ".nns_tex_gen_s") "nnsSetMaterialAttr_UpdateWindow(0)"`;
+//	if (!`attributeQuery -n $sg -ex "nns_tex_gen_t"`)
+//		AddAttribute_TexGenMatT($sg);
+//	$nnsSetMaterialAttr_AttrJob_TexGenMatT = `scriptJob -kws -p nnsSetMaterialAttr_Win
+//		-ac ($sg + ".nns_tex_gen_t") "nnsSetMaterialAttr_UpdateWindow(0)"`;
+
+	if (!`attributeQuery -n $sg -ex "nns_tex_effect_mtx"`)
+		AddAttribute_TexEffectMtx($sg);
+	$nnsSetMaterialAttr_AttrJob_TexEffectMtx = `scriptJob -kws -p nnsSetMaterialAttr_Win
+		-ac ($sg + ".nns_tex_effect_mtx") "nnsSetMaterialAttr_UpdateWindow(0)"`;
+
+	if (!`attributeQuery -n $sg -ex "nns_no_compress"`)
+		AddAttribute_NoCompress($sg);
+	$nnsSetMaterialAttr_AttrJob_NoCompress = `scriptJob -kws -p nnsSetMaterialAttr_Win
+		-ac ($sg + ".nns_no_compress") "nnsSetMaterialAttr_UpdateWindow(0)"`;
+}
+
+/******************************************************************************
+	get SG name with material
+******************************************************************************/
+proc string GetSGNameWithMat(string $sg)
+{
+	string $ins[] = `listConnections -s 1 -d 0 ($sg + ".ss")`;
+	if (size($ins))
+	{
+		$sg += " ( " + $ins[0] + " )";
+	}
+	return $sg;
+}
+
+/******************************************************************************
+	update window (UpdateWindowT)
+******************************************************************************/
+global proc nnsSetMaterialAttr_UpdateWindow(int $set_job_flag)
+{
+	//-----------------------------------------------------------------------------
+	// get selection
+	string $sgs[];
+	int $enableFlag = (GetSelectedSG($sgs) > 0);
+
+	//-----------------------------------------------------------------------------
+	// set node name
+	string $nodesName;
+	if ($enableFlag)
+	{
+		$nodesName = GetSGNameWithMat($sgs[0]);
+		int $nodeSize = size($sgs);
+		for ($inode = 1; $inode < $nodeSize; ++$inode)
+		{
+			if ($inode == 3)
+			{
+				$nodesName += ", ...";
+				break;
+			}
+			$nodesName += ",  " + GetSGNameWithMat($sgs[$inode]);
+		}
+	}
+	else
+	{
+		$nodesName = "(No shadingEngine node is selected)";
+	}
+	text -e -l $nodesName nnsSetMaterialAttr_NodeName;
+
+	//-----------------------------------------------------------------------------
+	// set current attr
+	if ($enableFlag)
+	{
+		string $sg = $sgs[0];
+		//trace ("uw: " + $sg + "\n");
+
+		int $lighting0 = (`attributeQuery -n $sg -ex "nns_lighting"`) ?
+			`getAttr ($sg + ".nns_lighting")` : 1;
+		int $lighting1 = (`attributeQuery -n $sg -ex "nns_lighting1"`) ?
+			`getAttr ($sg + ".nns_lighting1")` : 0;
+		int $lighting2 = (`attributeQuery -n $sg -ex "nns_lighting2"`) ?
+			`getAttr ($sg + ".nns_lighting2")` : 0;
+		int $lighting3 = (`attributeQuery -n $sg -ex "nns_lighting3"`) ?
+			`getAttr ($sg + ".nns_lighting3")` : 0;
+		int $shininess_table = (`attributeQuery -n $sg -ex "nns_shininess_table"`) ?
+			`getAttr ($sg + ".nns_shininess_table")` : 0;
+		int $fog = (`attributeQuery -n $sg -ex "nns_fog"`) ?
+			`getAttr ($sg + ".nns_fog")` : 0;
+		int $wire_mode = (`attributeQuery -n $sg -ex "nns_wire_mode"`) ?
+			`getAttr ($sg + ".nns_wire_mode")` : 0;
+		int $depth_test_decal = (`attributeQuery -n $sg -ex "nns_depth_test_decal"`) ?
+			`getAttr ($sg + ".nns_depth_test_decal")` : 0;
+		int $xlu_update_depth = (`attributeQuery -n $sg -ex "nns_xlu_update_depth"`) ?
+			`getAttr ($sg + ".nns_xlu_update_depth")` : 0;
+		int $render_1_pixel = (`attributeQuery -n $sg -ex "nns_render_1_pixel"`) ?
+			`getAttr ($sg + ".nns_render_1_pixel")` : 0;
+		int $far_clip = (`attributeQuery -n $sg -ex "nns_far_clip"`) ?
+			`getAttr ($sg + ".nns_far_clip")` : 0;
+		int $poly_id = (`attributeQuery -n $sg -ex "nns_poly_id"`) ?
+			`getAttr ($sg + ".nns_poly_id")` : 0;
+		int $disp_face = (`attributeQuery -n $sg -ex "nns_disp_face"`) ?
+			`getAttr ($sg + ".nns_disp_face")` : 0;
+		int $poly_mode = (`attributeQuery -n $sg -ex "nns_poly_mode"`) ?
+			`getAttr ($sg + ".nns_poly_mode")` : 0;
+		int $tex_gen_mode = (`attributeQuery -n $sg -ex "nns_tex_gen_mode"`) ?
+			`getAttr ($sg + ".nns_tex_gen_mode")` : 0;
+		int $tex_gen_st_src = (`attributeQuery -n $sg -ex "nns_tex_gen_st_src"`) ?
+			`getAttr ($sg + ".nns_tex_gen_st_src")` : 1; // changed (2005/01/12)
+//		float $tex_gen_mat_s = (`attributeQuery -n $sg -ex "nns_tex_gen_s"`) ?
+//			`getAttr ($sg + ".nns_tex_gen_s")` : 0.0;
+//		float $tex_gen_mat_t = (`attributeQuery -n $sg -ex "nns_tex_gen_t"`) ?
+//			`getAttr ($sg + ".nns_tex_gen_t")` : 0.0;
+		int $no_compress = (`attributeQuery -n $sg -ex "nns_no_compress"`) ?
+			`getAttr ($sg + ".nns_no_compress")` : 0;
+		float $tex_effect_mtx[16] =
+		{
+			1, 0, 0 , 0,
+			0, 1, 0 , 0,
+			0, 0, 1 , 0,
+			0, 0, 0 , 1
+		};
+		if (`attributeQuery -n $sg -ex "nns_tex_effect_mtx"`)
+		{
+			$tex_effect_mtx = `getAttr ($sg + ".nns_tex_effect_mtx")`;
+		}
+
+		checkBoxGrp -e -v1 $lighting0 -v2 $lighting1 -v3 $lighting2 -v4 $lighting3
+			nnsSetMaterialAttr_Lighting;
+		checkBoxGrp -e -v1 $shininess_table nnsSetMaterialAttr_ShininessTable;
+		checkBoxGrp -e -v1 $fog nnsSetMaterialAttr_Fog;
+		checkBoxGrp -e -v1 $wire_mode nnsSetMaterialAttr_WireMode;
+		checkBoxGrp -e -v1 $depth_test_decal nnsSetMaterialAttr_DepthTestDecal;
+		checkBoxGrp -e -v1 $xlu_update_depth nnsSetMaterialAttr_XluUpdateDepth;
+		checkBoxGrp -e -v1 $render_1_pixel nnsSetMaterialAttr_RenderOnePixel;
+		checkBoxGrp -e -v1 $far_clip nnsSetMaterialAttr_FarClip;
+		intFieldGrp -e -v1 $poly_id nnsSetMaterialAttr_PolyID;
+		optionMenuGrp -e -sl ($disp_face + 1) nnsSetMaterialAttr_DispFace;
+		optionMenuGrp -e -sl ($poly_mode + 1) nnsSetMaterialAttr_PolyMode;
+		optionMenuGrp -e -sl ($tex_gen_mode + 1) nnsSetMaterialAttr_TexGenMode;
+		optionMenuGrp -e -sl ($tex_gen_st_src + 1) nnsSetMaterialAttr_TexGenStSrc;
+//		floatFieldGrp -e -v1 $tex_gen_mat_s -v2 $tex_gen_mat_t
+//			nnsSetMaterialAttr_TexGenMatSt;
+		floatFieldGrp -e -v1 $tex_effect_mtx[ 0] -v2 $tex_effect_mtx[ 1]
+			nnsSetMaterialAttr_TexEffectMtx0;
+		floatFieldGrp -e -v1 $tex_effect_mtx[ 4] -v2 $tex_effect_mtx[ 5]
+			nnsSetMaterialAttr_TexEffectMtx1;
+		floatFieldGrp -e -v1 $tex_effect_mtx[ 8] -v2 $tex_effect_mtx[ 9]
+			nnsSetMaterialAttr_TexEffectMtx2;
+		floatFieldGrp -e -v1 $tex_effect_mtx[12] -v2 $tex_effect_mtx[13]
+			nnsSetMaterialAttr_TexEffectMtx3;
+		optionMenuGrp -e -sl ($no_compress + 1) nnsSetMaterialAttr_NoCompress;
+
+		//-----------------------------------------------------------------------------
+		// set attr change job
+		if ($set_job_flag)
+		{
+			SetAttrChangeJob($sg);
+		}
+	}
+
+	//-----------------------------------------------------------------------------
+	// set enable state
+	control -e -en $enableFlag nnsSetMaterialAttr_Lighting;
+	SetShininessTableState($enableFlag);
+	control -e -en $enableFlag nnsSetMaterialAttr_Fog;
+	control -e -en $enableFlag nnsSetMaterialAttr_WireMode;
+	control -e -en $enableFlag nnsSetMaterialAttr_DepthTestDecal;
+	control -e -en $enableFlag nnsSetMaterialAttr_XluUpdateDepth;
+	control -e -en $enableFlag nnsSetMaterialAttr_RenderOnePixel;
+	control -e -en $enableFlag nnsSetMaterialAttr_FarClip;
+	control -e -en $enableFlag nnsSetMaterialAttr_PolyID;
+	control -e -en $enableFlag nnsSetMaterialAttr_DispFace;
+	control -e -en $enableFlag nnsSetMaterialAttr_PolyMode;
+	control -e -en $enableFlag nnsSetMaterialAttr_TexGenMode;
+	SetTexGenStSrcState($enableFlag);
+	SetTexEffectMtxState($enableFlag);
+	control -e -en $enableFlag nnsSetMaterialAttr_NoCompress;
+}
+
+/******************************************************************************
+	main
+******************************************************************************/
+global proc NNS_SetMaterialAttr()
+{
+	//-----------------------------------------------------------------------------
+	// get selection
+	//string $sgs[];
+	//if (GetSelectedSG($sgs) == 0)
+	//{
+	//	error "No shadingEngine (material) node is selected";
+	//}
+
+	//-----------------------------------------------------------------------------
+	// create window
+	int $wd = 400;
+	int $ht = 638;
+	if (!`window -ex nnsSetMaterialAttr_Win`)
+	{
+		window -t "NITRO Set Material Attribute" -wh $wd $ht -mxb 0
+			nnsSetMaterialAttr_Win;
+		columnLayout -adj 1 -cat "both" 4 -cal "center" -rs 4;
+
+		//-----------------------------------------------------------------------------
+		// node name
+		frameLayout -lv 0 -cll 0 -cl 0 -bv 1 -bs "etchedIn";
+			columnLayout -adj 1 -cal "center" -rs 8;
+			
+			text -l "" nnsSetMaterialAttr_NodeName;
+
+			setParent ..; // columnLayout
+		setParent ..; // formLayout
+
+		//-----------------------------------------------------------------------------
+		// attribute
+		frameLayout -lv 0 -cll 0 -cl 0 -bv 1 -bs "etchedIn";
+			columnLayout -adj 1 -rs 8;
+
+			checkBoxGrp -ncb 4 -l ""
+				-l1 "Light0" -v1 1
+				-l2 "Light1" -v2 0
+				-l3 "Light2" -v3 0
+				-l4 "Light3" -v4 0
+				-cw5 120 62 62 62 62
+				-cc1 "nnsSetMaterialAttr_LightingCB 0"
+				-cc2 "nnsSetMaterialAttr_LightingCB 1"
+				-cc3 "nnsSetMaterialAttr_LightingCB 2"
+				-cc4 "nnsSetMaterialAttr_LightingCB 3"
+				nnsSetMaterialAttr_Lighting;
+
+			checkBoxGrp -ncb 1 -l "" -l1 "Use Specular Reflection Shininess Table" -v1 0
+				-cw2 120 220
+				-cc "nnsSetMaterialAttr_ShininessTableCB"
+				nnsSetMaterialAttr_ShininessTable;
+
+			checkBoxGrp -ncb 1 -l "" -l1 "Fog" -v1 0
+				-cw2 120 100
+				-cc "nnsSetMaterialAttr_FogCB"
+				nnsSetMaterialAttr_Fog;
+
+			checkBoxGrp -ncb 1 -l "" -l1 "Wire Frame" -v1 0
+				-cw2 120 100
+				-cc "nnsSetMaterialAttr_WireModeCB"
+				nnsSetMaterialAttr_WireMode;
+
+			checkBoxGrp -ncb 1 -l "" -l1 "Depth Test for Decal Polygon" -v1 0
+				-cw2 120 180
+				-cc "nnsSetMaterialAttr_DepthTestDecalCB"
+				nnsSetMaterialAttr_DepthTestDecal;
+
+			checkBoxGrp -ncb 1 -l "" -l1 "Translucent Polygons Update Depth Buffer" -v1 0
+				-cw2 120 230
+				-cc "nnsSetMaterialAttr_XluUpdateDepthCB"
+				nnsSetMaterialAttr_XluUpdateDepth;
+
+			checkBoxGrp -ncb 1 -l "" -l1 "Render 1-pixel Polygon" -v1 0
+				-cw2 120 150
+				-cc "nnsSetMaterialAttr_RenderOnePixelCB"
+				nnsSetMaterialAttr_RenderOnePixel;
+
+			checkBoxGrp -ncb 1 -l "" -l1 "Far Clipping" -v1 0
+				-cw2 120 100
+				-cc "nnsSetMaterialAttr_FarClipCB"
+				nnsSetMaterialAttr_FarClip;
+
+			intFieldGrp -l "Polygon ID" -nf 1 -v1 0
+				-cw 1 120 -cw 2 70
+				-cc "nnsSetMaterialAttr_PolyIDCB"
+				nnsSetMaterialAttr_PolyID;
+
+			optionMenuGrp -l "Display Face"
+				-cw 1 120 -rat 1 "both" 4 -cal 1 "right"
+				-cc "nnsSetMaterialAttr_DispFaceCB"
+				nnsSetMaterialAttr_DispFace;
+				menuItem -l "Front Face";
+				menuItem -l "Back Face";
+				menuItem -l "Both Face";
+
+			optionMenuGrp -l "Polygon Mode"
+				-cw 1 120 -rat 1 "both" 4 -cal 1 "right"
+				-cc "nnsSetMaterialAttr_PolyModeCB"
+				nnsSetMaterialAttr_PolyMode;
+				menuItem -l "Modulate";
+				menuItem -l "Decal";
+				menuItem -l "Toon / Highlight";
+				menuItem -l "Shadow";
+
+			optionMenuGrp -l "Tex Gen Mode"
+				-cw 1 120 -rat 1 "both" 4 -cal 1 "right"
+				-cc "nnsSetMaterialAttr_TexGenModeCB"
+				nnsSetMaterialAttr_TexGenMode;
+				menuItem -l "None";
+				menuItem -l "TexCoord";
+				menuItem -l "Normal";
+				menuItem -l "Vertex";
+
+			optionMenuGrp -l "Tex Gen ST Source"
+				-cw 1 120 -rat 1 "both" 4 -cal 1 "right"
+				-cc "nnsSetMaterialAttr_TexGenStSrcCB"
+				nnsSetMaterialAttr_TexGenStSrc;
+				menuItem -l "Polygon";
+				menuItem -l "Material";
+
+//			floatFieldGrp -l "Tex Gen ST" -nf 2 -pre 4
+//				-v1 0.0 -v2 0.0
+//				-cw 1 120 -cw 2 70 -cw 3 70
+//				-cc "nnsSetMaterialAttr_TexGenMatStCB"
+//				nnsSetMaterialAttr_TexGenMatSt;
+
+			floatFieldGrp -l "Texture Effect Matrix" -nf 2 -pre 4
+				-v1 1.0 -v2 0.0
+				-cw 1 120 -cw 2 70 -cw 3 70
+				-cc "nnsSetMaterialAttr_TexEffectMtxCB"
+				nnsSetMaterialAttr_TexEffectMtx0;
+			floatFieldGrp -l "" -nf 2 -pre 4
+				-v1 0.0 -v2 1.0
+				-cw 1 120 -cw 2 70 -cw 3 70
+				-cc "nnsSetMaterialAttr_TexEffectMtxCB"
+				nnsSetMaterialAttr_TexEffectMtx1;
+			floatFieldGrp -l "" -nf 2 -pre 4
+				-v1 0.0 -v2 0.0
+				-cw 1 120 -cw 2 70 -cw 3 70
+				-cc "nnsSetMaterialAttr_TexEffectMtxCB"
+				nnsSetMaterialAttr_TexEffectMtx2;
+			floatFieldGrp -l "" -nf 2 -pre 4
+				-v1 0.0 -v2 0.0
+				-cw 1 120 -cw 2 70 -cw 3 70
+				-cc "nnsSetMaterialAttr_TexEffectMtxCB"
+				nnsSetMaterialAttr_TexEffectMtx3;
+
+			optionMenuGrp -l "Compress"
+				-cw 1 120 -rat 1 "both" 4 -cal 1 "right"
+				-cc "nnsSetMaterialAttr_NoCompressCB"
+				nnsSetMaterialAttr_NoCompress;
+				menuItem -l "Compress if possible";
+				menuItem -l "Don't compress";
+
+			setParent ..; // columnLayout
+		setParent ..; // formLayout
+
+		//-----------------------------------------------------------------------------
+		// close button
+		string $closeCmd = "deleteUI nnsSetMaterialAttr_Win";
+		string $form = `formLayout -nd 100`;
+			string $closeBtn = `button -h 26 -l "Close" -c $closeCmd`;
+			formLayout -e
+				-af $closeBtn "top" 0
+				-af $closeBtn "left" 0
+				-af $closeBtn "bottom" 0
+				-af $closeBtn "right" 0
+				$form;
+		setParent ..; // formLayout
+
+		setParent ..; // columnLayout
+
+		//setFocus $btn_apply_close;
+		setFocus $closeBtn;
+
+		//-----------------------------------------------------------------------------
+		// set window delete job
+		scriptJob -uid nnsSetMaterialAttr_Win "nnsSetMaterialAttr_ClearAttrChangeJobVariable";
+
+		//-----------------------------------------------------------------------------
+		// set selection change job
+		scriptJob -p nnsSetMaterialAttr_Win
+			-e "SelectionChanged" "nnsSetMaterialAttr_UpdateWindow(1)";
+	}
+	if (`window -q -w nnsSetMaterialAttr_Win` < $wd)
+	{
+		window -e -w $wd nnsSetMaterialAttr_Win;
+	}
+	if (`window -q -h nnsSetMaterialAttr_Win` < $ht)
+	{
+		window -e -h $ht nnsSetMaterialAttr_Win;
+	}
+	//window -e -wh $wd $ht nnsSetMaterialAttr_Win;
+
+	//-----------------------------------------------------------------------------
+	// update window
+	nnsSetMaterialAttr_UpdateWindow(1);
+
+	//-----------------------------------------------------------------------------
+	// show window
+	showWindow nnsSetMaterialAttr_Win;
+}

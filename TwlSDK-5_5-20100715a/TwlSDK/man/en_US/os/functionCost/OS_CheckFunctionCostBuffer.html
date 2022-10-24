@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>OS_CheckFunctionCostBuffer</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">OS_CheckFunctionCostBuffer <IMG src="../../image/NTR.gif" align="middle"><IMG src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+<DL>
+  <DD><CODE>#include &lt;nitro/os.h&gt;</CODE><BR>
+  <BR>
+  <CODE>BOOL OS_CheckFunctionCostBuffer( void* buf );</CODE>
+</DL>
+<H2>Arguments</H2>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+      <TD><I><B>buf</B></I></TD>
+      <TD>Function cost calculation buffer</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>Return Values</H2>
+<P>Returns FALSE if the highest-order position of the buffer is overwritten.<BR>Otherwise, returns FALSE.</P>
+
+<H2>Description</H2>
+<P>Checks whether the highest-order position of the function cost calculation buffer was overwritten.<BR>That is, it will check whether the function cost calculation buffer is full.</P>
+<P>The function cost calculation buffer is consumed every time a function is called. Once full, the buffer will simply stop recording function calls and will not display error messages or stop programs.</P>
+<P>The mechanism for detecting the full buffer is as follows. Write a check code to the highest-order position of the buffer. Check whether this code is overwritten by another value. A different value written here indicates a high probability that the buffer was used up to that point. However, this only indicates the use of this region; it does not give the time at which the use occurred.</P>
+<P>The check code is written at the following times. When <CODE><A href="OS_InitFunctionCost.html">OS_InitFunctionCostBuffer()</A></CODE> is loaded. When, through the use of the <CODE><A href="OS_CalcStatistics.html">OS_CalcStatistics()</A></CODE> or <CODE><A href="OS_CalcThreadStatistics.html">OS_CalcThreadStatistics()</A></CODE> function, the contents of the calculation buffer is reflected to the statistics buffer. When the buffer is destroyed with the <CODE><A href="OS_ClearFunctionCostBuffer.html">OS_ClearFunctionCostBuffer()</A></CODE> function.</P>
+<P>This is a debug function, so in the final ROM version (FINALROM), it will simply return TRUE.</P>
+<P>For checking the function cost statistics buffer, <CODE><A href="OS_CheckStatisticsBuffer.html">OS_CheckStatisticsBuffer()</A></CODE> is available.</P>
+<H2>See Also</H2>
+<P><CODE><A href="OS_InitFunctionCost.html">OS_InitFunctionCostBuffer</A>, <A href="OS_CheckStatisticsBuffer.html">OS_CheckStatisticsBuffer</A>, <A href="OS_CalcStatistics.html">OS_CalcStatistics</A>, <A href="OS_CalcThreadStatistics.html">OS_CalcThreadStatistics</A>, <A href="OS_ClearFunctionCostBuffer.html">OS_ClearFunctionCostBuffer</A></CODE></P>
+<H2>Revision History</H2>
+<P>2006/08/24 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

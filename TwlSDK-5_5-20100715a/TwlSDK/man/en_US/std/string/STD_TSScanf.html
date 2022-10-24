@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>STD_TSScanf</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">STD_TSScanf <img src="../../image/NTR.gif"align="middle"><img src="../../image/TWL.gif" align="middle"></h1>
+<h2>Syntax</h2>
+<DL>
+<DD><CODE>#include &lt;nitro/std.h&gt;<BR> <BR> int STD_TSScanf( const char *src, const char *fmt, ... );<BR> <BR></CODE>
+</DL>
+<H2>Arguments</H2>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+<TD><I><B>src</B></I></TD>
+<TD>Input string.</TD>
+    </TR>
+    <TR>
+<TD><I><B>fmt</B></I></TD>
+<TD>Input formatted string (formatted string).</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>Return Values</H2>
+<P>Returns the number of times form conversion was successful and was actually substituted.</P>
+<P>When the end of <SPAN class="argument">src</SPAN> is reached without making even one successful form conversion, it returns -1.</P>
+
+<H2>Description</H2>
+<P>Returns the simplified version of the format string.</P>
+<P>Other than accepting variable arguments, this is equivalent to the <A href="STD_TVSScanf.html"><CODE>STD_TVSScanf</CODE></A> function.</P>
+<P>This function is compiled with weak symbols. Therefore, you can overwrite them with your own function definitions.<BR><FONT color=#ff0000>However, this function may be used by TWL-SDK functions, high-level libraries, middleware, and other sources, so be careful not to change its behavior when you overwrite it.</FONT>
+</P>
+<H2>See Also</H2>
+<P><A href="STD_TVSScanf.html"><CODE>STD_TVSScanf</CODE></A><br> <A href="../../os/debug/OS_VSNPrintf.html"><CODE>OS_VSNPrintf</CODE></A></P>
+<H2>Revision History</H2>
+<P>
+2009/03/27 Added notes related to weak symbols and user-defined functions. <BR>2005/10/25 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

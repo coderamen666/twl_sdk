@@ -1,0 +1,195 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<base target="main" />
+<title>Overview List</title>
+<link rel="stylesheet" href="../css/nitro.css" type="text/css" />
+</head>
+<body>
+
+<h1>Wireless File System (WFS) Library Overview</h1>
+
+<h2>Introduction</h2>
+<p>
+The WFS library offers functionality that allows a non-ROM-based program, such as one started by DS Download Play, to reference an external ROM image wirelessly. In addition, functionality has been added to allow the ROM image itself to be easily mounted on an FS library file system as a networked virtual drive.
+</p>
+<p>
+A WFS system is comprised of a single server-side program that offers a ROM image and multiple client-side programs that request that ROM image. The programs use a single port to communicate with each other via the WM library's MP communications. However, WM library functions are not called directly by the WFS library itself; rather, processing that is required for communication is offered as hook functions. For this reason, applications do not need to be reliant on a specific wireless control framework, but may instead introduce their own hook functions.
+</p>
+<div style="text-align:center">
+<img src="overview/image_WFS.gif" alt="WFS Library Layers" />
+</div>
+
+<h3>Process Flow</h3>
+<p>
+The WFS library process flow is approximately as follows:
+</p>
+
+<ol>
+
+<li>Initialization of the context
+<p>
+First, prepare and initialize a context structure for the WFS library.<br />On the parent (server), <a href="server/WFS_InitServer.html"><code>WFS_InitServer</code></a> is called; the ROM image is then registered by calling <a href="server/WFS_RegisterServerTable.html"><code>WFS_RegisterServerTable</code></a> or <a href="server/WFS_ExecuteRomServerThread.html"><code>WFS_ExecuteRomServerThread</code></a>.<br />The child (client) simply calls <a href="client/WFS_InitClient.html"><code>WFS_InitClient</code></a>.<br />For both the server and client, this initialization must be performed before starting wireless communication.
+</p>
+
+</li>
+<li>Establishing wireless communication
+<p>
+After initialization has completed, an application begins wireless communication and transitions into an MP communication-ready state.<br /><a href="client/WFS_StartClient.html"><code>WFS_StartClient</code></a> must be called by the child (client) immediately after it has connected to the parent (server) and established its AID number.
+</p>
+</li>
+
+<li>MP communications hook start
+<p>
+Once an application has become MP communication-ready, it uses any one port for the WFS library and executes continuous MP communication. In more concrete terms, both the parent and children call the following hook functions according to their respective MP communications timing.
+</p>
+<table>
+<tr><td>Timing</td><td>Parent (Server)</td><td>Child (Client)</td></tr>
+<tr><td>Detect a new connection with the other device</td>
+<td>Call <a href="server/WFS_CallServerConnectHook.html"><code>WFS_CallServerConnectHook</code></a>.</td>
+<td>Call <a href="client/WFS_CallClientConnectHook.html"><code>WFS_CallClientConnectHook</code></a>.</td></tr>
+<tr><td>Detect a disconnection from the other device</td>
+<td>Call <a href="server/WFS_CallServerDisconnectHook.html"><code>WFS_CallServerDisconnectHook</code></a>.</td>
+<td>Call <a href="client/WFS_CallClientDisconnectHook.html"><code>WFS_CallClientDisconnectHook</code></a>.</td></tr>
+<tr><td>Ready to send an MP packet</td>
+<td>Call <a href="server/WFS_CallServerPacketSendHook.html"><code>WFS_CallServerPacketSendHook</code></a> to obtain packet data, and send the packet data via <a href="../wm/wm/WM_SetMPDataToPort.html"><code>WM_SetMPDataToPort</code></a>.</td>
+<td>Call <a href="client/WFS_CallClientPacketSendHook.html"><code>WFS_CallClientPacketSendHook</code></a> to obtain packet data, and send the packet data via <a href="../wm/wm/WM_SetMPDataToPort.html"><code>WM_SetMPDataToPort</code></a>.</td></tr>
+<tr><td>Receive an MP packet from the other device</td>
+<td>Specify the received packet data in a call to <a href="server/WFS_CallServerPacketRecvHook.html"><code>WFS_CallServerPacketRecvHook</code></a>.</td>
+<td>Specify the received packet data in a call to <a href="client/WFS_CallClientPacketRecvHook.html"><code>WFS_CallClientPacketRecvHook</code></a>.</td></tr>
+</table>
+<br>
+</li>
+
+<li>Generation of event notifications
+<p>
+While communication continues and the above hook functions are repeatedly called, the application is notified of each type of event that occurs. Fundamentally, notifications on the parent (server) are generated so that ROM image data can be supplied to children (clients), and notifications on children (clients) are generated to signal that necessary data has been prepared. For more information on event types, see <a href="WFSEventType.html"><CODE>WFSEventType</CODE></a>.
+</p>
+</li>
+
+<li>Reading from a ROM image
+<p>
+Using <a href="client/WFS_RequestClientRead.html"><code>WFS_RequestClientRead</code></a>, a child (client) can read any ROM image from a parent (server). Aside from the difference in transmission speed, this is roughly the same functionality as <a href="../card/rom/CARD_ReadRom.html"><code>CARD_ReadRom</code></a>. The file system mount process, described below, is implemented using this functionality. (If a file system is not necessary, this function may also simply be used independently.)
+</p>
+</li>
+
+<li>File system mount
+<p>
+All of the information that is necessary to mount an archive on an FS library file system is included in the information that a child (client) can reference via <a href="client/WFS_GetTableFormat.html"><code>WFS_GetTableFormat</code></a>. If an archive procedure is written by combining this data with calls to <a href="client/WFS_RequestClientRead.html"><code>WFS_RequestClientRead</code></a>, file accesses can be achieved using the FS library functions the same way as for standard ROM applications. Since a simple implementation of this type of WFS archive is offered by the WFS library as <a href="client/WFS_ReplaceRomArchive.html"><code>WFS_ReplaceRomArchive</code></a>, you can normally call this function to use file access functionality in a simple manner.
+</p>
+</li>
+
+<li>Deallocating context
+<p>
+Once MP communications have ended, both parent and child must deallocate the WFS library's context structures and perform a termination process.<br />The parent (server) calls the <a href="server/WFS_EndServer.html"><code>WFS_EndServer</code></a> function once it has disconnected from all children (clients) and ended its role as the MP communications parent (server). When this function is called, the threads automatically generated inside the WFS library are terminated, and the context structures and different kinds of memory are deallocated to the user application.<br />Each child calls the <a href="client/WFS_EndClient.html"><code>WFS_EndClient</code></a> function once it has disconnected from the parent (server). When this function is called, processing ends for the mounted archive and it become invalid. <font color="red">Note that if MP communications are ended while a child (client) is accessing a file from the parent (server), unless the <a href="client/WFS_EndClient.html"><code>WFS_EndClient</code></a> function is called there will be no notification of completion and blocking of the process will continue.</font>
+</p>
+</li>
+
+</ol>
+
+<p>
+The rough process flow described above is summarized in the figure below.
+</p>
+
+
+<table style="border-style:none;border-collapse:collapse;">
+<tr style="background-color:white;">
+<td colspan="2" style="border-style:none dotted dotted none;background-color:white;text-align:center;width:50%">Parent (Server)</td>
+<td colspan="2" style="border-style:none none dotted dotted;background-color:white;text-align:center;width:50%">Child (Client)</td>
+</tr>
+
+
+<tr>
+<td colspan="2" style="border-style:none dotted none none;color:gray;background-color:white;vertical-align:top;">
+<p style="text-align:center">
+(WFS initialization) <br /> <a href="server/WFS_InitServer.html"><code>WFS_InitServer</code></a><br /> <a href="server/WFS_RegisterServerTable.html"><code>WFS_RegisterServerTable</code></a> or <a href="server/WFS_ExecuteRomServerThread.html"><code>WFS_ExecuteRomServerThread</code></a><br /> <br /> (Parent/server starts wireless communication) <br /> .<br /> .<br /> .<br /> (Parent/server establishes wireless communication) <br />
+</p>
+</td>
+<td colspan="2" style="border-style:none none none dotted;color:gray;background-color:white;vertical-align:top;">
+<p style="text-align:center">
+(WFS initialization) <br /> <a href="client/WFS_InitClient.html"><code>WFS_InitClient</code></a><br /> <br /> (Child/client starts wireless communication) <br /> .<br /> .<br /> .<br /> (Child/client establishes wireless communication) <br /> <br /> <a href="client/WFS_StartClient.html"><code>WFS_StartClient</code></a><br />
+</p>
+</td>
+</tr>
+
+
+<tr>
+<td colspan="4" style="border-style:none;color:gray;background-color:white;vertical-align:top;">
+<p style="text-align:center">
+(Start calling MP communications hook functions)<br /> <a href="server/WFS_CallServerConnectHook.html">WFS_CallServerConnectHook</a>---<a href="client/WFS_CallClientConnectHook.html">WFS_CallClientConnectHook</a><br /> <a href="server/WFS_CallServerDisconnectHook.html">WFS_CallServerDisconnectHook</a>---<a href="client/WFS_CallClientDisconnectHook.html">WFS_CallClientDisconnectHook</a><br /> <a href="server/WFS_CallServerPacketSendHook.html">WFS_CallServerPacketSendHook</a>---<a href="client/WFS_CallClientPacketRecvHook.html">WFS_CallClientPacketRecvHook</a><br /> <a href="server/WFS_CallServerPacketRecvHook.html">WFS_CallServerPacketRecvHook</a>---<a href="client/WFS_CallClientPacketSendHook.html">WFS_CallClientPacketSendHook</a><br />* For both the parent and child, the above functions are called repeatedly as appropriate.
+</p>
+</td>
+</tr>
+
+<tr>
+<td colspan="2" style="border-style:none dotted none none;color:gray;background-color:white;vertical-align:top;">
+<p style="text-align:center">
+(Start waiting for a request) <br />
+</p>
+</td>
+<td colspan="2" style="border-style:none none none dotted;color:gray;background-color:white;vertical-align:top;">
+<p style="text-align:center">
+<a href="WFSEventType.html"><CODE>WFS_EVENT_CLIENT_READY</CODE></a> event notification<br />
+</p>
+</td>
+</tr>
+
+<tr>
+<td colspan="1" style="border-style:none dotted none none;color:gray;background-color:white;vertical-align:top;">
+<p style="text-align:center">
+(Internal threads will respond automatically if <a href="server/WFS_ExecuteRomServerThread.html"><code>WFS_ExecuteRomServerThread</code></a> was used)<br />
+</td>
+
+<td style="border-style:none dotted none none;color:gray;background-color:white;vertical-align:top;">
+<p style="text-align:center">
+(If <a href="server/WFS_RegisterServerTable.html"><code>WFS_RegisterServerTable</code></a> was used)
+</p>
+<p style="text-align:right">
+<a href="WFSEventType.html"><CODE>WFS_EVENT_SERVER_SEGMENT_REQUEST</CODE> event notification</a>---<br /> <a href="WFSEventType.html"><CODE>WFS_EVENT_SERVER_SEGMENT_REQUEST</CODE> event notification</a>---<br /> <a href="WFSEventType.html"><CODE>WFS_EVENT_SERVER_SEGMENT_REQUEST</CODE> event notification</a>---<br /> <br />
+</p>
+</td>
+
+<td colspan="1" style="border-style:none none none dotted;color:gray;background-color:white;vertical-align:top;width:25%">
+<p style="text-align:center">
+(Application is in direct control)<br />
+</p>
+<p style="text-align:left">
+---<a href="client/WFS_RequestClientRead.html"><code>WFS_RequestClientRead</code></a><br /> (Data transmission in progress)<br /> <br /> <br /> <br /> ---<a href="WFSRequestClientReadDoneCallback.html">Completion callback</a><br />
+</p>
+</td>
+<td colspan="1" style="border-style:none none none dotted;color:gray;background-color:white;vertical-align:top;width:25%">
+<p style="text-align:center">
+(If using a prepared archive) <br /> <br /> <a href="client/WFS_ReplaceRomArchive.html"><code>WFS_ReplaceRomArchive</code></a><br />
+</p>
+<p style="text-align:left">
+<a href="../fs/file/FS_OpenFile.html"><CODE>FS_OpenFile</CODE></a>(file, &quot;rom:/abc.data&quot;);<br /> <a href="../fs/file/FS_ReadFile.html"><CODE>FS_ReadFile</CODE></a>(file, buffer, length);<br />
+</p>
+</td>
+</tr>
+
+<tr>
+<td colspan="2" style="border-style:none dotted none none;color:gray;background-color:white;vertical-align:top;">
+<p style="text-align:center">
+<br /> (Parent/server completes wireless communication) <br /> <a href="server/WFS_EndServer.html"><code>WFS_EndServer</code></a><br />
+</p>
+</td>
+<td colspan="2" style="border-style:none none none dotted;color:gray;background-color:white;vertical-align:top;">
+<p style="text-align:center">
+<br /> (Child/client completes wireless communication) <br /> <a href="client/WFS_EndClient.html"><code>WFS_EndClient</code></a><br />
+</p>
+</td>
+</tr>
+
+</table>
+
+<h2>Revision History</h2>
+<p>
+2007/09/27 Added a note about the child (client) side when ending communication.<br /> 2007/06/14 Provided details about the added <CODE>WFS_ExecuteRomServerThread</CODE> function.<br /> 2007/06/11 Provided details on the added functions.<br /> 2007/06/06 Initial version.<BR>
+</p>
+
+<table border="0" style="border-width:0px;height:100%;"><tr><td style="background-color:white;"></td></tr></table>
+
+<hr><p>CONFIDENTIAL</p></body>
+</html>

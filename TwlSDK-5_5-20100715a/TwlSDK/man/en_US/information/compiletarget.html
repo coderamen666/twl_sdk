@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META http-equiv="Content-Style-Type" content="text/css">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<BASE target="main">
+<TITLE>Description of Compile Target</TITLE>
+<LINK rel="stylesheet" href="../css/nitro.css">
+</HEAD>
+<BODY>
+<H1>Description of Compile Target</H1>
+
+<H3><A name="Sinit">[TWL_FINALROM]</A></H3>
+<P>This is the option used to create the release version for the master submission.</P>
+<P><font color="#ff0000">When the ROM is submitted, it is necessary to use this option for the build.</font></P>
+<ul>
+<li>The <A href="../os/debug/SDK_ASSERT.html"><CODE>SDK_ASSERT</CODE></A> and <A href="../os/debug/SDK_WARNING.html"><CODE>SDK_WARNING</CODE></A> functions are disabled
+<li>The <A href="../os/debug/OS_Panic.html"><CODE>OS_Panic</CODE></A> and <A href="../os/debug/OS_TPanic.html"><CODE>OS_TPanic</CODE></A> functions do not display messages with the FINALROM library. (They do nothing and simply stop the operation, which is equivalent of the <A href="../os/system/OS_Terminate.html"><CODE>OS_Terminate</CODE></A> function.)<li>Optimization ON
+<li>Many debug functions return set values or don't do anything, regardless of the operating environment.</P>
+</ul>
+
+<H3><A name="System">[TWL_DEBUG]</A></H3>
+<P>This option is used for more careful debugging than TWO_FINALROM or TWL_RELEASE.</P>
+<ul>
+<li>OS debug string display functions such as <A href="../os/debug/OS_PutString.html">OS_PutString</A> are enabled.
+<li>The <A href="../os/argument/OS_GetArgc.html"><CODE>OS_GetArgc</CODE></A>, <A href="../os/argument/OS_GetArgv.html"><CODE>OS_GetArgv</CODE></A>, and related functions are enabled.
+<li>The <A href="../os/debug/OS_Panic.html"><CODE>OS_Panic</CODE></A> and <A href="../os/debug/OS_TPanic.html"><CODE>OS_TPanic</CODE></A> functions are enabled.
+<li>The debug stack check functions <A href="../os/stack/OS_CheckStack.html"><CODE>OS_CheckStack</CODE></A> and <A href="../os/stack/OS_CheckIrqStack.html"><CODE>OS_CheckIrqStack</CODE></A> are enabled.
+</ul>
+<P>For details about which functions are valid or invalid, see the debug functions in the <A href="../os/list_os.html#Debug-Print" target="main">OS Debug Function Reference</A>.</P>
+
+<H3><A name="Arch">[TWL_RELEASE]</A></H3>
+<P>This option is used to debug under conditions more similar to those in the final product than when TWL_DEBUG is used.</P>
+<P>It's basically a combination of the features in <CODE>TWL_DEBUG</CODE> and <CODE>TWL_ROM</CODE>. <br>The details of what was combined are outlined below.</P>
+
+
+<style type="text/css">
+<!--
+.enable { background :#ffcccc; text-align : center }
+.disable { text-align : center }
+-->
+</style>
+<TABLE>
+  <TBODY>
+    <TR>
+<TH>Features</TH>
+<TH style="background :#ccffcc">TWL_DEBUG</TH>
+<TH style="background :#ccccff">TWL_RELEASE</TH>
+<TH style="background :#cccccc">TWL_FINALROM</TH>
+    </TR>
+    <TR>
+<TD>OS debug output functions <br> (<A href="../os/debug/OS_PutString.html"><CODE>OS_PutString</CODE></A>, etc.)</TD>
+<TD colspan="2" class="enable">Enabled.</TD>
+<TD class="disable">Disabled.</TD>
+    </TR>
+    <TR>
+<TD>Compiler Optimization</TD>
+<TD class="disable">OFF</TD>
+<TD colspan="2" class="enable">ON</TD>
+    </TR>
+    <TR>
+<TD>SDK internal debug codes</TD>
+<TD colspan="2" class="enable">Enabled.</TD>
+<TD class="disable">Disabled.</TD>
+    </TR>
+    <TR>
+<TD>Assert functions (<A href="../os/debug/SDK_ASSERT.html"><CODE>SDK_ASSERT</CODE></A>, etc.)</TD>
+<TD class="enable">Enabled.</TD>
+<TD colspan="2" class="disable">Disabled.</TD>
+    </TR>
+    <TR>
+<TD>Functions such as <A href="../os/debug/OS_Panic.html"><CODE>OS_Panic</CODE></A></TD>
+<TD colspan="2" class="enable">Enabled.</TD>
+<TD class="disable">Equivalent to <A href="../os/system/OS_Terminate.html"><CODE>OS_Terminate</CODE></A></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

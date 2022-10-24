@@ -1,0 +1,35 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>SVC_Sleep</TITLE>
+<LINK rel="stylesheet" href="../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">SVC_Sleep <IMG src="../image/NTR.gif" align="middle"><IMG src="../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+<DL>
+  <DD>
+<PRE><CODE>#include &lt;nitro/os/common/systemCall.h&gt;</CODE></PRE>
+<PRE><CODE>void SVC_Sleep( void ); </CODE></PRE>
+</DL>
+<H2>Arguments</H2>
+<P>None.</P>
+<H2>Return Values</H2>
+<P>None.</P>
+<H2>Description</H2>
+
+<P>Note: This function operates only on the ARM7 processor. It stops source oscillation.</P>
+<P>If the interrupt for any of RTC, key, card, cartridge, or device open are allowed (set to IE), oscillation is restored due to the generation of the corresponding interrupt request.</P>
+<P>Because the input from the system clock has been terminated, the IF flag is not set immediately following restore, but when there is also an interrupt request signal to the terminal, then the IF flag remains set until the CPU is rebooted.</P>
+<P>Call this function only after placing the ARM9 in a HALT state: stopping the wireless module and sound amps, terminating all locks, and clearing the POWCNT register to 0 for both processors.</P>
+<P>Be sure to lower the LCD enable flag of the <CODE>POWCNT</CODE> register to 0 within 100 ms of calling this function. Not doing so may cause the console to shut down.</P>
+<H2>See Also</H2>
+<P><A href="SVC_Halt.html"><CODE>SVC_Halt</CODE></A></P>
+<H2>Revision History</H2>
+<P>
+2005/03/08 Standardized the Japanese term for &quot;interrupt.&quot;<br> 2004/07/22 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

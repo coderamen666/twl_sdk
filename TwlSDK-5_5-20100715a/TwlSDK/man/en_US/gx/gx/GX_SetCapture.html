@@ -1,0 +1,279 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 8.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>GX_SetCapture</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">GX_SetCapture <img src="../../image/NTR.gif"align="middle"><img src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+
+<dl>
+  <dd>
+<PRE><CODE>#include &lt;nitro/gx/gx_capture.h&gt;
+
+void GX_SetCapture(
+    GXCaptureSize sz,
+    GXCaptureMode mode,
+    GXCaptureSrcA a,
+    GXCaptureSrcB b,
+    GXCaptureDest dest,
+    int eva,
+    int evb
+);<BR></CODE></PRE>
+  </dd>
+</dl><h2>Arguments</h2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="237"><EM><STRONG><FONT face="Courier New">sz</FONT></STRONG></EM></TD>
+<TD width="609">Capture size</TD>
+    </TR>
+    <TR>
+<TD><EM><STRONG><FONT face="Courier New">mode</FONT></STRONG></EM></TD>
+<TD>Capture mode (select whether to capture A only, B only, or AB blended)</TD>
+    </TR>
+    <TR>
+<TD><EM><STRONG><FONT face="Courier New">a</FONT></STRONG></EM></TD>
+<TD>Capture data source A (select either screen after 3D/2D blending, or only 3D screen)</TD>
+    </TR>
+    <TR>
+<TD><EM><STRONG><FONT face="Courier New">b</FONT></STRONG></EM></TD>
+<TD>Capture source B (Select VRAM/Main Memory)</TD>
+    </TR>
+    <TR>
+<TD><EM><STRONG><FONT face="Courier New">dest</FONT></STRONG></EM></TD>
+<TD>Capture data write target (select combination of VRAM-A,B,C,D, and offset)</TD>
+    </TR>
+    <TR>
+<TD><EM><STRONG><FONT face="Courier New">eva</FONT></STRONG></EM></TD>
+<TD>Blending coefficient (0-16) for capture data source A</TD>
+    </TR>
+    <TR>
+<TD><EM><STRONG><FONT face="Courier New">evb</FONT></STRONG></EM></TD>
+<TD>Blending coefficient (0-16) for capture data source B</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<h2>Return Values</h2>
+<p>None.</p>
+<H2>Description</H2>
+<P>Sets to capture one screen of data from line 0 in the next frame. To capture each frame you must call this function in each frame.<BR> <B>Note 1:</B> VRAM used to write capture data must be mapped to LCDC memory.<BR><B>Note 2:</B> If VRAM has been configured in <SPAN class="argument">b</SPAN>, the target VRAM is that of the VRAM display mode selected using <A href="GX_SetGraphicsMode.html">GX_SetGraphicsMode</A>.<BR><B>Note 3:</B> When you are in the VRAM display mode, even if you set VRAM that has an offset in <CODE>b</CODE>, the VRAM offset specification is not enabled. If the offset exceeds <CODE>0x20000</CODE> when the memory is read, it wraps to <CODE>0x00000</CODE>.<BR><B>Note 4:</B> When writing to <CODE>dest</CODE> if offset exceeds <CODE>0x20000</CODE>, it wraps to <CODE>0x00000</CODE> and writes.<BR><B>Note 5:</B> During RAM capture, one line is always loaded as a 256-dot image. Therefore, it is not possible to perform blending while capturing is in process with the 128x128 dot setting.
+</P>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+<TD width="30%"><CODE>GX_CAPTURE_SIZE_128x128</CODE></TD>
+<TD>128x128 dot (<CODE>0x08000</CODE> bytes)</TD>
+    </TR>
+    <TR>
+<TD><CODE>GX_CAPTURE_SIZE_256x64</CODE></TD>
+<TD>256x64 dot (<CODE>0x08000</CODE> bytes)</TD>
+    </TR>
+    <TR>
+<TD><CODE>GX_CAPTURE_SIZE_256x128</CODE></TD>
+<TD>256x128 dot (<CODE>0x10000</CODE> bytes)</TD>
+    </TR>
+    <TR>
+<TD><CODE>GX_CAPTURE_SIZE_256x192</CODE></TD>
+<TD>256x192 dot (<CODE>0x18000</CODE> bytes)</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P></P>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+<TD width="30%"><CODE>GX_CAPTURE_MODE_A</CODE></TD>
+<TD>Captures capture source A data.</TD>
+    </TR>
+    <TR>
+<TD><CODE>GX_CAPTURE_MODE_B</CODE></TD>
+<TD>Captures capture source B data.</TD>
+    </TR>
+    <TR>
+<TD><CODE>GX_CAPTURE_MODE_AB</CODE></TD>
+<TD>Blends capture source A and B data, and captures.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P></P>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+<TD width="30%"><CODE>GX_CAPTURE_SRCA_2D3D</CODE></TD>
+<TD>Captures graphics display screen (after 3D/2D blending).</TD>
+    </TR>
+    <TR>
+<TD><CODE>GX_CAPTURE_SRCA_3D</CODE></TD>
+<TD>Captures 3D screen.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P></P>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+<TD width="30%"><CODE>GX_CAPTURE_SRCB_VRAM_0x00000</CODE></TD>
+<TD>Reads from VRAM offset <CODE>0x00000</CODE>.</TD>
+    </TR>
+    <TR>
+<TD><CODE>GX_CAPTURE_SRCB_MRAM</CODE></TD>
+<TD>Captures display results from main memory display mode.</TD>
+    </TR>
+    <TR>
+<TD><CODE>GX_CAPTURE_SRCB_VRAM_0x08000</CODE></TD>
+<TD>Reads from VRAM offset <CODE>0x08000</CODE>.</TD>
+    </TR>
+    <TR>
+<TD><CODE>GX_CAPTURE_SRCB_VRAM_0x10000</CODE></TD>
+<TD>Reads from VRAM offset <CODE>0x10000</CODE>.</TD>
+    </TR>
+    <TR>
+<TD><CODE>GX_CAPTURE_SRCB_VRAM_0x18000</CODE></TD>
+<TD>Reads from VRAM offset <CODE>0x18000</CODE>.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P></P>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+<TD width="30%"><CODE>GX_CAPTURE_DEST_VRAM_A_0x00000</CODE></TD>
+<TD>Writes from VRAM-A offset <CODE>0x00000</CODE>.</TD>
+    </TR>
+    <TR>
+<TD><CODE>GX_CAPTURE_DEST_VRAM_B_0x00000</CODE></TD>
+<TD>Writes from VRAM-B offset <CODE>0x00000</CODE>.</TD>
+    </TR>
+    <TR>
+<TD><CODE>GX_CAPTURE_DEST_VRAM_C_0x00000</CODE></TD>
+<TD>Writes from VRAM-C offset <CODE>0x00000</CODE>.</TD>
+    </TR>
+    <TR>
+<TD><CODE>GX_CAPTURE_DEST_VRAM_D_0x00000</CODE></TD>
+<TD>Writes from VRAM-D offset <CODE>0x00000</CODE>.</TD>
+    </TR>
+    <TR>
+<TD><CODE>GX_CAPTURE_DEST_VRAM_A_0x08000</CODE></TD>
+<TD>Writes from VRAM-A offset <CODE>0x08000</CODE>.</TD>
+    </TR>
+    <TR>
+<TD><CODE>GX_CAPTURE_DEST_VRAM_B_0x08000</CODE></TD>
+<TD>Writes from VRAM-B offset <CODE>0x08000</CODE>.</TD>
+    </TR>
+    <TR>
+<TD><CODE>GX_CAPTURE_DEST_VRAM_C_0x08000</CODE></TD>
+<TD>Writes from VRAM-C offset <CODE>0x08000</CODE>.</TD>
+    </TR>
+    <TR>
+<TD><CODE>GX_CAPTURE_DEST_VRAM_D_0x08000</CODE></TD>
+<TD>Writes from VRAM-D offset <CODE>0x08000</CODE>.</TD>
+    </TR>
+    <TR>
+<TD><CODE>GX_CAPTURE_DEST_VRAM_A_0x10000</CODE></TD>
+<TD>Writes from VRAM-A offset <CODE>0x10000</CODE>.</TD>
+    </TR>
+    <TR>
+<TD><CODE>GX_CAPTURE_DEST_VRAM_B_0x10000</CODE></TD>
+<TD>Writes from VRAM-B offset <CODE>0x10000</CODE>.</TD>
+    </TR>
+    <TR>
+<TD><CODE>GX_CAPTURE_DEST_VRAM_C_0x10000</CODE></TD>
+<TD>Writes from VRAM-C offset <CODE>0x10000</CODE>.</TD>
+    </TR>
+    <TR>
+<TD><CODE>GX_CAPTURE_DEST_VRAM_D_0x10000</CODE></TD>
+<TD>Writes from VRAM-D offset <CODE>0x10000</CODE>.</TD>
+    </TR>
+    <TR>
+<TD><CODE>GX_CAPTURE_DEST_VRAM_A_0x18000</CODE></TD>
+<TD>Writes from VRAM-A offset <CODE>0x18000</CODE>.</TD>
+    </TR>
+    <TR>
+<TD><CODE>GX_CAPTURE_DEST_VRAM_B_0x18000</CODE></TD>
+<TD>Writes from VRAM-B offset <CODE>0x18000</CODE>.</TD>
+    </TR>
+    <TR>
+<TD><CODE>GX_CAPTURE_DEST_VRAM_C_0x18000</CODE></TD>
+<TD>Writes from VRAM-C offset <CODE>0x18000</CODE>.</TD>
+    </TR>
+    <TR>
+<TD><CODE>GX_CAPTURE_DEST_VRAM_D_0x18000</CODE></TD>
+<TD>Writes from VRAM-D offset <CODE>0x18000</CODE>.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>Below are the matrix format type definitions used in the argument.</P>
+<PRE><CODE>typedef enum
+{
+    GX_CAPTURE_SIZE_128x128 = 0,
+    GX_CAPTURE_SIZE_256x64 = 1,
+    GX_CAPTURE_SIZE_256x128 = 2,
+    GX_CAPTURE_SIZE_256x192 = 3
+}
+GXCaptureSize;
+
+typedef enum
+{
+    GX_CAPTURE_MODE_A = 0,
+    GX_CAPTURE_MODE_B = 1,
+    GX_CAPTURE_MODE_AB = 2
+}
+GXCaptureMode;
+
+typedef enum
+{
+    GX_CAPTURE_SRCA_2D3D = 0,
+    GX_CAPTURE_SRCA_3D = 1
+}
+GXCaptureSrcA;
+
+typedef enum
+{
+    GX_CAPTURE_SRCB_VRAM_0x00000 = 0,
+    GX_CAPTURE_SRCB_WRAM = 1,
+    GX_CAPTURE_SRCB_VRAM_0x08000 = 2,
+    GX_CAPTURE_SRCB_VRAM_0x10000 = 4,
+    GX_CAPTURE_SRCB_VRAM_0x18000 = 6
+}
+GXCaptureSrcB;
+
+typedef enum
+{
+    GX_CAPTURE_DEST_VRAM_A_0x00000 = 0,
+    GX_CAPTURE_DEST_VRAM_B_0x00000 = 1,
+    GX_CAPTURE_DEST_VRAM_C_0x00000 = 2,
+    GX_CAPTURE_DEST_VRAM_D_0x00000 = 3,
+
+    GX_CAPTURE_DEST_VRAM_A_0x08000 = 4,
+    GX_CAPTURE_DEST_VRAM_B_0x08000 = 5,
+    GX_CAPTURE_DEST_VRAM_C_0x08000 = 6,
+    GX_CAPTURE_DEST_VRAM_D_0x08000 = 7,
+
+    GX_CAPTURE_DEST_VRAM_A_0x10000 = 8,
+    GX_CAPTURE_DEST_VRAM_B_0x10000 = 9,
+    GX_CAPTURE_DEST_VRAM_C_0x10000 = 10,
+    GX_CAPTURE_DEST_VRAM_D_0x10000 = 11,
+
+    GX_CAPTURE_DEST_VRAM_A_0x18000 = 12,
+    GX_CAPTURE_DEST_VRAM_B_0x18000 = 13,
+    GX_CAPTURE_DEST_VRAM_C_0x18000 = 14,
+    GX_CAPTURE_DEST_VRAM_D_0x18000 = 15
+}
+GXCaptureDest;</CODE></PRE>
+<H2>Notes</H2>
+<P>In the LCD OFF state, some of the circuitry clocks in the GX are stopped, so the settings of this function are ignored.</P>
+<h2>See Also</h2>
+<H2>Revision History</H2>
+<P>
+2009/12/02 Corrected the VRAM shown in Note 1 and 2.<BR>2009/02/25 Added that settings are ignored when the LCD is OFF.<BR>2004/01/19 Initial version.<BR>
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

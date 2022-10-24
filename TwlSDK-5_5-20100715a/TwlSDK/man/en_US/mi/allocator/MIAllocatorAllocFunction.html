@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>MIAllocatorAllocFunction</title>
+<link rel="stylesheet" href="../../css/nitro.css" type="text/css" />
+</head>
+<body>
+<h1>MIAllocatorAllocFunction <IMG src="../../image/NTR.gif" align="middle"><IMG src="../../image/TWL.gif" align="middle"></h1>
+<h2>Definition</h2>
+
+<dl>
+  <dd>
+  <pre><code>#include &lt;nitro/mi.h&gt;<br />
+typedef void* (*MIAllocatorAllocFunction)(void *userdata, u32 length, u32 alignment);
+</code></pre>
+  </dd>
+</dl>
+
+<h2>Arguments</h2>
+<table border="1" width="100%">
+  <tbody>
+    <tr>
+      <td style="width:13%"><em><strong>userdata</strong></em></td>
+      <td style="width:87%">An arbitrary user-defined value specified with <a href="MI_InitAllocator.html"><CODE>MI_InitAllocator()</CODE></a>.<br />
+      This is provided for the sake of convenience in implementing callback functions.</td>
+    </tr>
+    <tr>
+      <td style="width:13%"><em><strong>length</strong></em></td>
+      <td style="width:87%">Memory size to be allocated.</td>
+    </tr>
+    <tr>
+      <td style="width:13%"><em><strong>alignment</strong></em></td>
+      <td style="width:87%">Boundary alignment required for memory addresses.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Return Values</h2>
+<p>Must return the memory actually allocated if successful; otherwise NULL.</p>
+
+<h2>Description</h2>
+<p>
+This function prototype represents the format of callback functions used to allocate memory from the allocator.<BR>Use this format to implement a memory allocation operation and to specify your implementation in <a href="MI_InitAllocator.html"><CODE>MI_InitAllocator()</CODE></a>.
+</p>
+
+<h2>See Also</h2>
+<p><code><a href="MIAllocator.html">MIAllocator</a>, <a href="MIAllocatorFreeFunction.html">MIAllocatorFreeFunction</a> <br /> <a href="MI_InitAllocator.html">MI_InitAllocator</a>, <a href="MI_CallAlloc.html">MI_CallAlloc</a>, <a href="MI_CallFree.html">MI_CallFree</a></code></p>
+<h2>Revision History</h2>
+<p>2007/06/12 Initial version.</p>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

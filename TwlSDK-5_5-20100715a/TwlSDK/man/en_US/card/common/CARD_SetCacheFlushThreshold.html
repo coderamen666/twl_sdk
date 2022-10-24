@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+<meta name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title>CARD_SetCacheFlushThreshold</title>
+<link rel="stylesheet" href="../../css/nitro.css" type="text/css" />
+</head>
+
+<body>
+
+<h1 align="left">CARD_SetCacheFlushThreshold <img src="../../image/NTR.gif"align="middle"><img src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+
+<dl>
+  <dd>
+<code>#include &lt;nitro/card.h&gt;</code><br />
+  <br />
+  <code>void CARD_SetCacheFlushThreshold(u32 icache, u32 dcache);</code><br />
+  <br />
+  </dd>
+</dl>
+<h2>Arguments</h2>
+<table border="1" width="100%">
+  <tbody>
+    <tr>
+<td width="13%"><SPAN class="argument">icache</SPAN></td>
+<td width="87%">The threshold value for invalidating the Instruction Cache</td>
+    </tr>
+    <tr>
+<td width="13%"><SPAN class="argument">dcache</SPAN></td>
+<td width="87%">The threshold value for invalidating the Data Cache</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Return Values</h2>
+<p>None.</p>
+
+<h2>Description</h2>
+<p>
+Sets the threshold value for switching the method used to invalidate the cache when DMA transfer is required inside the library.
+</p>
+<p>
+If a small cache area is being invalidated, the <a href="../../os/cache/IC_InvalidateRange.html"><CODE>IC_InvalidateRange</CODE></a> and <a href="../../os/cache/DC_FlushRange.html"><CODE>DC_FlushRange</CODE></a> functions should be used to perform partial invalidations. However, this takes too much time on buffers larger than a certain size, so it is more effective to use the <a href="../../os/cache/IC_InvalidateAll.html"><CODE>IC_InvalidateAll</CODE></a> and <a href="../../os/cache/DC_FlushAll.html"><CODE>DC_FlushAll</CODE></a> functions to invalidate the entire cache. You can use this function to change the threshold value that defines when to switch the method used to invalidate the cache.
+</p>
+<p>
+When the CARD library is performing DMA transfers, it partially invalidates the cache if the transfer size is smaller than the value set here. Otherwise, it invalidates the entire cache. The default threshold value for <CODE>icache</CODE> is <CODE>0x400</CODE> (1 KB). The default for <CODE>dcache</CODE> is <CODE>0x2400</CODE> (9 KB). As a rule of thumb, these are good thresholds for most normal programs, but you are free to change the values if you think that the program structure and scenes warrant more appropriate values.<br />
+</p>
+<h2>See Also</h2>
+<p><a href="CARD_GetCacheFlushThreshold.html"><code>CARD_GetCacheFlushThreshold</code></a></p>
+
+<h2>Revision History</h2>
+<p>
+2008/12/05 Changed the default values.<br />2007/05/16 Initial version.
+</p>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

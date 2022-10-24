@@ -1,0 +1,75 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 8.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<LINK rel="stylesheet" type="text/css" href="../../css/nitro.css">
+<TITLE>WVR Demos</TITLE>
+</HEAD>
+<BODY>
+<H1>Wireless Driver Operation Control Library (WVR) Sample Demos</H1>
+<H2>Location</H2>
+<P><CODE>$TwlSDK/build/demos/wvr</CODE></P>
+<H2>Compilation</H2>
+<P>Move to the <CODE>$TwlSDK/build/demos/wvr</CODE> directory and enter the following.</P>
+<BLOCKQUOTE><CODE>% make</CODE></BLOCKQUOTE>
+<P> The compilation begins, and the SRL executable file and the NEF files with binary information are generated in the following directory.</P>
+<BLOCKQUOTE><CODE>$TwlSDK/build/demos/wvr/sample_name/bin/platform/target/</CODE></BLOCKQUOTE>
+<P>   For example:</P>
+<BLOCKQUOTE><CODE>$TwlSDK/build/demos/wvr/simple/bin/ARM9-TS/Release/main.srl</CODE></BLOCKQUOTE>
+<P>The above path shows the executable file for the <CODE>simple</CODE> demo.</P>
+
+<H2>Execution</H2>
+<H3>For NITRO ROMs</H3>
+
+<P>If using IS-NITRO-DEBUGGER:</P>
+<UL>
+<LI>Load and execute an NLF file with IS-NITRO-DEBUGGER
+<LI>Execute an SRL file with IS-NITRO-DEBUGGER
+<LI>Execute an SRL file with IS-NITRO-DEBUGGER using the <CODE>loadrun.exe</CODE> tool from the command line
+</UL>
+<P>If using IS-TWL-DEBUGGER:</P>
+<UL>
+<LI>Load and execute an NLF file with IS-TWL-DEBUGGER
+<LI>Execute an SRL file with IS-TWL-DEBUGGER
+<LI>Execute an SRL file with IS-TWL-DEBUGGER using the <CODE>loadrun.TWL.exe</CODE> tool from the command line
+</UL>
+
+<H2>Description</H2>
+<TABLE width="720">
+  <TBODY>
+    <TR>
+<TH>Name</TH>
+<TH>Directory</TH>
+<TH>Operation</TH>
+    </TR>
+    <TR>
+<TD width="187"><EM><STRONG><CODE>simple</CODE></STRONG></EM></TD>
+<TD><CODE>demos</CODE></TD>
+<TD width="525">A simple sample that demonstrates communications using VRAM-D in wireless communications through the WVR library.</TD>
+    </TR>
+    <TR>
+<TD width="187"><EM><STRONG><CODE>switchover</CODE></STRONG></EM></TD>
+<TD><CODE>demos</CODE></TD>
+<TD width="525">A sample that switches allocations for single VRAMs to rendering use or communications use. Display of the following sample demos is toggled by pressing the Select button.<BR><CODE>/build/demos/wvr/simple</CODE><br> <CODE>/build/demos/gx/UnitTours/Sub_Double3D</CODE>
+	  </TD>
+    </TR>
+    <TR>
+<TD width="187"><EM><STRONG><CODE>with_mb</CODE></STRONG></EM></TD>
+<TD><CODE>demos</CODE></TD>
+<TD width="525">A sample used when the WVR library is in DS download play.<br>It is based on the following sample:<br><CODE>/build/demos/mb/multiboot-Model</CODE><br>
+	  </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>Operation</H2>
+<P><CODE></CODE>The WVR library demos work properly only with NITRO ROMs.</CODE></P>
+<H2>See Also</H2>
+<P><A href="../../wvr/list_wvr.html"><CODE>WVR Function List</CODE></A></P>
+<H2>Revision History</H2>
+<P>
+2009/08/31 Changed button for selecting switchover.<BR>2008/07/11 Changed the description to match TWL.<BR>2005/02/17 Initial version.<BR>
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

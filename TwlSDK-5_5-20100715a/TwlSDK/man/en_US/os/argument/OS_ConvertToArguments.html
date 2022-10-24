@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>OS_ConvertToArguments</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">OS_ConvertToArguments <IMG src="../../image/NTR.gif" align="middle"><IMG src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+<DL>
+  <DD>
+  <PRE><CODE>#include &lt;nitro/os.h&gt;</CODE></PRE>
+  <PRE><CODE>void OS_ConvertToArguments( const char* str,
+                                char cs,
+                                chat* buffer,
+                                u32 bufferSize );
+ </CODE></PRE>
+</DL>
+<H2>Arguments</H2>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+<TD><SPAN class="argument">str</SPAN></TD>
+<TD>String used for the argument data.</TD>
+    </TR>
+    <TR>
+<TD><SPAN class="argument">cs</SPAN></TD>
+<TD>Separates characters in arguments.</TD>
+    </TR>
+    <TR>
+<TD><SPAN class="argument">buffer</SPAN></TD>
+<TD>Argument buffer for storing argument data.</TD>
+    </TR>
+    <TR>
+<TD><SPAN class="argument">bufferSize</SPAN></TD>
+<TD>Size of argument buffer.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>Return Values</H2>
+<P>None.</P>
+<H2>Description</H2>
+<P>Converts the string into argument data and stores it in the specified buffer.</P>
+<P>This converted argument data can be retrieved by <A href="OS_GetArgc.html"><CODE>OS_GetArgc</CODE></A>, <A href="OS_GetArgv.html"><CODE>OS_GetArgv</CODE></A>, or <A href="OS_GetOpt.html"><CODE>OS_GetOpt</CODE></A>. Although by default the argument buffer area held in the system is used (argument data can be embedded here using the <A href="../../tools/buryarg.html"><CODE>buryarg</CODE></A> or <A href="../../tools/buryarg.html"><CODE>buryarg.TWL</CODE></A> tools), you can switch to another argument buffer using the <A href="../../tools/buryarg.html"><CODE>OS_SetArgumentBuffer</CODE></A> function.</P>
+<P>Specify the string used for argument data in <SPAN class="argument">str</SPAN> and the separator character for arguments in <SPAN class="argument">cs</SPAN>.</P>
+<BLOCKQUOTE><B>Example:</B> If  &quot; &quot; (space) is used as the separator and the three arguments &quot;-a&quot;, &quot;123&quot;, and &quot;test string&quot; are to be passed, specify as follows.</BLOCKQUOTE>
+<BLOCKQUOTE style="background-color:#ffffcc;"> <CODE>OS_ConvertToArguments( &quot;dummy -a 123 \&quot;test string\&quot;&quot;,<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' ', buffer, size );</CODE></BLOCKQUOTE>
+<BLOCKQUOTE>  </BLOCKQUOTE>
+<BLOCKQUOTE>Because <CODE>OS_GetArgv(0)</CODE> is the program name by default and <CODE>OS_GetOpt</CODE> begins analysis from the item corresponding to <CODE>OS_GetArgv(1)</CODE>, the dummy program name &quot;<CODE>dummy</CODE>&quot; is assigned to the string.</BLOCKQUOTE>
+<BLOCKQUOTE>&quot;	<CODE>test string</CODE>&quot; includes a space (delimiter) in the middle, but is handled as a single argument by enclosing with &quot; &quot;.</BLOCKQUOTE>
+<P><SPAN class="argument">buffer</SPAN> specifies the buffer area in which argument data is to be stored. <SPAN class="argument">bufferSize</SPAN> specifies the buffer size. Data is not written to the buffer beyond this region.</P>
+<P>This function does nothing in the FINALROM build.</P>
+<H2>See Also</H2>
+<P><A href="OS_GetArgv.html"><CODE>OS_GetArgv</CODE></A><BR> <A href="OS_GetArgc.html"><CODE>OS_GetArgc</CODE></A><BR> <A href="OS_GetOpt.html"><CODE>OS_GetOpt</CODE></A><BR> <A href="../../tools/buryarg.html"><CODE>buryarg</CODE> Tool</A><BR> <A href="../../tools/buryarg.html"><CODE>buryarg.TWL</CODE> Tool</A><BR> <A href="OS_GetArgumentBuffer.html"><CODE>OS_GetArgumentBuffer</CODE></A><BR> <A href="OS_ConvertToArguments.html"><CODE>OS_ConvertToArguments</CODE></A></P>
+<H2>Revision History</H2>
+<P>2008/07/09 Added information on <A href="../../tools/buryarg.html"><CODE>buryarg.TWL</CODE></A>.<BR> 2005/09/09 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

@@ -1,0 +1,163 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>Exceptions: Overview</TITLE><LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">Exceptions: Overview  <img src="../../image/NTR.gif" align="middle"><img src="../../image/TWL.gif" align="middle"></H1>
+<P>This page explains the exception display system used by the TWL-SDK to show information about exceptions generated on the ARM processors.</P>
+<H2>Exception Types</H2>
+<P>The following exceptions exist for the ARM processors.<BR>
+</P>
+<TABLE border="1">
+  <TBODY>
+    <TR bgcolor="red">
+<TH>Exception Type</TH>
+<TH>Normal Vector Address</TH>
+<TH>High Vector Address</TH>
+    </TR>
+    <TR>
+<TD>Reset</TD>
+<TD>0x00000000</TD>
+<TD>0xFFFF0000</TD>
+    </TR>
+    <TR>
+<TD>Undefined instruction</TD>
+<TD>0x00000004</TD>
+<TD>0xFFFF0004</TD>
+    </TR>
+    <TR>
+<TD>Software interrupt</TD>
+<TD>0x00000008</TD>
+<TD>0xFFFF0008</TD>
+    </TR>
+    <TR>
+<TD>Pre-fetch abort</TD>
+<TD>0x0000000C</TD>
+<TD>0xFFFF000C</TD>
+    </TR>
+    <TR>
+<TD>Data abort</TD>
+<TD>0x00000010</TD>
+<TD>0xFFFF0010</TD>
+    </TR>
+    <TR>
+<TD>IRQ</TD>
+<TD>0x00000018</TD>
+<TD>0xFFFF0018</TD>
+    </TR>
+    <TR>
+<TD>FIQ</TD>
+<TD>0x0000001C</TD>
+<TD>0xFFFF001C</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P><BR> Out of this list, the <I>reset interrupt</I> and <I>FIQ</I> exceptions are used by the system or debugger, so they cannot be used by users.</P>
+<P>The <I>IRQ</I> exception can be used as an interrupt. See the following for information about interrupts. <A href="../irq/about_irq.html">Interrupts (Overview)</A></P>
+<P>Some of the undefined instructions are used by the debugger for breakpoints and other such data.</P>
+<P>When an exception occurs, control is transferred to the pertinent vector address, as shown in the table above. This normally involves use of high vector addresses.</P>
+<H2>Positioning the Exception Vector</H2>
+<P>The ARM processor specifications allow you to set the exception vector addresses at either the range <CODE>0x00000000</CODE> to <CODE>0x0000001C</CODE> or the range <CODE>0xFFFF0000</CODE> to <CODE>0xFFFF001C</CODE>. The former are called normal vectors, and the latter are called high vectors.</P>
+<P>The <a href="OS_SetExceptionVectorLower.html"><nobr><code>OS_SetExceptionVectorLower</code></nobr></a> function sets the exception vectors to addresses <code>0x0000000</code> to <code>0x0000001C</code> (normal vectors).</P>
+<P>The <a href="OS_SetExceptionVectorUpper.html"><nobr><code>OS_SetExceptionVectorUpper</code></nobr></a> function sets the exception vectors to addresses <code>0xFFFF0000</code> to <code>0xFFFF001C</code> (high vectors).</P>
+<P>The TWL-SDK uses the high vectors by default. <FONT color="#ff0033">Unless you have a special reason, use the high vectors and do not change this setting.</FONT></P>
+<H2>Displaying Contexts During Exceptions</H2>
+<P>The TWL-SDK contains a mechanism for displaying the context (the contents of the registers and the CPU status) to the debug window (console) when an exception occurs. This exception display mechanism is initialized using the <A href="OS_InitException.html"><CODE>OS_InitException</CODE></A> function, but this function is called from the <A href="../init/OS_Init.html"><CODE>OS_Init</CODE></A> function, so no real preparation is required in applications that use the <A href="../init/OS_Init.html"><CODE>OS_Init</CODE></A> function.</P>
+<P>The example below shows what is displayed. The error output from the <A href="../debug/OS_FPrintf.html"><CODE>OS_FPrintf</CODE></A> function is used to display the information.</P>
+<BLOCKQUOTE style="background-color:#ffffc0;"><BR> <CODE> **** Exception Occurred ****<BR> R00=00000000 R01=12345678 R02=2000001F R03=02030340 <BR> R04=200000D7 R05=0000000F R06=00000001 R07=00000002 <BR> R08=02FFFFA8 R09=04000130 R10=00000001 R11=0201C25C <BR> R12=0200E240 SP =02FE3750 LR =02005130 PC =02005140<BR> CPSR=2000001F SPSR=00000000 CP15=0005707D</CODE><BR> <BR>
+</BLOCKQUOTE>
+<P><BR>Note that when an exception occurs on IS-TWL-DEBUGGER, the debugger itself will display this. (This is possible on IS-TWL-DEBUGGER v1.06 and later.) The format of the display will differ from that shown above. The example below shows what is displayed.</P>
+<BLOCKQUOTE style="background-color:#ffffc0;"><BR> <CODE>[[ Fatal error: Execution stopped because &quot;data access exception&quot; occurred on the ARM9CPU.]]<BR> <BR>Symbol:STATIC:0x02000C8C<BR>02000C8C:E591B000 LDR R11, [R1]<BR> <BR>CPSR:6000001F <BR>R0:0000007B R1:00000000 R2:00000100 R3:000003E8<BR>R4:000007D0 R5:00000BB8 R6:00000FA0 R7:00001388<BR>R8:02000C84 R9:000000FF R10:000000EE R11:00000000<BR>R12:00000123 SP:027E3750 LR:02000C5C PC:02000C8C</CODE><BR> <BR>
+</BLOCKQUOTE>
+<H2>Setting a User Handler</H2>
+<P>With IS-NITRO-DEBUGGER and actual Nintendo DS and TWL systems, when exceptions occur, control can be transferred to a user-specified exception handler. To do this, register the handler with the <a href="OS_SetUserExceptionHandler.html" target="_self"><nobr><code>OS_SetUserExceptionHandler</code></nobr></a> function. For details, see the function reference.</P>
+<H2>Environments in Which Displaying Contexts During Exceptions and Calling Users' Exception Handlers Is Possible</H2>
+<P>The table below indicates whether the context can be displayed in the debug window (console) when an exception occurs and whether control can be moved to the user's exception handler. The table is broken down by operating environment.</P>
+<P>As indicated in &quot;Displaying Context During Exceptions,&quot; the SDK displays for IS-NITRO-DEBUGGER, and the debugger displays for IS-TWL-DEBUGGER, shown in the column entitled &quot;Displaying Context During Exceptions&quot; of the table. If the SDK displays the context, the <A href="../debug/OS_FPrintf.html"><CODE>OS_FPrintf</CODE></A> function used for display cannot be used in the FINALROM build. Context cannot be displayed in the FINALROM build when it says <FONT color="#ff0000"><B>OK</B></FONT> (as displayed by the SDK). <FONT color="#ff0000"><B>OK</B></FONT> (as displayed by the debugger) means that the debugger displays the context. Therefore, displaying the context is possible even in the FINALROM build.</P>
+<P>Also, items under &quot;Calling User's Exception Handlers&quot; in the table are not dependent on the type of build (whether or not it was a FINALROM build).</P>
+<P>Note that this table is divided by the operating environment. For example, the context cannot be displayed on IS-TWL-DEBUGGER when an exception occurs with a hybrid ROM that is running in NITRO mode, but it can be displayed on IS-NITRO-DEBUGGER if the same ROM is running in the same mode.<BR>
+</P>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+<TH colspan="3" style="background-color:#304040;"><FONT color="#ffffff">For NITRO Mode:</FONT> <img src="../../image/NTR.gif" align="middle"></TH>
+    </TR>
+    <TR>
+<TH>Operating Environment</TH>
+<TH>Displaying Contexts<BR>During Exceptions:</TH>
+<TH>Calling Users'<BR>Exception Handlers:</TH>
+    </TR>
+    <TR>
+<TD>Actual DS unit</TD>
+<TD><B>N/A</B> (There is no console)</TD>
+<TD><FONT color="#ff0000"><B>OK</B></FONT></TD>
+    </TR>
+    <TR>
+<TD>Actual TWL unit</TD>
+<TD><B>N/A</B> (There is no console)</TD>
+<TD><FONT color="#ff0000"><B>OK</B></FONT></TD>
+    </TR>
+    <TR>
+<TD>IS-NITRO-DEBUGGER</TD>
+<TD><FONT color="#ff0000"><B>OK</B></FONT> (displayed by SDK)</TD>
+<TD><FONT color="#ff0000"><B>OK</B></FONT></TD>
+    </TR>
+    <TR>
+<TD>ENSATA EMULATOR</TD>
+      <TD>???</TD>
+      <TD>???</TD>
+    </TR>
+    <TR>
+<TD>IS-TWL-DEBUGGER(For standard development: ARM9)</TD>
+<TD><B><FONT color="#ff0000">OK</FONT></B> (displayed by debugger)</TD>
+<TD><B>N/A</B></TD>
+    </TR>
+    <TR>
+<TD>IS-TWL-DEBUGGER (For component development: ARM9 + ARM7)</TD>
+<TD><B><FONT color="#ff0000">OK</FONT></B> (displayed by debugger)</TD>
+<TD><B>N/A</B></TD>
+    </TR>
+    <TR>
+<TH colspan="3" style="background-color:#304040;"><FONT color="#ffffff">For TWL Mode:</FONT> <img src="../../image/TWL.gif" align="middle"></TH>
+    </TR>
+    <TR>
+<TH>Operating Environment</TH>
+<TH>Displaying Context<BR>During Exceptions:</TH>
+<TH>Calling Users'<BR>Exception Handlers:</TH>
+    </TR>
+    <TR>
+<TD>Actual TWL unit</TD>
+<TD><B>N/A</B> (There is no console)</TD>
+<TD><FONT color="#ff0000"><B>OK</B></FONT></TD>
+    </TR>
+    <TR>
+<TD>IS-TWL-DEBUGGER (For general-purpose development: ARM9)</TD>
+<TD><B><FONT color="#ff0000">OK</FONT></B> (displayed by debugger)</TD>
+<TD><B>N/A</B></TD>
+    </TR>
+    <TR>
+<TD>IS-TWL-DEBUGGER (for component development: ARM9 + ARM7)</TD>
+<TD><B><FONT color="#ff0000">OK</FONT></B> (displayed by debugger)</TD>
+<TD><B>N/A</B></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P><BR>
+</P>
+<H2>Process Flow When Exceptions Occur</H2>
+<P>The flow for the following exception is for IS-NITRO-DEBUGGER and the actual Nintendo DS and TWL systems. CPU operations stop at the point when the exception occurs on IS-TWL-DEBUGGER, and control shifts to the debugger. Operations, therefore, are as shown in the following figure.</P>
+<P>When an exception occurs, control jumps to the exception vector region on IS-NITRO-DEBUGGER and the actual Nintendo DS and TWL systems. As previously mentioned, the high vectors are usually used for exception vectors, but for a data abort exception, control will move to <CODE>0xFFFFFF10</CODE>.</P>
+<P>Control then moves to the address stored in <CODE>HW_EXCP_VECTOR_MAIN </CODE> (<CODE>0x2FFFFD9C</CODE>) in the system area. (In the ARM7, this address is located at the dedicated work RAM offset <CODE>0x7FDC</CODE>.) The address of the TWL-SDK's exception handler is set here.</P>
+<P>The TWL-SDK's exception handler will display the context when an exception occurs, and then call the user-defined handler registered with the <A href="OS_SetUserExceptionHandler.html"><CODE>OS_SetUserExceptionHandler</CODE></A> function, if such a handler exists.</P>
+<P>The program then stops.</P>
+<BLOCKQUOTE><BR> <IMG src="image_exception_flow.gif" border="0"></BLOCKQUOTE>
+<H2>See Also</H2>
+<P><CODE><A href="../list_os.html#Exception">List of OS Functions (Exception)</A><BR></CODE></P>
+<H2>Revision History</H2>
+<P>2009/07/01 Described the differences in behavior depending on the environment.<BR> 2008/04/18 Added a table of context display environments when exceptions occur.<BR> 2005/03/08 Standardized the Japanese term for &quot;interrupt.&quot;<br> 2004/12/14 Revised terminology and word endings.<BR> 2004/11/16 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

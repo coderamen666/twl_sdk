@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>MI_SecureUncompressRL</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">MI_SecureUncompressRL <IMG src="../../image/NTR.gif" align="middle"><IMG src="../../image/TWL.gif" align="middle"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/mi.h&gt;</CODE><BR>
+  <BR>
+  <CODE>s32 MI_SecureUncompressRL( const void *srcp, u32 srcSize, void *destp, u32 dstSize );</CODE></dd>
+</dl>
+<h2>Arguments</h2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+      <TD width="13%"><EM><STRONG>srcp</STRONG></EM></TD>
+      <TD width="87%">The source address where run-length compressed data is stored.</TD>
+    </TR>
+    <TR>
+      <TD width="13%"><EM><STRONG>srcSize</STRONG></EM></TD>
+      <TD width="87%">Source data size.</TD>
+    </TR>
+    <TR>
+      <TD width="13%"><EM><STRONG>destp</STRONG></EM></TD>
+      <TD width="87%">Destination address for decompression.</TD>
+    </TR>
+    <TR>
+      <TD width="13%"><EM><STRONG>dstSize</STRONG></EM></TD>
+      <TD width="87%">Destination size for decompression.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<h2>Return Values</h2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+      <TD width="13%"><EM><STRONG>MI_ERR_SUCCESS</STRONG></EM></TD>
+      <TD width="87%">Function completed successfully.</TD>
+    </TR>
+    <TR>
+      <TD width="13%"><EM><STRONG>MI_ERR_UNSUPPORTED</STRONG></EM></TD>
+      <TD width="87%">Unsupported compression data type.</TD>
+    </TR>
+    <TR>
+      <TD width="13%"><EM><STRONG>MI_ERR_SRC_SHORTAGE</STRONG></EM></TD>
+      <TD width="87%">Source data size is too small.</TD>
+    </TR>
+    <TR>
+      <TD width="13%"><EM><STRONG>MI_ERR_SRC_REMAINDER</STRONG></EM></TD>
+      <TD width="87%">Source data size is too large.</TD>
+    </TR>
+    <TR>
+      <TD width="13%"><EM><STRONG>MI_ERR_DEST_OVERRUN</STRONG></EM></TD>
+      <TD width="87%">Overrun in the decompression buffer.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<H2>Description</H2>
+<P>This function decompresses run-length compressed data and writes the data to the specified region of memory. The source address must be aligned to a 4-byte boundary.</P>
+
+<P>
+To perform streaming uncompression of data, use the <A href="MI_ReadUncompRL.html"><CODE>MI_ReadUncompRL</CODE></A> function.
+</P>
+<P>
+By calling <A href="MI_GetUncompressedSize.html"><CODE>MI_GetUncompressedSize</CODE></A> as a reference when allocating the destination buffer size, you can get the post-compression data size, which is written in the header of the compressed data. Even if the header of the compressed data is corrupted and the correct value could not be obtained, it will detect and return any errors within the <CODE>SecureUncompress*</CODE> functions.
+</P>
+<h2>See Also</h2>
+<p><CODE><A href="MI_GetUncompressedSize.html">MI_GetUncompressedSize</A>, <A href="MI_UncompressRL.html">MI_UncompressRL</A>, <A href="MI_InitUncompContextRL.html">MI_InitUncompContextRL</A>, <A href="MI_ReadUncompRL.html">MI_ReadUncompRL</A>, <!-- <A href="MI_IsFinishedUncompRL.html">MI_IsFinishedUncompRL</A>, --> <A href="MI_CompressRL.html">MI_CompressRL</A>, <A href="../../tools/ntrcomp.html">ntrcomp</A></CODE></p>
+
+<H2>Revision History</H2>
+<P>2008/05/22 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

@@ -1,0 +1,110 @@
+/******************************************************************************
+	NINTENDO NITRO-System Maya Plugin
+
+	File:         NNS_ShowDispFace.mel
+	Description:  show disp face
+	Date:         2007/03/06
+	Author:       Takashi Endo
+
+	Copyright 2003-2009 Nintendo. All rights reserved.
+******************************************************************************/
+
+/******************************************************************************
+	show	
+******************************************************************************/
+global proc nnsShowDispFace_Show(int $dispFaceShow)
+{
+	int $nodeCount = 0;
+	select -cl;
+	string $sgs[] = `ls -typ shadingEngine`;
+	for ($node in $sgs)
+	{
+		if ($node == "initialParticleSE" || $node == "swatchShadingGroup")
+			continue;
+		int $dispFace = (`attributeQuery -n $node -ex "nns_disp_face"`) ?
+			`getAttr ($node + ".nns_disp_face")` : 0;
+		if ($dispFace == $dispFaceShow)
+		{
+			select -add -ne $node; // shadingEngine
+			string $ins[] = `listConnections -s 1 -d 0 ($node + ".ss")`;
+			if (size($ins))
+			{
+				select -add $ins[0]; // material
+			}
+			select -add $node; // shape or face
+			++$nodeCount;
+		}
+	}
+
+	if ($nodeCount == 0)
+	{
+		print "Not found\n";
+	}
+	else
+	{
+		string $msg = "Found: " + $nodeCount + " shadingEngine node";
+		if ($nodeCount >= 2)
+		{
+			$msg += "s";
+		}
+		print ($msg + "\n");
+	}
+}
+
+/******************************************************************************
+	main
+******************************************************************************/
+global proc NNS_ShowDispFace()
+{
+	//-----------------------------------------------------------------------------
+	// backup selection
+	string $selBak[] = `ls -sl`;
+	string $selBakStr;
+	for ($sel in $selBak)
+	{
+		$selBakStr += ($sel + " ");
+	}
+	select -cl;
+	
+	//-----------------------------------------------------------------------------
+	// create window
+	int $wd = 450;
+	int $ht = 146;
+	if (!`window -exists nnsShowDispFace_Win`)
+	{
+		string $closeCmd = "deleteUI nnsShowDispFace_Win";
+		string $remainCmd = "if (!`checkBoxGrp -q -v1 nnsShowDispFace_KeepSelecion`) {"
+			+ "select -cl;select -ne " + $selBakStr + ";}";
+
+		window -t "NITRO Show Display Face" -wh $wd $ht -mxb 0
+			nnsShowDispFace_Win;
+
+		columnLayout -adj 1 -cat "both" 4 -cal "center" -rs 15;
+			radioButtonGrp -nrb 3 -l "Display Face"
+				-la3 "Front Face" "Back Face" "Both Face"
+				-cw4 100 100 100 100
+				-onc "nnsShowDispFace_Show(`radioButtonGrp -q -sl nnsShowDispFace_DispFace` - 1)"
+				nnsShowDispFace_DispFace;
+			checkBoxGrp -ncb 1 -l "" -l1 "Keep Selection" -v1 1
+				-cw 1 180
+				nnsShowDispFace_KeepSelecion;
+			string $closeBtn = `button -h 26 -l "Close"
+				-c ($remainCmd + $closeCmd)`;
+		setParent ..;	// columnLayout
+
+		setFocus $closeBtn;
+	}
+	if (`window -q -w nnsShowDispFace_Win` < $wd)
+	{
+		window -e -w $wd nnsShowDispFace_Win;
+	}
+	if (`window -q -h nnsShowDispFace_Win` < $ht)
+	{
+		window -e -h $ht nnsShowDispFace_Win;
+	}
+	//window -e -wh $wd $ht nnsShowDispFace_Win;
+
+	//-----------------------------------------------------------------------------
+	// show window
+	showWindow nnsShowDispFace_Win;
+}

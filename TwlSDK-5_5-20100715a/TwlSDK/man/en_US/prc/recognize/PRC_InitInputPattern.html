@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 8.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>PRC_InitInputPattern*</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">PRC_InitInputPattern* <img src="../../image/NTR.gif"align="middle"><img src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+<DL>
+  <DD>
+  <PRE><CODE>#include &lt;nitro/prc.h&gt;
+
+BOOL PRC_InitInputPattern(
+    <A href="PRCInputPattern.html">PRCInputPattern</A>*            pattern,
+    void*                       buffer,
+    const <A href="../stroke/PRCStrokes.html">PRCStrokes</A>*       strokes,
+    int                         maxPointCount,
+    int                         maxStrokeCount );
+
+BOOL PRC_InitInputPatternEx(
+    <A href="PRCInputPattern.html">PRCInputPattern</A>*            pattern,
+    void*                       buffer,
+    const <A href="../stroke/PRCStrokes.html">PRCStrokes</A>*           strokes,
+    int                         maxPointCount,
+    int                         maxStrokeCount,
+    const <A href="PRCInputPatternParam.html">PRCInputPatternParam</A>* param );
+</CODE></PRE>
+</DL>
+<H2>Arguments</H2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="13%"><CODE>pattern</CODE></TD>
+<TD width="87%">Pointer to the input pattern structure to be created.</TD>
+    </TR>
+    <TR>
+<TD width="13%"><CODE>buffer</CODE></TD>
+<TD width="87%">Pointer to the memory area that will be used inside <code>pattern</code>.</TD>
+    </TR>
+    <TR>
+<TD width="13%"><CODE>strokes</CODE></TD>
+<TD width="87%">Raw input stroke data.</TD>
+    </TR>
+    <TR>
+<TD width="13%"><CODE>maxPointCount</CODE></TD>
+<TD width="87%">Maximum point count after processing.</TD>
+    </TR>
+    <TR>
+<TD width="13%"><CODE>maxStrokeCount</CODE></TD>
+<TD width="87%">Maximum stroke count after processing.</TD>
+    </TR>
+    <TR>
+<TD width="13%"><CODE>param</CODE></TD>
+<TD width="87%">Other parameter values that are dependent on the recognition algorithm (use NULL as the default).</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>Return Values</H2>
+<P>Returns <CODE>TRUE</CODE> if input pattern data is created successfully.</P>
+<H2>Description</H2>
+<P>Converts raw input stroke data into the input pattern data in the<A href="PRCInputPattern.html"><CODE>PRCInputPattern</CODE></A> type that is used for recognition. First, it normalizes and resamples the input stroke data according to the settings specified in <code>param</code>. Resampling will reduce the number of points in the stroke. Based on these points, this function pre-calculates the length, angles, bounding box, and other values used in recognition, and stores them as input pattern data.</P>
+<P>The <code>buffer</code> argument specifies the memory region used internally by <code>inputPattern</code>. Use the <A href="PRC_GetInputPatternBufferSize.html"><CODE>PRC_GetInputPatternBufferSize</CODE></A> function to get the amount of memory required, and then allocate at least that amount. Do not free <code>buffer</code> while <code>inputPattern</code> is in use.</P>
+<P>The <code>maxPointCount</code> and <code>maxStrokeCount</code> arguments determine the maximum numbers of points and strokes, respectively. Resampling will greatly reduce the number of targeted points. This will apply the restrictions specified by <code>maxPointCount</code> and <code>maxStrokeCount</code> to the results of that process and store the results in <code>inputPattern</code>.</P>
+<P>For details on normalizing and resampling, see <A href="PRCInputPatternParam.html"><CODE>PRCInputPatternParam</CODE></A>.</P>
+<P><code>PRC_InitInputPattern</code> is equivalent to calling <code>PRC_InitInputPatternEx</code> with <code>param</code> set to <code>NULL</code>.</P>
+<H2>See Also</H2>
+<P><A href="PRC_GetInputPatternBufferSize.html"><CODE>PRC_GetInputPatternBufferSize</CODE></a><BR> <a href="PRC_GetInputPatternBufferSize.html"><CODE>PRC_GetInputPatternBufferSizeEx</CODE></a><BR> <a href="PRCInputPatternParam.html"><CODE>PRCInputPatternParam</CODE></a><BR> <a href="PRC_GetRecognizedEntry.html"><CODE>PRC_GetRecognizedEntry*</CODE></a><BR> <a href="PRC_ResampleStrokes.html"><CODE>PRC_ResampleStrokes*</CODE></A></P>
+<H2>Revision History</H2>
+<P>2005/03/04 Changed return value to BOOL.<BR>2004/06/23 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

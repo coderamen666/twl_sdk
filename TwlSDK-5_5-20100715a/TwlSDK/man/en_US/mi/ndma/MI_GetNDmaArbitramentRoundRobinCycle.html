@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>MI_GetNDmaArbitramentRoundRobinCycle</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">MI_GetNDmaArbitramentRoundRobinCycle <IMG src="../../image/TWL.gif" width="24" height="12" border="0" align=middle></H1>
+<H2>Syntax</H2>
+<DL>
+  <DD><CODE>#include &lt;twl/mi.h&gt;</CODE><BR>
+  <BR>
+  <CODE>u32 MI_GetNDmaArbitramentRoundRobinCycle( void );</CODE>
+  </DL>
+<H2>Arguments</H2>
+<P>None.</P>
+<H2>Return Values</H2>
+<P>Returns the &quot;number of cycles&quot; parameter when the DMA arbitration method is set to round-robin.</P>
+<H2>Description</H2>
+<P>Gets the &quot;number of cycles&quot; parameter that is currently set when the DMA arbitration method for the TWL's new DMA is set to round-robin.</P>
+<P>This is the number of cycles that can be run when there is a request from the DSP or ARM9 for the AHB bus. It will be ignored when there are no requests from the DSP or ARM9 for the AHB bus.</P>
+<P>This configuration value has no particular meaning when the DMA arbitration method is set to fixed.</P>
+<P>The table below shows the values that can be obtained.</P>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+      <TH>Value</TH>
+      <TH>Description</TH>
+    </TR>
+    <TR>
+      <TD><CODE>MI_NDMA_RCYCLE_0</CODE></TD>
+      <TD>0 cycles             </TD>
+    </TR>
+    <TR>
+      <TD><CODE>MI_NDMA_RCYCLE_1</CODE></TD>
+      <TD>1 cycle</TD>
+    </TR>
+    <TR>
+      <TD><CODE>MI_NDMA_RCYCLE_2</CODE></TD>
+      <TD>2 cycles</TD>
+    </TR>
+    <TR>
+      <TD><CODE>MI_NDMA_RCYCLE_4</CODE></TD>
+      <TD>4 cycles</TD>
+    </TR>
+    <TR>
+      <TD><CODE>MI_NDMA_RCYCLE_8</CODE></TD>
+      <TD>8 cycles</TD>
+    </TR>
+    <TR>
+      <TD><CODE>MI_NDMA_RCYCLE_16</CODE></TD>
+      <TD>16 cycles</TD>
+    </TR>
+    <TR>
+      <TD><CODE>MI_NDMA_RCYCLE_32</CODE></TD>
+      <TD>32 cycles</TD>
+    </TR>
+    <TR>
+      <TD><CODE>MI_NDMA_RCYCLE_64</CODE></TD>
+      <TD>64 cycles</TD>
+    </TR>
+    <TR>
+      <TD><CODE>MI_NDMA_RCYCLE_128</CODE></TD>
+      <TD>128 cycles</TD>
+    </TR>
+    <TR>
+      <TD><CODE>MI_NDMA_RCYCLE_256</CODE></TD>
+      <TD>256 cycles</TD>
+    </TR>
+    <TR>
+      <TD><CODE>MI_NDMA_RCYCLE_512</CODE></TD>
+      <TD>512 cycles</TD>
+    </TR>
+    <TR>
+      <TD><CODE>MI_NDMA_RCYCLE_1024</CODE></TD>
+      <TD>1024 cycles</TD>
+    </TR>
+    <TR>
+      <TD><CODE>MI_NDMA_RCYCLE_2048</CODE></TD>
+      <TD>2048 cycles</TD>
+    </TR>
+    <TR>
+      <TD><CODE>MI_NDMA_RCYCLE_4096</CODE></TD>
+      <TD>4096 cycles</TD>
+    </TR>
+    <TR>
+      <TD><CODE>MI_NDMA_RCYCLE_8192</CODE></TD>
+      <TD>8192 cycles</TD>
+    </TR>
+    <TR>
+      <TD><CODE>MI_NDMA_RCYCLE_16384</CODE></TD>
+      <TD>16384 cycles</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>Internal Operation</H2>
+<P>Accesses the DMA_GCNT register.</P>
+<H2>See Also</H2>
+<P><CODE><A href="MI_SetNDmaArbitrament.html">MI_SetNDmaArbitrament</A>, <A href="MI_GetNDmaArbitrament.html">MI_GetNDmaArbitrament</A><BR></CODE></P>
+<H2>Revision History</H2>
+<P>2007/09/07 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

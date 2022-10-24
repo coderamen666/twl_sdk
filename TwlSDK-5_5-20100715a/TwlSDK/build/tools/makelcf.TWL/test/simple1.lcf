@@ -1,0 +1,99 @@
+
+==========STATIC===============
+NAME=main
+ADRS=0x02000000
+---text---
+   OBJS=[*.o (.text)]
+   OBJS=[*.axxx (.text)]
+   OBJS=[OBJECT(func,*)]
+   OBJS=[bin/ARM9-TEG/Release/*.o (.text)]
+   OBJS=[d:/Program Files/bin/ARM9-TEG/Release/*.o (.text)]
+   OBJS=[A/B/C (.text)]
+   OBJS=[* (.text)]
+   OBJS=[GROUP(ROOT) (.text)]
+   OBJS=[. (.text)]
+   OBJS=[.. (.text)]
+---text continous---
+OBJS=*.o *.axxx OBJECT(func,*) bin/ARM9-TEG/Release/*.o d:/Program Files/bin/ARM9-TEG/Release/*.o A/B/C * GROUP(ROOT) . .. 
+OBJS=*.o *.axxx bin/ARM9-TEG/Release/*.o d:/Program Files/bin/ARM9-TEG/Release/*.o A/B/C . .. 
+---ctor---
+   OBJS=[*.axxx (.ctor)]
+   OBJS=[bin/ARM9-TEG/Release/*.o (.ctor)]
+   OBJS=[d:/Program Files/bin/ARM9-TEG/Release/*.o (.ctor)]
+   OBJS=[A/B/C (.ctor)]
+   OBJS=[* (.ctor)]
+   OBJS=[GROUP(ROOT) (.ctor)]
+   OBJS=[. (.ctor)]
+   OBJS=[.. (.ctor)]
+---modifier---
+   OBJS=h[] t[*.o] r[*] e[o]
+   OBJS=h[] t[*.axxx] r[*] e[axxx]
+   OBJS=h[] t[OBJECT(func,*)] r[OBJECT(func,*)] e[]
+   OBJS=h[bin/ARM9-TEG/Release/] t[*.o] r[bin/ARM9-TEG/Release/*] e[o]
+   OBJS=h[d:/Program Files/bin/ARM9-TEG/Release/] t[*.o] r[d:/Program Files/bin/ARM9-TEG/Release/*] e[o]
+   OBJS=h[A/B/] t[C] r[A/B/C] e[]
+   OBJS=h[] t[*] r[*] e[]
+   OBJS=h[] t[GROUP(ROOT)] r[GROUP(ROOT)] e[]
+   OBJS=h[] t[.] r[.] e[]
+   OBJS=h[] t[..] r[..] e[]
+---library---
+   CMDS=-llibos.a -llibmi.a 
+     LIBS=libos.a
+     LIBS=lib/libmi.a
+---serachsymbol---
+     SYMS=[overlay_0]
+     SYMS=[overlay_1]
+
+==========AUTOLOADS===============
+NUM=2
+  ID  =0
+  NAME=overlay_0
+  ADRS=0x03f00000
+     OBJS=[aaa.o]
+     OBJS=[bbb.o]
+     SYMS=[overlay_1]
+  CMDS=-lautoload_libos.a -lautoload_libmi.a 
+     LIBS=autoload_libos.a
+     LIBS=lib/autoload_libmi.a
+  ID  =1
+  NAME=overlay_1
+  ADRS=AFTER(main)
+     OBJS=[ccc.o]
+     OBJS=[ddd.o]
+  CMDS=-lautoload_libos.a -lautoload_libmi.a 
+     LIBS=autoload_libos.a
+     LIBS=lib/autoload_libmi.a
+
+
+==========OVERLAYS===============
+NUM=2
+  ID  =0
+  NAME=overlay_2
+  GROUP=GroupA
+  ADRS=AFTER(overlay_1)
+     OBJS=[eee.o]
+     OBJS=[fff.o]
+     SYMS=[overlay_0]
+     SYMS=[overlay_1]
+  CMDS=-loverlay_libos.a -loverlay_libmi.a 
+     LIBS=overlay_libos.a
+     LIBS=lib/overlay_libmi.a
+  ID  =1
+  NAME=overlay_3
+  GROUP=overlay_3
+  ADRS=AFTER(overlay_1)
+     OBJS=[eee.o]
+     OBJS=[fff.o]
+  CMDS=-loverlay_libos.a -loverlay_libmi.a 
+     LIBS=overlay_libos.a
+     LIBS=lib/overlay_libmi.a
+
+==========IF-ELSE-ENDIF===============
+NITRO_LCFSPEC.GE.2 -- False
+NITRO_LCFSPEC.GT.1 -- False
+NITRO_LCFSPEC.LE.1 -- True
+NITRO_LCFSPEC.LT.2 -- True
+NITRO_LCFSPEC.EQ.2 -- False
+NITRO_LCFSPEC.NE.2 -- True
+
+

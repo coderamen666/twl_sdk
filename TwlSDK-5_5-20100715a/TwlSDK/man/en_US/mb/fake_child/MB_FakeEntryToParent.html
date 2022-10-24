@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 8.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>MB_FakeEntryToParent</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">MB_FakeEntryToParent <IMG src="../../image/NTR.gif" width="24" height="12" border="0" align=middle><IMG src="../../image/TWL.gif" width="24" height="12" border="0" align=middle></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/mb/mb_fake_child.h&gt;</CODE><BR>
+  <BR>
+  <CODE>BOOL MB_FakeEntryToParent( u16 index );</CODE><br>
+  </dd>
+</dl>
+<h2>Arguments</h2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+      <TD width="13%"><EM><STRONG>index</STRONG></EM></TD>
+      <TD width="87%">The parent's management index, obtained during scanning. Specify this index to gain entry to the parent.
+      This index is obtained from a member of the scanning callback structure <a href="MBFakeScanCallback.html"><code>MBFakeScanCallback</code></a>.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<h2>Return Values</h2>
+<p>TRUE if the argument is a valid parent index. FALSE otherwise.</p>
+
+<H2>Description</H2>
+<P>This function begins entry to a multiboot parent. The parent's specifications are performed using the parent's management index obtained during scanning. Executing this function leads automatically to this series of processes: <BR>Connect to parent -&gt; Entry process -&gt; Fake download process -&gt;  Boot preparations -&gt; Disconnect.<BR><BR>The <CODE><A href="MB_FakeSetCStateCallback.html">MB_FakeSetCStateCallback</A></CODE> function sets a callback function to report the execution state. All processes have ended when the <code>MB_COMM_CSTATE_BOOT_READY</code> callback has been notified, so at that point it is okay to end the multiboot process using the <CODE><A href="MB_FakeEnd.html">MB_FakeEnd</A></CODE> function and begin the process of reconnecting to the parent device. If you cannot gain entry to the parent or if a communication error causes processing to terminate abnormally, you must temporarily end the multiboot process using the <CODE><A href="MB_FakeEnd.html">MB_FakeEnd</A></CODE> function, and then start over from the <CODE><A href="MB_FakeInit.html">MB_FakeInit</A></CODE> function.
+</p>
+<h2>See Also</h2>
+<p><code><a href="MB_FakeInit.html">MB_FakeInit</a>, <a href="MB_FakeEnd.html">MB_FakeEnd</a>, <a href="MB_FakeSetCStateCallback.html">MB_FakeSetCStateCallback</a></code></P>
+<H2>Revision History</H2>
+<P>2004/11/25 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

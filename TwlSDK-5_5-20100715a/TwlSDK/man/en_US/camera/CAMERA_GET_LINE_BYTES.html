@@ -1,0 +1,33 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>CAMERA_GET_MAX_LINES</TITLE>
+<LINK rel="stylesheet" href="../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">CAMERA_GET_LINE_BYTES <IMG src="../image/TWL.gif" align="middle"></H1>
+<H2>Definition</H2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;twl/camera.h&gt;</CODE><BR>
+  <BR>
+  <CODE>#define CAMERA_GET_LINE_BYTES(width)    ((width) &lt;&lt; 1)</CODE><br>
+  <br>
+  </dd>
+</dl>
+
+<H2>Description</H2>
+<P>
+Calculates the number of bytes to transfer with a single line. For both the RGB5:5:5 and YUV4:2:2 formats, each pixel of camera output data uses two bytes. As a result, the number of bytes per line is the width of the line multiplied by 2. The width of the camera size set by a <code><A href="CAMERA_I2CSize.html">CAMERA_I2CSize*</A></code> function is specified as the argument value.
+</P>
+
+<H2>See Also</H2>
+<P><CODE><A href="CAMERA_SetTransferLines.html">CAMERA_SetTransferLines</A>, <A href="CAMERA_I2CSize.html">CAMERA_I2CSize*</A></CODE></P>
+<H2>Revision History</H2>
+<P>2007/10/12 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

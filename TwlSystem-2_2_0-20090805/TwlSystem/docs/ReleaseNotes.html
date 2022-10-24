@@ -1,0 +1,784 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>TWL-System 2.2.0 Release Notes</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta http-equiv="content-style-type" content="text/css" />
+<style type="text/css">
+<!--
+    
+H1
+{
+    font-weight         : bold;
+    font-size           : 250%;
+    text-align          : left;
+    color               : #46f;
+    margin              : 0em 0em 0.5em 0em;
+}
+
+H2
+{
+    font-weight         : bold;
+    font-size           : 150%;
+    text-align          : left;
+    margin              : 2em 0em 0.5em 0em;
+    padding-top         : 8pt;
+    border-top-style    : double;
+    border-top-width    : 3px;
+}
+
+H3
+{
+    font-weight         : bold;
+    font-size           : 120%;
+    margin              : 1em 0em 0.5em 0em;
+    padding-top         : 8pt;
+    border-top-style    : solid;
+    border-top-width    : 1px;
+}
+
+H4
+{
+    font-weight         : normal;
+    font-size           : 100%;
+    margin              : 0em 0em 0em 0.5em;
+}
+
+DIV.date
+{
+    font-size           : normal;
+    text-align          : right;
+    margin              : 0pt 0pt 12pt 0pt;
+}
+
+DIV.licence
+{
+    padding: 0em;
+    margin: 1em;
+    border-style : solid;
+    border-width : 1px;
+}
+
+DIV.caution
+{
+    padding: 0.5em;
+    margin: 1em;
+    border-style : solid;
+    border-width : 1px;
+}
+
+P
+{
+    font-size           : normal;
+    margin              : 0em 1em 0.5em 1em;
+    line-height         : 150%;
+}
+
+PRE
+{
+    font-size           : normal;
+    margin              : 1em;
+    line-height         : 120%;
+}
+
+DT
+{
+    margin              : 1em 0em 0em 1em;
+}
+DD
+{
+    margin-left         : 3em;
+}
+UL
+{
+    margin              : 0em 0em 1em 1em;
+    padding             : 0;
+}
+LI
+{
+    margin              : 0em 0em 0em 1em;
+}
+
+-->
+</style>
+</head>
+<body>
+
+<h1>TWL-System 2.2.0 Release Notes</h1>
+
+<div class="date">2009/08/07</div>
+
+<h2>Introduction</h2>
+<p>This is the Nintendo TWL-System 2.2.0 package.</p>
+
+<p>  
+Nintendo TWL-System is a collective term for the basic tools and libraries that are used to develop game software for the Nintendo DS series. These are the release notes for Nintendo TWL-System 2.2.0.
+</p>
+
+<h2>Table of Contents</h2>
+<ul style="list-style-type: none;">
+<li><a href="#subject_package">Package Contents</a></li>
+<li><a href="#subject_software_requirement">Software Requirements</a></li>
+<li><a href="#subject_changelog_2_2_0">Changes in 2.2.0</a></li>
+<li><a href="#subject_changelog_2_2_0_0">Changes in 2.2.0 PR</a></li>
+
+<li><a href="#subject_knownissues">Known Issues</a></li>
+<li><a href="#subject_info">Information about TWL-System</a></li>
+<li><a href="#subject_note">Notes</a></li>
+</ul>
+
+<h2 id="subject_package">Package Contents</h2>
+
+<p>
+The Nintendo TWL-System package contains the following libraries and tools.
+</p>
+
+<ul>
+  <li>Foundation library (Fnd library)</li>
+  <li>Graphics Foundation Library (Gfd library)</li>
+  <li>2D Graphics Library (G2D library)</li>
+  <li>3D Graphics Library (G3D library)</li>
+  <li>NITRO-Composer (Sound library)</li>
+  <li>Multiple Channel Stream library (mcs library)</li>
+  <li>3DMaterialEdtior</li>
+  <li>NITRO-SoundMaker</li>
+  <li>NITRO-Player</li>
+  <li>NITRO-Viewer</li>
+  <li>Various data converters</li>
+  <li>Various plug-ins for CG tools</li>
+  <li>Manuals and Function Reference</li>
+</ul>
+
+<h3>Extracting the TWL-System Package</h3>
+<p>
+Extract the Nintendo TWL-System package to anywhere on the local disk. The Nintendo TWL-System package is compressed in ZIP format. Use an appropriate tool to decompress it. When the package is extracted, a directory named <CODE>TwlSystem</CODE> is created.
+</p>
+<p>
+Before using Nintendo TWL-System, you must set the <CODE>TWLSYSTEM_ROOT</CODE> environment variable. Set <CODE>TWLSYSTEM_ROOT</CODE> with the absolute path to the unzipped <CODE>TwlSystem</CODE> directory. If this environment variable is not specified, the path is treated as if <CODE>C:\TwlSystem</CODE> had been set.
+</p>
+
+
+<h2 id="subject_software_requirement">Software Requirements</h2>
+<ul>
+<li>Requires the official release of TWL-SDK 5.3.</li>
+<li>Tested under IS-TWL-DEBUGGER version 1.08 and IS-NITRO-DEBUGGER version 1.94.</li>
+<li>To use the libraries, CodeWarrior for Nintendo DSi version 1.1 patch 2 or later is required.</li>
+<li>To use NITRO-SoundMaker, requires .NET Framework 1.1.</li>
+<li>To use the Photoshop plug-in, requires a Windows version of Adobe Photoshop (either CS2, CS3, or CS4).</li>
+<li>To use the Maya plug-in, requires a Windows version of Maya (either 8.5, 2008 Service Pack 1, 2008 Extension 2, or 2009.)</li>
+<li>To use the 3ds Max plug-in, requires 3ds Max (either 9.0, 2008, 2009, or 2010).</li>
+<li>To use the SOFTIMAGE|XSI plug-in, requires SOFTIMAGE|XSI (either 6.02, 6.5, 7, or 7.5).</li>
+</ul>
+
+
+<h2 id="subject_changelog_2_2_0">Changes in 2.2.0</h2>
+<h3>Added and Changed Features</h3>
+<h4>Multiple Channel Stream</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_84-C01">Note 84-C01: (Library) Added support for builds of the MCS library in environments where the IS-TWL-DEBUGGER software is not installed</a></li>
+</ul>
+<h3>Bug Fixes</h3>
+<h4>Foundation Library</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_84-F01">Note 84-F01: (Converter) Rolled back an archiver revision</a></li>
+</ul>
+<h4>3D Material Editor</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_84-M01">Note 84-M01: Fixed a bug where intermediate files were not loaded properly on PCs set to certain languages</a></li>
+</ul>
+<h3 id="note_84-F01">Note 84-F01: (Converter) Rolled back an archiver revision</h3>
+<p>The archiver <CODE>nnsarc</CODE> was updated to version 1.1.2 in TWL-System version 2.2.0 PR. However, because this change would have caused major conflicts through loss of compatibility, we rolled back this change and returned to version 1.1.1.
+</p>
+<h3 id="note_84-C01">Note 84-C01: (Library) Added support for builds of the MCS library in environments where the IS-TWL-DEBUGGER software is not installed</h3>
+<p>It is now possible to build the MCS library in environments where the IS-TWL-DEBUGGER software is not installed.
+</p>
+<p>However, the communication features do not function when SRL files built in such an environment are run on the IS-TWL-DEBUGGER hardware.
+</p>
+<h3 id="note_84-M01">Note 84-M01: Fixed a bug where intermediate files were not loaded properly on PCs set to certain languages</h3>
+<p>Fixed a bug where numeric data encoded in intermediate files was not loaded properly when the PC language was set to certain languages other than not Japanese or English.
+</p>
+<h2 id="subject_changelog_2_2_0_0">Changes in 2.2.0 PR</h2>
+<h3>Added and Changed Features</h3>
+<h4>Foundation Library</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_83-F01">Note 83-F01: (Converter) Revised the archiver</a></li>
+</ul>
+<h4>Graphics Foundation Library</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_83-G01">Note 83-G01: (Documentation) Revised description of VRAM manager</a></li>
+</ul>
+<h4>G2D Library</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_83-B05">Note 83-B05: (Converter) Added letter order files for TWL bitmap fonts</a></li>
+<li><a href="#note_83-B06">Note 83-B06: (Converter) Fixed a bug related to the <CODE>-cr/</CODE> option in <CODE>g2dcvgtr</CODE></a></li>
+<li><a href="#note_83-B08">Note 83-B08: (Documentation) Added description of TWL bitmap fonts to <CODE>fontcvtr_Manual</CODE></a></li>
+<li><a href="#note_83-B09">Note 83-B09: (Documentation) Fixed the description of the file structure in <CODE>fontcvtr_Manual</CODE></a></li>
+<li><a href="#note_83-B10">Note 83-B10: (Documentation) Revised the description of the <CODE>NNS_G2dSetAnimCtrlCallBackFunctorAtAnimFrame</CODE> function</a></li>
+<li><a href="#note_83-B11">Note 83-B11: (Documentation) Added function references for the renderer module</a></li>
+<li><a href="#note_83-B12">Note 83-B12: (Documentation) Revised the description of the <CODE>NNS_G2dUnpacked*</CODE>-type functions</a></li>
+<li><a href="#note_83-B13">Note 83-B13: (Documentation) Revised description of the output conditions of character position information blocks in <CODE>g2dcvgtr</CODE></a></li>
+</ul>
+<h4>G3D Library</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_83-R01">Note 83-R01: (Converter) Added options</a></li>
+<li><a href="#note_83-R02">Note 83-R02: (Library) Standardized behavior when out-of-range frames have been set</a></li>
+<li><a href="#note_83-R03">Note 83-R03: (Documentation) Added warning and error lists to <CODE>g3dcvtr_UsersManual</CODE></a></li>
+</ul>
+<h4>NITRO-Composer</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_83-S02">Note 83-S02: (Documentation) Clarified size of management region when loading waveforms individually</a></li>
+<li><a href="#note_83-S03">Note 83-S03: (Documentation) Added description of <CODE>NNS_SndArcLoadWaveArc</CODE></a></li>
+<li><a href="#note_83-S04">Note 83-S04: (SoundPlayer) Added NAND SoundPlayer</a></li>
+<li><a href="#note_83-S05">Note 83-S05: (SoundPlayer) Added switching of I2S frequency</a></li>
+</ul>
+<h4>Multiple Channel Stream</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_83-C01">Note 83-C01: (Library) Added functions to perform end processing</a></li>
+<li><a href="#note_83-C02">Note 83-C02: (Library) Added support for builds in environments where the IS-TWL-DEBUGGER software is not installed</a></li>
+<li><a href="#note_83-C03">Note 83-C03: (Library) TWL-SDK initialization function calls when running the IS-TWL-DEBUGGER hardware</a></li>
+</ul>
+<h4>NITRO-Viewer</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_83-V01">Note 83-V01: (NITRO-Viewer) Added support for TWL-System libraries (2.2.0 official release)</a></li>
+</ul>
+<h4>NITRO-Player</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_83-P01">Note 83-P01: Added description of using IS-NITRO-DEBUGGER and IS-TWL-MIDI in combination</a></li>
+</ul>
+<h4>Photoshop Plug-In</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_83-H01">Note 83-H01: Ended support for Adobe Photoshop CS</a></li>
+</ul>
+<h4>Maya Plug-In</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_83-Y01">Note 83-Y01: Ended support for Maya 8.0</a></li>
+</ul>
+<h4>3ds Max Plug-In</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_83-X01">Note 83-X01: Ended support for 3ds Max 8.0</a></li>
+</ul>
+<h3>Bug Fixes</h3>
+<h4>G2D Library</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_83-B01">Note 83-B01: (Library) Deleted redundant code in the <CODE>LoadScreenPartText</CODE> function</a></li>
+<li><a href="#note_83-B02">Note 83-B02: (Library) Fixed typo in <CODE>g2d_screen.c</CODE> comments</a></li>
+<li><a href="#note_83-B03">Note 83-B03: (Library) Deleted redundant code in cell animation module</a></li>
+<li><a href="#note_83-B04">Note 83-B04: (Library) Added support for the <CODE>MAIN_EX</CODE> arena of <CODE>NNS_G2D_POINTER_ASSERT</CODE></a></li>
+<li><a href="#note_83-B07">Note 83-B07: (Converter) Revised behavior for cases where folders specified by the <CODE>-o</CODE> option do not exist</a></li>
+</ul>
+<h4>NITRO-Composer</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_83-S01">Note 83-S01: (Converter) Fixed a bug related to text events in SMF files</a></li>
+<li><a href="#note_83-S06">Note 83-S06: (SoundPlayer) Fixed a streaming playback bug</a></li>
+</ul>
+<h3 id="note_83-F01">Note 83-F01: (Converter) Revised the archiver</h3>
+<p>The archiver <CODE>nnsarc</CODE> is now version 1.1.2. Changes in version 1.1.2 are shown below.
+</p>
+<ul><li> The byte order mark stored in the header was incorrect. That was corrected.
+</li>
+</ul>
+<h3 id="note_83-G01">Note 83-G01: (Documentation) Revised description of VRAM manager</h3>
+<p>Corrected the description of allocating standard textures in section 3.1.2.1 of the <I>VRAM Manager Manual</I> to be in line with actual operation.
+</p>
+<h3 id="note_83-B01">Note 83-B01: (Library) Deleted redundant code in the <CODE>LoadScreenPartText</CODE> function</h3>
+<h3 id="note_83-B02">Note 83-B02: (Library) Fixed typo in <CODE>g2d_screen.c</CODE> comments</h3>
+<h3 id="note_83-B03">Note 83-B03: (Library) Deleted redundant code in cell animation module</h3>
+<p>Revised redundant code in the <CODE>ApplyCurrentAnimResult_</CODE> function of the cell animation module.
+</p>
+<h3 id="note_83-B04">Note 83-B04: (Library) Added support for the <CODE>MAIN_EX</CODE> arena of <CODE>NNS_G2D_POINTER_ASSERT</CODE></h3>
+<p>Fixed a bug where <CODE>NNS_G2D_POINTER_ASSERT</CODE> did not work correctly for pointers in the <CODE>MAIN_EX</CODE> arena.
+</p>
+<h3 id="note_83-B05">Note 83-B05: (Converter) Added letter order files for TWL bitmap fonts</h3>
+<p>Added letter order files for TWL bitmap fonts.
+</p>
+<ul><li><CODE>twl_bitmap_font.xlor</CODE>
+</li>
+<li><CODE>twl_bitmap_font_cn.xlor</CODE>
+</li>
+<li><CODE>twl_bitmap_font_kr.xlor</CODE>
+</li>
+</ul>
+<h3 id="note_83-B06">Note 83-B06: (Converter) Fixed a bug related to the <CODE>-cr/</CODE> option in <CODE>g2dcvgtr</CODE></h3>
+<p>Fixed a bug where character position information blocks were output with <CODE>g2dcvgtr</CODE>, even if the <CODE>-cr/</CODE> option was not specified.
+</p>
+<h3 id="note_83-B07">Note 83-B07: (Converter) Revised behavior for cases where folders specified by the <CODE>-o</CODE> option do not exist</h3>
+<pre>Previously, when a folder specified by the <CODE>-o</CODE> option did not exist, nothing happened, and processing ended normally.
+This behavior was changed. Now a standard error message is output, and processing ends on an error.
+</pre>
+<h3 id="note_83-B08">Note 83-B08: (Documentation) Added description of TWL bitmap fonts to <CODE>fontcvtr_Manual</CODE></h3>
+<p>Added a description of TWL bitmap fonts in section 5.5 The Included Letter Order files.
+</p>
+<h3 id="note_83-B09">Note 83-B09: (Documentation) Fixed the description of the file structure in <CODE>fontcvtr_Manual</CODE></h3>
+<p>Revised description of the file structure to accompany the addition of TWL bitmap fonts.
+</p>
+<h3 id="note_83-B10">Note 83-B10: (Documentation) Revised the description of the <CODE>NNS_G2dSetAnimCtrlCallBackFunctorAtAnimFrame</CODE> function</h3>
+<p>Deleted description of nonexistent <CODE>type</CODE> argument.
+</p>
+<p>Deleted code that initializes unused variables in the <CODE>LoadScreenPartText</CODE> function in <CODE>g2d_screen.c</CODE>.
+</p>
+<h3 id="note_83-B11">Note 83-B11: (Documentation) Added function references for the renderer module</h3>
+<p>Added the following functions to the <I>Function Reference Manual</I>.
+</p>
+<ul><li><CODE>NNS_G2dSetRendererOverwritePlttNoOffset</CODE>
+</li>
+<li><CODE>NNS_G2dGetRendererOverwritePlttNoOffset</CODE>
+</li>
+</ul>
+<h3 id="note_83-B12">Note 83-B12: (Documentation) Revised the description of the <CODE>NNS_G2dUnpacked*</CODE>-type functions</h3>
+<ul><li>Explained that <CODE>NULL</CODE> is set in the argument when one of the <CODE>NNSG2dUnpacked*</CODE>-type functions fails.
+</li>
+<li>Also added references for NCG and NCL files.
+</li>
+</ul>
+<h3 id="note_83-B13">Note 83-B13: (Documentation) Revised description of the output conditions of character position information blocks in <CODE>g2dcvgtr</CODE></h3>
+<h3 id="note_83-R01">Note 83-R01: (Converter) Added options</h3>
+<p>Added the <CODE>-maxjnt</CODE>, <CODE>-maxmat</CODE>, and <CODE>-maxshp</CODE> options to check the maximum number of joints, materials, and shapes.
+</p>
+<h3 id="note_83-R02">Note 83-R02: (Library) Standardized behavior when out-of-range frames have been set</h3>
+<p>When out-of-range frames were called in the different types of animations, they were handled differently depending on the animation. Some animations would end on an ASSERT, and others would round off the out-of-range frames into the final frame. Behavior has been standardized so that all animation types now round these frames into the final frame.
+</p>
+<h3 id="note_83-R03">Note 83-R03: (Documentation) Added warning and error lists to <CODE>g3dcvtr_UsersManual</CODE></h3>
+<p>Added a list of warnings and errors.
+</p>
+<h3 id="note_83-S01">Note 83-S01: (Converter) Fixed a bug related to text events in SMF files</h3>
+<p>Application errors occurred when converting SMF files if the text length was zero for text events such as markers. This has been fixed.
+</p>
+<h3 id="note_83-S02">Note 83-S02: (Documentation) Clarified size of management region when loading waveforms individually</h3>
+<p>Explicitly explained in the <I>Bank Data Manual</I> and the <I>Sound Archive Manual</I> that 32 bytes are consumed as a management region per every 4 waveforms when loading waveforms individually.
+</p>
+<h3 id="note_83-S03">Note 83-S03: (Documentation) Added description of <CODE>NNS_SndArcLoadWaveArc</CODE></h3>
+<p>Described differences in behavior when the individual load option for waveform archives is enabled versus disabled.
+</p>
+<h3 id="note_83-S04">Note 83-S04: (SoundPlayer) Added NAND SoundPlayer</h3>
+<p>Added <CODE>NANDSoundPlayer.tad</CODE>, which can import SoundPlayer into the NAND memory of TWL development system or IS-TWL-DEBUGGER. When you run the imported NAND SoundPlayer, the first SDAT file found in the root folder of the SD Card is automatically loaded.
+</p>
+<p>For more information, see section 9.10 NAND SoundPlayer in the <I>Sound Designer Guide</I>.
+</p>
+<h3 id="note_83-S05">Note 83-S05: (SoundPlayer) Added switching of I2S frequency</h3>
+<p>The I2S frequency can now be switched when the program is run on TWL or IS-TWL-DEBUGGER.
+</p>
+<p>For more information, see section 9.4.5 I2S Frequency in the <I>Sound Designer Guide</I>.
+</p>
+<h3 id="note_83-S06">Note 83-S06: (SoundPlayer) Fixed a streaming playback bug</h3>
+<p>Formerly, when <CODE>SoundPlayer.srl</CODE> was started on IS-TWL-DEBUGGER or TWL development system and used to play streaming sound, the program ran out of control. This bug has been fixed.
+</p>
+<h3 id="note_83-C01">Note 83-C01: (Library) Added functions to perform end processing</h3>
+<p>Added a function that performs the next end process. Calling the end process causes the work memory that was allocated during initialization to be freed.
+</p>
+<h3 id="note_83-C02">Note 83-C02: (Library) Added support for builds in environments where the IS-TWL-DEBUGGER software is not installed</h3>
+<p>It is now possible to build even in environments where the IS-TWL-DEBUGGER software is not installed.
+</p>
+<p>However, the communication features do not function when SRL files built in such an environment are run on the IS-TWL-DEBUGGER hardware.
+</p>
+<h3 id="note_83-C03">Note 83-C03: (Library) TWL-SDK initialization function calls when running the IS-TWL-DEBUGGER hardware</h3>
+<p>When running on IS-TWL-DEBUGGER hardware, the <CODE>OS_InitTick</CODE> and <CODE>OS_InitAlarm</CODE> functions are now called by the <CODE>NNS_McsInit</CODE> function.
+</p>
+<h3 id="note_83-V01">Note 83-V01: (NITRO-Viewer) Added support for TWL-System libraries (2.2.0 official release)</h3>
+<p>Applied changes made to the TWL-System libraries (2.2.0 official version).
+</p>
+<h3 id="note_83-P01">Note 83-P01: Added description of using IS-NITRO-DEBUGGER and IS-TWL-MIDI in combination</h3>
+<p>Added description to the <I>NITRO-Player User Manual</I> of how to use IS-NITRO-DEBUGGER and IS-TWL-MIDI in combination.
+</p>
+<h3 id="note_83-H01">Note 83-H01: Ended support for Adobe Photoshop CS</h3>
+<p>Ended support for Adobe Photoshop CS.
+</p>
+<h3 id="note_83-Y01">Note 83-Y01: Ended support for Maya 8.0</h3>
+<p>Ended support for Maya 8.0.
+</p>
+<h3 id="note_83-X01">Note 83-X01: Ended support for 3ds Max 8.0</h3>
+<p>Ended support for 3ds Max 8.0.
+</p>
+
+
+
+<h2 id="subject_knownissues">Known Issues</h2>
+
+<ul style="list-style-type:none;">
+<li><a href="#knownissues_00-F01">[Foundation library] (Converter) Bug related to the archiver's <CODE>ByteOrderMark</CODE></a></li>
+<li><a href="#knownissues_00-R01">[G3D Library] (Library) Limitations on texture block size</a></li>
+<li><a href="#knownissues_00-R02">[G3D Library] (Library) Problem blending Joint animation that includes Scale</a></li>
+<li><a href="#knownissues_00-R03">[G3D Library] (Library) Material transmission bug</a></li>
+<li><a href="#knownissues_00-S01">[NITRO-Composer] (SoundPlayer) NAND SoundPlayer real-time MIDI playback</a></li>
+<li><a href="#knownissues_00-V01">[NITRO-Viewer] 3D Preview</a></li>
+<li><a href="#knownissues_00-P01">[NITRO-Player] Interruption of sounds during stream playback</a></li>
+<li><a href="#knownissues_00-K01">[NITRO-SoundMaker] Problem with instrument regions joining when loaded</a></li>
+</ul>
+<h3 id="knownissues_00-F01">[Foundation library] (Converter) Bug related to the archiver's <CODE>ByteOrderMark</CODE></h3>
+<p>Binary files created by the archiver <CODE>nnsarc</CODE> have a problem: their <CODE>ByteOrderMark</CODE> is stored in reverse of the conventional order.
+</p>
+<p>There would be major conflicts if backward compatibility is lost by correcting this, so at present we have no plans to correct it.
+</p>
+<h3 id="knownissues_00-R01">[G3D Library] (Library) Limitations on texture block size</h3>
+<p>The maximum size of the texture blocks contained in NSBMD and NSBTX files is 524272 bytes. In other words, 16 bytes short of 512 KB. The reason for this is that the size portion inside the VRAM key is a 15-bit field that has been left-shifted 4 bits.
+</p>
+<h3 id="knownissues_00-R02">[G3D Library] (Library) Problem blending Joint animation that includes Scale</h3>
+<p>When blending multiple animations that include scale animations (particularly those with strong Scales) of models that use the Maya SSC (Segment Scale Compensate) or SOFTIMAGE|XSI's Hierarchical Scaling feature, the post-blend scale may be inappropriate. To correct this problem, use the following countermeasures.
+</p>
+<ul><li> Use a model that does not use the Maya SSC or SOFTIMAGE|XSI Hierarchical Scaling features when blending animations that include scale animations.
+</li>
+<li> If doing so is impossible, try to blend the animation that does not have a strong Scale applied.
+</li>
+<li> Uncomment the following line and rebuild the library. However, this method will increase the calculation burden.
+</li>
+</ul>
+<pre>TwlSystem/build/libraries/g3d/src/anm.c, line 31
+//#define FIX_SCALEEX_BLEND_BUG
+</pre>
+<h3 id="knownissues_00-R03">[G3D Library] (Library) Material transmission bug</h3>
+<p>Because there is a bug in the evaluation routines that are meant to prevent retransmission of identical materials, there are unnecessary costs caused by extraneous updating of materials. See related Notes 81-R03 and 82-R01.
+</p>
+<h3 id="knownissues_00-S01">[NITRO-Composer] (SoundPlayer) NAND SoundPlayer real-time MIDI playback</h3>
+<p>Presently, it is not possible to recognize IS-TWL-MIDI from inside the NAND SoundPlayer, so it is not possible to play MIDI in real time on the NAND SoundPlayer. We plan to fix this in the next release of TWL SystemUpdater (versions 1.4 and later).
+</p>
+<h3 id="knownissues_00-V01">[NITRO-Viewer] 3D Preview</h3>
+<ul><li> NITRO-Viewer does not support the specification of ST values in the material texture transformation matrix.
+</li>
+<li> Linear interpolation for fractional frames is not supported for IMA or ITA data. Even if the source animation data is configured with linear interpolation of fractional frames (interpolation = linear), fractional frames are discarded, and only whole frames are played.
+</li>
+</ul>
+<h3 id="knownissues_00-P01">[NITRO-Player] Interruption of sounds during stream playback</h3>
+<p>Stream playback with NITRO-Player is achieved by transferring from the PC the data that is actually loaded in real time from the ROM. Therefore, the sound may be interrupted during stream playback. This phenomenon is most notable when playing back ADPCM data.
+</p>
+<p>Conversely, even if the sound is not interrupted on the NITRO-Player, it does not guarantee that the playback of the sound is not interrupted during the game.
+</p>
+<p>For checking the stream playback, use of SoundPlayer is recommended.
+</p>
+<h3 id="knownissues_00-K01">[NITRO-SoundMaker] Problem with instrument regions joining when loaded</h3>
+<p>Under certain conditions, when the last two regions that are loaded, they are combined into a single region. This problem happens when the following three conditions are all met.
+</p>
+<ul><li>There are more than 9 regions
+</li>
+<li>The last two regions contain the exact same contents
+</li>
+<li>The final region has a width of 1
+</li>
+</ul>
+<p>However, there are no differences in the data, and sounds output before and after the regions have been combined.
+</p>
+
+<h2 id="subject_info">Information about TWL-System</h2>
+
+<p>
+Information regarding Nintendo TWL-System is located in the <CODE>docs</CODE> directory of the TWL-System source tree. Read the following documents first.
+</p>
+
+<ul>
+  
+  <li>Quick Start (<a href="QuickStart.pdf"><CODE>QuickStart.pdf</CODE></a>)</li>
+<p>
+This document explains how to set up TWL-System and the procedures for building the TWL-System library and demo programs.
+</p>
+
+<li>Overviews</li>
+<p>
+These documents provide overviews of TWL-System.
+</p>
+<ul>
+  <li>TWL-System Overview (<a href="Overview/TWL-System-Overview.pdf"><CODE>TWL-System-Overview.pdf</CODE></a>)</li>
+  <li>G2D Library Overview (<a href="Overview/G2D_Overview.pdf"><CODE>G2D_Overview.pdf</CODE></a>)</li>
+  <li>G3D Library Overview (<a href="Overview/G3D_Overview.pdf"><CODE>G3D_Overview.pdf</CODE></a>)</li>
+  <li>NITRO-Composer Overview (<a href="Overview/NITRO_Composer_Overview.pdf"><CODE>NITRO_Composer_Overview.pdf</CODE></a>)</li>
+</ul>
+
+
+<li>Revision Histories</li>
+<p>
+  These documents describe revisions up to the current version.
+</p>
+<ul>
+<li>Overall development environment revision history (<a href="ChangeLog/DevelopmentEnvironment_ChangeLog.html"><CODE>DevelopmentEnvironment_ChangeLog.html</CODE></a>)</li>
+<li>Foundation library revision history (<a href="ChangeLog/Foundation_ChangeLog.html"><CODE>Foundation_ChangeLog.html</CODE></a>)</li>
+<li>GraphicsFoundation library revision history (<a href="ChangeLog/GraphicsFoundation_ChangeLog.html"><CODE>GraphicsFoundation_ChangeLog.html</CODE></a>)</li>
+<li>G2D library revision history (<a href="ChangeLog/G2D_ChangeLog.html"><CODE>G2D_ChangeLog.html</CODE></a>)</li>
+<li>G3D library revision history (<a href="ChangeLog/G3D_ChangeLog.html"><CODE>G3D_ChangeLog.html</CODE></a>)</li>
+<li>NITRO-Composer revision history (<a href="ChangeLog/NITRO_Composer_ChangeLog.html"><CODE>NITRO_Composer_ChangeLog.html</CODE></a>)</li>
+<li>Multiple Channel Stream revision history (<a href="ChangeLog/mcs_ChangeLog.html"><CODE>mcs_ChangeLog.html</CODE></a>)</li>
+<li>NITRO-Viewer revision history (<a href="ChangeLog/NITRO_Viewer_ChangeLog.html"><CODE>NITRO_Viewer_ChangeLog.html</CODE></a>)</li>
+<li>NITRO-Player revision history (<a href="ChangeLog/NITRO_Player_ChangeLog.html"><CODE>NITRO_Player_ChangeLog.html</CODE></a>)</li>
+<li>NITRO-SoundMaker revision history (<a href="ChangeLog/NITRO_SoundMaker_ChangeLog.html"><CODE>NITRO_SoundMaker_ChangeLog.html</CODE></a>)</li>
+<li>3D Material Editor revision history (<a href="ChangeLog/3DMaterialEditor_ChangeLog.html"><CODE>3DMaterialEditor_ChangeLog.html</CODE></a>)</li>
+<li>Photoshop Plug-In revision history (<a href="ChangeLog/NITRO_Photoshop_Plugin_ChangeLog.html"><CODE>NITRO_Photoshop_Plugin_ChangeLog.html</CODE></a>)</li>
+<li>Maya Plug-In revision history (<a href="ChangeLog/NITRO_Maya_Plugin_ChangeLog.html"><CODE>NITRO_Maya_Plugin_ChangeLog.html</CODE></a>)</li>
+<li>3ds Max Plug-In revision history (<a href="ChangeLog/NITRO_3dsmax_Plugin_ChangeLog.html"><CODE>NITRO_3dsmax_Plugin_ChangeLog.html</CODE></a>)</li>
+<li>SOFTIMAGE|XSI revision history (<a href="ChangeLog/NITRO_XSI_Plugin_ChangeLog.html"><CODE>NITRO_XSI_Plugin_ChangeLog.html</CODE></a>)</li>
+<li>NITRO Intermediate File Format revision history (<a href="ChangeLog/NITRO_Intermediate_File_Format_ChangeLog.html"><CODE>NITRO_Intermediate_File_Format_ChangeLog.html</CODE></a>)</li>
+
+</ul>
+</ul>
+
+<h2 id="subject_note">Notes</h2>
+
+<h3>Multi-Thread Operation</h3>
+
+<p>
+The TWL-System library is not designed to be fundamentally thread-safe (in a form that supports multi-threading). Consequently, calling a function from the TWL-System library from an interrupt handler or a different thread might not work properly.
+</p>
+<p>
+However, the functions of the sound driver (SND) are thread-safe so they can be called from an interrupt handler or a different thread.
+</p>
+
+
+<h3>Using Dividers</h3>
+
+<p>
+The G2D and G3D libraries of TWL-System use dividers. When using TWL-System without backing up or restoring the calculator used for internal processing, there is a chance that the calculation result of the interrupt source will be destroyed.
+</p>
+<p>
+When using TWL-System for interrupt processing, be sure to back up or restore the status of any divider used inside an interrupt with the <CODE>CP_SaveContext</CODE> and <CODE>CP_RestoreContext</CODE> functions from the TWL-SDK.
+</p>
+
+<h3>Image Data and Music Data in Samples</h3>
+
+<p>
+Copyrights for the image data and music data used in the demo and sample programs included in this package are the property of Nintendo. This data may only be used in the demo and sample programs of this package, and may not be used in any other programs.
+</p>
+
+
+<h3>Font Licenses</h3>
+
+<p>
+Nintendo TWL-System includes the font converter <CODE>fontcvtr</CODE>. By using <CODE>fontcvtr</CODE>, you can convert any font installed on a PC to a form that the Nintendo DS system can use. However, to sell software that uses these fonts, you must get licenses for them. You need to get licenses for each game software title. <CODE>fontcvtr</CODE> and TWL-System do not come with licenses for the LC font or any other font.
+</p>
+
+
+<h3>Plug-Ins for the 3D CG tools and Photoshop</h3>
+
+<p>
+The plug-ins for the 3D CG tools and for Photoshop that are included in TWL-System can also be used with NITRO-System.
+</p>
+
+<p>
+Note that the plug-ins appear as NITRO-System in the various applications.
+</p>
+
+
+<h3>About Xerces-C++</h3>
+<p>
+	This package contains software developed by the Apache Software Foundation (<A href="http://www.apache.org/" target="_new">http://www.apache.org/</A>). Copies of the Xerces-C++ NOTICE file and license file are located in the following directories.
+</p>
+<ul>
+	<li><a href="./Xerces-C++/NOTICE"><CODE>TwlSystem/docs/Xerces-C++/NOTICE</CODE></a>
+	<li><a href="./Xerces-C++/LICENSE"><CODE>TwlSystem/docs/Xerces-C++/LICENSE</CODE></a>
+</ul>
+
+<div class="licence" style="width:64em">
+<pre>
+
+                                 Apache License
+                           Version 2.0, January 2004
+                        http://www.apache.org/licenses/
+
+   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
+
+   1. Definitions.
+
+      &quot;License&quot; shall mean the terms and conditions for use, reproduction,
+      and distribution as defined by Sections 1 through 9 of this document.
+
+      &quot;Licensor&quot; shall mean the copyright owner or entity authorized by
+      the copyright owner that is granting the License.
+
+      &quot;Legal Entity&quot; shall mean the union of the acting entity and all
+      other entities that control, are controlled by, or are under common
+      control with that entity. For the purposes of this definition,
+      &quot;control&quot; means (i) the power, direct or indirect, to cause the
+      direction or management of such entity, whether by contract or
+      otherwise, or (ii) ownership of fifty percent (50%) or more of the
+      outstanding shares, or (iii) beneficial ownership of such entity.
+
+      &quot;You&quot; (or &quot;Your&quot;) shall mean an individual or Legal Entity
+      exercising permissions granted by this License.
+
+      &quot;Source&quot; form shall mean the preferred form for making modifications,
+      including but not limited to software source code, documentation
+      source, and configuration files.
+
+      &quot;Object&quot; form shall mean any form resulting from mechanical
+      transformation or translation of a Source form, including but
+      not limited to compiled object code, generated documentation,
+      and conversions to other media types.
+
+      &quot;Work&quot; shall mean the work of authorship, whether in Source or
+      Object form, made available under the License, as indicated by a
+      copyright notice that is included in or attached to the work
+      (an example is provided in the Appendix below).
+
+      &quot;Derivative Works&quot; shall mean any work, whether in Source or Object
+      form, that is based on (or derived from) the Work and for which the
+      editorial revisions, annotations, elaborations, or other modifications
+      represent, as a whole, an original work of authorship. For the purposes
+      of this License, Derivative Works shall not include works that remain
+      separable from, or merely link (or bind by name) to the interfaces of,
+      the Work and Derivative Works thereof.
+
+      &quot;Contribution&quot; shall mean any work of authorship, including
+      the original version of the Work and any modifications or additions
+      to that Work or Derivative Works thereof, that is intentionally
+      submitted to Licensor for inclusion in the Work by the copyright owner
+      or by an individual or Legal Entity authorized to submit on behalf of
+      the copyright owner. For the purposes of this definition, &quot;submitted&quot;
+      means any form of electronic, verbal, or written communication sent
+      to the Licensor or its representatives, including but not limited to
+      communication on electronic mailing lists, source code control systems,
+      and issue tracking systems that are managed by, or on behalf of, the
+      Licensor for the purpose of discussing and improving the Work, but
+      excluding communication that is conspicuously marked or otherwise
+      designated in writing by the copyright owner as &quot;Not a Contribution.&quot;
+
+      &quot;Contributor&quot; shall mean Licensor and any individual or Legal Entity
+      on behalf of whom a Contribution has been received by Licensor and
+      subsequently incorporated within the Work.
+
+   2. Grant of Copyright License. Subject to the terms and conditions of
+      this License, each Contributor hereby grants to You a perpetual,
+      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+      copyright license to reproduce, prepare Derivative Works of,
+      publicly display, publicly perform, sublicense, and distribute the
+      Work and such Derivative Works in Source or Object form.
+
+   3. Grant of Patent License. Subject to the terms and conditions of
+      this License, each Contributor hereby grants to You a perpetual,
+      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+      (except as stated in this section) patent license to make, have made,
+      use, offer to sell, sell, import, and otherwise transfer the Work,
+      where such license applies only to those patent claims licensable
+      by such Contributor that are necessarily infringed by their
+      Contribution(s) alone or by combination of their Contribution(s)
+      with the Work to which such Contribution(s) was submitted. If You
+      institute patent litigation against any entity (including a
+      cross-claim or counterclaim in a lawsuit) alleging that the Work
+      or a Contribution incorporated within the Work constitutes direct
+      or contributory patent infringement, then any patent licenses
+      granted to You under this License for that Work shall terminate
+      as of the date such litigation is filed.
+
+   4. Redistribution. You may reproduce and distribute copies of the
+      Work or Derivative Works thereof in any medium, with or without
+      modifications, and in Source or Object form, provided that You
+      meet the following conditions:
+
+      (a) You must give any other recipients of the Work or
+          Derivative Works a copy of this License; and
+
+      (b) You must cause any modified files to carry prominent notices
+          stating that You changed the files; and
+
+      (c) You must retain, in the Source form of any Derivative Works
+          that You distribute, all copyright, patent, trademark, and
+          attribution notices from the Source form of the Work,
+          excluding those notices that do not pertain to any part of
+          the Derivative Works; and
+
+      (d) If the Work includes a &quot;NOTICE&quot; text file as part of its
+          distribution, then any Derivative Works that You distribute must
+          include a readable copy of the attribution notices contained
+          within such NOTICE file, excluding those notices that do not
+          pertain to any part of the Derivative Works, in at least one
+          of the following places: within a NOTICE text file distributed
+          as part of the Derivative Works; within the Source form or
+          documentation, if provided along with the Derivative Works; or,
+          within a display generated by the Derivative Works, if and
+          wherever such third-party notices normally appear. The contents
+          of the NOTICE file are for informational purposes only and
+          do not modify the License. You may add Your own attribution
+          notices within Derivative Works that You distribute, alongside
+          or as an addendum to the NOTICE text from the Work, provided
+          that such additional attribution notices cannot be construed
+          as modifying the License.
+
+      You may add Your own copyright statement to Your modifications and
+      may provide additional or different license terms and conditions
+      for use, reproduction, or distribution of Your modifications, or
+      for any such Derivative Works as a whole, provided Your use,
+      reproduction, and distribution of the Work otherwise complies with
+      the conditions stated in this License.
+
+   5. Submission of Contributions. Unless You explicitly state otherwise,
+      any Contribution intentionally submitted for inclusion in the Work
+      by You to the Licensor shall be under the terms and conditions of
+      this License, without any additional terms or conditions.
+      Notwithstanding the above, nothing herein shall supersede or modify
+      the terms of any separate license agreement you may have executed
+      with Licensor regarding such Contributions.
+
+   6. Trademarks. This License does not grant permission to use the trade
+      names, trademarks, service marks, or product names of the Licensor,
+      except as required for reasonable and customary use in describing the
+      origin of the Work and reproducing the content of the NOTICE file.
+
+   7. Disclaimer of Warranty. Unless required by applicable law or
+      agreed to in writing, Licensor provides the Work (and each
+      Contributor provides its Contributions) on an &quot;AS IS&quot; BASIS,
+      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+      implied, including, without limitation, any warranties or conditions
+      of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A
+      PARTICULAR PURPOSE. You are solely responsible for determining the
+      appropriateness of using or redistributing the Work and assume any
+      risks associated with Your exercise of permissions under this License.
+
+   8. Limitation of Liability. In no event and under no legal theory,
+      whether in tort (including negligence), contract, or otherwise,
+      unless required by applicable law (such as deliberate and grossly
+      negligent acts) or agreed to in writing, shall any Contributor be
+      liable to You for damages, including any direct, indirect, special,
+      incidental, or consequential damages of any character arising as a
+      result of this License or out of the use or inability to use the
+      Work (including but not limited to damages for loss of goodwill,
+      work stoppage, computer failure or malfunction, or any and all
+      other commercial damages or losses), even if such Contributor
+      has been advised of the possibility of such damages.
+
+   9. Accepting Warranty or Additional Liability. While redistributing
+      the Work or Derivative Works thereof, You may choose to offer,
+      and charge a fee for, acceptance of support, warranty, indemnity,
+      or other liability obligations and/or rights consistent with this
+      License. However, in accepting such obligations, You may act only
+      on Your own behalf and on Your sole responsibility, not on behalf
+      of any other Contributor, and only if You agree to indemnify,
+      defend, and hold each Contributor harmless for any liability
+      incurred by, or claims asserted against, such Contributor by reason
+      of your accepting any such warranty or additional liability.
+
+   END OF TERMS AND CONDITIONS
+
+   APPENDIX: How to apply the Apache License to your work.
+
+      To apply the Apache License to your work, attach the following
+      boilerplate notice, with the fields enclosed by brackets &quot;[]&quot;
+      replaced with your own identifying information. (Don't include
+      the brackets!) The text should be enclosed in the appropriate
+      comment syntax for the file format. We also recommend that a
+      file or class name and description of purpose be included on the
+      same &quot;printed page&quot; as the copyright notice for easier
+      identification within third-party archives.
+
+   Copyright [yyyy] [name of copyright owner]
+
+   Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+</pre>
+</div>
+
+<div class="licence" style="width:27em">
+<pre>
+&copy; 2005-2009 Nintendo
+&copy; 2005-2009 HAL Laboratory, Inc.
+  
+The content of this document cannot be duplicated, copied, 
+reprinted, transferred, distributed, or loaned in whole or 
+in part without the prior approval of Nintendo.
+</pre>
+</div>
+
+<hr><p>CONFIDENTIAL</p></body>
+</html>

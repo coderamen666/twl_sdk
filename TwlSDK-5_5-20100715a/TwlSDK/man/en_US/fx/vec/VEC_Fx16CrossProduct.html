@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 8.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>VEC_Fx16CrossProduct</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">VEC_Fx16CrossProduct <img src="../../image/NTR.gif"align="middle"><img src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+
+<dl>
+  <dd>
+<PRE><CODE>#include &lt;nitro/fx/fx_vec.h&gt;
+
+void VEC_Fx16CrossProduct(
+    const VecFx16 * a,
+    const VecFx16 * b,
+    VecFx16 * axb
+);</CODE></PRE>
+  </dd>
+</dl><h2>Arguments</h2>
+
+<table border="1" width="100%">
+  
+    
+    
+    <TR>
+<TD width="176"><SPAN class="argument">a</SPAN></TD>
+<TD width="670">Pointer to a vector.</TD>
+    </TR>
+    <TR>
+<TD><SPAN class="argument">b</SPAN></TD>
+<TD>Pointer to a vector.</TD>
+    </TR>
+    <TR>
+<TD><SPAN class="argument">axb</SPAN></TD>
+<TD>Pointer to the location where the cross product of vector <SPAN class="argument">a</SPAN> and vector <SPAN class="argument">b</SPAN> is stored.</TD>
+    </TR>
+  </table>
+<h2>Return Values</h2>
+<p>None.</p>
+<H2>Description</H2>
+<P>Finds the cross product of <A href="VecFx16.html"><CODE>VecFx16</CODE></A>-type vectors. The result is stored in <SPAN class="argument">*axb</SPAN>. The pointers <SPAN class="argument">*a</SPAN>, <SPAN class="argument">*b</SPAN>, and <SPAN class="argument">*axb</SPAN> can be pointers to the same vector.</P>
+
+<h2>See Also</h2>
+<P><A href="VecFx16.html"><code>VecFx16</code></A><BR> <A href="VEC_Fx16DotProduct.html"><code>VEC_Fx16DotProduct</code></A></P>
+<H2>Revision History</H2>
+<P>2004/02/16 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

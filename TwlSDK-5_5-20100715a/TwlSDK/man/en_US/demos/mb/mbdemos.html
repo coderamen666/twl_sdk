@@ -1,0 +1,115 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 8.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<LINK rel="stylesheet" type="text/css" href="../../css/nitro.css">
+<TITLE>MB Demos</TITLE>
+</HEAD>
+<BODY>
+<H1>Multiboot Library (MB) Sample Demos</H1>
+<H2>Location</H2>
+<P><CODE>$TwlSDK/build/demos/mb</CODE></P>
+<H2>Compilation</H2>
+<P>Move to the <CODE>$TwlSDK/build/demos/mb</CODE> directory and enter the following.</P>
+<BLOCKQUOTE><CODE>% make</CODE></BLOCKQUOTE>
+<P>&nbsp;The compilation will begin, and the SRL executable file and the NEF or TEF files having binary information will be generated in <CODE>$TwlSDK/build/demos/fs/(sample name)/bin/(platform)/(target)/</CODE>.</P>
+<BLOCKQUOTE><CODE>$TwlSDK/build/demos/mb/(sample name)/bin/(platform)/(target)/</CODE></BLOCKQUOTE>
+<P>&nbsp;For example:</P>
+<BLOCKQUOTE><CODE>$TwlSDK/build/demos/mb/multiboot/bin/ARM9-TS/Release/main.srl</CODE></BLOCKQUOTE>
+<P>is the executable file for the <CODE>multiboot</CODE> demo.</P>
+
+
+<H2>Execution</H2>
+<H3>For NITRO ROMs:</H3>
+
+<P>If using IS-NITRO-DEBUGGER:</P>
+<UL>
+<LI>Load and execute an NLF file with IS-NITRO-DEBUGGER
+<LI>Execute an SRL file with IS-NITRO-DEBUGGER
+<LI>Execute an SRL file with IS-NITRO-DEBUGGER using the <CODE>loadrun.exe</CODE> tool from a command line
+</UL>
+<P>If using IS-TWL-DEBUGGER:</P>
+<UL>
+<LI>Load and execute an NLF file with IS-TWL-DEBUGGER
+<LI>Execute an SRL file with IS-TWL-DEBUGGER
+<LI>Execute an SRL file with IS-TWL-DEBUGGER using the <CODE>loadrun.TWL.exe</CODE> tool from a command line
+</UL>
+<H3>For TWL/NITRO Hybrid ROMs</H3>
+<P>If using IS-NITRO-DEBUGGER:</P>
+<UL>
+<LI>Execute an SRL file with IS-NITRO-DEBUGGER
+<LI>Execute an SRL file with IS-NITRO-DEBUGGER using the <CODE>loadrun.exe</CODE> tool from a command line
+</UL>
+<P>If using IS-TWL-DEBUGGER:</P>
+<UL>
+<LI>Load and execute a TLF file with IS-TWL-DEBUGGER
+<LI>Execute an SRL file with IS-TWL-DEBUGGER
+<LI>Execute an SRL file with IS-TWL-DEBUGGER using the <CODE>loadrun.TWL.exe</CODE> tool from a command line
+</UL>
+<H3>For TWL Limited ROMs</H3>
+<P>If using IS-TWL-DEBUGGER:</P>
+<UL>
+<LI>Load and execute a TLF file with IS-TWL-DEBUGGER
+<LI>Execute an SRL file with IS-TWL-DEBUGGER
+<LI>Execute an SRL file with IS-TWL-DEBUGGER using the <CODE>loadrun.TWL.exe</CODE> tool from a command line
+</UL>
+<P><FONT color="#ff0000">The MB library samples use multiboot functions, so you will need a number of development machines, all with the same communications environment (wireless or wired). <BR> Because the <A href="../../romfiles/mb_child.html"><CODE>mb_child_[NITRO/TWL].srl</CODE></A> programs in the <code>$TwlSDK/bin/ARM9-TS/Rom</code> directory are samples providing features equivalent to a multiboot child on a production system, load the binary to the other machines using the same method used for the sample program and execute them together.<br><br>Depending on the options set for IS-NITRO-DEBUGGER, a dialog box containing the message &quot;The transfer destination address on the ARM9 Processor is incorrect&quot; appears when <A href="../../romfiles/mb_child.html"><CODE>mb_child_[NITRO/TWL].srl</CODE></A> is loaded. Select <B>NO</B> to proceed with loading. <br>To read about the differences in behavior between <CODE>mb_child_NITRO.srl</CODE> and <CODE>mb_child_TWL.srl</CODE>, see the reference for <A href="../../romfiles/mb_child.html"><CODE>mb_child_[NITRO/TWL].srl</CODE></A>.</FONT></P>
+
+<H2>Description</H2>
+<TABLE width="720">
+  <TBODY>
+    <TR>
+<TH>Name</TH>
+<TH>Directories</TH>
+<TH>Operation</TH>
+    </TR>
+    <TR>
+<TD width="187"><CODE>multiboot</CODE></TD>
+<TD><CODE>demos</CODE></TD>
+<TD width="525">This simple sample downloads the program file from the multiboot parent to the child.<br />Opens two program files and downloads to an unspecified connected child.<br />After the download, press the START button on the parent to boot the child that has completed the download.</TD>
+    </TR>
+    <TR>
+<TD width="187"><CODE>multiboot-Model</CODE></TD>
+<TD><CODE>demos</CODE></TD>
+<TD width="525">This sample shows the procedure of a multiboot parent downloading a program file to a child, and sharing data with the downloaded program.
+    </TR>
+    <TR>
+<TD width="187"><CODE>cloneboot</CODE></TD>
+<TD><CODE>demos</CODE></TD>
+<TD width="525">This sample downloads the parent's program to a child. This is called <I>clone booting</I>. The program structure is the same as the <CODE>multiboot-Model</CODE> sample model.</TD>
+    </TR>
+    <TR>
+<TD width="187"><CODE>fake_child</CODE></TD>
+<TD><CODE>demos</CODE></TD>
+<TD>This sample makes an entrance with the multiboot parent as a pseudo-multiboot child. This sample sets the same GGID as used in the multiboot-Model sample, allowing it to fake an entry as a multiboot child.</TD>
+    </TR>
+    <TR>
+<TD width="187"><CODE>mb</CODE></TD>
+<TD><CODE>demos</CODE></TD>
+<TD width="525">This demo uses the <a href="../../wm/wm/WM_MeasureChannel.html"><CODE>WM_MeasureChannel</CODE></a> function to measure the wireless signal use rate.</TD>
+    </TR>
+    <TR>
+<TD width="187"><CODE>multiboot-PowerSave</CODE></TD>
+<TD><CODE>demos</CODE></TD>
+<TD width="525">This simple demo explicitly changes the power save mode and starts the machine as a multiboot parent.<br>Identical to the multiboot demo, except that all settings are fixed as default settings aside from power-save mode. <font color="red">Power-save mode is enabled by default, so normal programs do not need to explicitly set this feature. For details, see the description of the <a href="../../mb/parent/MB_SetPowerSaveMode.html"><CODE>MB_SetPowerSaveMode</CODE></a> function.</font></TD>
+    </TR>
+    <TR>
+<TD width="187"><CODE>multiboot-wfs</CODE></TD>
+<TD><CODE>demos</CODE></TD>
+<TD width="525">This sample downloads the program file to the child as the multiboot parent, and the child uses the file system via a wireless connection.<br>It uses the sample module <CODE>$TwlSDK/build/demos/wireless_shared/wfs</CODE>.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>Operation</H2>
+<P>The MB library demo does not work normally on ensata.</P>
+<P><CODE>cloneboot</CODE> operates normally only on NITRO ROMs and hybrid ROMs.</P>
+<H2>See Also</H2>
+<P><A href="../../mb/list_mb.html">MB Function List</A></P>
+<H2>Revision History</H2>
+<P>
+2009/03/02 Added text about <CODE>mb_child_NITRO.srl</CODE> and <CODE>mb_child_TWL.srl</CODE>.<BR> 2008/12/16 Revised the description of the operating environment for the <CODE>multiboot-Model</CODE> and <CODE>cloneboot</CODE> samples.<BR> 2008/07/11 Changed notation to correspond to TWL.<BR> 2005/06/23 Added a description of the <CODE>multiboot-wfs</CODE> sample.<BR>2005/05/10 Added explanation of <CODE>mbm</CODE> demo.<br />2005/04/28 Added <CODE>multiboot-PowerSave</CODE> demo.<br /> 2004/11/16 Added <CODE>cloneboot</CODE> sample.<br /> 2004/10/06 Corrected the lack of description regarding <CODE>multiboot-Model</CODE> sample.<br /> 2004/09/13 Added caution for loading <code>mb_child.srl</code>.<br /> 2004/08/17 Clarified the execution instructions and the multiboot description.<br /> 2004/08/10 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

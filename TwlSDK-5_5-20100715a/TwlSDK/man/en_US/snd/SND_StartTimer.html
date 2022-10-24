@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"><html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>SND_StartTimer</title>
+<link rel="stylesheet" href="../css/nitro.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.65.1">
+</head>
+<body>
+<div class="refentry" lang="ja"><a name="IDAFLWT"></a><div class="titlepage">
+<div></div>
+<div></div>
+</div>
+<h1>SND_StartTimer <IMG src="../image/NTR.gif" width="24" height="12" border="0" align=middle><IMG src="../image/TWL.gif" width="24" height="12" border="0" align=middle></h1>
+<h2>Syntax</h2>
+<dl>
+<dd><pre class="funcsynopsisinfo"><code>#include &lt;nitro/snd.h&gt;</code></pre></dd>
+<dd><pre class="funcprototype"><code class="funcprototype">void SND_StartTimer(
+        u32 <var>chBitMask</var>,
+        u32 <var>capBitMask</var>,
+        u32 <var>alarmBitMask</var>,
+        u32 <var>flags</var> );</code><br></pre></dd>
+</dl>
+<div class="refsection" lang="ja"><a name="IDAGNWT"></a>
+      <h2>Arguments</h2>
+      
+      <div class="variablelist">
+<table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><em><strong><code>chBitMask</code></strong></em></td>
+<td>The channel bit mask. It specifies which channels to control.</td>
+</tr>
+<tr>
+<td><em><strong><code>capBitMask</code></strong></em></td>
+<td>The capture bit mask. It specifies which captures to control.</td>
+</tr>
+<tr>
+<td><em><strong><code>alarmBitMask</code></strong></em></td>
+<td>The alarm bit mask. It specifies which Sound alarms to control.</td>
+</tr>
+<tr>
+<td><em><strong><code>flags</code></strong></em></td>
+<td>Option flags. At the current time the flags are not used, so 0 is entered here.</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+    </div>
+<div class="refsection" lang="ja"><a name="IDAKOWT"></a>
+      <h2>Return Values</h2>
+
+      <p>None.</p>
+    </div>
+<div class="refsection" lang="ja"><a name="IDAROWT"></a>
+      <h2>Description</h2>
+      <p>
+Starts timers.
+</p>
+      <p>
+By specifying numerous channels, captures and alarms all at once, you can start them all with the same timing. The order is: channel -&gt; capture -&gt; alarm. The individual channels, captures, and alarms must have already been set up using the <tt class="function"><a href="SND_SetupChannelPcm.html">SND_SetupChannelPcm</a></tt>, <tt class="function"><a href="SND_SetupCapture.html">SND_SetupCapture</a></tt>, and <tt class="function"><a href="SND_SetupAlarm.html">SND_SetupAlarm</a></tt> functions.
+</p>
+      <p>
+The channel bit mask <code>chBitMask</code> specifies which channels to control. The channels are represented in order, with the lowest bit representing channel 0. Only channels whose representative bits are standing are controlled.
+</p>
+      <p>
+The capture bit mask <code>capBitMask</code> specifies which captures to control. <code>SND_CAPTURE_0</code> would be ( 1 &lt;&lt; <code>SND_CAPTURE_0</code> ), while <code>SND_CAPTURE_1</code> would be ( 1 &lt;&lt; <code>SND_CAPTURE_1</code> ). Enter with a logical OR to specify both.
+</p>
+      <p>
+The Sound alarm bit mask <code>alarmBitMask</code> specifies which Sound alarms to control. The alarms are represented in order, with the lowest bit representing alarm 0. Only alarms whose representative bits are standing are controlled.
+</p>
+      <div class="note">
+<h3 class="title">Note</h3>
+<p>
+This function is an ARM7 reserved function. After this function is called, its processing will occur only after the command is issued with the <tt class="function"><a href="SND_FlushCommand.html">SND_FlushCommand</a></tt> function.
+</p>
+<p>
+If program execution must be synchronized with process completion, first use the <tt class="function"><a href="SND_GetCurrentCommandTag.html">SND_GetCurrentCommandTag</a></tt> function to obtain the command tag immediately after calling this function. Then, after the command is issued, use the command tag and call either the <tt class="function"><a href="SND_IsFinishedCommandTag.html">SND_IsFinishedCommandTag</a></tt> or <tt class="function"><a href="SND_WaitForCommandProc.html">SND_WaitForCommandProc</a></tt> function to confirm that processing has finished or to wait for it to complete.
+</p>
+</div>
+    </div>
+<h2>See Also</h2>
+<p><code><a href="SND_SetupChannelPcm.html">SND_SetupChannelPcm</a>, <a href="SND_SetupCapture.html">SND_SetupCapture</a>, <a href="SND_SetupAlarm.html">SND_SetupAlarm</a>, <a href="SND_FlushCommand.html">SND_FlushCommand</a>, <a href="SND_GetCurrentCommandTag.html">SND_GetCurrentCommandTag</a>, <a href="SND_IsFinishedCommandTag.html">SND_IsFinishedCommandTag</a>, <a href="SND_WaitForCommandProc.html">SND_WaitForCommandProc</a></code></p>
+<h2>Revision History</h2>
+<p>
+2005/02/17 Added a note about ARM7 command processing. <br>2004/07/20 Initial version.
+</p>
+</div>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

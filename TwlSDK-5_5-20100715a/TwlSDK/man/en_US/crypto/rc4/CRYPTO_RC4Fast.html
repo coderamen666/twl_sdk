@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>CRYPTO_RC4Fast</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">CRYPTO_RC4Fast <IMG src="../../image/NTR.gif" width="23" height="12" border="0" align="middle"><IMG src="../../image/TWL.gif" width="23" height="12" border="0" align="middle"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+  <pre><CODE>#include &lt;nitro/crypto.h&gt;
+
+void CRYPTO_RC4Fast(const void* key, u32 key_len, void* data, u32 data_len);
+</CODE></pre>
+</dd>
+</dl>
+
+<h2>Arguments</h2>
+<TABLE border="1" width="100%" class="arguments">
+  <TBODY>
+    <TR>
+      <TH>key</TH>
+      <TD>Pointer to the byte sequence for the encryption/decryption key used with the RC4 algorithm.</TD>
+    </TR>
+    <TR>
+      <TH>key_len</TH>
+      <TD>Length of the key specified by <EM><STRONG><CODE>key</CODE></STRONG></EM>. The length of the key must be 16 bytes or less; longer lengths are truncated to 16 bytes.</TD>
+    </TR>
+    <TR>
+      <TH>data</TH>
+      <TD>Pointer to the target data to encrypt/decrypt with the RC4 algorithm.</TD>
+    </TR>
+    <TR>
+      <TH>data_len</TH>
+      <TD>Specifies the length of the data specified by <EM><STRONG><CODE>data</CODE></STRONG></EM>.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<h2>Return Values</h2>
+<p>
+None.
+</p>
+
+<H2>Description</H2>
+<P>
+	Performs encryption/decryption using the RC4 shared key encryption algorithm. The same function is used for both encryption and decryption in the RC4 algorithm.<BR>
+	Data stored within the data argument is directly processed and overwritten with the converted results.<BR>
+	This function is defined as an inline function that calls the <code><a href="CRYPTO_RC4FastInit.html">CRYPTO_RC4FastInit</a></code> and <code><a href="CRYPTO_RC4FastEncrypt.html">CRYPTO_RC4FastEncrypt</a></code> functions sequentially.
+</P>
+<P>
+	The <code><a href="CRYPTO_RC4.html">CRYPTO_RC4</a></code> and <code>CRYPTO_RC4Fast</code> functions are the same, except that the <CODE>CRYPTO_RC4Fast</CODE> function is faster and requires more stack memory.<BR>
+	The <code><a href="CRYPTO_RC4.html">CRYPTO_RC4</a></code> function gets the <code>CRYPTORC4Context</code> structure from the stack, which requires a minimum of 260 bytes.<BR>
+	The <code>CRYPTO_RC4Fast</code> function gets the <code>CRYPTORC4FastContext</code> structure, which requires a minimum of 1032 bytes from the stack.<BR>
+	With regard to speed, <code>CRYPTO_RC4Fast</code> processes data at approximately 1.5 times the normal speed when the data is sufficiently large in size.<BR>
+</P>
+<P>
+	For detailed information on using the RC4 algorithm, see <A href="../overview/about_RC4.html">Overview of Encryption Using RC4 Algorithm</A>.
+</P>
+
+<h2>See Also</h2>
+<p><CODE><A href="CRYPTO_RC4FastEncrypt.html">CRYPTO_RC4FastEncrypt</A>, <A href="CRYPTO_RC4FastInit.html">CRYPTO_RC4FastInit</A></CODE></p>
+
+<H2>Revision History</H2>
+<P>
+2008/02/25 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

@@ -1,0 +1,61 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title>FS_WriteFile</title>
+<link rel="stylesheet" href="../../css/nitro.css" type="text/css" />
+</head>
+
+<body>
+
+<h1>FS_WriteFile <img src="../../image/NTR.gif"align="middle"><img src="../../image/TWL.gif" align="middle"></h1>
+<h2>Syntax</h2>
+<pre><code>
+#include &lt;nitro/fs.h&gt;
+s32	FS_WriteFile(<A href="../fs_file_type.html">FSFile</a>* p_file, const void *src, s32 len);
+</code></pre>
+
+<h2>Arguments</h2>
+<table style="width:100%">
+<tbody>
+<tr>
+<td style="width:13%"><em><strong>file</strong></em></td>
+<td style="width:87%"><A href="../fs_file_type.html">FSFile</a> structure that indicates an opened file.</td>
+</tr>
+<tr>
+<td style="width:13%"><em><strong>src</strong></em></td>
+<td style="width:87%">Transfer source buffer<br />There is no need to store the cache in advance.</td>
+</tr>
+<tr>
+<td style="width:13%"><em><strong>len</strong></em></td>
+<td style="width:87%">Byte length of data to be written.</td>
+</tr>
+</tbody>
+</table>
+
+<h2>Return Values</h2>
+<p>Returns the number of bytes if the data was written properly. If not, returns <code>-1</code>.</p>
+
+<h2>Description</h2>
+<p>This function writes data of the specified size beginning at the current location of the file pointer.</p>
+<p>
+If the specified size exceeds the end of the file, the size is automatically increased for the SD memory card archive and NAND archive.<br />For other standard archives, writes to the end and returns that size without increasing the size.
+</p>
+
+<h2>Note</h2>
+<ul style="color:Red">
+<li>This function puts the thread to sleep to wait for the process to complete. As a result, it cannot be called from the interrupt handler (IRQ mode).</li>
+<li>In some cases, processing may not end if interrupts are left prohibited.</li>
+</ul>
+
+<h2>See Also</h2>
+<p><code> <a href="FS_CloseFile.html">FS_CloseFile</a><BR> <a href="../fs_file_type.html">FSFile</a><BR><a href="FS_GetFileLength.html">FS_GetFileLength</a><BR> <a href="FS_OpenFileEx.html">FS_OpenFileEx</a><BR> <a href="FS_OpenFileFast.html">FS_OpenFileFast</a><BR> <a href="FS_SeekFile.html">FS_SeekFile</a><BR> <a href="FS_SeekFileToBegin.html">FS_SeekFileToBegin</a><BR> <a href="FS_SeekFileToEnd.html">FS_SeekFileToEnd</a></code></p>
+
+<h2>Revision History</h2>
+<p>
+2010/01/14 Revised the archives whose size can be increased automatically.<br />2009/12/11Revised the archives whose size can be increased automatically.<br /><br />2009/12/01 Clarified which archives can be automatically increased in size<br />2008/10/02 Updated part of the <B>See Also</B> list.<br />2008/02/27 Explained that cache storage of write data is unnecessary.<br />2004/09/24 Added the description in the Caution section regarding the conditions for calling this function.<br /> 2004/07/13 Initial version.
+</p>
+
+<hr><p>CONFIDENTIAL</p></body>
+</html>

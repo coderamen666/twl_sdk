@@ -1,0 +1,123 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>OS_GetOpt</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">OS_GetOpt* <IMG src="../../image/NTR.gif" align="middle"><IMG src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+<DL>
+  <DD>
+  <PRE><CODE>#include &lt;nitro/os.h&gt;</CODE>
+
+<CODE>int         OS_GetOpt( const char* optstring );</CODE>
+<CODE>int         OS_GetOptInd( void );</CODE>
+<CODE>const char *OS_GetOptArg( void );</CODE>
+<CODE>int         OS_GetOptOpt( void );</CODE></PRE>
+</DL>
+<H2>Arguments</H2>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+<TD><CODE>optstring</CODE></TD>
+<TD>String that represents the option characters being accepted.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>Return Values</H2>
+<P>This function returns any discovered command-line option data. (See next section.)</P>
+<H2>Description</H2>
+<P>Analyzes the command-line argument data obtained by the <A href="OS_GetArgc.html"><CODE>OS_GetArgc</CODE></A> and/or <A href="OS_GetArgv.html">OS_GetArgv</A> functions and extracts any data related to options.</P>
+<P>The <CODE>OS_GetOpt</CODE> function assumes the characters in the <CODE>optstring</CODE> string are option identifiers. Each time this function is called, it reads and evaluates command-line arguments one at a time in order, and if the corresponding option is present, it returns that option's identifier character.</P>
+<P>Use the <CODE>OS_GetOptInd</CODE> function to retrieve the index value of the command-line argument currently being read by the <CODE>OS_GetOpt</CODE> function.</P>
+<P> In addition, if one or two colons (<CODE>:</CODE> or <CODE>::</CODE>) are appended to the end of the string within <CODE>optstring</CODE>, it indicates that the option takes an argument. Option argument data can be obtained using the <CODE>OS_GetOptArg</CODE> function.&quot;:&quot;indicates that the option argument is mandatory. A double colon (<CODE>::</CODE>) indicates that the option argument can be omitted. If the option's argument is omitted, <CODE>OS_GetOptArg()</CODE> returns <CODE>NULL</CODE>.</P>
+<P> If there is an option in command line arguments not included in <CODE>optstring</CODE>, and if an option argument required due to the use of  a single colon (<CODE>:</CODE>) is not present, the <CODE>OS_GetOpt</CODE> function returns the question mark (<CODE>?</CODE>) character code. In this situation, use the <CODE>OS_GetOptOpt</CODE> function to get the original command-line option identifier in question.</P>
+<P>The <CODE>OS_GetOpt</CODE> function can be set to act in either of two ways when it discovers a regular command-line argument that is not an option. This behavior changes depending on whether the lead character of <CODE>optstring</CODE> is a hyphen (<CODE>-</CODE>) or some other character.</P>
+<P> By default, the lead character of <CODE>optstring</CODE> is not a hyphen. In this case, the <CODE>OS_GetOpt</CODE> function returns -1 when it finds a regular command-line argument or no more command-line arguments. Argument evaluation ends at this position, and no further arguments are read. The <CODE>OS_GetOptInd</CODE> function returns the index value of this first-encountered regular argument. The <CODE>OS_GetOptArg</CODE> function returns <CODE>NULL</CODE>. By specifying the values in the range between the value returned from <CODE>OS_GetOptInd</CODE> and <CODE>OS_GetArgc()-1</CODE> as indices to the <CODE>OS_GetArgv</CODE> function, the application can access the set of command-line arguments with options removed.</P>
+<P>The following code shows how to do this.</P>
+<BLOCKQUOTE style="background-color:#ffffc0"><pre><CODE>
+BOOL        opt_b = FALSE;
+const char*  opt_s = NULL;
+const char*  opt_t = NULL;
+int          argc  = OS_GetArgc();
+int          c, i;
+
+while ((c = OS_GetOpt(&quot;bs:t::&quot;)) &gt; 0)
+{
+        switch (c)
+        {
+        case 'b': // Switch-type option
+                opt_b = TRUE;
+                break;
+
+        case 's': // The option requires an argument
+                opt_s = OS_GetOptArg();
+                break;
+
+        case 't': // The option does not require an argument
+                opt_t = OS_GetOptArg();
+                break;
+
+        case '?': // Error processing
+        default:
+                OS_Printf(&quot;Error --- option '%c'\n&quot;, OS_GetOptOpt());
+                break;
+        }
+}
+
+// Normal command-line argument
+for (i = OS_GetOptInd(); i &lt; argc; i ++)
+{ 
+        OS_Printf(&quot;ARG[%d]=%s\n&quot;, i, OS_GetArgv(i));
+}
+</CODE>
+</pre></BLOCKQUOTE>
+<P> If the lead character of <CODE>optstring</CODE> is a hyphen (<CODE>-</CODE>), the <CODE>OS_GetOpt</CODE> function returns +1 when a regular command-line argument is found. Because applications can retrieve this argument value using the <CODE>OS_GetOptArg</CODE> function, applications can handle regular arguments as if the <CODE>OS_GetOpt</CODE> function had returned the character code <CODE>1</CODE> option character. Unlike this function's default behavior, the function will continue evaluating arguments after this point, and each time the <CODE>OS_GetOpt</CODE> function is called, the <CODE>OS_GetOptInd</CODE> function's return value will change to to the index of the next argument. Evaluation will continue until there are no more arguments, at which point the <CODE>OS_GetOpt</CODE> function will return -1.</P>
+<P>The following code shows how to do this.</P>
+<blockquote style="background-color:#ffffc0">
+<PRE>
+<code>
+BOOL        opt_b = FALSE;
+const char*  opt_s = NULL;
+const char*  opt_t = NULL;
+int          c;
+
+while ((c = OS_GetOpt(&quot;-bs:t::&quot;)) &gt; 0)
+{
+        switch (c)
+        {
+        case 1: // Normal command-line argument
+                OS_Printf(&quot;ARG=%s\n&quot;, OS_GetOptArg());
+                break;
+
+        case 'b': // Switch-type option
+                opt_b = TRUE;
+                break;
+
+        case 's':// The option requires an argument
+                opt_s = OS_GetOptArg();
+                break;
+
+        case 't':// The option allows the argument to be omitted
+                opt_t = OS_GetOptArg();
+                break;
+
+        case '?': // Error processing
+        default:
+                OS_Printf(&quot;Error --- option '%c'\n&quot;, OS_GetOptOpt());
+                break;
+        }
+}
+</code>
+</PRE>
+</blockquote>
+<H2>See Also</H2>
+<P><A href="OS_GetArgc.html"><CODE>OS_GetArgc</CODE></A><BR> <A href="OS_GetArgv.html"><CODE>OS_GetArgv</CODE></A><BR> <A href="../../tools/buryarg.html"><CODE>buryarg</CODE> Tool</A></P>
+<H2>Revision History</H2>
+<P>2005/09/06 Added a description of how to switch behavior of the function when evaluating arguments.<BR>2005/08/30 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

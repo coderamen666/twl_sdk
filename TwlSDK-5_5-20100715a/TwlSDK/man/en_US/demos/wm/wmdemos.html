@@ -1,0 +1,127 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<LINK rel="stylesheet" type="text/css" href="../../css/nitro.css">
+<TITLE>WM Demos</TITLE>
+</HEAD>
+<BODY>
+<H1>Wireless Manager Sample Demo</H1>
+
+<H2>Location</H2>
+<P><CODE>$TwlSDK/build/demos/wm</CODE></P>
+
+<H2>Compilation</H2>
+<P>Move to the <CODE>$TwlSDK/build/demos/wm</CODE> directory and enter</P>
+<BLOCKQUOTE><CODE>% make</CODE></BLOCKQUOTE>
+<P>&nbsp;Compiling will begin, and the SRL executable file and the NEF or TEF files having binary information will be generated in <CODE>$TwlSDK/build/demos/wm/(sample name)/bin/(platform)/(target)/</CODE>.</P>
+<BLOCKQUOTE></BLOCKQUOTE>
+<P>&nbsp;For example:</P>
+<BLOCKQUOTE><CODE>$TwlSDK/build/demos/wm/mp_simple-1/bin/ARM9-TS/Release/main.srl</CODE></BLOCKQUOTE>
+<P>will be the executable file for the <CODE>mp_simple-1</CODE> demo.</P>
+
+<H2>Execution</H2>
+<H3>For NITRO ROMs</H3>
+
+<P>If using IS-NITRO-DEBUGGER:</P>
+<UL>
+<LI>Load and execute an NLF file with IS-NITRO-DEBUGGER.
+<LI>Execute an SRL file with IS-NITRO-DEBUGGER
+<LI>Execute an SRL file with IS-NITRO-DEBUGGER using the <CODE>loadrun.exe</CODE> tool from a command line.
+</UL>
+<P>If using IS-TWL-DEBUGGER:</P>
+<UL>
+<LI>Load and execute an NLF file with IS-TWL-DEBUGGER
+<LI>Execute an SRL file with IS-TWL-DEBUGGER
+<LI>Execute an SRL file with IS-TWL-DEBUGGER using the <CODE>loadrun.TWL.exe</CODE> tool from a command line
+</UL>
+<H3>For TWL/NITRO Hybrid ROMs</H3>
+<P>If using IS-NITRO-DEBUGGER:</P>
+<UL>
+<LI>Execute an SRL file with IS-NITRO-DEBUGGER
+<LI>Execute an SRL file with IS-NITRO-DEBUGGER using the <CODE>loadrun.exe</CODE> tool from a command line
+</UL>
+<P>If using IS-TWL-DEBUGGER:</P>
+<UL>
+<LI>Load and execute a TLF file with IS-TWL-DEBUGGER
+<LI>Execute an SRL file with IS-TWL-DEBUGGER
+<LI>Execute an SRL file with IS-TWL-DEBUGGER using the <CODE>loadrun.TWL.exe</CODE> tool from a command line
+</UL>
+<H3>For TWL Limited ROMs</H3>
+<P>If using IS-TWL-DEBUGGER:</P>
+<UL>
+<LI>Load and execute a TLF file with IS-TWL-DEBUGGER
+<LI>Execute an SRL file with IS-TWL-DEBUGGER
+<LI>Execute an SRL file with IS-TWL-DEBUGGER using the <CODE>loadrun.TWL.exe</CODE> tool from a command line
+</UL>
+
+<H2>Description</H2>
+
+
+<TABLE width="720">
+  <TBODY>
+    <TR>
+<TH>Name</TH>
+<TH>Directory</TH>
+<TH>Operation</TH>
+    </TR>
+    <TR>
+<TD width="187"><CODE>mp_simple-1</CODE></TD>
+<TD><CODE>demos</CODE></TD>
+<TD width="525">This is a simple feature sample that conducts communications with the MP protocol.</TD>
+    </TR>
+    <TR>
+<TD width="187"><CODE>dataShare-1</CODE></TD>
+<TD><CODE>demos</CODE></TD>
+<TD width="525">This shares the game frame value by using the data sharing feature.</TD>
+    </TR>
+    <TR>
+<TD width="187"><CODE>dataShare-Model</CODE></TD>
+<TD><CODE>demos</CODE></TD>
+<TD width="525">This demo has a large number of notes for the tutorial document.</TD>
+    </TR>
+    <TR>
+<TD width="187"><CODE>wep-1</CODE></TD>
+<TD><CODE>demos</CODE></TD>
+<TD width="525">Demo that uses WEP for connection authentication during DS Multi-Card Play.</TD>
+    </TR>
+    <TR>
+<TD width="187"><CODE>wireless-all</CODE></TD>
+<TD><CODE>demos</CODE></TD>
+<TD width="525">This is a comprehensive sample of DS Multi-Card Play.<br>This sample performs DS download play using the clone boot function of the MB library, and then performs data sharing communications with the distributed child device program. In addition, the connected child device program uses the file system to read data from the parent device's card through the wireless connection. <br><br> This sample uses a combination of the following sample modules.
+<ul>
+<li><CODE>$TwlSDK/build/demos/wireless_shared/wh</CODE></li>
+<li><CODE>$TwlSDK/build/demos/wireless_shared/mbp</CODE></li>
+<li><CODE>$TwlSDK/build/demos/wireless_shared/wfs</CODE></li>
+</ul>
+</TD>
+    </TR>
+    <TR>
+<TD width="187"><CODE>wmPadRead-child</CODE></TD>
+<TD><CODE>demos</CODE></TD>
+<TD width="525">This child program is delivered by the mpldemo/mpdlntr2rvl demo recorded in RevoEX--the development kit for Wii network functions.</TD>
+    </TR>
+    <TR>
+<TD width="187"><CODE>listenOnly</CODE></TD>
+<TD><CODE>demos</CODE></TD>
+<TD width="525">This sample initializes the wireless system in receive-only mode and performs passive scanning without the power LED flashing at variable speed.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<H2>Operation</H2>
+<P>The WM library demos will not work with <CODE>ensata</CODE>.</CODE></P>
+<P>The <CODE>wireless-all</CODE> and <CODE>wmPadRead-child</CODE> demos work only in NTR mode.</P>
+
+<H2>See Also</H2>
+<P><A href="../../wm/list_wm.html">The WM Function List</A></P>
+
+<H2>Revision History</H2>
+<P>
+2008/07/11 Changed descriptions corresponding to TWL.<br> 2007/11/12 Added <CODE>listenOnly</CODE>.<BR> 2007/05/18 Added <CODE>wmPadRead-child</CODE>.<BR> 2006/04/10 Added <CODE>wireless-all</CODE>.<br> 2005/04/01 Added <CODE>wep-1</CODE>.<br /> 2005/03/02 Revised descriptions to reflect current support environment conditions.<br /> 2004/08/17 Initial version.<br>
+</P>
+
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

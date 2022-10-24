@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+	<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+	<META http-equiv="Content-Style-Type" content="text/css">
+	<TITLE>NNS_GfdAllocFrmTexVram</TITLE>
+	<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+
+<BODY>
+
+<H1 align="left">NNS_GfdAllocFrmTexVram</H1>
+
+<H2>Syntax</H2>
+<DL>
+  <DD>
+  <PRE><CODE>#include &lt;nnsys/gfd.h&gt;</CODE></PRE>
+  <PRE><CODE>NNSGfdTexKey NNS_GfdAllocFrmTexVram(u32 szByte, BOOL is4x4comp, u32 opt);</CODE></PRE>
+</DL>
+
+<H2>Arguments</H2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="13%"><CODE>szByte</CODE></TD>
+<TD width="87%">Size of the texture-use memory you want to allocate (16 to 524272 bytes).</TD>
+    </TR>
+    <TR>
+<TD width="13%"><CODE>is4x4comp</CODE></TD>
+<TD width="87%"><CODE>TRUE</CODE> if 4x4 texel compressed texture data is being allocated.</TD>
+    </TR>
+    <TR>
+<TD width="13%"><CODE>opt</CODE></TD>
+<TD width="87%">VRAM Memory Manager options (not used).</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<H2>Return Values</H2>
+<P>The key data showing the texture-use memory.</P>
+
+<H2>Description</H2>
+<P>
+Allocates texture-use memory of the size specified by <code>szByte</code> from VRAM and returns the key showing the texture-use memory. If an error occurs when the texture-use memory is being allocated, the function returns <code>NNS_GFD_ALLOC_ERROR_TEXKEY</code>, which is a key indicating that an error has occurred. The <CODE>opt</CODE> parameter is not used with the <code>NNS_GfdAllocFrmTexVram</code> function.
+</P>
+<P>
+If <CODE>TRUE</CODE> is specified in the <code>is4x4comp</code> argument, texture-use memory is allocated for a 4x4 texel compressed texture. In this case, a region is allocated for the palette index in addition  to a region for the texture image. The <code>NNS_GfdAllocFrmTexVram</code> function is successful only if both a texture image region and palette index region are allocated.<BR><BR> <BR> If there are no empty regions when allocating a region for regular textures, this function attempts to allocate a palette region for 4x4 textures.<BR> If the palette region is used for regular textures, a 4x4 texture region twice as large becomes unusable because allocation of the palette region fails.<BR> Allocating memory for all 4x4 textures first and then for all normal textures can reduce the risk that the palette region will be used by normal textures and allows more efficient memory use.
+</P>
+
+<P>If an allocation request is made for a size below the minimum that can be expressed for the key, the request size is rounded up to the minimum. If an allocation request is made for a size larger than the maximum that can be expressed for the key, the allocation process is not performed, and an error key is returned.<BR></P>
+
+<H2>See Also</H2>
+<P><a href="NNS_GfdInitFrmTexVramManager.html"><CODE>NNS_GfdInitFrmTexVramManager</CODE></a><BR> <a href="NNS_GfdFreeFrmTexVram.html"><CODE>NNS_GfdFreeFrmTexVram</CODE></a></P>
+
+<H2>Revision History</H2>
+<P>2007/08/24 Added a warning explaining the function's internal operations and more efficient use.<BR></P>
+<P>2005/01/31 Added a warning about the size range.<BR></P>
+<P>2004/07/16 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+
+</HTML>

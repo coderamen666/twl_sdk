@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>SVC_CpuClear</TITLE>
+<LINK rel="stylesheet" href="../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">SVC_CpuClear* <IMG src="../image/NTR.gif" align="middle"><IMG src="../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+<DL>
+  <DD>
+  <PRE><CODE>#include &lt;nitro/os/common/systemCall.h&gt;</CODE></PRE>
+  <PRE><CODE>#define SVC_CpuClear( data, destp, size, bit );
+#define SVC_CpuClearArray( data, destp, bit );
+#define SVC_CpuClearFast( data, destp, size );
+#define SVC_CpuClearArrayFast( data, destp );</CODE>
+
+(These are macros.)</PRE>
+</DL>
+<H2>Arguments</H2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="13%"><EM><STRONG>data</STRONG></EM></TD>
+<TD width="87%">Clear data.</TD>
+    </TR>
+    <TR>
+<TD width="13%"><EM><STRONG>destp</STRONG></EM></TD>
+<TD width="87%">Destination address.</TD>
+    </TR>
+    <TR>
+<TD><EM><STRONG>size</STRONG></EM></TD>
+<TD>Number of bytes to transfer.</TD>
+    </TR>
+    <TR>
+<TD><EM><STRONG>bit</STRONG></EM></TD>
+<TD>Transfer bit width (16 or 32).</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>Return Values</H2>
+<P>None.</P>
+<H2>Description</H2>
+<P>Uses system calls to clear memory via the CPU. The <CODE><A href="../mi/memory/MI_CpuClear.html">MI_CpuClear*</A></CODE> functions zero-clear memory; in contrast, the <CODE>SVC_CpuClear*</CODE> functions fill memory with a specified value.</P>
+<P>Because the <code>SVC_CpuClear*</code> functions are macros, if <SPAN class="argument">destp</SPAN> is a pointer, the type is not restricted. The <SPAN class="argument">size</SPAN> is a <CODE>u32</CODE> value. The <SPAN class="argument">bit</SPAN> argument can take only a value of 16 or 32. Specify the data to clear (the memory to fill) in <SPAN class="argument">data</SPAN>. When <SPAN class="argument">bit</SPAN> is 16, specify a <CODE>u16</CODE> value; when <SPAN class="argument">bit</SPAN> is 32, specify a <CODE>u32</CODE> value.</P>
+<P>The difference between these functions and the <CODE><A href="../mi/memory/MI_CpuClear.html">MI_CpuClear*</A></CODE> or <A href="../mi/memory/MI_CpuFill.html"><CODE>MI_CpuFill*</CODE></A> functions is that because the <CODE>SVC_CpuClear*</CODE> functions operate on system ROM, their operating frequency is half what it would be if operating on cache or TCM. However, if cache is enabled, the loop portion of these sets of functions is identical and the only difference becomes the overhead of calling the SVC functions. Also, the method of specifying arguments is different, and the method of specifying the value to fill memory with is different. If your code can be written with either function, it is better to use the <CODE><A href="../mi/memory/MI_CpuClear.html">MI_CpuClear*</A></CODE> or <CODE><A href="../mi/memory/MI_CpuFill.html">MI_CpuFill*</A></CODE> functions instead of the <CODE>SVC_CpuClear*</CODE> functions unless there is a specific reason to do otherwise.</P>
+<P>The <CODE>SVC_CpuClear</CODE> function writes <SPAN class="argument">size</SPAN> bytes of the data indicated by <SPAN class="argument">data</SPAN>, starting from the address indicated by <SPAN class="argument">destp</SPAN>. When the transfer bits are set to 16, you must align <SPAN class="argument">destp</SPAN> to a 2-byte boundary; when the transfer bits are 32, you must align <SPAN class="argument">destp</SPAN> to a 4-byte boundary.</P>
+<P>The <CODE>SVC_CpuClearArray</CODE> function is <CODE>SVC_CpuClear</CODE> with its transfer size set to <CODE>sizeof(<SPAN class="argument">destp</SPAN>)</CODE>. In other words, it is the same as the line below:<BR><CODE>SVC_CpuClear( data, destp, sizeof(destp), bit ) </CODE></P>
+<P>The <CODE>SVC_CpuClearFast</CODE> function quickly writes <SPAN class="argument">size</SPAN> bytes of the data indicated by <SPAN class="argument">data</SPAN>, starting from the address shown by <SPAN class="argument">destp</SPAN>. The write size must be a multiple of 4. It processes units of 32 bytes at high speed, and processes the remainder in units of 4 bytes. You must align <SPAN class="argument">destp</SPAN> to a 4-byte boundary.</P>
+<P>The <CODE>SVC_CpuClearArrayFast</CODE> function is <CODE>SVC_CpuClearFast</CODE> with its transfer size set to <CODE>sizeof(<SPAN class="argument">destp</SPAN>)</CODE>. In other words, it is the same as the line below:<BR><CODE>SVC_CpuClearFast( data ,destp, sizeof(destp) ) </CODE></P>
+<H2>Internal Operation</H2>
+<P>Calls system calls.</P>
+<H2>See Also</H2>
+<P><CODE><A href="../mi/memory/MI_CpuClear.html">MI_CpuClear*</A><BR><A href="../mi/memory/MI_CpuFill.html">MI_CpuFill*</A><BR><A href="../mi/dma/MI_DmaClear.html">MI_DmaClear*</A><BR><A href="SVC_CpuCopy.html">SVC_CpuCopy*</A></CODE></P>
+<H2>Revision History</H2>
+<P>2004/07/20 Changed the condition for the transfer size of <code>SVC_CpuClearFast()</code> from a multiple of 32 bytes to a multiple of 4 bytes.<br>2004/03/29 Indicated that system call is used.<BR> 2004/01/18 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

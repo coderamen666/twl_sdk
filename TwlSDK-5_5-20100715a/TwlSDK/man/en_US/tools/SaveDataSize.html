@@ -1,0 +1,176 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>Save Data Size List</TITLE>
+<LINK rel="stylesheet" href="../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+
+<H1 align="left">Save Data Size List&nbsp;<IMG src="../image/TWL.gif" align="middle"></H1>
+
+<H2>Description</H2>
+<P>
+This is a list of the values that can be specified within RSF files for <CODE>PublicSaveDataSize</CODE> and <CODE>PrivateSaveDataSize</CODE>.
+</P>
+<P>
+With NAND applications, you must specify the size of the save data region in the RSF file. Below is a list of the values that can be specified as the sizes for save data regions, along with the sizes that can actually be used in applications when each value is specified.
+</P>
+<P>
+The save data region of NAND applications are managed using a FAT file system. Because it is necessary to maintain internal information for filenames and directories, some additional amount of memory is required in addition to the actual file size. For information on the TWL FAT file system, see <a href="../fs/overview/about_Archive.html#FAT">FS Library Overview</a>. To determine the size that files in the save data region can actually consume, use the <a href="../fs/archive/FS_HasEnoughSpaceToCreateFile.html"><CODE>FS_HasEnoughSpaceToCreateFile</CODE></a> function.
+</P>
+
+<H2>How to View This Table</H2>
+
+<P>
+The meanings of each column are shown below.
+</P>
+
+<table class="table">
+<tr><th nowrap="1">Specified Value
+	<td>Shows the values that can be specified in RSF files for <CODE>PublicSaveDataSize</CODE> and <CODE>PrivateSaveDataSize</CODE>.
+<tr><th nowrap="1">Region Size
+	<td>The value of <CODE>totalSize</CODE> that can be obtained with the <a href="../fs/archive/FS_GetArchiveResource.html"><CODE>FS_GetArchiveResource</CODE></a> function when the corresponding &quot;Specified Value&quot; is chosen. This value indicates the maximum size of the file that can be created.
+<tr><th nowrap="1">Maximum Number of Files
+	<td>The maximum total number of files and directories that can be created directly under the root directory when the corresponding &quot;Specified Value&quot; is chosen. The total number of files and directories that can be created immediately under the root directory depends on the length of the names, so the practical maximum is this value or less. Only the root directory has restrictions on the number of files.
+<tr><th nowrap="1">Cluster Size
+	<td>The units used for the size of the region when the corresponding &quot;Specified Value&quot; is chosen. For example, if the cluster size is 512 bytes, both a 1-byte file and a 512-byte file consume a region of 512 bytes each. Likewise, a 513-byte file and a 1024-byte file both consume a region of 1024 bytes.
+</table>
+
+<H2>Tables</H2>
+
+<table class="table float_left">
+<thead>
+<tr><th>Specified Value<th>Region Size<th>Maximum Number of Files<th>Cluster Size
+</thead>
+<tbody>
+<tr><th class="number" nowrap="1">16K<td class="number" nowrap="1">11,264 bytes<td class="number" nowrap="1">16<td class="number" nowrap="1">512 bytes
+<tr><th class="number" nowrap="1">32K<td class="number" nowrap="1">30,208 bytes<td class="number" nowrap="1">16<td class="number" nowrap="1">512 bytes
+<tr><th class="number" nowrap="1">48K<td class="number" nowrap="1">38,400 bytes<td class="number" nowrap="1">16<td class="number" nowrap="1">512 bytes
+<tr><th class="number" nowrap="1">64K<td class="number" nowrap="1">61,440 bytes<td class="number" nowrap="1">16<td class="number" nowrap="1">512 bytes
+<tr><th class="number" nowrap="1">80K<td class="number" nowrap="1">74,240 bytes<td class="number" nowrap="1">16<td class="number" nowrap="1">512 bytes
+<tr><th class="number" nowrap="1">96K<td class="number" nowrap="1">89,600 bytes<td class="number" nowrap="1">16<td class="number" nowrap="1">512 bytes
+<tr><th class="number" nowrap="1">112K<td class="number" nowrap="1">108,032 bytes<td class="number" nowrap="1">16<td class="number" nowrap="1">512 bytes
+<tr><th class="number" nowrap="1">128K<td class="number" nowrap="1">126,464 bytes<td class="number" nowrap="1">16<td class="number" nowrap="1">512 bytes
+<tr><th class="number" nowrap="1">160K<td class="number" nowrap="1">147,968 bytes<td class="number" nowrap="1">16<td class="number" nowrap="1">512 bytes
+<tr><th class="number" nowrap="1">176K<td class="number" nowrap="1">173,056 bytes<td class="number" nowrap="1">16<td class="number" nowrap="1">512 bytes
+<tr><th class="number" nowrap="1">208K<td class="number" nowrap="1">197,120 bytes<td class="number" nowrap="1">16<td class="number" nowrap="1">512 bytes
+<tr><th class="number" nowrap="1">224K<td class="number" nowrap="1">225,792 bytes<td class="number" nowrap="1">16<td class="number" nowrap="1">512 bytes
+<tr><th class="number" nowrap="1">256K<td class="number" nowrap="1">258,560 bytes<td class="number" nowrap="1">16<td class="number" nowrap="1">512 bytes
+<tr><th class="number" nowrap="1">288K<td class="number" nowrap="1">291,328 bytes<td class="number" nowrap="1">16<td class="number" nowrap="1">512 bytes
+<tr><th class="number" nowrap="1">336K<td class="number" nowrap="1">328,192 bytes<td class="number" nowrap="1">16<td class="number" nowrap="1">512 bytes
+<tr><th class="number" nowrap="1">368K<td class="number" nowrap="1">368,640 bytes<td class="number" nowrap="1">16<td class="number" nowrap="1">512 bytes
+<tr><th class="number" nowrap="1">416K<td class="number" nowrap="1">410,112 bytes<td class="number" nowrap="1">16<td class="number" nowrap="1">512 bytes
+<tr><th class="number" nowrap="1">464K<td class="number" nowrap="1">456,192 bytes<td class="number" nowrap="1">16<td class="number" nowrap="1">512 bytes
+<tr><th class="number" nowrap="1">512K<td class="number" nowrap="1">507,392 bytes<td class="number" nowrap="1">16<td class="number" nowrap="1">512 bytes
+<tr><th class="number" nowrap="1">560K<td class="number" nowrap="1">544,768 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">2048 bytes
+<tr><th class="number" nowrap="1">608K<td class="number" nowrap="1">600,064 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">2048 bytes
+<tr><th class="number" nowrap="1">672K<td class="number" nowrap="1">663,552 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">2048 bytes
+<tr><th class="number" nowrap="1">736K<td class="number" nowrap="1">722,944 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">2048 bytes
+<tr><th class="number" nowrap="1">800K<td class="number" nowrap="1">790,528 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">2048 bytes
+<tr><th class="number" nowrap="1">864K<td class="number" nowrap="1">864,256 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">2048 bytes
+<tr><th class="number" nowrap="1">944K<td class="number" nowrap="1">937,984 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">2048 bytes
+<tr><th class="number" nowrap="1">1024K<td class="number" nowrap="1">1,017,856 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">2048 bytes
+<tr><th class="number" nowrap="1">1104K<td class="number" nowrap="1">1,105,920 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">2048 bytes
+<tr><th class="number" nowrap="1">1184K<td class="number" nowrap="1">1,191,936 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">2048 bytes
+<tr><th class="number" nowrap="1">1280K<td class="number" nowrap="1">1,284,096 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">2048 bytes
+<tr><th class="number" nowrap="1">1376K<td class="number" nowrap="1">1,384,448 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">2048 bytes
+<tr><th class="number" nowrap="1">1472K<td class="number" nowrap="1">1,484,800 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">2048 bytes
+<tr><th class="number" nowrap="1">1584K<td class="number" nowrap="1">1,591,296 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">2048 bytes
+<tr><th class="number" nowrap="1">1696K<td class="number" nowrap="1">1,708,032 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">2048 bytes
+<tr><th class="number" nowrap="1">1808K<td class="number" nowrap="1">1,822,720 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">2048 bytes
+<tr><th class="number" nowrap="1">1920K<td class="number" nowrap="1">1,945,600 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">2048 bytes
+<tr><th class="number" nowrap="1">2048K<td class="number" nowrap="1">2,076,672 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">2048 bytes
+<tr><th class="number" nowrap="1">2176K<td class="number" nowrap="1">2,205,696 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">2048 bytes
+<tr><th class="number" nowrap="1">2320K<td class="number" nowrap="1">2,344,960 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">2048 bytes
+<tr><th class="number" nowrap="1">2464K<td class="number" nowrap="1">2,494,464 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">2048 bytes
+<tr><th class="number" nowrap="1">2608K<td class="number" nowrap="1">2,641,920 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">2048 bytes
+<tr><th class="number" nowrap="1">2768K<td class="number" nowrap="1">2,797,568 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">2048 bytes
+<tr><th class="number" nowrap="1">2928K<td class="number" nowrap="1">2,963,456 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">2048 bytes
+<tr><th class="number" nowrap="1">3104K<td class="number" nowrap="1">3,129,344 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">2048 bytes
+<tr><th class="number" nowrap="1">3264K<td class="number" nowrap="1">3,303,424 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">2048 bytes
+<tr><th class="number" nowrap="1">3456K<td class="number" nowrap="1">3,487,744 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">2048 bytes
+<tr><th class="number" nowrap="1">3616K<td class="number" nowrap="1">3,672,064 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">2048 bytes
+<tr><th class="number" nowrap="1">3808K<td class="number" nowrap="1">3,866,624 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">2048 bytes
+<tr><th class="number" nowrap="1">4000K<td class="number" nowrap="1">4,071,424 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">2048 bytes
+<tr><th class="number" nowrap="1">4224K<td class="number" nowrap="1">4,276,224 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">2048 bytes
+<tr><th class="number" nowrap="1">4416K<td class="number" nowrap="1">4,491,264 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">2048 bytes
+<tr><th class="number" nowrap="1">4640K<td class="number" nowrap="1">4,716,544 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">2048 bytes
+<tr><th class="number" nowrap="1">4864K<td class="number" nowrap="1">4,941,824 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">2048 bytes
+<tr><th class="number" nowrap="1">5088K<td class="number" nowrap="1">5,177,344 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">2048 bytes
+</tbody>
+</table>
+
+<table class="table float_left">
+<thead>
+<tr><th>Specified Value<th>Region Size<th>Maximum Number of Files<th>Cluster Size
+</thead>
+<tbody>
+<tr><th class="number" nowrap="1">5344K<td class="number" nowrap="1">5,427,200 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">4096 bytes
+<tr><th class="number" nowrap="1">5568K<td class="number" nowrap="1">5,677,056 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">4096 bytes
+<tr><th class="number" nowrap="1">5824K<td class="number" nowrap="1">5,935,104 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">4096 bytes
+<tr><th class="number" nowrap="1">6112K<td class="number" nowrap="1">6,205,440 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">4096 bytes
+<tr><th class="number" nowrap="1">6368K<td class="number" nowrap="1">6,475,776 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">4096 bytes
+<tr><th class="number" nowrap="1">6624K<td class="number" nowrap="1">6,758,400 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">4096 bytes
+<tr><th class="number" nowrap="1">6912K<td class="number" nowrap="1">7,053,312 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">4096 bytes
+<tr><th class="number" nowrap="1">7200K<td class="number" nowrap="1">7,348,224 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">4096 bytes
+<tr><th class="number" nowrap="1">7520K<td class="number" nowrap="1">7,655,424 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">4096 bytes
+<tr><th class="number" nowrap="1">7840K<td class="number" nowrap="1">7,974,912 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">4096 bytes
+<tr><th class="number" nowrap="1">8128K<td class="number" nowrap="1">8,294,400 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">4096 bytes
+<tr><th class="number" nowrap="1">8480K<td class="number" nowrap="1">8,626,176 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">4096 bytes
+<tr><th class="number" nowrap="1">8800K<td class="number" nowrap="1">8,974,336 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">4096 bytes
+<tr><th class="number" nowrap="1">9152K<td class="number" nowrap="1">9,318,400 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">4096 bytes
+<tr><th class="number" nowrap="1">9504K<td class="number" nowrap="1">9,678,848 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">4096 bytes
+<tr><th class="number" nowrap="1">9856K<td class="number" nowrap="1">10,051,584 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">4096 bytes
+<tr><th class="number" nowrap="1">10208K<td class="number" nowrap="1">10,424,320 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">4096 bytes
+<tr><th class="number" nowrap="1">10592K<td class="number" nowrap="1">10,809,344 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">4096 bytes
+<tr><th class="number" nowrap="1">10976K<td class="number" nowrap="1">11,210,752 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">4096 bytes
+<tr><th class="number" nowrap="1">11392K<td class="number" nowrap="1">11,612,160 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">4096 bytes
+<tr><th class="number" nowrap="1">11776K<td class="number" nowrap="1">12,029,952 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">4096 bytes
+<tr><th class="number" nowrap="1">12224K<td class="number" nowrap="1">12,460,032 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">4096 bytes
+<tr><th class="number" nowrap="1">12640K<td class="number" nowrap="1">12,890,112 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">4096 bytes
+<tr><th class="number" nowrap="1">13056K<td class="number" nowrap="1">13,332,480 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">4096 bytes
+<tr><th class="number" nowrap="1">13504K<td class="number" nowrap="1">13,795,328 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">4096 bytes
+<tr><th class="number" nowrap="1">13952K<td class="number" nowrap="1">14,254,080 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">4096 bytes
+<tr><th class="number" nowrap="1">14432K<td class="number" nowrap="1">14,729,216 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">4096 bytes
+<tr><th class="number" nowrap="1">14912K<td class="number" nowrap="1">15,224,832 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">4096 bytes
+<tr><th class="number" nowrap="1">15392K<td class="number" nowrap="1">15,712,256 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">4096 bytes
+<tr><th class="number" nowrap="1">15872K<td class="number" nowrap="1">16,220,160 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">4096 bytes
+<tr><th class="number" nowrap="1">16896K<td class="number" nowrap="1">17,250,304 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">2048 bytes
+<tr><th class="number" nowrap="1">17472K<td class="number" nowrap="1">17,788,928 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">2048 bytes
+<tr><th class="number" nowrap="1">17984K<td class="number" nowrap="1">18,345,984 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">2048 bytes
+<tr><th class="number" nowrap="1">18560K<td class="number" nowrap="1">18,900,992 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">2048 bytes
+<tr><th class="number" nowrap="1">19136K<td class="number" nowrap="1">19,474,432 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">2048 bytes
+<tr><th class="number" nowrap="1">19712K<td class="number" nowrap="1">20,066,304 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">2048 bytes
+<tr><th class="number" nowrap="1">20288K<td class="number" nowrap="1">20,656,128 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">2048 bytes
+<tr><th class="number" nowrap="1">20864K<td class="number" nowrap="1">21,264,384 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">2048 bytes
+<tr><th class="number" nowrap="1">21440K<td class="number" nowrap="1">21,891,072 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">2048 bytes
+<tr><th class="number" nowrap="1">22080K<td class="number" nowrap="1">22,515,712 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">2048 bytes
+<tr><th class="number" nowrap="1">22720K<td class="number" nowrap="1">23,160,832 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">2048 bytes
+<tr><th class="number" nowrap="1">23360K<td class="number" nowrap="1">23,822,336 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">2048 bytes
+<tr><th class="number" nowrap="1">24000K<td class="number" nowrap="1">24,485,888 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">2048 bytes
+<tr><th class="number" nowrap="1">24704K<td class="number" nowrap="1">25,165,824 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">2048 bytes
+<tr><th class="number" nowrap="1">25344K<td class="number" nowrap="1">25,866,240 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">2048 bytes
+<tr><th class="number" nowrap="1">26048K<td class="number" nowrap="1">26,564,608 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">2048 bytes
+<tr><th class="number" nowrap="1">26752K<td class="number" nowrap="1">27,283,456 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">2048 bytes
+<tr><th class="number" nowrap="1">27456K<td class="number" nowrap="1">28,020,736 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">2048 bytes
+<tr><th class="number" nowrap="1">28160K<td class="number" nowrap="1">28,760,064 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">2048 bytes
+<tr><th class="number" nowrap="1">28928K<td class="number" nowrap="1">29,515,776 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">2048 bytes
+<tr><th class="number" nowrap="1">29696K<td class="number" nowrap="1">30,294,016 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">2048 bytes
+<tr><th class="number" nowrap="1">30464K<td class="number" nowrap="1">31,070,208 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">2048 bytes
+<tr><th class="number" nowrap="1">31232K<td class="number" nowrap="1">31,868,928 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">2048 bytes
+<tr><th class="number" nowrap="1">32000K<td class="number" nowrap="1">32,686,080 bytes<td class="number" nowrap="1">256<td class="number" nowrap="1">2048 bytes
+</tbody>
+</table>
+
+
+<br clear="all">
+
+<H2>Revision History</H2>
+<P>
+2009/03/11 Noted that only the root directory has restrictions on the number of files.<br>2009/01/13 Made slight revision to the description of the FAT file system.<br>2008/11/26 Added a link to FS.<br>2008/09/16 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

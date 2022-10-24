@@ -1,0 +1,13 @@
+# NNS_Batch_Export
+
+log				"C:/Project1/batch_log.txt"
+
+input_folder	"C:/Project1/scenes"
+output_folder	"C:/Project1/output"
+n3es_folder		"C:/Project1/n3es"
+
+n3es	"model1.n3es"
+scene	"model1.max"
+
+n3es	"charaAnim1.n3es"
+scene	"charaAnim1.max"

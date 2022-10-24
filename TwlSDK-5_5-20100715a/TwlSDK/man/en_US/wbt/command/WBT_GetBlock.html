@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>WBT_GetBlock</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">WBT_GetBlock&nbsp;<img src="../../image/NTR.gif"><img src="../../image/TWL.gif"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/wbt.h&gt;</CODE><BR> <BR> <CODE>BOOL WBT_GetBlock(u16 target, u32 block_id, <A href="../wbt_recv_buf_table_type.html">WBTRecvBufTable</A> *recv_buf_table, u32 recv_size, <A href="../wbt_packet_bitmap_table_type.html">WBTPacketBitmapTable</A> *p_bmp_table, <A href="../wbt_callback_type.html">WBTCallback</A> callback);</CODE><br> <br>
+  </dd>
+</dl>
+<h2>Arguments</h2>
+<p>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="13%"><CODE>target</CODE></TD>
+<TD width="87%">Target AID bitmap that receives block data.<br /> When child, only parent <code>1</code> can be specified.</TD>
+    </TR>
+    <TR>
+<TD width="13%"><CODE>block_id</CODE></TD>
+<TD width="87%">Block ID of the data to receive. The specified block ID must be recorded with the <A href="../common/WBT_RegisterBlock.html"><CODE>WBT_RegisterBlock</CODE></A> function on the object side.</TD>
+    </TR>
+    <TR>
+<TD width="13%"><CODE>recv_buf_table</CODE></TD>
+<TD width="87%">Pointer to the <A href="../wbt_recv_buf_table_type.html"><CODE>WBTRecvBufTable</CODE></A> table containing the storage address (receive archive record) of the data to receive. You must set a valid storage address for all AIDs specified with the target in this table.</TD>
+    </TR>
+    <TR>
+<TD width="13%"><CODE>recv_size</CODE></TD>
+<TD width="87%">Receive size of the data.</TD>
+    </TR>
+    <TR>
+<TD width="13%"><CODE>p_bmp_table</CODE></TD>
+<TD width="87%">A pointer to the <A href="../wbt_packet_bitmap_table_type.html"><CODE>WBTPacketBitmapTable</CODE></A> table containing the bitmap buffer to manage the progress of the data to receive. You must set a valid bitmap buffer for all AIDs specified with the target in this table. Any AID not specified by target can be <CODE>NULL</CODE>.
+</TD>
+    </TR>
+    <TR>
+<TD width="13%"><CODE>callback</CODE></TD>
+<TD width="87%"><A href="../wbt_callback_type.html"><CODE>WBTCallback</CODE></A> format function that receives notifications when commands are completed. This callback is called from within the <a href="../parent/WBT_MpParentRecvHook.html"><CODE>WBT_MpParentRecvHook</CODE></a> or <a href="../child/WBT_MpChildRecvHook.html">WBT_MpChildRecvHook</CODE></a> function.
+</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</p>
+
+<h2>Return Values</h2>
+<p>If no command is currently processing, the function issues a command and returns <CODE>TRUE</CODE>. Otherwise, the function does nothing and returns <CODE>FALSE</CODE>.</p>
+
+<H2>Description</H2>
+<p>Receives block data from a specified target device.<br> <font color="#800000">The call fails if a command is still processing.</font> <br>
+</p>
+<H2>See Also</H2>
+<p>
+<A href="WBT_RequestSync.html"><CODE>WBT_RequestSync</CODE></A><BR> <A href="WBT_GetBlockInfo.html"><CODE>WBT_GetBlockInfo</CODE></A><BR> <A href="WBT_PutUserData.html"><CODE>WBT_PutUserData</CODE></A>
+</p>
+<H2>Revision History</H2>
+<P>
+2006/03/13 Revised description of target argument.<br> 2005/06/01 Added statement about the callback being called from the <CODE>WBT_MpParentRecvHook</CODE> or <CODE>WBT_MpChildRecvHook</CODE> function.<br> 2005/02/18 Changed description of packet_bitmap to &quot;bitmap buffer for receive history record.&quot;<br> 2004/09/21 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

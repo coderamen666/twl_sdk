@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>WXCBeaconFoundCallback</title>
+<LINK rel="stylesheet" href="../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">WXCBeaconFoundCallback <img src="../image/NTR.gif"align="middle"><img src="../image/TWL.gif" align="middle"></h1>
+<h2>Definition</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/wxc.h&gt;</CODE><BR> <BR>
+<PRE>
+typedef struct WXCBeaconFoundCallback
+{
+    BOOL    matched;
+    const WMBssDesc *bssdesc;
+}
+WXCBeaconFoundCallback;
+</PRE>
+</CODE><br> <br>
+  </dd>
+</dl>
+
+<H2>Description</H2>
+<P>The callback argument structure that is passed with the <A href="WXCStateCode.html">WXC_STATE_BEACON_RECV</A> notification of system callback. <BR>The meaning of each member is shown in the following table:
+<TABLE border="0">
+  <TBODY>
+
+   <TR>
+<TD>matched</TD>
+<TD>If the beacon has the GGID of the  connection target, TRUE is stored.  Otherwise, FALSE is stored.<br>If a connection is made to the beacon's source, this member is set to TRUE in the callback and returned; if not, it is set to FALSE and returned.<br>For this reason, if nothing occurs in the callback, a connection is automatically made to the first connection target found.</TD>
+    </TR>
+   <TR>
+<TD>bssdesc</TD>
+<TD>Pointer to the WMBssDesc structure that stores the beacon information found this time.</TD>
+    </TR>
+
+  </TBODY>
+</TABLE>
+
+<BR>
+</P>
+<h2>See Also</h2>
+<p><CODE><A href="WXCStateCode.html">WXCStateCode</A> <br> <A href="common/WXC_Init.html">WXC_Init</A> <A href="common/WXC_RegisterCommonData.html">WXC_RegisterCommonData</A></CODE></p>
+
+<H2>Revision History</H2>
+<P>
+2006/08/10 Corrected links. <br>2006/02/20 Added a description of the <CODE>matched</CODE> member. <br>2005/11/04 Initial version.<br>
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

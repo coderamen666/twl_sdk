@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>MI_CpuFind</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">MI_CpuFind* <IMG src="../../image/NTR.gif" align="middle"><IMG src="../../image/TWL.gif" align="middle"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/mi.h&gt;</CODE><BR>
+  <BR>
+  <CODE>void* MI_CpuFind8( const void* src, u8 data, u32 size );</CODE><br>
+  <CODE>void* MI_CpuFind16( const void* src, u16 data, u32 size );</CODE><br>
+  <CODE>void* MI_CpuFind32( const void* src, u32 data, u32 size );</CODE><br>
+  </dd>
+</dl>
+<h2>Arguments</h2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+      <TD width="13%"><EM><STRONG>src</STRONG></EM></TD>
+      <TD width="87%">Source address to search.</TD>
+    </TR>
+    <TR>
+      <TD width="13%"><EM><STRONG>data</STRONG></EM></TD>
+      <TD width="87%">Data to search for.</TD>
+    </TR>
+    <TR>
+      <TD><EM><STRONG>size</STRONG></EM></TD>
+      <TD>Search size.
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<h2>Return Values</h2>
+<p>If the data being searched for was found, it returns a pointer to that location. <code>NULL</code> is returned if the address is not found.</p>
+
+<H2>Description</H2>
+<P>Searches through memory in the CPU for the specified data.</P>
+<P><CODE>MI_CpuFind8()</CODE> selects the most efficient memory access based on the source address to search, and appropriately searches through the memory for the specified data in 16-bit or 32-bit units. The alignment of the source address to search does not need to be considered.</P>
+<P><CODE>MI_CpuFind16()</CODE> searches through the memory for the specified data in 16-bit units. The source address to search must be 2-byte aligned.</P>
+<P><CODE>MI_CpuFind32()</CODE> searches through the memory for the specified data in 32-bit units. The source address to search must be 4-byte aligned.</P>
+
+<h2>Internal Operation</h2>
+<P>Processing is done by the CPU only and does not use the DMA controller. It does not use a system call. <CODE>MI_CpuFind8</CODE> also performs reads in units of 16/32 bits, so accessing VRAM directly will not cause problems.</P>
+
+<h2>See Also</h2>
+
+<H2>Revision History</H2>
+<P>
+2007/12/10 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

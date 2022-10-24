@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>MBUserInfo</title>
+<LINK rel="stylesheet" href="../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">MBUserInfo <IMG src="../image/NTR.gif" width="24" height="12" border="0" align=middle><IMG src="../image/TWL.gif" width="24" height="12" border="0" align=middle></h1>
+<h2>Definition</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/mb.h&gt;</CODE><BR>
+  <BR>
+<PRE><CODE>
+typedef	struct
+{
+    u8   favoriteColor   : 4;
+    u8   playerNo        : 4;
+    u8   nameLength;
+    u16  name[ MB_USER_NAME_LENGTH];
+} MBUserInfo;	/* 22byte */
+</CODE></PRE>
+  <br>
+  </dd>
+</dl>
+
+<H2>Description</H2>
+<P>This structure defines the style of user data used in the multi-boot process of both parent and child. The meaning of each member is shown in the following table:
+<TABLE border="0">
+  <TBODY>
+    <TR>
+      <TD>Member</TD>
+      <TD>Description</TD>
+    </TR>
+    <TR>
+      <TD><B><I>favoriteColor</B></I></TD>
+      <TD>The color set number showing the player's favorite color.
+	  </TD>
+    </TR>
+     <TR>
+      <TD><B><I>playerNo</B></I></TD>
+      <TD>The player number. Parent is fixed at 0. Child is 1&ndash;15.
+	  <font color="#800000">(Note that this has been changed from NITRO-SDK 2.0 PR5 and older versions.)</font>
+	  </TD>
+    </TR>
+   <TR>
+      <TD><B><I>nameLength</B></I></TD>
+      <TD>The length of player nicknames.
+	  Specifies the number of available characters for <CODE>name</CODE>.
+	  </TD>
+    </TR>
+   <TR>
+      <TD><B><I>name</B></I></TD>
+      <TD>The player nickname.
+	  This primarily sets the name obtained from the console. Special characters defined in UTF-16LE and IPL can be used.<br>
+	  The number of available characters, up to <CODE>MB_USER_NAME_LENGTH</CODE>, is specified by <CODE>nameLength</CODE>.
+	  </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</P>
+<BR>
+</P>
+<h2>See Also</h2>
+<p><CODE><A href="common/MB_Init.html">MB_Init</A></CODE></p>
+
+<H2>Revision History</H2>
+<P>
+2004/11/02 Matched the structure definition to the header file, added to the <code>name</code> description.<br> 2004/08/09 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

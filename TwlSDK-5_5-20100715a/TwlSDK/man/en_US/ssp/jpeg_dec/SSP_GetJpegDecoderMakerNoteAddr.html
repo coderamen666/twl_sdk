@@ -1,0 +1,37 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title>SSP_GetJpegDecoderMakerNoteAddr</title>
+<link rel="stylesheet" href="../../css/nitro.css" type="text/css" />
+</head>
+<body>
+
+<h1>SSP_GetJpegDecoderMakerNoteAddr <img src="../../image/NTR.gif" align="middle"><img src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+
+<pre><code>
+static inline u8* SSP_GetJpegDecoderMakerNoteAddr(void);
+</code></pre>
+
+<h2>Arguments</h2>
+<p>None.</p>
+
+
+<h2>Return Values</h2>
+<p>Returns the start address of data for the DSi camera inside maker notes.</p>
+
+<h2>Description</h2>
+<p>Gets the start address of data for the DSi camera inside the JPEG data to be used in decoding.<BR>This function operates in the same way as calling the <a href="SSP_GetJpegDecoderMakerNoteAddrEx.html"><CODE>SSP_GetJpegDecoderMakerNoteAddrEx</CODE></a> function with the <CODE>SSP_MAKERNOTE_PHOTO</CODE> tag. When you want to get the address of user-defined data, use the <a href="SSP_GetJpegDecoderMakerNoteAddrEx.html"><CODE>SSP_GetJpegDecoderMakerNoteAddrEx</CODE></a> function with <CODE>SSP_MAKERNOTE_USER</CODE>. <BR>Note that the correct data cannot be obtained if the application deletes the JPEG data after the <a href="SSP_StartJpegDecoder.html"><CODE>SSP_StartJpegDecoder</CODE></a> is called because this function returns the address in data used for decoding. 
+</p>
+
+<h2>See Also</h2>
+<p><a href="SSP_GetJpegDecoderMakerNoteAddrEx.html"><CODE>SSP_GetJpegDecoderMakerNoteAddrEx</CODE></a><BR> <a href="SSP_StartJpegDecoder.html"><CODE>SSP_StartJpegDecoder</CODE></a></p>
+
+<h2>Revision History</h2>
+<p>
+2008/09/15 Initial version.
+</p>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

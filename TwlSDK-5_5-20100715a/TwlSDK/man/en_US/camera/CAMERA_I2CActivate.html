@@ -1,0 +1,50 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>CAMERA_I2CActivate*</TITLE>
+<LINK rel="stylesheet" href="../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">CAMERA_I2CActivate* <IMG src="../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+<DL>
+  <DD>
+<CODE>#include &lt;twl/camera.h&gt;</CODE><BR> <BR> <CODE><a href="CAMERAResult.html">CAMERAResult</a> CAMERA_I2CActivate(<A href="CAMERASelect.html">CAMERASelect</A> camera);</CODE> <BR> <CODE><a href="CAMERAResult.html">CAMERAResult</a> CAMERA_I2CActivateAsync(<A href="CAMERASelect.html">CAMERASelect</A> camera, <A href="CAMERACallback.html">CAMERACallback</A> callback, void *arg);</CODE>
+</DL>
+<H2>Arguments</H2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="13%"><EM><STRONG>camera</STRONG></EM></TD>
+<TD width="87%">Specifies which camera to enable or sets both cameras to standby mode.</TD>
+    </TR>
+    <TR>
+<TD width="13%"><EM><STRONG>callback</STRONG></EM></TD>
+<TD width="87%">Completion-time callback function.<br /> Specify <CODE>NULL</CODE> when not needed.</TD>
+    </TR>
+    <TR>
+<TD width="13%"><EM><STRONG>arg</STRONG></EM></TD>
+<TD width="87%">Argument passed to the callback function. If <CODE>NULL</CODE> has been specified for <SPAN class="argument">callback</SPAN>, this value is simply ignored.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+
+<H2>Return Values</H2>
+<P>Returns <CODE>CAMERA_RESULT_SUCCESS</CODE> when successful. Returns errors on failure.</P>
+
+<H2>Description</H2>
+<P>
+Starts a camera or places it in standby mode. This function starts the camera module itself. The <code><A href="CAMERA_StartCapture.html">CAMERA_StartCapture</A></code> function must be called to start capturing. <BR><BR>The system has two built-in cameras: an inner camera (<CODE>CAMERA_SELECT_IN</CODE>) and an outer camera (<CODE>CAMERA_SELECT_OUT</CODE>). This function specifies which camera is started. The unspecified camera is automatically put into standby mode. <BR><BR>Both the inner and outer cameras can be placed into standby mode by specifying <CODE>CAMERA_SELECT_NONE</CODE>. To conserve power, we recommend specifying <CODE>CAMERA_SELECT_NONE</CODE> to place both cameras into standby mode when they are not in use.<BR><BR> Unlike the <code>CAMERA_I2CActivate</code> function, the <code>CAMERA_I2CActivateAsync</code> function returns control immediately and runs asynchronously. Use <SPAN class="argument">callback</SPAN> to confirm that processing has completed. <BR><BR><B>Note:</B> Immediately after starting the camera, the images obtained from the first four frames may be extremely dark. Furthermore, in addition to the four frames above, stabilization of automatic exposure after a camera is started takes about 14 frames when indoors and 30 frames when outdoors. <br><br><font color="red">Occasional Shifting of Captured Images</font><br> The captured image may shift if this function is called during image capture.<br>Before calling this function, first stop image capture using the <code><a href="CAMERA_StopCapture.html">CAMERA_StopCapture</a></code> function and then call this function. After this function completes execution, restart image capture using the <code><a href="CAMERA_StartCapture.html">CAMERA_StartCapture</a></code> function.
+</P>
+
+<H2>See Also</H2>
+<P><A href="CAMERA_StartCapture.html"><CODE>CAMERA_StartCapture</CODE></A><BR> <A href="CAMERASelect.html"><CODE>CAMERASelect</CODE></A><BR> <A href="CAMERACallback.html"><CODE>CAMERACallback</CODE></A></P>
+<H2>Revision History</H2>
+<P>
+2009/11/11 Explained occasional shifting of captured images.<br>2008/08/18 Revised the description of the time required for exposure adjustment immediately after a camera is started.<BR>2008/07/16 Added information about the number of frames required for automatic exposure correction to stabilize.<BR>2007/11/12 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

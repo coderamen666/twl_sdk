@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>CTRDG_WriteAndVerifyAgbFlashAsync</TITLE>
+<LINK rel="stylesheet" href="../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">CTRDG_WriteAndVerifyAgbFlashAsync <IMG src="../image/NTR.gif" align="middle"></H1>
+<H2>Syntax</H2>
+<DL>
+  <DD>
+  <PRE><CODE>#include &lt;nitro/ctrdg.h&gt;</CODE></PRE>
+  <PRE><CODE>void CTRDG_WriteAndVerifyAgbFlashAsync(u16 sec_num, u8* src, u32 verifysize, CTRDG_TASK_FUNC callback);
+  </CODE></PRE>
+</DL>
+<H2>Arguments</H2>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+<TD><SPAN class="argument">sec_num</SPAN></TD>
+<TD>Destination flash sector number.</TD>
+    </TR>
+    <TR>
+<TD><SPAN class="argument">src</SPAN></TD>
+<TD>Source address.</TD>
+    </TR>
+    <TR>
+<TD><SPAN class="argument">verifysize</SPAN></TD>
+<TD>Verify size in bytes.</TD>
+    </TR>
+    <TR>
+<TD><SPAN class="argument">callback</SPAN></TD>
+<TD>Callback function called when WriteAndVerify processing ends</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>Return Values</H2>
+<P>None.</P>
+<H2>Description</H2>
+<P>Internally, this function asynchronously uses the <A href="CTRDG_WriteAgbFlashSector.html"><CODE>CTRDG_WriteAgbFlashSector</CODE></A> function to write data and then the <A href="CTRDG_VerifyAgbFlash.html"><CODE>CTRDG_VerifyAgbFlash</CODE></A> function to verify data for the number of bytes given by <SPAN class="argument">verifysize</SPAN>. If there is an error, the function retries up to the number of times specified by <CODE>CTRDB_AGB_FLASH_RETRY_MAX</CODE> (defined in <CODE>AgbFlash.h</CODE>). To find out whether the WriteAndVerify process succeeded, access the result member of the <CODE>CTRDGTaskInfo</CODE> structure used as an argument to the callback function that returns after this function is called. It returns zero if the WriteAndVerify process succeeded, a nonzero value if the process failed, and the error address on the device side if there was a verification error. <B>Note:</B> When checking error codes, this function returns an error code using 16 out of 32 bits when there is a write error, but returns a 32-bit error address on the device side when there is a verification error.</P>
+<P>The access cycle setting does not need to be set in advance because it is created inside the function. In addition, the <A href="../os/time/OS_InitTick.html"><CODE>OS_InitTick</CODE></A> function must be called in advance because clock ticks are used by this function to measure timeouts.</P>
+<P><B>Note:</B> All interrupts are disabled inside this function, and the cartridge bus is locked for a set period. In particular, when this function is called, do not use DMA that starts automatically during direct sound and V-Blank/H-Blank synchronization, display synchronization, cartridge request, and so on.</P>
+<P>Note that the AGB backup device cannot be accessed normally with IS-NITRO-DEBUGGER version 1.66 or earlier.</P>
+<PRE>/*  callback  function  */
+typedef u32 (*CTRDG_TASK_FUNC) (struct CTRDGiTaskInfo_tag *);
+</PRE>
+<H2>See Also</H2>
+<P><A href="CTRDG_WriteAgbFlashSector.html"><CODE>CTRDG_WriteAgbFlashSector</CODE></A><BR> <A href="CTRDG_VerifyAgbFlash.html"><CODE>CTRDG_VerifyAgbFlash</CODE></A><BR> <A href="CTRDG_WriteAndVerifyAgbFlash.html"><CODE>CTRDG_WriteAndVerifyAgbFlash</CODE></A></P>
+<H2>Revision History</H2>
+<P>2006/05/25 Added a description that the AGB backup device cannot be accessed normally with IS-NITRO-DEBUGGER version 1.66 or earlier.<BR> 2006/04/07 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 8.0.2.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>WM_SetDCFData</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">WM_SetDCFData <img src="../../image/NTR.gif"><img src="../../image/TWL.gif"></H1>
+<h2>Syntax</h2>
+<dl>
+  <dd><PRE><CODE>#include &lt;nitro/wm.h&gt;
+
+<A href="WMErrCode.html">WMErrCode</A> WM_SetDCFData(
+        <A href="WMCallbackFunc.html">WMCallbackFunc</A>  callback ,
+        const u8*       destAdr ,
+        const u16*      sendData,
+        u16             sendDataSize
+);
+</CODE></PRE></dd>
+</dl>
+
+<h2>Arguments</h2>
+<TABLE width="100%">
+  <tbody>
+    <TR>
+<TD width="200"><CODE>callback</CODE></TD>
+<TD width="800">Designates the callback function to call when the asynchronous process completes. This callback is called from within the interrupt handler.</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>destAdr</CODE></TD>
+<TD width="800">Pointer to the 6-byte buffer that indicates the MAC address of the communicating partner.</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>sendData</CODE></TD>
+<TD width="800">Pointer to the data to be send-reserved. Note that the send-reserve data is forcibly cached.</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>sendDataSize</CODE></TD>
+<TD width="800">The size of the send-reserved data.</TD>
+    </TR>
+  </tbody>
+</table>
+
+<h2>Return Values</h2>
+<p>Returns the results of the <CODE><A href="WMErrCode.html">WMErrCode</A></CODE> enumerated type process.</p>
+
+<H2>Description</H2>
+<P>Reserves data to be sent when using infrastructure mode communications. This function is executable only when the WM is in the <code>DCF CHILD</code> state. If the return value is <CODE>WM_ERRCODE_OPERATING</CODE>, a callback is generated after the data transmission process is complete.</P>
+
+<H2>Notes</H2>
+<P>The <CODE>sendData</CODE> argument is forcibly stored in the internal cache. To avoid overwriting surrounding memory regions, be sure to pass data that is 32-byte aligned.<BR>See the Wireless Communication Library Manual (AboutWirelessManager.pdf) for additional details.</P>
+
+<h2>See Also</h2>
+<p><a href="WM_StartDCF.html"><code>WM_StartDCF</code></a><BR> <a href="WM_EndDCF.html"><code>WM_EndDCF</code></a></p>
+
+<H2>Revision History</H2>
+<P>
+2008/12/17 Added a note about how data passed in arguments is forcibly cached internally.<BR>2005/06/08 Added the fact that the callback is called from the interrupt handler.<BR>2004/10/22 Changed the type of return values.<BR>2004/10/05 Changed the type of arguments.<BR>2005/08/02 Standardized structure names.<BR>2004/07/29 Added to Description.<BR>2004/07/23 Initial version.<BR>
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

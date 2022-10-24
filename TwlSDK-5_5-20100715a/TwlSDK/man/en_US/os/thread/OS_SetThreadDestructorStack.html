@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>OS_SetThreadDestructorStack</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">OS_SetThreadDestructorStack <IMG src="../../image/NTR.gif" align="middle"><IMG src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+<DL>
+  <DD>
+  <PRE><CODE>#include &lt;nitro/os.h&gt;</CODE></PRE>
+  <PRE><CODE>void OS_SetThreadDestructorStack( void* stack );
+  </CODE></PRE>
+</DL>
+<H2>Arguments</H2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD nowrap><EM><STRONG>stack</STRONG></EM>    </TD>
+<TD>Starting address of the stack pointer. Items are put onto the stack from the top, so be aware that the highest address of the stack must be specified. The address must be 4-byte aligned.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>Return Values</H2>
+<P>None.</P>
+<H2>Description</H2>
+<P>Specifies the stack that will be used to execute the destructor for all threads.</P>
+<P>The value of the <SPAN class="argument">stack</SPAN> argument is substituted for a stack pointer immediately before the destructor executes. If <CODE>NULL</CODE> is specified, this operation is not carried out (this is the default behavior). Note that the value passed is the (highest address +1) of the region.
+</P>
+<P>A detailed description is given below.</P>
+<P>If a thread is destroyed by another thread with the <A href="OS_KillThread.html"><CODE>OS_KillThread*</CODE></A> function and the destructor is executed, during the operation it is difficult to accurately predict the amount of the stack consumed (or left unconsumed) by the destroyed thread. If the system continues using the stack after this operation, it is possible that occasionally a thread that is consuming a large amount of the stack will be destroyed and there will not be enough room left on the stack to execute the destructor.</P>
+<P>To avoid this situation, in the <CODE>OSThread</CODE> system you can use either of the following methods to deal with stacks where one thread has been destroyed by another thread.</P>
+<UL>
+<LI>Immediately before executing the destructor, return the stack pointer to its initial value when the stack was created (default behavior).
+<LI>Use another stack when executing the destructor.
+</UL>
+<P> Specifying <CODE>NULL</CODE> for this function causes the stack pointer to return to its initial value (the value it had when the stack was created) immediately before the destructor executes. This is also the default operation. Specifying a non-<CODE>NULL</CODE> value indicates that a separate stack will be used when the destructor executes. Note that because more than one destructor cannot execute at once, you can specify a single common stack area for all threads and pass this value to multiple destructors.</P>
+<P>In some situations, preparing a separate stack for the destructor may reduce the amount of memory consumed compared to the default behavior. For example, if a thread that normally uses only 100 bytes needs a 1000-byte stack for the destructor, the default operation requires advance preparation of 1000 bytes on the stack. If there is more than one thread, the same is true for each separate thread. However, if you specify a separate 1000-byte destructor stack, the size of the stacks used for normal processes can be 100 bytes.
+</P>
+<P>In addition, if a separate stack is prepared, the thread being destroyed will not corrupt the local variables of the function that is currently executing. For example, all <CODE>OSAlarm</CODE> alarms are connected by a list. If you want to cancel a locally created instance of <CODE>OSAlarm</CODE> using a destructor, you must maintain the stack region until the destructor is used.</P>
+<P>Note that if a thread specifies itself with the <A href="OS_KillThread.html"><CODE>OS_KillThread*</CODE></A> function, the default operation of resetting the stack pointer will not occur. This is because the amount of stack being used by a thread is easy to predict when a thread declares that it will terminate itself. However, if a non-<CODE>NULL</CODE> destructor stack is given to this function, that stack will be used for the destructor in all cases.</P>
+<P><B><BR> Example of Preparing a Separate Stack</B></P>
+<P>In the following program, a thread is created inside <CODE>main()</CODE> that waits 10 seconds after it is created and then displays &quot;10 seconds passed.&quot; It uses the <CODE>OSAlarm</CODE> system to count the 10 seconds. If the thread is destroyed before 10 seconds elapse, the thread destructor attempts to delete the alarm. However, the alarm structure instance is a local variable, so it exists in the thread stack. Given this situation, the original stack must be prevented from being destroyed when the destructor is called. To do this, the thread that executes the destructor is specified with <CODE>OS_SetThreadDestructorStack</CODE> immediately after <A href="OS_InitThread.html"><CODE>OS_InitThread</CODE></A>. (Some parts of the source code, such as declarations, have been simplified or omitted.)<BR> <BR> 
+</P>
+<BLOCKQUOTE><PRE>OSAlarm* myAlarm = NULL;
+u32 stack[ STACKSIZE ] ATTRIBUTE_ALIGN(32);
+
+main()
+{
+	:
+  OS_InitThread();
+  <FONT color="#ff0033">OS_SetThreadDestructorStack( &amp;stack[STACKSIZE] );</FONT>
+	:
+  OSThread thread;
+  OS_CreateThread( &amp;thread, function, ...);  // Create thread
+  OS_SetThreadDestructor( &amp;thread, dtor ); // Set destructor
+  OS_WakeupThreadDirect( thread );  // Wakeup thread
+	: 
+	:
+  OS_KillThread( &amp;thread );  // Destroy thread 
+	:
+}
+
+function()
+{
+  OSAlarm alarm;  // alarm is a local variable
+  myAlarm = &alarm;
+  OS_SetAlarm( &amp;alarm, OSSecondsToTicks( 10 ), handler, ...); // handler is called after 10 seconds 
+	:
+}
+
+handler()
+{
+  OS_Printf( &quot;10 seconds passed.\n&quot; );  // Displays that 10 seconds have elapsed
+  myAlarm = NULL;
+}
+
+dtor()
+{
+	:
+  if ( myAlarm != NULL )
+  {
+    OS_CancelAlarm( myAlarm );  // Cancel the alarm
+  }
+	:
+}</PRE></BLOCKQUOTE>
+
+<H2>See Also</H2>
+<P><A href="OS_InitThread.html"><CODE>OS_InitThread</CODE></A><BR> <A href="OS_KillThread.html"><CODE>OS_KillThread</CODE></A><BR> <A href="OS_SetThreadDestructor.html"><CODE>OS_SetThreadDestructor</CODE></A></P>
+<H2>Revision History</H2>
+<P>2005/08/08 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

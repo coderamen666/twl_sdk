@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>AES_Encrypt</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">AES_Encrypt <IMG src="../../image/TWL.gif" width="23" height="12" border="0" align="middle"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+  <pre><CODE>#include &lt;twl/aes.h&gt;
+
+#define AES_ENCRYPT_HEADER_SIZE 16
+
+<a href="../api/AESResult.html">AESResult</a> AES_Encrypt(
+            const void* src,
+            u32         srcSize,
+            void*       dst,
+            <a href="../api/AESCallback.html">AESCallback</a> callback,
+            void*       arg );
+</CODE></pre>
+</dd>
+</dl>
+
+<h2>Arguments</h2>
+<TABLE border="1" width="100%" class="arguments">
+  <TBODY>
+    <TR>
+      <TH>src</TH>
+      <TD>Pointer to the plaintext. Must be 4-byte aligned. In addition, it must point to a location in main memory.</TD>
+    </TR>
+    <TR>
+      <TH>srcSize</TH>
+      <TD>Plaintext size. Must be greater than zero.</TD>
+    </TR>
+    <TR>
+      <TH>dst</TH>
+      <TD>Pointer to the buffer that will store the ciphertext. Must be 4-byte aligned. In addition, it must point to a location in main memory.
+          An area of size <span class="argument">srcSize</span> + <code>AES_ENCRYPT_HEADER_SIZE</code> bytes is required.</TD>
+    </TR>
+    <TR>
+      <TH>callback</TH>
+      <TD>Pointer to the callback function to call when encryption completes.
+          It is possible to specify <CODE>NULL</CODE>.</TD>
+    </TR>
+    <TR>
+      <TH>arg</TH>
+      <TD>User-defined parameter that is passed to the above callback function.
+          Can be any value, including <CODE>NULL</CODE>.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<h2>Return Values</h2>
+<p>
+Returns <CODE>AES_RESULT_SUCCESS</CODE> if the AES operation was started successfully. Any other return values indicate an error.
+</p>
+
+<H2>Description</H2>
+<P>
+Uses the AES algorithm to encrypt data. <code><a href="AES_Decrypt.html">AES_Decrypt()</a></code> is used to decrypt data.
+</p>
+
+<p>
+This uses the key set with <code><a href="../api/AES_SetKey.html">AES_SetKey()</a></code> to encrypt <span class="argument">srcSize</span> bytes starting from <span class="argument">src</span>. The encrypted result will be written to a region starting at <span class="argument">dst</span> whose size is <span class="argument">srcSize</span> + <code>AES_ENCRYPT_HEADER_SIZE</code> bytes. When the encryption process completes, <span class="argument">callback</span> will be called, using the encrypted result and <span class="argument">arg</span> as arguments. <span class="argument">callback</span> is called from the interrupt handler, so note that it may be called even when interrupts are disabled. Conversely, also note that <span class="argument">callback</span> is not called when interrupts are disabled.
+</p>
+
+<p>
+This function returns control immediately once it has started the processing. If processing starts without a problem, this function will return <code>AES_RESULT_SUCCESS</code>, but if an error occurs during subsequent processing, it will call <span class="argument">callback</span> with the error value and <span class="argument">arg</span> as arguments. Note that error notification done using this callback will be started from the interrupt handler, so depending on the situation, it's possible that the callback could deliver an error notification before control returns from the function.
+</p>
+
+<p>
+The encryption key must be set beforehand using <code><a href="../api/AES_SetKey.html">AES_SetKey()</a></code>.
+</p>
+
+<h2>See Also</h2>
+<p><CODE><A href="AES_Decrypt.html">AES_Decrypt</A></CODE></p>
+
+<H2>Revision History</H2>
+<P>
+2008/09/06 Revised in line with the removal of <CODE>AES_InitRand</CODE>.<br>2007/12/25 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

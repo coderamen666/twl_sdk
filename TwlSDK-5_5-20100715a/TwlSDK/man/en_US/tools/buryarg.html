@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>buryarg[.TWL]</TITLE>
+<LINK rel="stylesheet" href="../css/nitro.css" type="text/css">
+<STYLE type="text/css">
+<!--
+.sample_source{
+  background-color : #e8e8e8;
+}
+H3{
+  color : teal;
+}
+.command_list{
+  margin-bottom : 16pt;
+}
+.command_desc{
+  }
+.command_item{
+  margin-top : 16pt;
+  background-color : #e8e8e8;
+}
+.blockquoted_table {
+  border : 1px;
+  width : 80%;
+}
+TD,TH{
+  border-color	: #c0d8d8;
+  padding       : 1pt 4pt 1pt 4pt;
+  border-width  : 1px;
+  border-style  : solid;
+}
+-->
+</STYLE>
+</HEAD>
+<BODY>
+<H1 align="left">buryarg <IMG src="../image/NTR.gif" align="middle"></H1>
+<H1 align="left">buryarg.TWL <IMG src="../image/TWL.gif" align="middle"></H1>
+<H2>Description</H2>
+<P>In the TWL-SDK, an area for argument data is set up in the ROM image. By rewriting this section before startup, you can pass which parameters are possible to use as C language <CODE>argc</CODE> and <CODE>argv</CODE> format arguments. The ROM image file can be directly overwritten, so you can test the program under multiple conditions without having to recompile.</P>
+<P>The <CODE>buryarg[.TWL]</CODE> tool writes argument data to the argument data area for the specified binary data. Use <CODE>buryarg</CODE> for NITRO ROMs, and <CODE>buryarg.TWL</CODE> for TWL hybrid ROMs and TWL limited ROMs.</P>
+<P>If the argument data region in the program is not referenced, that region is not created. The <CODE>buryarg[.TWL]</CODE> tool cannot be used for ROMs for which this area has not been created.</P>
+<P>Starting with TWL-SDK 5.3, the method for embedding argument data with <CODE>buryarg.TWL</CODE> has been changed to the same specifications as <CODE>buryarg</CODE>. This solves the problem that argument data embedded for TWL hybrid ROMs could not be read in NITRO mode.<BR>However, there are precautions for using <CODE>buryarg.TWL</CODE>. Read <A href="#AttentionTwlRom">Precautions for TWL ROM</A> below.</P>
+<H2>How to Use</H2>
+<H3>Start Command</H3>
+<P><CODE>% buryarg [OPTION]... SRLFILE [argument]...</CODE></P>
+<P><CODE>SRLFILE</CODE> is the original ROM file for rewriting. However, you can specify the ROM file list (NLF or TLF). When you specify a ROM file list, <CODE>buryarg[.TWL]</CODE> analyzes the content, and operations will be done on the ARM9 static module file.</P>
+<P>If the <CODE>-r</CODE> or <CODE>--remain</CODE> options are specified, the original file remains. By default, the original file is modified. If you do not want to change the original file, specify this option. The alias filename is the original filename plus <CODE>.argAdded</CODE>. When the output file is selected with <CODE>-o</CODE> option, the original file is not changed, even when this option is not specified.</P>
+<P>The <CODE>-o</CODE> and <CODE>--output</CODE> options take arguments. With this option, the output file is specified as in the following: <CODE>-o=dest.srl</CODE> or <CODE>-o dest.srl</CODE>. <B>Do not specify the same file for the source file and the output file.</B> Also, if &quot;<CODE>-</CODE>&quot; (minus) is specified as the output file, output goes to standard output.( Specify as <CODE>-o-</CODE>. See <CODE>--stdout</CODE>, which is explained below.</P>
+<P><CODE>--stdout</CODE> is the same as specifying <CODE>-o-</CODE>. It outputs to standard output.</P>
+<P>The <CODE>-f</CODE> and <CODE>--file</CODE> options take arguments. These options are for specifying a file as the data to replace. Specify as <CODE>-f=rep.dat</CODE> or <CODE>-f rep.dat</CODE>.</P>
+
+<P>If the <CODE>-q</CODE> or <CODE>--quiet</CODE> option is specified, quiet mode is used, and only error messages are output.</P>
+<P>If the <CODE>-v</CODE> or <CODE>--verbose</CODE> option is specified, detailed operation descriptions are displayed. Because output is made on the standard output, do not specify these options together when writing ROM data to the standard output.</P>
+<P>The <CODE>-h</CODE> or <CODE>--help</CODE> options display simple instructions.</P>
+<P>The <CODE>-d</CODE> or <CODE>--debug</CODE> options are for debugging. They dump the data that is to be replaced.</P>
+<P>The <CODE>--version</CODE> option displays the command version.</P>
+<BR>
+<H3>Argument Data Area</H3>
+<P>Immediately after compiling, a string is written in the argument data region in the ROM data. This string identifies that region. <CODE>buryarg[.TWL]</CODE> searches for this text string in the ROM and then reads the argument data. The string used for finding the position is not rewritten, so the argument data can be rewritten over and over again to the same ROM data.</P>
+<BLOCKQUOTE><IMG src="buryarg_image1.gif" border="0"></BLOCKQUOTE>
+<P>The argument area's data can be accessed from your program by using the <A href="../os/argument/OS_GetArgc.html"><CODE>OS_GetArgc</CODE></A> and <CODE><A href="../os/argument/OS_GetArgv.html">OS_GetArgv</A></CODE> functions. <BR>
+</P>
+<BLOCKQUOTE><IMG src="buryarg_image2.gif" border="0"></BLOCKQUOTE>
+<P><BR> <BR> <BR> <B>Caution:</B> Be careful to avoid the following errors.</P>
+<BLOCKQUOTE>- Specifying the same file as the input file with the <CODE>-o</CODE> option.<BR>&rarr; This specification is not required if you want to overwrite the argument data. This is the default behavior.</BLOCKQUOTE>
+<BLOCKQUOTE>- Overwriting the argument data for the ROM file (SRL), then starting up from the ROM file list (NLF or TLF).<BR>&rarr; When an application is started from a ROM file, the debugger reads the modules written in the NLF file. Even if the ROM file is overwritten, those changes are not applied. If starting an application from an ROM file list, specify the ROM file list with <CODE>buryarg[.TWL]</CODE> and overwrite the necessary data.</BLOCKQUOTE>
+<BLOCKQUOTE>- Overwriting the argument data for the ROM file list (NLF or TLF), then starting up the ROM file (SRL).<BR>&rarr; This is the opposite of the example above. Overwrite the argument data for the ROM file.</BLOCKQUOTE>
+<BLOCKQUOTE>- Trying to overwrite the argument data of an image that does not have an argument data area. <BR> &rarr; ROM images created with old versions of the SDK do not have an area to store the argument data. When the <CODE>buryarg[.TWL]</CODE> command is run on these images, it displays an error that indicates the string for the argument data area could not be found, and the command then terminates.<br>
+<FONT color="#ff0000">&rarr; If the argument data region is not referenced at least once in the program, the argument data region is dead-stripped at compile time. </FONT>For example, if the <CODE>OS_GetArgc</CODE> or <CODE>OS_GetArgv</CODE> function has never been called, an error occurs.</BLOCKQUOTE>
+<BLOCKQUOTE>- Trying to overwrite the argument data on a FINALROM build image. <BR><FONT color="#ff0000">&rarr; The FINALROM build image does not have an area to store the argument data.</FONT></BLOCKQUOTE>
+<BLOCKQUOTE>- Trying to overwrite the argument data for an image compressed in a static region.<BR>&rarr; When an image is compressed in a static region, the string cannot be found and an error is generated. If you embedded argument data, do not apply compression.</BLOCKQUOTE>
+<BR>
+<H3>FINALROM and Argument Data</H3>
+<P>Argument data cannot be handled with a FINALROM. There is no memory for storing argument data. The <A href="../os/argument/OS_GetArgc.html"><CODE>OS_GetArgc</CODE></A> function always returns 0. The <A href="../os/argument/OS_GetArgv.html"><CODE>OS_GetArgv</CODE></A> function always returns <CODE>NULL</CODE>. The reason that argument data cannot be handled for FINALROM builds is that a security hole may develop if a program depends on data that can be provided externally.</P>
+<P>Even in the case of a FINALROM build, the check routine in the program remains as long as it is not deleted. Attention is required because this code is meaningless in the case of FINALROM builds. (For example, for a game with 30 stages, if analysis is made of a check routine such as &quot;if argument data is STAGE &gt; 30&quot; this may lead to the assumption that there may be a hidden stage.)</P>
+<BR> <A name="AttentionTwlRom"></a>
+<H3>Precautions for TWL ROM</H3>
+<P>With TWL ROM, the hash value is calculated when you create a ROM image. Therefore, if you embed argument data into a ROM image using <CODE>buryarg.TWL</CODE>, the hash value will be altered, and the ROM will not start up. For TWL ROM, use <CODE>buryarg.TWL</CODE> for the ROM file list (TLF) and then use <A href="./makerom.html"><CODE>makerom.TWL</CODE></A> to recreate the ROM file (SRL).<BR>The <A href="../demos/os/osdemos.html">sample demos</A> in the OS library are good references for using this method.</P>
+
+<H2>Location</H2>
+<P>
+<CODE>$TwlSDK/tools/bin/buryarg.exe</CODE><BR> <CODE>$TwlSDK/tools/bin/buryarg.TWL.exe</CODE><BR>
+</P>
+<H2>See Also</H2>
+<P><A href="../os/argument/OS_GetArgc.html"><CODE>OS_GetArgc</CODE></A><BR> <A href="../os/argument/OS_GetArgv.html"><CODE>OS_GetArgv</CODE></A><BR> <A href="../os/argument/OS_GetOpt.html"><CODE>OS_GetOpt*</CODE></A></P>
+<H2>Revision History</H2>
+<P>
+2009/05/25 Standardized the specifications of <CODE>buryarg.TWL</CODE> with those of <CODE>buryarg</CODE>. Also unified the manuals. Added explanation that this cannot be used with compression.<BR> 2008/07/08 Added information so that <A href="buryarg.html"><CODE>buryarg.TWL</CODE></A> is used for TWL.<BR> 2008/06/24 Added the fact that this mechanism cannot be used with TWL.<BR> 2005/08/30 Added <CODE>OS_GetOpt*</CODE> to <B>See Also</B>. Added <CODE>--stdout</CODE>.<BR> 2005/07/22 Added support for NLF files.<BR> 2005/07/21 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

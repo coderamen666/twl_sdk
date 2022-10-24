@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>MBCommPState</title>
+<LINK rel="stylesheet" href="../css/nitro.css" type="text/css">
+</head>
+<body>
+<h1 align="left">MBErrCode <IMG src="../image/NTR.gif" width="24" height="12" border="0" align=middle><IMG src="../image/TWL.gif" width="24" height="12" border="0" align=middle></h1>
+<h2>Definition</h2>
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/mb.h&gt;</CODE>
+<PRE><CODE>
+typedef enum
+{
+	MB_ERRCODE_SUCCESS = 0,
+	
+	MB_ERRCODE_INVALID_PARAM,
+	MB_ERRCODE_INVALID_STATE,
+	
+	/* for child only */
+	MB_ERRCODE_INVALID_DLFILEINFO,
+	MB_ERRCODE_INVALID_BLOCK_NO,
+	MB_ERRCODE_INVALID_BLOCK_NUM,
+	MB_ERRCODE_INVALID_FILE,
+	MB_ERRCODE_INVALID_RECV_ADDR,
+	MB_ERRCODE_WM_FAILURE,
+	MB_ERRCODE_FATAL,
+	MB_ERRCODE_MAX
+} MBErrCode;
+</CODE></PRE>
+ </dd>
+</dl>
+<H2>Description</H2>
+<P>This shows the enumeration constants that indicate MB library error codes. The meaning of each enumerator constant is shown in the following table:
+<TABLE border="0">
+  <TBODY>
+    <TR>
+<TD>Constant</TD>
+<TD>Description</TD>
+    </TR>
+    <TR>
+<TD><B><I>MB_ERRCODE_SUCCESS</B></I>
+<TD>The process succeeded.<BR>
+	  </TD>
+    </TR>
+    <TR>
+<TD><B><I>MB_ERRCODE_INVALID_PARAM</B></I></TD>
+<TD>The parameter provided when the function is called is invalid. This error value is normally determined at the beginning of the function and is returned immediately.</TD>
+    </TR>
+    <TR>
+<TD><B><I>MB_ERRCODE_INVALID_STATE</B></I></TD>
+<TD>The MB library is not in the expected state. This error value is normally determined at the beginning of the function and is returned immediately.</TD>
+    </TR>
+    <TR>
+<TD><B><I>MB_ERRCODE_WM_FAILURE</B></I></TD>
+<TD>All recoverable errors generated in the WM library, which runs inside the MB library. This notification has been prepared for debugging. No user action is required when this notification appears.</TD>
+    </TR>
+    <TR>
+<TD><B><I>MB_ERRCODE_FATAL</B></I></TD>
+<TD>MB library communications cannot continue. This status is usually caused by unexpected exceptions that are generated in an internally running WM library. The MB library will not work until it is re-initialized, but an immediate response from the user application is not required.</TD>
+    </TR>
+    <TR>
+<TD><font color="#808080">MB_ERRCODE_INVALID_DLFILEINFO</font></TD>
+<TD rowspan="5"><font color="#808080">Only used by an IPL that is a child.</font></TD>
+    </TR>
+    <TR>
+<TD><font color="#808080">MB_ERRCODE_INVALID_BLOCK_NO</font></TD>
+      <TD></TD>
+    </TR>
+    <TR>
+<TD><font color="#808080">MB_ERRCODE_INVALID_BLOCK_NUM</font></TD>
+      <TD></TD>
+    </TR>
+    <TR>
+<TD><font color="#808080">MB_ERRCODE_INVALID_FILE</font></TD>
+      <TD></TD>
+    </TR>
+    <TR>
+<TD><font color="#808080">MB_ERRCODE_INVALID_RECV_ADDR</font></TD>
+      <TD></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<BR>
+</P>
+<h2>See Also</h2>
+<p><A href="mb_error_status_type.html"><code>MBErrorStatus</code></A><BR> <A href="parent/MB_CommSetParentStateCallback.html"><code>MB_CommSetParentStateCallback</code></A><BR> <A href="parent/MB_CommGetParentState.html"><code>MB_CommGetParentState</code></A></p>
+<H2>Revision History</H2>
+<P>
+2004/09/27 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

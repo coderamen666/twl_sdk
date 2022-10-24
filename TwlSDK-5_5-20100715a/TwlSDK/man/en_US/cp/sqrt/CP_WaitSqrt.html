@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>CP_WaitSqrt</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">CP_WaitSqrt <img src="../../image/NTR.gif"align="middle"><img src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/cp.h&gt;</CODE><BR>
+  <BR>
+  <CODE>void CP_WaitSqrt( void )</CODE></dd>
+</dl>
+
+<h2>Arguments</h2>
+<p>None.</p>
+
+<h2>Return Values</h2>
+<p>None.</p>
+
+<H2>Description</H2>
+<P>This function waits until the Square Root Calculator is in a ready state.</P>
+<P>The calculation cycle of the square root calculator is as follows. (The calculation cycle is a cycle number based on 33.514 MHz. The CPU cycle conversion is a cycle number based on 67.028 MHz.)</P>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+      <TH>Square Root Calculation Mode</TH>
+      <TH>Calculation</TH>
+      <TH>Calculation Cycles</TH>
+      <TH>CPU Cycle Conversion</TH>
+    </TR>
+    <TR>
+      <TD>CP_SQRT_32BIT_MODE</TD>
+      <TD>Square root calculation of 32-bit values</TD>
+      <TD>13 cycles</TD>
+      <TD>26 cycles</TD>
+    </TR>
+    <TR>
+      <TD>CP_SQRT_64BIT_MODE</TD>
+      <TD>Square root calculation of 64-bit values</TD>
+      <TD>13 cycles</TD>
+      <TD>26 cycles</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+
+<h2>Internal Operation</h2>
+<p><CODE>Reference SQRTCNT(0x40002B0) of the IO register.<br></CODE></p>
+
+<h2>See Also</h2>
+<p><CODE><A href="CP_SetSqrtImm.html">CP_SetSqrtImm*</A>, <A href="CP_SetSqrt.html">CP_SetSqrt*</A>, <A href="CP_IsSqrtBusy.html">CP_IsSqrtBusy</A>, <A href="CP_GetSqrtResult.html">CP_GetSqrtResult*</A></CODE></p>
+
+<H2>Revision History</H2>
+<P>2006/08/09 Added description of calculation cycle.<BR>2004/01/09 Added contents.<BR>2003/12/01 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

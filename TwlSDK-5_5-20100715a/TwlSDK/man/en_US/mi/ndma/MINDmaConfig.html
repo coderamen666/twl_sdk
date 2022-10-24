@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>MINDmaConfig Structure</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">MINDmaConfig Structure<IMG src="../../image/TWL.gif" width="24" height="12" border="0" align=middle></H1>
+<H2>Definition</H2>
+<DL>
+  <DD><PRE>#include &lt;twl/mi.h&gt;
+  
+  typedef struct _MINDmaConfig
+  {
+  	u32 intervalTimer;
+  	u32 prescaler;
+  	u32 blockWord;
+  	u32 wordCount;
+  }
+  MINDmaConfig;</PRE>
+</DL>
+<H2>Members</H2>
+<P>The members of the <CODE>MINDmaConfig</CODE> structure are shown below.<BR>
+</P>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+<TH>Member Name</TH>
+<TH>Description</TH>
+<TH>Related Register</TH>
+<TH>Default Values</TH>
+    </TR>
+    <TR>
+<TD><CODE>intervalTimer</CODE></TD>
+<TD>Interval timer for block transfers.</TD>
+<TD>d15-0 in DMAxBCNT</TD>
+<TD><CODE>MI_NDMA_NO_INTERVAL</CODE></TD>
+    </TR>
+    <TR>
+<TD><CODE>prescaler</CODE></TD>
+<TD>Prescaler of interval timer for block transfers.</TD>
+<TD>d17-16 in DMAxBCNT</TD>
+<TD><CODE>MI_NDMA_INTERVAL_PS_1</CODE></TD>
+    </TR>
+    <TR>
+<TD><CODE>blockWord</CODE></TD>
+<TD>Number of words in the block transfer.</TD>
+<TD>d19-16 in DMAx_CNT</TD>
+<TD><CODE>MI_NDMA_BWORD_1</CODE></TD>
+    </TR>
+    <TR>
+<TD><CODE>wordCount</CODE></TD>
+<TD>Number of words in the transfer.</TD>
+<TD>DMAxWCNT</TD>
+<TD><CODE>MI_NDMA_AT_A_TIME</CODE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>Description</H2>
+<P><CODE>MINDmaConfig</CODE> is a structure that specifies the DMA behavior used in new DMA operations.</P>
+<P>There are many parameters that specify the behavior of the new DMA. Specifying all aspects of every behavior would cause the instruction length to be quite long, which in turn would be extremely troublesome. Consequently, the parts of these parameters that are unlikely to change during multiple DMA operations are gathered into the <CODE>MINDmaConfig</CODE> structure. By having applications refer to this structure during DMA operations, the burden on applications can be reduced.</P>
+<P>Each of the four new DMAs contains a  <CODE>MINDmaConfig</CODE> structure internally. During DMA operations, either of the following operations can be selected.</P>
+<BLOCKQUOTE>(1) Accessing the <CODE>MINDmaConfig</CODE> structure maintained internally<BR>(2) Accessing the <CODE>MINDmaConfig</CODE> structure specified by the application </BLOCKQUOTE>
+<P> </P>
+<P>The functions that configure the internally maintained <CODE>MINDmaConfig</CODE> structure are the following:</P>
+<BLOCKQUOTE>The <CODE><A href="MI_InitNDmaConfig.html">MI_InitNDmaConfig</A></CODE> function, used to initialize the four internal structures<BR>The <CODE><A href="MI_SetNDmaConfig.html">MI_SetNDmaConfig</A></CODE> function, used to copy the specified <CODE>MINDmaConfig</CODE> structure to an internal structure<BR>The <CODE><A href="MI_SetNDmaInterval.html">MI_SetNDmaInterval</A></CODE> function, used to specify interval information for a particular internal structure<BR>The <CODE><A href="MI_SetNDmaBlockWord.html">MI_SetNDmaBlockWord</A></CODE> function, used to specify BlockWord information for a particular internal structure<BR>The <CODE><A href="MI_SetNDmaWordCount.html">MI_SetNDmaWordCount</A></CODE> function, used to specify <CODE>WordCount</CODE> information for a particular internal structure</BLOCKQUOTE>
+<P>  The functions that get the information in the internal <CODE>MINDmaConfig</CODE> structure are the following:</P>
+<BLOCKQUOTE>The <CODE><A href="MI_GetNDmaConfig.html">MI_GetNDmaConfig</A></CODE> function, used to copy an internal structure to a specified region of memory<BR>The <CODE><A href="MI_GetNDmaIntervalTimer.html">MI_GetNDmaIntervalTimer</A></CODE> function, used to get the interval timer information for a particular internal structure<BR>The <CODE><A href="MI_GetNDmaIntervalPrescaler.html">MI_GetNDmaIntervalPrescaler</A></CODE> function, used to get the interval prescalar information for a particular internal structure<BR>The <CODE><A href="MI_GetNDmaBlockWord.html">MI_GetNDmaBlockWord</A></CODE> function, used to get the <CODE>BlockWord</CODE> information of a particular internal structure<BR>The <CODE><A href="MI_GetNDmaWordCount.html">MI_GetNDmaWordCount</A></CODE> function, used to get the <CODE>WordCount</CODE> information of a particular internal structure</BLOCKQUOTE>
+<P>  The &quot;interval information&quot; mentioned in the set functions refers to the Interval Timer and Interval Prescaler information; both can be set simultaneously. For the get functions, two separate functions have been created to get these values individually.</P>
+<P>The internal structure will be initialized using the <CODE><A href="../../os/init/OS_Init.html">OS_Init</A></CODE> function, so the application doesn't have to handle the initialization at first. Call this function if it's necessary.</P>
+<P>If you want to perform a new DMA operation using different parameters than the default settings, but you don't want to change the internal structure, perform the following procedure: (1) copy over the <CODE>MINDmaConfig</CODE> structure, (2) overwrite the members of the <CODE>MINDmaConfig</CODE> structure, (3) specify that structure and perform the new DMA operation.</P>
+<P>If you want to change the actual value within the library's internal structure, either (1) copy <CODE>MINDmaConfig</CODE> and overwrite the necessary portions, then set the library to the structure, or (2) overwrite the necessary parameters directly using functions such as <CODE><A href="MI_SetNDmaInterval.html">MI_SetNDmaInterval()</A></CODE>.</P>
+<P><B><BR> (Example)</B> Copy the new DMA1 settings, overwrite the interval information (that is, the Interval Timer and Interval Prescaler information), and set that as the config [structure] for the new DMA1 [channel].</P>
+<BLOCKQUOTE style="background-color: #ffffcc;"><CODE><BR>MINDmaConfig config;<BR> <BR> <FONT color="#666633">//---- get config</FONT><BR> <FONT color="#ff0000">MI_GetNDmaConfig</FONT>( 1, &amp;config );<BR> <BR> <FONT color="#666633">//---- change config values</FONT><BR> config.intervalTimer = 0x100;<BR> config.prescaler = MI_NDMA_INTERVAL_PS_16;<BR> <BR> <FONT color="#666633">//---- set config</FONT><BR> <FONT color="#ff0000">MI_SetNDmaConfig</FONT>( 1, &amp;config );<BR> <BR></CODE></BLOCKQUOTE>
+<H2>See Also</H2>
+<P><CODE><A href="MI_InitNDmaConfig.html">MI_InitNDmaConfig</A><BR> <A href="MI_SetNDmaConfig.html">MI_SetNDmaConfig</A><BR></CODE></P>
+<H2>Revision History</H2>
+<P>2008/01/22 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

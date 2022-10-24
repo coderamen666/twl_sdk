@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>WVR_StartUpAsync</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">WVR_StartUpAsync <img src="../../image/NTR.gif"></h1>
+<h2>Syntax</h2>
+<dl>
+  <dd><PRE><CODE>#include &lt;nitro/wvr.h&gt;
+
+<A href="WVRResult.html">WVRResult</A> WVR_StartUpAsync(
+    GXVRamARM7      vram ,
+    <A href="WVRCallbackFunc.html">WVRCallbackFunc</A> callback ,
+    void*           arg
+);
+</CODE></PRE></dd>
+</dl>
+
+<h2>Arguments</h2>
+<table border="1" width="100%">
+  <tbody>
+    <TR>
+<TD width="200"><SPAN class="argument">vram</SPAN></TD>
+<TD width="800">VRAM bank to allocate to ARM7. The ARM7-side wireless driver begins to operate on this VRAM. <BR> Below are the possible configuration values.
+      <UL>
+      <LI><CODE>GX_VRAM_ARM7_128_C</CODE>
+      <LI><CODE>GX_VRAM_ARM7_128_D</CODE>
+      <LI><CODE>GX_VRAM_ARM7_256_CD</CODE>
+      </UL>
+      </TD>
+    </TR>
+    <TR>
+<TD width="200"><SPAN class="argument">callback</SPAN></TD>
+<TD width="800">Callback function to call when the asynchronous process completes. This callback is called from inside the interrupt handler.</TD>
+    </TR>
+    <TR>
+<TD width="200"><SPAN class="argument">arg</SPAN></TD>
+<TD width="800">Optional arguments to be passed to the callback function called when the asynchronous process is complete.</TD>
+    </TR>
+  </tbody>
+</table>
+
+<h2>Return Values</h2>
+<p>Returns the results of the <A href="WVRResult.html"><CODE>WVRResult</CODE></A> enumerated type process.</p>
+
+<H2>Description</H2>
+<P>
+Allocates a VRAM bank to the ARM7-side wireless driver and then starts the operations for that driver. If the return value was <code>WVR_RESULT_OPERATING</code>, the callback function is called from inside the PXI receive interrupt handler when the asynchronous process is complete.<BR>This function is relevant only when the ichneumon or ichneumon.TWL components, which contains features for operating the wireless driver in VRAM, are being used. For all other components, <CODE>WVR_RESULT_DISABLE</CODE> is returned, and this function fails. If the <CODE>ichneumon</CODE> or <CODE>ichneumon.TWL</CODE> component is being used, the wireless communication features cannot be used as long as the wireless driver is not put into operation via this function. Before the wireless driver starts up, the <A href="../../wm/wm/WM_Init.html"><code>WM_Init</code></A> function returns <code>WM_ERRCODE_DISABLE</code> and fails.<BR><BR>The wireless driver can only be allocated to the VRAM banks VRAM-C and VRAM-D, but if these VRAM banks are already allocated for another application by the GX library, this function fails. In that case, try to call this function after putting the VRAM bank to be used into a &quot;Not allocated for any application&quot; state with a function such as <CODE>GX_DisableBankFor*</CODE>. Conversely, if the VRAM bank is allocated to the wireless driver via this function, the designated VRAM bank is unable to be allocated for any other application until the wireless driver is stopped by the <A href="WVR_TerminateAsync.html"><code>WVR_TerminateAsync</code></A> function.<BR>There are no differences for the wireless driver due to the VRAM that is allocated. The allocation of either VRAM-C or VRAM-D has the same effect on the operations of the wireless driver. Select the VRAM to allocate according to how VRAM-C and VRAM-D are used.<br><br> <FONT color="#800000">Before calling this function, you must call the <A href="../../os/spinLock/OS_InitLock.html"><code>OS_InitLock</code></A> or <A href="../../os/init/OS_Init.html"><code>OS_Init</code></A> function.</FONT>
+
+</P>
+
+<h2>See Also</h2>
+<p><A href="WVR_TerminateAsync.html"><CODE>WVR_TerminateAsync</CODE></A><br> <A href="../../wm/wm/WM_Init.html"><CODE>WM_Init</CODE></A></p>
+
+<H2>Revision History</H2>
+<P>
+2009/06/15 Added a description related to the <CODE>ichneumon.TWL</CODE> component.</BR> 2005/06/27 Added a statement about the callback being called from the interrupt handler.</BR> 2005/03/14 Corrected a mistake with a link destination.<BR> 2005/03/08 Standardized the Japanese word for <I>interrupt</I>.</BR> 2005/03/01 Added to <B>Description</B>.<br> 2005/02/16 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

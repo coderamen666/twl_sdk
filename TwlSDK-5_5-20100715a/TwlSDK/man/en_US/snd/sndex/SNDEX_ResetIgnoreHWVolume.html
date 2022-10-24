@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+	<HEAD>
+		<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+		<title>SNDEX_ResetIgnoreHWVolume</title>
+		<link rel="stylesheet" href="../../css/nitro.css" type="text/css">
+	</HEAD>
+	<BODY>
+		<H1>SNDEX_ResetIgnoreHWVolume <IMG src="../../image/TWL.gif" width="24" height="12" border="0" align=middle></H1>
+
+		<H2>Syntax</H2>
+		<DL>
+			<DD><CODE>#include &lt;twl/snd.h&gt;</CODE></DD>
+			<DD><PRE><CODE>SNDEXResult SNDEX_ResetIgnoreHWVolume( void );</CODE></PRE></DD>
+		</DL>
+
+		<H2>Arguments</H2>
+		<P>None.</P>
+
+		<H2>Return Values</H2>
+		<TABLE>
+			<TBODY>
+				<TR>
+					<TH width="25%"><CODE>SNDEX_RESULT_SUCCESS</CODE></TH>
+					<TD width="75%">The whole series of operations completed successfully.</TD>
+				</TR>
+				<TR>
+					<TH width="25%"><CODE>SNDEX_RESULT_ILLEGAL_STATE</CODE></TH>
+					<TD width="75%">This function has been called on the NITRO platform or from an exception handler.</TD>
+				</TR>
+				<TR>
+					<TH width="25%"><CODE>SNDEX_RESULT_BEFORE_INIT</CODE></TH>
+					<TD width="75%">Extended sound features have not been initialized by the <A href="SNDEX_Init.html"><CODE>SNDEX_Init</CODE></A> function.</TD>
+				</TR>
+				<TR>
+					<TH width="25%"><CODE>SNDEX_RESULT_EXCLUSIVE</CODE></TH>
+					<TD width="75%">Processing for other extended sound features is running. Note that mutexes are used for each of the extended sound features, so they cannot be used simultaneously.<BR> This is also returned when a mutex error occurred in the ARM7. When this is the case, the situation may improve on a retry because the error is dependent on the progress of processing in ARM7.<BR> As mentioned in the <A href="./doc/aboutSNDEX.html">SNDEX Library Overview</A>, the error also returns during processing of shutter sound playback.</TD>
+				</TR>
+				<TR>
+					<TH width="25%"><CODE>SNDEX_RESULT_PXI_SEND_ERROR</CODE></TH>
+					<TD width="75%">A PXI command failed to be sent to the ARM7. This error occurs when the PXI send queue for the ARM7 has filled up or when the hardware has detected an error. As a result, the state may improve when a retry is made.</TD>
+				</TR>
+				<TR>
+					<TH width="25%"><CODE>SNDEX_RESULT_DEVICE_ERROR</CODE></TH>
+					<TD width="75%">The ARM7 failed to change the speaker volume for an external device. Conditions may improve on a retry, but continued failures after multiple retries could indicate that the external device is not responding, so you may handle this as if it were a return value indicating success.</TD>
+				</TR>
+				<TR>
+					<TH width="25%"><CODE>SNDEX_RESULT_FATAL_ERROR</CODE></TH>
+					<TD width="75%">This error should not ordinarily occur. This may occur when an illegal PXI command was sent directly, ignoring library state management; when the ARM7 component and the extended sound feature library have different versions; when library state management has fallen into an abnormal state due to memory corruption; or when other such conditions arise. There is no way to recover from this at run time.
+					</TD>
+				</TR>
+			</TBODY>
+		</TABLE>
+
+		<H2>Description</H2>
+		<P>
+			Synchronously changes the speaker volume to the value stored by the <A href="SNDEX_SetIgnoreHWVolume.html"><CODE>SNDEX_SetIgnoreHWVolume</CODE></A> function. <FONT color="red">The change is not necessarily applied immediately. </FONT>For more information, see <B>Note</B>, below.
+		</P>
+		<P>
+			This function calls the <A href="SNDEX_SetVolume.html"><CODE>SNDEX_SetVolume</CODE></A> function internally and stops its own calling thread until the processing has completed. This function expects to be called from a thread, so it fails if it is called from an exception handler. Note that this function continues to block internally if PXI receive interrupts are prohibited, because PXI receive interrupts are used to detect the processing's completion.
+		</P>
+
+		<H2>Note</H2>
+		<P>
+		Be sure that your method for changing the volume adheres to the <I>Programming Guidelines</I>.<BR>
+		</P>
+		<P>
+			If the <A href="SNDEX_SetIgnoreHWVolume.html"><CODE>SNDEX_SetIgnoreHWVolume</CODE></A> function has never been called when this function executes, the speaker volume is changed to 0.<BR>
+		</P>
+		<P>
+			The speaker volume is saved in dedicated nonvolatile memory each time it is changed. It consequently cannot be modified an infinite number of times. <FONT color="red">Avoid frequent changes to the speaker volume from the program. </FONT><BR>For more information, see the <B>Note</B> section for the <A href="SNDEX_SetVolume.html"><CODE>SNDEX_SetVolume</CODE></A> function.
+		</P>
+		<H2>See Also</H2>
+		<P>
+			<A href="SNDEX_SetVolume.html"><CODE>SNDEX_SetVolume</CODE></A><BR> <A href="SNDEX_SetIgnoreHWVolume.html"><CODE>SNDEX_SetIgnoreHWVolume</CODE></A>
+		</P>
+		<H2>Revision History</H2>
+		<P>
+			2009/02/02 Initial version.
+		</P>
+	<hr><p>CONFIDENTIAL</p></body>
+</HTML>

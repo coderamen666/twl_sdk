@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>Animation Controller Overview</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+<h1 align="left">Animation Controller Overview</h1>
+<h2>Conceptual Diagram</h2>
+<P><IMG src="image2.gif" border="0"></P>
+<H2>Description</H2>
+<p>The Animation Controller controls the playback of cell and multicell animations.</p>
+
+<h2>Internal Data of Animation Controller</h2>
+
+<h3>Animation Frame Being Displayed</h3>
+
+<p>The pointer to the animation sequence data currently being played is stored in the animation frame currently being displayed. The Controller stores the information defining the animation in the animation sequence. The animation sequence data exists within the animation data (<code>.nanr</code> and <code>.nmar</code> files) that is read into the main memory. The animation data is static and cannot be rewritten.</p>
+
+<h3>Counter</h3>
+
+<p>The pointer that points to the frame data for the currently playing animation is stored in the counter. Animation frame data refers to information such as the data number of the cell or multicell displayed in that time period.</p>
+
+<h3>Playback Speed</h3>
+<p>The playback speed is the information needed to change the animation playback speed. The animation playback speed can be set. Setting a negative value allows reverse playback. (There is a method for setting a reverse playback flag.)</p>
+
+<h3>Callback Function Information</h3>
+
+<p>The animation controller supports the calling of callback functions using the different timing settings of animation playback. Therefore, the animation controller maintains the 4 bytes of user data passed to the callback function and the callback function pointer as a data member.</p>
+
+<h2>See Also</h2>
+<p>
+None.
+</p>
+<H2>Revision History</H2>
+<P>2004/12/06 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

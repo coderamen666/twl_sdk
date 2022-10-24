@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title>FS_*FileAuto,FS_*DirectoryAuto</title>
+<link rel="stylesheet" href="../../css/nitro.css" type="text/css" />
+</head>
+<body>
+<h1>FS_*FileAuto,FS_*DirectoryAuto <img src="../../image/NTR.gif"align="middle"><img src="../../image/TWL.gif" align="middle"></h1>
+<h2>Syntax</h2>
+
+<pre><code>
+#include &lt;nitro/fs.h&gt;
+
+BOOL FS_CreateFileAuto(const char *path, u32 permit);
+BOOL FS_DeleteFileAuto(const char *path);
+BOOL FS_RenameFileAuto(const char *src, const char *dst);
+BOOL FS_CreateDirectoryAuto(const char *path, u32 permit);
+BOOL FS_DeleteDirectoryAuto(const char *path);
+BOOL FS_RenameDirectoryAuto(const char *src, const char *dst);
+</code></pre>
+<h2>Arguments</h2>
+<p>These are the same as those of the normal functions without the &quot;<CODE>Auto</CODE>&quot; suffix.</p>
+
+<h2>Return Values</h2>
+<p>These are the same as those of the normal functions without the &quot;<CODE>Auto</CODE>&quot; suffix.</p>
+
+<h2>Description</h2>
+<p>Except for the fact that the directory operations performed on the target path will be automatically supplemented, these are the same as the normal functions without the &quot;<CODE>Auto</CODE>&quot; suffix. The following operations are supplemented as follows with these functions.
+<ul>
+<li>If the creation path for <CODE>Create</CODE> or the destination path for <CODE>Rename</CODE> are under a directory that does not exist, all subdirectories leading to these paths will be created automatically. If the intended process fails, the directories that were created automatically will be deleted.</li>
+<li>If a directory to be deleted with <CODE>Delete</CODE> is not empty, all items under that directory will be deleted.</li>
+</ul>
+</p>
+
+<h2>Note</h2>
+<ul>
+<li>This function cannot be called from the interrupt handler (IRQ mode). Also note that in some cases processing may not end if interrupts are left prohibited.</li>
+<li style='color:Red'>Because these functions automatically supplement directory operations, it is possible for them to succeed in path operations that would normally fail using the normal functions. Extreme care must be taken regarding their usage.
+<pre style='color:Black;border:solid 1px Black;width:80%'><code>
+Safe Example:
+  <span style='color:#008000'>// Debugging will be more effective if only constant strings are ever used.
+  // We recommend using these &quot;Auto&quot; functions for convenience, in a way that is limited to a single purpose.</span>
+  static const char *dir = &quot;tmp:/workdir/&quot;;
+  FS_DeleteDirectoryAuto(dir);
+
+Dangerous Example:
+  <span style='color:#008000'>// Dynamically generated paths are more inclined to bugs.
+  // In situations that rely on the operating environment, either this kind of usage should be avoided or extreme caution must be exercised.</span>
+  STD_SPrintf(path, &quot;savedata:/users/%s/&quot;, newUserName);
+  FS_CreateDirectoryAuto(path);
+
+</code></pre>
+</li>
+<li style='color:Red'>If these functions fail, <code><a href="../archive/FS_GetArchiveResultCode.html">FS_GetArchiveResultCode()</a></code> cannot be used to check the exact error details.</li>
+</ul>
+
+<h2>See Also</h2>
+<p><code><a href="FS_CreateDirectory.html">FS_CreateDirectory</A> <a href="FS_DeleteDirectory.html">FS_DeleteDirectory</A> <a href="FS_RenameDirectory.html">FS_RenameDirectory</A> <a href="FS_CreateFile.html">FS_CreateFile</A> <a href="FS_DeleteFile.html">FS_DeleteFile</A> <a href="FS_RenameFile.html">FS_RenameFile</A></code></p>
+
+<h2>Revision History</h2>
+<p>
+2008/01/25 Initial version.
+</p>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

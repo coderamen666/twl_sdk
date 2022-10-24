@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>Debug (Operating Environment): Overview</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">Operating Environment: Overview  <IMG src="../../image/NTR.gif" align="middle"><IMG src="../../image/TWL.gif" align="middle"></H1>
+<H2>Description</H2>
+<P>This section explains the API for getting the operating environment and the operating mode.</P>
+<P>The TWL-SDK provides functions for getting the current run-time environment. For example, you can use these functions to make determinations if you want to vary the behavior of a NITRO/TWL hybrid ROM depending on which platform it is running on, or if you want to run different code when your application is run on the actual console as opposed to the debugger hardware.</P>
+<P>The following functions belong to this category.</P>
+<BLOCKQUOTE>
+<ul><li><A href="OS_GetConsoleType.html"><CODE>OS_GetConsoleType</CODE></A></li><li><A href="OS_GetRunningConsoleType.html"><CODE>OS_GetRunningConsoleType</CODE></A></li><li><A href="OS_IsRunOnEmulator.html"><CODE>OS_IsRunOnEmulator</CODE></A></li><li><A href="OS_IsRunOnDebugger.html"><CODE>OS_IsRunOnDebugger</CODE></A></li><li><A href="OS_IsRunOnTwl.html"><CODE>OS_IsRunOnTwl</CODE></A></li></ul>
+</BLOCKQUOTE>
+<P> </P>
+<H2>Operating Environment and Operating Mode</H2>
+<P>This section explains the concepts of the <B>operating environment</B> and <B>operating mode</B>.</P>
+<P><BR> The <B>operating environment</B> comprises information about the hardware on which a given program is running and information about the <FONT color="#ff0000">hardware type</FONT>, <FONT color="#ff0000">amount of built-in memory</FONT>, and <FONT color="#ff0000">boot device</FONT>. An example of this information would be that the application &quot;was booted from the card bus of an IS-TWL-DEBUGGER that has 32 MB of built-in memory.&quot;</P>
+<ul>
+<li>The hardware type will be one of the following: TWL console, DS console, IS-TWL-DEBUGGER, IS-NITRO-DEBUGGER, or Ensata Emulator.</li>
+<li>The amount of built-in memory will be one of the following, depending on the environment: 4 MB, 8 MB, 16 MB, or 32 MB.</li>
+<li>The boot device will be one of the following: Game Card, Game Pak, NAND, SD Card, Memory, or Download.</li>
+</ul>
+<P><BR> The <B>operating mode</B> indicates whether a given program is running as a TWL application or as a NITRO application. Accordingly, there are only two operating modes: <FONT color="#ff0000">NITRO mode</FONT> and <FONT color="#ff0000">TWL mode</FONT>. </P>
+<ul><li>NITRO-exclusive ROMs can run only in NITRO mode. Even when run on a TWL console unit, they will be running in NITRO mode.</li>
+<li>TWL-exclusive ROMs can run only in TWL mode.</li>
+<li>NITRO/TWL hybrid ROMs may run in NITRO mode at times and in TWL mode at other times.</li></ul>
+<H2>Functions to Get the Operating Environment</H2>
+<P>To determine the operating environment, use the <A href="OS_GetConsoleType.html"><CODE>OS_GetConsoleType</CODE></A> or <A href="OS_GetRunningConsoleType.html"><CODE>OS_GetRunningConsoleType</CODE></A> functions.<BR> The differences between these two functions are shown below.</P>
+<ul><li>In FINALROM builds, the <A href="OS_GetConsoleType.html"><CODE>OS_GetConsoleType</CODE></A> function returns a constant that indicates the fact that the application is a FINALROM build, regardless of which device it is running on.</li>
+<li>The <A href="OS_GetRunningConsoleType.html"><CODE>OS_GetRunningConsoleType</CODE></A> function returns the current operating environment, even for FINALROM builds.</li></ul>
+<P>In other words, these two functions differ only when the build type is FINALROM. They will return the same values when the build type is DEBUG or RELEASE.<BR> See the <A href="OS_GetConsoleType.html"><CODE>OS_GetConsoleType</CODE></A> function for details such as the values that can be obtained.</P>
+<P>The <A href="OS_IsRunOnDebugger.html"><CODE>OS_IsRunOnDebugger</CODE></A> and <A href="OS_IsRunOnEmulator.html"><CODE>OS_IsRunOnEmulator</CODE></A> functions, which use the values of the <A href="OS_GetConsoleType.html"><CODE>OS_GetConsoleType</CODE></A> function, are also available.</P>
+<ul><li>Use the <A href="OS_IsRunOnDebugger.html"><CODE>OS_IsRunOnDebugger</CODE></A> function to find out whether the operating environment is a <FONT color="#ff0000">debugger</FONT>.</li>
+<li>Use the <A href="OS_IsRunOnEmulator.html"><CODE>OS_IsRunOnEmulator</CODE></A> function to find out whether the operating environment is the <FONT color="#ff0000">Ensata emulator</FONT>.</li></ul>
+<H2>Functions to Get the Operating Mode</H2>
+<P>To determine the operating mode, use the <A href="OS_IsRunOnTwl.html"><CODE>OS_IsRunOnTwl</CODE></A> function. When this function returns <CODE>TRUE</CODE>, it indicates that the application is running in TWL mode. <CODE>FALSE</CODE> indicates the application is running in NITRO mode.</P>
+<ul><li>With NITRO-exclusive ROMs, the <A href="OS_IsRunOnTwl.html"><CODE>OS_IsRunOnTwl</CODE></A> function will return the <FONT color="#ff0000">constant <CODE>FALSE</CODE></FONT>.</li>
+<li>With TWL-exclusive ROMs, the <A href="OS_IsRunOnTwl.html"><CODE>OS_IsRunOnTwl</CODE></A></CODE> function will return the <FONT color="#ff0000">constant <CODE>TRUE</CODE></FONT>.</li>
+<li>With NITRO/TWL hybrid ROMs, the <A href="OS_IsRunOnTwl.html"><CODE>OS_IsRunOnTwl</CODE></A> function will use information such as the I/O registers to determine the operating mode. Consequently, it will return <FONT color="#ff0000"><CODE>TRUE</CODE> if it determines the application is in TWL mode, and <CODE>FALSE</CODE> otherwise</FONT>.</li></ul>
+<H2>See Also</H2>
+<P><A href="../list_os.html#Environment">List of OS Functions (Operating Environment)</A></P>
+<H2>Revision History</H2>
+<P>2008/04/15 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

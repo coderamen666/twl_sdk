@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<LINK rel="stylesheet" type="text/css" href="../../css/nitro.css">
+<TITLE>nandApp Demos</TITLE>
+</HEAD>
+<BODY>
+<H1>AES Encryption Library Sample Demos</H1>
+<H2>Location</H2>
+<P><CODE>$TwlSDK/build/demos.TWL/aes</CODE></P>
+<H2>Compilation</H2>
+<P>Move to the <CODE>$TwlSDK/build/demos.TWL/aes</CODE> directory and enter the following:</P>
+<BLOCKQUOTE><CODE>% make</CODE></BLOCKQUOTE>
+<P>&nbsp;The SRL executable file and the TEF files with binary information are created in <CODE>$TwlSDK/build/demos.TWL/aes/(sample name)/bin/(platform)/(target)/</CODE>.</P>
+<BLOCKQUOTE><CODE></CODE></BLOCKQUOTE>
+<P> &nbsp;&nbsp;&nbsp;For example:</P>
+<BLOCKQUOTE><CODE>$TwlSDK/build/demos.TWL/aes/ctr/bin/ARM9-TS.HYB/Release/main.srl</CODE></BLOCKQUOTE>
+<P>will be the executable file for the <CODE>ctr</CODE> demo.</P>
+
+<H2>Running the Tool</H2>
+<H3>For TWL/NITRO HYBRID ROMs:</H3>
+<P>If using IS-TWL-DEBUGGER:</P>
+<UL>
+<LI>Load and execute a TLF file with IS-TWL-DEBUGGER.
+<LI>Execute an SRL file with IS-TWL-DEBUGGER.
+<LI>Execute an SRL file with IS-TWL-DEBUGGER using the <CODE>loadrun.TWL.exe</CODE> tool from a command line.
+</UL>
+<H3>For TWL LIMITED ROMs:</H3>
+<P>If using IS-TWL-DEBUGGER:</P>
+<UL>
+<LI>Load and execute a TLF file with IS-TWL-DEBUGGER
+<LI>Execute an SRL file with IS-TWL-DEBUGGER
+<LI>Execute an SRL file with IS-TWL-DEBUGGER using the <CODE>loadrun.TWL.exe</CODE> tool from a command line.
+</UL>
+
+<H2>Description</H2>
+<TABLE width="720">
+  <TBODY>
+    <TR>
+<TH>Name</TH>
+<TH>Directories</TH>
+<TH>Operation</TH>
+    </TR>
+    <TR>
+<TD width="187"><EM><STRONG><CODE>ctr</CODE></STRONG></EM></TD>
+<TD><CODE>demos.TWL</CODE></TD>
+<TD width="525">This demo performs encryption and decryption using <a href="../../aes/api/AES_Ctr.html"><code>AES_Ctr()</code></a>.</TD>
+    <TR>
+<TD width="187"><EM><STRONG><CODE>ccm</CODE></STRONG></EM></TD>
+<TD><CODE>demos.TWL</CODE></TD>
+<TD width="525">This demo performs encryption and decryption using the <a href="../../aes/api/AES_CcmEncryptAndSign.html"><code>AES_CcmEncryptAndSign</code></a> and <a href="../../aes/api/AES_CcmDecryptAndVerify.html"><code>AES_CcmDecryptAndVerify</code></a> functions.</TD>
+    </TR>
+    <TR>
+<TD width="187"><EM><STRONG><CODE>encrypt</CODE></STRONG></EM></TD>
+<TD><CODE>demos.TWL</CODE></TD>
+<TD width="525">This demo performs encryption and decryption using the <a href="../../aes/util/AES_Encrypt.html"><code>AES_Encrypt</code></a> and <a href="../../aes/util/AES_Decrypt.html"><code>AES_Decrypt</code></a> functions.</TD>
+    </TR>
+    <TR>
+<TD width="187"><EM><STRONG><CODE>encrypt-and-sign</CODE></STRONG></EM></TD>
+<TD><CODE>demos.TWL</CODE></TD>
+<TD width="525">This demo performs encryption and decryption using the <a href="../../aes/util/AES_EncryptAndSign.html"><code>AES_EncryptAndSign</code></a> and <a href="../../aes/util/AES_DecryptAndVerify.html"><code>AES_DecryptAndVerify</code></a> functions.</TD>
+    </TR>
+    <TR>
+<TD width="187"><EM><STRONG><CODE>ctr-partial</CODE></STRONG></EM></TD>
+<TD><CODE>demos.TWL</CODE></TD>
+<TD width="525">This demo performs partial decryption of encrypted data in CTR mode.</TD>
+    </TR>
+    <TR>
+<TD width="187"><EM><STRONG><CODE>ctr-compatible</CODE></STRONG></EM></TD>
+<TD><CODE>demos.TWL</CODE></TD>
+<TD width="525">This demo performs encryption and decryption that is compatible with the standard AES cipher in CTR mode.</TD>
+    </TR>
+    <TR>
+<TD width="187"><EM><STRONG><CODE>ccm-compatible</CODE></STRONG></EM></TD>
+<TD><CODE>demos.TWL</CODE></TD>
+<TD width="525">This demo performs encryption and decryption that is compatible with the standard AES cipher in CCM mode.</TD>
+    </TR>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>Operation</H2>
+<P>The AES library demos will operate normally only in TWL mode.</P>
+<H2>See Also</H2>
+<P>
+</P>
+<H2>Revision History</H2>
+<P>
+2007/12/10 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

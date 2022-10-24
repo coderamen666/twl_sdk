@@ -1,0 +1,134 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<LINK rel="stylesheet" type="text/css" href="../../css/nitro.css">
+<TITLE>FS Demos</TITLE>
+</HEAD>
+<BODY>
+<H1>ROM File System (FS) Sample Demos</H1>
+<H2>Location</H2>
+<P><CODE>$TwlSDK/build/demos/fs</CODE></P>
+<H2>Compilation</H2>
+<P>Move to the <CODE>$TwlSDK/build/demos/fs</CODE> directory and enter the following:</P>
+<BLOCKQUOTE><CODE>% make</CODE></BLOCKQUOTE>
+<P>&nbsp;The SRL executable file and the NEF or TEF files containing binary information are created in <CODE>$TwlSDK/build/demos/fs/(sample name)/bin/(platform)/(target)/</CODE>.</P>
+<BLOCKQUOTE><CODE></CODE></BLOCKQUOTE>
+<P>&nbsp;For example:</P>
+<BLOCKQUOTE><CODE>$TwlSDK/build/demos/fs/overlay/bin/ARM9-TS/Release/main.srl</CODE></BLOCKQUOTE>
+<P>will be the executable file for the <CODE>overlay</CODE> demo.</P>
+<P>Notice that FS differs from many other demos in that the <CODE>makerom</CODE> option is required, so it is not possible to build with <CODE>elftobin</CODE> (<CODE>make TWL_ELFTOBIN=TRUE</CODE>).</P>
+
+<H2>Execution</H2>
+<H3>For NITRO ROMs:</H3>
+
+<P>If using the Ensata emulator:</P>
+<UL>
+<LI>Execute NEF and SRL files with ensata.
+</UL>
+<P>If using IS-NITRO-DEBUGGER:</P>
+<UL>
+<LI>Load and execute an NLF file with IS-NITRO-DEBUGGER.
+<LI>Execute an SRL file with IS-NITRO-DEBUGGER
+<LI>Execute an SRL file with IS-NITRO-DEBUGGER using the <CODE>loadrun.exe</CODE> tool from a command line.
+</UL>
+<P>If using IS-TWL-DEBUGGER:</P>
+<UL>
+<LI>Load and execute an NLF file with IS-TWL-DEBUGGER.
+<LI>Execute an SRL file with IS-TWL-DEBUGGER.
+<LI>Execute an SRL file with IS-TWL-DEBUGGER using the <CODE>loadrun.TWL.exe</CODE> tool from a command line.
+</UL>
+<H3>For TWL/NITRO HYBRID ROMs:</H3>
+<P>If using IS-NITRO-DEBUGGER:</P>
+<UL>
+<LI>Execute an SRL file with IS-NITRO-DEBUGGER
+<LI>Execute an SRL file with IS-NITRO-DEBUGGER using the <CODE>loadrun.exe</CODE> tool from a command line
+</UL>
+<P>If using IS-TWL-DEBUGGER:</P>
+<UL>
+<LI>Load and execute a TLF file with IS-TWL-DEBUGGER.
+<LI>Execute an SRL file with IS-TWL-DEBUGGER
+<LI>Execute an SRL file with IS-TWL-DEBUGGER using the <CODE>loadrun.TWL.exe</CODE> tool from a command line.
+</UL>
+<H3>For TWL LIMITED ROMs:</H3>
+<P>If using IS-TWL-DEBUGGER:</P>
+<UL>
+<LI>Load and execute a TLF file with IS-TWL-DEBUGGER
+<LI>Execute an SRL file with IS-TWL-DEBUGGER
+<LI>Execute an SRL file with IS-TWL-DEBUGGER using the <CODE>loadrun.TWL.exe</CODE> tool from a command line.
+</UL>
+
+<H2>Description</H2>
+<TABLE width="720">
+  <TBODY>
+    <TR>
+<TH>Name</TH>
+<TH>Directories</TH>
+<TH>Operation</TH>
+    </TR>
+    <TR>
+<TD width="187"><EM><STRONG><CODE>file-1</CODE></STRONG></EM></TD>
+<TD><CODE>demos</CODE></TD>
+<TD width="525">This is a very simple model of the program configuration that is required to use FS.</TD>
+    </TR>
+    <TR>
+<TD width="187"><EM><STRONG><CODE>file-2</CODE></STRONG></EM></TD>
+<TD><CODE>demos</CODE></TD>
+<TD width="525">This embeds directories and files and reads them inside the program.</TD>
+    </TR>
+    <TR>
+<TD width="187"><EM><STRONG><CODE>file-3</CODE></STRONG></EM></TD>
+<TD><CODE>demos</CODE></TD>
+<TD width="525">This tests the operation of the functions <A href="../../fs/file/FS_CreateFileFromMemory.html"><CODE>FS_CreateFileFromMemory</CODE></a> and <A href="../../fs/file/FS_CreateFileFromRom.html"><CODE>FS_CreateFileFromRom</CODE></a>.</TD>
+    </TR>
+    <TR>
+<TD width="187"><EM><STRONG><CODE>async</CODE></STRONG></EM></TD>
+<TD><CODE>demos</CODE></TD>
+<TD width="525">This sample repeats synchronous read inside each thread. If the run environment supports asynchronous operation, the thread will be put to sleep and switched only when it is blocked. Otherwise, it will continue to repeat reading a single thread. For details, refer to the description of the <a href="../../fs/file/FS_ReadFileAsync.html"><code>FS_ReadFileAsync</code></a> function.</TD>
+    </TR>
+    <TR>
+<TD width="187"><EM><STRONG><CODE>overlay</CODE></STRONG></EM></TD>
+<TD><CODE>demos</CODE></TD>
+<TD width="525">This is a simple overlay sample.</TD>
+    </TR>
+    <TR>
+<TD width="187"><EM><STRONG><CODE>overlay-compressed</CODE></STRONG></EM></TD>
+<TD><CODE>demos</CODE></TD>
+<TD width="525">Tests the operation of compressed overlay using the <code>TWL_COMPRESS</code> build switch. The program itself is the same as that in the &quot;overlay&quot; demo.</TD>
+    </TR>
+    <TR>
+<TD width="187"><EM><STRONG><CODE>Overlay-staticinit</CODE></STRONG></EM></TD>
+<TD><CODE>demos</CODE></TD>
+<TD width="525">This sample defines the sinit.h header and the NitroStaticInit function, and uses a static initializer from an overlay written in C.</TD>
+    </TR>
+    <TR>
+<TD width="187"><EM><STRONG><CODE>arc-1</CODE></STRONG></EM></TD>
+<TD><CODE>demos</CODE></TD>
+<TD width="525">This is a sample that loads these two archives independently. <br><br>-Archive that operates the same way as the default <A>ROM archive</A>. <br>-Archive that accesses the internal file system in the program binary file.
+	  </TD>
+    </TR>
+    <TR>
+<TD width="187"><EM><STRONG><CODE>arc-2</CODE></STRONG></EM></TD>
+<TD><CODE>demos</CODE></TD>
+<TD width="525">This is a sample that loads a customized directory structure that is not compliant with the <CODE>TwlROM</CODE> format as an archive.<br> Unlike the <code>arc-1</code> sample, this sample contains examples that replace basic access commands with user procedures.
+	  </TD>
+    </TR>
+    <TR>
+<TD width="187"><EM><STRONG><CODE>explorer</CODE></STRONG></EM></TD>
+<TD><CODE>demos</CODE></TD>
+<TD width="525">This is a sample that displays a directory structure within the file system.
+	  </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>Operation</H2>
+<P><CODE>Operates normally in all operating environments.</CODE></P>
+<H2>See Also</H2>
+<P><A href="../../fs/list_fs.html"><CODE>FS Function List</CODE></A></P>
+<H2>Revision History</H2>
+<P>
+2008/07/11 Changed the description corresponding to TWL.<BR> 2008/05/22 Added a description of the explorer demo.<br> 2005/06/28 Added a description of a file-3 demo.<br> 2005/05/10 Added a description of the overlay-compressed demo.<br> 2005/03/02 Made revisions to code listed so it meets the conditions of the currently supported environment.<BR> 2005/01/19 Added a description of the overlay-staticinit demo.<BR> 2004/10/06 Added missing descriptions for some demo.<BR> 2004/08/17 Standardized the written style for IS-NITRO-EMULATOR.<BR> 2004/07/10 Changed from BIN to SRL.<BR>2004/06/18 Revised the description of the execution method.<br /> 2004/05/20 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

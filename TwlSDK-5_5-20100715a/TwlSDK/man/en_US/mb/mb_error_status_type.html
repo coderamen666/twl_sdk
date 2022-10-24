@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>MBErrorStatus</title>
+<LINK rel="stylesheet" href="../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">MBErrorStatus <IMG src="../image/NTR.gif" width="24" height="12" border="0" align=middle><IMG src="../image/TWL.gif" width="24" height="12" border="0" align=middle></h1>
+<h2>Definition</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/mb.h&gt;</CODE>
+<PRE><CODE>
+typedef struct
+{
+    u16 errcode;
+} MBErrorStatus;
+</CODE></PRE>
+  </dd>
+</dl>
+
+<H2>Description</H2>
+<P>This structure, which contains the cause of the error, is passed by a pointer when <CODE><a href="mb_comm_pstate_const.html">MB_COMM_PSTATE_ERROR</a></CODE> is returned by the <CODE><A href="parent/MB_CommSetParentStateCallback.html">MB_CommSetParentStateCallback</A></CODE> function's callback. The meaning of each member is shown in the following table:
+<TABLE border="0">
+  <TBODY>
+    <TR>
+      <TD>Member</TD>
+      <TD>Description</TD>
+    </TR>
+    <TR>
+      <TD><B><I>errcode</B></I></TD>
+      <TD>Value of type <a href="mb_err_code_const.html"><code>MBErrCode</code></a>, indicating MB library error codes.
+	  </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+</P>
+<BR>
+</P>
+<h2>See Also</h2>
+<p><a href="mb_comm_pstate_const.html"><code>MB_COMM_PSTATE_ERROR</code></a>, <a href="mb_err_code_const.html"><code>MBErrCode</code></a>, <A href="parent/MB_CommSetParentStateCallback.html"><code>MB_CommSetParentStateCallback</code></A></p>
+
+<H2>Revision History</H2>
+<P>
+2004/09/27 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

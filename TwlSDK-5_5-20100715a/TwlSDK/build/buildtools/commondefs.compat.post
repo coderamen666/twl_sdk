@@ -1,0 +1,84 @@
+#! make -f
+#----------------------------------------------------------------------------
+# Project:  TwlSDK
+# File:     commondefs.compat.post
+#
+# Copyright 2007-2009 Nintendo.  All rights reserved.
+#
+# These coded instructions, statements, and computer programs contain
+# proprietary information of Nintendo of America Inc. and/or Nintendo
+# Company Ltd., and are protected by Federal copyright law. They may
+# not be disclosed to third parties or copied or duplicated in any form,
+# in whole or in part, without the prior written consent of Nintendo.
+#
+# $Date:: 2009-06-04#$
+# $Rev: 10698 $
+# $Author: okubata_ryoma $
+#----------------------------------------------------------------------------
+
+ifneq ($(TWLSDK_LANG),)
+NITROSDK_LANG		:= $(TWLSDK_LANG)
+else
+TWLSDK_LANG			:= $(NITROSDK_LANG)
+endif
+
+ifneq ($(TWL_MAKEROM),)
+NITRO_MAKEROM		:= $(TWL_MAKEROM)
+else
+TWL_MAKEROM			:= $(NITRO_MAKEROM)
+endif
+
+ifneq ($(TWL_COMPRESS),)
+NITRO_COMPRESS		:= $(TWL_COMPRESS)
+else
+TWL_COMPRESS		:= $(NITRO_COMPRESS)
+endif
+
+ifneq ($(TWL_DIGEST),)
+NITRO_DIGEST		:= $(TWL_DIGEST)
+else
+TWL_DIGEST			:= $(NITRO_DIGEST)
+endif
+
+ifneq ($(TWL_PROFILE),)
+NITRO_PROFILE		:= $(TWL_PROFILE)
+else
+TWL_PROFILE			:= $(NITRO_PROFILE)
+endif
+
+ifneq ($(TWL_PROFILE_TYPE),)
+NITRO_PROFILE_TYPE	:= $(TWL_PROFILE_TYPE)
+else
+TWL_PROFILE_TYPE	:= $(NITRO_PROFILE_TYPE)
+endif
+
+ifneq ($(TWL_NO_OPT_G),)
+NITRO_NO_OPT_G		:= $(TWL_NO_OPT_G)
+else
+TWL_NO_OPT_G		:= $(NITRO_NO_OPT_G)
+endif
+
+ifneq ($(TWL_ROMSPEED),UNDEFINED)
+NITRO_ROMSPEED		:= $(TWL_ROMSPEED)
+else
+TWL_ROMSPEED		:= $(NITRO_ROMSPEED)
+endif
+
+ifneq ($(TWL_SVC_WAITVBLANK_COMPATIBLE),)
+NITRO_SVC_WAITVBLANK_COMPATIBLE		:= $(TWL_SVC_WAITVBLANK_COMPATIBLE)
+else
+TWL_SVC_WAITVBLANK_COMPATIBLE		:= $(NITRO_SVC_WAITVBLANK_COMPATIBLE)
+endif
+
+
+TARGET_CODEGEN_LIST	?= $(strip $(if $(filter ALL,$(TARGET_CODEGEN)),ARM THUMB,$(TARGET_CODEGEN)))
+
+
+# In the case of a nightly demo build, also build LIMITED ROMs that use the ferret component
+ifeq ($(SDK_NIGHTLY_BUILD),TRUE)
+ifneq ($(findstring demos,$(CURDIR)),)
+TWL_ARCHGEN_LIST	+= $(strip $(if $(filter ALL,$(TWL_ARCHGEN)),LIMITED HYBRID LIMITED_ferret,$(if $(filter LIMITED,$(TWL_ARCHGEN)),LIMITED LIMITED_ferret,$(TWL_ARCHGEN))))
+endif
+endif
+TWL_ARCHGEN_LIST	?= $(strip $(if $(filter ALL,$(TWL_ARCHGEN)),LIMITED HYBRID,$(TWL_ARCHGEN)))
+

@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>CameraWhiteBalance</TITLE>
+<LINK rel="stylesheet" href="../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">CAMERAWhiteBalance <IMG src="../image/TWL.gif" align="middle"></H1>
+<H2>Definition</H2>
+<DL>
+  <DD>
+  <CODE>#include &lt;twl/camera.h&gt;</CODE><BR>
+  <BR>
+  <PRE><CODE>
+typedef enum
+{
+    CAMERA_WHITE_BALANCE_AUTO,
+
+    CAMERA_WHITE_BALANCE_3200K,
+    CAMERA_WHITE_BALANCE_4150K,
+    CAMERA_WHITE_BALANCE_5200K,
+    CAMERA_WHITE_BALANCE_6000K,
+    CAMERA_WHITE_BALANCE_7000K,
+
+    CAMERA_WHITE_BALANCE_MAX,
+
+    // alias
+    CAMERA_WHITE_BALANCE_NORMAL                     = CAMERA_WHITE_BALANCE_AUTO,
+    CAMERA_WHITE_BALANCE_TUNGSTEN                   = CAMERA_WHITE_BALANCE_3200K,
+    CAMERA_WHITE_BALANCE_WHITE_FLUORESCENT_LIGHT    = CAMERA_WHITE_BALANCE_4150K,
+    CAMERA_WHITE_BALANCE_DAYLIGHT                   = CAMERA_WHITE_BALANCE_5200K,
+    CAMERA_WHITE_BALANCE_CLOUDY                     = CAMERA_WHITE_BALANCE_6000K,
+    CAMERA_WHITE_BALANCE_HORIZON                    = CAMERA_WHITE_BALANCE_6000K,
+    CAMERA_WHITE_BALANCE_SHADE                      = CAMERA_WHITE_BALANCE_7000K
+}
+CAMERAWhiteBalance;
+</CODE></PRE>
+</DL>
+
+<H2>Elements</H2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+      <TD width="13%"><EM><STRONG>CAMERA_WHITE_BALANCE_TUNGSTEN</STRONG></EM></TD>
+      <TD width="87%">3200K (Incandescent bulb)</TD>
+    </TR>
+    <TR>
+      <TD width="13%"><EM><STRONG>CAMERA_WHITE_BALANCE_WHITE_FLUORESCENT_LIGHT</STRONG></EM></TD>
+      <TD width="87%">4150K (White fluorescent light)</TD>
+    </TR>
+    <TR>
+      <TD width="13%"><EM><STRONG>CAMERA_WHITE_BALANCE_DAYLIGHT</STRONG></EM></TD>
+      <TD width="87%">5200K (Sunlight)</TD>
+    </TR>
+    <TR>
+      <TD width="13%"><EM><STRONG>CAMERA_WHITE_BALANCE_CLOUDY</STRONG></EM></TD>
+      <TD width="87%">6000K (Cloudy)</TD>
+    </TR>
+    <TR>
+      <TD width="13%"><EM><STRONG>CAMERA_WHITE_BALANCE_HORIZON</STRONG></EM></TD>
+      <TD width="87%">6000K (Sunset)</TD>
+    </TR>
+    <TR>
+      <TD width="13%"><EM><STRONG>CAMERA_WHITE_BALANCE_SHADE</STRONG></EM></TD>
+      <TD width="87%">7000K (Shade)</TD>
+    </TR>
+    <TR>
+      <TD width="13%"><EM><STRONG>CAMERA_WHITE_BALANCE_NORMAL</STRONG></EM></TD>
+      <TD width="87%">Auto</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<H2>Description</H2>
+<P>
+This is an enumerated type that is used to specify the camera's white balance.
+</P>
+
+<H2>Revision History</H2>
+<P>2008/03/13 Changed the definition. <BR>2007/11/12 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

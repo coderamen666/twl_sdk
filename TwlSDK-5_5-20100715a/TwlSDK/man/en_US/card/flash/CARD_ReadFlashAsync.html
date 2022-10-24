@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>CARD_ReadFlashAsync</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+<body>
+<h1 align="left">CARD_ReadFlashAsync <img src="../../image/NTR.gif"align="middle"><img src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/card.h&gt;</CODE><BR>
+  <BR>
+  <CODE>static inline void	CARD_ReadFlashAsync(
+	u32 src, void *dst, u32 len, MIDmaCallback callback, void *arg);</CODE><br>
+  <br>
+  </dd>
+</dl>
+<h2>Arguments</h2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+      <TD width="13%"><EM><STRONG>src</STRONG></EM></TD>
+      <TD width="87%">The FLASH address of the transfer source</TD>
+    </TR>
+    <TR>
+      <TD width="13%"><EM><STRONG>dst</STRONG></EM></TD>
+      <TD width="87%">Transfer destination memory address.</TD>
+    </TR>
+    <TR>
+      <TD width="13%"><EM><STRONG>len</STRONG></EM></TD>
+      <TD width="87%">Length of data being read, in bytes.</TD>
+    </TR>
+    <TR>
+      <TD width="13%"><EM><STRONG>callback</STRONG></EM></TD>
+      <TD width="87%">Completion callback function.<BR>
+	  Specify <CODE>NULL</CODE> if this is unnecessary.<br>This callback is called from within the interrupt handler.</TD>
+    </TR>
+    <TR>
+      <TD width="13%"><EM><STRONG>arg</STRONG></EM></TD>
+      <TD width="87%">Arguments to pass to the completion callback function.<BR>
+	  This is simply ignored if <CODE>NULL</CODE> was specified for <CODE>callback</CODE>.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<h2>Return Values</h2>
+<p>None.</p>
+<H2>Description</H2>
+<P>This function asynchronously loads data from the FLASH device. This function immediately returns control. To use this function, you must first lock the access bus with the <A href="../backup/CARD_LockBackup.html"><CODE>CARD_LockBackup</CODE></A> function.</font> Use the <A href="../backup/CARD_WaitBackupAsync.html"><CODE>CARD_WaitBackupAsync</CODE></A> function to wait for processing to end. To determine the processing result, call the <A href="../common/CARD_GetResultCode.html"><CODE>CARD_GetResultCode</CODE></A> function after processing is complete.<BR><BR> <font color="#800000">This function communicates with the ARM7 processor internally via PXI.<br> The process will not end if PXI interrupts are not enabled.<br></font> <br>
+</P>
+<h2>Internal Operation</h2>
+<p>
+This function executes an asynchronous process using an internal thread. See the description of the <A href="../common/CARD_GetThreadPriority.html"><CODE>CARD_GetThreadPriority</CODE></A> function for more information on this thread.
+</p>
+<h2>See Also</h2>
+<p><CODE><A href="CARD_IsBackupFlash.html">CARD_IsBackupFlash</A><br> <A href="../backup/CARD_WaitBackupAsync.html">CARD_WaitBackupAsync</A><br> <A href="../common/CARD_GetResultCode.html">CARD_GetResultCode</A><br> <A href="CARD_ReadFlash.html">CARD_ReadFlash</A><br> <A href="CARD_WriteFlash.html">CARD_WriteFlash</A><br> <A href="CARD_VerifyFlash.html">CARD_VerifyFlash</A><br> <A href="CARD_WriteAndVerifyFlash.html">CARD_WriteAndVerifyFlash</A><br> <A href="../common/CARD_GetThreadPriority.html">CARD_GetThreadPriority</A></CODE></p>
+<H2>Revision History</H2>
+<P>
+2005/06/01 Added a statement indicating that callback is called from interrupt handler. <br> 2004/12/09 Changed &quot;IO processor&quot; to &quot;ARM7 processor&quot;. <br> 2004/11/02  Revised links.<br> 2004/08/23  Revised links due to function changes. <BR> 2004/08/18  Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

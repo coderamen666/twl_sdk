@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title>WFSPeerInfo</title>
+<link rel="stylesheet" href="../css/nitro.css" type="text/css" />
+</head>
+
+<body>
+
+<h1>WFSPeerInfo</h1>
+<h2>Definition</h2>
+
+<dl>
+  <dd>
+<code>#include &lt;nitro/wfs.h&gt;</code><br />
+  <br />
+<pre>
+typedef struct WFSPeerInfo
+{
+    int     aid;            <font color="#008000">/* AID */</font>
+    u8      mac[6];         <font color="#008000">/* MAC address */</font>
+    <font color="#808080">u8      padding[2];</font>
+}
+WFSPeerInfo;
+</pre>
+  <br />
+  </dd>
+</dl>
+
+<h2>Elements</h2>
+<table border="1" width="100%">
+  <tbody>
+    <tr>
+      <td style="width:200"><em><strong><font face="Courier New">aid</font></strong></em></td>
+      <td style="width:800">AID representing the target station to be notified.</td>
+    </tr>
+    <tr>
+      <td style="width:200"><em><strong><font face="Courier New">mac</font></strong></em></td>
+      <td style="width:800">MAC address of the target station to be notified.</td>
+    </tr>
+  </tbody>
+</table>
+
+
+<h2>Description</h2>
+<p>This argument structure is used by the WFS library MP communication hook functions. The appropriate information must be stored in this structure and a corresponding hook function must be called in order to notify the WFS library regarding connections and disconnections of communicating peers.
+</p>
+
+<h2>See Also</h2>
+<p><code><a href="server/WFS_CallServerConnectHook.html">WFS_CallServerConnectHook</a>, <a href="server/WFS_CallServerDisconnectHook.html">WFS_CallServerDisconnectHook</a>, <a href="client/WFS_CallClientConnectHook.html">WFS_CallClientConnectHook</a>, <a href="client/WFS_CallClientDisconnectHook.html">WFS_CallClientDisconnectHook</a></code></p>
+
+<h2>Revision History</h2>
+<p>
+2007/06/06 Initial version.
+</p>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

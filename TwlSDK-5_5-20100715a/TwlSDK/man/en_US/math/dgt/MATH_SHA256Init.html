@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>MATH_SHA256Init</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">MATH_SHA256Init<img src="../../image/NTR.gif"align="middle"><img src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+
+<dl>
+  <dd>
+  <PRE><CODE>#include &lt;nitro/math/dgt.h&gt;
+
+static inline void MATH_SHA256Init( <A href="MATHSHA256Context.html">MATHSHA256Context</A> *context );
+</CODE></PRE>
+  </dd>
+</dl><h2>Arguments</h2>
+
+<table border="1" width="100%">
+    <TR>
+      <TD width="176"><em><strong><font face="Courier New">context</font></strong></em></TD>
+      <TD width="670">Pointer to the context structure to initialize. This structure is used for SHA-256 generation.</TD>
+    </TR>
+  </table>
+<h2>Return Values</h2>
+<p>None.</p>
+<H2>Description</H2>
+<P>This function initializes the <CODE><A href="MATHSHA256Context.html">MATHSHA256Context</A></CODE> context structure used for SHA-256 calculations. Make sure that this function is called before using the <CODE><A href="MATH_SHA256Update.html">MATH_SHA256Update</A></CODE> and <CODE><A href="MATH_SHA256GetHash.html">MATH_SHA256GetHash</A></CODE> functions.<BR>You can re-apply this function to a context structure that is already initialized. In this case, it will return the context structure to its initial state. SHA-256 is an algorithm to find the message digest value. For details, refer to the Federal Information Processing Standard, FIPS PUB 180-2.
+</P>
+<h2>See Also</h2>
+<P><CODE><A href="MATH_SHA256Update.html">MATH_SHA256Update</A>, <A href="MATH_SHA256GetHash.html">MATH_SHA256GetHash</A></CODE></P>
+<H2>Revision History</H2>
+<P>
+2008/05/23 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

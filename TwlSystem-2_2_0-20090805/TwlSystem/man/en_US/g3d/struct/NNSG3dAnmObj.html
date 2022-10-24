@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META http-equiv="Content-Style-Type" content="text/css">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+	<TITLE>NNSG3dAnmObj</TITLE>
+	<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+
+<BODY>
+
+<H1 align="left">NNSG3dAnmObj</H1>
+<H2>Syntax</H2>
+<PRE class="construction">#include &lt;nnsys/g3d/kernel.h&gt;
+
+typedef struct NNSG3dAnmObj_
+{
+    fx32                  frame;
+    fx32                  ratio;
+    void*                 resAnm;     // Pointer to the animation data block within the resource file
+    void*                 funcAnm;    // Cast as function pointer to various animations. This comes with a default value, but can be changed
+    struct NNSG3dAnmObj_* next;
+    const NNSG3dResTex*   resTex;     // When texture block information is required (only for texture pattern animations)
+    u8                    priority;
+    u8                    numMapData;
+    u16                   mapData[1]; // Becomes an array with number of elements equal to numMapData (NNSG3dAnmObjMapData)
+}
+NNSG3dAnmObj;</PRE>
+
+<H2>Description</H2>
+<P>The <code>NNSG3dAnmObj</code> structure collects the data needed to fetch animation data from the animation resource. The <CODE>NNSG3dAnmObj</CODE> structure stores the following data. <CODE>mapData</CODE> is a variable-length array, so it is not correct to get its size with <CODE>sizeof(NNSG3dAnmObj)</CODE>.
+</P>
+
+<TABLE border="1">
+  <TBODY>
+    <TR>
+<TH width="320"><CODE>NNSG3dAnmObj</CODE> Structure Members</TH>
+<TH align="center" width="717">Description</TH>
+    </TR>
+    <TR>
+<TD width="320"><I><B>frame</B></I></TD>
+<TD width="717">Animation frame count.</TD>
+    </TR>
+    <TR>
+<TD width="320"><I><B>ratio</B></I></TD>
+<TD width="717">The animation blend ratio (used for motion blending).</TD>
+    </TR>
+    <TR>
+<TD width="320"><I><B>resAnm</B></I></TD>
+<TD width="717">The pointer to a single animation resource.</TD>
+    </TR>
+    <TR>
+<TD width="320"><I><B>funcAnm</B></I></TD>
+<TD width="717">The pointer to a function that computes animations</TD>
+    </TR>
+    <TR>
+<TD width="320"><B><I>next</I></B></TD>
+<TD width="717">Specified with <CODE>NNS_G3dRenderObjBindAnmObj</CODE> or <CODE>NNS_G3dRenderObjReleaseAnmObj</CODE>.</TD>
+    </TR>
+    <TR>
+<TD width="320"><B><I>resTex</I></B></TD>
+<TD width="717">Pointer to the texture resource. Used only for texture pattern animations.</TD>
+    </TR>
+    <TR>
+<TD><B><I>priority</I></B></TD>
+<TD>The order of priority for being registered to <CODE>NNSG3dRenderObj</CODE>.</TD>
+    </TR>
+    <TR>
+<TD><B><I>numMapData</I></B></TD>
+<TD>Length of the <CODE><STRONG><EM>mapData</EM></STRONG></CODE> array.</TD>
+    </TR>
+    <TR>
+<TD><B><I>mapData</I></B></TD>
+<TD>The table used to map the model resource material IDs/joint IDs to the animation resource index.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P><BR> The <code>NNSG3dAnmObj</code> structure can be used for the playback of animation by registering it in the <a href="NNSG3dRenderObj.html"><code>NNSG3dRenderObj</code></a> structure with the <a href="../kernel/NNS_G3dRenderObjAddAnmObj.html"><code>NNS_G3dRenderObjAddAnmObj</code></a> function. The following processes are necessary to use <code>NNSG3dAnmObj</code> for animation playback:</P>
+<OL>
+<LI>Secure a region for the structure using the <a href="../mem/NNS_G3dAllocAnmObj.html" target="_self"><code>NNS_G3dAllocAnmObj</code></a> function. Note that the size of the structure will differ, depending on the number of material IDs and joint IDs for the model.
+<LI>Initialize the <code>NNSG3dAnmObj</code> structure using the <a href="../kernel/NNS_G3dAnmObjInit.html"><code>NNS_G3dAnmObjInit</code></a> function.
+<LI>Register animation object in <a href="NNSG3dRenderObj.html"><code>NNSG3dRenderObj</code></a> using the <a href="../kernel/NNS_G3dRenderObjAddAnmObj.html"><code>NNS_G3dRenderObjAddAnmObj</code></a> function.
+<LI>Use the <a href="../kernel/NNS_G3dAnmObjSetBlendRatio.html" target="_self"><code>NNS_G3dAnmObjSetBlendRatio</code></a> function to set the blend ratio for the number of frames that will be played by the <a href="../kernel/NNS_G3dAnmObjSetFrame.html" target="_self"><code>NNS_G3dAnmObjSetFrame</code></a> function. (This is usually only done when multiple joint animations have been registered).
+<LI>Render the animation-attached model using the <a href="../sbc/NNS_G3dDraw.html"><code>NNS_G3dDraw</code></a> function.
+<LI>To stop animation playback, use the <a href="../kernel/NNS_G3dRenderObjRemoveAnmObj.html" target="_self"><code>NNS_G3dRenderObjRemoveAnmObj</code></a> function to remove the animation object from <a href="NNSG3dRenderObj.html"><code>NNSG3dRenderObj</code></a>.
+<LI>If <code>NNSG3dAnmObj</code> is no longer being used, release the structure's region using the <a href="../mem/NNS_G3dFreeAnmObj.html" target="_self"><code>NNS_G3dFreeAnmObj</code></a> function.
+</OL>
+<P><code>NNSG3dAnmObj</code> cannot be used for animation playback if rendering is performed with the <a href="../sbc/NNS_G3dDraw1Mat1Shp.html"><code>NNS_G3dDraw1Mat1Shp</code></a> function.</P>
+<H2>See Also</H2>
+<P><A href="../list_g3d.html#Kernel">Kernel</A></P>
+<H2>Revision History</H2>
+<P>2007/05/17 Added structure definition.<BR>2004/10/12 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+
+</HTML>

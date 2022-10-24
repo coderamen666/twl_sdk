@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 8.0.2.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>WM_EndKeySharing</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">WM_EndKeySharing&nbsp;<img src="../../image/NTR.gif"><img src="../../image/TWL.gif"></H1>
+<h2>Syntax</h2>
+<dl>
+  <dd><PRE><CODE>#include &lt;nitro/wm.h&gt;
+
+<A href="WMErrCode.html">WMErrCode</A> WM_EndKeySharing( <A href="WMKeySetBuf.html">WMKeySetBuf</A>* buf );
+</CODE></PRE></dd>
+</dl>
+
+<h2>Arguments</h2>
+<table border="1" width="100%">
+  <tbody>
+    <TR>
+      <TD width="200"><EM><STRONG><FONT face="Courier New">buf</FONT></STRONG></EM></TD>
+      <TD width="800">Pointer to the buffer that stores key information.
+      The entity is the pointer to the <CODE>WMDataSharingInfo</CODE> structure.</TD>
+    </TR>
+  </tbody>
+</table>
+
+<h2>Return Values</h2>
+<p>Returns the results of the <CODE><A href="WMErrCode.html">WMErrCode</A></CODE> enumerated type process.</p>
+
+<H2>Description</H2>
+<P>Disables the key sharing feature. This function can be run only when the key sharing feature is enabled by <code><a href="WM_StartKeySharing.html">WM_StartKeySharing</a></code>. This function was changed from asynchronous to synchronous.<BR>The <A href="WM_StartKeySharing.html"><CODE>WM_StartKeySharing</CODE></A>, <A href="WM_EndKeySharing.html"><CODE>WM_EndKeySharing</CODE></A>, and <A href="WM_GetKeySet.html"><CODE>WM_GetKeySet</CODE></A> functions were retained from previous versions to maintain compatibility, but they will be removed in the future. Use the Data Sharing functions instead.</P>
+
+<h2>See Also</h2>
+<p><code><a href="WM_StartKeySharing.html">WM_StartKeySharing</a></code>, <code><a href="WM_GetKeySet.html">WM_GetKeySet</a></code></p>
+
+<H2>Revision History</H2>
+<P>
+2005/06/07 Changed argument and synchronized function.<br />2004/10/22 Changed return value types.<br />2004/07/29 Added to description.<br />2004/07/23 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

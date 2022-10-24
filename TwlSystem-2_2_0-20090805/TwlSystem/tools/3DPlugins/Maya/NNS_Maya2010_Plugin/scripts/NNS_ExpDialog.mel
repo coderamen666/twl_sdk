@@ -1,0 +1,2089 @@
+/******************************************************************************
+	NINTENDO NITRO-System Maya Plugin
+
+	File:         NNS_ExpDialog.mel
+	Description:  create export dialog
+	Date:         2009/02/04
+	Author:       Takashi Endo
+
+	Copyright 2003-2010 Nintendo. All rights reserved.
+******************************************************************************/
+
+// NNS_ExpDirect
+// OpenOptionWindow CreateSettingMenu
+// SetOptionVariable SetOptionControl UpdateOptionVariable ResetOptionVariable
+// ExportCB DoExportCmd CheckOptionValue
+// SetConsistentCallback
+// SaveSettingToScene LoadSettingFromScene DeleteUselessSettingNode
+// SaveSettingToFile LoadSettingFromFile
+
+/******************************************************************************
+	variables
+******************************************************************************/
+global int $nnsExpDialog_Setting_Latest_Version = 10;
+global int $nnsExpDialog_LoadSettingJob = -1;
+
+global int $nnsExpDialog_IdxImd = 0;
+global int $nnsExpDialog_IdxIca = 1;
+global int $nnsExpDialog_IdxIva = 2;
+global int $nnsExpDialog_IdxIma = 3;
+global int $nnsExpDialog_IdxItp = 4;
+global int $nnsExpDialog_IdxIta = 5;
+global int $nnsExpDialog_IdxMax = 6;
+
+global string $nnsExpDialog_n3es_Latest_Version = "1.1";
+
+/******************************************************************************
+	load plugin
+******************************************************************************/
+proc LoadPlugin()
+{
+	if (!`pluginInfo -q -l "NNS_Export.mll"`)
+	{
+		loadPlugin("NNS_Export.mll");
+	}
+}
+
+/******************************************************************************
+	show error & stop
+******************************************************************************/
+proc ShowError(string $msg)
+{
+	if (!`about -batch`)
+	{
+		trace ("Error: " + $msg + "\n");
+	}
+	error $msg;
+}
+
+/******************************************************************************
+	does save load scene setting
+******************************************************************************/
+proc int DoesSaveLoadSceneSetting()
+{
+	if (!`optionVar -ex nnsExpDialog_SaveLoadSceneSetting`)
+	{
+		return 1; // default
+	}
+	//trace ("save load scene setting: " + `optionVar -q nnsExpDialog_SaveLoadSceneSetting` + "\n");
+	return `optionVar -q nnsExpDialog_SaveLoadSceneSetting`;
+}
+
+/******************************************************************************
+	load setting from global variable
+******************************************************************************/
+proc LoadSettingFromGlobalVariable(int $version)
+{
+	print ("load NITRO export settings from scene (ver "
+		+ ($version / 10) + "." + ($version % 10) + ")\n");
+
+	//-----------------------------------------------------------------------------
+	// set option variable
+
+	// output options
+	global int $nnsExpDialog_Setting_ExportMode;
+	optionVar -iv nnsExpDialog_ExportMode $nnsExpDialog_Setting_ExportMode;
+	global string $nnsExpDialog_Setting_OutFileName;
+	optionVar -sv nnsExpDialog_OutFileName $nnsExpDialog_Setting_OutFileName;
+
+	global int $nnsExpDialog_Setting_OutInterFile;
+	optionVar -iv nnsExpDialog_OutInterFile $nnsExpDialog_Setting_OutInterFile;
+	global string $nnsExpDialog_Setting_OutFolder;
+	optionVar -sv nnsExpDialog_OutFolder $nnsExpDialog_Setting_OutFolder;
+
+	// 3D material editor options
+	global int $nnsExpDialog_Setting_MergeImdFlag;
+	optionVar -iv nnsExpDialog_MergeImdFlag $nnsExpDialog_Setting_MergeImdFlag;
+	global string $nnsExpDialog_Setting_MergeImdPath;
+	optionVar -sv nnsExpDialog_MergeImdPath $nnsExpDialog_Setting_MergeImdPath;
+
+	// NITRO options
+	global string $nnsExpDialog_Setting_NINTENDO_NITRO_SystemOptions;
+	optionVar -sv NINTENDO_NITRO_SystemOptions $nnsExpDialog_Setting_NINTENDO_NITRO_SystemOptions;
+
+	//-----------------------------------------------------------------------------
+	// refresh option box
+	if (`scrollLayout -ex nnsExpDialog_ScrollLayout`)
+	{
+		if (`columnLayout -ex nnsExpDialog_MainColumn`)
+		{
+			NNS_ExpDialog;
+		}
+	}
+}
+
+/******************************************************************************
+	load setting from scene (new) (called when scene is opened)
+******************************************************************************/
+global proc nnsExpDialog_LoadSettingFromSceneNew()
+{
+	global int $nnsExpDialog_Setting_Version;
+
+	//-----------------------------------------------------------------------------
+	// check save / load scene setting is enabled
+	if (!DoesSaveLoadSceneSetting())
+	{
+		return;
+	}
+
+	//-----------------------------------------------------------------------------
+	// evaluate setting node
+	string $node = "nnsExpDialog_Setting1";
+	if (!`objExists $node`)
+	{
+		return;
+	}
+	if (nodeType($node) != "script")
+	{
+		return;
+	}
+	string $cmd = `getAttr ($node + ".b")`;
+	if (!size($cmd))
+	{
+		return;
+	}
+	eval($cmd);
+	int $version = $nnsExpDialog_Setting_Version;
+
+	//-----------------------------------------------------------------------------
+	// load setting
+	LoadSettingFromGlobalVariable($version);
+}
+
+/******************************************************************************
+	load setting from scene (old) (called from script node) (do nothing now)
+******************************************************************************/
+global proc nnsExpDialog_LoadSettingFromScene(int $checkSceneSettingFlag)
+{
+//	//-----------------------------------------------------------------------------
+//	// check save / load flag
+//	if ($checkSceneSettingFlag && !DoesSaveLoadSceneSetting())
+//	{
+//		return;
+//	}
+//
+//	//-----------------------------------------------------------------------------
+//	// check version
+//	global int $nnsExpDialog_Setting_Version;
+//	global int $nnsExpDialog_Setting_Latest_Version;
+//	int $version = $nnsExpDialog_Setting_Version;
+//	if ($version != $nnsExpDialog_Setting_Latest_Version)
+//	{
+//		warning "Invalid NITRO export settings version (ignored)"; // Warning:
+//		return;
+//	}
+//
+//	//-----------------------------------------------------------------------------
+//	// load setting
+//	LoadSettingFromGlobalVariable($version);
+}
+
+/******************************************************************************
+	set consistent callback
+******************************************************************************/
+global proc nnsExpDialog_SetConsistentCallback()
+{
+	// set load setting job at scene opened
+	global int $nnsExpDialog_LoadSettingJob = -1;
+	$nnsExpDialog_LoadSettingJob = `scriptJob -e "SceneOpened"
+		"if (`exists nnsExpDialog_LoadSettingFromSceneNew`) nnsExpDialog_LoadSettingFromSceneNew;"`;
+}
+
+/******************************************************************************
+	delete useless setting node
+******************************************************************************/
+proc DeleteUselessSettingNode()
+{
+	string $nodes[] = `ls -typ script`;
+	string $node;
+	for ($node in $nodes)
+	{
+		if (gmatch($node, "*_nnsExpDialog_Setting*") ||
+			gmatch($node, "*:nnsExpDialog_Setting*"))
+		{
+			if (`reference -q -inr $node`) // if referenced
+			{
+				print ("disable settings: " + $node + "\n");
+				if (`getAttr -l ($node + ".st")`)
+				{
+					print "(locked)\n";
+				}
+				else
+				{
+					catch(`setAttr ($node + ".st") 0`); // Demand
+				}
+			}
+			else
+			{
+				print ("delete settings: " + $node + "\n");
+				catch(`delete $node`);
+			}
+		}
+	}
+}
+
+/******************************************************************************
+	get string for mel
+******************************************************************************/
+proc string GetStringForMel(string $str)
+{
+	$str = substituteAllString($str, "\\", "\\\\");
+	$str = substituteAllString($str, "\"", "\\\"");
+	return $str;	
+}
+
+/******************************************************************************
+	get setting node command
+******************************************************************************/
+proc string GetSettingNodeCommand(int $checkSceneSettingFlag)
+{
+	string $cmd = "";
+
+	//-----------------------------------------------------------------------------
+	// setting version
+	global int $nnsExpDialog_Setting_Latest_Version;
+	$cmd += "global int $nnsExpDialog_Setting_Version = " + $nnsExpDialog_Setting_Latest_Version + ";\n";
+
+	//-----------------------------------------------------------------------------
+	// output options
+	$cmd += "global int $nnsExpDialog_Setting_ExportMode = "
+		+ `optionVar -q nnsExpDialog_ExportMode` + ";\n";
+	$cmd += "global string $nnsExpDialog_Setting_OutFileName = \""
+		+ GetStringForMel(`optionVar -q nnsExpDialog_OutFileName`) + "\";\n";
+
+	$cmd += "global int $nnsExpDialog_Setting_OutInterFile = "
+		+ `optionVar -q nnsExpDialog_OutInterFile` + ";\n";
+	$cmd += "global string $nnsExpDialog_Setting_OutFolder = \""
+		+ GetStringForMel(`optionVar -q nnsExpDialog_OutFolder`) + "\";\n";
+
+	//-----------------------------------------------------------------------------
+	// 3D material editor options
+	$cmd += "global int $nnsExpDialog_Setting_MergeImdFlag = "
+		+ `optionVar -q nnsExpDialog_MergeImdFlag` + ";\n";
+	$cmd += "global string $nnsExpDialog_Setting_MergeImdPath = \""
+		+ GetStringForMel(`optionVar -q nnsExpDialog_MergeImdPath`) + "\";\n";
+
+	//-----------------------------------------------------------------------------
+	// NITRO options
+	$cmd += "global string $nnsExpDialog_Setting_NINTENDO_NITRO_SystemOptions = \""
+		+ `optionVar -q NINTENDO_NITRO_SystemOptions` + "\";\n";
+
+	//-----------------------------------------------------------------------------
+	// load function
+	$cmd += "if (`exists nnsExpDialog_LoadSettingFromScene`) "
+		+ "nnsExpDialog_LoadSettingFromScene(" + $checkSceneSettingFlag + ");\n";
+
+	return $cmd;
+}
+
+/******************************************************************************
+	save setting to scene
+******************************************************************************/
+proc SaveSettingToScene(int $checkSceneSettingFlag)
+{
+	//-----------------------------------------------------------------------------
+	// check save / load flag
+	if ($checkSceneSettingFlag && !DoesSaveLoadSceneSetting())
+	{
+		return;
+	}
+
+	//-----------------------------------------------------------------------------
+	// delete useless setting node
+	DeleteUselessSettingNode();
+
+	//-----------------------------------------------------------------------------
+	// create setting node
+	string $node = "nnsExpDialog_Setting1";
+	if (!`objExists $node`)
+	{
+		string $selBak[] = `ls -sl`;
+		createNode script -n $node;
+		select $selBak;
+	}
+
+	//-----------------------------------------------------------------------------
+	// set setting node command & attr
+	if (`getAttr -l ($node + ".b")`)
+	{
+		print "NITRO export settings node is locked\n";
+		return;
+	}
+
+	string $cmd = GetSettingNodeCommand(1);
+	catch(`setAttr ($node + ".b") -type "string" $cmd`);
+	catch(`setAttr ($node + ".st") 1`); // Open/Close
+}
+
+/******************************************************************************
+	save setting file folder
+******************************************************************************/
+proc SaveSettingFileFolder(string $filePath)
+{
+	string $settingFolder = substitute("[^/]*$", $filePath, "");
+	optionVar -sv nnsExpDialog_SettingFileFolder $settingFolder;
+}
+
+/******************************************************************************
+	get setting file directory mask
+******************************************************************************/
+proc string GetSettingFileDirectoryMask()
+{
+	string $dirMask = "*.n3es"; // fileDialog can use mask
+	string $settingFolder = "";
+	if (`optionVar -ex nnsExpDialog_SettingFileFolder`)
+	{
+		$settingFolder = `optionVar -q nnsExpDialog_SettingFileFolder`;
+	}
+	if (size($settingFolder) > 0 && `filetest -d $settingFolder`)
+	{
+		$dirMask = $settingFolder + $dirMask;
+	}
+	return $dirMask;
+}
+
+/******************************************************************************
+	set setting file folder to currnet
+******************************************************************************/
+proc SetSettingFileFolderToCurrent()
+{
+	string $settingFolder = "";
+	if (`optionVar -ex nnsExpDialog_SettingFileFolder`)
+	{
+		$settingFolder = `optionVar -q nnsExpDialog_SettingFileFolder`;
+	}
+	if (size($settingFolder) > 0 && `filetest -d $settingFolder`)
+	{
+		workspace -dir $settingFolder;
+	}
+}
+
+/******************************************************************************
+	get float string for setting file
+******************************************************************************/
+proc string GetFloatStringForSettingFile(float $val)
+{
+	string $str = $val;
+	if (match("\\.", $str) == "")
+	{
+		$str += ".0";
+	}
+	return $str;
+}
+
+/******************************************************************************
+	save setting to file (do)
+******************************************************************************/
+global proc nnsExpDialog_SaveSettingToFileDo(string $filePath)
+{
+	global string $nnsExpDialog_n3es_Latest_Version;
+
+	string $boolNames[2] = { "off", "on" };
+
+	//-----------------------------------------------------------------------------
+	// add extension
+	if (match("\\.n3es$", $filePath) == "")
+	{
+		$filePath += ".n3es";
+	}
+
+	//-----------------------------------------------------------------------------
+	// update option variable
+	nnsExpDialog_UpdateOptionVariable(0); // no save setting to scene
+
+	//-----------------------------------------------------------------------------
+	// get generator version
+	string $generator_version = "?";
+	if (`pluginInfo -q -l "NNS_Export.mll"`)
+	{
+		$generator_version = eval("NNS_ExportInfoCmd -p");
+	}
+
+	//-----------------------------------------------------------------------------
+	// get date & time
+	if (size(match("^//", `pwd`)) != 0)
+	{
+		// if the current folder is on network drive
+		// change it on local drive for getting date & time properly
+		string $local_folder = getenv("TEMP");
+		if (size($local_folder) > 0 && `filetest -d $local_folder`)
+		{
+			chdir($local_folder);
+			//trace ("change cur folder to " + $local_folder);
+		}
+	}
+
+	string $date = `system "echo %DATE%"`;
+	$date = match("[0-9/]+", $date);
+	$date = substituteAllString($date, "/", "-");
+	string $time = `system "echo %TIME%"`;
+	$time = match("[0-9:]+", $time);
+
+	//-----------------------------------------------------------------------------
+	// parse NITRO options
+
+	//-----------------------------------------------------------------------------
+	// init	
+	float $magnify = 1.0;
+	int $compress_node = 0;
+	int $compress_material = 0;
+	int $frame_range = 0;
+	int $start_frame = 1;
+	int $end_frame = 9999;
+	int $remove_namespace = 0;
+
+	int $output_imd = 1;
+	int $output_ica = 0;
+	int $output_iva = 0;
+	int $output_ima = 0;
+	int $output_itp = 0;
+	int $output_ita = 0;
+
+	int $vertex_style = 0;
+	int $output_texture = 0;
+	int $force_full_weight = 0;
+	int $use_primitive_strip = 1;
+
+	int $interpolation = 1;
+	int $interp_end_to_start = 0;
+	int $frame_step_mode = 1;
+
+	float $tolerance_scale     = 0.1;
+	float $tolerance_rotate    = 0.1;
+	float $tolerance_translate = 0.01;
+	float $tolerance_tex_scale     = 0.1;
+	float $tolerance_tex_rotate    = 0.1;
+	float $tolerance_tex_translate = 0.01;
+	int $tolerance_color = 2;
+
+	//-----------------------------------------------------------------------------
+	// get option var
+	string $nitro_opts = "";
+	if (`optionVar -ex NINTENDO_NITRO_SystemOptions`)
+	{
+		$nitro_opts = `optionVar -q NINTENDO_NITRO_SystemOptions`;
+	}
+
+	//-----------------------------------------------------------------------------
+	// parse option var
+	string $opts[], $words[];
+	tokenize($nitro_opts, ";", $opts);
+	int $opt_size = size($opts);
+	int $iopt;
+	for ($iopt = 0; $iopt < $opt_size; ++$iopt)
+	{
+		tokenize($opts[$iopt], "=", $words);
+		int $boolVal = ($words[1] == "on" || $words[1] == "1");
+
+		//-----------------------------------------------------------------------------
+		// general
+		if ($words[0] == "magnify")
+		{
+			$magnify = $words[1];
+		}
+		else if ($words[0] == "optimize_node")
+		{
+			$compress_node = $words[1];
+		}
+		else if ($words[0] == "compress_material")
+		{
+			$compress_material = $words[1];
+		}
+		else if ($words[0] == "frame_range")
+		{
+			$frame_range = $words[1];
+		}
+		else if ($words[0] == "start_frame")
+		{
+			$start_frame = $words[1];
+		}
+		else if ($words[0] == "end_frame")
+		{
+			$end_frame = $words[1];
+		}
+		else if ($words[0] == "remove_namespace")
+		{
+			$remove_namespace = $boolVal;
+		}
+
+		//-----------------------------------------------------------------------------
+		// file selection
+		else if ($words[0] == "imd_file_out")
+		{
+			$output_imd = $boolVal;
+		}
+		else if ($words[0] == "ica_file_out")
+		{
+			$output_ica = $boolVal;
+		}
+		else if ($words[0] == "iva_file_out")
+		{
+			$output_iva = $boolVal;
+		}
+		else if ($words[0] == "ima_file_out")
+		{
+			$output_ima = $boolVal;
+		}
+		else if ($words[0] == "itp_file_out")
+		{
+			$output_itp = $boolVal;
+		}
+		else if ($words[0] == "ita_file_out")
+		{
+			$output_ita = $boolVal;
+		}
+
+		//-----------------------------------------------------------------------------
+		// imd
+		else if ($words[0] == "vertex_table_flag")
+		{
+			$vertex_style = $boolVal;
+		}
+		else if ($words[0] == "out_all_tex")
+		{
+			$output_texture = $boolVal;
+		}
+		else if ($words[0] == "force_full_weight")
+		{
+			$force_full_weight = $boolVal;
+		}
+		else if ($words[0] == "use_primitive_strip")
+		{
+			$use_primitive_strip = $boolVal;
+		}
+
+		//-----------------------------------------------------------------------------
+		// animation
+		else if ($words[0] == "anime_interp")
+		{
+			$interpolation = $words[1];
+		}
+		else if ($words[0] == "loop_interp")
+		{
+			$interp_end_to_start = $boolVal;
+		}
+		else if ($words[0] == "frame_step_mode")
+		{
+			$frame_step_mode = $words[1];
+		}
+
+		//-----------------------------------------------------------------------------
+		// tolerance
+		else if ($words[0] == "anime_tol_s")
+		{
+			$tolerance_scale = $words[1];
+		}
+		else if ($words[0] == "anime_tol_r")
+		{
+			$tolerance_rotate = $words[1];
+		}
+		else if ($words[0] == "anime_tol_t")
+		{
+			$tolerance_translate = $words[1];
+		}
+		else if ($words[0] == "anime_tol_uv_s")
+		{
+			$tolerance_tex_scale = $words[1];
+		}
+		else if ($words[0] == "anime_tol_uv_r")
+		{
+			$tolerance_tex_rotate = $words[1];
+		}
+		else if ($words[0] == "anime_tol_uv_t")
+		{
+			$tolerance_tex_translate = $words[1];
+		}
+		else if ($words[0] == "anime_tol_c")
+		{
+			$tolerance_color = $words[1];
+		}
+	}
+
+	//-----------------------------------------------------------------------------
+	// open file
+	int $fid = fopen($filePath, "w");
+	if ($fid == 0)
+	{
+		ShowError("Can't open file: " + $filePath);
+	}
+
+	//-----------------------------------------------------------------------------
+	// header
+	fprint($fid, "# NNS_Export settings\r\n");
+	fprint($fid, "settings_version=\"" + $nnsExpDialog_n3es_Latest_Version + "\"\r\n");
+	fprint($fid, "generator_name=\"Maya " + `about -v` + " NNS_Export\"\r\n");
+	fprint($fid, "generator_version=\"" + $generator_version + "\"\r\n");
+	fprint($fid, "date=\"" + $date + "T" + $time + "\"\r\n");
+	fprint($fid, "\r\n");
+
+	//-----------------------------------------------------------------------------
+	// output options
+	string $exportNames[2] = { "all", "selection" };
+	string $process_names[2] = { "intermediate_file", "3d_material_editor" };
+
+	fprint($fid, "# Output Options\r\n");
+	fprint($fid, "export=\"" + $exportNames[`optionVar -q nnsExpDialog_ExportMode` == 1] + "\"\r\n");
+	fprint($fid, "output_file_name=\"" + `optionVar -q nnsExpDialog_OutFileName` + "\"\r\n");
+	fprint($fid, "process_mode=\"" + $process_names[`optionVar -q nnsExpDialog_OutInterFile` == 0] + "\"\r\n");
+	fprint($fid, "output_folder=\"" + `optionVar -q nnsExpDialog_OutFolder` + "\"\r\n");
+	fprint($fid, "merge_imd=\"" + $boolNames[`optionVar -q nnsExpDialog_MergeImdFlag` == 1] + "\"\r\n");
+	fprint($fid, "merge_imd_path=\"" + `optionVar -q nnsExpDialog_MergeImdPath` + "\"\r\n");
+	fprint($fid, "\r\n");
+
+	//-----------------------------------------------------------------------------
+	// general options
+	string $compress_node_names[5] = { "none", "cull", "merge", "unite", "unite_combine" };
+	string $frame_range_names[3] = { "all", "playback", "range" };
+
+	fprint($fid, "# General Options\r\n");
+	fprint($fid, "magnify=\"" + GetFloatStringForSettingFile($magnify) + "\"\r\n");
+	fprint($fid, "compress_node=\"" + $compress_node_names[$compress_node] + "\"\r\n");
+	fprint($fid, "compress_material=\"" + $boolNames[$compress_material] + "\"\r\n");
+	fprint($fid, "frame_range=\"" + $frame_range_names[$frame_range] + "\"\r\n");
+	fprint($fid, "start_frame=\"" + $start_frame + "\"\r\n");
+	fprint($fid, "end_frame=\"" + $end_frame + "\"\r\n");
+	fprint($fid, "remove_namespace=\"" + $boolNames[$remove_namespace] + "\"\r\n");
+	fprint($fid, "\r\n");
+
+	//-----------------------------------------------------------------------------
+	// output file selection
+	fprint($fid, "# Output File Selection\r\n");
+	fprint($fid, "output_imd=\"" + $boolNames[$output_imd] + "\"\r\n");
+	fprint($fid, "output_ica=\"" + $boolNames[$output_ica] + "\"\r\n");
+	fprint($fid, "output_iva=\"" + $boolNames[$output_iva] + "\"\r\n");
+	fprint($fid, "output_ima=\"" + $boolNames[$output_ima] + "\"\r\n");
+	fprint($fid, "output_itp=\"" + $boolNames[$output_itp] + "\"\r\n");
+	fprint($fid, "output_ita=\"" + $boolNames[$output_ita] + "\"\r\n");
+	fprint($fid, "\r\n");
+
+	//-----------------------------------------------------------------------------
+	// imd options
+	string $vertex_style_names[2] = { "direct", "index" };
+	string $output_texture_names[2] = { "used", "all" };
+
+	fprint($fid, "# Imd Options\r\n");
+	fprint($fid, "vertex_style=\"" + $vertex_style_names[$vertex_style] + "\"\r\n");
+	fprint($fid, "output_texture=\"" + $output_texture_names[$output_texture] + "\"\r\n");
+	fprint($fid, "force_full_weight=\"" + $boolNames[$force_full_weight] + "\"\r\n");
+	fprint($fid, "use_primitive_strip=\"" + $boolNames[$use_primitive_strip] + "\"\r\n");
+	fprint($fid, "\r\n");
+
+	//-----------------------------------------------------------------------------
+	// animation options
+	string $interpolation_names[2] = { "frame", "linear" };
+	string $frame_step_mode_names[4] = { "auto", "1", "2", "4" };
+
+	fprint($fid, "# Animation Options\r\n");
+	fprint($fid, "interpolation=\"" + $interpolation_names[$interpolation] + "\"\r\n");
+	fprint($fid, "interp_end_to_start=\"" + $boolNames[$interp_end_to_start] + "\"\r\n");
+	fprint($fid, "frame_step_mode=\"" + $frame_step_mode_names[$frame_step_mode] + "\"\r\n");
+	fprint($fid, "\r\n");
+
+	//-----------------------------------------------------------------------------
+	// tolerance options
+	fprint($fid, "# Tolerance Options\r\n");
+	fprint($fid, "tolerance_scale=\"" + GetFloatStringForSettingFile($tolerance_scale) + "\"\r\n");
+	fprint($fid, "tolerance_rotate=\"" + GetFloatStringForSettingFile($tolerance_rotate) + "\"\r\n");
+	fprint($fid, "tolerance_translate=\"" + GetFloatStringForSettingFile($tolerance_translate) + "\"\r\n");
+	fprint($fid, "tolerance_tex_scale=\"" + GetFloatStringForSettingFile($tolerance_tex_scale) + "\"\r\n");
+	fprint($fid, "tolerance_tex_rotate=\"" + GetFloatStringForSettingFile($tolerance_tex_rotate) + "\"\r\n");
+	fprint($fid, "tolerance_tex_translate=\"" + GetFloatStringForSettingFile($tolerance_tex_translate) + "\"\r\n");
+	fprint($fid, "tolerance_color=\"" + $tolerance_color + "\"\r\n");
+	//fprint($fid, "\r\n");
+
+	//-----------------------------------------------------------------------------
+	// close file
+	fclose($fid);
+
+	//-----------------------------------------------------------------------------
+	// end
+	print ("Saved to " + $filePath + "\n");
+}
+
+/******************************************************************************
+	save setting to file (file command)
+******************************************************************************/
+global proc nnsExpDialog_SaveSettingToFileFC(string $filePath, string $fileType)
+{
+	//-----------------------------------------------------------------------------
+	// save setting file folder
+	SaveSettingFileFolder($filePath);
+
+	//-----------------------------------------------------------------------------
+	// do
+	nnsExpDialog_SaveSettingToFileDo($filePath);
+}
+
+/******************************************************************************
+	save setting to file (main)
+******************************************************************************/
+global proc nnsExpDialog_SaveSettingToFile()
+{
+	//-----------------------------------------------------------------------------
+	// set setting file folder to currnet
+	SetSettingFileFolderToCurrent();
+
+	//-----------------------------------------------------------------------------
+	// open file dialog
+	fileBrowserDialog -m 1 -an "Save" -in "n3es"
+		-ft "Best Guess"
+		-fc "nnsExpDialog_SaveSettingToFileFC";
+
+	//string $dirMask = GetSettingFileDirectoryMask();
+	//string $filePath = `fileDialog -m 1 -dm $dirMask`; // 1=write (8.0-)
+	//if (size($filePath) > 0)
+	//{
+	//	nnsExpDialog_SaveSettingToFileFC($filePath, "");
+	//}
+}
+
+/******************************************************************************
+	load setting from file (do)
+******************************************************************************/
+global proc nnsExpDialog_LoadSettingFromFileDo(string $filePath)
+{
+	global string $nnsExpDialog_n3es_Latest_Version;
+
+	//-----------------------------------------------------------------------------
+	// init
+	string $settings_version = "";
+
+	int $export_mode = 0;
+	string $out_file_name = "";
+	int $out_inter_file = 1;
+	string $out_folder = "";
+	int $merge_imd_flag = 0;
+	string $merge_imd_path = "";
+
+	float $magnify = 1.0;
+	int $compress_node = 0;
+	int $compress_material = 0;
+	int $frame_range = 0;
+	int $start_frame = 1;
+	int $end_frame = 9999;
+	int $remove_namespace = 0;
+
+	int $output_imd = 1;
+	int $output_ica = 0;
+	int $output_iva = 0;
+	int $output_ima = 0;
+	int $output_itp = 0;
+	int $output_ita = 0;
+
+	int $vertex_style = 0;
+	int $output_texture = 0;
+	int $force_full_weight = 0;
+	int $use_primitive_strip = 1;
+
+	int $interpolation = 1;
+	int $interp_end_to_start = 0;
+	int $frame_step_mode = 1;
+
+	float $tolerance_scale     = 0.1;
+	float $tolerance_rotate    = 0.1;
+	float $tolerance_translate = 0.01;
+	float $tolerance_tex_scale     = 0.1;
+	float $tolerance_tex_rotate    = 0.1;
+	float $tolerance_tex_translate = 0.01;
+	int $tolerance_color = 2;
+
+	//-----------------------------------------------------------------------------
+	// open file
+	int $fid = fopen($filePath, "r");
+	if ($fid == 0)
+	{
+		ShowError("Can't open file: " + $filePath);
+	}
+
+	//-----------------------------------------------------------------------------
+	// check header
+	string $line = fgetline($fid);
+	if (size(match("^# NNS_Export settings", $line)) == 0)
+	{
+		fclose($fid);
+		ShowError("Invalid n3es file: " + $filePath);
+	}
+
+	//-----------------------------------------------------------------------------
+	// parse
+	string $words[];
+	while (!feof($fid))
+	{
+		string $line = fgetline($fid);
+		$line = substitute("\r*\n$", $line, ""); // cut [CR+LF] or [LF]
+		// skip empty line & comment line
+		if (size($line) == 0 || substring($line, 1, 1) == "#")
+		{
+			continue;
+		}
+
+		tokenize($line, "=", $words);
+		if (size($words) < 2)
+		{
+			continue;
+		}
+		string $tag = $words[0];
+		string $val = $words[1];
+		$val = substitute("^\"", $val, ""); // cut first double quote
+		$val = substitute("\".*$", $val, ""); // cut last double quote
+		int $boolVal = ($val == "on" || $val == "1");
+		//print ($tag + ": " + $val + "\n");
+
+		//-----------------------------------------------------------------------------
+		// header
+		if ($tag == "settings_version")
+		{
+			$settings_version = $val;
+			//if ($settings_version != $nnsExpDialog_n3es_Latest_Version)
+			//{
+			//	fclose($fid);
+			//	ShowError("Invalid n3es file version: " + $settings_version);
+			//}
+		}
+
+		//-----------------------------------------------------------------------------
+		// output
+		else if ($tag == "export")
+		{
+			if ($val == "all")
+			{
+				$export_mode = 0;
+			}
+			else if ($val == "selection")
+			{
+				$export_mode = 1;
+			}
+		}
+		else if ($tag == "output_file_name")
+		{
+			$out_file_name = $val;
+		}
+		else if ($tag == "process_mode")
+		{
+			if ($val == "intermediate_file")
+			{
+				$out_inter_file = 1;
+			}
+			else if ($val == "3d_material_editor")
+			{
+				$out_inter_file = 0;
+			}
+		}
+		else if ($tag == "output_folder")
+		{
+			$out_folder = NNS_GetUnixFilePath($val);
+		}
+		else if ($tag == "merge_imd")
+		{
+			$merge_imd_flag = $boolVal;
+		}
+		else if ($tag == "merge_imd_path")
+		{
+			$merge_imd_path = NNS_GetUnixFilePath($val);
+		}
+
+		//-----------------------------------------------------------------------------
+		// general
+		else if ($tag == "magnify")
+		{
+			$magnify = $val;
+		}
+		else if ($tag == "compress_node")
+		{
+			if ($val == "none")
+			{
+				$compress_node = 0;
+			}
+			else if ($val == "cull")
+			{
+				$compress_node = 1;
+			}
+			else if ($val == "merge")
+			{
+				$compress_node = 2;
+			}
+			else if ($val == "unite")
+			{
+				$compress_node = 3;
+			}
+			else if ($val == "unite_combine")
+			{
+				$compress_node = 4;
+			}
+		}
+		else if ($tag == "compress_material")
+		{
+			$compress_material = $boolVal;
+		}
+		else if ($tag == "frame_range")
+		{
+			if ($val == "all")
+			{
+				$frame_range = 0;
+			}
+			else if ($val == "playback")
+			{
+				$frame_range = 1;
+			}
+			else if ($val == "range")
+			{
+				$frame_range = 2;
+			}
+		}
+		else if ($tag == "start_frame")
+		{
+			$start_frame = $val;
+		}
+		else if ($tag == "end_frame")
+		{
+			$end_frame = $val;
+		}
+		else if ($tag == "remove_namespace")
+		{
+			$remove_namespace = $boolVal;
+		}
+
+		//-----------------------------------------------------------------------------
+		// file selection
+		else if ($tag == "output_imd")
+		{
+			$output_imd = $boolVal;
+		}
+		else if ($tag == "output_ica")
+		{
+			$output_ica = $boolVal;
+		}
+		else if ($tag == "output_iva")
+		{
+			$output_iva = $boolVal;
+		}
+		else if ($tag == "output_ima")
+		{
+			$output_ima = $boolVal;
+		}
+		else if ($tag == "output_itp")
+		{
+			$output_itp = $boolVal;
+		}
+		else if ($tag == "output_ita")
+		{
+			$output_ita = $boolVal;
+		}
+
+		//-----------------------------------------------------------------------------
+		// imd
+		else if ($tag == "vertex_style")
+		{
+			if ($val == "direct")
+			{
+				$vertex_style = 0;
+			}
+			else if ($val == "index")
+			{
+				$vertex_style = 1;
+			}
+		}
+		else if ($tag == "output_texture")
+		{
+			if ($val == "used")
+			{
+				$output_texture = 0;
+			}
+			else if ($val == "all")
+			{
+				$output_texture = 1;
+			}
+		}
+		else if ($tag == "force_full_weight")
+		{
+			$force_full_weight = $boolVal;
+		}
+		else if ($tag == "use_primitive_strip")
+		{
+			$use_primitive_strip = $boolVal;
+		}
+		
+		//-----------------------------------------------------------------------------
+		// animation
+		else if ($tag == "interpolation")
+		{
+			if ($val == "frame")
+			{
+				$interpolation = 0;
+			}
+			else if ($val == "linear")
+			{
+				$interpolation = 1;
+			}
+		}
+		else if ($tag == "interp_end_to_start")
+		{
+			$interp_end_to_start = $boolVal;
+		}
+		else if ($tag == "frame_step_mode")
+		{
+			if ($val == "auto")
+			{
+				$frame_step_mode = 0;
+			}
+			else if ($val == "1")
+			{
+				$frame_step_mode = 1;
+			}
+			else if ($val == "2")
+			{
+				$frame_step_mode = 2;
+			}
+			else if ($val == "4")
+			{
+				$frame_step_mode = 3; // notice!! 4 -> 3
+			}
+		}
+
+		//-----------------------------------------------------------------------------
+		// tolerance
+		else if ($tag == "tolerance_scale")
+		{
+			$tolerance_scale = $val;
+		}
+		else if ($tag == "tolerance_rotate")
+		{
+			$tolerance_rotate = $val;
+		}
+		else if ($tag == "tolerance_translate")
+		{
+			$tolerance_translate = $val;
+		}
+		else if ($tag == "tolerance_tex_scale")
+		{
+			$tolerance_tex_scale = $val;
+		}
+		else if ($tag == "tolerance_tex_rotate")
+		{
+			$tolerance_tex_rotate = $val;
+		}
+		else if ($tag == "tolerance_tex_translate")
+		{
+			$tolerance_tex_translate = $val;
+		}
+		else if ($tag == "tolerance_color")
+		{
+			$tolerance_color = $val;
+		}
+	}
+
+	//-----------------------------------------------------------------------------
+	// close file
+	fclose($fid);
+
+	//-----------------------------------------------------------------------------
+	// set
+	//-----------------------------------------------------------------------------
+
+	//-----------------------------------------------------------------------------
+	// output options
+	optionVar -iv nnsExpDialog_ExportMode $export_mode;
+	optionVar -sv nnsExpDialog_OutFileName $out_file_name;
+
+	optionVar -iv nnsExpDialog_OutInterFile $out_inter_file;
+	optionVar -sv nnsExpDialog_OutFolder $out_folder;
+
+	//-----------------------------------------------------------------------------
+	// 3D material editor options
+	optionVar -iv nnsExpDialog_MergeImdFlag $merge_imd_flag;
+	optionVar -sv nnsExpDialog_MergeImdPath $merge_imd_path;
+
+	//-----------------------------------------------------------------------------
+	// NITRO options
+	string $nitro_opts = "";
+
+	$nitro_opts += "magnify=" + $magnify + ";";
+	$nitro_opts += "optimize_node=" + $compress_node + ";";
+	$nitro_opts += "compress_material=" + $compress_material + ";";
+	$nitro_opts += "frame_range=" + $frame_range + ";";
+	$nitro_opts += "start_frame=" + $start_frame + ";";
+	$nitro_opts += "end_frame=" + $end_frame + ";";
+	$nitro_opts += "remove_namespace=" + $remove_namespace + ";";
+
+	$nitro_opts += "imd_file_out=" + $output_imd + ";";
+	$nitro_opts += "ica_file_out=" + $output_ica + ";";
+	$nitro_opts += "iva_file_out=" + $output_iva + ";";
+	$nitro_opts += "ima_file_out=" + $output_ima + ";";
+	$nitro_opts += "itp_file_out=" + $output_itp + ";";
+	$nitro_opts += "ita_file_out=" + $output_ita + ";";
+
+	$nitro_opts += "vertex_table_flag=" + $vertex_style + ";";
+	$nitro_opts += "out_all_tex=" + $output_texture + ";";
+	$nitro_opts += "force_full_weight=" + $force_full_weight + ";";
+	$nitro_opts += "use_primitive_strip=" + $use_primitive_strip + ";";
+
+	$nitro_opts += "anime_interp=" + $interpolation + ";";
+	$nitro_opts += "loop_interp=" + $interp_end_to_start + ";";
+	$nitro_opts += "frame_step_mode=" + $frame_step_mode + ";";
+
+	$nitro_opts += "anime_tol_t=" + $tolerance_translate + ";";
+	$nitro_opts += "anime_tol_r=" + $tolerance_rotate + ";";
+	$nitro_opts += "anime_tol_s=" + $tolerance_scale + ";";
+	$nitro_opts += "anime_tol_c=" + $tolerance_color + ";";
+	$nitro_opts += "anime_tol_uv_t=" + $tolerance_tex_translate + ";";
+	$nitro_opts += "anime_tol_uv_r=" + $tolerance_tex_rotate + ";";
+	$nitro_opts += "anime_tol_uv_s=" + $tolerance_tex_scale + ";";
+
+	optionVar -sv NINTENDO_NITRO_SystemOptions $nitro_opts;
+
+	//-----------------------------------------------------------------------------
+	// update setting node
+	SaveSettingToScene(1);
+
+	//-----------------------------------------------------------------------------
+	// refresh option box
+	if (`scrollLayout -ex nnsExpDialog_ScrollLayout`)
+	{
+		if (`columnLayout -ex nnsExpDialog_MainColumn`)
+		{
+			NNS_ExpDialog;
+		}
+	}
+
+	//-----------------------------------------------------------------------------
+	// end
+	print ("Loaded from " + $filePath + "\n");
+}
+
+/******************************************************************************
+	load setting from file (file command)
+******************************************************************************/
+global proc nnsExpDialog_LoadSettingFromFileFC(string $filePath, string $fileType)
+{
+	//-----------------------------------------------------------------------------
+	// save setting file folder
+	SaveSettingFileFolder($filePath);
+
+	//-----------------------------------------------------------------------------
+	// do
+	nnsExpDialog_LoadSettingFromFileDo($filePath);
+}
+
+/******************************************************************************
+	load setting from file (main)
+******************************************************************************/
+global proc nnsExpDialog_LoadSettingFromFile()
+{
+	//-----------------------------------------------------------------------------
+	// set setting file folder to currnet
+	//SetSettingFileFolderToCurrent();
+
+	//-----------------------------------------------------------------------------
+	// open file dialog
+	//fileBrowserDialog -m 0 -an "Load" -in "n3es"
+	//	  -fc "nnsExpDialog_LoadSettingFromFileFC";
+
+	string $dirMask = GetSettingFileDirectoryMask();
+	string $filePath = `fileDialog -dm $dirMask`; // -m 0=read (8.0-)
+	if (size($filePath) > 0)
+	{
+		nnsExpDialog_LoadSettingFromFileFC($filePath, "");
+	}
+}
+
+/******************************************************************************
+	NITRO option update callback
+******************************************************************************/
+global proc nnsExpDialog_NitroOptionUpdateCB(string $nitro_opts)
+{
+	optionVar -sv NINTENDO_NITRO_SystemOptions $nitro_opts;
+}
+
+/******************************************************************************
+	out inter file callback
+******************************************************************************/
+global proc nnsExpDialog_OutInterFileCB()
+{
+	int $out_inter_file = (`radioButtonGrp -q -sl nnsExpDialog_OutInterFile` == 1);
+	control -e -en $out_inter_file nnsExpDialog_OutFolder;
+	control -e -en $out_inter_file nnsExpDialog_OutFolderBrowser;
+
+	int $use_3dmeditor = !$out_inter_file;
+	int $merge_imd_flag = `checkBoxGrp -q -v1 nnsExpDialog_MergeImdFlag`;
+	int $imd_path_enable = $use_3dmeditor && $merge_imd_flag;
+	control -e -en $use_3dmeditor nnsExpDialog_MergeImdFlag;
+	control -e -en $imd_path_enable nnsExpDialog_MergeImdPath;
+	control -e -en $imd_path_enable nnsExpDialog_MergeImdBrowser;
+}
+
+/******************************************************************************
+	set option variable
+******************************************************************************/
+proc SetOptionVariable(int $reset_flag)
+{
+	if ($reset_flag || !`optionVar -ex nnsExpDialog_ExportMode`)
+	{
+		optionVar -iv nnsExpDialog_ExportMode 0;
+	}
+
+	if ($reset_flag || !`optionVar -ex nnsExpDialog_OutFileName`)
+	{
+		optionVar -sv nnsExpDialog_OutFileName `file -q -namespace`;
+	}
+
+	if ($reset_flag || !`optionVar -ex nnsExpDialog_OutInterFile`)
+	{
+		optionVar -iv nnsExpDialog_OutInterFile 1;
+	}
+	if ($reset_flag || !`optionVar -ex nnsExpDialog_OutFolder`)
+	{
+		optionVar -sv nnsExpDialog_OutFolder `workspace -q -rd`;
+	}
+
+	if ($reset_flag || !`optionVar -ex nnsExpDialog_MergeImdFlag`)
+	{
+		optionVar -iv nnsExpDialog_MergeImdFlag 0;
+	}
+	if ($reset_flag || !`optionVar -ex nnsExpDialog_MergeImdPath`)
+	{
+		optionVar -sv nnsExpDialog_MergeImdPath "";
+	}
+}
+
+/******************************************************************************
+	set option control
+******************************************************************************/
+proc SetOptionControl()
+{
+	//-----------------------------------------------------------------------------
+	// set control value
+	radioButtonGrp -e -sl (`optionVar -q nnsExpDialog_ExportMode` + 1)
+		nnsExpDialog_ExportMode;
+
+	textFieldGrp -e -tx `optionVar -q nnsExpDialog_OutFileName`
+		nnsExpDialog_OutFileName;
+
+	if (`optionVar -q nnsExpDialog_OutInterFile`)
+	{
+		radioButtonGrp -e -sl 1 nnsExpDialog_OutInterFile;
+	}
+	else
+	{
+		radioButtonGrp -e -sl 1 nnsExpDialog_Use3DMEditor;
+	}
+
+	textFieldGrp -e -tx `optionVar -q nnsExpDialog_OutFolder`
+		nnsExpDialog_OutFolder;
+
+	checkBoxGrp -e -v1 `optionVar -q nnsExpDialog_MergeImdFlag`
+		nnsExpDialog_MergeImdFlag;
+	textField -e -tx `optionVar -q nnsExpDialog_MergeImdPath`
+		nnsExpDialog_MergeImdPath;
+
+	//-----------------------------------------------------------------------------
+	// update control state
+	nnsExpDialog_OutInterFileCB();
+}
+
+/******************************************************************************
+	check option value
+******************************************************************************/
+proc CheckOptionValue()
+{
+	string $out_file_name = `textFieldGrp -q -tx nnsExpDialog_OutFileName`;
+	if (size($out_file_name) == 0)
+	{
+		ShowError("Output File Name is empty");
+	}
+	if (size(match("[=;:/*?<>|\"]", $out_file_name)) > 0 ||
+		NNS_GetUnixFilePath($out_file_name) != $out_file_name) // check "\"
+	{
+		ShowError("Invalid Output File Name (please don't use [=] [;] [:] [/] [\\] [*] [?] [<] [>] [|] [double quote])");
+	}
+
+	int $out_inter_file = (`radioButtonGrp -q -sl nnsExpDialog_OutInterFile` == 1);
+	if ($out_inter_file)
+	{
+		string $out_folder = `textFieldGrp -q -tx nnsExpDialog_OutFolder`;
+		if (size(match("[=;*?<>|\"]", $out_folder)) > 0)
+		{
+			ShowError("Invalid Output Folder (please don't use [=] [;] [*] [?] [<] [>] [|] [double quote])");
+		}
+	}
+	else
+	{
+		int $merge_imd_flag = `checkBoxGrp -q -v1 nnsExpDialog_MergeImdFlag`;
+		if ($merge_imd_flag)
+		{
+			string $merge_imd_path = `textField -q -tx nnsExpDialog_MergeImdPath`;
+			if (size($merge_imd_path) == 0)
+			{
+				ShowError("Merge Imd File Path is empty");
+			}
+			if (size(match("[=;*?<>|\"]", $merge_imd_path)) > 0)
+			{
+				ShowError("Invalid Merge Imd File Path (please don't use [=] [;] [*] [?] [<] [>] [|] [double quote])");
+			}
+		}
+	}
+}
+
+/******************************************************************************
+	update option variable
+******************************************************************************/
+global proc nnsExpDialog_UpdateOptionVariable(int $save_setting_to_scene)
+{
+	string $path;
+
+	//-----------------------------------------------------------------------------
+	// output options
+	optionVar -iv nnsExpDialog_ExportMode
+		(`radioButtonGrp -q -sl nnsExpDialog_ExportMode` - 1);
+
+	optionVar -sv nnsExpDialog_OutFileName
+		`textFieldGrp -q -tx nnsExpDialog_OutFileName`;
+
+	optionVar -iv nnsExpDialog_OutInterFile
+		(`radioButtonGrp -q -sl nnsExpDialog_OutInterFile` == 1);
+	$path = `textFieldGrp -q -tx nnsExpDialog_OutFolder`;
+	optionVar -sv nnsExpDialog_OutFolder (NNS_GetUnixFilePath($path));
+
+	//-----------------------------------------------------------------------------
+	// 3D material editor options
+	optionVar -iv nnsExpDialog_MergeImdFlag
+		`checkBoxGrp -q -v1 nnsExpDialog_MergeImdFlag`;
+	$path = `textField -q -tx nnsExpDialog_MergeImdPath`;
+	optionVar -sv nnsExpDialog_MergeImdPath (NNS_GetUnixFilePath($path));
+
+	//-----------------------------------------------------------------------------
+	// NITRO options 
+	eval("NNS_ExportOpts \"\" \"query\" \"\" nnsExpDialog_NitroOptionUpdateCB");
+
+	//-----------------------------------------------------------------------------
+	// save setting to scene
+	if ($save_setting_to_scene)
+	{
+		SaveSettingToScene(1);
+	}
+}
+
+/******************************************************************************
+	reset option variable
+******************************************************************************/
+global proc nnsExpDialog_ResetOptionVariable()
+{
+	//-----------------------------------------------------------------------------
+	// reset export dialog options
+	SetOptionVariable(1);
+	SetOptionControl();
+
+	//-----------------------------------------------------------------------------
+	// reset export options
+	NNS_ResetExportOpts();
+	eval("NNS_ExportOpts \"\" \"query\" \"\" nnsExpDialog_NitroOptionUpdateCB");
+
+	//-----------------------------------------------------------------------------
+	// save setting to scene
+	SaveSettingToScene(1);
+}
+
+/******************************************************************************
+	check overwrite
+
+		return 0 if cancel (No to All)
+******************************************************************************/
+proc int CheckOverwrite(string $out_folder, string $out_file_name,
+	 string $nitro_opts, string $new_opts_buf[])
+{
+	global int $nnsExpDialog_IdxImd;
+	global int $nnsExpDialog_IdxIca;
+	global int $nnsExpDialog_IdxIva;
+	global int $nnsExpDialog_IdxIma;
+	global int $nnsExpDialog_IdxItp;
+	global int $nnsExpDialog_IdxIta;
+	global int $nnsExpDialog_IdxMax;
+
+	//-----------------------------------------------------------------------------
+	// clear out file flag
+	int $out_file_flag[6];
+	int $ifile;
+	for ($ifile = 0; $ifile < $nnsExpDialog_IdxMax; ++$ifile)
+	{
+		$out_file_flag[$ifile] = 0;
+	}
+
+	//-----------------------------------------------------------------------------
+	// parse option
+	string $opts[], $words[];
+	tokenize($nitro_opts, ";", $opts);
+	int $opt_size = size($opts);
+	int $iopt;
+	for ($iopt = 0; $iopt < $opt_size; ++$iopt)
+	{
+		tokenize($opts[$iopt], "=", $words);
+		if ($words[0] == "imd_file_out")
+		{
+			$out_file_flag[$nnsExpDialog_IdxImd] = ($words[1] != "0");
+		}
+		else if ($words[0] == "ica_file_out")
+		{
+			$out_file_flag[$nnsExpDialog_IdxIca] = ($words[1] != "0");
+		}
+		else if ($words[0] == "iva_file_out")
+		{
+			$out_file_flag[$nnsExpDialog_IdxIva] = ($words[1] != "0");
+		}
+		else if ($words[0] == "ima_file_out")
+		{
+			$out_file_flag[$nnsExpDialog_IdxIma] = ($words[1] != "0");
+		}
+		else if ($words[0] == "itp_file_out")
+		{
+			$out_file_flag[$nnsExpDialog_IdxItp] = ($words[1] != "0");
+		}
+		else if ($words[0] == "ita_file_out")
+		{
+			$out_file_flag[$nnsExpDialog_IdxIta] = ($words[1] != "0");
+		}
+	}
+	//print "out:\n"; print $out_file_flag;
+
+	//-----------------------------------------------------------------------------
+	// confirm overwrite
+	string $ext_names[] = { "imd", "ica", "iva", "ima", "itp", "ita" };
+
+	int $yes_all_flag = 0;
+	int $org_file_count = 0;
+	int $out_file_count = 0;
+	for ($ifile = 0; $ifile < $nnsExpDialog_IdxMax; ++$ifile)
+	{
+		if (!$out_file_flag[$ifile])
+		{
+			continue;
+		}
+		++$org_file_count;
+
+		string $filePath = $out_folder + $out_file_name + "." + $ext_names[$ifile];
+		if (!$yes_all_flag && `filetest -f $filePath`)
+		{
+			//trace $filePath;
+			string $btn = `confirmDialog -t "Export" -ma "left"
+				-m ("\"" + $filePath + "\"  already exists.\n\nOverwrite ?\n")
+				-b "Yes" -b "Yes to All" -b "No" -b "Cancel"
+				-db "No" -cb "Cancel" -ds "Cancel"`;
+			if ($btn == "Yes to All")
+			{
+				$yes_all_flag = 1;
+			}
+			else if ($btn == "No")
+			{
+				$out_file_flag[$ifile] = 0;
+				continue;
+			}
+			else if ($btn == "Cancel")
+			{
+				return 0;
+			}
+		}
+		++$out_file_count;
+	}
+
+	//-----------------------------------------------------------------------------
+	// modify option
+	string $new_opts = "";
+	for ($iopt = 0; $iopt < $opt_size; ++$iopt)
+	{
+		tokenize($opts[$iopt], "=", $words);
+		if ($words[0] == "imd_file_out")
+		{
+			$new_opts += $words[0] + "=" + $out_file_flag[$nnsExpDialog_IdxImd] + ";";
+		}
+		else if ($words[0] == "ica_file_out")
+		{
+			$new_opts += $words[0] + "=" + $out_file_flag[$nnsExpDialog_IdxIca] + ";";
+		}
+		else if ($words[0] == "iva_file_out")
+		{
+			$new_opts += $words[0] + "=" + $out_file_flag[$nnsExpDialog_IdxIva] + ";";
+		}
+		else if ($words[0] == "ima_file_out")
+		{
+			$new_opts += $words[0] + "=" + $out_file_flag[$nnsExpDialog_IdxIma] + ";";
+		}
+		else if ($words[0] == "itp_file_out")
+		{
+			$new_opts += $words[0] + "=" + $out_file_flag[$nnsExpDialog_IdxItp] + ";";
+		}
+		else if ($words[0] == "ita_file_out")
+		{
+			$new_opts += $words[0] + "=" + $out_file_flag[$nnsExpDialog_IdxIta] + ";";
+		}
+		else
+		{
+			$new_opts += $opts[$iopt] + ";";
+		}
+	}
+	$new_opts_buf[0] = $new_opts;
+
+	if ($org_file_count == 0) // Error
+	{
+		return 1;
+	}
+	return ($out_file_count > 0);
+}
+
+/******************************************************************************
+	do export command
+******************************************************************************/
+proc DoExportCmd(int $forceOverwrite)
+{
+	//-----------------------------------------------------------------------------
+	// load plugin
+	LoadPlugin();
+
+	//-----------------------------------------------------------------------------
+	// get options
+
+	// output options
+	int $export_mode = `optionVar -q nnsExpDialog_ExportMode`;
+	string $out_file_name = `optionVar -q nnsExpDialog_OutFileName`;
+	int $out_inter_file = `optionVar -q nnsExpDialog_OutInterFile`;
+	string $out_folder = `optionVar -q nnsExpDialog_OutFolder`;
+	if ($out_inter_file)
+	{
+		if (size(match("/", $out_folder)) == 0) // add default path
+		{
+			$out_folder = `workspace -q -rd` + $out_folder;
+		}
+	}
+	else
+	{
+		$out_folder = eval("NNS_ExportInfoCmd -meFolder");
+		if (size($out_folder) == 0)
+		{
+			ShowError("3D Material Editor is not found (environment variable does not exist)");
+		}
+		if (!`filetest -d $out_folder`)
+		{
+			ShowError("3D Material Editor is not found (folder does not exist)");
+		}
+		$out_folder += "/" + "CGToolWork" + "/";
+	}
+	if (size(match("/$", $out_folder)) == 0) // add last slash
+	{
+		$out_folder += "/";
+	}
+
+	// 3D material editor options
+	int $use_3dmeditor = !$out_inter_file;
+	int $merge_imd_flag = `optionVar -q nnsExpDialog_MergeImdFlag`;
+	string $merge_imd_path = `optionVar -q nnsExpDialog_MergeImdPath`;
+
+	// NITRO options
+	string $nitro_opts = "";
+	if (`optionVar -ex NINTENDO_NITRO_SystemOptions`)
+	{
+		$nitro_opts = `optionVar -q NINTENDO_NITRO_SystemOptions`;
+	}
+
+	//-----------------------------------------------------------------------------
+	// create output folder	
+	if (!`filetest -d $out_folder`)
+	{
+		string $path = toNativePath($out_folder);
+		sysFile -md $path;
+	}
+
+	//-----------------------------------------------------------------------------
+	// confirm overwrite
+	if (!$use_3dmeditor && !$forceOverwrite)
+	{
+		string $new_opts_buf[1];
+		if (!CheckOverwrite($out_folder, $out_file_name, $nitro_opts, $new_opts_buf))
+		{
+			print "Cancelled\n";
+			return;	
+		}
+		else
+		{
+			//trace ($nitro_opts);
+			//trace ($new_opts_buf[0]);
+			$nitro_opts = $new_opts_buf[0];
+		}
+	}
+
+	//-----------------------------------------------------------------------------
+	// export
+	// changed (2007/06/28)
+	string $exportNames[2] = { "all", "selection" };
+	$nitro_opts += "export_target=" + $exportNames[$export_mode] + ";";
+	$nitro_opts += "output_file_name=" + $out_file_name + ";";
+	$nitro_opts += "output_folder=" + $out_folder + ";";
+	if ($use_3dmeditor)
+	{
+		$nitro_opts += "use_3dmeditor=1;";
+		if ($merge_imd_flag)
+		{
+			$nitro_opts += "merge_imd_flag=1;";
+			$nitro_opts += "merge_imd_path=" + $merge_imd_path + ";";
+		}
+	}
+
+	string $cmd = "NNS_ExportCmd";
+	//if ($forceOverwrite)
+	//{
+	//	$cmd += " -f";
+	//}
+	$cmd += " -op \"" + $nitro_opts + "\"";
+	//trace ("cmd: " + $cmd);
+
+	if (catch(eval($cmd)))
+	{
+		//error "NNS_Export Failed";
+	}
+}
+
+/******************************************************************************
+	setting menu command (post menu command)
+******************************************************************************/
+global proc nnsExpDialog_SettingMenuCmd()
+{
+	int $scene_setting_flag = DoesSaveLoadSceneSetting();
+	int $setting_node_flag = `objExists nnsExpDialog_Setting1`;
+	menuItem -e -cb $scene_setting_flag nnsExpDialog_SaveLoadSceneSettingMenu;
+	menuItem -e -en $setting_node_flag nnsExpDialog_DeleteSceneSettingMenu;
+}
+
+/******************************************************************************
+	save load scene setting menu command
+******************************************************************************/
+global proc nnsExpDialog_SaveLoadSceneSettingMenuCmd()
+{
+	int $scene_setting_flag = DoesSaveLoadSceneSetting();
+	$scene_setting_flag = !$scene_setting_flag;
+	optionVar -iv nnsExpDialog_SaveLoadSceneSetting $scene_setting_flag;
+	menuItem -e -cb $scene_setting_flag nnsExpDialog_SaveLoadSceneSettingMenu;
+}
+
+/******************************************************************************
+	delete scene setting menu command
+******************************************************************************/
+global proc nnsExpDialog_DeleteSceneSettingMenuCmd()
+{
+	DeleteUselessSettingNode();
+	
+	string $node = "nnsExpDialog_Setting1";
+	if (`referenceQuery -inr $node`)
+	{
+		print "NITRO export settings node is referenced\n";
+	}
+	else
+	{
+		catch(`delete $node`);
+	}
+}
+
+/******************************************************************************
+	create setting menu
+******************************************************************************/
+proc CreateSettingMenu(string $parent)
+{
+	//-----------------------------------------------------------------------------
+	// get option box
+	global string $gOptionBox;
+	if (!`window -ex $gOptionBox`)
+	{
+		return;
+	}
+
+	//-----------------------------------------------------------------------------
+	// delete previous menu
+	if (`menu -q -ex nnsExpDialog_SettingMenu`)
+	{
+		deleteUI nnsExpDialog_SettingMenu;
+	}
+
+	//-----------------------------------------------------------------------------
+	// create menu
+	int $scene_setting_flag = DoesSaveLoadSceneSetting();
+	menu -l "NITRO Settings" -p $gOptionBox
+		-pmc "nnsExpDialog_SettingMenuCmd"
+		nnsExpDialog_SettingMenu;
+
+		menuItem -l "Save / Load Scene Settings" -cb $scene_setting_flag
+			-ann "Save settings to scene when exporting & Load settings from scene when opening scene"
+			-c "nnsExpDialog_SaveLoadSceneSettingMenuCmd"
+			nnsExpDialog_SaveLoadSceneSettingMenu;
+		menuItem -l "Delete Scene Settings"
+			-ann "Delete script node for settings"
+			-c "nnsExpDialog_DeleteSceneSettingMenuCmd" // changed (2006/03/13)
+			nnsExpDialog_DeleteSceneSettingMenu;
+
+		menuItem -d 1;
+		
+		menuItem -l "Load Settings from n3es File"
+			-ann "Load settings from \".n3es\" file"
+			-c "nnsExpDialog_LoadSettingFromFile"
+			nnsExpDialog_LoadSettingFromFileMenu;
+		menuItem -l "Save Settings to n3es File"
+			-ann "Save settings to \".n3es\" file"
+			-c "nnsExpDialog_SaveSettingToFile"
+			nnsExpDialog_SaveSettingToMenu;
+
+	//-----------------------------------------------------------------------------
+	// set script job to delete menu
+	scriptJob -p $gOptionBox -uid nnsExpDialog_ScrollLayout
+		"if (!`scrollLayout -ex nnsExpDialog_ScrollLayout`) { deleteUI nnsExpDialog_SettingMenu; }";
+}
+
+/******************************************************************************
+	export callback
+******************************************************************************/
+global proc nnsExpDialog_ExportCB()
+{
+	CheckOptionValue();
+	nnsExpDialog_UpdateOptionVariable(1);
+	DoExportCmd(0);
+}
+
+/******************************************************************************
+	save settings callback
+******************************************************************************/
+global proc nnsExpDialog_SaveSettingsCB()
+{
+	CheckOptionValue();
+	nnsExpDialog_UpdateOptionVariable(1);
+}
+
+/******************************************************************************
+	set node name to file name
+******************************************************************************/
+global proc nnsExpDialog_SetNodeNameToFileName()
+{
+	// get selection
+	// å„Ç≈äKëwÇÃê[Ç≥Çí≤Ç◊ÇÈÇÃÇ≈ -l Ç™ïKóv
+	string $xforms[] = `ls -l -sl -typ transform`;
+	if (size($xforms) == 0)
+	{
+		$xforms = `ls -l -v -typ transform`;
+	}
+	if (size($xforms) == 0)
+	{
+		error "No transform node";
+	}
+
+	// find top level node
+	string $name, $buf[];
+	int $depth_min = 10000;
+	for ($xform in $xforms)
+	{
+		int $depth = tokenize($xform, "|", $buf);
+		if ($depth < $depth_min)
+		{
+			$name = $xform;
+			$depth_min = $depth;
+		}
+	}
+	
+	// set name
+	$name = substitute(".*|", $name, ""); // to short path
+	textFieldGrp -e -tx $name nnsExpDialog_OutFileName;
+}
+
+/******************************************************************************
+	out folder browser callback
+******************************************************************************/
+global proc nnsExpDialog_OutFolderBrowserFC(string $filePath, string $fileType)
+{
+    textFieldGrp -e -tx $filePath nnsExpDialog_OutFolder;
+}
+
+global proc nnsExpDialog_OutFolderBrowserCB()
+{
+	NNS_SetCurDirFromFile(`textFieldGrp -q -tx nnsExpDialog_OutFolder`);
+
+	eval("NNS_FileDialog -m 4 -an \"Select\" -in \"Output Folder\" " +
+		"-fc \"nnsExpDialog_OutFolderBrowserFC\""); // changed (2008/12/17)
+	//fileBrowserDialog -m 4 -an "Select" -in "Output Folder"
+	//	  -fc "nnsExpDialog_OutFolderBrowserFC";
+}
+
+/******************************************************************************
+	merge imd browser callback
+******************************************************************************/
+/*
+global proc nnsExpDialog_MergeImdBrowserFC(string $filePath, string $fileType)
+{
+	textField -e -tx $filePath nnsExpDialog_MergeImdPath;
+}
+*/
+
+global proc nnsExpDialog_MergeImdBrowserCB()
+{
+	string $curPath = `textField -q -tx nnsExpDialog_MergeImdPath`;
+	if (size($curPath) > 0)
+	{
+		$curPath = dirname($curPath);
+		$curPath = (`filetest -d $curPath`) ? ($curPath + "/") : "";
+	}
+	string $newPath = `fileDialog -dm ($curPath + "*.imd")`;
+	if (size($newPath) > 0)
+	{
+ 		textField -e -tx $newPath nnsExpDialog_MergeImdPath;
+ 	}
+
+/*
+	NNS_SetCurDirFromFile(`textField -q -tx nnsExpDialog_MergeImdPath`);
+
+	fileBrowserDialog -m 0 -an "Select" -in "Imd File"
+		  -fc "nnsExpDialog_MergeImdBrowserFC";
+*/
+}
+
+/******************************************************************************
+	open option window
+
+		return 1 if success, 0 otherwise
+******************************************************************************/
+global proc int OpenOptionWindow()
+{
+	//-----------------------------------------------------------------------------
+	// init option variable
+	SetOptionVariable(0);
+
+	//-----------------------------------------------------------------------------
+	// get option box
+	string $opt_box = getOptionBox();
+	if (size($opt_box) == 0)
+		return 0;
+	setParent $opt_box;
+
+	setOptionBoxTitle("NITRO Export Options");
+
+	//-----------------------------------------------------------------------------
+	// create control
+	//-----------------------------------------------------------------------------
+
+	//-----------------------------------------------------------------------------
+	// begin
+	setUITemplate -pst DefaultTemplate;
+	waitCursor -st 1;
+
+	//-----------------------------------------------------------------------------
+	// create layout
+	scrollLayout -childResizable 1 -minChildWidth 460 nnsExpDialog_ScrollLayout;
+		// horizontal scroll bar appears if layout width < minChildWidth
+	string $parent = `columnLayout -adj 1 -cat "both" 5 -co "both" 5
+		nnsExpDialog_MainColumn`;
+	$parent = substitute(".*|", $parent, ""); // to short name
+	setParent $parent;
+
+	//-----------------------------------------------------------------------------
+	// output options
+	frameLayout -l "Output Options" -cll 1 -cl 0 -bv 1 -bs "etchedIn";
+		string $outForm = `formLayout -nd 100`;
+			radioButtonGrp -l "Export" -nrb 2 -cw 1 128 -cw 2 95
+				-la2 "All" "Selection" -sl 1
+				nnsExpDialog_ExportMode;
+
+			textFieldGrp -l "Output File Name" -cw2 128 160
+				nnsExpDialog_OutFileName;
+			button -l "Scene" -w 50
+				-c "textFieldGrp -e -tx `file -q -ns` nnsExpDialog_OutFileName"
+				nnsExpDialog_SceneToOutFileName;
+			button -l "Node" -w 50 -c "nnsExpDialog_SetNodeNameToFileName"
+				nnsExpDialog_NodeToOutFileName;
+
+			//-----------------------------------------------------------------------------
+			// out intermediate file
+			string $sep1 = `separator -st "in" -h 3`;
+			radioButtonGrp -l "" -nrb 1 -cw 1 1 -cw 2 200
+				-l1 "Output Intermediate Files" -sl 1
+				-cc "nnsExpDialog_OutInterFileCB"
+				nnsExpDialog_OutInterFile;
+
+			textFieldGrp -l "Output Folder" -cw2 128 290 -adj 2 -rat 1 "both" 2
+				nnsExpDialog_OutFolder;
+			symbolButton -i "navButtonBrowse.xpm" -w 25 -h 22
+				-c "nnsExpDialog_OutFolderBrowserCB"
+				nnsExpDialog_OutFolderBrowser;
+		
+			//-----------------------------------------------------------------------------
+			// use 3D material editor
+			string $sep2 = `separator -st "in" -h 3`;
+			radioButtonGrp -l "" -nrb 1 -cw 1 1 -cw 2 200
+				-l1 "Use 3D Material Editor"
+				-scl nnsExpDialog_OutInterFile
+				-cc "nnsExpDialog_OutInterFileCB"
+				nnsExpDialog_Use3DMEditor;
+
+			checkBoxGrp -l "" -ncb 1 -cw 1 30 -cw 2 97
+				-l1 "Merge Imd File" -v1 0
+				-cc "nnsExpDialog_OutInterFileCB"
+				nnsExpDialog_MergeImdFlag;
+			textField -w 290
+				nnsExpDialog_MergeImdPath;
+			symbolButton -i "navButtonBrowse.xpm" -w 25 -h 22
+				-c "nnsExpDialog_MergeImdBrowserCB"
+				nnsExpDialog_MergeImdBrowser;
+
+			formLayout -e
+				-af nnsExpDialog_ExportMode "left" 0
+				-af nnsExpDialog_ExportMode "top" 4
+				-an nnsExpDialog_ExportMode "right"
+				-an nnsExpDialog_ExportMode "bottom"
+
+				-af nnsExpDialog_OutFileName "left" 0
+				-ac nnsExpDialog_OutFileName "top" 4 nnsExpDialog_ExportMode
+				-an nnsExpDialog_OutFileName "right"
+				-an nnsExpDialog_OutFileName "bottom"
+				-ac nnsExpDialog_SceneToOutFileName "left" 5 nnsExpDialog_OutFileName
+				-ac nnsExpDialog_SceneToOutFileName "top" 4 nnsExpDialog_ExportMode
+				-an nnsExpDialog_SceneToOutFileName "right"
+				-an nnsExpDialog_SceneToOutFileName "bottom"
+				-ac nnsExpDialog_NodeToOutFileName "left" 5 nnsExpDialog_SceneToOutFileName
+				-ac nnsExpDialog_NodeToOutFileName "top" 4 nnsExpDialog_ExportMode
+				-an nnsExpDialog_NodeToOutFileName "right"
+				-an nnsExpDialog_NodeToOutFileName "bottom"
+				-af $sep1 "left" 0
+				-ac $sep1 "top" 4 nnsExpDialog_OutFileName
+				-af $sep1 "right" 0
+				-an $sep1 "bottom"
+
+				-af nnsExpDialog_OutInterFile "left" 0
+				-ac nnsExpDialog_OutInterFile "top" 4 $sep1
+				-an nnsExpDialog_OutInterFile "right"
+				-an nnsExpDialog_OutInterFile "bottom"
+
+				-af nnsExpDialog_OutFolder "left" 0
+				-ac nnsExpDialog_OutFolder "top" 4 nnsExpDialog_OutInterFile
+				-ac nnsExpDialog_OutFolder "right" 5 nnsExpDialog_OutFolderBrowser
+				-an nnsExpDialog_OutFolder "bottom"
+				-an nnsExpDialog_OutFolderBrowser "left"
+				-ac nnsExpDialog_OutFolderBrowser "top" 4 nnsExpDialog_OutInterFile
+				-af nnsExpDialog_OutFolderBrowser "right" 4
+				-an nnsExpDialog_OutFolderBrowser "bottom"
+				-af $sep2 "left" 0
+				-ac $sep2 "top" 4 nnsExpDialog_OutFolder
+				-af $sep2 "right" 0
+				-an $sep2 "bottom"
+
+				-af nnsExpDialog_Use3DMEditor "left" 0
+				-ac nnsExpDialog_Use3DMEditor "top" 4 $sep2
+				-an nnsExpDialog_Use3DMEditor "right"
+				-an nnsExpDialog_Use3DMEditor "bottom"
+
+				-af nnsExpDialog_MergeImdFlag "left" 0
+				-ac nnsExpDialog_MergeImdFlag "top" (4+3) nnsExpDialog_Use3DMEditor
+				-an nnsExpDialog_MergeImdFlag "right"
+				-an nnsExpDialog_MergeImdFlag "bottom"
+				-ac nnsExpDialog_MergeImdPath "left" 2 nnsExpDialog_MergeImdFlag
+				-ac nnsExpDialog_MergeImdPath "top" 4 nnsExpDialog_Use3DMEditor
+				-ac nnsExpDialog_MergeImdPath "right" 5 nnsExpDialog_MergeImdBrowser
+				-af nnsExpDialog_MergeImdPath "bottom" 4
+				-an nnsExpDialog_MergeImdBrowser "left"
+				-ac nnsExpDialog_MergeImdBrowser "top" 4 nnsExpDialog_Use3DMEditor
+				-af nnsExpDialog_MergeImdBrowser "right" 4
+				-an nnsExpDialog_MergeImdBrowser "bottom"
+			$outForm;
+		setParent ..; // formLayout
+	setParent ..; // frameLayout
+
+	//-----------------------------------------------------------------------------
+	// NITRO options
+	string $nitro_opts = "";
+	if (`optionVar -ex NINTENDO_NITRO_SystemOptions`)
+	{
+		$nitro_opts = `optionVar -q NINTENDO_NITRO_SystemOptions`;
+	}
+	NNS_ExportOpts($parent, "post", $nitro_opts, "");
+
+	//-----------------------------------------------------------------------------
+	// close layout
+	setParent ..;	// columnLayout
+	setParent ..;	// scrollLayout
+
+	//-----------------------------------------------------------------------------
+	// setting menu
+	CreateSettingMenu($parent);
+
+	//-----------------------------------------------------------------------------
+	// end
+	waitCursor -st 0;
+	setUITemplate -ppt;
+
+	//-----------------------------------------------------------------------------
+	// set help tag to save window size (for 8.0)
+	setOptionBoxHelpTag("nnsExpDialog"); // added (2006/08/31)
+
+	//-----------------------------------------------------------------------------
+	// set button & menu command
+	//-----------------------------------------------------------------------------
+	string $btn_apply = getOptionBoxApplyBtn();
+	button -e -l "Export" -c "nnsExpDialog_ExportCB" $btn_apply;
+
+	string $btn_save = getOptionBoxSaveBtn();
+	button -e -c "nnsExpDialog_SaveSettingsCB" $btn_save;
+
+	string $btn_reset = getOptionBoxResetBtn();
+	button -e -c "nnsExpDialog_ResetOptionVariable" $btn_reset;
+
+	string $helpMenu = getOptionBoxHelpItem();
+	menuItem -e -l "No Help Currently Available" -c "" $helpMenu;
+
+	//-----------------------------------------------------------------------------
+	// set option cotrol
+	SetOptionControl();
+
+	//-----------------------------------------------------------------------------
+	// show option box
+	setFocus(getOptionBoxApplyAndCloseBtn()); // added (2008/12/17)
+	showOptionBox();
+
+	return 1;
+}
+
+/******************************************************************************
+	main
+******************************************************************************/
+global proc NNS_ExpDialog()
+{
+	//-----------------------------------------------------------------------------
+	// load plugin
+	LoadPlugin();
+
+	//-----------------------------------------------------------------------------
+	// open option window
+	OpenOptionWindow();
+}
+
+/******************************************************************************
+	export direct
+******************************************************************************/
+global proc NNS_ExpDirect()
+{
+	//-----------------------------------------------------------------------------
+	// load plugin
+	LoadPlugin();
+
+	//-----------------------------------------------------------------------------
+	// init option variable
+	SetOptionVariable(0);
+
+	//-----------------------------------------------------------------------------
+	// export
+	DoExportCmd(0);
+}
+
+/******************************************************************************
+	export direct force (no overwrite check)
+******************************************************************************/
+global proc NNS_ExpDirectForce()
+{
+	//-----------------------------------------------------------------------------
+	// load plugin
+	LoadPlugin();
+
+	//-----------------------------------------------------------------------------
+	// init option variable
+	SetOptionVariable(0);
+
+	//-----------------------------------------------------------------------------
+	// export
+	DoExportCmd(1);
+}

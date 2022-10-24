@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title>WFS_GetServerSyncBitmap</title>
+<link rel="stylesheet" href="../../css/nitro.css" type="text/css" />
+</head>
+<body>
+
+<h1>WFS_GetServerSyncBitmap&nbsp;<img src="../../image/NTR.gif"><img src="../../image/TWL.gif"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<code>#include &lt;nitro/wfs.h&gt;</code><br />
+  <br />
+  <code>int WFS_GetServerSyncBitmap(const WFSServerContext *context);</code><br />
+  <br />
+  </dd>
+</dl>
+<h2>Arguments</h2>
+<table border="1" width="100%">
+  <tbody>
+    <tr>
+      <td style="width:13%"><em><strong>context</strong></em></td>
+      <td style="width:87%">Pointer to the <CODE>WFSServerContext</CODE> structure.</td>
+    </tr>
+  </tbody>
+</table>
+<h2>Return Values</h2>
+<p>Returns a bitmap indicating the status of children (clients) that for which request-response synchronization has been set.</p>
+
+<h2>Description</h2>
+<p>Gets the status of children (clients) for which request-response synchronization was set with <a href="WFS_SetServerSync.html"><code>WFS_SetServerSync</code></a>, as a bitmap.</p>
+
+<h2>See Also</h2>
+<p><code><a href="WFS_GetServerConnectedBitmap.html">WFS_GetServerConnectedBitmap</a>, <a href="WFS_GetServerBusyBitmap.html">WFS_GetServerBusyBitmap</a> <br /></code></p>
+
+<h2>Revision History</h2>
+<p>
+2007/06/06 Initial version.
+</p>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

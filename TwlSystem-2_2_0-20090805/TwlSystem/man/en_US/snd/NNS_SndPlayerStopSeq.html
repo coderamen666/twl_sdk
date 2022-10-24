@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"><html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>NNS_SndPlayerStopSeq*</title>
+<link rel="stylesheet" href="../css/nitro.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.65.1">
+</head>
+<body>
+<div class="refentry" lang="ja"><a name="IDAKKWT"></a><div class="titlepage">
+<div></div>
+<div></div>
+</div>
+<h1>NNS_SndPlayerStopSeq*</h1>
+<h2>Syntax</h2>
+<dl>
+<dd><pre class="funcsynopsisinfo"><code>#include &lt;nnsys/snd.h&gt;</code></pre></dd>
+<dd><pre class="funcprototype"><code class="funcprototype">void NNS_SndPlayerStopSeq( NNSSndHandle* <var>handle</var>, int <var>fadeFrame</var> );</code><br><code class="funcprototype">void NNS_SndPlayerStopSeqByPlayerNo( int <var>playerNo</var>, int <var>fadeFrame</var> );</code><br><code class="funcprototype">void NNS_SndPlayerStopSeqBySeqNo( int <var>seqNo</var>, int <var>fadeFrame</var> );</code><br><code class="funcprototype">void NNS_SndPlayerStopSeqBySeqArcNo( int <var>seqArcNo</var>, int <var>fadeFrame</var> );</code><br><code class="funcprototype">void NNS_SndPlayerStopSeqBySeqArcIdx(
+        int <var>seqArcNo</var>,
+        int <var>index</var>,
+        int <var>fadeFrame</var> );</code><br><code class="funcprototype">void NNS_SndPlayerStopSeqAll( int <var>fadeFrame</var> );</code><br></pre></dd>
+</dl>
+<div class="refsection" lang="ja"><a name="IDAAPWT"></a>
+<h2>Arguments</h2>
+      
+      <div class="variablelist">
+<table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><code>handle</code></td>
+<td>Sound handle pointer.</td>
+</tr>
+<tr>
+<td><code>playerNo</code></td>
+<td>Player number.</td>
+</tr>
+<tr>
+<td><code>seqNo</code></td>
+<td>Sequence number.</td>
+</tr>
+<tr>
+<td><code>seqArcNo</code></td>
+<td>Sequence archive number.</td>
+</tr>
+<tr>
+<td><code>index</code></td>
+<td>Index number in the sequence archive.</td>
+</tr>
+<tr>
+<td><code>fadeFrame</code></td>
+<td>Fade-out frame. Takes a value between 0 and 65535.</td>
+</tr>
+</tbody>
+</table>
+</div>
+    </div>
+<div class="refsection" lang="ja"><a name="IDAVQWT"></a>
+<h2>Return Values</h2>
+
+<p>None.</p>
+    </div>
+<div class="refsection" lang="ja"><a name="IDA2QWT"></a>
+<h2>Description</h2>
+      <p>
+Stops the sequence. 
+</p>
+      <p>
+The <code>NNS_SndPlayerStopSeq</code> function stops the sequence using the sound handle <code>handle</code>. The sequence that is bound to the sound handle is stopped. This function does not perform any action if the sound handle is invalid. 
+</p>
+      <p>
+The <code>NNS_SndPlayerStopSeqByPlayerNo</code> function stops the sequence specified by the player number <code>playerNo</code>. The sequence that is being played by the specified player is stopped. 
+</p>
+      <p>
+The <code>NNS_SndPlayerStopSeqBySeqNo</code> function stops the sequences specified by the sequence number <code>seqNo</code>. All sequences whose sequence number, set by the <a href="NNS_SndPlayerSetSeqNo.html"><CODE>NNS_SndPlayerSetSeqNo</CODE></a> function, matches the specified <code>seqNo</code> is stopped. 
+</p>
+      <p>
+The <code>NNS_SndPlayerStopSeqBySeqArcNo</code> function stops the sequences specified by the sequence archive number <code>seqArcNo</code>. All sequences whose sequence archive number, set by the <a href="NNS_SndPlayerSetSeqArcNo.html"><CODE>NNS_SndPlayerSetSeqArcNo</CODE></a> function, matches the specified <code>seqArcNo</code> is stopped. The <code>NNS_SndPlayerStopSeqBySeqArcIdx</code> function stops sequences that have both the same sequence number as specified by <code>seqArcNo</code> and the same index number specified by <code>index</code>.
+</p>
+      <p>
+<code>NNS_SndPlayerStopSeqAll</code> stops all sequences that are being played. 
+</p>
+      <p>
+The sequence is completely stopped after the sound fades out over the time that is expressed in game frames by <code>fadeFrame</code>. When <code>fadeFrame</code> is 0, the sequence stops immediately. 
+</p>
+      <p>
+When these functions are called, the player priority becomes 0 (lowest).
+</p>
+    </div>
+<h2>See Also</h2>
+<p><a href="NNS_SndPlayerSetSeqNo.html"><code>NNS_SndPlayerSetSeqNo</code></a><BR> <a href="NNS_SndPlayerSetSeqArcNo.html"><code>NNS_SndPlayerSetSeqArcNo</code></a></p>
+<h2>Revision History</h2>
+<p>2004/08/10 Corrected the argument of <code>NNS_SndPlayerPauseAll</code> function. <BR>2004/06/01 Added <code>NNS_SndPlayerStopSeqBySeqNo</code>, <code>NNS_SndPlayerStopSeqBySeqArcNo</code>, and <code>NNS_SndPlayerStopSeqBySeqArcIdx</code>. Changed <code>NNS_SndPlayerStopSeqByNumber</code> to <code>NNS_SndPlayerStopSeqByPlayerNo</code>. <BR>2004/04/19 Combined manuals for <code>NNS_SndPlayerStopSeq</code>, <code>NNS_SndPlayerStopSeqByNumber</code> and <code>NNS_SndPlayerStopSeqAll</code>.<BR> 2004/04/01 Initial version.</p>
+</div>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

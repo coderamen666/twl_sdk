@@ -1,0 +1,133 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>Debug (String Display): Overview</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">Debug (String Display): Overview <IMG src="../../image/NTR.gif" align="middle"><IMG src="../../image/TWL.gif" align="middle"></H1>
+<H2>Description</H2>
+<P>This page explains the debug display that can be used with TWL-SDK.</P>
+<H2>Output Destination (TWL mode)</H2>
+<H4>Standard Output</H4>
+<P>Output window 0 is the default for the ARM9, and Output window 3 is the default for the ARM7. The output destination can be changed by calling the <A href="OS_SetPrintOutput.html"><CODE>OS_SetPrintOutput</CODE></A> function. Specify either <CODE>OS_PRINT_OUTPUT_ARM9</CODE> or <CODE>OS_PRINT_OUTPUT_ARM7</CODE> as the processor whose output destinations you want to change. Two convenience functions are also available: <A href="OS_SetPrintOutput.html"><CODE>OS_SetPrintOutput_Arm9</CODE></A>, which sets the output destination for the ARM9, and <A href="OS_SetPrintOutput.html"><CODE>OS_SetPrintOutput_Arm7</CODE></A>, which sets the output destination for the ARM7.</P>
+<P>Windows 0 through 3 can be specified for the output destination. In addition, output can be suppressed by specifying <CODE>OS_PRINT_OUTPUT_NONE</CODE>.</P>
+<BLOCKQUOTE style="background-color:#ffffcc;">(Example) Switch the output destination for the ARM9:<BR> <CODE><BR> //---- Change ARM9 output to Window 2<BR> <FONT color="#ff0000">OS_SetPrintOutput_Arm9( 2 );</FONT><BR> OS_Printf( &quot;This line is output in WINDOW 2.\n&quot; );<BR> <BR> //---- Suppress ARM9 output<BR> <FONT color="#ff0000">OS_SetPrintOutput_Arm9( OS_PRINT_OUTPUT_NONE );</FONT><BR> OS_Printf( &quot;This line is not displayed in any window.\n&quot; );</CODE><BR>
+</BLOCKQUOTE>
+<P>The output destinations specified here are used with standard display functions such as <A href="OS_Printf.html"><CODE>OS_Printf</CODE></A> that do not take the output destination as an argument. With functions such as <A href="OS_FPrintf.html"><CODE>OS_FPrintf</CODE></A> that do take the output destination as an argument, the destination specified in that argument is given priority. With functions that take the output destination as an argument, specifying <CODE>OS_PRINT_OUTPUT_CURRENT</CODE> as the destination uses this standard output.</P>
+<BLOCKQUOTE style="background-color:#ffffcc;">(Example) Switch the output destination for the ARM9:<BR> <BR> <CODE>//---- Change ARM9 output to Window 2<BR> <FONT color="#ff0000">OS_SetPrintOutput_Arm9( 2 );</FONT><BR> OS_Printf( &quot;This line is output in WINDOW 2.\n&quot;);<BR> <BR> //---- Specify the output window directly<BR> <FONT color="#ff0000">OS_FPrintf</FONT>( 3, &quot;This line is output in WINDOW 3\n&quot; );<BR> <FONT color="#ff0000">OS_FPrintf</FONT>( <FONT color="#ff0000">OS_PRINT_OUTPUT_CURRENT</FONT>, &quot;This line is output in WINDOW 2\n&quot;);</CODE><BR>
+</BLOCKQUOTE>
+<P>For highly urgent output, such as that displayed by the <A href="OS_Panic.html"><CODE>OS_Panic</CODE></A> and <A href="OS_Warning.html"><CODE>OS_Warning</CODE></A> functions, follow the guidelines shown in <B>Error Output</B>, below, for specifying the destination.</P>
+<H4><BR> Error Output</H4>
+<P>The output destination for highly urgent messages, such as those displayed by the <A href="OS_Panic.html"><CODE>OS_Panic</CODE></A> and <A href="OS_Warning.html"><CODE>OS_Warning</CODE></A> functions, can be changed in the same way as standard output. The output destination can be changed by calling the <A href="OS_SetPrintOutput.html"><CODE>OS_SetPrintOutput</CODE></A> function. Specify either <CODE>OS_PRINT_OUTPUT_PROC_ARM9ERR</CODE> or <CODE>OS_PRINT_OUTPUT_PROC_ARM7ERR</CODE> as the processor whose output destinations you want to change. Two convenience functions are also available: <A href="OS_SetPrintOutput.html"><CODE>OS_SetPrintOutput_Arm9Err</CODE></A>, which sets the error output destination for the ARM9, and <A href="OS_SetPrintOutput.html"><CODE>OS_SetPrintOutput_Arm7Err</CODE></A>, which sets the error output destination for the ARM7.</P>
+<P>Windows 0 through 3 can be specified for the output destination. In addition, output can be suppressed by specifying <CODE>OS_PRINT_OUTPUT_NONE</CODE>.</P>
+<P>The output destinations specified here are used with functions such as <A href="OS_Panic.html"><CODE>OS_Panic</CODE></A> that do not take an argument for the output destination of error output. With functions such as <A href="OS_FPanic.html"><CODE>OS_FPanic</CODE></A> that do take the error output destination as an argument, the destination specified in that argument is given priority. In functions that take the error output destination as an argument, specifying <CODE>OS_PRINT_OUTPUT_CURRENT</CODE> uses this error output setting as the output destination.</P>
+<H2>Output Destination (In NITRO Mode)</H2>
+<P>In NITRO, there is only one output destination, so the output will be directed to the same window regardless of which window (0-3) is specified. However, the feature to suppress output can be used even in NITRO mode by specifying <CODE>OS_PRINT_OUTPUT_NONE</CODE>.</P>
+<H2>Types of Output Functions</H2>
+<P>There are many functions available for debug output.</P>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+<TH>Usage</TH>
+<TH>Functions</TH>
+<TH>Output Destination</TH>
+    </TR>
+    <TR>
+<TD>Outputs the raw strings.</TD>
+<TD align="left"><A href="OS_PutString.html"><CODE>OS_PutString</CODE></A><BR> <A href="OS_FPutString.html"><CODE>OS_FPutString</CODE></A></TD>
+<TD>Standard Output</TD>
+    </TR>
+    <TR>
+<TD>Output with formatting<BR>Ordinary version</TD>
+<TD><A href="OS_Printf.html"><CODE>OS_Printf</CODE></A><BR> <A href="OS_FPrintf.html"><CODE>OS_FPrintf</CODE></A></TD>
+<TD>Standard Output</TD>
+    </TR>
+    <TR>
+<TD>    Simple version</TD>
+<TD><A href="OS_TPrintf.html"><CODE>OS_TPrintf</CODE></A><BR> <A href="OS_TFPrintf.html"><CODE>OS_TFPrintf</CODE></A><BR> <A href="OS_TPrintfEx.html"><CODE>OS_TPrintfEx</CODE></A><BR> <A href="OS_TFPrintfEx.html"><CODE>OS_TFPrintfEx</CODE></A></TD>
+<TD>Standard Output</TD>
+    </TR>
+    <TR>
+<TD>    Uses an argument list</TD>
+<TD><A href="OS_VPrintf.html"><CODE>OS_VPrintf</CODE></A><BR> <A href="OS_VFPrintf.html"><CODE>OS_VFPrintf</CODE></A></TD>
+<TD>Standard Output</TD>
+    </TR>
+    <TR>
+<TD>    Simple version; uses an argument list</TD>
+<TD><A href="OS_TVPrintf.html"><CODE>OS_TVPrintf</CODE></A><BR> <A href="OS_TVFPrintf.html"><CODE>OS_TVFPrintf</CODE></A><BR> <A href="OS_TVPrintfEx.html"><CODE>OS_TVPrintfEx</CODE></A><BR> <A href="OS_TVFPrintfEx.html"><CODE>OS_TVFPrintfEx</CODE></A></TD>
+<TD>Standard Output</TD>
+    </TR>
+    <TR>
+<TD>Output with formatting to memory<BR>Uses variable arguments</TD>
+<TD><A href="OS_SPrintf.html"><CODE>OS_SPrintf</CODE></A></TD>
+<TD>Memory</TD>
+    </TR>
+    <TR>
+<TD>    Uses an argument list</TD>
+<TD><A href="OS_VSPrintf.html"><CODE>OS_VSPrintf</CODE></A></TD>
+<TD>Memory</TD>
+    </TR>
+    <TR>
+<TD>    Uses a variable number of arguments; specifies the size</TD>
+<TD><A href="OS_SNPrintf.html"><CODE>OS_SNPrintf</CODE></A></TD>
+<TD>Memory</TD>
+    </TR>
+    <TR>
+<TD>    Uses an argument list; specifies the size</TD>
+<TD><A href="OS_VSNPrintf.html"><CODE>OS_VSNPrintf</CODE></A><BR> <A href="OS_VSNPrintfEx.html"><CODE>OS_VSNPrintfEx</CODE></A></TD>
+<TD>Memory</TD>
+    </TR>
+    <TR>
+<TD>Outputs warning<BR>Ordinary version</TD>
+<TD><A href="OS_Warning.html"><CODE>OS_Warning</CODE></A><BR> <A href="OS_FWarning.html"><CODE>OS_FWarning</CODE></A></TD>
+<TD>Error Output</TD>
+    </TR>
+    <TR>
+<TD>    Simple version</TD>
+<TD><A href="OS_TWarning.html"><CODE>OS_TWarning</CODE></A><BR> <A href="OS_TFWarning.html"><CODE>OS_TFWarning</CODE></A></TD>
+<TD>Error Output</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>Relationship with STD Functions</H2>
+<P>The STD category also provides functions that output to memory, such as <A href="../../std/string/STD_TSPrintf.html"><CODE>STD_TSPrintf</CODE></A>, <A href="../../std/string/STD_TVSPrintf.html"><CODE>STD_TVSPrintf</CODE></A>, <A href="../../std/string/STD_TSNPrintf.html"><CODE>STD_TSNPrintf</CODE></A>, and <A href="../../std/string/STD_TVSNPrintf.html"><CODE>STD_TVSNPrintf</CODE></A>. The OS library functions that output to memory ultimately use STD functions internally, so some OS functions may have the same behavior as STD functions. OS functions and STD functions on the same rows in the following table have the same behavior.</P>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+<TH>OS Functions</TH>
+<TH>Equivalent STD Functions</TH>
+    </TR>
+    <TR>
+<TD><CODE><A href="OS_Sprintf.html">OS_SPrintf</A></CODE></TD>
+<TD><CODE><A href="../../std/string/STD_TSPrintf.html">STD_TSPrintf</A></CODE></TD>
+    </TR>
+    <TR>
+<TD><A href="OS_VSPrintf.html"><CODE>OS_VSPrintf</CODE></A></TD>
+<TD><CODE><A href="../../std/string/STD_TVSPrintf.html">STD_TVNPrintf</A></CODE></TD>
+    </TR>
+    <TR>
+<TD><CODE><A href="OS_SNPrintf.html">OS_SNPrintf</A></CODE></TD>
+<TD><CODE><A href="../../std/string/STD_TSNPrintf.html">STD_TSNPrintf</A></CODE></TD>
+    </TR>
+    <TR>
+<TD><CODE><A href="OS_VSNPrintf.html">OS_VSNPrintf</A></CODE></TD>
+<TD><CODE><A href="../../std/string/STD_TVSNPrintf.html">STD_TVSNPrintf</A></CODE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>The OS has the <A href="OS_VSNPrintfEx.html"><CODE>OS_VSNPrintfEx</CODE></A> extended memory output function, but this has an implementation in the OS library.</P>
+<H2>Blocking Mode</H2>
+<P>You can switch debugging output for IS-TWL-DEBUGGER and IS-NITRO-DEBUGGER between blocking mode and non-blocking mode.</P>
+<P>In non-blocking mode, if strings are continuously output at high speed such as by the <A href="OS_Printf.html"><CODE>OS_Printf</CODE></A> function, or the PC continues not to get output characters from the buffer, some output strings may be lost.  In blocking mode, output strings are certainly displayed, but for that reason, the operations of the application are temporarily slowed down. </P>
+<P>This can be switched using the <A href="OS_SetPrintBlockingMode.html"><CODE>OS_SetPrintBlockingMode</CODE></A> function. The function that gets the current configuration status is <A href="OS_GetPrintBlockingMode.html"><CODE>OS_GetPrintBlockingMode</CODE></A>.</P>
+<P>This feature is sometimes not implemented depending on the version of IS-TWL-DEBUGGER and IS-NITRO-DEBUGGER. Check the debugging software update history. You can even call this function when the feature is unsupported. If the feature is unsupported, <CODE><A href="OS_GetPrintBlockingMode.html">OS_GetPrintBlockingMode</A></CODE> always returns <CODE><A href="OS_GetPrintBlockingMode.html">FALSE</A></CODE>.</P>
+<H2>See Also</H2>
+<P><CODE><A href="../list_os.html#Debug-Print">OS Function List: Debug (String Display)</A><BR></CODE></P>
+<H2>Revision History</H2>
+<P>2009/04/21 Corrected the value in effect when blocking mode is unsupported.<BR> 2009/04/03 Added description of blocking mode.<BR> 2008/09/01 Added <B>Relationship with STD Functions</B>. <BR> 2008/01/12 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

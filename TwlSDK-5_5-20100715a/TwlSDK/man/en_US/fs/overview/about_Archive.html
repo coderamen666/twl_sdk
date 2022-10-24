@@ -1,0 +1,212 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>Standard Archives: Overview</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+<style type="text/css">
+td.supported   {border:solid 1px black;background-color:#FFFFF8}
+td.unsupported {border:solid 1px black;background-color:#C0C0C0}
+</style>
+</HEAD>
+<BODY>
+<H1 align="left">Standard Archives: Overview <img src="../../image/NTR.gif" align="middle"><img src="../../image/TWL.gif" align="middle"></H1>
+
+
+<h2>Description</h2>
+<p>The FS library mounts several standard archives depending on the type of program that has been booted. This document explains the basics about these archives.</p>
+
+
+<h2><a name="ROM">ROM Archives  <img src="../../image/NTR.gif" align="middle"><img src="../../image/TWL.gif" align="middle"></a></h2>
+<p>Within the ROM data region of the DS Game Card, all programs store a single directory tree that was created with the <a href="../../tools/makerom.html"><CODE>makerom</CODE> tool</a>. The archive that accesses this directory tree is the ROM archive, and is always mounted using the name <CODE>rom:</CODE>. The data to include in the ROM can be specified at build time with the <a href="../../tools/makerom.html"><CODE>makerom</CODE> tool</a>. This data is arranged in a data structure known as the <a href="#NitroROM">NitroROM format</a>. For details about how to include data in the ROM, see the reference for the <a href="../../tools/makerom.html"><CODE>makerom</CODE> tool</a>.</p>
+<p>The ROM archive can be used without any particular issues for normal card applications. With applications that are booted in other modes, however, there is no certainty that a DS Game Card is actually inserted in the console, so the system behaves as though this directory is empty. For information about the various boot types for programs, see the explanation in the <a href="../../os/bootInfo/OS_GetBootType.html"><CODE>OS_GetBootType</CODE></a> page.</p>
+<p>If you want to use the ROM archive in a program that has started using DS Download Play in the same way that you would with a card application, we recommend using the <a href="../../wfs/overview_wfs.html">WFS library</a>. This library is a utility for reconnecting to the parent that originated the download and accessing ROM data via local wireless communication.</p>
+
+<p>In line with the expanded features of the Nintendo DSi system, major changes have been made to operation of ROM archives on TWL-SDK. The changes from the old package, NITRO-SDK, are summarized below.</p>
+<div style="border:1px solid black;margin:5px;">
+<ul>
+<li style="padding:5px;"><b>ROM Data Validity Check</b><br /> <span style="color:Red;">When running in TWL mode, the validity of the ROM data is verified by a hash check.</span><br />This additional specification is a significant difference from the past, and you should be aware that it will affect behavior in the following ways.
+<div style="border:1px solid black;margin:5px;">
+<ul>
+<li style="padding:5px;">The execution of hash calculations in addition to the ROM transfer process described in the CARD library <a href="../../card/overview/about_Rom.html">Overview</a> will increase CPU calculation time and decrease transfer speed. For example, the ROM access speed when booting the card is approximately 1.6 MB/s in NTR mode, but approximately 1.2 MB/s in TWL mode.</li>
+<li style="padding:5px;">A certain additional proportion of ROM capacity is consumed because the table for hash checks of the ROM image is recorded as data. Also, a portion of that table must be retained in memory, so main memory is consumed from the arena inside the <a href="../../card/common/CARD_Init.html"><CODE>CARD_Init</CODE></a> function. The required size for these tables is dependent on ROM size and the <CODE>DigestParam</CODE> setting of the <a href="../../tools/makerom.html"><CODE>makerom</CODE> tool</a>, and is calculated using the following formula.
+<pre><code>(Consumed memory size) = 20 * (ROM size) / (DigestParam argument 1) / (DigestParam argument 2)<br />(Additional consumed ROM size) = 20 * (ROM size) / (DigestParam argument 1) + (Consumed memory size)</code></pre>
+Currently, <CODE>DigestParam</CODE> is always &quot;<CODE>1024 32</CODE>&quot;, so the actual formula is always as shown below.
+<pre><code><b>Consumed memory size = ROM size * 0.0006104<br />Additional consumed ROM size = ROM size * 0.02014</b></code></pre>
+For example, if the ROM is 1 Gb (128 MB), approximately 20 KB of main memory and approximately an additional 2.7 MB of the ROM capacity are consumed.</li>
+</ul>
+</div>
+Because this verification process requires information stored in an SRL or TAD file, it is not executed when only TLF files are loaded.</li>
+<li style="padding:5px;"><a name="ROM_LTDFILE"><b>TWL-Exclusive files</b></a><br /> A new security feature for Nintendo DSi Enhanced Game Cards is a protected <I>TWL-dedicated region</I> where you can place individual files.<br />Files located in this TWL-dedicated region are TWL-exclusive and cannot be read in NITRO mode. Programs built in HYBRID mode must be able to run on both the DS and the DSi, so you can bolster copy-protection by using this feature to specify individual files that can only be used on the Nintendo DSi.<br />To specify a TWL-exclusive file, you can use the <CODE>Ltdautoload</CODE> and <CODE>Ltdoverlay</CODE> parameters of <CODE><a href="../../tools/makelcf.html">makelcf.TWL</a></CODE>, or you can use the <CODE>Put</CODE> parameter of <CODE><a href="../../tools/makerom.html#ROMSPEC_TWL">makerom.TWL</a></CODE>. For details, see their descriptions.</li>
+<li style="padding:5px;"><b>Automatic support for NAND applications</b><br />If a program is booted as a NAND application, its ROM data exists as a NAND file instead of being located on a DS Card. For this reason, initializing the <a href="../../na/overview_na.html">NA library</a> automatically constructs a special archive that treats the NAND file as if it were a DS Card. For this reason, no changes are necessary to adapt ROM access when transitioning from a card application to a NAND application.</li>
+</ul>
+</div>
+<p>
+</p>
+
+<h2><a name="NAND">NAND Archives <img src="../../image/TWL.gif" align="middle"></a></h2>
+<p>The TWL includes built-in NAND memory. In the documentation, the term <I>NAND archive</I> is used as a collective term for several types of archives that are used to access file systems located in this area. The system NAND memory is actually split into several partitions. The save data files stored by each individual NAND application form independent file systems, but they all use the <a href="#FAT">FAT format</a> as their internal structure. See the <I>TWL Programming Manual</I> for more information on the properties of the system NAND memory.</p>
+<p>Depending on the NAND application settings, up to 10 archives can be mounted as NAND archives. Each of these will have a different name, such as <CODE>photo:</CODE> or <CODE>dataPub:</CODE>. For details about each of these archives, see the <I>NAND Application Development Manual</I>.</p>
+
+
+<h2><a name="SDMC">SD Memory Card Archives <img src="../../image/TWL.gif" align="middle"></a></h2>
+<p>TWL comes with an SD Memory Card slot, and certain program configurations allow this slot to be accessed. The SD Memory Card archive is mounted using the name <CODE>sdmc:</CODE>. SD Memory Cards also use the <a href="#FAT">FAT format</a>, so in general they are used in exactly the same way as NAND archives. That said, some care must be taken because there is wide variation in the data transfer speeds of individual SD Memory Cards, and because there is always a chance that the media could be removed or reinserted during access.</p>
+<p>Use the <code><a href="../archive/FS_RegisterEventHook.html">FS_RegisterEventHook</a></code> function to monitor the removal and insertion of media. To get the current state of the slot or verify write-protection, you can obtain the data as root directory information with an operation such as <code><a href="../directory/FS_GetPathInfo.html">FS_GetPathInfo(&quot;sdmc:/&quot;, info)</a></code>. However, if the slot is empty or an unknown device is detected, the function will fail and you need to check the details using the value returned by <code><a href="../archive/FS_GetArchiveResultCode.html">FS_GetArchiveResultCode</a></code>. (For example, the return value <code><a href="../fs_result_const.html">FS_RESULT_MEDIA_NOTHING</a></code> indicates that the slot is empty.)</p>
+<p>In addition, SD Memory Card recordable media are also used with personal computers and many consumer electronic devices. As a result, when using SD Memory Cards, you must always be aware of the potential danger posed by receiving external data whose content has been tampered with. The use of SD Memory Card archives is prohibited, therefore, with one exception. The SD Memory Card archive is convenient for development purposes, so restricted access is allowed for Debug/Release builds in TWL-SDK version 5.1 PR and later.</p>
+
+<h2><a name="MEM">Memory File Archives <img src="../../image/NTR.gif" align="middle"><img src="../../image/TWL.gif" align="middle"></a></h2>
+<p>This archive is a nameless archive that exists in the FS library and is not mounted by the system. Nameless files that have been opened by calls to the <a href="../file/FS_CreateFileFromMemory.html"><CODE>FS_CreateFileFromMemory</CODE></a> function fall under this category of archive.</p>
+<p>Because this archive can treat arbitrary memory spaces just as if they were files, this type of archive can be extremely useful if used properly (for example, by storing frequently used small files in memory).</p>
+
+
+<h2><a name="format">Internal Formats</a></h2>
+<p>The various standard archives described above use internal formats that differ from each other in their characteristics. This section describes the basic characteristics of each of these formats.</p>
+
+
+<h3><a name="NitroROM">NitroROM Format</a></h3>
+<p>This is a data archive format unique to TWL-SDK that is used by tools such as <CODE>nnsarc.exe</CODE> in the <CODE>TWL-System</CODE> package as well as the <a href="../../tools/makerom.html"><CODE>makerom</CODE> tool</a>. It has the following characteristics.</p>
+<ul>
+<li>With this format, unique IDs are assigned to all files and directories, so calling <a href="../file/FS_ConvertPathToFileID.html"><CODE>FS_ConvertPathToFileID</CODE></a> repeatedly to get the IDs of all files you will be using in advance allows you to open the files quickly using <a href="../file/FS_OpenFileFast.html"><CODE>FS_OpenFileFast</CODE></a> thereafter.
+</li>
+<li>Because this format was designed for ROM storage media, it is difficult to change the structure of a directory tree. Archives that use the NitroROM format do not support operations such as adding, deleting, or moving files or directories.</li>
+</ul>
+<p>An overview of the NitroROM format is given in <CODE>$TwlSDK/docs/technicalNotes/AboutFileSystem.pdf</CODE>. However, in general developers do not need to be concerned with this format's specifications.</p>
+
+<h3><a name="FAT">FAT Format</a></h3>
+<p>This specifies the FAT file system that is widely used on SD Memory Cards, hard discs, and other such devices. FAT standards are defined in ISO/IEC 9293. There are various publications and specifications that describe the FAT format, so we have omitted a description here, but following are some characteristics to consider when you use it.</p>
+
+<ul>
+<li>Internal management information is retained for directories and filenames when a file is created, so the amount of disk space required sometimes exceeds the size of the file.<font color='Red'> Creating a directory requires at least one cluster of available space. The space needed also depends on the internal state of the file system and the length of the path name. If an unknown number of directories and files will be created, be sure to include an adequate margin in your total space estimate.</font></li>
+<li>There are upper limits on the total number of files and directories that can be created directly under the root directory, and that limit depends on various factors including the FAT format type, the FAT capacity, and the length of the filenames.</li>
+<li>Certain SD Memory Cards may require an extremely long time for the initial access. This time will depend on various factors, including the cluster size and capacity and the manufacturer-specific data transfer speed.</li>
+<li>There are two types of filenames: short filenames (SFNs) and long filenames (LFNs). These types have different character encodings. Long filenames are always stored using UTF-16LE (Unicode), but there is no particular standard for the encoding of short filenames other than the tendency to use <I>the local encoding for the environment in which the file was created</I>. As a result, it is impossible to reliably recognize the character encoding given only a short filename.</li>
+</ul>
+
+<p>The implementation of the FAT driver used with TWL has the following characteristics.</p>
+<ul>
+<li>It supports FAT12/FAT16/FAT32 and SDHC memory cards.</li>
+<li>All archives implemented using the FAT format are processed by a single driver in the ARM7 component, so even if commands are issued simultaneously from multiple threads to multiple archives, those commands are processed one by one.</li>
+<li>The driver exists in the ARM7 component, so the reading and writing of files is affected by the cache line 32-byte boundary.<br />If the buffer or transfer sizes specified in <CODE>ReadFile/WriteFile</CODE> does not align with the cache line, a memory copy takes place via the temporary buffer inside the library. Asynchronous calls are ignored, and the process always blocks, causing the transfer speeds to decline.</li>
+<li>When creating files or directories, the driver always creates long filenames, regardless of whether the entry name can be represented in 8.3 format.</li>
+<li>If the seek pointer is not 4-byte aligned when reading from or writing to opened files, the access performance drops.</li>
+<li>If a <a href="../../spi/pm/about_exit.html">system shutdown</a> is started, all commands that might require a long processing time return <CODE>FS_RESULT_CANCELED</CODE> and are canceled. Examples of such operations include the initial access to an SD Memory Card, or batch reads or writes of 2 MB or greater.<br/>Also, if this occurs with NAND archives, the NAND enters the state that returns FS_RESULT_BAD_FORMAT. </li>
+<li>It internally emulates the read/write lifetime of system NAND memory to achieve conditions that are closer to those of the retail product. Random latency is added to the read access times for Debug or Release builds.</li>
+<li>The directory entries obtained with <a href="../directory/FS_ReadDirectory.html"><CODE>FS_ReadDirectory</CODE></a> are not sorted in any particular order; they are passed in the same order in which they are stored in the file system. Special entries (system nodes such as &quot;<CODE>.</CODE>&quot; or &quot;<CODE>..</CODE>&quot;, volume labels for SD Memory Cards, and so on) are also not filtered and can be obtained unchanged.</li>
+<li>Due to the driver design, only the date/time modified can be obtained using <a href="../directory/FS_ReadDirectory.html"><CODE>FS_ReadDirectory</CODE></a> (the creation and last-accessed dates/times cannot be obtained). If this information is required, it must be obtained separately by calling <a href="../directory/FS_GetPathInfo.html"><CODE>FS_GetPathInfo</CODE></a>.</li>
+<li>When you create a new filename that is long and not in the 8.3 format, it may require a very large amount of processing time to assign a short filename.<br />For example, if you create a file with the name <CODE>aaaaaaaa101.bin</CODE>, the first candidate for the shortened name is <CODE>AAAAAA~1.BIN</CODE>. Suppose, however, a series of 100 files with the names <CODE>aaaaaaaa001.bin</CODE> through <CODE>aaaaaaaa100.bin</CODE> already exist in the folder. The new shortened candidate name is recursively compared against all the existing shortened names, from <CODE>AAAAAA~1.BIN</CODE> through <CODE>AAAA~100.BIN</CODE>. The process would repeat 100 times before <CODE>AAAA~101.BIN</CODE> is assigned.<br />The naming process is faster if you use the 8.3 naming format for files with sequentially numbered prefixes and suffixes.</li>
+</ul>
+
+<p>A fatal timing error exists that will cause inconsistency in the FAT internal state if an SD Card is removed while it is being accessed. The following describes the malfunction that can occur and a countermeasure.</p>
+<table>
+<tr><td>Situation When SD Card Is Removed</td><td>Symptom That Could Rarely Occur</td><td>Possible Workaround in the Program</td></tr>
+<tr>
+<td>Changing file size (SetFileLength)</td>
+<td>The intended addition to file size will be lost from free space.<br />Or intended reduction in file size will be lost from free space.<br />(The file itself will be OK.)</td>
+<td rowspan="3">There is no way to fix this from the program. You may be able to fix this using a check disk tool from an external environment such as a PC.</td>
+</tr>
+<tr>
+<td>Creating an entry (Create)<br />Moving an entry (Rename)</td>
+<td>The internally allocated long file name will be lost, and 13 characters or 32 bytes will be lost from free space.</td>
+</tr>
+<tr>
+<td rowspan="2">Deleting an entry (Delete)<br />Moving and entry (Rename)</td>
+<td>All clusters used by the entry being deleted are lost from free space. <font size="-1">*1</font></td>
+</tr>
+<tr>
+<td>A long filename will be lost, and the filename will become 8.3 format (short filename). <font size="-1">*2</font></td>
+<td>This will not be a problem if the program is not case-sensitive.</td>
+</tr>
+<tr>
+<td>When moving an entry (Rename)</td>
+<td>Both entries will exist. Whichever you reference or change, it will point to the same content.<br />If you delete one, any operation other that deleting the other one will fail as <CODE>FS_RESULT_ERROR</CODE>.</td>
+<td>You must delete both the old and new entry and create a new one.</td>
+</tr>
+<tr>
+<td>Closing after appending a file (Close)</td>
+<td>Data integrity problems arise because file size information is updated without allocating memory for the appended file.<br />Attempted access to the appended memory fails on an FS_RESULT_ERROR.</td>
+<td>You must delete the file and create a new one.</td>
+</tr>
+<tr><td colspan="3" style="background-color:Transparent"><font size="-1">Note that *1 and *2 cannot occur at the same time.</font></td></tr>
+</table>
+
+<hr />
+<h3><a name="comparison">Operational Comparison of Each Format</a></h3>
+<p>The FS library provides functions for manipulating most file systems, and while the various archives are required to be compliant with that interface, it is permissible not to implement operations that cannot be supported due to the nature of the file system. If functions are called for archives of this sort, the error <a href="../fs_result_const.html"><CODE>FS_RESULT_UNSUPPORTED</CODE></a> is always returned. The support status of each format in relation to main functions is shown in the table below.</p>
+
+<table style="width:30%">
+<tr><td class="supported">Usable</td><td class="unsupported">Not Usable</td></tr>
+</table>
+<br />
+<table style="border:solid 1px black">
+<tr><td style="text-align:left">Functions</td>                                             <td><a href="#NitroROM">NitroROM Format</a><br />(<a href="#ROM">ROM Archive</a>)</td>
+<td><a href="#FAT">FAT Format</a><br />(<a href="#NAND">NAND Archive</a> / <br /><a href="#SDMC">SD Memory Card Archive</a>)</td>
+<td><a href="#MEM">(Memory File Archive)</a></td>     </tr>
+<tr><td><a href="../file/FS_OpenFileEx.html">FS_OpenFileEx</a> <font size="-1">(<a href="../file/FS_OpenFile.html">FS_OpenFile</a>)</font></td>    <td class="supported"></td>     <td class="supported"></td>     <td class="unsupported">*3</td> </tr>
+<tr><td><a href="../file/FS_OpenFileFast.html">FS_OpenFileFast</a></td>               <td class="supported"></td>     <td class="unsupported">*4</td> <td class="unsupported">*3</td> </tr>
+<tr><td><a href="../file/FS_ConvertPathToFileID.html">FS_ConvertPathToFileID</a></td> <td class="supported"></td>     <td class="unsupported">*4</td> <td class="unsupported">*3</td> </tr>
+<tr><td><a href="../file/FS_OpenFileDirect.html">FS_OpenFileDirect</a></td>           <td class="supported"></td>     <td class="unsupported">*5</td> <td class="unsupported">*3</td> </tr>
+<tr><td><a href="../file/FS_GetFileImageTop.html">FS_GetFileImageTop</a></td>         <td class="supported"></td>     <td class="unsupported">*5</td> <td class="supported"></td>     </tr>
+<tr><td><a href="../file/FS_GetFileImageBottom.html">FS_GetFileImageBottom</a></td>   <td class="supported"></td>     <td class="unsupported">*5</td> <td class="supported"></td>     </tr>
+<tr><td><a href="../file/FS_CloseFile.html">FS_CloseFile</a></td>                     <td class="supported"></td>     <td class="supported"></td>     <td class="supported"></td>     </tr>
+<tr><td><a href="../file/FS_GetFileLength.html">FS_GetFileLength</a></td>             <td class="supported"></td>     <td class="supported"></td>     <td class="supported"></td>     </tr>
+<tr><td><a href="../file/FS_SetFileLength.html">FS_SetFileLength</a></td>             <td class="supported"></td>     <td class="supported"></td>     <td class="supported"></td>     </tr>
+<tr><td><a href="../file/FS_GetFilePosition.html">FS_GetFilePosition</a></td>         <td class="supported"></td>     <td class="supported"></td>     <td class="supported"></td>     </tr>
+<tr><td><a href="../file/FS_SeekFile.html">FS_SeekFile</a><br />, <a href="../file/FS_SeekFileToBegin.html">FS_SeekFileToBegin</a><br />, <a href="../file/FS_SeekFileToEnd.html">FS_SeekFileToEnd</a></td>             <td class="supported"></td>     <td class="supported"></td>     <td class="supported"></td>     </tr>
+<tr><td><a href="../file/FS_ReadFile.html">FS_ReadFile</a></td>                       <td class="supported"></td>     <td class="supported"></td>     <td class="supported"></td>     </tr>
+<tr><td><a href="../file/FS_ReadFileAsync.html">FS_ReadFileAsync</a></td>             <td class="supported"></td>     <td class="supported"></td>     <td class="supported"></td>     </tr>
+<tr><td><a href="../file/FS_WriteFile.html">FS_WriteFile</a></td>                     <td class="unsupported">*1</td> <td class="supported"></td>     <td class="supported"></td>     </tr>
+<tr><td><a href="../file/FS_WriteFileAsync.html">FS_WriteFileAsync</a></td>           <td class="unsupported">*1</td> <td class="supported"></td>     <td class="supported"></td>     </tr>
+<tr><td><a href="../file/FS_FlushFile.html">FS_FlushFile</a></td>                     <td class="unsupported">*1</td> <td class="supported"></td>     <td class="supported"></td>     </tr>
+<tr><td><a href="../directory/FS_OpenDirectory.html">FS_OpenDirectory</a> <font size="-1">(<a href="../file/FS_FindDir.html">FS_FindDir</a>)</font></td>      <td class="supported"></td>     <td class="supported"></td>     <td class="unsupported">*3</td> </tr>
+<tr><td><a href="../directory/FS_ReadDirectory.html">FS_ReadDirectory</a> <font size="-1">(<a href="../file/FS_ReadDir.html">FS_ReadDir</a>)</font></td>      <td class="supported"></td>     <td class="supported"></td>     <td class="unsupported">*3</td> </tr>
+<tr><td><a href="../directory/FS_CloseDirectory.html">FS_CloseDirectory</a></td>      <td class="supported"></td>     <td class="supported"></td>     <td class="unsupported">*3</td> </tr>
+<tr><td><a href="../file/FS_TellDir.html">FS_TellDir</a></td>                         <td class="supported"></td>     <td class="unsupported">*4</td> <td class="unsupported">*3</td> </tr>
+<tr><td><a href="../file/FS_SeekDir.html">FS_SeekDir</a></td>                         <td class="supported"></td>     <td class="unsupported">*4</td> <td class="unsupported">*3</td> </tr>
+<tr><td><a href="../file/FS_RewindDir.html">FS_RewindDir</a></td>                     <td class="supported"></td>     <td class="unsupported">*4</td> <td class="unsupported">*3</td> </tr>
+<tr><td><a href="../file/FS_GetPathName.html">FS_GetPathName</a></td>                 <td class="supported"></td>     <td class="unsupported">*4</td> <td class="unsupported">*3</td> </tr>
+<tr><td><a href="../file/FS_GetPathLength.html">FS_GetPathLength</a></td>             <td class="supported"></td>     <td class="unsupported">*4</td> <td class="unsupported">*3</td> </tr>
+<tr><td><a href="../directory/FS_CreateFile.html">FS_CreateFile</a></td>              <td class="unsupported">*2</td> <td class="supported"></td>     <td class="unsupported">*3</td> </tr>
+<tr><td><a href="../directory/FS_DeleteFile.html">FS_DeleteFile</a></td>              <td class="unsupported">*2</td> <td class="supported"></td>     <td class="unsupported">*3</td> </tr>
+<tr><td><a href="../directory/FS_RenameFile.html">FS_RenameFile</a></td>              <td class="unsupported">*2</td> <td class="supported"></td>     <td class="unsupported">*3</td> </tr>
+<tr><td><a href="../directory/FS_CreateDirectory.html">FS_CreateDirectory</a></td>    <td class="unsupported">*2</td> <td class="supported"></td>     <td class="unsupported">*3</td> </tr>
+<tr><td><a href="../directory/FS_DeleteDirectory.html">FS_DeleteDirectory</a></td>    <td class="unsupported">*2</td> <td class="supported"></td>     <td class="unsupported">*3</td> </tr>
+<tr><td><a href="../directory/FS_RenameDirectory.html">FS_RenameDirectory</a></td>    <td class="unsupported">*2</td> <td class="supported"></td>     <td class="unsupported">*3</td> </tr>
+<tr><td></td><td colspan="3"><font size="-1">*1: Commands that overwrite the contents of files are not supported.<br /> *2: Commands that dynamically change directory structures are not supported.<br /> *3: Commands that access directory structures are not supported.<br /> *4: Commands that use file IDs or directory IDs are not supported.<br /> *5: Commands that directly access a device's address space are not supported.<br /></font></td></tr>
+</table>
+
+<hr />
+<h3>List of Error Codes</h3>
+<p>The error codes defined by the FS library are incorporated into the internal processing of the archives. A number of the error codes are only returned by certain archives. The following table shows the error codes that can be returned from each archive.</p>
+
+<table style="border:solid 1px black">
+<tr><td style="text-align:left">Error Code (<code><a href="../fs_result_const.html">FSResult</a></code>)</td><td><a href="#ROM">ROM Archives</a></td><td><a href="#NAND">NAND Archives</a></td><td><a href="#SDMC">SD Memory Card Archives</a></td><td><a href="#MEM">Memory File Archives</a></td><td>Comments</td></tr>
+<tr><td>FS_RESULT_SUCCESS</td>           <td class='supported'>Yes</td><td class='supported'>Yes</td><td class='supported'>Yes</td><td class='supported'>Yes</td><td></td></tr>
+<tr><td>FS_RESULT_FAILURE</td>           <td class='supported'>Yes</td><td class='supported'>Yes</td><td class='supported'>Yes</td><td class='supported'>Yes</td><td></td></tr>
+<tr><td>FS_RESULT_BUSY</td>              <td class='supported'>Yes</td><td class='supported'>Yes</td><td class='supported'>Yes</td><td class='supported'>Yes</td><td></td></tr>
+<tr><td>FS_RESULT_CANCELED</td>          <td class='supported'>Yes</td><td class='supported'>Yes</td><td class='supported'>Yes</td><td class='supported'>Yes</td><td></td></tr>
+<tr><td>FS_RESULT_UNSUPPORTED</td>       <td class='supported'>Yes</td><td class='supported'>Yes</td><td class='supported'>Yes</td><td class='supported'>Yes</td><td></td></tr>
+<tr><td>FS_RESULT_ERROR</td>             <td class='supported'>Yes</td><td class='supported'>Yes</td><td class='supported'>Yes</td><td class='supported'>Yes</td><td></td></tr>
+<tr><td>FS_RESULT_INVALID_PARAMETER</td> <td class='supported'>Yes</td><td class='supported'>Yes</td><td class='supported'>Yes</td><td class='supported'>Yes</td><td></td></tr>
+<tr><td>FS_RESULT_NO_MORE_RESOURCE</td>  <td class='unsupported'>No</td><td class='supported'>Yes</td><td class='supported'>Yes</td><td class='unsupported'>No</td><td></td></tr>
+<tr><td>FS_RESULT_ALREADY_DONE</td>      <td class='unsupported'>No</td><td class='supported'>Yes</td><td class='supported'>Yes</td><td class='unsupported'>No</td><td></td></tr>
+<tr><td>FS_RESULT_PERMISSION_DENIED</td> <td class='supported'>Yes</td><td class='supported'>Yes</td><td class='supported'>Yes</td><td class='unsupported'>No</td><td></td></tr>
+<tr><td>FS_RESULT_MEDIA_FATAL</td>       <td class='unsupported'>No</td><td class='supported'>Yes</td><td class='supported'>Yes</td><td class='unsupported'>No</td><td>Error unique to NAND/SD Memory Cards</td></tr>
+<tr><td>FS_RESULT_NO_ENTRY</td>          <td class='supported'>Yes</td><td class='supported'>Yes</td><td class='supported'>Yes</td><td class='unsupported'>No</td><td></td></tr>
+<tr><td>FS_RESULT_MEDIA_NOTHING</td>     <td class='unsupported'>No</td><td class='unsupported'>No</td><td class='supported'>Yes</td><td class='unsupported'>No</td><td>Error unique to SD Memory Cards</td></tr>
+<tr><td>FS_RESULT_MEDIA_UNKNOWN</td>     <td class='unsupported'>No</td><td class='unsupported'>No</td><td class='supported'>Yes</td><td class='unsupported'>No</td><td>Error unique to SD Memory Cards</td></tr>
+<tr><td>FS_RESULT_BAD_FORMAT</td>        <td class='unsupported'>No</td><td class='supported'>Yes</td><td class='supported'>Yes</td><td class='unsupported'>No</td><td>Error unique to the FAT format</td></tr>
+</table>
+
+
+<h2>See Also</h2>
+<p><code><a href="../list_fs.html">FS Function List</a><br /></code></p>
+
+<h2>Revision History</h2>
+<p>
+2010/07/10 Added note that if the power is disconnected during a command that takes a long time to process, the NAND enters a state that returns FS_RESULT_BAD_FORMAT.<br/> 2009/06/08 Added a note about the TWL-specific region and TWL-specific file.<br />2009/05/13 Explained how to detect insertion/removal of SD Memory Cards and how to determine the state of the slot.<br />2009/04/13 Corrected document title of the reference material. Added explanation of ROM archive operations in TWL mode.<br />2009/04/10 Replaced symbols used in the tables with standard notation.<br />2009/02/27 Added text about the file access behavior of the FAT driver. <br /> 2009/01/13 Mentioned that restricted access to SD Memory Card archives is permitted, but only for the Debug and Release builds.<br /> 2008/12/08 Added a list of error codes returned by the archives.<br /> 2008/10/28 Added note about creating series of files with FAT driver.<br /> 2008/10/20 Added mention that ROM verification process is not executed when TLF is loaded.<br /> 2008/09/30 Added text about FAT state inconsistencies when SD Memory Card is inserted or removed.<br /> 2008/09/26 Added text about insertion and removal of SD Memory cards and the speed of ROM archive access.<br /> 2008/09/16 Added text about the FAT driver specification.<br /> 2008/09/12 Initial version.
+</p>
+
+<hr><p>CONFIDENTIAL</p></body>
+</html>

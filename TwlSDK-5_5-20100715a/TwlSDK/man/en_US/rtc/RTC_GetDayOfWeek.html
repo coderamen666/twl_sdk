@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>RTC_GetDayOfWeek</title>
+<LINK rel="stylesheet" href="../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">RTC_GetDayOfWeek <img src="../image/NTR.gif" align="middle"><img src="../image/TWL.gif" align="middle"></h1>
+
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/rtc.h&gt;</CODE><BR>
+  <PRE><CODE>RTCWeek RTC_GetDayOfWeek( <A href="RTCDate.html">RTCDate</A>* date );</CODE></PRE>
+  </dd>
+
+</dl><h2>Arguments</h2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="300"><em><strong><font face="Courier New">date</font></strong></em></TD>
+<TD width="700">Pointer to date data.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<h2>Return Values</h2>
+<p>The day of the week corresponding to the specified date.</p>
+
+<H2>Description</H2>
+<P>Gets the day of the week corresponding to the specified date.</P>
+<P>The obtained date data is stored in <SPAN class="argument">date</SPAN>.</P>
+<P>You can get the day of the week as one of the following values for the <A href="RTCWeek.html">RTCWeek</A> enumerated type.
+</P>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+<TH>Return Value</TH>
+<TH>Day of the Week</TH>
+    </TR>
+    <TR>
+<TD>RTC_WEEK_SUNDAY</TD>
+<TD>Sunday</TD>
+    </TR>
+    <TR>
+<TD>RTC_WEEK_MONDAY</TD>
+<TD>Monday</TD>
+    </TR>
+    <TR>
+<TD>RTC_WEEK_TUESDAY</TD>
+<TD>Tuesday</TD>
+    </TR>
+    <TR>
+<TD>RTC_WEEK_WEDNESDAY</TD>
+<TD>Wednesday</TD>
+    </TR>
+    <TR>
+<TD>RTC_WEEK_THURSDAY</TD>
+<TD>Thursday</TD>
+    </TR>
+    <TR>
+<TD>RTC_WEEK_FRIDAY</TD>
+<TD>Friday</TD>
+    </TR>
+    <TR>
+<TD>RTC_WEEK_SATURDAY</TD>
+<TD>Saturday</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<h2>See Also</h2>
+<P><CODE><A href="RTCWeek.html">RTCWeek</A></CODE></P>
+
+<H2>Revision History</H2>
+<P>2009/03/31 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

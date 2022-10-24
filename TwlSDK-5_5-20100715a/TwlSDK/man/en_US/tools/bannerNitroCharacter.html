@@ -1,0 +1,108 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>Banner Creation Procedure Using NITRO-CHARACTER</TITLE>
+<LINK rel="stylesheet" href="../css/nitro.css" type="text/css">
+<STYLE type="text/css">
+<!--
+.sample_source{
+  background-color : #e8e8e8;
+}
+H3{
+  color : teal;
+}
+.command_list{
+  margin-bottom : 16pt;
+}
+.command_desc{
+  }
+.command_item{
+  margin-top : 16pt;
+  background-color : #e8e8e8;
+}
+.blockquoted_table {
+  border : 1px;
+  width : 80%;
+}
+TD,TH{
+  border-color	: #c0d8d8;
+  padding       : 1pt 4pt 1pt 4pt;
+  border-width  : 1px;
+  border-style  : solid;
+}
+-->
+</STYLE>
+</HEAD>
+<BODY>
+<H1 align="left">Banner Creation Procedure Using NITRO-CHARACTER<IMG src="../image/TWL.gif" align="middle"></H1>
+<H2>Description</H2>
+<P>This page describes how to create necessary TWL banners for TWL applications using NITRO-CHARACTER.
+</P><P>
+In addition to this method, TWL banners can also be created using <A href="ntexconv.html"><CODE>ntexconv</CODE></A>.<BR>For information on how to create TWL banners using <A href="ntexconv.html"><CODE>ntexconv</CODE></A>, see <A href="bannercvtr.html"><CODE>bannercvtr</CODE></A>.</P>
+<H2>Samples</H2>
+<P>A sample is given below. The description uses this sample.</P>
+<P><CODE>$TwlSDK/build/demos.TWL/tips/TWLBanner_anim1/banner/SDK_demo</CODE></P>
+<H2>Limitations</H2>
+<H3>Color Palette</H3>
+<P>Use a color palette setting of &quot;16 color &times; 16 palette (standard),&quot; and number 0.<BR><FONT color=#ff0000>A palette other than number 0 cannot be used.</FONT></P>
+<IMG src="banner_palette.gif" border="0"></P>
+
+<H3>Characters</H3>
+<P>For characters, use 16 colors x 16 palettes (standard).<BR>For the size, specify 32 x 4 (chr) freesize.</P>
+<P><IMG src="banner_character.gif" border="0"></P>
+
+<H3>Cells</H3>
+<P>For the cell mapping mode, use 1D mode (32K) and object compression mode for the entire file.</P>
+<P><IMG src="banner_cell1.gif" border="0"></P>
+<P>Place only one 32 x 32 bit object in a single cell. Place the object in the center for preview purposes.<BR>There is no effect on top/bottom or left/right flipping, position, transparency, window, mosaic, rotation, scaling flags, or double-width flags.</P>
+<P><IMG src="banner_cell2.gif" border="0"></P>
+
+<H3>Cell Animations</H3>
+<P>Cell animation number 1 is converted. Cell animation operations (STOP/LOOP) are reflected in the banner icon.<BR>The number of items in the sequence data must be 63 or fewer for a STOP animation, or 64 or fewer for a LOOP animation. The number of display frames in sequence data must be 255 or fewer.<BR>Top/bottom and right/left flipping of sequence data, positioning, scaling, and rotation are not applied to the banner icon.</P>
+
+<H2>Preview</H2>
+<P>Use NITRO Viewer for previewing. Launch the following tool packaged with TWL-System.</P>
+<P><CODE>% $TwlSystem/tools/NitroViewer/***_NITRO-Viewer_Controller.bat</CODE></P>
+<P>Display is made in the upper screen by default. Switch the display to the lower screen using the L Button + Select Button.</P>
+<P>When previewing along with a background for the TWL launcher screen, copy the following files in the sample to your own project folder.</P>
+<P><CODE>$SDK_demo/ColorPalette/banner_background(0 to F).ncl<BR> $SDK_demo/Character/banner_background.ncg<BR> $SDK_demo/Character/Screen/banner_background0.nsc<BR> $SDK_demo/Character/Screen/banner_background1.nsc<BR> $SDK_demo/Character/Screen/banner_background2_CARD.nsc<BR> $SDK_demo/Character/Screen/banner_background2_NAND.nsc<BR> $SDK_demo/Character/Screen/banner_background3.nsc</CODE></P>
+<P>Make the following preview settings. Preview settings used in the sample are described below.</P>
+<P><IMG src="banner_preview.gif" border="0"></P>
+<P>Set the first file listed for the background and set the cell animation for the created banner in the animation list.</P>
+<TABLE>
+  <TBODY>
+    <TR>
+<TH>Number</TH>
+<TH>Description</TH>
+    </TR>
+    <TR>
+      <TD>01</TD>
+<TD>The color of the frame surrounding the banner can be changed by changing the color palette.<BR>For TWL units, the color set using [User information]-[User color] under system settings is used.<BR>Each color palette corresponds to the color given by <A href="../os/ownerInfo/os_favorite_color_const.html"><CODE>OS_FAVORITE_COLOR_*</CODE></A>.
+    </TD>
+    </TR>
+    <TR>
+      <TD>02</TD>
+<TD>The background displayed differs for card applications and NAND applications.<BR>For card applications, use <CODE>banner_background2_CARD.nsc</CODE>. For NAND applications, use <CODE>banner_background2_NAND.nsc</CODE>.
+      </TD>
+    </TR>
+    <TR>
+      <TD>03</TD>
+<TD>Set the Y coordinate of <CODE>banner_background1.nsc</CODE> to 1 and the Y coordinate of <CODE>banner_background2_****.nsc</CODE> to 2.</TD>
+    </TR>
+    <TR>
+      <TD>04</TD>
+<TD>When setting the cell animation, set the X coordinate to 128 and the Y coordinate to 114.<BR>(When the cell is located in the center)</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<H2>See Also</H2>
+<P><A href="about_Banner.html">Banner (overview)</A><BR> <A href="makebannerTWL.html"><CODE>makebanner.TWL</CODE></A><BR> <A href="ntexconv.html"><CODE>ntexconv</CODE></A><BR> <A href="bannercvtr.html"><CODE>bannercvtr</CODE></A></P>
+<H2>Revision History</H2>
+<P>
+2011/04/08 Made changes in code to reflect removal of flip feature. <BR> 2008/11/28 Initial release.</P>
+<hr><p>CONFIDENTIAL</p></BODY>
+</HTML>

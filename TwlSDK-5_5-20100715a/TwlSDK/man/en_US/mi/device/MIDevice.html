@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>MIDevice</title>
+<link rel="stylesheet" href="../../css/nitro.css" type="text/css" />
+</head>
+<body>
+<h1>MIDevice <IMG src="../../image/NTR.gif" align="middle"><IMG src="../../image/TWL.gif" align="middle"></h1>
+<h2>Definition</h2>
+
+<dl>
+  <dd>
+  <pre><code>#include &lt;nitro/mi.h&gt;<br />
+typedef struct MIDevice
+{
+<span style="color:#008000">/* private: */</span>
+    void                   *userdata;
+    MIDeviceReadFunction    Read;
+    MIDeviceWriteFunction   Write;
+}
+MIDevice;</code></pre>
+  </dd>
+</dl>
+
+<h2>Description</h2>
+<p>
+This is an interface structure for wrapping device control.<br />You can use this structure when you want to write transparent control code for any device that has a linear address space.
+</p>
+<p>
+This is a utility feature designed to separate the device control component from the module design. 
+</p>
+
+<h2>See Also</h2>
+<p><code><a href="MI_InitDevice.html">MI_InitDevice</a>, <a href="MI_ReadDevice.html">MI_ReadDevice</a> <a href="MI_WriteDevice.html">MI_WriteDevice</a><br /> <a href="MIDevice.html">MIDevice</a>, <a href="MIDeviceReadFunction.html">MIDeviceReadFunction</a>, <a href="MIDeviceWriteFunction.html">MIDeviceWriteFunction</a><br /></code></p>
+<h2>Revision History</h2>
+<p>
+2007/05/09 Initial version.
+</p>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

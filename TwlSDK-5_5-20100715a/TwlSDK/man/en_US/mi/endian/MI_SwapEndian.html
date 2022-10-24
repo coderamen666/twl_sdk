@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>MI_SwapEndian*</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">MI_SwapEndian* <IMG src="../../image/NTR.gif" align="middle"><IMG src="../../image/TWL.gif" align="middle"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+  <pre><CODE>
+#include &lt;nitro/mi.h&gt;
+
+#define MI_SwapEndian8(val)  (u8)(val)
+#define MI_SwapEndian16(val) (u16)((((val) &amp; 0xFF00UL) &gt;&gt; 8UL) | (((val) &amp; 0x00FFUL) &lt;&lt; 8UL))
+#define MI_SwapEndian32(val) (u32)(                                 \
+                                (((val) &amp; 0xFF000000UL) &gt;&gt; 24UL) |  \
+                                (((val) &amp; 0x00FF0000UL) &gt;&gt;  8UL) |  \
+                                (((val) &amp; 0x0000FF00UL) &lt;&lt;  8UL) |  \
+                                (((val) &amp; 0x000000FFUL) &lt;&lt; 24UL) )
+#define MI_SwapEndian64(val) (u64)(                                         \
+                              (((val) &amp; 0xFF00000000000000ULL) &gt;&gt; 56ULL)    \
+                            | (((val) &amp; 0x00FF000000000000ULL) &gt;&gt; 40ULL)    \
+                            | (((val) &amp; 0x0000FF0000000000ULL) &gt;&gt; 24ULL)    \
+                            | (((val) &amp; 0x000000FF00000000ULL) &gt;&gt;  8ULL)    \
+                            | (((val) &amp; 0x00000000FF000000ULL) &lt;&lt;  8ULL)    \
+                            | (((val) &amp; 0x0000000000FF0000ULL) &lt;&lt; 24ULL)    \
+                            | (((val) &amp; 0x000000000000FF00ULL) &lt;&lt; 40ULL)    \
+                            | (((val) &amp; 0x00000000000000FFULL) &lt;&lt; 56ULL) )
+</CODE></pre>
+  <br>
+  </dd>
+</dl>
+<h2>Arguments</h2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="13%"><EM><STRONG>val</STRONG></EM></TD>
+<TD width="87%">The value whose endianity is to be converted.<BR><B>Note:</B> Because this is a macro, evaluation is performed several times.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<h2>Return Values</h2>
+<p>Value for which endianness was converted (<CODE>u16, u32, u64</CODE>).</p>
+
+<H2>Description</H2>
+<P>Converts the endian of the specified (16-, 32-, or 64-bit) value. If little endian is detected before conversion, big endian results after conversion.<br><B>Note: </B>Because this is a macro, arguments are evaluated several times.</P>
+<p>These 8-bit versions do not actually perform any conversions, but they have been included for uniform source code visibility.</p>
+<H2>See Also</H2>
+<P><CODE><A href="MI_Load.html">MI_Load*</A><BR> <A href="MI_Store.html">MI_Store*</A><BR> <A href="MI_HTo.html">MI_HTo*</A><BR> <A href="MI_ToH.html">MI_*ToH*</A></CODE></P>
+<H2>Revision History</H2>
+<P>
+2007/11/21 Added a description of the 64-bit version.<br> 2006/06/13 Added a description of the 8-bit version.<br> 2006/04/05 Initial version.<br>
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

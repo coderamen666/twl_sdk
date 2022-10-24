@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title>FS_SetPathInfo</title>
+<link rel="stylesheet" href="../../css/nitro.css" type="text/css" />
+</head>
+<body>
+
+<h1>FS_SetPathInfo <img src="../../image/NTR.gif"align="middle"><img src="../../image/TWL.gif" align="middle"></h1>
+<h2>Syntax</h2>
+<pre><code>
+#include &lt;nitro/fs.h&gt;
+
+BOOL FS_SetPathInfo(const char *path, const <a href="../FSPathInfo.html">FSPathInfo</a> *info);
+</code></pre>
+
+<h2>Arguments</h2>
+<table style="width:100%">
+<tbody>
+<tr>
+<td style="width:13%"><em><strong>path</strong></em></td>
+<td style="width:87%">Path name of the file or directory whose information you want to change.</td>
+</tr>
+<tr>
+<td style="width:13%"><em><strong>info</strong></em></td>
+<td style="width:87%">Pointer to the <code><a href="../FSPathInfo.html">FSPathInfo</a></code> structure where the data to be changed is stored.</td>
+</tr>
+</tbody>
+</table>
+
+<h2>Return Values</h2>
+<p>Returns TRUE if the entry information for the specifed path was changed properly; returns FALSE otherwise. In case of failure, the error details can be obtained using <code><a href="../archive/FS_GetArchiveResultCode.html">FS_GetArchiveResultCode()</a></code>.</p>
+
+<h2>Description</h2>
+<p>Changes the entry information for the specified file or directory. If there is a file or directory at the specified path, this function changes the entry information and returns TRUE. The function returns FALSE in the following situations:
+</p>
+<ul>
+<li>If there is no file or directory at the specified path</li>
+<li>If the archive does not support the ability to change entry information</li>
+</ul>
+<p>Few archives support the ability to change entry information, and even when this is possible, it does not necessarily mean that all information that can be obtained with <code><a href="FS_GetPathInfo.html">FS_GetPathInfo()</a></code> can be changed at will. For example, with <a href="../archive_nand_spec.html">NAND archives</a> and <a href="../archive_sdmc_spec.html">SD card archives</a>, nothing can be changed except the <code><a href="../FSPathInfo.html">FS_ATTRIBUTE_DOS_READONLY</a></code> and <code><a href="../FSPathInfo.html">FS_ATTRIBUTE_DOS_ARCHIVE</a></code> bits, and the settings will be ignored. A simple example of this usage is shown below.</p>
+<pre><code>
+<span style="color:#008000">/* Remove the read-only attribute. */</span>
+<a href="../FSPathInfo.html">FSPathInfo</a> info[1];
+if (FS_GetPathInfo(path, info))
+{
+    info-&gt;attributes &amp;= ~FS_ATTRIBUTE_DOS_READONLY;
+    if (FS_SetPathInfo(path, info))
+    {
+        ...
+    }
+}
+</code></pre>
+
+<h2>Note</h2>
+<ul>
+<li>This function cannot be called from the interrupt handler (IRQ mode). Also note that in some cases processing may not end if interrupts are left prohibited.</li>
+</ul>
+
+<h2>See Also</h2>
+<p><code><a href="../FSPathInfo.html">FSPathInfo</a> <br /> <a href="FS_GetPathInfo.html">FS_GetPathInfo</a> <a href="../archive/FS_GetArchiveResultCode.html">FS_GetArchiveResultCode</a></code></p>
+
+<h2>Revision History</h2>
+<p>
+2007/07/18 Initial version.
+</p>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

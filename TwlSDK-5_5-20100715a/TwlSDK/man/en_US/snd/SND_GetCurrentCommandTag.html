@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"><html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>SND_GetCurrentCommandTag</title>
+<link rel="stylesheet" href="../css/nitro.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.65.1">
+</head>
+<body>
+<div class="refentry" lang="ja"><a name="IDAKKWT"></a><div class="titlepage">
+<div></div>
+<div></div>
+</div>
+<h1>SND_GetCurrentCommandTag <IMG src="../image/NTR.gif" width="24" height="12" border="0" align=middle><IMG src="../image/TWL.gif" width="24" height="12" border="0" align=middle></h1>
+<h2>Syntax</h2>
+<dl>
+<dd><pre class="funcsynopsisinfo"><code>#include &lt;nitro/snd.h&gt;</code></pre></dd>
+<dd><pre class="funcprototype"><code class="funcprototype">u32 SND_GetCurrentCommandTag( <code>void )</code>;</code><br></pre></dd>
+</dl>
+<div class="refsection" lang="ja"><a name="IDAULWT"></a>
+      <h2>Arguments</h2>
+      
+      <p>None.</p>
+    </div>
+<div class="refsection" lang="ja"><a name="IDA1LWT"></a>
+      <h2>Return Values</h2>
+
+      <p>Command tag.</p>
+    </div>
+<div class="refsection" lang="ja"><a name="IDACMWT"></a>
+      <h2>Description</h2>
+      <p>
+Gets the current command tag.
+</p>
+      <p>
+Once the command tag is obtained, you can either confirm that earlier commands have finished processing using the <tt class="function"><a href="SND_IsFinishedCommandTag.html">SND_IsFinishedCommandTag</a></tt> function, or wait for them to complete using the <tt class="function"><a href="SND_WaitForCommandProc.html">SND_WaitForCommandProc</a></tt> function.
+</p>
+    </div>
+<h2>See Also</h2>
+<p><code><a href="SND_IsFinishedCommandTag.html">SND_IsFinishedCommandTag</a>, <a  href="SND_WaitForCommandProc.html">SND_WaitForCommandProc</a></code></p>
+<h2>Revision History</h2>
+<p>2004/07/20 Initial version.</p>
+</div>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

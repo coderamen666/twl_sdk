@@ -1,0 +1,35 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title>DSP_GetLastSamplingAddress</title>
+<link rel="stylesheet" href="../../css/nitro.css" type="text/css" />
+</head>
+<body>
+
+<h1>DSP_GetLastSamplingAddress <IMG src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+
+<pre><code>
+const u8* DSP_GetLastSamplingAddress(void);
+</code></pre>
+
+<h2>Arguments</h2>
+<p>None.</p>
+
+<h2>Return Values</h2>
+<p>Ring buffer address storing the most recent sampling data. This address will use the buffer specified by the <code><a href="DSP_StartSampling.html">DSP_StartSampling</a></code> function as a ring buffer by wrapping around it within the size range.</p>
+
+<h2>Description</h2>
+<p>Gets the most recent position as a ring buffer address to which data was saved during automatic sampling started by the <code><a href="DSP_StartSampling.html">DSP_StartSampling</a></code> function. This sampling position will be updated each time the <code><a href="DSP_SyncSamplingBuffer.html">DSP_SyncSamplingBuffer</a></code> function is called.</p>
+
+<h2>See Also</h2>
+<p><code><a href="DSP_StartSampling.html">DSP_StartSampling</a> <a href="DSP_StopSampling.html">DSP_StopSampling</a> <a href="DSP_SyncSamplingBuffer.html">DSP_SyncSamplingBuffer</a></code></p>
+
+<h2>Revision History</h2>
+<p>
+2008/06/13 Initial version.<br />
+</p>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

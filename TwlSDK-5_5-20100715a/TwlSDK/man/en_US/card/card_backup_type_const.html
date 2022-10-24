@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>CARDBackupType</title>
+<LINK rel="stylesheet" href="../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">CARDBackupType <img src="../image/NTR.gif"align="middle"><img src="../image/TWL.gif" align="middle"></h1>
+<h2>Definition</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/card.h&gt;</CODE><BR>
+  <BR>
+  <CODE>
+typedef	enum {<br>
+    CARD_BACKUP_TYPE_EEPROM_4KBITS   = CARD_BACKUP_TYPE_DEFINE(EEPROM,  9, 0),<br>
+    CARD_BACKUP_TYPE_EEPROM_64KBITS  = CARD_BACKUP_TYPE_DEFINE(EEPROM, 13, 0),<br>
+    CARD_BACKUP_TYPE_EEPROM_512KBITS = CARD_BACKUP_TYPE_DEFINE(EEPROM, 16, 0),<br>
+    CARD_BACKUP_TYPE_EEPROM_1MBITS   = CARD_BACKUP_TYPE_DEFINE(EEPROM, 17, 0),<br>
+    CARD_BACKUP_TYPE_FLASH_2MBITS    = CARD_BACKUP_TYPE_DEFINE(FLASH, 18, 0),<br>
+    CARD_BACKUP_TYPE_FLASH_4MBITS    = CARD_BACKUP_TYPE_DEFINE(FLASH, 19, 0),<br>
+    CARD_BACKUP_TYPE_FLASH_8MBITS    = CARD_BACKUP_TYPE_DEFINE(FLASH, 20, 0),<br>
+    CARD_BACKUP_TYPE_FLASH_16MBITS   = CARD_BACKUP_TYPE_DEFINE(FLASH, 21, 0),<br>
+    CARD_BACKUP_TYPE_FLASH_64MBITS   = CARD_BACKUP_TYPE_DEFINE(FLASH, 23, 0),<br>
+    CARD_BACKUP_TYPE_NOT_USE = 0<br>
+} CARDBackupType;
+</CODE><br>
+  <br>
+  </dd>
+</dl>
+
+<H2>Description</H2>
+<P>Indicates the enumerated constants that identify the backup device mounted in a NITRO-CARD.<BR> <BR>
+</P>
+<h2>See Also</h2>
+<p><A href="common/CARD_IdentifyBackup.html"><CODE>CARD_IdentifyBackup</CODE></A><BR> <A href="common/CARD_GetCurrentBackupType.html"><CODE>CARD_GetCurrentBackupType</CODE></A></p>
+
+<H2>Revision History</H2>
+<P>
+2008/11/27 Deleted <CODE>CARD_BACKUP_TYPE_FRAM_256KBITS</CODE> from the usable line numbers.<br> 2008/10/21 Deleted <CODE>CARD_BACKUP_TYPE_FRAM_256KBITS</CODE>.<br> 2008/10/21 Added <CODE>CARD_BACKUP_TYPE_EEPROM_1MBITS</CODE>.<br> 2007/08/22 Added <CODE>CARD_BACKUP_TYPE_FLASH_64MBITS</CODE>.<br> 2007/02/23 Added <CODE>CARD_BACKUP_TYPE_FLASH_16MBITS</CODE>.<br> 2006/04/05 Added <CODE>CARD_BACKUP_TYPE_FLASH_8MBITS</CODE>.<BR> 2005/10/19 Added <CODE>CARD_BACKUP_TYPE_FLASH_4MBITS</CODE>.<BR> 2005/07/11 Added <CODE>CARD_BACKUP_TYPE_FRAM_256KBITS</CODE>.<BR> 2005/06/15 Added <CODE>CARD_BACKUP_TYPE_EEPROM_512KBITS</CODE>.<BR> 2004/09/09 Deleted <CODE>CARD_BACKUP_TYPE_EEPROM_512KBITS</CODE> and <CODE>CARD_BACKUP_TYPE_EEPROM_1MBITS</CODE>.<BR> 2004/08/23 Changed the format of the enumerator values and added <CODE>CARD_BACKUP_TYPE_FLASH_2MBITS</CODE>.<BR>2004/07/05 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

@@ -1,0 +1,70 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>MI_CancelWram</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">MI_CancelWram* <IMG src="../../image/TWL.gif" align="middle"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;twl/mi.h&gt;</CODE><BR> <BR> <CODE>int MI_CancelWram( <A href="../mi_constant.html">MIWramPos</A> wram, <A href="../mi_constant.html">MIWramProc</A> proc )</CODE><br> <CODE>int MI_CancelWramSlot( <A href="../mi_constant.html">MIWramPos</A> wram, int slot, MIWramSize size, <A href="../mi_constant.html">MIWramProc</A> proc )</CODE><br> <BR> <CODE>(#define)<BR> <font color="#7f7f7f">#define MI_CancelWram_A( proc )</font><br> #define MI_CancelWram_B( proc )<BR> #define MI_CancelWram_C( proc )<BR> <font color="#7f7f7f">#define MI_CancelWramSlot_A( slot, size, proc )</font><BR> #define MI_CancelWramSlot_B( slot, size, proc )<BR> #define MI_CancelWramSlot_C( slot, size, proc )</CODE></dd>
+</dl>
+<h2>Arguments</h2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="13%"><EM><STRONG>wram</STRONG></EM></TD>
+<TD width="87%">WRAM for which to cancel the reservation.</TD>
+    </TR>
+    <TR>
+<TD><B><I>slot</I></B></TD>
+<TD>Starting WRAM number of the region for which to cancel the reservation.</TD>
+    </TR>
+    <TR>
+<TD><B><I>size</I></B></TD>
+<TD>Size of the region for which to cancel the reservation.</TD>
+    </TR>
+    <TR>
+<TD><B><I>proc</I></B></TD>
+<TD>Processor for which to cancel the reservation.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<h2>Return Values</h2>
+<p>The number of WRAM slots for which reservations were cancelled. A value of 0 indicates that no reservations were cancelled. A value of -1 indicates a failure.</p>
+
+<H2>Description</H2>
+<P>Cancels the reservations of the specified WRAM for a given processor.</P>
+<P><code>MI_CancelWram*</code> cancels reservations for a region of WRAM that have been reserved with a <A href="MI_ReserveWram.html"><CODE>MI_ReserveWram*</CODE></A> function. It cancels all reservations in the specified WRAM for the specified processor, even if that region is in use. Even if a reservation is cancelled, the master processor for the given region does not change, and its content is not lost.</P>
+<P>The <SPAN class="argument">wram</SPAN> argument indicates the target WRAM. This is of type <A href="../mi_constant.html"><CODE>MIWramPos</CODE></A> and is <CODE>MI_WRAM_A</CODE>, <CODE>MI_WRAM_B</CODE>, or <CODE>MI_WRAM_C</CODE>.</P>
+<P>The <SPAN class="argument">slot</SPAN> argument is the starting slot number for the region reservations are being cancelled for.</P>
+<P>The <SPAN class="argument">size</SPAN> argument is the size of the region to cancel the reservation for.</P>
+<P>The <SPAN class="argument">proc</SPAN> argument indicates which processor's reservations should be cancelled. This is of type <A href="../mi_constant.html"><CODE>MIWramProc</CODE></A> and is <CODE>MI_WRAM_ARM9</CODE>, <CODE>MI_WRAM_ARM7</CODE>, or <CODE>MI_WRAM_DSP</CODE>.</P>
+<P><CODE><font color="#7f7f7f">MI_CancelWram_A</CODE></font> is the #define directive of <CODE><font color="#7f7f7f">MI_CancelWram( MI_WRAM_A, ... )</CODE></font>.<BR><CODE>MI_CancelWram_B</CODE> is the #define directive of <CODE>MI_CancelWram( MI_WRAM_B, ... )</CODE>. <BR><CODE>MI_CancelWram_C</CODE> is the #define directive of <CODE>MI_CancelWram( MI_WRAM_C, ... )</CODE>. <BR><font color="#7f7f7f"><CODE>MI_CancelWramSlot_A</CODE></font> is the #define directive of <font color="#7f7f7f"><CODE>MI_CancelWramSlot( MI_WRAM_A, ... )</CODE></font>.<BR><CODE>MI_CancelWramSlot_B</CODE> is the #define directive of <CODE>MI_CancelWramSlot( MI_WRAM_B, ... )</CODE>. <BR><CODE>MI_CancelWramSlot_C</CODE> is the #define directive of <CODE>MI_CancelWramSlot( MI_WRAM_C, ... )</CODE>. <BR></P>
+<P>The <CODE>MI_CancelWram</CODE> function frees all regions reserved for the specified processor in the specified WRAM.</P>
+<P>The <CODE>MI_CancelWramSlot</CODE> function specifies a region within the specified WRAM by its <SPAN class="argument">slot</SPAN> and <SPAN class="argument">size</SPAN>, and frees all regions contained therein that are reserved for the specified processor.</P>
+<P><BR> Example: The following cancels all reservations for the DSP in WRAM-C.<BR> <BR> <CODE>MI_CancelWram( MI_WRAM_C, MI_WRAM_DSP );</CODE><BR> OR <BR> <CODE>MI_CancelWram_C( MI_WRAM_DSP );</CODE><BR>
+</P>
+<P><BR> Example: The following cancels all reservations for the DSP in the 96 KB area of WRAM-C that starts with slot 2.<BR> <BR> <CODE>MI_CancelWramSlot( MI_WRAM_C, 2, MI_WRAM_SIZE_96KB, MI_WRAM_DSP );</CODE><BR> OR <BR> <CODE>MI_CancelWramSlot_C( 2, MI_WRAM_SIZE_96KB, MI_WRAM_DSP );</CODE></P>
+<P><BR>
+</P>
+<h2>See Also</h2>
+<P><A href="about_Wram.html">Overview: Work RAM</A><BR> <A href="../mi_constant.html">MI-Related Constants</A></P>
+
+
+<H2>Revision History</H2>
+<P>
+2010/05/17 Corrected errors.<BR> 2007/08/20 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

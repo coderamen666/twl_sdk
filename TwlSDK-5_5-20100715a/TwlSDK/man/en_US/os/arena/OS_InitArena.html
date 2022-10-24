@@ -1,0 +1,153 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>OS_InitArena</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">OS_InitArena <IMG src="../../image/NTR.gif" align="middle"><IMG src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+<DL>
+  <DD>
+  <PRE><CODE>#include &lt;nitro/os.h&gt;</CODE></PRE>
+  <PRE><CODE>void OS_InitArena( void );
+</CODE></PRE>
+</DL>
+<H2>Arguments</H2>
+<P>None.</P>
+<H2>Return Values</H2>
+<P>None.</P>
+<H2>Description</H2>
+<P>Sets the upper and lower boundaries.</P>
+<P>This function only needs to be called once before the <CODE>Alloc</CODE> functions or other <CODE>Arena</CODE> functions. This function is called internally by the <A href="../init/OS_Init.html"><CODE>OS_Init</CODE></A> function, so there is normally no need for the application to call it again. Subsequent calls of this function do nothing.</P>
+<P>It is possible to change the arena boundaries with <A href="OS_SetArenaLo.html"><code>OS_SetArenaLo</code></A> and <A href="OS_SetArenaHi.html"><code>OS_SetArenaHi</code></A> after calling <code>OS_InitArena</code>.</P>
+<P>The TWL-SDK allows you to define nine different arenas: main memory (one for ARM9 and one for ARM7), extended main memory, ITCM, DTCM, shared memory for the SDK, shared Work RAM (one for ARM9 and one for ARM7), and ARM7-dedicated Work RAM. Each region gets an ID and is defined as an <code>OSArenaId</code> enumerated type, as shown below.
+</P>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+<TH>Arena ID</TH>
+<TH>Arena</TH>
+<TH>Initialization</TH>
+    </TR>
+    <TR>
+<TD>OS_ARENA_MAIN</TD>
+<TD>ARM9-dedicated main memory for the game program</TD>
+<TD>From ARM9</TD>
+    </TR>
+    <TR>
+<TD>OS_ARENA_MAIN_SUBPRIV</TD>
+<TD>ARM7-dedicated main memory</TD>
+<TD>From ARM7</TD>
+    </TR>
+    <TR>
+<TD>OS_ARENA_MAINEX</TD>
+<TD>Extended main memory for development debugging only</TD>
+<TD>From ARM9</TD>
+    </TR>
+    <TR>
+<TD>OS_ARENA_ITCM</TD>
+<TD>ITCM</TD>
+<TD>From ARM9</TD>
+    </TR>
+    <TR>
+<TD>OS_ARENA_DTCM</TD>
+<TD>DTCM</TD>
+<TD>From ARM9</TD>
+    </TR>
+    <TR>
+<TD>OS_ARENA_SHARED</TD>
+<TD>Shared memory for the SDK</TD>
+<TD>From ARM9</TD>
+    </TR>
+    <TR>
+
+<TD>OS_ARENA_WRAM_MAIN</TD>
+<TD>ARM9-shared Work RAM</TD>
+<TD>From ARM9</TD>
+    </TR>
+    <TR>
+<TD>OS_ARENA_WRAM_SUB</TD>
+<TD>ARM7-shared Work RAM</TD>
+<TD>From ARM7</TD>
+    </TR>
+    <TR>
+<TD>OS_ARENA_WRAM_SUBPRIV</TD>
+<TD>ARM7-dedicated Work RAM</TD>
+<TD>From ARM7</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P> </P>
+<P>Of the nine arenas, <CODE>OS_InitArena</CODE> for ARM7 sets up six the same as <CODE>OS_InitArena</CODE> for ARM9. The three exceptions are ARM7-dedicated main memory, ARM7-dedicated Work RAM, and ARM7-shared Work RAM.</P>
+<P>Calling <CODE>OS_InitArena</CODE> from both processors sets each arena's upper and lower boundary as shown below:
+</P>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+<TH bgcolor="#cccccc">Arena</TH>
+<TH bgcolor="#cccccc">Bottom</TH>
+<TH bgcolor="#cccccc">Top</TH>
+    </TR>
+    <TR>
+<TD>ARM9-dedicated main memory</TD>
+<TD><CODE>SDK_MAIN_ARENA_LO</CODE> (obtained from the LCF file)</TD>
+<TD><CODE>HW_MAIN_MEM_MAIN_END( 0x023e0000 )</CODE></TD>
+    </TR>
+    <TR>
+<TD>ARM7-dedicated main memory</TD>
+<TD><CODE>SDK_SUBPRIV_ARENA_LO</CODE> (obtained from the LCF file)</TD>
+<TD>Beginning of ARM7-dedicated main memory</TD>
+    </TR>
+    <TR>
+<TD>Extended main memory</TD>
+<TD>0 or <CODE>SDK_SECTION_ARENA_EX_START</CODE><BR>(obtained from the LCF file) (<B><FONT color="#ff0000">*1</FONT></B>)</TD>
+<TD>0 or<BR> Before the debugger region<BR> (<B><FONT color="#ff0000">*1</FONT></B>)</TD>
+    </TR>
+    <TR>
+<TD>ITCM</TD>
+<TD><CODE>SDK_SECTION_ARENA_ITCM_START</CODE><BR>(obtained from the LCF file)</TD>
+<TD>Highest order ITCM (<CODE>0x02000000</CODE>)</TD>
+    </TR>
+    <TR>
+<TD>DTCM</TD>
+<TD><CODE>SDK_SECTION_ARENA_DTCM_START</CODE><BR>(obtained from the LCF file) (<B><FONT color="#ff0000">*2</FONT></B>)</TD>
+<TD>Before system mode stack (<B><FONT color="#ff0000">*2</FONT></B>)</TD>
+    </TR>
+    <TR>
+<TD>Shared memory for the SDK</TD>
+<TD>Bottom of shared memory</TD>
+<TD>Before shared memory region</TD>
+    </TR>
+    <TR>
+<TD>ARM9-shared Work RAM</TD>
+<TD>Bottom of shared Work RAM (<B><FONT color="#ff0000">*3</FONT></B>)</TD>
+<TD>Bottom of shared Work RAM (<B><FONT color="#ff0000">*3</FONT></B>)</TD>
+    </TR>
+    <TR>
+<TD>ARM7-shared Work RAM</TD>
+      <TD><B><FONT color="#ff0033">*4</FONT></B></TD>
+<TD>Top of shared Work RAM</TD>
+    </TR>
+    <TR>
+<TD>ARM7-dedicated Work RAM</TD>
+      <TD><B><FONT color="#ff0033">*5</FONT></B></TD>
+<TD>Before system mode stack</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P><BR> <B><FONT color="#ff0000">*1</FONT></B> To use the extended main memory arena, you must declare it with the <CODE><A href="OS_EnableMainExArena.html">OS_EnableMainExArena</A></CODE> function. The upper and lower addresses of the extended main memory arena are 0 when it cannot be used. The commercial version of the Nintendo DS system has no extended main memory, so the extended main memory arena cannot be used for it. In this case, the upper and lower addresses are 0.</P>
+<P><B><FONT color="#ff0000">*2</FONT></B> The region cannot be allocated for the DTCM arena if the stack is full. When this happens, the upper and lower addresses of the DTCM arena have the same value. To allocate a region for the DTCM arena, you must prepare an empty region by adjusting the stack size in the LSF file. (See <A href="../../tools/makelcf.html"><CODE>tools/makelcf</CODE></A> and <A href="../../tools/makelcf.html"><CODE>tools/makelcf.TWL</CODE></A> for more about LSF and LCF files.) The stack for system mode is described here, but normally this is the stack for the launcher thread.</P>
+<P><B><FONT color="#ff0000">*3</FONT></B> The top and bottom of the shared Work RAM arena (for ARM9) have the same address. By default the size is 0.</P>
+<P><FONT color="#ff0033"><B>*4</B></FONT> This is the lower address of the final address of the ARM7 static module and the highest address of the shared work region. In other words, if the ARM7 static module fits in shared Work, the empty region becomes the ARM7-shared Work RAM arena. If it does not fit, both the start address and end address become the top address of shared Work, and the size of the arena is 0.</P>
+<P><FONT color="#ff0033"><B>*5</B></FONT>&nbsp;This is the larger of either (1) the ending address of the ARM7 static module or (2) the lowest address of the ARM7-dedicated Work RAM region. In other words, if the ARM7 static module will amount to the ARM7 dedicated Work RAM, the empty region excluding this is the ARM7 dedicated Work RAM arena. If the module is not that big and will not amount to the ARM7 dedicated Work RAM, the arena is from the top of the ARM7 dedicated Work RAM.</P>
+<P>For more details, see the <a href="about_arena.html">Arena Overview</a>.</P>
+<H2>See Also</H2>
+<P><A href="OS_SetArenaHi.html"><CODE>OS_SetArenaHi</CODE></A><BR> <A href="OS_SetArenaLo.html"><CODE>OS_SetArenaLo</CODE></A><BR> <A href="OS_GetArenaHi.html"><CODE>OS_GetArenaHi</CODE></A><BR> <A href="OS_GetArenaLo.html"><CODE>OS_GetArenaLo</CODE></A><BR> <A href="../../tools/makelcf.html"><CODE>tools/makelcf</CODE></A><BR> <A href="about_arena.html">Arena Overview</A></P>
+<H2>Revision History</H2>
+<P>2009/05/19 Revised description related to <CODE>OS_Init</CODE> in <B>Description</B>.<BR> 2005/08/27 Changed the initial addresses of DTCM, ITCM, and the main memory expanded arena.<BR> 2004/10/26 Corrected error in number of initialized arenas.<BR> 2004/10/01 Separated the graphical explanation of arenas.<BR> 2004/10/01 Described by associating overlay.<BR> 2004/09/29 Described the arena regions with charts.<BR> 2004/05/28 Changed description of ARM7 arenas.<BR> 2004/02/19 Changed the number of arenas from 6 to 9. Added support for both processors.<BR> 2004/01/16 Added <CODE>MainEx</CODE>.<BR> 2004/01/06 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

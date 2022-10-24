@@ -1,0 +1,146 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>makebanner.TWL</TITLE>
+<LINK rel="stylesheet" href="../css/nitro.css" type="text/css">
+<STYLE type="text/css">
+<!--
+.sample_source{
+  background-color : #e8e8e8;
+}
+H3{
+  color : teal;
+}
+.command_list{
+  margin-bottom : 16pt;
+}
+.command_desc{
+  }
+.command_item{
+  margin-top : 16pt;
+  background-color : #e8e8e8;
+}
+.blockquoted_table {
+  border : 1px;
+  width : 80%;
+}
+TD,TH{
+  border-color	: #c0d8d8;
+  padding       : 1pt 4pt 1pt 4pt;
+  border-width  : 1px;
+  border-style  : solid;
+}
+-->
+</STYLE>
+</HEAD>
+<BODY>
+<H1 align="left">makebanner.TWL <IMG src="../image/TWL.gif" align="middle"></H1>
+<H2>Description</H2>
+<P><FONT color=#ff0000>This command is for TWL ROMs. See <A href="makebanner.html"><CODE>makebanner</CODE></A> for details on NITRO ROMs.</FONT></P>
+<P>The <CODE>makebanner.TWL</CODE> tool creates banner files. Banner files contain a variety of information. This includes the image that identifies an application and is displayed in the launcher when TWL and Nintendo DS and DS Lite systems start.</P>
+<P> The banner file contains image data and game title information for each language. It is created based on the description in the banner specification file (BSF). Once the banner file is created, <A href="makerom.html"><CODE>makerom.TWL</CODE></A> is used to write it to the application ROM image.</P>
+
+<P>Banner files for use with TWL ROMs can contain, in addition to the NITRO ROM banner file (NTR banner), animation that consists of 8 images. If a banner file contains animation data, the TWL launcher displays the animation; if it does not contain animation data, the launcher displays the NTR banner. If a banner was created in the same manner as with <A href="makebanner.html"><CODE>makebanner</CODE></A>, no animation data is created, only the NTR banner.</P>
+<P>Create banners containing animation data by taking an animation file created in NITRO-CHARACTER, converting it with <A href="bannercvtr.html"><CODE>bannercvtr</CODE></A>, and using the resulting data in <CODE>makebanner.TWL</CODE>. In this case, the zeroth frame of the animation data is set as the NTR banner. You can also use an option to change which animation frame is used. If you create a hybrid ROM with a banner containing animation data, the NTR banner is displayed when it is started on a Nintendo DS or DS Lite system, and the animation banner is displayed when it is started on a TWL system.
+</P>
+<H2>Using the Tool</H2>
+<H3>Start Command</H3>
+<PRE><CODE>% makebanner.TWL [-d] [-N ICON_BASENAME] [-A ANIMEFILE] [-i IMAGE_INDEX] 
+             [-j PALETTE_INDEX] [-s] SPECFILE [BANNERFILE]</CODE></PRE>
+<P> This function links files according to the description in the banner specification file (<code>SPECFILE</code>, which is described below). It creates a file named <code>BANNERFILE</code>. Using <code>BANNERFILE</code> is optional and may be omitted. If you omit it, a file of the same name as that specified by <code>SPECFILE</code> with the extension BNR is created.</P>
+<P> The <CODE>-A</CODE> option specifies a file output from <A href="bannercvtr.html"><CODE>bannercvtr</CODE></A>. This option is required if an animation file is not specified in <CODE>SPECFILE</CODE>.</P>
+<P> The <CODE>-i</CODE> option specifies the image index to use when exporting a NTR banner from a file output from <A href="bannercvtr.html"><CODE>bannercvtr</CODE></A>. If not specified, this is 0.</P>
+<P> The <CODE>-j</CODE> option specifies the palette index to use when exporting a NTR banner from a file output from <A href="bannercvtr.html"><CODE>bannercvtr</CODE></A>. If not specified, this is 0.</P>
+<P> The <CODE>-s</CODE> option outputs a <A href="../na/subBanner/about_subBanner.html">sub-banner file</A>.</P>
+<P> The <CODE>-N</CODE> option allows you to specify, from the command line, an icon file to use when exporting a static image banner. It attaches NBFC and NBFP to the base names specified by <code>ICON_BASENAME</code>, turning the resulting files into an image file and image parameter file, respectively. This overwrites the values specified by <code>ImageFile:</code>and <code>PlttFile:</code>. Values specified by parameter are overwritten. This cannot be specified at the same time as the <CODE>-A</CODE> option.</P>
+<P> The <code>-d</code> option is for displaying messages when debugging <CODE>makebanner.TWL</CODE>. This is usually not necessary.</P>
+<H3>Banner Specification File Format</H3>
+<P> The banner specification file is a text file that specifies an image data file and the game title in each language. It must be described and saved in Unicode (UTF-16LE with BOM). Notepad in MS Windows 2000/XP supports Unicode. Select <B>Unicode</B> from the <B>Encoding</B> drop-down list when saving the file.</P>
+<H3>Parameters</H3>
+<P> The delimiter between parameter specifications and values is a colon (<code>:</code>).</P>
+<H4>Image File Parameters</H4>
+<BLOCKQUOTE>
+<DL class="command_list">
+<DT class="command_item"><CODE>AnimeFile: </CODE>[Name of file output from <A href="bannercvtr.html"><CODE>bannercvtr</CODE></A>]</I>
+<DD class="command_desc">Specifies the file output from <A href="bannercvtr.html"><CODE>bannercvtr</CODE></A>.<BR>For more details, see the <A href="bannercvtr.html"><CODE>bannercvtr</CODE></A> reference manual.
+<DT class="command_item"><CODE>AnimeImageIndex:</CODE><I>[image index]</I>
+<DD class="command_desc"><CODE>AnimeFile:</CODE>Specifies the image index to use for the NTR banner when exporting a NTR banner from the animation file specified in the <CODE>AnimeFile</CODE> parameter.
+<DT class="command_item"><CODE>AnimePlttIndex:</CODE><I>[palette index]</I>
+<DD class="command_desc"><CODE>AnimeFile:</CODE>Specifies the palette index to use for the NTR banner when exporting a NTR banner from the animation file specified in the <CODE>AnimeFile</CODE> parameter.
+<DT class="command_item"><CODE>AnimeFile:</CODE><I>[filename output from <A href="bannercvtr.html"><CODE>bannercvtr</CODE></A>]</I>
+<DD class="command_desc">Specifies the file output from <A href="bannercvtr.html"><CODE>bannercvtr</CODE></A>.<BR>For more details, see the <A href="bannercvtr.html"><CODE>bannercvtr</CODE></A> reference manual.
+<DT class="command_item"><CODE>ImageFile:</CODE></CODE><I>[Image's image filename]</I>
+<DD class="command_desc">Specifies a binary image, 32x32 x 16 colors.<br />Store character data using one-dimensional mapping.<br />The first 512 bytes are written to the banner file.
+<DT class="command_item"><CODE>PlttFile:</CODE></CODE><I>[Image's palette filename]</I>
+<DD class="command_desc">Specifies a binary image palette.<br />The first 32 bytes are written to the banner file.
+</DL>
+</BLOCKQUOTE>
+<P><CODE>ImageFile</CODE> , <CODE>PlttFile:</CODE>The <CODE>ImageFile</CODE> and <CODE>PlttFile</CODE> parameters are used when creating NTR banners. <BR>When creating an animated banner, use the <CODE>AnimeFile:</CODE>, <CODE>AnimeImageIndex:</CODE>, and <CODE>AnimePlttIndex:</CODE> parameters.</P>
+<P>When creating an NTR banner using the <CODE>ImageFile:</CODE> and <CODE>PlttFile:</CODE> parameters, create image and palette binary data from the image file using <CODE><A href="ntexconv.html">ntexconv</A> (-no -bg -bgb -bgnc)</CODE> and so on.</P>
+<P>The <code>-N</code> option allows you to specify image file parameters from the command line.</P>
+<H4>Version Parameters</H4>
+<BLOCKQUOTE>
+<DL class="command_list">
+<DT class="command_item"><CODE>Version:</CODE><I>[banner version]</I>
+<DD class="command_desc">Specifies the banner version.<BR>For TWL, always specify <CODE>'3'</CODE>. If not specified, it is set to <CODE>3</CODE>.
+</DL>
+</BLOCKQUOTE>
+<H4>Language Parameters</H4>
+<BLOCKQUOTE>
+<DL class="command_list">
+<DT class="command_item"><CODE>JP:</CODE><I>[Japanese game title name]</I> <BR><CODE>EN:</CODE></CODE><I>[English game title name]</I> <BR><CODE>FR:</CODE><I>[French game title name]</I> <BR><CODE>GE:</CODE><I>[German game title name]</I> <BR><CODE>IT:</CODE><I>[Italian game title name]</I> <BR><CODE>SP:</CODE><I>[Spanish game title name]</I> <BR><CODE>CN:</CODE></CODE><I>[Chinese game title name]</I><BR><CODE>HN:</CODE><I>[Korean game title name]</I><BR>
+<DD class="command_desc">Describes the game title name in each language. The maximum is three rows, 128 characters (including carriage returns). A string must be specified in the first line. If a line begins with a space or a tab, it is considered a continuation of the previous line. All content between a blank line and the next language parameter is destroyed. If you want to leave line 1 or 2 blank, and write something in line 3, place content in the form of quotation marks (<code>&quot;&quot;</code>) in the line you want to leave blank. Regardless of the order in which they are written, languages are stored in banner files in the following order: Japanese, English, French, German, Italian, Spanish, Chinese, Korean.<BR> If <CODE>CN:</CODE> or <CODE>HN:</CODE> is not specified, that language is set to a blank field.<BR> As in the banner specification file, the save format is UTF-16LE (without BOM).<BR> <BR>
+<DT class="command_item"><CODE>JP:</CODE> </CODE><I>[English game title name]</I><BR> <CODE>EN:</CODE><I>[English game title name]</I><BR> <CODE>FR:</CODE><I>[English game title name]</I><BR> <CODE>GE:</CODE><I>[English game title name]</I><BR> <CODE>IT:</CODE><I>[English game title name]</I><BR> <CODE>SP:</CODE><I>[English game title name]</I><BR> <CODE>CN:</CODE><I>[Chinese game title name]</I><BR> <CODE>HN:</CODE><I>[English game title name]</I><BR>
+<DD class="command_desc">Use the format above to specify a Chinese-language banner for applications for the Chinese market.
+<DT class="command_item"><CODE>JP:</CODE></CODE><I>[English game title name]</I><BR> <CODE>EN: </CODE><I>[English game title name]</I> <BR><CODE>FR:</CODE></CODE><I>[English game title name]</I><BR> <CODE>GE: </CODE><I>[English game title name]</I><BR> <CODE>IT: </CODE><I>[English game title name]</I><BR> <CODE>SP: </CODE><I>[English game title name]</I><BR> <CODE>CN: </CODE><I>[English game title name]</I><BR> <CODE>HN:</CODE><I>[Korean game title name]</I>
+<DD class="command_desc">Use the aforementioned format to specify a banner for applications for the Korean market. At this time, describe all game title names in English, except for those for Korean.
+</DL>
+For more details on characters and character codes that can be used, see the separate document <I>DS IPL Banner Guidelines</I>.
+</BLOCKQUOTE>
+<H3>Format</H3>
+<P> Parameter specification must be at the beginning of the name line. Lines beginning with <code>#</code> are treated as comments. With the exception of the spaces at the beginning of a line, all spaces are included in the string. If you want to include leading spaces, surround them with quotation marks (<code>&quot;&quot;</code>). Likewise, if you want to include quotation marks, surround them with quotation marks (<code>&quot;&quot;&quot;</code>).</P>
+<BLOCKQUOTE>
+<PRE class="sample_source"><code>#BSF --- Banner Spec File
+
+Version: 3
+
+JP: TWL
+     &quot;&#x306B;&#x307B;&#x3093;&#x3054;&quot; <FONT color="#ff0000" face="Arial"><EM>(&quot;Japanese&quot; in Japanese)</EM></FONT>
+EN: Twl1
+     English
+FR: Twl2
+GE: Twl3
+IT: Twl4
+SP: &quot;Twl5&quot;
+CN: Twl6
+HN: Twl7
+</CODE></PRE>
+</BLOCKQUOTE>
+<H3>Warnings</H3>
+<P>The following warning is displayed if the specified game title cannot be displayed correctly by the launcher when starting the TWL or Nintendo DS or DS Lite system.</P>
+<P>The following warning is displayed if characters that cannot be displayed by the launcher have been set.</P>
+<BLOCKQUOTE>
+<PRE class="sample_source"><CODE>Warning:!!!!  JP in line 1
+Warning:!!!!  Game title includes undisplayable characters.
+</CODE></PRE>
+</BLOCKQUOTE>
+<P>Although the Nintendo DS, DS Lite, and DSi systems can display some kanji and symbols, you cannot specify these characters. The useable character codes are distributed separately. See the <I>DS IPL Banner Guidelines</I>.
+</P>
+
+<P>The following warning is displayed if the game title cannot be displayed properly because the width of the game title is greater than the launcher display area.<BR>Check the displayable size of the TWL or Nintendo DS or DS Lite system. In the following example, the title for a TWL system is 1 pixel too wide.</P>
+<BLOCKQUOTE>
+<PRE class="sample_source"><CODE>Warning:!!!!  EN in line 1
+Warning:!!!!  Game title exceeds TWL menu size(240 pixel) by 1 pixel.
+</CODE></PRE>
+</BLOCKQUOTE>
+<H2>Location</H2>
+<P><CODE>$TwlSDK/tools/bin/makebanner.TWL.exe</CODE></P>
+<H2>See Also</H2>
+<P><A href="about_Banner.html">Banner Overview</A><BR> <A href="bannercvtr.html"><CODE>bannercvtr</CODE></A><BR> <A href="makerom.html"><CODE>makerom.TWL</CODE></A></P>
+<H2>Revision History</H2>
+<P>2009/06/18 Added explanation to see the <I>DS IPL Banner Guidelines</I> for characters that can be used.<BR> 2009/06/02 Removed kanji warning. Explained useable character codes. <BR>2009/05/12 Added blank field settings when the Chinese and Korean languages are unspecified. <BR>2009/05/08 Removed some ways of specifying the game title for applications for the Chinese market. <BR>2009/04/13 Added an explanation for applications for the Chinese market. <BR>2008/11/27 Revised game titles in examples and added a warning regarding use of kanji. <BR>2008/11/05 Revised the description of the <CODE>-N</CODE> option. <BR>2008/10/20 Added a warning about the width of game titles. <BR>2008/10/17 Changed the link for documents related to Nintendo DS banners. <BR>2008/09/12 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

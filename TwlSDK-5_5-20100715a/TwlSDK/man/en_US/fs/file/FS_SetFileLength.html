@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title>FS_SetFileLength</title>
+<link rel="stylesheet" href="../../css/nitro.css" type="text/css" />
+</head>
+<body>
+
+<h1>FS_SetFileLength <img src="../../image/NTR.gif"align="middle"><img src="../../image/TWL.gif" align="middle"></h1>
+<h2>Syntax</h2>
+<pre><code>
+#include &lt;nitro/fs.h&gt;
+
+<a href="../fs_result_const.html">FSResult</a>	FS_SetFileLength(<A href="../fs_file_type.html">FSFile</a> *file, u32 length);
+</code></pre>
+
+<h2>Arguments</h2>
+<table style="width:100%">
+<tbody>
+<tr>
+<td style="width:13%"><CODE>file</CODE></td>
+<td style="width:87%">The <A href="../fs_file_type.html">FSFile</a> structure that holds the file handle.<br /><span style='color:Red'>Read and write access rights are required.</span></td>
+</tr>
+<tr>
+<td style="width:13%"><CODE>length</CODE></td>
+<td style="width:87%">File size to set.</td>
+</tr>
+</tbody>
+</table>
+
+<h2>Return Values</h2>
+<p>The result that it returns is of type <code><a href="../fs_result_const.html">FSResult</a></code>.</p>
+
+<h2>Description</h2>
+<p>Sets the size of the file.<br />When extending the size, the values in the extended region will be indeterminate. When reducing the size, the seek positions that are no longer within the region will be adjusted back to the new ending position.</p>
+
+<h2>Notes</h2>
+<p style='color:Red'>This operation requires a return to the original seek position after the end-of-file position has been changed, so both read and write access rights are required.</p>
+
+<h2>See Also</h2>
+<p><code><a href="FS_OpenFileEx.html">FS_OpenFileEx</a><br /> <a href="FS_GetFileLength.html">FS_GetFileLength</a></code></p>
+
+<h2>Revision History</h2>
+<p>
+2008/12/08 Noted that read and write access rights are required.<br />2007/09/18 Initial version.<br />
+</p>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

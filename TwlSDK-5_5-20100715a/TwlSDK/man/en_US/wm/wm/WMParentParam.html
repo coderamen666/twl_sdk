@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 8.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>WMParentParam</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">WMParentParam</h1>
+
+<h2>Definition</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/wm.h&gt;</CODE><BR>
+  <PRE><CODE>
+typedef struct WMParentParam
+{
+    u16*    userGameInfo;
+    u16     userGameInfoLength;
+    u16     padding
+    u32     ggid;
+    u16     tgid;
+    u16     entryFlag;
+    u16     maxEntry;
+    u16     multiBootFlag;
+    u16     KS_Flag;
+    u16     CS_Flag;
+    u16         beaconPeriod;
+    u16     rsv1[4];
+    u16     rsv2[8];
+    u16         channel;
+    u16     parentMaxSize;
+    u16    childMaxSize;
+    u16     rsv[4];
+
+} WMParentParam;
+</CODE></PRE>
+  </dd>
+
+</dl><h2>Elements</h2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="200"><CODE>userGameInfo</CODE></TD>
+<TD width="800">Pointer to user game information.</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>userGameInfoLength</CODE></TD>
+<TD width="800">Size of user game information in bytes. A maximum of 112 bytes can be specified.</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>ggid</CODE></TD>
+<TD width="800">Game group ID that is allocated for each title or series.  Specified as 4-byte data.</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>tgid</CODE></TD>
+<TD width="800">Temporary group ID. This argument must be a value that is different from the one that begins activity as a parent.</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>entryFlag</CODE></TD>
+<TD width="800">Flag that permits a connection from a child. Set to 0 or 1. A connection from the child is permitted when this flag is set to 1.</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>maxEntry</CODE></TD>
+<TD width="800">Number of children that are permitted for the connection. Connection is denied once the number of children that are connected exceed this number. Up to 15 children can be connected. Use a value from 1 through 15.</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>multiBootFlag</CODE></TD>
+<TD width="800">Flag that indicates a multiboot parent. Set to 0 or 1. When set to 1, the machine will act as a parent that sends multiboot data. When acting as a multiboot parent, this will be set to 1 automatically by the MB library. Therefore, this should usually be set to 0.</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>KS_Flag</CODE></TD>
+<TD width="800">Available to maintain compatibility with older versions. Specify 0.</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>CS_Flag</CODE></TD>
+<TD width="800">Allows the function to maintain compatibility with previous versions and is no longer used.</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>beaconPeriod</CODE></TD>
+<TD width="800">Interval, in milliseconds, for regularly sending the broadcast data (this structure's data) for the child. Set to a value from 10 through 1,000. Normally, the value obtained in the <A href="WM_GetDispersionBeaconPeriod.html"><CODE>WM_GetDispersionBeaconPeriod</CODE></A> function should be designated here.</TD>
+    </TR>
+    <TR>
+<TD width="200"><code>rsv1<br />rsv2</code></TD>
+<TD width="800">Reserved regions. These members may be deleted in the future.</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>channel</CODE></TD>
+<TD width="800">Wireless channel to act as parent. Select a channel from 1 through 13 that has been confirmed as available by <A href="WM_GetAllowedChannel.html"><CODE>WM_GetAllowedChannel</CODE></A>.</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>parentMaxSize</CODE></TD>
+<TD width="800">Default value of the parent send capacity for MP communication. The send capacity must be a multiple of 2. A maximum size of 512 bytes can be specified for this value.
+      </TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>childMaxSize</CODE></TD>
+<TD width="800">Default value of the child send capacity for MP communication. The send capacity must be a multiple of 2. Specify a maximum size of 512 bytes for this value.
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<H2>Description</H2>
+<P>
+The structure of the information that should be set when starting activity as a parent. User-defined data can be set in <code>userGameInfo</code>. Change it with the <A href="WM_SetGameInfo.html"><CODE>WM_SetGameInfo</CODE></A> function later. <code>userGameInfoLength</code> is a maximum of <code>WM_SIZE_USER_GAMEINFO</code> bytes (currently 112 bytes). Change the <CODE>entryFlag</CODE> argument with the <A href="WM_SetEntry.html"><CODE>WM_SetEntry</CODE></A> function later. If the <code>beaconPeriod</code> argument is too short, it interferes with MP communication. Normally, it should be set to a few hundred ms. For the <CODE>channel</CODE> argument, select one from the channels that was permitted by <A href="WM_GetAllowedChannel.html"><CODE>WM_GetAllowedChannel</CODE></A>. <code>parentMaxSize</code> and <code>childMaxSize</code> specify the default value for the send capacity for parent and children, respectively, and there are some restrictions as mentioned in the programming guideline. Use the <a href="wm_time_calc.html">wireless communication time calculation sheet</a>, and make sure that the time that is required for one MP communication does not exceed 5600 &mu;s. The <code>KS_Flag</code> field remains in order to maintain compatibility with older versions. Be sure to specify 0. In order to maintain compatibility with older versions, if <code>KS_Flag</code> is set to 1, 36+6 is internally added to <code>parentMaxSize</code> and 2+4 to <code>childMaxSize</code>.
+</P>
+
+<H2>Revision History</H2>
+<P>
+2005/12/08 Deleted a section related to key sharing.<BR>2005/12/08 Clearly stated that the send capacity must be an even number.<BR>2005/12/06 Changed &quot;maximum send size&quot; to &quot;default value for the send capacity.&quot;<BR>2005/03/14 Corrected link destination errors.<br />2005/03/02 Added a description of the allowable range for structure members.<br />2004/11/12 Added a statement regarding the unit of <code>userGameInfoLength</code>.<br />2004/10/18 Added a statement regarding a value that needs to be specified to <code>beaconPeriod</code>.<br />2004/10/04 Changed the game group ID to u32 type.<br />2004/09/24 Added <B>Description</B>.<br />2004/09/21 Added <B>Description</B>.<br />2004/08/27 Revised because of changes to structure members.<br />2004/08/02 Standardized structure names.<br />2004/07/29 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

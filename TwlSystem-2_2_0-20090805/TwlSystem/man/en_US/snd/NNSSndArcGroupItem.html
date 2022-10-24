@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"><html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>NNSSndArcGroupItem</title>
+<link rel="stylesheet" href="../css/nitro.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.65.1">
+</head>
+<body>
+<div class="refentry" lang="ja"><a name="IDAKKWT"></a><div class="titlepage">
+<div></div>
+<div></div>
+</div>
+<h1>NNSSndArcGroupItem</h1>
+<h2>Definition</h2>
+<dl>
+<dd><pre class="funcsynopsisinfo"><code>#include &lt;nnsys/snd.h&gt;
+
+#define NNS_SND_ARC_LOAD_SEQ  ( 1 &lt;&lt; 0 )
+#define NNS_SND_ARC_LOAD_BANK ( 1 &lt;&lt; 1 )
+#define NNS_SND_ARC_LOAD_WAVE ( 1 &lt;&lt; 2 )
+</code></pre></dd>
+<dd><pre class="funcsynopsisinfo"><code>typedef struct NNSSndArcGroupItem
+{
+    u8 type;
+    u8 loadFlag;
+    u16 padding;
+    u32 index;
+} NNSSndArcGroupItem;
+</code></pre></dd>
+<dd><pre class="funcprototype"></pre></dd>
+</dl>
+<div class="refsection" lang="ja"><a name="IDAPLWT"></a>
+<h2>Elements</h2>
+      
+      <div class="variablelist">
+<table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><code>type</code></td>
+<td>Type of data to load.</td>
+</tr>
+<tr>
+<td><code>loadFlag</code></td>
+<td>Flag that designates the data to be loaded.</td>
+</tr>
+<tr>
+<td><code>padding</code></td>
+<td>Padding.</td>
+</tr>
+<tr>
+<td><code>index</code></td>
+<td>Index number of the data to load.</td>
+</tr>
+</tbody>
+</table>
+</div>
+    </div>
+<div class="refsection" lang="ja"><a name="IDATMWT"></a>
+<h2>Description</h2>
+      <p>
+The group item structure inside the <a href="NNSSndArcGroupInfo.html"><CODE>NNSSndArcGroupInfo</CODE></a> group information structure. This structure stores information that indicates which data in the group to load.
+</p>
+      <p>
+One of the following enumerators from <CODE>enum NNSSndArcSndType</CODE> is entered into <code>type</code>, the data type to load.
+</p>
+      <pre class="programlisting">
+enum NNSSndArcSndType {    
+    NNS_SNDARC_SNDTYPE_SEQ,
+    NNS_SNDARC_SNDTYPE_BANK,
+    NNS_SNDARC_SNDTYPE_WAVEARC,
+    NNS_SNDARC_SNDTYPE_SEQARC,
+    
+    NNS_SNDARC_SNDTYPE_INVALID = 0xff
+};
+</pre>
+      <p>
+A bitwise OR of the following macros is entered into the <code>loadFlag</code> flag, which designates which data to load.
+</p>
+<div class="table"><a name="IDAMNWT"></a><p class="title"><b>Table: Load Flags</b></p>
+<table border="1">
+<colgroup><col><col><col></colgroup>
+<thead>
+<tr>
+<th>Macros</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><CODE>NNS_SND_ARC_LOAD_SEQ</CODE></td>
+<td>1 &lt;&lt; 0</td>
+<td>Sequence data.</td>
+</tr>
+<tr>
+<td><CODE>NNS_SND_ARC_LOAD_BANK</CODE></td>
+<td>1 &lt;&lt; 1</td>
+<td>Bank data.</td>
+</tr>
+<tr>
+<td><CODE>NNS_SND_ARC_LOAD_WAVE</CODE></td>
+<td>1 &lt;&lt; 2</td>
+<td>Waveform archive.</td>
+</tr>
+</tbody>
+</table>
+</div>
+    </div>
+<h2>See Also</h2>
+<p><a href="NNSSndArcGroupInfo.html"><CODE>NNSSndArcGroupInfo</CODE></a></p>
+<h2>Revision History</h2>
+<p>2004/06/01 Initial version.</p>
+</div>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

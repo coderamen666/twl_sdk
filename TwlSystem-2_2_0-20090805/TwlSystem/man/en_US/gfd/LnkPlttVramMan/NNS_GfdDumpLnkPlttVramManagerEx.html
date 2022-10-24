@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+	<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+	<META http-equiv="Content-Style-Type" content="text/css">
+	<TITLE>NNS_GfdDumpLnkPlttVramManagerEx</TITLE>
+	<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+
+<BODY>
+
+<H1 align="left">NNS_GfdDumpLnkPlttVramManagerEx</H1>
+
+<H2>Syntax</H2>
+<DL>
+  <DD>
+  <PRE><CODE>#include &lt;nnsys/gfd.h&gt;</CODE></PRE>
+  <PRE><CODE>
+void NNS_GfdDumpLnkPlttVramManagerEx( 
+        NNSGfdLnkDumpCallBack   pFunc, 
+        void*                   pUserData );</CODE></PRE>
+</DL>
+
+<H2>Arguments</H2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="13%"><CODE>pFunc</CODE></TD>
+<TD width="87%">Debug output process function (for normal textures)</TD>
+    </TR>
+    
+    <TR>
+<TD width="13%"><CODE>pUserData</CODE></TD>
+<TD width="87%">Debug output process data passed as an argument to the debug output process function.</TD>
+    </TR>
+    
+  </TBODY>
+</TABLE>
+
+<H2>Return Values</H2>
+<P>None.</P>
+
+<H2>Description</H2>
+<P>
+Outputs the status of the linked list palette VRAM manager for debugging.<br>The parameters in the internal management list used by the VRAM manager are set as arguments, and the specified debug output process function gets called.<br> A declaration of a debug output process function and an example of implementation are shown below.<br>
+
+<PRE><CODE>
+
+//------------------------------------------------------
+// NNSGfdLnkDumpCallBack declaration
+//------------------------------------------------------
+typedef void (*NNSGfdLnkDumpCallBack)( 
+    u32                             addr, 
+    u32                             szByte, 
+    void*                           pUserData );
+    
+
+//------------------------------------------------------
+// NNSGfdLnkDumpCallBack implementation example
+//------------------------------------------------------
+void DumpCallBack_( u32 addr, u32 szByte, void* pUserData )
+{
+    // Calculate the total size
+    (*((u32*)pUserData)) += szByte;
+    
+    // output information to the debug console
+    OS_Printf("0x%08x:  0x%08x    \n", addr, szByte );   
+}
+
+</PRE></CODE>
+
+</P>
+
+<H2>See Also</H2>
+<P>None.</P>
+
+<H2>Revision History</H2>
+<P>2007/01/31 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+
+</HTML>

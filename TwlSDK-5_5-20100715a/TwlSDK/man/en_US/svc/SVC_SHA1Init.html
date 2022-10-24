@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>SVC_SHA1Init</TITLE>
+<LINK rel="stylesheet" href="../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">SVC_SHA1Init <IMG src="../image/BPT.gif" align="middle"><IMG src="../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+<DL>
+  <DD>
+  <PRE><CODE>#include &lt;twl/os/common/systemCall.h&gt;</CODE></PRE>
+  <PRE><CODE>void SVC_SHA1Init( SVCSHA1Context* context );</CODE></PRE>
+<P><CODE>typedef struct SVCSHA1Context<BR> {<BR>
+    u32 h0,h1,h2,h3,h4;<BR>
+    u32 Nl,Nh;<BR>
+    u32 data[16];<BR>
+    int num;<BR>
+    void (*sha_block)(struct SVCSHA1Context *c, const u8 *W, int num);<BR> }<BR> SVCSHA1Context;</CODE></P>
+
+</DL>
+
+<H2>Arguments</H2>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+      <TD><B><I>context</I></B></TD>
+      <TD>Pointer to the context structure to initialize. This structure is used for SHA-1 generation.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>Return Values</H2>
+<P>None.</P>
+<H2>Description</H2>
+<P>Initializes the structure to use when calculating SHA-1. Make sure this function is called before using the <CODE><A href="SVC_SHA1Update.html">SVC_SHA1Update</A></CODE> or <CODE><A href="SVC_SHA1GetHash.html">SVC_SHA1GetHash</A></CODE> functions.</P>
+<P><B><I>context</I></B> is the context structure to initialize for SHA-1 generation. You can reapply this function to a context structure that is already initialized. In this case, it will return the context structure to its initial state.</P>
+<P>SHA-1 is an algorithm to find the message digest value. For details, see RFC (Request For Comments) 3174, which is published by IETF (the Internet Engineering Task Force).</P>
+<H2>See Also</H2>
+<P><CODE><A href="SVC_SHA1Update.html">SVC_SHA1Update</A></CODE>, <CODE><A href="SVC_SHA1GetHash.html">SVC_SHA1GetHash</A></CODE></P>
+<H2>Revision History</H2>
+<P>2007/10/19 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

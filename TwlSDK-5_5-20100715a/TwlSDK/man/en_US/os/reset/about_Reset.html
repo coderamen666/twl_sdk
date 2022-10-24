@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>Reset: Overview</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">Reset: Overview <img src="../../image/NTR.gif" align="middle"><img src="../../image/TWL.gif" align="middle"></H1>
+<P>The TWL-SDK provides a software reset system. This system loads the ROM data from the Game Card into main memory and moves the Program Counter register to the appropriate address so the program always starts at the beginning.</P>
+<P>The <a href="OS_InitReset.html"><CODE>OS_InitReset</CODE></a> function must be called before performing a software reset. <a href="OS_InitReset.html"><CODE>OS_InitReset</CODE></a> is called internally by <A href="../init/OS_Init.html"><CODE>OS_Init</CODE></A>, so you do not need to call it in the application.</P>
+<P>A software reset can be executed only by an ARM9 processor. Only the ARM9 can issue a reset command, which will in turn call <A href="OS_ResetSystem.html"><CODE>OS_ResetSystem</CODE></A>. The ARM7 continues to operate until the software reset instruction comes from the ARM9. When a reset instruction is sent via PXI (communicated as a PXI interrupt), the ARM7 resets.</P>
+
+<P>Software reset is a feature designed to reload ROM data from a Game Card ROM. This feature is valid only for Game Card applications. Accordingly, a NAND application or a multiboot child cannot call this function to perform a software reset. For NAND applications, use the <A href="../appJump/OS_RebootSystem.html"><CODE>OS_RebootSystem</CODE></A> function to execute a hardware reset. The <A href="../appJump/OS_IsRebooted.html"><CODE>OS_IsRebooted</CODE></A> function determines whether the system has been restarted using the <A href="../appJump/OS_RebootSystem.html"><CODE>OS_RebootSystem</CODE></A> function or directly from the system menu.</P>
+<P>For more information on hardware resets, see <A href="../../spi/pm/about_exit.html">Hardware Reset and Shutdown: Overview</A> in the PM library. Because several functions that use hardware reset can be found in the OS category, see also <A href="#hardwareReset">Application Jumps Using Hardware Reset</A> below.</P>
+<H2>Internal Operations of the Software Reset Process</H2>
+<H3><IMG src="../../image/NTR.gif" align="middle"> NITRO Mode</H3>
+<P>When the ARM9 calls the <A href="OS_ResetSystem.html"><CODE>OS_ResetSystem</CODE></A> function, both the ARM9 and ARM7 processors will operate as follows.</P>
+<BLOCKQUOTE><IMG src="image_resetChart.gif" border="0"></BLOCKQUOTE>
+<P>The ARM9 waits for the card bus to unlock and immediately locks it. Next, all DMA tasks are ended. Then PXI-communication interrupts (and only these interrupts) are enabled in order to receive communications from the ARM7. Other interrupts are disabled. Finally, a reset notification is posted to the ARM7.</P>
+<P>On the ARM7 side, when the reset notification comes from the ARM9, all DMA tasks are ended, and PXI-communication interrupts (and only these interrupts) are enabled for receiving communications from the ARM9. Also, the stop command is communicated to the Sound library.</P>
+<P>In the explanations of these subsequent steps, all operations take place in ITCM on the ARM9, and in WRAM on the ARM7.</P>
+<P>All interrupts are disabled in both the ARM7 and the ARM9. The ARM9 then reads ROM data from the Game Card in accordance with the ROM header information stored in the shared area of main memory.</P>
+<P><IMG src="image_resetImg.gif" border="0"></P>
+<P>Once synchronized after the data have been read, the ARM7 and the ARM9 both act to clear memory and registers.</P>
+<P>The starting address is set in the Program Counter (PC) according to the ROM header information.
+</P>
+<H3><IMG src="../../image/TWL.gif" align="middle"> TWL Mode</H3>
+<P>When the ARM9 calls the <A href="OS_ResetSystem.html"><CODE>OS_ResetSystem</CODE></A> function, both the ARM9 and ARM7 processors will operate as follows.</P>
+<BLOCKQUOTE><IMG src="image_resetChart_TWL.gif" width="544" height="568" border="0"></BLOCKQUOTE>
+<P>This differs from NITRO mode in that ROM data is reloaded and new DMAs will also be stopped when DMAs are cleared.</P>
+<P>TWL mode also uses the ARM7 to reload ROM data, unlike NITRO mode. This operation loads the extended portion of ROM data from where it is temporarily stored in the main memory.</P>
+<H2 align="left">Reset Parameters</H2>
+<P>The Software Reset System has a u32 value named <I>reset parameter</I>. It can be used to determine whether the current program is running because the power has been turned on or because the program was restarted.</P>
+<P>This Reset Parameter is obtained by <a href="OS_GetResetParameter.html"><CODE>OS_GetResetParameter</CODE></a>. The value of the Reset Parameter is 0 after the power is turned on, but once the <a href="OS_ResetSystem.html"><CODE>OS_ResetSystem</CODE></a> function is called, it takes the value of the function's argument. If resets are performed multiple times, the Reset Parameter holds the value of the argument from <a href="OS_ResetSystem.html"><CODE>OS_ResetSystem</CODE></a> most recently called.</P>
+<P>The Reset Parameter is stored in a part of the shared region of main memory. This part is not cleared during the reset process, so the value of the Reset Parameter can be passed to programs after the reset.</P>
+<BLOCKQUOTE><IMG src="image_resetParam.gif" border="0"></BLOCKQUOTE>
+<a name="hardwareReset"></a>
+<H2>Application Jumps Using Hardware Reset</H2>
+<P>The PM library function <A href="../../spi/pm/PM_ForceToResetHardware.html"><CODE>PM_ForceToResetHardware</CODE></A> executes hardware resets, so see <A href="../../spi/pm/about_exit.html">Hardware Reset and Shutdown (Overview)</A> in the PM library.</P>
+<P>The <A href="../appJump/OS_JumpToSystemMenu.html"><CODE>OS_JumpToSystemMenu</CODE></A> function executes a jump to the system menu when the hardware is reset. The <A href="../appJump/OS_JumpToWirelessSetting.html"><CODE>OS_JumpToWirelessSetting</CODE></A> function, for jumping to system wireless settings, the <A href="../appJump/OS_JumpToInternetSetting.html"><CODE>OS_JumpToInternetSetting</CODE></A> function, for jumping to system Internet settings, and the <A href="../appJump/OS_JumpToEULAViewer.html"><CODE>OS_JumpToEULAViewer</CODE></A> function, for jumping to the system's Internet usage guidelines, are also provided.</P>
+
+<H2>See Also</H2>
+<P><A href="../list_os.html#Reset">OS Function List (Reset)</A></P>
+<H2>Revision History</H2>
+<P>
+2009/07/02 Revised <B>Description</B> because support was added for software reset also in TWL mode.<BR>2009/06/08 Explained that this function operates only in NITRO mode.<BR>2009/06/03 Revised the text to reflect that calling <CODE>OS_Init</CODE> is now required.</CODE><BR> 2008/09/06 Added figures for TWL mode. <BR>2005/03/08 Standardized the Japanese term for interrupt.<BR>2004/12/13 Revised terminology and word endings. <BR>2004/11/02 Initial version.</P>
+<BR> <BR> <BR> <BR> <BR> <BR> <BR> <BR> <BR> <BR> <BR> <BR> <BR> <BR> <BR> <BR> <BR> <BR> <BR>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

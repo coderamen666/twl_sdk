@@ -1,0 +1,297 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>Types of Interrupts</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">Types of Interrupts <IMG src="../../image/NTR.gif" align="middle"><IMG src="../../image/TWL.gif" align="middle"></h1>
+<H2>Description</H2>
+<P>The events that cause interrupts vary depending on both the operating mode (NITRO mode vs TWL mode) and the processor (ARM9 vs ARM7). The following list shows the types of ARM9 interrupts in NITRO mode and in TWL mode. ARM7 interrupts are omitted from this discussion.</P>
+<H3><B>Interrupts in NITRO Mode (ARM9)</B> <IMG src="../../image/NTR.gif" align="middle"><BR>
+</H3>
+<TABLE>
+<TBODY>
+<TR>
+<TH>Value</TH>
+<TH>Type of Interrupt</TH>
+<TH>Bit (2<SUP>n</SUP>)</TH>
+    </TR>
+    <TR>
+<TD>OS_IE_V_BLANK</TD>
+<TD>V-Blank interrupt</TD>
+      <TD>0</TD>
+    </TR>
+    <TR>
+<TD bgColor=#eeeeee>OS_IE_H_BLANK</TD>
+<TD bgColor=#eeeeee>H-Blank interrupt</TD>
+      <TD>1</TD>
+    </TR>
+<TR>
+<TD bgColor=#eeeeee>OS_IE_V_COUNT</TD>
+<TD bgColor=#eeeeee>V-Counter interrupt</TD>
+      <TD>2</TD>
+    </TR>
+<TR>
+<TD bgColor=#eeeeee>OS_IE_TIMER0</TD>
+<TD bgColor=#eeeeee>Timer0 interrupt</TD>
+      <TD>3</TD>
+    </TR>
+<TR>
+<TD bgColor=#eeeeee>OS_IE_TIMER1</TD>
+<TD bgColor=#eeeeee>Timer1 interrupt</TD>
+      <TD>4</TD>
+    </TR>
+<TR>
+<TD bgColor=#eeeeee>OS_IE_TIMER2</TD>
+<TD bgColor=#eeeeee>Timer2 interrupt</TD>
+      <TD>5</TD>
+    </TR>
+<TR>
+<TD bgColor=#eeeeee>OS_IE_TIMER3</TD>
+<TD bgColor=#eeeeee>Timer3 interrupt</TD>
+      <TD>6 <B><FONT color="#ff0033"> *2</FONT></B></TD>
+    </TR>
+    <TR>
+<TD bgColor=#eeeeee>OS_IE_DMA0</TD>
+<TD bgColor=#eeeeee>DMA0 interrupt</TD>
+      <TD>8 <B><FONT color="#ff0033"> *2</FONT></B></TD>
+    </TR>
+<TR>
+<TD bgColor=#eeeeee>OS_IE_DMA1</TD>
+<TD bgColor=#eeeeee>DMA1 interrupt</TD>
+      <TD>9</TD>
+    </TR>
+<TR>
+<TD bgColor=#eeeeee>OS_IE_DMA2</TD>
+<TD bgColor=#eeeeee>DMA2 interrupt</TD>
+      <TD>10</TD>
+    </TR>
+<TR>
+<TD bgColor=#eeeeee>OS_IE_DMA3</TD>
+<TD bgColor=#eeeeee>DMA3 interrupt</TD>
+      <TD>11</TD>
+    </TR>
+<TR>
+<TD bgColor=#eeeeee>OS_IE_KEY (<B><FONT color="#ff0033">*1</FONT></B>)</TD>
+<TD bgColor=#eeeeee>Key Interrupt </TD>
+      <TD>12</TD>
+    </TR>
+<TR>
+<TD bgColor=#eeeeee>OS_IE_CARTRIDGE</TD>
+<TD bgColor=#eeeeee>Game Pak IREQ/DREQ interrupt</TD>
+      <TD>13</TD>
+    </TR>
+<TR>
+<TD bgColor=#eeeeee>OS_IE_SUBP</TD>
+<TD bgColor=#eeeeee>ARM7 interrupt</TD>
+      <TD>16</TD>
+    </TR>
+<TR>
+<TD bgColor=#eeeeee>OS_IE_SPFIFO_SEND</TD>
+<TD bgColor=#eeeeee>ARM9-ARM7 send FIFO empty interrupt</TD>
+      <TD>17</TD>
+    </TR>
+<TR>
+<TD bgColor=#eeeeee>OS_IE_SPFIFO_RECV</TD>
+<TD bgColor=#eeeeee>ARM9-ARM7 receive FIFO not-empty interrupt</TD>
+      <TD>18</TD>
+    </TR>
+<TR>
+<TD bgColor=#eeeeee>OS_IE_CARD_DATA</TD>
+<TD bgColor=#eeeeee>Card data transfer end interrupt</TD>
+      <TD>19</TD>
+    </TR>
+<TR>
+<TD bgColor=#eeeeee>OS_IE_CARD_IREQ</TD>
+<TD bgColor=#eeeeee>Card IREQ interrupt</TD>
+      <TD>20</TD>
+    </TR>
+<TR>
+<TD bgColor=#eeeeee>OS_IE_GXFIFO</TD>
+<TD bgColor=#eeeeee>Geometry command FIFO interrupt</TD>
+      <TD>21</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P><B><FONT color="#ff0033">*1</FONT></B> The hardware specification does not allow the use of key interrupts. However, they can be used for awakening from sleep.</font><BR><B><FONT color="#ff0033">*2</FONT></B>&nbsp;There is no interrupt that corresponds to the case where the bit is 2<SUP>7</SUP>.</P>
+<H3><BR> <BR> <B>Interrupts in TWL Mode (ARM9)</B> <IMG src="../../image/TWL.gif" align="middle"></H3>
+<P>Within the table, items marked with a &#x2605; are new and were not used in NITRO.</P>
+<TABLE>
+<TBODY>
+<TR>
+<TH>Value</TH>
+<TH>Types of Interrupts</TH>
+<TH>Bit (2<SUP>n</SUP>)</TH>
+    </TR>
+<TR>
+<TD bgColor=#eeeeee>OS_IE_V_BLANK</TD>
+<TD bgColor=#eeeeee>V-Blank interrupt:</TD>
+      <TD>0</TD>
+    </TR>
+<TR>
+<TD bgColor=#eeeeee>OS_IE_H_BLANK</TD>
+<TD bgColor=#eeeeee>H-Blank interrupt:</TD>
+      <TD>1</TD>
+    </TR>
+<TR>
+<TD bgColor=#eeeeee>OS_IE_V_COUNT</TD>
+<TD bgColor=#eeeeee>V-Counter interrupt</TD>
+      <TD>2</TD>
+    </TR>
+<TR>
+<TD bgColor=#eeeeee>OS_IE_TIMER0</TD>
+<TD bgColor=#eeeeee>Timer0 interrupt</TD>
+      <TD>3</TD>
+    </TR>
+<TR>
+<TD bgColor=#eeeeee>OS_IE_TIMER1</TD>
+<TD bgColor=#eeeeee>Timer1 interrupt</TD>
+      <TD>4</TD>
+    </TR>
+<TR>
+<TD bgColor=#eeeeee>OS_IE_TIMER2</TD>
+<TD bgColor=#eeeeee>Timer2 interrupt</TD>
+      <TD>5</TD>
+    </TR>
+<TR>
+<TD bgColor=#eeeeee>OS_IE_TIMER3</TD>
+<TD bgColor=#eeeeee>Timer3 interrupt</TD>
+      <TD>6 <B><FONT color="#ff0033"> *5</FONT></B></TD>
+    </TR>
+    <TR>
+<TD bgColor=#eeeeee>OS_IE_DMA0</TD>
+<TD bgColor=#eeeeee>DMA0 interrupt</TD>
+      <TD>8 <B><FONT color="#ff0033"> *5</FONT></B></TD>
+    </TR>
+<TR>
+<TD bgColor=#eeeeee>OS_IE_DMA1</TD>
+<TD bgColor=#eeeeee>DMA1 interrupt</TD>
+      <TD>9</TD>
+    </TR>
+<TR>
+<TD bgColor=#eeeeee>OS_IE_DMA2</TD>
+<TD bgColor=#eeeeee>DMA2 interrupt</TD>
+      <TD>10</TD>
+    </TR>
+<TR>
+<TD bgColor=#eeeeee>OS_IE_DMA3</TD>
+<TD bgColor=#eeeeee>DMA3 interrupt</TD>
+      <TD>11</TD>
+    </TR>
+<TR>
+<TD bgColor=#eeeeee>OS_IE_KEY (<B><FONT color="#ff0033">*3</FONT></B>)</TD>
+<TD bgColor=#eeeeee>Key Interrupt </TD>
+      <TD>12</TD>
+    </TR>
+<TR>
+<TD bgColor=#eeeeee>OS_IE_CARTRIDGE</TD>
+<TD bgColor=#eeeeee>Game Card IREQ/DREQ interrupt</TD>
+      <TD>13</TD>
+    </TR>
+    <TR>
+<TD>OS_IE_CARD_A_DET &#x2605; (<B><FONT color="#ff0000">*4</FONT></B>)</TD>
+<TD>Memory Card A MC_DET terminal falling edge interrupt</TD>
+      <TD>14</TD>
+    </TR>
+    <TR>
+<TD>OS_IE_CARD_B_DET &#x2605; (<B><FONT color="#ff0000">*4</FONT></B>)</TD>
+<TD>Memory Card B MC_DET terminal falling edge interrupt</TD>
+      <TD>15</TD>
+    </TR>
+    <TR>
+<TD bgColor=#eeeeee>OS_IE_SUBP</TD>
+<TD bgColor=#eeeeee>ARM7 interrupt</TD>
+      <TD>16</TD>
+    </TR>
+<TR>
+<TD bgColor=#eeeeee>OS_IE_SPFIFO_SEND</TD>
+<TD bgColor=#eeeeee>ARM9-ARM7 send FIFO empty interrupt</TD>
+      <TD>17</TD>
+    </TR>
+<TR>
+<TD bgColor=#eeeeee>OS_IE_SPFIFO_RECV</TD>
+<TD bgColor=#eeeeee>ARM9-ARM7 receive FIFO not-empty interrupt</TD>
+      <TD>18</TD>
+    </TR>
+<TR>
+<TD bgColor=#eeeeee>OS_IE_CARD_A_DATA (OS_IE_CARD_DATA) (<B><FONT color="#ff0000">*4</FONT></B>)</TD>
+<TD bgColor=#eeeeee>Card [A] data transfer completion interrupt</TD>
+      <TD>19</TD>
+    </TR>
+<TR>
+<TD bgColor=#eeeeee>OS_IE_CARD_A_IREQ (OS_IE_CARD_IREQ) (<B><FONT color="#ff0000">*4</FONT></B>)</TD>
+<TD bgColor=#eeeeee>Card [A] IREQ interrupt</TD>
+      <TD>20</TD>
+    </TR>
+<TR>
+<TD bgColor=#eeeeee>OS_IE_GXFIFO</TD>
+<TD bgColor=#eeeeee>Geometry command FIFO interrupt</TD>
+      <TD>21</TD>
+    </TR>
+    <TR>
+<TD>OS_IE_DEBUG_RECV &#x2605;</TD>
+<TD>DEBUG communication channel receive buffer readable interrupt</TD>
+      <TD>22</TD>
+    </TR>
+    <TR>
+<TD>OS_IE_DEBUG_SEND &#x2605;</TD>
+<TD>DEBUG communication channel send buffer writable interrupt</TD>
+      <TD>23</TD>
+    </TR>
+    <TR>
+<TD>OS_IE_DSP &#x2605;</TD>
+<TD>DSP interrupt</TD>
+      <TD>24</TD>
+    </TR>
+    <TR>
+<TD>OS_IE_CAMERA &#x2605;</TD>
+<TD>Camera interrupt</TD>
+      <TD>25</TD>
+    </TR>
+    <TR>
+<TD>OS_IE_CARD_B_DATA &#x2605; (<B><FONT color="#ff0000">*4</FONT></B>)</TD>
+<TD>Card [B] data transfer completion interrupt</TD>
+      <TD>26</TD>
+    </TR>
+    <TR>
+<TD>OS_IE_CARD_B_IREQ &#x2605; (<B><FONT color="#ff0000">*4</FONT></B>)</TD>
+<TD>Card [B] IREQ interrupt</TD>
+      <TD>27</TD>
+    </TR>
+    <TR>
+<TD>OS_IE_NDMA0 &#x2605;</TD>
+<TD>New DMA0 interrupt</TD>
+      <TD>28</TD>
+    </TR>
+    <TR>
+<TD>OS_IE_NDMA1 &#x2605;</TD>
+<TD>New DMA1 interrupt</TD>
+      <TD>29</TD>
+    </TR>
+    <TR>
+<TD>OS_IE_NDMA2 &#x2605;</TD>
+<TD>New DMA2 interrupt</TD>
+      <TD>30</TD>
+    </TR>
+    <TR>
+<TD>OS_IE_NDMA3 &#x2605;</TD>
+<TD>New DMA3 interrupt</TD>
+      <TD>31</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P><B><FONT color="#ff0033">*3</FONT></B> The hardware specification does not allow the use of key interrupts. However, they can be used for awakening from sleep.<BR><B><FONT color="#ff0000">*4</FONT></B> The &quot;A&quot; and &quot;B&quot; designations for Cards were set during development for expediency. Type B are used for development hardware like the debugger and are not normally used by users.<BR><B><FONT color="#ff0033">*5</FONT></B>&nbsp;There is no interrupt that corresponds to the case where the bit is 2<SUP>7</SUP>.</P>
+
+<h2>See Also</h2>
+<p><CODE><A href="OS_EnableIrqMask.html">OS_EnableIrqMask</A><BR> <A href="OS_DisableIrqMask.html">OS_DisableIrqMask</A><BR> <A href="OS_SetIrqMask.html">OS_SetIrqMask</A><br></CODE></p>
+<H2>Revision History</H2>
+<P>2008/05/30 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

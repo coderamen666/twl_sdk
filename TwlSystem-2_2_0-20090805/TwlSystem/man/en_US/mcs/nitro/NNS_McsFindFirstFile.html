@@ -1,0 +1,136 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 Trial for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>NNS_McsFindFirstFile</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">NNS_McsFindFirstFile</h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+		
+  <pre><CODE>#include &lt;nnsys/mcs.h&gt;</CODE></pre>
+	  
+  <pre><CODE>u32 NNS_McsFindFirstFile(
+        NNSMcsFile*         pFile,
+        NNSMcsFileFindData* pFindData,
+        const char*         pattern);</CODE></pre>
+	</dd>
+</dl><h2>Arguments</h2>
+
+<table border="1" width="100%">
+ <tr> 
+<td width="13%"><CODE>pFile</CODE></td>
+<td width="87%">Pointer to the file information structure.</td>
+ </tr>
+ <tr> 
+<td width="13%"><CODE>pFindData</CODE></td>
+<td width="87%">Pointer to the structure storing the information relating to the found file.</td>
+ </tr>
+ <tr> 
+<td width="13%"><CODE>pattern</CODE></td>
+<td width="87%">Filename pattern for the search.</td>
+ </tr>
+</table>
+<h2>Return Values</h2>
+<p>Zero if the file search succeeded. A non-zero value otherwise. See <B>Description</B> for details on the possible return values.</p>
+<H2>Description</H2>
+<p>Searches inside the directory for a file that matches the specified filename pattern. If a matching file is found, the information relating to the first-found match is stored in the  <code>NNSMcsFileFindData</code> structure variable specified by <code>pFindData</code>. To search among remaining files, call the <code>NNS_McsFindNextFile</code> function. To end the search, call the <code>NNS_McsCloseFind</code> function.</p>
+<p>You can use the wildcards &quot;<code>*</code>&quot; and &quot;<code>?</code>&quot; in the filename pattern. You can also include a PC environment variable enclosed in percent signs (&quot;%&quot;), such as <CODE>%TWLSYSTEM_ROOT%\include\*.h</CODE>.</p>
+<p>The <code>NNSMcsFileFindData</code> structure is defined as shown below.</p>
+<dl>
+  <dd>
+  <pre><code>#define NNS_MCS_FILEIO_PATH_MAX 260
+  
+typedef struct NNSMcsFileFindData NNSMcsFileFindData;
+struct NNSMcsFileFindData
+{
+    u32         attribute;
+    u32         size;
+    char        name[NNS_MCS_FILEIO_PATH_MAX];
+};</code></pre>
+</dd></dl>
+<p>The content of each member is shown below. </p>
+<table>
+ <tr> 
+<td><CODE>attribute</CODE></td>
+<td>File attribute. For details, see below.</td>
+ </tr>
+ <tr> 
+<td><CODE>size</CODE></td>
+<td>File's size (in bytes).</td>
+ </tr>
+ <tr> 
+<td><CODE>name</CODE></td>
+<td>Filename.</td>
+ </tr>
+</table>
+<p>The file attributes are the combinations of the following values.</p>
+<table>
+  <tbody>
+    <tr>
+<td><CODE>NNS_MCS_FILEIO_ATTRIBUTE_DIRECTORY</CODE></td>
+<td>Directory</td>
+    </tr>
+    <tr>
+<td><CODE>NNS_MCS_FILEIO_ATTRIBUTE_ARCHIVE</CODE></td>
+<td>Archive</td>
+    </tr>
+    <tr>
+<td><CODE>NNS_MCS_FILEIO_ATTRIBUTE_READONLY</CODE></td>
+<td>Read-only</td>
+    </tr>
+    <tr>
+<td><CODE>NNS_MCS_FILEIO_ATTRIBUTE_HIDDEN</CODE></td>
+<td>Hidden file</td>
+    </tr>
+    <tr>
+<td><CODE>NNS_MCS_FILEIO_ATTRIBUTE_SYSTEM</CODE></td>
+<td>System file</td>
+    </tr>
+    <tr>
+<td><CODE>NNS_MCS_FILEIO_ATTRIBUTE_NORMAL</CODE></td>
+<td>File without attribute</td>
+    </tr>
+  </tbody>
+</table>
+<p>The return value takes one of the following values:</p>
+<table>
+  <tbody>
+    <tr>
+<td><CODE>NNS_MCS_FILEIO_ERROR_SUCCESS</CODE> (0)</td>
+<td>The function was successful.</td>
+    </tr>
+    <tr>
+<td><CODE>NNS_MCS_FILEIO_ERROR_COMERROR</CODE></td>
+<td>A communications error occurred.</td>
+    </tr>
+    <tr>
+<td><CODE>NNS_MCS_FILEIO_ERROR_NOTCONNECT</CODE></td>
+<td>Not connected to the mcs server.</td>
+    </tr>
+    <tr>
+<td><CODE>NNS_MCS_FILEIO_ERROR_SERVERERROR</CODE></td>
+<td>A error has occurred due to a file operation on the mcs server side. The error code is a Win32 system error code that you can get with the <code>NNS_McsGetServerErrorCode</code> function.</td>
+    </tr>
+    <tr>
+<td><CODE>NNS_MCS_FILEIO_ERROR_NOMOREFILES</CODE></td>
+<td>File that matches the pattern cannot be found.</td>
+    </tr>
+  </tbody>
+</table>
+<h2>See Also</h2>
+<p><a href="NNS_McsFindNextFile.html"><CODE>NNS_McsFindNextFile</CODE></a><BR> <a  href="NNS_McsCloseFind.html"><CODE>NNS_McsCloseFind</CODE></a></p>
+<H2>Revision History</H2>
+<P>
+2008/06/20 Changed the environment variable name to <CODE>TWLSYSTEM_ROOT</CODE>. <br>2005/01/24 Added descriptions of file attributes and error codes.<br>2004/10/28 Added description of filename patterns.<br>2004/10/19 Corrected the link to <a href="NNS_McsCloseFind.html"><CODE>NNS_McsCloseFind</CODE></a>.<br>2004/07/01 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

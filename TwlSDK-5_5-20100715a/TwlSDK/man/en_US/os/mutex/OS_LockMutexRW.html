@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>OS_LockMutex[R|W]</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">OS_LockMutex[R|W] <IMG src="../../image/NTR.gif" align="middle"><IMG src="../../image/TWL.gif" align="middle"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/os.h&gt;</CODE><BR> <BR> <CODE>void OS_LockMutexR( OSMutex* mutex );</CODE><BR>
+  </dd>
+<dd><CODE>void OS_LockMutexW( OSMutex* mutex );</CODE></dd>
+</dl>
+
+
+<h2>Arguments</h2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="13%"><EM><STRONG>mutex</STRONG></EM></TD>
+<TD width="87%">Pointer to the <CODE>OSMutex</CODE> structure</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<h2>Return Values</h2>
+<p>None.</p>
+
+<H2>Description</H2>
+<P>The calling thread attempts to lock the mutex specified by <SPAN class="argument">mutex</SPAN>.</P>
+<P><SPAN class="argument">mutex</SPAN> is a pointer to an <CODE>OSMutex</CODE> structure.</P>
+<P>The <CODE>OS_LockMutexR</CODE> function attempts to read-lock the mutex. If <SPAN class="argument">mutex</SPAN> is not being used or if it is already set to read-lock by some other arbitrary thread, the function returns immediately. The number of attempts is recorded, and <SPAN class="argument">mutex</SPAN> is not released if it has not been unlocked that same number of times. If <SPAN class="argument">mutex</SPAN> is set to write-lock or if it is being used in a lock from the <CODE>OS_LockMutex</CODE> function, the called thread is paused until <SPAN class="argument">mutex</SPAN> has been released.</P>
+<P>The <CODE>OS_LockMutexW</CODE> attempts to write-lock the mutex. If <SPAN class="argument">mutex</SPAN> is not being used or if it is already being retained in the current thread, the function returns immediately. The number of attempts is recorded, and <SPAN class="argument">mutex</SPAN> is not released if it has not been unlocked that same number of times. If <SPAN class="argument">mutex</SPAN> is set to read-lock, or if it is set to write-lock but is being retained by another thread, or if it is being used in a lock from the <CODE>OS_LockMutex</CODE> function, the called thread is paused until <SPAN class="argument">mutex</SPAN> has been released.</P>
+<P>Note that <SPAN class="argument">mutex</SPAN> must be initialized by the <CODE>OS_InitMutex</CODE> function. (If the mutex is one that has finished being used in another lock-unlock process, it can be used as is without this initialization process.)</P>
+<BLOCKQUOTE style="background-color:#ffffcc;"><B>Example</B><BR> <BR> <CODE>OSMutex myMutex;<BR> <BR> // Init mutex<BR> OS_InitMutex(&amp;myMutex);<BR> <BR> // read lock<BR> OS_LockMutexR(&amp;myMutex);<BR> :<BR>OS_UnlockMutexR(&amp;myMutex);<BR> <BR> // write lock<BR> OS_LockMutexW(&amp;myMutex);  <FONT color="#ff0000">&lt;- You can use myMutex because the read lock has finished using it</FONT><BR> :<BR>OS_UnlockMutexW(&amp;myMutex);<BR> <BR></CODE></BLOCKQUOTE>
+<H3>Corresponding Unlock Functions</H3>
+<P>If <SPAN class="argument">mutex</SPAN> has been locked by the <CODE>OS_LockMutexR</CODE> function, you should unlock it using the <CODE>OS_UnlockMutexR</CODE> or <CODE>OS_UnlockMutexRW</CODE> function. You cannot unlock it using the <CODE>OS_UnlockMutexW</CODE> function.</P>
+<P>If <SPAN class="argument">mutex</SPAN> has been locked by the <CODE>OS_LockMutexW</CODE> function, you should unlock it using the <CODE>OS_UnlockMutexW</CODE> or <CODE>OS_UnlockMutexRW</CODE> function. You cannot unlock it using the <CODE>OS_UnlockMutexR</CODE> function.</P>
+<H3>Exiting the Thread</H3>
+<P>When the thread that is locking <SPAN class="argument">mutex</SPAN> is ended by the <A href="../thread/OS_ExitThread.html"><CODE>OS_ExitThread</CODE></A> function, that mutex is automatically unlocked.</P>
+<H3>Changing Between Read Lock and Write Lock</H3>
+<P>The change from read lock to write lock is performed using the <A href="OS_LockMutexFromToRW.html"><CODE>OS_LockMutexFromRToW</CODE></A> and <A href="OS_TryLockMutexFromToRW.html"><CODE>OS_TryLockMutexFromRToW</CODE></A> functions. The change from write lock to read lock is performed using the <A href="OS_LockMutexFromToRW.html"><CODE>OS_LockMutexFromWToR</CODE></A> and <A href="OS_TryLockMutexFromToRW.html"><CODE>OS_TryLockMutexFromWToR</CODE></A> functions. With both sets of functions, the transition does not involve a switching of threads.</P>
+<H3>For Example</H3>
+<P>Consider the following situation.</P>
+<BLOCKQUOTE><IMG src="image_lock.gif" width="442" height="303" border="0"></BLOCKQUOTE>
+<P>Say that <CODE>read</CODE> is a function that only reads data. Because data is not overwritten, this function can be called from multiple threads simultaneously without any problem. There is also a function named <CODE>write</CODE>, which writes data, and because data must not be read while it is being overwritten, nor overwritten while it is being read, <CODE>write</CODE> must be locked. The mutex is stopped by the <CODE>write</CODE> lock function while it is locked by <CODE>read</CODE>, and it is locked by <CODE>read</CODE> while it is locked by <CODE>write</CODE>. Other threads, however, can enter <CODE>read</CODE> when the mutex is locked by <CODE>read</CODE>.</P>
+<P>Because <CODE>write</CODE> is a function that writes data, it would be a problem if other threads could read and write data while <CODE>write</CODE> was executing. While a mutex is locked by the <CODE>write</CODE> lock function, that same mutex cannot be read-locked, and threads other than its own thread cannot be write-locked. Therefore, during a write lock, other threads cannot execute <CODE>read</CODE> and <CODE>write</CODE>.</P>
+<h2>See Also</h2>
+<p><A href="OS_InitMutex.html"><CODE>OS_InitMutex</CODE></A><BR> <A href="OS_UnlockMutex.html"><CODE>OS_UnlockMutex</CODE></A><BR> <A href="OS_TryLockMutex.html"><CODE>OS_TryLockMutex</CODE></A><BR> <A href="../thread/OS_ExitThread.html"><CODE>OS_ExitThread</CODE></A><BR> <A href="OS_UnlockMutexRW.html"><CODE>OS_UnlockMutexR</CODE></A><BR> <A href="OS_UnlockMutexRW.html"><CODE>OS_UnlockMutexW</CODE></A><BR> <A href="OS_UnlockMutexRW.html"><CODE>OS_UnlockMutexRW</CODE></A><BR> <A href="OS_TryLockMutexRW.html"><CODE>OS_TryLockMutexR</CODE></A><BR> <A href="OS_TryLockMutexRW.html"><CODE>OS_TryLockMutexW</CODE></A><BR> <A href="OS_LockMutexFromToRW.html"><CODE>OS_LockMutexFromRToW</CODE></A><BR> <A href="OS_LockMutexFromToRW.html"><CODE>OS_LockMutexFromWToR</CODE></A><BR> <A href="OS_TryLockMutexFromToRW.html"><CODE>OS_TryLockMutexFromRToW</CODE></A><BR> <A href="OS_TryLockMutexFromToRW.html"><CODE>OS_TryLockMutexFromWToR</CODE></A></p>
+<H2>Revision History</H2>
+<P>2009/03/13 Fixed typos. <BR>2008/12/16 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

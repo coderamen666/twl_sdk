@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>MI_CpuSend*</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">MI_CpuSend* <IMG src="../../image/NTR.gif" align="middle"><IMG src="../../image/TWL.gif" align="middle"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/mi.h&gt;</CODE><BR> <BR> <CODE>void MI_CpuSend32( const void* src, volatile void* dest, u32 size );</CODE><br> <CODE>void MI_CpuSend16( const void* src, volatile void* dest, u32 size );</CODE><br> <CODE>void MI_CpuSendFast( const void* src, volatile void* dest, u32 size );</CODE></dd>
+</dl>
+<h2>Arguments</h2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="13%"><EM><STRONG>src</STRONG></EM></TD>
+<TD width="87%">The transfer source address.</TD>
+    </TR>
+    <TR>
+<TD width="13%"><EM><STRONG>dest</STRONG></EM></TD>
+<TD width="87%">The transfer destination address.</TD>
+    </TR>
+    <TR>
+<TD><EM><STRONG>size</STRONG></EM></TD>
+<TD>Transfer size.
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<h2>Return Values</h2>
+<p>None.</p>
+
+<H2>Description</H2>
+<P>Uses the CPU to transfer data to the same address. The function does not change the address of the transfer destination. It increments only the transfer origin address, and repeatedly transfers contiguous region data to the same address.</P>
+<P><CODE>MI_CpuCopy16()</CODE> transfers in 16-bit units. Both the transfer source address and the transfer destination address must be 2-byte aligned.</P>
+<P><CODE>MI_CpuCopy32()</CODE> transfers in 32-bit units. Both the transfer source address and the transfer destination address must be 4-byte aligned.</P>
+<P><CODE>MI_CpuSendFast()</CODE> copies at high speed in 32-bit units. Both the transfer source address and the transfer destination address must be 4-byte aligned. The transfer size is an integral multiple of 4 bytes. It does not have to be an integral multiple of 32 bytes. After transferring in 32-byte units, the fractional part is handled by performing the same process as <CODE>MI_CpuSend32()</CODE>.</P>
+<h2>Internal Operation</h2>
+<P>Processing is done by the CPU only and does not use the DMA controller. System calls are not used. </P>
+
+<h2>See Also</h2>
+<p><CODE><A href="MI_CpuCopy.html">MI_CpuCopy*</A><BR> <A href="MI_CpuFill.html">MI_CPUFill*</A><BR> <A href="MI_CpuClear.html">MI_CpuClear*</A><BR> <A href="MI_CpuRecv.html">MI_CpuRecv*</A><BR> <A href="../dma/MI_DmaSend.html">MI_DmaSend*</A></CODE></p>
+
+<H2>Revision History</H2>
+<P>2007/12/26 Added the <CODE>MI_CpuSendFast</CODE> function.<BR>2004/03/29 Added a note saying that system calls are not used.<CODE> 2004/01/30 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

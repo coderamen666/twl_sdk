@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title>DSP_StartSampling</title>
+<link rel="stylesheet" href="../../css/nitro.css" type="text/css" />
+</head>
+<body>
+
+<h1>DSP_StartSampling <IMG src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+
+<pre><code>
+void DSP_StartSampling(void *buffer, u32 length);
+</code></pre>
+
+<h2>Arguments</h2>
+<table style="width:100%">
+<tbody>
+<tr>
+<td style="width:13%"><em><strong>buffer</strong></em></td>
+<td style="width:87%">Ring buffer that stores the sampling data.<br />It must be 16-bit aligned.</td>
+</tr>
+<tr>
+<td style="width:13%"><em><strong>len</strong></em></td>
+<td style="width:87%">Size of the ring buffer.<br />It must be an integer in multiples of 16 bits.</td>
+</tr>
+</tbody>
+</table>
+
+<h2>Return Values</h2>
+<p>None.</p>
+
+<h2>Description</h2>
+<p>Begins automatic sampling of signed 16-bit values using the DSP's internal microphone input circuit. The sampling frequency for the input wave data will depend on the sound circuit's frequency at runtime and may be either 32 or 48 kHz. This function can be used at any time when any of the DSP components have been loaded.</p>
+<p>The DSP has a ring buffer that can hold 4,096 monaural samples and will automatically collect samples in the background. As a result, up to 83.3 ms (5 rendering frame cycles) of input wave data can be stored without placing a load on the ARM9. Applications must call the <code><a href="DSP_SyncSamplingBuffer.html">DSP_SyncSamplingBuffer</a></code> function within this interval to periodically save input wave data from the DSP's internal buffer to the ARM9 ring buffer. You can access the state of the saved sampling data with the <code><a href="DSP_GetLastSamplingAddress.html">DSP_GetLastSamplingAddress</a></code> function.</p>
+
+<h2>See Also</h2>
+<p><code><a href="DSP_StopSampling.html">DSP_StopSampling</a> <a href="DSP_SyncSamplingBuffer.html">DSP_SyncSamplingBuffer</a> <a href="DSP_GetLastSamplingAddress.html">DSP_GetLastSamplingAddress</a></code></p>
+
+<h2>Revision History</h2>
+<p>
+2008/06/13 Initial version.
+</p>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

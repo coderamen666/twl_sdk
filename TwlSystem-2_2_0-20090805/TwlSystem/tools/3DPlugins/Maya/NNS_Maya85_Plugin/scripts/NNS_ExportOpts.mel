@@ -1,0 +1,1481 @@
+/******************************************************************************
+	NINTENDO NITRO-System Maya Plugin
+
+	File:         NNS_ExportOpts.mel
+	Description:  export NITRO intermediate file options
+	Date:         2008/12/17
+	Author:       Takashi Endo
+
+	Copyright 2003-2009 Nintendo. All rights reserved.
+******************************************************************************/
+
+// NNS_ExportOpts
+// NNS_ResetExportOpts
+// SearchAnim
+
+/******************************************************************************
+	find string in array
+******************************************************************************/
+proc int FindStringInArray(string $array[], string $value)
+{
+	int $size = size($array);
+	int $idx;
+	for ($idx = 0; $idx < $size; ++$idx)
+	{
+		if ($array[$idx] == $value)
+		{
+			return $idx;
+		}
+	}
+	return -1;
+}
+
+/******************************************************************************
+	magnify callback
+******************************************************************************/
+global proc nnsExport_MagnifyCB()
+{
+	float $magnify = `floatFieldGrp -q -v1 nnsExport_Magnify`;
+	if ($magnify <= 0.0)
+	{
+		floatFieldGrp -e -v1 1.0 nnsExport_Magnify;
+	}
+}
+
+/******************************************************************************
+	frame range callback
+******************************************************************************/
+global proc nnsExport_FrameRangeCB()
+{
+	int $frame_range = `radioButtonGrp -q -sl nnsExport_FrameRange` - 1;
+	int $enableFlag = ($frame_range == 2);
+	control -e -en $enableFlag nnsExport_StartFrame;
+	control -e -en $enableFlag nnsExport_EndFrame;
+}
+
+/******************************************************************************
+	frame start end callback
+******************************************************************************/
+global proc nnsExport_FrameStartEndCB()
+{
+	int $start = `intField -q -v nnsExport_StartFrame`;
+	int $end   = `intField -q -v nnsExport_EndFrame`;
+	if ($start > $end)
+	{
+		intField -e -v $end nnsExport_StartFrame;
+		intField -e -v $start nnsExport_EndFrame;
+	}
+}
+
+/******************************************************************************
+	model file callback
+******************************************************************************/
+global proc nnsExport_ModelCB()
+{
+	int $imd = `checkBoxGrp -q -v1 nnsExport_ImdFileOut`;
+
+	control -e -en $imd nnsExport_VertexStyle;
+	control -e -en $imd nnsExport_OutAllTex;
+	control -e -en $imd nnsExport_ForceFullWeight;
+	control -e -en $imd nnsExport_UsePrimitiveStrip;
+}
+
+/******************************************************************************
+	anim file callback
+******************************************************************************/
+global proc nnsExport_AnimeCB()
+{
+	//-----------------------------------------------------------------------------
+	// get out file
+	int $ica = `checkBoxGrp -q -v1 nnsExport_IcaFileOut`;
+	int $iva = `checkBoxGrp -q -v1 nnsExport_IvaFileOut`;
+	int $ima = `checkBoxGrp -q -v1 nnsExport_ImaFileOut`;
+	int $itp = `checkBoxGrp -q -v1 nnsExport_ItpFileOut`;
+	int $ita = `checkBoxGrp -q -v1 nnsExport_ItaFileOut`;
+	//int $isa = `checkBoxGrp -q -v1 nnsExport_IsaFileOut`;
+	int $isa = 0;
+
+	int $anyAnim = ($ica || $iva || $ima || $itp || $ita || $isa);
+	int $linearAnim = ($ica || $ima || $ita || $isa);
+
+	//-----------------------------------------------------------------------------
+	// anim options
+	int $anime_interp = `optionMenuGrp -q -sl nnsExport_AnimeInterp` - 1;;
+
+	control -e -en $linearAnim nnsExport_AnimeInterp;
+	control -e -en ($linearAnim && $anime_interp == 1)
+		nnsExport_LoopInterp;
+	control -e -en $linearAnim nnsExport_FrameStepMode;
+
+	//-----------------------------------------------------------------------------
+	// tolerance options
+	int $nodeTolFlagRT = ($ica || $isa);
+	int $nodeTolFlagS  = $ica;
+	control -e -en $nodeTolFlagRT nnsExport_AnimeTolT;
+	control -e -en $nodeTolFlagRT nnsExport_AnimeTolR;
+	control -e -en $nodeTolFlagS nnsExport_AnimeTolS;
+
+	int $uvTolFlag = $ita;
+	control -e -en $uvTolFlag nnsExport_AnimeTolUvT;
+	control -e -en $uvTolFlag nnsExport_AnimeTolUvR;
+	control -e -en $uvTolFlag nnsExport_AnimeTolUvS;
+
+	int $colorTolFlag = ($ima || $isa);
+	control -e -en $colorTolFlag nnsExport_AnimeTolC;
+}
+
+/******************************************************************************
+	tolerance srt callback
+******************************************************************************/
+global proc nnsExport_ToleranceSRTCB(string $field)
+{
+	float $val = eval("floatFieldGrp -q -v1 " + $field);
+	if ($val < 0.0)
+	{
+		eval("floatFieldGrp -e -v1 0.0 " + $field);
+	}
+}
+
+/******************************************************************************
+	tolerance color callback
+******************************************************************************/
+global proc nnsExport_ToleranceColorCB(string $field)
+{
+	int $val = eval("intFieldGrp -q -v1 " + $field);
+	if ($val < 0)
+	{
+		$val = 0;
+	}
+	else if ($val > 31)
+	{
+		$val = 31;
+	}
+	eval("intFieldGrp -e -v1 " + $val + " " + $field);
+}
+
+/******************************************************************************
+	update all control state
+******************************************************************************/
+global proc nnsExport_UpdateAllControlState()
+{
+	nnsExport_MagnifyCB();
+	nnsExport_FrameRangeCB();
+	nnsExport_FrameStartEndCB();
+	nnsExport_ModelCB();
+	nnsExport_AnimeCB();
+
+	nnsExport_ToleranceSRTCB("nnsExport_AnimeTolT");
+	nnsExport_ToleranceSRTCB("nnsExport_AnimeTolR");
+	nnsExport_ToleranceSRTCB("nnsExport_AnimeTolS");
+
+	nnsExport_ToleranceSRTCB("nnsExport_AnimeTolUvT");
+	nnsExport_ToleranceSRTCB("nnsExport_AnimeTolUvR");
+	nnsExport_ToleranceSRTCB("nnsExport_AnimeTolUvS");
+
+	nnsExport_ToleranceColorCB("nnsExport_AnimeTolC");
+}
+
+/******************************************************************************
+	is no compress node
+******************************************************************************/
+proc int IsNoCompressNode(string $node)
+{
+	return (`attributeQuery -n $node -ex "nns_no_cut"`) ?
+		`getAttr ($node + ".nns_no_cut")` : 0;
+}
+
+/******************************************************************************
+	is scene anim object
+******************************************************************************/
+proc int IsSceneAnimObject(string $node)
+{
+	string $type = nodeType($node);
+	string $childs[] = `listRelatives -pa -s $node`;
+	if (size(`ls -cameras -lights -typ environmentFog $childs`) > 0 ||
+		$type == "lookAt")
+	{
+		return true;
+	}
+	return false;
+}
+
+/******************************************************************************
+	is constraint node
+******************************************************************************/
+proc int IsConstraintNode(string $node)
+{
+	return (size(`ls -typ constraint $node`) != 0);
+}
+
+/******************************************************************************
+	is needless locator or group
+******************************************************************************/
+proc int IsNeedlessLocatorOrGroup(string $node)
+{
+	if (nodeType($node) == "transform")
+	{
+		string $childs[] = `listRelatives -pa -ni $node`;
+		if (size($childs) == 0) // empty group
+		{
+			return true;
+		}
+		else if (size($childs) == 1)
+		{
+			string $childType = nodeType($childs[0]);
+			if ($childType == "locator") // locator without child
+			{
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
+/******************************************************************************
+	is blend shape target
+******************************************************************************/
+proc int IsBlendShapeTarget(string $node)
+{
+	string $shapes[] = `listRelatives -pa -ni -s $node`;
+	if (size($shapes) && nodeType($shapes[0]) == "mesh")
+	{
+		string $cons[] = `listConnections -s 0 -d 1 ($shapes[0] + ".worldMesh")`;
+		if (size($cons) && nodeType($cons[0]) == "blendShape")
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
+/******************************************************************************
+	is effective node
+******************************************************************************/
+proc int IsEffectiveNode(string $node)
+{
+	if (IsNoCompressNode($node))
+	{
+		return true;
+	}	
+
+	string $type = nodeType($node);
+	if ($type == "ikHandle" ||
+		$type == "ikEffector" ||
+		IsConstraintNode($node) ||
+		IsNeedlessLocatorOrGroup($node) ||
+		IsBlendShapeTarget($node))
+	{
+		return false;
+	}
+
+	if (`getAttr ($node + ".template")`)
+	{
+		return false;	
+	}	
+	if (`getAttr ($node + ".overrideEnabled")`)
+	{
+		if (!`getAttr ($node + ".overrideVisibility")` ||
+			!`getAttr ($node + ".overrideShading")` ||
+			`getAttr ($node + ".overrideDisplayType")` == 1) // Template
+		{
+			return false;
+		}
+	}
+
+	return true;
+}
+
+/******************************************************************************
+	remove no output child (both argments must be long path)
+******************************************************************************/
+proc RemoveNoOutputChild(string $xforms[], string $noOutputs[])
+{
+	string $dsts[];
+	for ($xform in $xforms)
+	{
+		int $enable = true;
+		for ($noOutput in $noOutputs)
+		{
+			if (gmatch($xform, $noOutput + "|*"))
+			{
+				$enable = false;
+				//print ("remove by parent: " + $xform + " (" + $noOutput + ")\n");
+			}
+		}
+		if ($enable)
+		{
+			$dsts[size($dsts)] = $xform;
+		}
+	}
+	$xforms = $dsts;
+}
+
+/******************************************************************************
+	get node parent list
+******************************************************************************/
+proc GetNodeParentList(string $list[], string $node)
+{
+	clear($list);
+	while (1)
+	{
+		$list[size($list)] = $node;
+		string $parents[] = `listRelatives -pa -p $node`;
+		if (!size($parents))
+		{
+			break;
+		}
+		$node = $parents[0];
+	}
+}
+
+/******************************************************************************
+	is attr animated
+******************************************************************************/
+proc int IsAttrAnimated(string $plug)
+{
+	string $ins[] = `listConnections -s 1 -d 0 $plug`;
+	if (size($ins))
+	{
+		string $hists[] = `listHistory $ins[0]`;
+		if (size(`ls -typ animCurve -typ expression $hists`))
+		{
+			return true;
+		}
+	}			
+	return false;
+}
+
+/******************************************************************************
+	is xform node animated
+******************************************************************************/
+proc int IsXformNodeAnimated(string $xform, int $depth)
+{
+	string $attrs[] = { "tx", "ty", "tz", "rx", "ry", "rz", "sx", "sy", "sz" };
+	string $compAttrs[] = { "t", "r", "s" };
+
+	//-----------------------------------------------------------------------------
+	// check search depth
+	//print ("ixna: " + $xform + ", " + $depth + "\n");
+	if ($depth >= 3)
+	{
+		return false;
+	}
+
+	//-----------------------------------------------------------------------------
+	// child attr
+	string $checkedCons[];
+	for ($attr in $attrs)
+	{
+		string $plug = $xform + "." + $attr;
+		string $ins[] = `listConnections -s 1 -d 0 $plug`;
+		if (size($ins))
+		{
+			string $inNode = $ins[0];
+			string $inType = nodeType($inNode);
+			string $hists[];
+			if (gmatch($inType, "animBlendNode*"))
+				$hists = `listHistory $inNode`;
+			else
+				$hists = `listHistory $plug`;
+
+			//-----------------------------------------------------------------------------
+			// curve & expression & rigid body
+			if (size(`ls -typ animCurve -typ expression -typ rigidBody $hists`))
+			{
+				return true;
+			}
+
+			//-----------------------------------------------------------------------------
+			// xform attr connection (node1.attr -> node2.attr)
+			if ($inNode != $xform &&
+				size(`ls -et transform -et joint $inNode`))
+			{
+				if (IsXformNodeAnimated($inNode, $depth + 1))
+				{
+					return true;
+				}
+			}
+
+			//-----------------------------------------------------------------------------
+			// constraint
+			string $cons[] = `ls -typ constraint $hists`;
+			if (size($cons))
+			{
+				//return true;
+				string $con = $cons[0];
+				if (FindStringInArray($checkedCons, $con) == -1)
+				{
+					string $targets[] = 
+						`listConnections -s 1 -d  0 -type transform ($con + ".tg")`;
+					$targets = stringArrayRemoveDuplicates($targets);
+					//print "tar:\n"; print $targets;
+					for ($target in $targets)
+					{
+						if ($target != $xform && $target != $con)
+						{
+							string $list[];
+							GetNodeParentList($list, $target);
+							for ($n in $list)
+							{
+								if (IsXformNodeAnimated($n, $depth + 1))
+								{
+									return true;
+								}
+							}
+						}				
+					}
+					$checkedCons[size($checkedCons)] = $con;
+				}
+			}
+		}
+	}
+
+	//-----------------------------------------------------------------------------
+	// compound attr
+	for ($attr in $compAttrs)
+	{
+		string $plug = $xform + "." + $attr;
+		string $ins[] = `listConnections -s 1 -d 0 $plug`;
+		if (size($ins))
+		{
+			string $inNode = $ins[0];
+			//-----------------------------------------------------------------------------
+			// xform (curve -> node1.t -> node2.t)
+			if (size(`ls -et transform -et joint $inNode`) &&
+				$inNode != $xform)
+			{
+				if (IsXformNodeAnimated($inNode, $depth + 1))
+				{
+					return true;
+				}
+			}
+		}
+	}
+
+	return false;
+}
+
+/******************************************************************************
+	is pole vector animated
+******************************************************************************/
+proc int IsPoleVectorAnimated(string $ik)
+{
+	string $attrs[] = { "pvx", "pvy", "pvz" };
+
+	string $checkedCons[];
+	for ($attr in $attrs)
+	{
+		string $plug = $ik + "." + $attr;
+		string $ins[] = `listConnections -s 1 -d 0 $plug`;
+		if (size($ins))
+		{
+			string $inNode = $ins[0];
+			//string $hists[] = `listHistory $inNode`;
+			string $hists[] = `listHistory $plug`;
+
+			if (size(`ls -typ animCurve -typ expression $hists`))
+			{
+				return true;
+			}
+
+			if (nodeType($inNode) == "poleVectorConstraint")
+			{
+				string $con = $inNode;
+				if (FindStringInArray($checkedCons, $con) == -1)
+				{
+					string $targets[] = 
+						`listConnections -s 1 -d  0 -type transform ($con + ".tg")`;
+					$targets = stringArrayRemoveDuplicates($targets);
+					//print "pole tar:\n"; print $targets;
+					for ($target in $targets)
+					{
+						if ($target != $ik && $target != $con)
+						{
+							string $list[];
+							GetNodeParentList($list, $target);
+							for ($n in $list)
+							{
+								if (IsXformNodeAnimated($n, 0))
+								{
+									return true;
+								}
+							}
+						}		
+					}
+					$checkedCons[size($checkedCons)] = $con;
+				}
+			}
+		}
+	}
+
+	return false;
+}
+
+/******************************************************************************
+	does ik controlled xform exist
+******************************************************************************/
+proc int DoesIkControlledXformExist(string $xforms[], string $ik)
+{
+	string $sjs[] = `listConnections -s 1 -d 0 ($ik + ".startJoint")`;
+	string $efs[] = `listConnections -s 1 -d 0 ($ik + ".endEffector")`;
+	if (size($sjs) && size($efs))
+	{
+		string $node = $efs[0];
+		while ($node != $sjs[0])
+		{
+			string $parents[] = `listRelatives -pa -p $node`;
+			if (!size($parents))
+			{
+				break;
+			}
+			$node = $parents[0];
+			if (FindStringInArray($xforms, $node) != -1)
+			{
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
+/******************************************************************************
+	does chara exist
+******************************************************************************/
+proc int DoesCharaAnimExist(string $xforms[])
+{
+	//-----------------------------------------------------------------------------
+	// check size
+	if (!size($xforms))
+	{
+		return false;
+	}
+
+	//-----------------------------------------------------------------------------
+	// check curve / expression / constraint / rigid body
+	for ($xform in $xforms)
+	{
+		if (IsXformNodeAnimated($xform, 0))
+		{
+			return true;
+		}
+	}
+
+	//-----------------------------------------------------------------------------
+	// check IK
+	string $iks[] = `ls -typ ikHandle`;
+	for ($ik in $iks)
+	{
+		if (DoesIkControlledXformExist($xforms, $ik))
+		{
+			if (IsXformNodeAnimated($ik, 0) ||
+				IsPoleVectorAnimated($ik))
+			{
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
+
+/******************************************************************************
+	does vis anim exist
+******************************************************************************/
+proc int DoesVisAnimExist(string $xforms[], string $meshs[])
+{
+	for ($xform in $xforms)
+	{
+		if (IsAttrAnimated($xform + ".v"))
+		{
+			return true;
+		}
+	}
+
+	for ($mesh in $meshs)
+	{
+		if (IsAttrAnimated($mesh + ".v"))
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
+
+/******************************************************************************
+	get first file node
+******************************************************************************/
+proc string GetFirstFileNode(string $plug)
+{
+	string $ins[] = `listConnections -s 1 -d 0 $plug`;
+	if (size($ins))
+	{
+		string $file = $ins[0];
+		if (nodeType($file) == "layeredTexture")
+		{
+			$ins = `listConnections -s 1 -d 0 -type file ($file + ".cs")`;
+			if (!size($ins))
+			{
+				return "";
+			}
+			$file = $ins[0];
+		}
+		if (nodeType($file) == "file")
+		{
+			return $file;
+		}
+	}
+	return "";
+}
+
+/******************************************************************************
+	does color anim exist
+******************************************************************************/
+proc int DoesColorAnimExist(string $mats[])
+{
+	string $attrs[] = { "cr", "cg", "cb", "itr", "acr", "acg", "acb", "sr", "sg", "sb" };
+	string $colorGains[] = { "cgr", "cgg", "cgb" };
+
+	for ($mat in $mats)
+	{
+		//-----------------------------------------------------------------------------
+		// direct anim
+		for ($attr in $attrs)
+		{
+			if (!`attributeQuery -n $mat -ex $attr`)
+			{
+				break;
+			}
+			if (IsAttrAnimated($mat + "." + $attr))
+			{
+				return true;
+			}
+		}
+
+		//-----------------------------------------------------------------------------
+		// color gain anim
+		string $file = GetFirstFileNode($mat + ".c");
+		if (size($file))
+		{
+			for ($attr in $colorGains)
+			{
+				if (IsAttrAnimated($file + "." + $attr))
+				{
+					return true;
+				}
+			}
+		}
+
+		//-----------------------------------------------------------------------------
+		// alpha gain anim
+		string $file = GetFirstFileNode($mat + ".it");
+		if (size($file))
+		{
+			if (IsAttrAnimated($file + ".ag"))
+			{
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
+
+/******************************************************************************
+	does tex pat anim exist
+******************************************************************************/
+proc int DoesTexPatAnimExist(string $files[])
+{
+	for ($file in $files)
+	{
+		if (`getAttr ($file + ".ufe")`)
+		{
+			if (IsAttrAnimated($file + ".fe"))
+			{
+				return true;
+			}
+			//string $ins[] = `listConnections -s 1 -d 0 ($file + ".fe")`;
+			//if (size($ins))
+			//{
+			//	string $hists[] = `listHistory $ins[0]`;
+			//	if (size(`ls -typ animCurve $hists`)) // curve only
+			//	{
+			//		return true;
+			//	}
+			//}			
+		}
+	}
+
+	return false;
+}
+
+/******************************************************************************
+	does tex srt anim exist
+******************************************************************************/
+proc int DoesTexSrtAnimExist(string $files[])
+{
+	string $attrs[] = { "tfu", "tfv", "rf", "reu", "rev" };
+
+	for ($file in $files)
+	{
+		string $ins[] = `listConnections -s 1 -d 0 -type place2dTexture ($file + ".uv")`;
+		if (size($ins))
+		{
+			string $place = $ins[0];
+			for ($attr in $attrs)
+			{
+				if (IsAttrAnimated($place + "." + $attr))
+				{
+					return true;
+				}
+			}
+		}
+	}
+
+	return false;
+}
+
+/******************************************************************************
+	get file node for attr
+******************************************************************************/
+proc GetFileNodeForAttr(string $files[], string $plug)
+{
+	string $ins[] = `listConnections -s 1 -d 0 $plug`;
+	if (size($ins))
+	{
+		string $hists[] = `listHistory $ins[0]`;
+		string $fins[] = `ls -typ file $hists`;
+		for ($file in $fins)
+		{
+			if (FindStringInArray($files, $file) == -1)
+			{
+				$files[size($files)] = $file; // append
+			}
+		}
+	}
+}
+
+/******************************************************************************
+	search anim
+******************************************************************************/
+global proc nnsExport_SearchAnim()
+{
+	global string $gOptionBox;
+
+	//-----------------------------------------------------------------------------
+	// get mode
+	int $selFlag = 0;
+	if (`control -q -ex nnsExpDialog_ExportMode`)
+	{
+		$selFlag = (`radioButtonGrp -q -sl nnsExpDialog_ExportMode` == 2);
+	}
+	else if (`window -ex $gOptionBox`)
+	{
+		string $title = `window -q -title $gOptionBox`;
+		$selFlag = (size(match("^Export Selection", $title)) != 0);
+	}
+
+	//-----------------------------------------------------------------------------
+	// get target transform
+	string $tarXforms[];
+	if (!$selFlag)	// all
+	{
+		$tarXforms = `ls -l -typ transform`;
+	}
+	else			// sel (below)
+	{
+		$tarXforms = `ls -l -sl -dag -typ transform`;
+	}
+
+	//-----------------------------------------------------------------------------
+	// get effective transform
+	string $xforms[];
+	string $noOutputs[];
+	for ($xform in $tarXforms)
+	{
+		if (!IsSceneAnimObject($xform))
+		{
+			if (IsEffectiveNode($xform))
+			{
+				$xforms[size($xforms)] = $xform;
+			}
+			else
+			{
+				$noOutputs[size($noOutputs)] = $xform;
+			}
+		}
+	}
+	RemoveNoOutputChild($xforms, $noOutputs);
+
+	//print "xforms:\n"; print $xforms;
+	if (size($xforms) == 0)
+	{
+		if (!$selFlag)
+		{
+			warning "No effective node";
+		}
+		else
+		{
+			warning "Effective node is not selected";
+		}
+	}
+
+	//-----------------------------------------------------------------------------
+	// get mesh
+	string $meshs[];
+	for ($xform in $xforms)
+	{
+		string $shapes[] = `listRelatives -pa -ni -s $xform`;
+		if (size($shapes) && nodeType($shapes[0]) == "mesh" &&
+			!`getAttr ($shapes[0] + ".template")`) // added (2008/02/14)
+		{
+			$meshs[size($meshs)] = $shapes[0];
+		}
+	}
+
+	//-----------------------------------------------------------------------------
+	// get material & file
+	string $mats[];
+	string $files[];
+	for ($mesh in $meshs)
+	{
+		string $sgs[] = `listSets -t 1 -o $mesh`;
+		for ($sg in $sgs)
+		{
+			string $ins[] = `listConnections -s 1 -d 0 -type lambert ($sg + ".ss")`;
+			if (size($ins))
+			{
+				string $mat = $ins[0];
+				if (FindStringInArray($mats, $mat) == -1)
+				{
+					$mats[size($mats)] = $mat;
+					GetFileNodeForAttr($files, $mat + ".c");
+					//GetFileNodeForAttr($files, $mat + ".n"); // for nrm map
+				}
+			}
+		}
+	}
+
+	//-----------------------------------------------------------------------------
+	// search & check
+	checkBoxGrp -e -v1 (DoesCharaAnimExist($xforms)) nnsExport_IcaFileOut;
+	checkBoxGrp -e -v1 (DoesVisAnimExist($xforms, $meshs)) nnsExport_IvaFileOut;
+	checkBoxGrp -e -v1 (DoesColorAnimExist($mats)) nnsExport_ImaFileOut;
+	checkBoxGrp -e -v1 (DoesTexPatAnimExist($files)) nnsExport_ItpFileOut;
+	checkBoxGrp -e -v1 (DoesTexSrtAnimExist($files)) nnsExport_ItaFileOut;
+
+	//-----------------------------------------------------------------------------
+	// update control
+	nnsExport_AnimeCB();
+}
+
+/******************************************************************************
+	main
+******************************************************************************/
+global proc int NNS_ExportOpts(string $parent,
+	string $action,	string $initialSettings, string $resultCallback)
+{
+	int	$retVal;
+
+	if ($action == "post")
+	{
+		//-----------------------------------------------------------------------------
+		// create UI
+		//-----------------------------------------------------------------------------
+
+		setParent $parent;
+
+		setUITemplate -pushTemplate DefaultTemplate;
+		
+		columnLayout -adj 1;
+
+		//-----------------------------------------------------------------------------
+		// general
+		frameLayout -l "General Options" -cll 1 -cl 0 -bv 1 -bs "etchedIn";
+			columnLayout -adj 1 -rs 4;
+			rowColumnLayout -nc 2 -cw 1 165 -cw 2 200;
+				floatFieldGrp -l "Magnify" -nf 1 -cw 1 100 -cw 2 60
+					-v1 1.0 -pre 4
+					-cc "nnsExport_MagnifyCB"
+					nnsExport_Magnify;
+				checkBoxGrp -l "" -ncb 1 -cw 1 24 -cw 2 120
+					-l1 "Remove Namespace" -v1 0
+					nnsExport_RemoveNamespace;
+			setParent ..; // rowColumnLayout
+			optionMenuGrp -l "Compress Node" -cw 1 100
+				-rat 1 "both" 4
+				nnsExport_OptimizeNode;
+				menuItem -l "None";
+				menuItem -l "Cull Useless Node";
+				menuItem -l "Merge Useless Node";
+				menuItem -l "Unite";
+				menuItem -l "Unite and Combine Polygon";
+			optionMenuGrp -l "Compress Material" -cw 1 100
+				-rat 1 "both" 4
+				nnsExport_CompressMaterial;
+				menuItem -l "None";
+				menuItem -l "Compress Same Material";
+			rowColumnLayout -nc 4 -cw 1 295 -cw 2 50 -cw 3 5 -cw 4 50;
+				radioButtonGrp -l "Start / End Frame" -nrb 3
+					-cw4 100 50 80 65
+					-rat 2 "both" 0
+					-rat 3 "both" 0
+					-rat 4 "both" 0
+					-la3 "All" "Playback" "Range" -sl 1
+					-cc "nnsExport_FrameRangeCB"
+					nnsExport_FrameRange;
+				intField -v 1
+					-cc "nnsExport_FrameStartEndCB"
+					nnsExport_StartFrame;
+				text -l ""; // dummy
+				intField -v 9999
+					-cc "nnsExport_FrameStartEndCB"
+					nnsExport_EndFrame;
+			setParent ..; // rowColumnLayout
+			setParent ..; // columnLayout
+		setParent ..; // frameLayout
+
+		//-----------------------------------------------------------------------------
+		// file select
+		frameLayout -l "Output File Selection" -cll 1 -cl 0 -bv 1 -bs "etchedIn";
+			string $form = `formLayout`;
+				checkBoxGrp -l "Model Data" -ncb 1 -l1 "[.imd]" -v1 1 -cw 2 60
+					-cc1 "nnsExport_ModelCB" nnsExport_ImdFileOut;
+				checkBoxGrp -l "Character Animation Data" -ncb 1 -l1 "[.ica]" -v1 0 -cw 2 60
+					-cc "nnsExport_AnimeCB" nnsExport_IcaFileOut;
+				checkBoxGrp -l "Visibility Animation Data" -ncb 1 -l1 "[.iva]" -v1 0 -cw 2 60
+					-cc "nnsExport_AnimeCB" nnsExport_IvaFileOut;
+				checkBoxGrp -l "Material Color Animation Data" -ncb 1 -l1 "[.ima]" -v1 0 -cw 2 60
+					-cc "nnsExport_AnimeCB" nnsExport_ImaFileOut;
+				checkBoxGrp -l "Texture Pattern Animation Data" -ncb 1 -l1 "[.itp]" -v1 0 -cw 2 60
+					-cc "nnsExport_AnimeCB" nnsExport_ItpFileOut;
+				checkBoxGrp -l "Texture SRT Animation Data" -ncb 1 -l1 "[.ita]" -v1 0 -cw 2 60
+					-cc "nnsExport_AnimeCB" nnsExport_ItaFileOut;
+				//checkBoxGrp -l "Scene Animation Data" -ncb 1 -l1 "[.isa]" -v1 0 -cw 2 60
+				//	-cc "nnsExport_AnimeCB" nnsExport_IsaFileOut;
+				button -l "Search Animation" -w 104
+					-c "nnsExport_SearchAnim"
+					nnsExport_SearchAnimBtn;
+			setParent ..; // formLayout
+			formLayout -e
+				-af nnsExport_ImdFileOut "left" 0
+				-af nnsExport_ImdFileOut "top" 4
+				-an nnsExport_ImdFileOut "right"
+				-an nnsExport_ImdFileOut "bottom"
+
+				-af nnsExport_IcaFileOut "left" 0
+				-ac nnsExport_IcaFileOut "top" 4 nnsExport_ImdFileOut
+				-an nnsExport_IcaFileOut "right"
+				-an nnsExport_IcaFileOut "bottom"
+
+				-af nnsExport_IvaFileOut "left" 0
+				-ac nnsExport_IvaFileOut "top" 4 nnsExport_IcaFileOut
+				-an nnsExport_IvaFileOut "right"
+				-an nnsExport_IvaFileOut "bottom"
+
+				-af nnsExport_ImaFileOut "left" 0
+				-ac nnsExport_ImaFileOut "top" 4 nnsExport_IvaFileOut
+				-an nnsExport_ImaFileOut "right"
+				-an nnsExport_ImaFileOut "bottom"
+
+				-af nnsExport_ItpFileOut "left" 0
+				-ac nnsExport_ItpFileOut "top" 4 nnsExport_ImaFileOut
+				-an nnsExport_ItpFileOut "right"
+				-an nnsExport_ItpFileOut "bottom"
+
+				-af nnsExport_ItaFileOut "left" 0
+				-ac nnsExport_ItaFileOut "top" 4 nnsExport_ItpFileOut
+				-an nnsExport_ItaFileOut "right"
+				-af nnsExport_ItaFileOut "bottom" 4
+
+				-ac nnsExport_SearchAnimBtn "left" 36 nnsExport_ImdFileOut
+				-af nnsExport_SearchAnimBtn "top" 4
+				//-aoc nnsExport_SearchAnimBtn "top" 0 nnsExport_IcaFileOut
+				-an nnsExport_SearchAnimBtn "right"
+				-an nnsExport_SearchAnimBtn "bottom"
+				$form;
+		setParent ..; // frameLayout
+
+		//-----------------------------------------------------------------------------
+		// imd
+		frameLayout -l "Imd Options" -cll 1 -cl 0 -bv 1 -bs "etchedIn";
+			columnLayout -adj 1 -rs 4;
+			rowColumnLayout -nc 2 -cw 1 165 -cw 2 200;
+				optionMenuGrp -l "Vertex Style" -cw 1 100 -cw 2 62
+					nnsExport_VertexStyle;
+					menuItem -l "Direct";
+					menuItem -l "Index";
+				optionMenuGrp -l "Output Texture" -cw 1 104
+					nnsExport_OutAllTex;
+					menuItem -l "Only Used";
+					menuItem -l "All";
+			setParent ..; // rowColumnLayout
+			rowColumnLayout -nc 2 -cw 1 165 -cw 2 200;
+				checkBoxGrp -l "" -ncb 1 -cw 1 37
+					-l1 "Force Full Weight" -v1 0
+					nnsExport_ForceFullWeight;
+				checkBoxGrp -l "" -ncb 1 -cw 1 24 -cw 2 120
+					-l1 "Use Primitive Strip" -v1 1
+					nnsExport_UsePrimitiveStrip;
+			setParent ..; // rowColumnLayout
+			setParent ..; // columnLayout
+		setParent ..; // frameLayout
+
+		//-----------------------------------------------------------------------------
+		// anim
+		frameLayout -l "Animation Options" -cll 1 -cl 0 -bv 1 -bs "etchedIn";
+			columnLayout -adj 1 -rs 4;
+			rowColumnLayout -nc 2 -cw 1 165 -cw 2 228;
+				optionMenuGrp -l "Interpolation" -cw 1 100
+					-cc "nnsExport_AnimeCB"
+					nnsExport_AnimeInterp;
+					menuItem -l "Frame";
+					menuItem -l "Linear";
+				optionMenuGrp -e -sl 1 nnsExport_AnimeInterp; // Frame
+				checkBoxGrp -l "" -ncb 1 -cw 1 24
+					-l1 "Interpolate End Frame to Start Frame" -v1 0
+					nnsExport_LoopInterp;
+			setParent ..; // rowColumnLayout
+			rowColumnLayout -nc 2 -cw 1 165 -cw 2 220;
+				optionMenuGrp -l "Frame Step Mode" -cw 1 100
+					nnsExport_FrameStepMode;
+					menuItem -l "Auto  ";
+					menuItem -l "1";
+					menuItem -l "2";
+					menuItem -l "4";
+				optionMenuGrp -e -sl 2 nnsExport_FrameStepMode; // 1
+				text -l ""; // dummy
+			setParent ..; // rowColumnLayout
+			setParent ..; // columnLayout
+		setParent ..; // frameLayout
+
+		//-----------------------------------------------------------------------------
+		// tolerance
+		frameLayout -l "Tolerance Options" -cll 1 -cl 0 -bv 1 -bs "etchedIn";
+			columnLayout -adj 1 -rs 4;
+			string $form = `formLayout -h 75`;
+				// create control in tab order
+				floatFieldGrp -nf 1 -l "Node Translate" -cw2 100 45
+					-pre 4 -v1 0.1
+					-cc "nnsExport_ToleranceSRTCB \"nnsExport_AnimeTolT\""
+					nnsExport_AnimeTolT;
+				floatFieldGrp -nf 1 -l "Node Rotate" -cw2 100 45
+					-pre 4 -v1 0.1
+					-cc "nnsExport_ToleranceSRTCB \"nnsExport_AnimeTolR\""
+					nnsExport_AnimeTolR;
+				floatFieldGrp -nf 1 -l "Node Scale" -cw2 100 45
+					-pre 4 -v1 0.1
+					-cc "nnsExport_ToleranceSRTCB \"nnsExport_AnimeTolS\""
+					nnsExport_AnimeTolS;
+
+				floatFieldGrp -nf 1 -l "Texture Translate" -cw2 90 45
+					-pre 4 -v1 0.01
+					-cc "nnsExport_ToleranceSRTCB \"nnsExport_AnimeTolUvT\""
+					nnsExport_AnimeTolUvT;
+				floatFieldGrp -nf 1 -l "Texture Rotate" -cw2 90 45
+					-pre 4 -v1 0.1
+					-cc "nnsExport_ToleranceSRTCB \"nnsExport_AnimeTolUvR\""
+					nnsExport_AnimeTolUvR;
+				floatFieldGrp -nf 1 -l "Texture Scale" -cw2 90 45
+					-pre 4 -v1 0.1
+					-cc "nnsExport_ToleranceSRTCB \"nnsExport_AnimeTolUvS\""
+					nnsExport_AnimeTolUvS;
+
+				intFieldGrp -nf 1 -l "Color" -cw2 70 45
+					-v1 2
+					-cc "nnsExport_ToleranceColorCB \"nnsExport_AnimeTolC\""
+					nnsExport_AnimeTolC;
+			setParent ..; // formLayout
+			// layout control
+			formLayout -e -w 440
+				-af nnsExport_AnimeTolT "left" 0
+				-af nnsExport_AnimeTolT "top" 0
+				-an nnsExport_AnimeTolT "right"
+				-an nnsExport_AnimeTolT "bottom"
+				
+				-af nnsExport_AnimeTolR "left" 0
+				-af nnsExport_AnimeTolR "top" 25
+				-an nnsExport_AnimeTolR "right"
+				-an nnsExport_AnimeTolR "bottom"
+
+				-af nnsExport_AnimeTolS "left" 0
+				-af nnsExport_AnimeTolS "top" 50
+				-an nnsExport_AnimeTolS "right"
+				-an nnsExport_AnimeTolS "bottom"
+
+				-af nnsExport_AnimeTolUvT "left" 165
+				-af nnsExport_AnimeTolUvT "top" 0
+				-an nnsExport_AnimeTolUvT "right"
+				-an nnsExport_AnimeTolUvT "bottom"
+				
+				-af nnsExport_AnimeTolUvR "left" 165
+				-af nnsExport_AnimeTolUvR "top" 25
+				-an nnsExport_AnimeTolUvR "right"
+				-an nnsExport_AnimeTolUvR "bottom"
+
+				-af nnsExport_AnimeTolUvS "left" 165
+				-af nnsExport_AnimeTolUvS "top" 50
+				-an nnsExport_AnimeTolUvS "right"
+				-an nnsExport_AnimeTolUvS "bottom"
+
+				-af nnsExport_AnimeTolC "left" 305
+				-af nnsExport_AnimeTolC "top" 0
+				-an nnsExport_AnimeTolC "right"
+				-an nnsExport_AnimeTolC "bottom"
+				$form;
+			setParent ..; // columnLayout
+		setParent ..; // frameLayout
+
+		//-----------------------------------------------------------------------------
+		setParent ..; // columnLayout
+
+		//-----------------------------------------------------------------------------
+		// set to current settings
+		string $optStr = $initialSettings;
+		if (size($optStr) > 0)
+		{
+			string $optList[];
+			tokenize($optStr, ";", $optList);
+			int	$iopt;
+			for ($iopt = 0; $iopt < size($optList); ++$iopt)
+			{
+				string $words[];
+				tokenize($optList[$iopt], "=", $words);
+				int	$intVal;
+				float $floatVal;
+				int $boolVal = ($words[1] == "on" || $words[1] == "1");
+
+				//-----------------------------------------------------------------------------
+				// general
+				if ($words[0] == "magnify")
+				{
+					$floatVal = $words[1];
+					floatFieldGrp -e -v1 $floatVal nnsExport_Magnify;
+				}
+				else if ($words[0] == "optimize_node")
+				{
+					$intVal = $words[1];
+					optionMenuGrp -e -sl ($intVal + 1) nnsExport_OptimizeNode;
+				}
+				else if ($words[0] == "compress_material")
+				{
+					$intVal = $words[1];
+					optionMenuGrp -e -sl ($intVal + 1) nnsExport_CompressMaterial;
+				}
+				else if ($words[0] == "frame_range")
+				{
+					$intVal = $words[1];
+					radioButtonGrp -e -sl ($intVal + 1) nnsExport_FrameRange;
+				}
+				else if ($words[0] == "start_frame")
+				{
+					$intVal = $words[1];
+					intField -e -v $intVal nnsExport_StartFrame;
+				}
+				else if ($words[0] == "end_frame")
+				{
+					$intVal = $words[1];
+					intField -e -v $intVal nnsExport_EndFrame;
+				}
+				else if ($words[0] == "remove_namespace")
+				{
+					checkBoxGrp -e -v1 $boolVal nnsExport_RemoveNamespace;
+				}
+
+				//-----------------------------------------------------------------------------
+				// file select
+				else if ($words[0] == "imd_file_out")
+				{
+					$intVal = ($words[1] == "1");
+					checkBoxGrp -e -v1 $intVal nnsExport_ImdFileOut;
+				}
+				else if ($words[0] == "ica_file_out")
+				{
+					$intVal = ($words[1] == "1");
+					checkBoxGrp -e -v1 $intVal nnsExport_IcaFileOut;
+				}
+				else if ($words[0] == "iva_file_out")
+				{
+					$intVal = ($words[1] == "1");
+					checkBoxGrp -e -v1 $intVal nnsExport_IvaFileOut;
+				}
+				else if ($words[0] == "ima_file_out")
+				{
+					$intVal = ($words[1] == "1");
+					checkBoxGrp -e -v1 $intVal nnsExport_ImaFileOut;
+				}
+				else if ($words[0] == "itp_file_out")
+				{
+					$intVal = ($words[1] == "1");
+					checkBoxGrp -e -v1 $intVal nnsExport_ItpFileOut;
+				}
+				else if ($words[0] == "ita_file_out")
+				{
+					$intVal = ($words[1] == "1");
+					checkBoxGrp -e -v1 $intVal nnsExport_ItaFileOut;
+				}
+				//else if ($words[0] == "isa_file_out") {
+				//	$intVal = ($words[1] == "1");
+				//	checkBoxGrp -e -v1 $intVal nnsExport_IsaFileOut;
+				//}
+
+				//-----------------------------------------------------------------------------
+				// imd
+				else if ($words[0] == "vertex_table_flag")
+				{
+					$intVal = ($words[1] == "1");
+					optionMenuGrp -e -sl ($intVal + 1) nnsExport_VertexStyle;
+				}
+				else if ($words[0] == "out_all_tex")
+				{
+					$intVal = ($words[1] == "1");
+					optionMenuGrp -e -sl ($intVal + 1) nnsExport_OutAllTex;
+				}
+				else if ($words[0] == "force_full_weight")
+				{
+					$intVal = ($words[1] == "1");
+					checkBoxGrp -e -v1 $intVal nnsExport_ForceFullWeight;
+				}
+				else if ($words[0] == "use_primitive_strip")
+				{
+					$intVal = ($words[1] == "1");
+					checkBoxGrp -e -v1 $intVal nnsExport_UsePrimitiveStrip;
+				}
+
+				//-----------------------------------------------------------------------------
+				// anim
+				else if ($words[0] == "anime_interp")
+				{
+					$intVal = $words[1];
+					optionMenuGrp -e -sl ($intVal + 1) nnsExport_AnimeInterp;
+				}
+				else if ($words[0] == "loop_interp")
+				{
+					$intVal = ($words[1] == "1");
+					checkBoxGrp -e -v1 $intVal nnsExport_LoopInterp;
+				}
+				else if ($words[0] == "frame_step_mode")
+				{
+					$intVal = $words[1];
+					optionMenuGrp -e -sl ($intVal + 1) nnsExport_FrameStepMode;
+				}
+
+				//-----------------------------------------------------------------------------
+				// tolerance
+				else if ($words[0] == "anime_tol_t")
+				{
+					$floatVal = $words[1];
+					floatFieldGrp -e -v1 $floatVal nnsExport_AnimeTolT;
+				}
+				else if ($words[0] == "anime_tol_r")
+				{
+					$floatVal = $words[1];
+					floatFieldGrp -e -v1 $floatVal nnsExport_AnimeTolR;
+				}
+				else if ($words[0] == "anime_tol_s")
+				{
+					$floatVal = $words[1];
+					floatFieldGrp -e -v1 $floatVal nnsExport_AnimeTolS;
+				}
+				else if ($words[0] == "anime_tol_c")
+				{
+					$intVal = $words[1];
+					intFieldGrp -e -v1 $intVal nnsExport_AnimeTolC;
+				}
+				else if ($words[0] == "anime_tol_uv_t")
+				{
+					$floatVal = $words[1];
+					floatFieldGrp -e -v1 $floatVal nnsExport_AnimeTolUvT;
+				}
+				else if ($words[0] == "anime_tol_uv_r")
+				{
+					$floatVal = $words[1];
+					floatFieldGrp -e -v1 $floatVal nnsExport_AnimeTolUvR;
+				}
+				else if ($words[0] == "anime_tol_uv_s")
+				{
+					$floatVal = $words[1];
+					floatFieldGrp -e -v1 $floatVal nnsExport_AnimeTolUvS;
+				}
+			}
+		}
+
+		//-----------------------------------------------------------------------------
+		// update control state
+		nnsExport_UpdateAllControlState();
+
+		$retVal = 1;
+
+		setUITemplate -popTemplate;
+	}
+	else if ($action == "query")
+	{
+		//-----------------------------------------------------------------------------
+		// get option string
+		//-----------------------------------------------------------------------------
+		string $optStr;
+		int	$intVal;
+		float $floatVal;
+
+		//-----------------------------------------------------------------------------
+		// general
+		$floatVal = `floatFieldGrp -q -v1 nnsExport_Magnify`;
+		$optStr += "magnify=" + $floatVal + ";";
+
+		$intVal = `optionMenuGrp -q -sl nnsExport_OptimizeNode` - 1;
+		$optStr += "optimize_node=" + $intVal + ";";
+
+		$intVal = `optionMenuGrp -q -sl nnsExport_CompressMaterial` - 1;
+		$optStr += "compress_material=" + $intVal + ";";
+
+		$intVal = `radioButtonGrp -q -sl nnsExport_FrameRange` - 1;
+		$optStr += "frame_range=" + $intVal + ";";
+
+		$intVal = `intField -q -v nnsExport_StartFrame`;
+		$optStr += "start_frame=" + $intVal + ";";
+
+		$intVal = `intField -q -v nnsExport_EndFrame`;
+		$optStr += "end_frame=" + $intVal + ";";
+
+		$intVal = `checkBoxGrp -q -v1 nnsExport_RemoveNamespace`;
+		$optStr += "remove_namespace=" + $intVal + ";";
+
+		//-----------------------------------------------------------------------------
+		// file select
+		$intVal = `checkBoxGrp -q -v1 nnsExport_ImdFileOut`;
+		$optStr += "imd_file_out=" + $intVal + ";";
+
+		$intVal = `checkBoxGrp -q -v1 nnsExport_IcaFileOut`;
+		$optStr += "ica_file_out=" + $intVal + ";";
+
+		$intVal = `checkBoxGrp -q -v1 nnsExport_IvaFileOut`;
+		$optStr += "iva_file_out=" + $intVal + ";";
+
+		$intVal = `checkBoxGrp -q -v1 nnsExport_ImaFileOut`;
+		$optStr += "ima_file_out=" + $intVal + ";";
+
+		$intVal = `checkBoxGrp -q -v1 nnsExport_ItpFileOut`;
+		$optStr += "itp_file_out=" + $intVal + ";";
+
+		$intVal = `checkBoxGrp -q -v1 nnsExport_ItaFileOut`;
+		$optStr += "ita_file_out=" + $intVal + ";";
+
+		//$intVal = `checkBoxGrp -q -v1 nnsExport_IsaFileOut`;
+		//$optStr += "isa_file_out=" + $intVal + ";";
+
+		//-----------------------------------------------------------------------------
+		// imd
+		$intVal = `optionMenuGrp -q -sl nnsExport_VertexStyle` - 1;
+		$optStr += "vertex_table_flag=" + $intVal + ";";
+
+		$intVal = `optionMenuGrp -q -sl nnsExport_OutAllTex` - 1;
+		$optStr += "out_all_tex=" + $intVal + ";";
+
+		$intVal = `checkBoxGrp -q -v1 nnsExport_ForceFullWeight`;
+		$optStr += "force_full_weight=" + $intVal + ";";
+
+		$intVal = `checkBoxGrp -q -v1 nnsExport_UsePrimitiveStrip`;
+		$optStr += "use_primitive_strip=" + $intVal + ";";
+
+		//-----------------------------------------------------------------------------
+		// anim
+		$intVal = `optionMenuGrp -q -sl nnsExport_AnimeInterp` - 1;
+		$optStr += "anime_interp=" + $intVal + ";";
+
+		$intVal = `checkBoxGrp -q -v1 nnsExport_LoopInterp`;
+		$optStr += "loop_interp=" + $intVal + ";";
+
+		$intVal = `optionMenuGrp -q -sl nnsExport_FrameStepMode` - 1;
+		$optStr += "frame_step_mode=" + $intVal + ";";
+
+		//-----------------------------------------------------------------------------
+		// tolerance
+		$floatVal = `floatFieldGrp -q -v1 nnsExport_AnimeTolT`;
+		$optStr += "anime_tol_t=" + $floatVal + ";";
+
+		$floatVal = `floatFieldGrp -q -v1 nnsExport_AnimeTolR`;
+		$optStr += "anime_tol_r=" + $floatVal + ";";
+
+		$floatVal = `floatFieldGrp -q -v1 nnsExport_AnimeTolS`;
+		$optStr += "anime_tol_s=" + $floatVal + ";";
+
+		$intVal = `intFieldGrp -q -v1 nnsExport_AnimeTolC`;
+		$optStr += "anime_tol_c=" + $intVal + ";";
+
+		$floatVal = `floatFieldGrp -q -v1 nnsExport_AnimeTolUvT`;
+		$optStr += "anime_tol_uv_t=" + $floatVal + ";";
+
+		$floatVal = `floatFieldGrp -q -v1 nnsExport_AnimeTolUvR`;
+		$optStr += "anime_tol_uv_r=" + $floatVal + ";";
+
+		$floatVal = `floatFieldGrp -q -v1 nnsExport_AnimeTolUvS`;
+		$optStr += "anime_tol_uv_s=" + $floatVal + ";";
+
+		//-----------------------------------------------------------------------------
+		// end
+		//print $optStr;
+		eval($resultCallback + " \"" + $optStr + "\"");
+		$retVal = 1;
+	}
+	else
+	{
+		$retVal = 0;
+	}
+	
+	return $retVal;
+}
+
+/******************************************************************************
+	reset options
+******************************************************************************/
+global proc NNS_ResetExportOpts()
+{
+	//-----------------------------------------------------------------------------
+	// general
+	floatFieldGrp -e -v1 1.0 nnsExport_Magnify;
+	optionMenuGrp -e -sl 1 nnsExport_OptimizeNode;
+	optionMenuGrp -e -sl 1 nnsExport_CompressMaterial;
+	radioButtonGrp -e -sl 1 nnsExport_FrameRange;
+	intField -e -v 1 nnsExport_StartFrame;
+	intField -e -v 9999 nnsExport_EndFrame;
+	checkBoxGrp -e -v1 0 nnsExport_RemoveNamespace;
+	
+	//-----------------------------------------------------------------------------
+	// file select
+	checkBoxGrp -e -v1 1 nnsExport_ImdFileOut;
+	checkBoxGrp -e -v1 0 nnsExport_IcaFileOut;
+	checkBoxGrp -e -v1 0 nnsExport_IvaFileOut;
+	checkBoxGrp -e -v1 0 nnsExport_ImaFileOut;
+	checkBoxGrp -e -v1 0 nnsExport_ItpFileOut;
+	checkBoxGrp -e -v1 0 nnsExport_ItaFileOut;
+	//checkBoxGrp -e -v1 0 nnsExport_IsaFileOut;
+
+	//-----------------------------------------------------------------------------
+	// imd
+	optionMenuGrp -e -sl 1 nnsExport_VertexStyle;
+	optionMenuGrp -e -sl 1 nnsExport_OutAllTex;
+	checkBoxGrp -e -v1 0 nnsExport_ForceFullWeight;
+	checkBoxGrp -e -v1 1 nnsExport_UsePrimitiveStrip;
+
+	//-----------------------------------------------------------------------------
+	// anim
+	optionMenuGrp -e -sl 1 nnsExport_AnimeInterp;
+	checkBoxGrp -e -v1 0 nnsExport_LoopInterp;
+	optionMenuGrp -e -sl 2 nnsExport_FrameStepMode;
+
+	//-----------------------------------------------------------------------------
+	// tolerance
+	floatFieldGrp -e -v1 0.01 nnsExport_AnimeTolT;
+	floatFieldGrp -e -v1 0.1 nnsExport_AnimeTolR;
+	floatFieldGrp -e -v1 0.1 nnsExport_AnimeTolS;
+
+	floatFieldGrp -e -v1 0.01 nnsExport_AnimeTolUvT;
+	floatFieldGrp -e -v1 0.1 nnsExport_AnimeTolUvR;
+	floatFieldGrp -e -v1 0.1 nnsExport_AnimeTolUvS;
+
+	intFieldGrp -e -v1 2 nnsExport_AnimeTolC;
+
+	//-----------------------------------------------------------------------------
+	// update control state
+	nnsExport_UpdateAllControlState();
+}

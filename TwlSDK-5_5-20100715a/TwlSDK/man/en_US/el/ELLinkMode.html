@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 8.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>ELLinkMode</title>
+<LINK rel="stylesheet" href="../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">ELLinkMode <img src="../image/TWL.gif" align="middle"></h1>
+<h2>Definition</h2>
+
+<dl>
+  <dd>
+  <PRE><CODE>#include &lt;twl/el.h&gt;</CODE><BR>
+typedef enum ELLinkMode {
+  EL_LINKMODE_ROUGH = 0,
+  EL_LINKMODE_ONESHOT,
+  EL_LINKMODE_RELATION
+} ELLinkMode;
+</PRE>
+  </dd>
+</dl>
+
+<H2>Elements</H2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="13%"><EM><STRONG>EL_LINKMODE_ROUGH</STRONG></EM></TD>
+<TD width="87%">Not currently used.</TD>
+    </TR>
+    <TR>
+<TD width="13%"><EM><STRONG>EL_LINKMODE_ONESHOT</STRONG></EM></TD>
+<TD width="87%">Mode that assumes everything is a veneer when a dynamic object is making an external reference, and calculates accordingly.</TD>
+    </TR>
+    <TR>
+<TD width="13%"><EM><STRONG>EL_LINKMODE_RELATION</STRONG></EM></TD>
+<TD width="87%">Not currently used.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<h2>Description</h2>
+<P>Enumeration type that represents the mode used when dynamic links are tested.<BR>Can be specified using the <a href="EL_CalcEnoughBufferSizeforLink.html"><CODE>EL_CalcEnoughBufferSizeforLink*</CODE></a> functions.<BR> <BR>
+</P>
+
+<H2>Revision History</H2>
+<P>2009/03/04 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

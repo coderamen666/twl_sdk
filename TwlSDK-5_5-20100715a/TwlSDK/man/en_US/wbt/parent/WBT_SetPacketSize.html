@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>WBT_SetPacketSize</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+<body>
+<h1 align="left">WBT_SetPacketSize <img src="../../image/NTR.gif"><img src="../../image/TWL.gif"></h1>
+<h2>Syntax</h2>
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/wbt.h&gt;</CODE><BR>
+  <BR>
+  <CODE>BOOL WBT_SetPacketSize(int send_packet_size, int recv_packet_size );</CODE><br>
+  <br>
+  </dd>
+</dl>
+<h2>Arguments</h2>
+<p>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+      <TD width="13%"><CODE>send_packet_size</CODE></TD>
+      <TD width="87%">Parent packet size for MP communication that can be used for WBT.<br>
+	  This size must be at least <a href="../wbt_packet_size_min_const.html"><code>WBT_PACKET_SIZE_MIN</code></a> bytes.</TD>
+    </TR>
+    <TR>
+      <TD width="13%"><CODE>recv_packet_size</CODE></TD>
+      <TD width="87%">Child packet size for MP communication that can be used for WBT.<br>
+	  This size must be at least <a href="../wbt_packet_size_min_const.html"><code>WBT_PACKET_SIZE_MIN</code></a> bytes.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</p>
+<h2>Return Values</h2>
+<p>Returns <CODE>TRUE</CODE> if the current packet size can be changed. Otherwise, returns <CODE>FALSE</CODE>.</p>
+<H2>Description</H2>
+<P>At any time after initialization, use this function to dynamically change the packet size that a WBT library parent device specified with the <A href="../init/WBT_InitParent.html"><CODE>WBT_InitParent</CODE></A> function. If the function succeeds, it returns control immediately. You can adjust the transfer efficiency by changing the packet size with this function, in accordance with data sharing and the presence or absence of the simultaneous use of communication ports other than WBT. <br>
+<H2>Note</H2>
+<p>
+This function presupposes logical control on the application side, so there is no guarantee that it will always operate stably. <br>Each child device calculates the transfer unit size and bitmap buffer size for the <A href="../command/WBT_GetBlock.html"><CODE>WBT_GetBlock</CODE></A> function based on the packet size settings most recently received from the parent using the <A href="../command/WBT_RequestSync.html"><CODE>WBT_RequestSync</CODE></A> function. Therefore, you cannot change the packet size while a <A href="../command/WBT_GetBlock.html"><CODE>WBT_GetBlock</CODE></A> data receive is under way.<br><br> This function can be used safely only when the following conditions are met.<br> <br>- When the parent calls this function, no devices are running data transfers using <A href="../command/WBT_GetBlock.html"><CODE>WBT_GetBlock</CODE></A>.<br>- After the parent calls this function, children always call <A href="../command/WBT_RequestSync.html"><CODE>WBT_RequestSync</CODE></A> at least once before <A href="../command/WBT_GetBlock.html"><CODE>WBT_GetBlock</CODE></A>.<br><br> <B>Note:</B> Only some of these conditions can actually be verified within this function. The fact that this function returns <CODE>TRUE</CODE> does not mean that all of these conditions have been met.<br> <br></font>
+</p>
+<h2>See Also</h2>
+<p>
+<A href="../init/WBT_InitParent.html"><CODE>WBT_InitParent</CODE></A><BR> <A href="../command/WBT_RequestSync.html"><CODE>WBT_RequestSync</CODE></A><BR> <A href="../command/WBT_GetBlock.html"><CODE>WBT_GetBlock</CODE></A>
+</P>
+<H2>Revision History</H2>
+<P>
+2004/09/21 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

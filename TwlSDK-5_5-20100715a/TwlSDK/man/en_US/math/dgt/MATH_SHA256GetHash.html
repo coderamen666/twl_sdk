@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>MATH_SHA256GetHash</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">MATH_SHA256GetHash <img src="../../image/NTR.gif"align="middle"><img src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+
+<dl>
+  <dd>
+  <PRE><CODE>#include &lt;nitro/math/dgt.h&gt;
+
+static inline void MATH_SHA256GetHash( <A href="MATHSHA256Context.html">MATHSHA256Context</A> *context, void* digest );
+</CODE></PRE>
+  </dd>
+</dl><h2>Arguments</h2>
+
+<table border="1" width="100%">
+    <TR>
+      <TD width="176"><em><strong><font face="Courier New">context</font></strong></em></TD>
+      <TD width="670">Pointer to the context structure used for SHA-256 generation.</TD>
+    </TR>
+    <TR>
+      <TD width="176"><em><strong><font face="Courier New">digest</font></strong></em></TD>
+      <TD width="670">Pointer to the memory location that holds the message digest value.</TD>
+    </TR>
+  </table>
+<h2>Return Values</h2>
+<p>None.</p>
+<H2>Description</H2>
+<P>This function gets the digest value using SHA-256. You must use the <CODE><A href="MATH_SHA256Init.html">MATH_SHA256Init</A></CODE> function to initialize the <CODE>context</CODE> argument and then use the <CODE><A href="MATH_SHA256Update.html">MATH_SHA256Update</A></CODE> function to provide the input data.<BR>The length of the generated message digest value is 256 bits or <CODE>MATH_SHA256_DIGEST_SIZE</CODE> (32) bytes. Use the &quot;digest&quot; argument to pass an area that can store a value of this size. This function rewrites <CODE>context</CODE> internally, so you cannot continue to use the same context with the <CODE><A href="MATH_SHA256Update.html">MATH_SHA256Update</A></CODE> function. <BR>SHA-256 is an algorithm to find the message digest value. For details, refer to the Federal Information Processing Standard, FIPS PUB 180-2.
+</P>
+<h2>See Also</h2>
+<P><CODE><A href="MATH_SHA256Init.html">MATH_SHA256Init</A>, <A href="MATH_SHA256Update.html">MATH_SHA256Update</A></CODE></P>
+<H2>Revision History</H2>
+<P>
+2008/05/23 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

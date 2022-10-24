@@ -1,0 +1,98 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>OS_IsRunOnTwl</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">OS_IsRunOnTwl <IMG src="../../image/NTR.gif" align="middle"><IMG src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+<DL>
+  <DD><CODE>#include &lt;nitro/os.h&gt;</CODE><BR> <BR> <CODE>BOOL OS_IsRunOnTwl( void );</CODE>
+</DL>
+<H2>Arguments</H2>
+<P>None.</P>
+<H2>Return Values</H2>
+<P>If <CODE>TRUE</CODE>, the application is running in TWL mode. The actual operating environment may be either an actual TWL system or the IS-TWL-DEBUGGER hardware.</P>
+<P>If <CODE>FALSE</CODE>, the application is running in some other mode (that is, in NITRO mode). The actual operating environment may be either an actual NITRO console or IS-NITRO-DEBUGGER. This also applies to the case of running an application in NITRO mode on IS-TWL-DEBUGGER.</P>
+<H2>Description</H2>
+<P>Determines whether the program is running in TWL mode.</P>
+<P>The <CODE>OS_IsRunOnTwl</CODE> function determines the <I>operating mode</I>. It does not determine the <I>operating environment</I>. For example, this function will sometimes return <CODE>TRUE</CODE> and sometimes return <CODE>FALSE</CODE>, even though the application is running on the IS-TWL-DEBUGGER hardware in both cases. In other words, programs run on IS-TWL-DEBUGGER will sometimes be run in TWL mode and will sometimes be run in NITRO mode.</P>
+<P><CODE>OS_IsRunOnTwl</CODE> is a useful function when creating TWL/NITRO hybrid ROMs. Hybrid ROMs will run in TWL mode on TWL, and in NITRO mode on NITRO. This function will return <CODE>TRUE</CODE> when run on a TWL, and <CODE>FALSE</CODE> when run on NITRO. This can be used to switch between code dynamically.</P>
+
+<P>Example: How to Split Up Code That Supports NITRO/TWL Hybrid ROMs</P>
+<BLOCKQUOTE style="background-color:#ffffc0"><CODE>if ( <FONT color="#ff0000">OS_IsRunOnTwl()</FONT> )<BR> {<BR> // Code you want to run in TWL mode<BR> }<BR> else<BR> {<BR> // Code you want to run in NITRO mode<BR> }</CODE></BLOCKQUOTE>
+<P><BR> Also, while this will not be a very common case during normal development, you can use code like the following to match the <CODE>#define</CODE> directives defined for the SDK during development of libraries that support all three types of ROMs (NITRO-exclusive, TWL-exclusive, and NITRO/TWL hybrid). This code could be included in the library's source code.</P>
+<P>Example: How to Split Up Code That Supports NITRO-Exclusive ROMs, TWL-Exclusive ROMs, and NITRO/TWL Hybrid ROMs</P>
+<BLOCKQUOTE style="background-color:#ffffc0"><CODE>if ( <FONT color="#ff0000">OS_IsRunOnTwl()</FONT> )<BR> {<BR> #ifdef <FONT color="#ff0000">SDK_TWL</FONT><BR> // Code you want to run in TWL mode<BR> #endif<BR> }<BR> else<BR> {<BR> #ifndef <FONT color="#ff0000">SDK_TWLLTD</FONT><BR> // Code you want to run in NITRO mode<BR> #endif<BR> }</CODE></BLOCKQUOTE>
+<P>The <CODE>OS_IsRunOnTwl</CODE> function determines the platform at run time for hybrid ROMs, but for NITRO-exclusive ROMs, it will return the constant <CODE>FALSE</CODE>, and for TWL-exclusive ROMs, it will return the constant <CODE>TRUE</CODE>. When creating NITRO-exclusive ROMs or TWL-exclusive ROMs, you can expect the cases that do not match the conditions of the <CODE>if</CODE> statement to be deadstripped. However, we have used <CODE>SDK_TWL</CODE> (defined at compile time for TWL-exclusive ROMs and NITRO/TWL hybrid ROMs) and <CODE>SDK_TWLLTD</CODE> (defined at compile time for TWL-exclusive ROMs) to avoid undefined errors and other problems with functions appearing in the code that will be deadstripped.</P>
+<H3>Actual Values Due to the Environment:</H3>
+<P>Below is a list of values that can be returned by the <CODE>OS_IsRunOnTwl</CODE> function. There are no differences as a result of the build type (DEBUG, RELEASE, FINALROM).<BR>
+</P>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+      <TH colspan="2" style="background-color:#304040;"><FONT color="#ffffff">For NITRO Mode</FONT></TH>
+    </TR>
+    <TR>
+      <TH>Operating Environment</TH>
+      <TH>Value of <CODE>OS_IsRunOnTwl</CODE></TH>
+    </TR>
+    <TR>
+      <TD>Actual DS unit</TD>
+      <TD><B>FALSE</B></TD>
+    </TR>
+    <TR>
+      <TD>Actual TWL unit</TD>
+      <TD><B>FALSE</B></TD>
+    </TR>
+    <TR>
+      <TD>IS-NITRO-DEBUGGER</TD>
+      <TD><B>FALSE</B></TD>
+    </TR>
+    <TR>
+      <TD>ENSATA EMULATOR</TD>
+      <TD><B>FALSE</B></TD>
+    </TR>
+    <TR>
+      <TD>IS-TWL-DEBUGGER<BR>(For standard development: ARM9) </TD>
+      <TD><B>FALSE</B></TD>
+    </TR>
+    <TR>
+      <TD>IS-TWL-DEBUGGER<BR>(For component development<BR>ARM9 + ARM7)</TD>
+      <TD><B>FALSE</B></TD>
+    </TR>
+    <TR>
+      <TH colspan="2" style="background-color:#304040;"><FONT color="#ffffff">For TWL Mode</FONT></TH>
+    </TR>
+    <TR>
+      <TH>Operating Environment</TH>
+      <TH>Value of <CODE>OS_IsRunOnTwl</CODE></TH>
+    </TR>
+    <TR>
+      <TD>Actual TWL unit</TD>
+      <TD><FONT color="#ff0000"><B>TRUE</B></FONT></TD>
+    </TR>
+    <TR>
+      <TD>IS-TWL-DEBUGGER<BR>(For standard development: ARM9)</TD>
+      <TD><FONT color="#ff0000"><B>TRUE</B></FONT></TD>
+    </TR>
+    <TR>
+      <TD>IS-TWL-DEBUGGER<BR>(For component development<BR>ARM9 + ARM7)</TD>
+      <TD><FONT color="#ff0000"><B>TRUE</B></FONT></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P><BR>
+</P>
+<H2>Internal Operation</H2>
+<P>Makes the judgment based the value in the System Configuration register.</P>
+<H2>See Also</H2>
+<P><A href="../debug/OS_Printf.html"><CODE>OS_Printf</CODE></A><BR> <A href="OS_GetConsoleType.html"><CODE>OS_GetConsoleType</CODE></A></P>
+<H2>Revision History</H2>
+<P>2007/11/16 Added information.<BR> 2007/11/06 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

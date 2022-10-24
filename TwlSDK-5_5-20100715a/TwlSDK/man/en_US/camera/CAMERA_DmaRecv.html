@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>CAMERA_DmaRecv</TITLE>
+<LINK rel="stylesheet" href="../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">CAMERA_DmaRecv <IMG src="../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+<DL>
+  <DD>
+  <CODE>#include &lt;twl/camera.h&gt;</CODE><BR>
+  <BR>
+  <CODE>void CAMERA_DmaRecv(u32 dmaNo, void *dest, u32 unit, u32 length);</CODE>
+</DL>
+<H2>Arguments</H2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+      <TD width="13%"><EM><STRONG>dmaNo</STRONG></EM></TD>
+      <TD width="87%">New DMA channel to use (0&ndash;3)</TD>
+    </TR>
+    <TR>
+      <TD width="13%"><EM><STRONG>dest</STRONG></EM></TD>
+      <TD width="87%">The transfer destination address</TD>
+    </TR>
+    <TR>
+      <TD width="13%"><EM><STRONG>unit</STRONG></EM></TD>
+      <TD width="87%">One-time transfer size (width * line count)</TD>
+    </TR>
+    <TR>
+      <TD width="13%"><EM><STRONG>length</STRONG></EM></TD>
+      <TD width="87%">Total size to transfer (frame size)</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<H2>Return Values</H2>
+<P>None.</P>
+
+<H2>Description</H2>
+<P>
+Receives frame data from the camera buffer.<BR><BR>
+This function internally uses a new DMA to receive data. See the <code><A href="../mi/ndma/MI_NDmaCopy.html">MI_NDmaCopy</A></code> function for more detailed descriptions of a new DMA.<BR><BR>
+The width and line count used when finding the one-time transfer size will indicate the number of bytes transferred for a single line and the number of lines transferred at once, respectively.<BR>
+One pixel takes up two bytes, so multiply the width by 2 to calculate the number of bytes to transfer. The width is the same as the one set by the <code><A href="CAMERA_SetTrimmingParams.html">CAMERA_SetTrimmingParams</A></code> function if it is called, and the <code><A href="CAMERA_I2CSize.html">CAMERA_I2CSize*</A></code> functions otherwise. (It will be the width of the default camera resolution value if none of these functions have been called. See the <A href="about_camera.html"><B>Overview</B></A> for more information on default values.)Calculate the number of lines using the line count set with the <code><A href="CAMERA_SetTransferLines.html">CAMERA_SetTransferLines</A></code> function. The default line count is 1 if it has not been set by the <code><A href="CAMERA_SetTransferLines.html">CAMERA_SetTransferLines</A></code> function. In addition, adjust the one-time transfer size that is ultimately specified to be 2 KB (1024 pixels) or less. <BR><BR>Some example code is shown below.
+<BLOCKQUOTE><B>Example:</B><BR>
+<BR>
+<PRE>#define WIDTH 256<BR>
+#define HEIGHT 192
+
+CAMERA_SetTrimmingParamsCenter(WIDTH, HEIGHT, 320, 240);
+CAMERA_SetTrimming(TRUE);
+CAMERA_SetTransferLines(CAMERA_GET_MAX_LINES(WIDTH);    /* 256*4=1024 pixels */
+
+.
+.
+.
+
+CAMERA_DmaRecv(0, buffer, CAMERA_GetBytesAtOnce(WIDTH), CAMERA_GET_FRAME_BYTES(WIDTH, HEIGHT));</PRE></BLOCKQUOTE>
+</P>
+
+<H2>See Also</H2>
+<P><CODE><A href="CAMERA_DmaRecvAsync.html">CAMERA_DmaRecvAsync</A>, <A href="CAMERA_SetTransferLines.html">CAMERA_SetTransferLines</A>, <A href="CAMERA_SetTrimmingParams.html">CAMERA_SetTrimmingParams</A>, <A href="CAMERA_SetTrimming.html">CAMERA_SetTrimming</A>, <A href="CAMERA_I2CSize.html">CAMERA_I2CSize*</A>, <A href="CAMERA_GetBytesAtOnce.html">CAMERA_GetBytesAtOnce</A>, <A href="CAMERA_GET_FRAME_BYTES.html">CAMERA_GET_FRAME_BYTES</A>, <A href="CAMERA_GET_MAX_LINES.html">CAMERA_GET_MAX_LINES</A></CODE></P>
+<H2>Revision History</H2>
+<P>
+2008/09/11 Changed the sample code. <br>2007/11/14 Revised explanations for specifying the width. <BR>2007/10/22 Added explanations. <BR>2007/10/02 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

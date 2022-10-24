@@ -1,0 +1,148 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>How to Use IIR_FilterBuilder</TITLE>
+<LINK rel="stylesheet" href="../../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">How to Use IIR_FilterBuilder <IMG src="../../../image/TWL.gif"></H1>
+<P>One extended TWL feature is the ability to apply an IIR filter to microphone sampling data and speaker output data. See <A href="../SNDEX_SetIirFilter.html"><CODE>SNDEX_SetIirFilter[Async]</CODE></A> for information on setting IIR filters. This document explains how to use IIR_FilterBuilder, which is included with the TWL-SDK.</P>
+	<H2>Description</H2>
+	<P>The <CODE>$TwlSDK/docs/TechnicalNotes/IIR_FilterBuilder.xls</CODE> Excel spreadsheet is designed to calculate IIR filter parameters. The calculated parameters can be used as parameters for the <A href="../SNDEX_SetIirFilter.html"><CODE>SNDEX_SetIirFilter[Async]</CODE></A> functions.</P>
+
+	<P>To use this sheet, you need to enable the <B>Analysis ToolPak</B> from <B>Tools</B> &gt; <B>Add-Ins</B> in the Excel main menu. (Excel 2003)</P>
+
+	<H2>Using the Tool</H2>
+	<P>Choose one of the following three sheets to use.</P>
+	<TABLE>
+		<TBODY>
+		<TR>
+			<TH width="20%">Sheet name</TH>
+			<TH width="80%">Filter types that can be calculated</TH>
+		</TR>
+		<TR>
+			<TD width="20%">Shelf Filters</TD>
+			<TD width="80%">Bass Shelf Filter, Treble Shelf Filter</TD>
+		</TR>
+		<TR>
+			<TD width="20%">EQ Filters</TD>
+			<TD width="80%">Band Pass Filter, Band Eliminate Filter</TD>
+		</TR>
+		<TR>
+			<TD width="20%">Butterworth Filters</TD>
+			<TD width="80%">High Pass Filter, Low Pass Filter</TD>
+		</TR>
+		</TBODY>
+	</TABLE>
+
+	<P>Usually, the light blue items in the following figure are the only items on the sheet for which entries are required. Each sheet has slightly different input items.</P>
+	<IMG src="img/TableForUserInput.gif">
+	<P>The following tables shows the values that can be entered in each sheet.</P>
+	<DL>
+		<DT>Shelf Filters</DT>
+		<DD><TABLE>
+			<TR>
+				<TH width="25%">Input items</TH>
+				<TH width="75%">Description</TH>
+			</TR>
+			<TR>
+				<TD width="25%">Gain (dB)</TD>
+				<TD width="75%">Specify the amplitude gain.</TD>
+			</TR>
+			<TR>
+				<TD width="25%">fc (Hz)</TD>
+				<TD width="75%">Specify the cutoff frequency (frequency at which a 3 dB change occurs).</TD>
+			</TR>
+			<TR>
+				<TD width="25%">Fs (Hz)</TD>
+				<TD width="75%">Specify the sound sampling rate (47,610 or 32,730).</TD>
+			</TR>
+			<TR>
+				<TD width="25%">Bass/Treble</TD>
+				<TD width="75%">Specify &quot;B&quot; for a Bass Shelf Filter and &quot;T&quot; for a Treble Shelf Filter.</TD>
+			</TR>
+			</TABLE>
+		</DD>
+
+		<DT>EQ Filters</DT>
+		<DD><TABLE>
+			<TR>
+				<TH width="25%">Input items</TH>
+				<TH width="75%">Description</TH>
+			</TR>
+			<TR>
+				<TD width="25%">Gain (dB)</TD>
+				<TD width="75%">Specify the amplitude gain.</TD>
+			</TR>
+			<TR>
+				<TD width="25%">BW (Hz)</TD>
+				<TD width="75%">Specify the frequency bandwidth from the center frequency to the frequency at which a 3 dB change occurs.</TD>
+			</TR>
+			<TR>
+				<TD width="25%">fc (Hz)</TD>
+				<TD width="75%">Specify the center frequency for changing the amplitude.</TD>
+			</TR>
+			<TR>
+				<TD width="25%">Fs (Hz)</TD>
+				<TD width="75%">Specify the sound sampling rate (47,610 or 32,730).</TD>
+			</TR>
+			</TABLE>
+		</DD>
+
+		<DT>Butterworth Filters</DT>
+		<DD><TABLE>
+			<TR>
+				<TH width="25%">Input items</TH>
+				<TH width="75%">Description</TH>
+			</TR>
+			<TR>
+				<TD width="25%">High/Low</TD>
+				<TD width="75%">Specify &quot;H&quot; for a High Pass Filter and &quot;L&quot; for a Low Pass Filter.</TD>
+			</TR>
+			<TR>
+				<TD width="25%">fc (Hz)</TD>
+				<TD width="75%">Specify the cutoff frequency (frequency at which a 3dB change occurs).</TD>
+			</TR>
+			<TR>
+				<TD width="25%">Fs (Hz)</TD>
+				<TD width="75%">Specify the sound sampling rate (47,610 or 32,730).</TD>
+			</TR>
+			</TABLE>
+		</DD>
+	</DL>
+
+	<P>The following explanation uses the Shelf Filters sheet as an example.</P>
+	<IMG src="img/TableForUserInput.gif" align=left>
+	<P>If the values entered are as shown in the figure at the left, the frequency response graph, 1st biquad parameters, and 2nd biquad parameters will be updated in real time.<BR clear=left></P>
+	<IMG src="img/1stBiquadTable.gif" align=left>
+	<P>The figure to the left shows the calculated IIR filter parameters (the 1st biquad). The values for N0 through D2 correspond to the <A href="../SNDEXIirFilterParam.html"><CODE>SNDEXIirFilterParam</CODE></A> structure's members <CODE>no</CODE> through <CODE>d2</CODE>.</P>
+	<P>However, <B>Values</B>-type values must be type-cast to <CODE>u16</CODE> when they are inserted in the <A href="../SNDEXIirFilterParam.html"><CODE>SNDEXIirFilterParam</CODE></A> structure. Use <B>Hex</B>-type values because they can be passed unchanged.<BR clear=left></P>
+	<P>The <FONT color=blue>blue line</FONT> in the following figure shows the frequency response when this filter is applied. As you can see, its low frequencies are amplified by approximately 10 dB close to the 300-Hz boundary. </P>
+	<IMG src="img/frequencyResponseFig.gif">
+	<P>By looking closely at the blue line, you can see that the high-frequency region drops to approximately -0.1 dB as a side effect of the filter. This can be corrected by using one more IIR filter stage.</P>
+	<IMG src="img/2ndBiquadTable.gif" align=left>
+	<P>The figure to the left shows the IIR filter parameters for the 2nd biquad. The values for N3 through D5 correspond to the <A href="../SNDEXIirFilterParam.html"><CODE>SNDEXIirFilterParam</CODE></A> structure's members <CODE>no</CODE> through <CODE>d2</CODE></P>
+<P>However, <B>Values</B>-type values must be cast to type <CODE>u16</CODE> when they are inserted in the <A href="../SNDEXIirFilterParam.html"><CODE>SNDEXIirFilterParam</CODE></A> structure. Use <B>Hex</B>-type values because they can be passed unchanged.<BR clear=left></P>
+	<P>The <FONT color=green>green line</FONT> shows the frequency response for the 2nd biquad only. The entire frequency band is amplified by approximately 0.1 dB. The <FONT color=red>red line</FONT> shows the results of applying both the 1st biquad and 2nd biquad. If there are no problems with the 1st biquad results, you do not necessarily need to apply a 2nd biquad.</P>
+
+<H2>Notes</H2>
+<P>You must take note of the following when setting the calculated parameters in the <A href="../SNDEXIirFilterParam.html"><CODE>SNDEXIirFilterParam</CODE></A> structure.</P>
+<UL>
+<LI><B>Values</B>-type values: These should be type-cast to <CODE>u16</CODE> when passed.
+<LI><B>Hex</B>-type values: These can be passed unchanged.
+</UL>
+<P>
+</P>
+
+<H2>Revision History</H2>
+<P>
+	2009/02/19 Added text about the Excel setting for enabling automatic calculation in this sheet.<BR> 2008/09/10 Added notes regarding the use of calculated parameters.<BR> 2008/09/06 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>
+
+
+<!-- <A href="../SNDEX_SetIirFilter.html">SNDEX_SetIirFilter[Async]()</A> -->
+

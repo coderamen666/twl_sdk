@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>loadrun.TWL</TITLE>
+<LINK rel="stylesheet" href="../css/nitro.css" type="text/css">
+<STYLE type="text/css">
+<!--
+.sample_source{
+  background-color : #e8e8e8;
+}
+H3{
+  color : teal;
+}
+.command_list{
+  margin-bottom : 16pt;
+}
+.command_desc{
+  }
+.command_item{
+  margin-top : 16pt;
+  background-color : #e8e8e8;
+}
+.blockquoted_table {
+  border : 1px;
+  width : 80%;
+}
+TD,TH{
+  border-color	: #c0d8d8;
+  padding       : 1pt 4pt 1pt 4pt;
+  border-width  : 1px;
+  border-style  : solid;
+}
+-->
+</STYLE>
+</HEAD>
+<BODY>
+<H1 align="left">loadrun.TWL <IMG src="../image/TWL.gif" align="middle"></H1>
+<H2>Description</H2>
+<P><FONT color=#ff0000>This command is for TWL ROMs. See <CODE><A href="loadrun.html">loadrun</A></CODE> for details on NITRO ROMs.</FONT></P>
+<P> <CODE>loadrun.TWL</CODE> is a tool for downloading and executing specified binary data on devices like the IS-TWL-DEBUGGER. This tool can be run quickly from command line because there is no need to run the debugger software.</P>
+<H2>Using the Tool</H2>
+<H3>Start Command</H3>
+<P><CODE>% loadrun.TWL [OPTION]... [TWLSRLFILE]</CODE></P>
+<P><CODE>TWLSRLFILE</CODE> is the ROM file to execute. .srl files can be specified.</P>
+<P>Specifying the option <CODE><B>-L</B> or <B>--list</B></CODE> will display a list of identifiable devices that are currently connected. The following is an example of a list that may display.</P>
+<BLOCKQUOTE><CODE>---- Connected devices: <BR> 0: [IS-TWL-DEBUGGER] serial:10000995<BR> 1: [IS-TWL-DEBUGGER] serial:10000996<BR> 2 device(s) found.</CODE></BLOCKQUOTE>
+<P><CODE>serial</CODE> is the serial number specified with the <CODE>-s</CODE> option. [IS-TWL-DEBUGGER]</CODE> is the type of device. If the device is being used by some other application like the IS-TWL-DEBUGGER software, <CODE>loadrun.TWL</CODE> will not be able to find the device.</P>
+<P>If <CODE><B>-l</B></CODE> or <CODE><B>--lap</B></CODE> is specified, the time from the start of execution is added to the beginning of each debug output line in {minutes:seconds} format when the ROM file output is displayed using a function such as <CODE><A href="../os/debug/OS_Printf.html">OS_Printf</A></CODE>. An example of this display is given below.</P>
+<BLOCKQUOTE><CODE>{0:01}Program started<BR> {0:01}--- heap init<BR> {0:02}x=14 y=50<BR> {0:04}</CODE></BLOCKQUOTE>
+<P>If the option <CODE><B>-N</B></CODE> or <CODE><B>--nitro</B></CODE> is specified, applications can be run on the IS-TWL-DEBUGGER in NITRO mode. If nothing is specified, the application will run in TWL mode. In order to use this feature, version 0.64 or later of the IS-TWL-DEBUGGER software is required.</P>
+<P>If the <CODE><B>-A</B></CODE> or <CODE><B>--architecture</B></CODE> option is specified, either &lt;A9&gt; or &lt;A7&gt; will be prepended to the beginning of each line of debug output (output from functions like <CODE><A href="../os/debug/OS_Printf.html">OS_Printf()</A></CODE>). This indicates the architecture of the processor that generated the output (ARM7 or ARM9).</P>
+<P>If the <CODE><B>-n</B></CODE> or <CODE><B>--console</B></CODE> option is specified, &lt;0&gt;-&lt;3&gt; will be prepended to the beginning of each line of output to indicate which window functions like <CODE><A href="../os/debug/OS_Printf.html">OS_Printf()</A></CODE> are printing to. Four output windows are available with IS-TWL-DEBUGGER. The destination can be set directly using functions like <CODE><A href="../os/debug/OS_FPrintf.html">OS_FPrintf()</A></CODE>. If not set directly, the output destination will be determined by <CODE><A href="../os/debug/OS_SetPrintOutput.html">OS_SetPrintOutput()</A></CODE>.</P>
+<P>If options are specified to distinguish both the processor and the output window, this information will be grouped together (for example &lt;A9:0&gt; or &lt;A7:2&gt;).</P>
+<P>The <CODE><B>-s</B></CODE> and <CODE><B>--serial</B></CODE> options take numeric values as arguments. This option specifies the serial number of the device that will download the <CODE>.srl</CODE> file. Data is downloaded to the device with that specified serial number. Although an unlikely case, if more than one device has the same serial number, data will be downloaded to the first device found. Note that if a serial number such as 04070680 is displayed in the device list when using the <CODE>-L</CODE> option, you can omit the initial zero and specify the device using 4070680. You can omit all but the lower-order digits of the serial number, as long as the digits you specify are unique among the devices you are using. For example, let's assume you have two devices connected whose serial numbers are 10000123 and 10000453. If you want to indicate the former, you don't have to specify the entire number (<CODE>-s10000123</CODE>) -- specifying either <CODE>-s123</CODE> or <CODE>-s23</CODE> will work just fine.</P>
+<P>The <B><CODE>-t</CODE></B> and <B><CODE>--timeout</CODE></B> options take numeric values as arguments. This option is used to specify the display timeout in units of seconds. After executing the .srl file and receiving the latest <CODE><A href="../os/debug/OS_Printf.html">OS_Printf()</A></CODE> data, execution is forced to terminate if more data does not arrive transmitted within the specified amount of time. If zero is specified, no timeout occurs. The same holds if this option is not specified.</P>
+<P>The <CODE><B>-T</B></CODE> and <CODE><B>--exec-timeout</B></CODE> options take numeric values as arguments. This option is used to specify the execution timeout in units of seconds. Execution is forced to terminate if the number of specified seconds has elapsed since execution of the <CODE>.srl</CODE> file began. If zero is specified, there is no execution timeout. The same holds if this option is not specified.</P>
+<P>The <CODE><B>-a</B></CODE> and <CODE> <B>--abort-string</B></CODE> options specify the string that ends execution. If the specified text appears at the beginning of the line, execution is forced to terminate. <FONT color="#ff0000">No determination is made until a carriage return is encountered.</FONT>Gaps of time between displays is fine.</P>
+<P>For example, if the termination string is  &quot;ABORT,&quot; any of the following</P>
+<BLOCKQUOTE>
+<P><CODE>OS_Printf(&quot;ABORT\n&quot;)<BR> OS_Printf(&quot;ABORTING\n&quot;)<BR> OS_Printf(&quot;ABORT\nQUIT\n&quot;)<BR> OS_Printf(&quot;ABOR&quot;);OS_Sleep(1000);OS_Printf(&quot;T\n&quot;);</CODE></P>
+</BLOCKQUOTE>
+<P>will result in termination, but the following</P>
+<BLOCKQUOTE>
+<P><CODE>OS_Printf(&quot; &#x3000;ABORT\n&quot;)  // Spaces in front<BR> OS_Printf(&quot;ABO\nRT\n&quot;)  // Line break in the middle<BR> OS_Printf(&quot;A B O R T\n&quot;)  // With spaces included so that it the string is not &quot;ABORT&quot;</CODE></P>
+</BLOCKQUOTE>
+<P>will not cause termination. In addition,</P>
+<BLOCKQUOTE><CODE>OS_Printf(&quot;ABORT&quot;)</CODE></BLOCKQUOTE>
+<P>will not immediately terminate because a line break has not been added. Termination will occur after <CODE>OS_Printf(&quot;\n&quot;)</CODE>, <CODE>OS_Printf(&quot; SOON\n&quot;)</CODE>, or other line feed code is encountered later.</P>
+<P>The <CODE><B>-c</B></CODE> and <CODE><B>--card-slot</B></CODE> options take arguments. ON or OFF may be specified as arguments. This option is used to lock the card slot during execution. OFF is used if unspecified. <FONT color="#ff0000">(This option has not yet been implemented, so please do not use it. Its specification may also change in the future.)</FONT></P>
+<P>The <CODE><B>-c</B></CODE> and <CODE><B>--cartridge-slot</B></CODE> options take arguments. ON or OFF may be specified as arguments. This option locks the cartridge slot during execution. OFF is used if unspecified. <FONT color="#ff0000">(This option has not yet been implemented, so please do not use it. Its specification may also change in the future.)</FONT></P>
+
+<P>If the <CODE><B>-q</B></CODE> or <CODE><B>--quiet</B></CODE> option is specified, quiet mode is used, and only error messages will be output. </P>
+<P>If the <B><CODE>-v</CODE></B> or <CODE><B>--verbose</B></CODE> option is specified, detailed operation descriptions are displayed. </P>
+<P>The <CODE><B>-h</B></CODE> or  <CODE><B>--help</B></CODE> options display simple instructions.</P>
+<P>The <CODE><B>--version</B></CODE> option displays the command version.</P>
+<H3><BR> <BR> Termination Conditions</H3>
+<P>- Calling <CODE><A href="../os/system/OS_Exit.html">OS_Exit()</A></CODE> on the TWL will cause the specified text string to be displayed and result in program HALT status. If <CODE>loadrun.TWL</CODE> accepts this display text string data, the termination status will be set to the value specified by <CODE><A href="../os/system/OS_Exit.html">OS_Exit()</A></CODE> and <CODE>loadrun.TWL</CODE> will terminate.</P>
+<P>- The program will end if the string specified by the user as an option is displayed.</P>
+<P>- The program will end if the execution time exceeds the execution timeout specified by the user as an option.</P>
+<P>- The program will end if there is no display for a longer period of time than the display timeout specified by the user as an option.</P>
+<P>- The program will also end if CTRL-C or a similar command is used to stop the program.</P>
+<H3><BR> <BR> Debugger Operation Prohibited Flag</H3>
+<P>Some <CODE>srl</CODE> files may prohibit being run on a debugger. This is controlled by a bit in a certain place within the ROM header that is embedded in the <CODE>.srl</CODE> file. Attempting to load a prohibited file with <CODE>loadrun.TWL</CODE> will halt with an error.</P>
+<H2>Location</H2>
+<P><CODE>$TWLSDK/tools/bin/loadrun.TWL.exe</CODE></P>
+<H2>See Also</H2>
+<P><CODE><A href="nitrorunTWL.html">nitrorun.TWL</A><BR> <A href="../os/system/OS_Exit.html">OS_Exit</A><BR> <A href="loadrun.html">loadrun</A></CODE></P>
+<H2>Revision History</H2>
+<P>2008/06/12 Added a description of running a hybrid ROM in NITRO mode (-n option).<BR> 2008/04/28 Added a description of the debugger prohibition flag.<BR> 2008/01/12 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML> 

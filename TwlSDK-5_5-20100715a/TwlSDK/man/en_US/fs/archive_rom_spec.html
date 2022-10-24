@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>ROM Archives</title>
+<LINK rel="stylesheet" href="../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">ROM Archives <img src="../image/NTR.gif"align="middle"><img src="../image/TWL.gif" align="middle"></h1>
+<h2>Overview</h2>
+<p>
+This chapter describes the &quot;ROM Archive&quot; that is prepared by default in the file system.
+</p>
+<H2>Specifications</H2>
+<P>
+Basic ROM archive operations are shown below. <br>- ROM archives can be loaded automatically when the <A><CODE>FS_Init</CODE></A> function is called by specifying the archive name reserved by the file system (<CODE>rom</CODE>). <br>- By accessing the appropriate Game Card ROM using the CARD functions, information about NitroROM-format archives that have been created within the Game Card ROM is available. You can use it from FS functions that access the overlay table.<br> <br> <BR>
+</p>
+<H2>Implementation</H2>
+<P>
+A ROM archive implementation is shown below. <br> <STRONG>Read callback:</STRONG><br>The <a href="../card/rom/CARD_ReadRomAsync.html"><code>CARD_ReadRomAsync</code></a> function reads CARD ROM data. It returns <code>FS_RESULT_PROC_ASYNC</code> when the process begins, and on completion responds with <code>FS_RESULT_SUCCESS</code>. <STRONG>Write callback:</STRONG><br>Not supported. Always returns <code>FS_RESULT_FAILURE</code>.<br> <STRONG>User Procedures:</STRONG><br>
+<TABLE border="0" height="310">
+  <TBODY>
+    <TR>
+<TD width="207" height="10"><A href="command/fs_command_activate_spec.html"><code>FS_COMMAND_ACTIVATE</code></A></TD>
+<TD height="10">Calls <a href="../card/rom/CARD_LockRom.html"><code>CARD_LockRom</code></a> to access the CARD ROM that will follow.</TD>
+    </TR>
+    <TR>
+<TD width="207" height="3"><A href="command/fs_command_idle_spec.html"><code>FS_COMMAND_IDLE</code></A></TD>
+<TD height="3">Calls <a href="../card/rom/CARD_UnlockRom.html"><code>CARD_UnlockRom</code></a> in conjunction with the end of CARD ROM access.</TD>
+    </TR>
+    <TR>
+<TD width="207" height="5"><A href="command/fs_command_writefile_spec.html"><code>FS_COMMAND_WRITEFILE</code></A></TD>
+<TD height="5">This command is not supported. Will always return <code>FS_RESULT_UNSUPPORTED</code>.</TD>
+    </TR>
+    <TR>
+<TD width="207" height="15" style="background-color : white;">Other</TD>
+<TD height="15">Returns <code>FS_RESULT_PROC_UNKNOWN</code> and defaults to default commands.</TD>
+    </TR>
+
+  </TBODY>
+</TABLE>
+
+</P>
+
+<h2>See Also</h2>
+<p><CODE><A href="fs_archive_type.html">FSArchive</a><BR> <A href="fs_archive_proc_func_type.html">FS_ARCHIVE_PROC_FUNC</A> <BR> <A href="archive/FS_SetArchiveProc.html">FS_SetArchiveProc</A></CODE></p>
+
+<H2>Revision History</H2>
+<P>
+2008/07/14 Made slight revisions to the description of archive names.<br />2004/09/24 Initial version.<br>
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

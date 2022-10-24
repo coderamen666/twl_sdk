@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>MI_CpuClear*</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">MI_CpuClear* <IMG src="../../image/NTR.gif" align="middle"><IMG src="../../image/TWL.gif" align="middle"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/mi.h&gt;</CODE><BR>
+  <BR>
+  <CODE>void MI_CpuClear8( void* dest, u32 size);</CODE><BR>
+  <CODE>void MI_CpuClear16( void* dest, u32 size);</CODE><BR>
+  <CODE>void MI_CpuClear32( void* dest, u32 size);</CODE><BR>
+  <CODE>void MI_CpuClearFast( void* dest, u32 size);</CODE><BR>
+  <CODE>void MI_CpuClear( void* dest, u32 size );</CODE></dd>
+</dl>
+
+<h2>Arguments</h2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+      <TD width="13%"><EM><STRONG>dest</STRONG></EM></TD>
+      <TD width="87%">The address of the clear destination</TD>
+    </TR>
+    <TR>
+      <TD><EM><STRONG>size</STRONG></EM></TD>
+      <TD>Clear size
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<h2>Return Values</h2>
+<p>None.</p>
+
+<H2>Description</H2>
+<P>This function uses the CPU to zero-clear memory.</P>
+<P><code>MI_CpuClear8()</code> selects the most efficient memory access based on the transfer destination address, and then fills the memory with zeroes in 16-bit and 32-bit units, as appropriate. The alignment of the clear destination address does not need to be considered.</P>
+<P><code>MI_CpuClear16()</code> fills the memory with zeros in 16-bit units. The clear destination address must be 2-byte aligned.</P>
+<P><code>MI_CpuClear32()</code> fills the memory with zeros in 32-bit units. The clear destination address must be 4-byte aligned.</P>
+<P><code>MI_CpuClearFast()</code> fills with zeros at high speed in 32-byte units. The clear destination address must be 4-byte aligned. The clear size must be an integral multiple of 4 bytes. (It does not have to be a multiple of 32.).</P>
+
+<P><CODE>MI_CpuClear()</CODE>, in the same manner as <CODE>MI_CpuClear8()</CODE>, selects the most efficient memory access based on the transfer destination address, and fills the memory with 0's in 16-bit and 32-bit units, as appropriate. The alignment of the clear destination address does not need to be considered. If the alignment and clear size are defined, we recommend that you divide calls between <CODE>MI_CpuClearFast</CODE> and <CODE>MI_CpuClear32</CODE>, as appropriate.</P>
+
+<h2>Internal Operation</h2>
+<P>Processing is done by the CPU only and does not use the DMA controller. It does not use a system call. The <CODE>MI_CpuClear8</CODE> function clears 16 or 32 bits at a time, so accessing VRAM directly will not cause problems.</P>
+<P>The <CODE>MI_CpuClear</CODE> function clears data in 8-bit units for some target addresses, so it should not be used when accessing VRAM directly. (It can be used in TWL mode if extended VRAM has been configured.)</P>
+
+<h2>See Also</h2>
+<p><CODE><A href="MI_CpuCopy.html">MI_CpuCopy*</A>, <A href="MI_CpuFill.html">MI_CpuFill*</A>,  <A href="MI_CpuSend.html">MI_CpuSend*</A>, <A href="../dma/MI_DmaClear.html">MI_DmaClear*</A><br></CODE></p>
+<H2>Revision History</H2>
+<P>
+2008/09/01 Added <CODE>MI_CpuClear</CODE>. <BR>2005/07/07 Added a description of the clear size for <CODE>MI_CpuClearFast</CODE>. <BR>2004/04/29 Added a description of <CODE>MI_CpuClear8</CODE>. <BR>2004/03/29 Mentioned that system calls are not used. <BR>2003/12/01 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

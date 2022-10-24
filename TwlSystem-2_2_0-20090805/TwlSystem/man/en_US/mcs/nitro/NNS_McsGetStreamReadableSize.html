@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 Trial for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>NNS_McsGetStreamReadableSize</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">NNS_McsGetStreamReadableSize</h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+		
+  <pre><CODE>#include &lt;nnsys/mcs.h&gt;</CODE></pre>
+	  
+  <pre><CODE>u32 NNS_McsGetStreamReadableSize(u16 channel);</CODE></pre>
+	</dd>
+</dl><h2>Arguments</h2>
+
+<table border="1" width="100%">
+ <tr> 
+<td width="13%"><CODE>channel</CODE></td>
+<td width="87%">Value for identifying a stream. Specify in the range of 0 to <CODE>0x3FFF</CODE>. The range of <CODE>0x4000</CODE> to <CODE>0x7FFF</CODE> is reserved for TWL-System applications. The range of <CODE>0x8000</CODE> to <CODE>0xFFFF</CODE> is reserved for the MCS system.</td>
+ </tr>
+</table>
+<h2>Return Values</h2>
+<p>The size of the readable data.</p>
+<H2>Description</H2>
+<p>Gets the size of data that can be read with one call of the <code>NNS_McsReadStream</code> function.</p>
+<h2>See Also</h2>
+<p><A href="NNS_McsGetTotalStreamReadableSize.html"><CODE>NNS_McsGetTotalStreamReadableSize</CODE></A></p>
+<H2>Revision History</H2>
+<P>
+2008/06/20 Changed NITRO-System to TWL-System.<br>2004/10/08 Added a description of the <CODE>channel</CODE> argument.<br>2004/08/26 Changed the function name and the channel argument type. 2004/06/01 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

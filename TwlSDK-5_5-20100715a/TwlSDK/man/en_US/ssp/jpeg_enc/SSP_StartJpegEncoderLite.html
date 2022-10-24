@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title>SSP_StartJpegEncoderLite</title>
+<link rel="stylesheet" href="../../css/nitro.css" type="text/css" />
+</head>
+<body>
+
+<h1>SSP_StartJpegEncoderLite <img src="../../image/NTR.gif" align="middle"><img src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+
+<pre><code>
+u32 SSP_StartJpegEncoderLite(const void* src, u8 *dst, u32 limit, u8 *wrk, u32 width, u32 height, u32 quality, u32 sampling, u32 option);
+</code></pre>
+
+<h2>Arguments</h2>
+<table style="width:100%">
+<tbody>
+<tr>
+<td style="width:13%"><SPAN class="argument">src</SPAN></td>
+<td style="width:87%">Image data to encode (RGB555 or YUV422). Must be 4-byte aligned.</td>
+</tr>
+<tr>
+<td style="width:13%"><SPAN class="argument">dst</SPAN></td>
+<td style="width:87%">Buffer to store the encoding results. Must be 4-byte aligned.</td>
+</tr>
+<tr>
+<td style="width:13%"><SPAN class="argument">limit</SPAN></td>
+<td style="width:87%">Represents the <SPAN class="argument">dst</SPAN> size.<br>Encoding fails if this size is exceeded.</td>
+</tr>
+<tr>
+<td style="width:13%"><SPAN class="argument">wrk</SPAN></td>
+<td style="width:87%">Working buffer. This must be 4-byte aligned. You can use the <a href="SSP_GetJpegEncoderLiteBufferSize.html"><CODE>SSP_GetJpegEncoderLiteBufferSize</CODE></a> function to calculate the required size.</td>
+</tr>
+<tr>
+<td style="width:13%"><SPAN class="argument">width</SPAN></td>
+<td style="width:87%">Width (in pixels) of the image to encode.</td>
+</tr>
+<tr>
+<td style="width:13%"><SPAN class="argument">height</SPAN></td>
+<td style="width:87%">Height (in pixels) of the image to encode.</td>
+</tr>
+<tr>
+<td style="width:13%"><SPAN class="argument">quality</SPAN></td>
+<td style="width:87%">Encoding quality.<br>Values from 1 to 100 can be specified, where 100 represents the highest quality and the largest size.</td>
+</tr>
+<tr>
+<td style="width:13%"><SPAN class="argument">sampling</SPAN></td>
+<td style="width:87%">Main image output formats (<CODE>SSP_JPEG_OUTPUT_YUV444</CODE>, <CODE>SSP_JPEG_OUTPUT_YUV420</CODE>, or <CODE>SSP_JPEG_OUTPUT_YUV422</CODE>).</td>
+</tr>
+<tr>
+<td style="width:13%"><SPAN class="argument">option</SPAN></td>
+<td style="width:87%">Encoding options (<CODE>SSP_JPEG_RGB555</CODE>, <CODE>SSP_JPEG_YUV422</CODE>, or <CODE>SSP_JPEG_THUMBNAIL</CODE>).</td>
+</tr>
+</tbody>
+</table>
+
+
+<h2>Return Values</h2>
+<p>Returns the size of the created JPEG file when successful.<BR>Returns 0 when it fails.</p>
+
+<h2>Description</h2>
+<p>Encodes image data as a JPEG file. This has the same basic behavior as the <a href="SSP_StartJpegEncoder.html"><CODE>SSP_StartJpegEncoder</CODE></a> function, but it uses a much smaller working buffer (<SPAN class="argument">wrk</SPAN>). For an explanation of the parts that are in common, see the <a href="SSP_StartJpegEncoder.html"><CODE>SSP_StartJpegEncoder</CODE></a> page.
+</p>
+
+<h2>See Also</h2>
+<p><a href="SSP_StartJpegEncoder.html"><CODE>SSP_StartJpegEncoder</CODE></a><BR> <a href="SSP_GetJpegEncoderLiteBufferSize.html"><CODE>SSP_GetJpegEncoderLiteBufferSize</CODE></a></p>
+
+<h2>Revision History</h2>
+<p>
+2009/04/27 Initial version.
+</p>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

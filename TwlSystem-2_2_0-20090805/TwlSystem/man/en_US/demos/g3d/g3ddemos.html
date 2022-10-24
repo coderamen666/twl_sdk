@@ -1,0 +1,224 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<LINK rel="stylesheet" type="text/css" href="../../css/nitro.css">
+<TITLE>G3D Demos</TITLE>
+</HEAD>
+
+<BODY>
+<H1>G3D Sample Demo</H1>
+
+<H2>Location</H2>
+<P><CODE>$TwlSystem/build/demos/g3d/</CODE></P>
+
+<H2>Compilation</H2>
+<P>Move to the <CODE>$TwlSystem/build/demos/g3d</CODE> directory and run:</P>
+<BLOCKQUOTE><CODE>% make</CODE></BLOCKQUOTE>
+<P>&nbsp;Compiling begins, and the SRL executable file and the NEF or TEF files with the binary information are generated in:</P>
+<BLOCKQUOTE><CODE>$TwlSystem/build/demos/g3d/samples/sample_name/bin/(platform)/(target)/</CODE></BLOCKQUOTE>
+<P>&nbsp;For example:</P>
+<BLOCKQUOTE><CODE>$TwlSystem/build/demos/g3d/samples/simple/bin/ARM9-TS.HYB/Release/</CODE></BLOCKQUOTE>
+<P>The executable file of the release version for the NITRO/TWL hybrid of the <CODE>simple</CODE> demo is generated in the path described above.</P>
+
+<H2>Execution</H2>
+<P>Move to the <CODE>$TwlSystem/build/demos/g3d/samples/(sample_name)/bin/(platform)/(target)/</CODE> directory. Depending on the type of the built ROM, one of the following methods is used for execution.</P>
+
+<H3>For NITRO ROMs</H3>
+
+<P>When using the Ensata emulator:</P>
+<UL>
+<LI>Execute the NEF and SRL files with <CODE>ensata</CODE>.
+</UL>
+<P>When using IS-NITRO-DEBUGGER:</P>
+<UL>
+<LI>Load and execute an NLF file with IS-NITRO-DEBUGGER.
+<LI>Execute an SRL file with IS-NITRO-DEBUGGER.
+<LI>Execute an SRL file with IS-NITRO-DEBUGGER using the <CODE>loadrun.exe</CODE> tool from a command line.
+</UL>
+<P>When using IS-TWL-DEBUGGER:</P>
+<UL>
+<LI>Load and execute an NLF file with IS-TWL-DEBUGGER.
+<LI>Execute an SRL file with IS-TWL-DEBUGGER.
+<LI>Execute an SRL file with IS-TWL-DEBUGGER using the <CODE>loadrun.TWL.exe</CODE> tool from a command line.
+</UL>
+<H3>For TWL/NITRO Hybrid ROMs</H3>
+<P>When using IS-NITRO-DEBUGGER:</P>
+<UL>
+<LI>Execute an SRL file with IS-NITRO-DEBUGGER.
+<LI>Execute an SRL file with IS-NITRO-DEBUGGER using the <CODE>loadrun.exe</CODE> tool from a command line.
+</UL>
+<P>When using IS-TWL-DEBUGGER:</P>
+<UL>
+<LI>Load and execute a TLF file with IS-TWL-DEBUGGER.
+<LI>Execute an SRL file with IS-TWL-DEBUGGER.
+<LI>Execute an SRL file with IS-TWL-DEBUGGER using the <CODE>loadrun.TWL.exe</CODE> tool from a command line.
+</UL>
+<H3>For TWL Limited ROMs</H3>
+<P>When using IS-TWL-DEBUGGER:</P>
+<UL>
+<LI>Load and execute a TLF file with IS-TWL-DEBUGGER.
+<LI>Execute an SRL file with IS-TWL-DEBUGGER.
+<LI>Execute an SRL file with IS-TWL-DEBUGGER using the <CODE>loadrun.TWL.exe</CODE> tool from a command line.
+</UL>
+
+
+<H2>Description</H2>
+<H4>Sample</H4>
+<TABLE width="800">
+  <TBODY>
+    <TR>
+<TD width="187"><A href="../../../../build/demos/g3d/samples/simple/src/main.c"><CODE>simple</CODE></A></TD>
+<TD width="576">A simple sample that displays textured model rendering.</TD>
+    </TR>
+    <TR>
+<TD width="187"><A href="../../../../build/demos/g3d/samples/1mat1shp/src/main.c"><CODE>1mat1shp</CODE></A></TD>
+<TD width="576">A sample that displays a very simple model quickly.</TD>
+    </TR>
+    <TR>
+<TD width="187"><A href="../../../../build/demos/g3d/samples/callback1/src/main.c"><CODE>callback1</CODE></A></TD>
+<TD width="576">A sample(1) that allows customization to rendering processes using callback function registration. Displays a model by changing the calculation results for partial visibility, material, and the like.</TD>
+    </TR>
+    <TR>
+<TD width="187"><A href="../../../../build/demos/g3d/samples/callback2/src/main.c"><CODE>callback2</CODE></A></TD>
+<TD width="576">A sample(2) that allows customization to rendering processes using callback function registration. Takes nodes specified in a model, attaches them to another model, and displays.</TD>
+    </TR>
+    <TR>
+<TD width="187"><A href="../../../../build/demos/g3d/samples/callback3/src/main.c"><CODE>callback3</CODE></A></TD>
+<TD width="576">A sample(3) that allows customization to rendering processes using callback function registration. Performs calculations that are unrelated to rendering while transmitting the display list.</TD>
+    </TR>
+    <TR>
+<TD width="187"><A href="../../../../build/demos/g3d/samples/callback4/src/main.c"><CODE>callback4</CODE></A></TD>
+<TD width="576">A sample(4) that allows customization to rendering processes using callback function registration. Processes and resets the current matrix after joint animation application.</TD>
+    </TR>
+    <TR>
+<TD width="187"><A href="../../../../build/demos/g3d/samples/callback5/src/main.c"><CODE>callback5</CODE></A></TD>
+<TD width="576">A sample(5) that allows customization to rendering processes using callback function registration. Makes multiple settings for the callback function.</TD>
+    </TR>
+    <TR>
+<TD width="187"><A href="../../../../build/demos/g3d/samples/CameraMtx/src/main.c"><CODE>CameraMtx</CODE></A></TD>
+<TD width="576">A sample that displays billboards. Also changes the projection matrix settings and compares drawing efficiency.</TD>
+    </TR>
+    <TR>
+<TD width="187"><A href="../../../../build/demos/g3d/samples/CustomizeSbcOp/src/main.c"><CODE>CustomizeSbcOp</CODE></A></TD>
+<TD width="576">A sample that changes the SBC command processing functions to the functions customized by the user.</TD>
+    </TR>
+    <TR>
+<TD width="187"><A href="../../../../build/demos/g3d/samples/DisposeTex/src/main.c"><CODE>DisposeTex</CODE></A></TD>
+<TD width="576">A sample that performs operations with no problems even if the texture regions have been reset to zero after the model textures have been transferred to the VRAM.</TD>
+    </TR>
+    <TR>
+<TD width="187"><A href="../../../../build/demos/g3d/samples/Envelope/src/main.c"><CODE>Envelope</CODE></A></TD>
+<TD width="576">A sample that displays a model that has a weighted envelope.</TD>
+    </TR>
+    <TR>
+<TD width="187"><A href="../../../../build/demos/g3d/samples/GeComBuffering/src/main.c"><CODE>GeComBuffering</CODE></A></TD>
+<TD width="576">A sample that uses the geometry command buffering feature.</TD>
+    </TR>
+    <TR>
+<TD width="187"><A href="../../../../build/demos/g3d/samples/JointAnm/src/main.c"><CODE>JointAnm</CODE></A></TD>
+<TD width="576">A sample that plays model joint animation.</TD>
+    </TR>
+    <TR>
+<TD><A href="../../../../build/demos/g3d/samples/PartialAnm1/src/main.c"><CODE>PartialAnm1</CODE></A></TD>
+<TD>A sample that plays a portion of the model joint animation.</TD>
+    </TR>
+    <TR>
+<TD><A href="../../../../build/demos/g3d/samples/PartialAnm2/src/main.c"><CODE>PartialAnm2</CODE></A></TD>
+<TD>A sample that combines and plays portions of the model joint animation.</TD>
+    </TR>
+    <TR>
+<TD width="187"><A href="../../../../build/demos/g3d/samples/SlowMotion/src/main.c"><CODE>SlowMotion</CODE></A></TD>
+<TD width="576">A sample that plays the model joint animation in slow motion.</TD>
+    </TR>
+    <TR>
+<TD width="187"><A href="../../../../build/demos/g3d/samples/SharedMotion/src/main.c"><CODE>SharedMotion</CODE></A></TD>
+<TD width="576">A sample that plays the same joint animation with models of different shapes.</TD>
+    </TR>
+    <TR>
+<TD width="187"><A href="../../../../build/demos/g3d/samples/ManualSetup/src/main.c"><CODE>ManualSetup</CODE></A></TD>
+<TD width="576">A sample that sets up the model resource without using the <CODE>NNS_G3dResDefaultSetup</CODE> function.</TD>
+    </TR>
+    <TR>
+<TD width="187"><A href="../../../../build/demos/g3d/samples/MatColAnm/src/main.c"><CODE>MatColAnm</CODE></A></TD>
+<TD width="576">A sample that plays the material color animation.</TD>
+    </TR>
+    <TR>
+<TD width="187"><A href="../../../../build/demos/g3d/samples/ModifyNsbmd/src/main.c"><CODE>ModifyNsbmd</CODE></A></TD>
+<TD width="576">A sample that changes the model's material color and light settings.</TD>
+    </TR>
+    <TR>
+<TD width="187"><A href="../../../../build/demos/g3d/samples/MotionLOD/src/main.c"><CODE>MotionLOD</CODE></A></TD>
+<TD width="576">A sample that reduces CPU processing by decreasing the frame rate of the character animation that is placed in the distance.</TD>
+    </TR>
+    <TR>
+<TD width="187"><A href="../../../../build/demos/g3d/samples/MultiModel/src/main.c"><CODE>MultiModel</CODE></A></TD>
+<TD width="576">A sample that merges several models using a converter and draws the result.</TD>
+    </TR>
+    <TR>
+<TD width="187"><A href="../../../../build/demos/g3d/samples/RecordJoint/src/main.c"><CODE>RecordJoint</CODE></A></TD>
+<TD width="576">A sample that precalculates the result of the joint.</TD>
+    </TR>
+    <TR>
+<TD width="187"><A href="../../../../build/demos/g3d/samples/RecordMaterial/src/main.c"><CODE>RecordMaterial</CODE></A></TD>
+<TD width="576">A sample that precalculates the result of the material.</TD>
+    </TR>
+    <TR>
+<TD width="187"><A href="../../../../build/demos/g3d/samples/RecordMtx/src/main.c"><CODE>RecordMtx</CODE></A></TD>
+<TD width="576">A sample that operates in the same way as the <CODE>callback2</CODE> sample but without using callbacks.</TD>
+    </TR>
+    <TR>
+<TD width="187"><A href="../../../../build/demos/g3d/samples/SeparateTex/src/main.c"><CODE>SeparateTex</CODE></A></TD>
+<TD width="576">A sample that splits and outputs model and texture binary with a converter and displays them with appropriate links.</TD>
+    </TR>
+    <TR>
+<TD width="187"><A href="../../../../build/demos/g3d/samples/ShadowVolume/src/main.c"><CODE>ShadowVolume</CODE></A></TD>
+<TD width="576">A sample that renders the shadow volume using G3D.</TD>
+    </TR>
+    <TR>
+<TD width="187"><A href="../../../../build/demos/g3d/samples/TexPatternAnm/src/main.c"><CODE>TexPatternAnm</CODE></A></TD>
+<TD width="576">A sample that plays the texture pattern animation.</TD>
+    </TR>
+    <TR>
+<TD width="187"><A href="../../../../build/demos/g3d/samples/TexSRTAnm/src/main.c"><CODE>TexSRTAnm</CODE></A></TD>
+<TD width="576">A sample that plays the texture SRT animation.</TD>
+    </TR>
+    <TR>
+<TD width="187"><A href="../../../../build/demos/g3d/samples/UnbindTex/src/main.c"><CODE>UnbindTex</CODE></A></TD>
+<TD width="576">A sample that partially removes textures in the model and reapplies them.</TD>
+    </TR>
+    <TR>
+<TD width="187"><A href="../../../../build/demos/g3d/samples/VisibilityAnm/src/main.c"><CODE>VisibilityAnm</CODE></A></TD>
+<TD width="576">A sample that plays visibility animation.</TD>
+    </TR>
+    <TR>
+<TD width="187"><A href="../../../../build/demos/g3d/samples/ScreenUtil/src/main.c"><CODE>ScreenUtil</CODE></A></TD>
+<TD width="576">A sample that uses the coordinate conversion utility API of G3D.</TD>
+    </TR>
+    <TR>
+<TD><A href="../../../../build/demos/g3d/samples/Translucent/src/main.c"><CODE>Translucent</CODE></A></TD>
+<TD>A sample that draws an object that has overlapping translucent polygons.</TD>
+    </TR>
+    <TR>
+<TD><A href="../../../../build/demos/g3d/samples/EnvMap/src/main.c"><CODE>EnvMap</CODE></A></TD>
+<TD>A sample that displays environment-mapped objects.</TD>
+    </TR>
+    <TR>
+<TD><A href="../../../../build/demos/g3d/samples/ProjMap/src/main.c"><CODE>ProjMap</CODE></A></TD>
+<TD>A sample that displays projection-mapped objects.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<H2>Operating Environment</H2>
+<P>Normal operation for all of the samples using IS-TWL-DEBUGGER, IS-NITRO-EMULATOR, and Ensata has been confirmed.</P>
+<H2>See Also</H2>
+<P><A href="../../g3d/list_g3d.html">G3D Function List</A></P>
+<H2>Revision History</H2>
+<P>
+2008/06/20 Updated compiling method and execution method for TWL.<BR> 2008/02/26 Added to the descriptions of callback samples. <BR> 2005/01/24 Deleted the description of IS-NITRO-EMULATOR in <B>Execution</B>, deleted the description of TEG in <B>Operating Environment</B>, and changed TS to IS-NITRO-EMULATOR.<BR>2005/01/21 Added two samples: <code>EnvMap</code> and <code>ProjMap</code>.<br />2004/11/26 Added <code>Translucent</code> sample.<br />2004/11/10 Added five samples: <code>PartialAnm1</code>, <code>PartialAnm2</code>, <code>SlowMotion</code>, <code>SharedMotion</code>, and <code>ScreenUtil</code>.<br />2004/10/12 Added five samples: <code>callback5</code>, <code>Envelope</code>, <code>ManualSetup</code>, <code>RecordMtx</code>, and <code>ShadowVolume</code>.<br />2004/09/16 Added two samples: <code>callback4</code> and <code>MotionLOD</code>.<br />2004/09/01 Added three samples; <code>1mat1shp</code>, <code>callback3</code>, and <code>GeComBuffering</code>.<br />2004/08/10 Added some samples.<br /> 2004/08/02 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

@@ -1,0 +1,654 @@
+#---------------------------------------------------------------------------
+#  Project:  NitroSDK - tools - makelcf
+#  File:     ARM9-TS.lcf.template
+#
+#  Copyright 2003-2008 Nintendo. All rights reserved.
+#
+#  These coded instructions, statements, and computer programs contain
+#  proprietary information of Nintendo of America Inc. and/or Nintendo
+#  Company Ltd., and are protected by Federal copyright law. They may
+#  not be disclosed to third parties or copied or duplicated in any form,
+#  in whole or in part, without the prior written consent of Nintendo.
+#
+#  $Log: ARM9-TS.lcf.template,v $
+#  Revision 1.39  2007/04/12 00:11:41  yasu
+#  Updated copyright year
+#
+#  Revision 1.38  2007/04/10 14:05:45  yasu
+#  Support for multiple uses of SEARCH_SYMBOL
+#
+#  Revision 1.37  2006/07/20 07:29:12  kitase_hirotake
+#  Added the description explaining the version section
+#
+#  Revision 1.36  2006/07/18 11:11:01  yasu
+#  There is an error in the way check.xTCM gets the OVERLAY region size in the TCM region overflow check. Because it is not currently clear how to accurately calculate this, the addition of the OVERLAY region was cut out.
+#  
+#  
+#
+#  Revision 1.35  2006/05/10 03:19:47  yasu
+#  Added support for the CodeWarrior 2.x overlay expansion
+#
+#  Revision 1.34  2006/04/06 09:02:36  kitase_hirotake
+#  Support for .itcm.bss and .dtcm.bss
+#
+#  Revision 1.33  2006/03/30 23:59:22  yasu
+#  Updated copyright year
+#
+#  Revision 1.32  2006/03/29 13:14:22  yasu
+#  Support for overlays in CWVER 2.x
+#
+#  Revision 1.31  2005/11/24 01:16:47  yada
+#  Changed start address of mainEX arena from 0x2400000 to 0x23e0000
+#
+#  Revision 1.30  2005/09/02 04:14:22  yasu
+#  Old symbols were redefined so they can be used even under SDK2.2
+#
+#  Revision 1.29  2005/08/31 09:34:57  yasu
+#  Corrected a problem where code would not function normally when using section names such as section_BSS
+#
+#  Revision 1.28  2005/08/26 11:22:16  yasu
+#  Overlay support for ITCM/DTCM
+#
+#  Revision 1.27  2005/06/20 12:29:20  yasu
+#  Changed Surffix to Suffix
+#
+#  Revision 1.26  2005/06/14 09:03:42  yada
+#  Fix specific to negative value of SDK_STACKSIZE
+#
+#  Revision 1.25  2005/04/13 12:51:00  terui
+#  Changed SDK_AUTOLOAD.DTCM.START 0x027c0000 to 0x027e0000
+#
+#  Revision 1.24  2005/03/30 00:02:14  yosizaki
+#  Fixed copyright header
+#
+#  Revision 1.23  2005/03/25 12:54:59  yasu
+#  Added the .version section
+#
+#  Revision 1.22  2004/10/03 02:00:56  yasu
+#  Output component file list for compstatic tool
+#
+#  Revision 1.21  2004/09/27 05:28:21  yasu
+#  Added support for .sinit
+#
+#  Revision 1.20  2004/09/09 11:49:20  yasu
+#  Added support for compstatic in default
+#
+#  Revision 1.19  2004/09/06 06:40:00  yasu
+#  Added labels for digest
+#
+#  Revision 1.18  2004/08/20 06:19:59  yasu
+#  DTCM moves to 0x027c0000 at default
+#
+#  Revision 1.17  2004/08/02 10:38:53  yasu
+#  Added autoload-done callback address in overlaydefs
+#
+#  Revision 1.16  2004/07/26 02:22:32  yasu
+#  Changed DTCM address to 0x023c0000
+#
+#  Revision 1.15  2004/07/26 00:08:27  yasu
+#  Fixed label of exception table
+#
+#  Revision 1.14  2004/07/24 05:42:25  yasu
+#  Set default values for SDK_AUTOGEN_xTCM_START
+#
+#  Revision 1.13  2004/07/23 11:32:14  yasu
+#  Defined labels for __exception_table_start__ and _end__
+#
+#  Revision 1.12  2004/07/12 12:21:08  yasu
+#  Checked size of ITCM/DTCM
+#
+#  Revision 1.11  2004/07/10 04:10:26  yasu
+#  Added support for command 'Library'
+#
+#  Revision 1.10  2004/07/02 08:13:02  yasu
+#  Added support for OBJECT( )
+#
+#  Revision 1.9	 2004/07/01 12:54:38  yasu
+#  Added support for ITCM/DTCM/WRAM autoload
+#
+#  Revision 1.8	 2004/07/01 10:41:46  yasu
+#  Added support for autoload
+#
+#  Revision 1.7	 2004/06/02 07:35:37  yasu
+#  Set libsyscall.a in FORCE_ACTIVE
+#  Put NitroMain at the top of ROM image
+#
+#  Revision 1.6	 2004/06/02 04:56:28  yasu
+#  Revised to match the new ROM map of TS
+#
+#  Revision 1.5	 2004/06/01 06:12:00  miya
+#  Added padding at top of ROM image
+#
+#  Revision 1.4	 2004/04/26 12:16:48  yasu
+#  Added KEEP_SECTIONS
+#
+#  Revision 1.3	 2004/04/20 07:41:32  yasu
+#  Set STATICINIT instead of .ctor temporarily
+#
+#  Revision 1.2	 2004/04/14 07:16:42  yasu
+#  Added ALIGN(32) for convenience to handle cache line
+#
+#  Revision 1.1	 2004/04/06 01:59:54  yasu
+#  Newly added
+#
+#  $NoKeywords: $
+#---------------------------------------------------------------------------
+MEMORY
+{
+	main		(RWX) : ORIGIN = 0x02000000,   LENGTH = 0x0 >  main.sbin
+	binary.AUTOLOAD_INFO		(RWX) : ORIGIN = 0, LENGTH = 0x0 >> main.sbin
+	binary.STATIC_FOOTER		(RWX) : ORIGIN = 0, LENGTH = 0x0 >> main.sbin
+	
+	main_defs	(RW)  : ORIGIN = AFTER(main), LENGTH = 0x0 > main_defs.sbin
+	main_table	(RW)  : ORIGIN = AFTER(main), LENGTH = 0x0 > main_table.sbin
+	overlay_0		(RWXO): ORIGIN = 0x03f00000, LENGTH = 0x0 > overlay_0.sbin
+	overlay_1		(RWXO): ORIGIN = AFTER(main), LENGTH = 0x0 > overlay_1.sbin
+	overlay_2		(RWXO): ORIGIN = AFTER(overlay_1), LENGTH = 0x0 > overlay_2.sbin
+	dummy.MAIN_EX		(RW)  : ORIGIN = 0x023e0000, LENGTH = 0x0
+	arena.MAIN			(RW)  : ORIGIN = AFTER(main,overlay_1,overlay_2), LENGTH = 0x0
+	arena.MAIN_EX		(RW)  : ORIGIN = AFTER(dummy.MAIN_EX), LENGTH = 0x0
+	arena.ITCM		(RW)  : ORIGIN = AFTER(ITCM), LENGTH = 0x0
+	arena.DTCM		(RW)  : ORIGIN = AFTER(DTCM), LENGTH = 0x0
+	binary.MODULE_FILES		(RW)  : ORIGIN = 0x0, LENGTH = 0x0     > component.files
+	check.ITCM			(RWX) : ORIGIN = 0x0, LENGTH = 0x08000 > itcm.check
+	check.DTCM			(RW)  : ORIGIN = 0x0, LENGTH = 0x04000 > dtcm.check
+}
+
+FORCE_ACTIVE
+{
+	SVC_SoftReset
+}
+
+KEEP_SECTION
+{
+	.sinit
+}
+
+SECTIONS
+{
+	############################ STATIC #################################
+	.main:
+	{
+	ALIGNALL(4);			. = ALIGN(32);	# Fit to cache line
+					
+	#
+	#  TEXT BLOCK: READ ONLY
+	#
+	SDK_STATIC_START		=.;
+	SDK_STATIC_TEXT_START		=.;
+					#:::::::::: text/rodata
+					libsyscall.a (.text)
+					crt0.o (.text)
+					crt0.o (.rodata)
+					#
+					# Added .version section.
+					# The information included in this section will be needed for Lotcheck purposes. Be sure to leave it in this position.
+					# 
+					#
+					* (.version)
+					OBJECT(NitroMain,*)
+					*.o (.text)
+					. = ALIGN(4);
+					* (.exception)
+					. = ALIGN(4);
+	SDK_STATIC_ETABLE_START		=.;
+					EXCEPTION
+	SDK_STATIC_ETABLE_END		=.;
+					. = ALIGN(4);
+					. = ALIGN(4);
+					. = ALIGN(4);
+
+	SDK_STATIC_SINIT_START		=.;
+					#:::::::::: ctor
+					*.axxx (.ctor)
+					WRITEW	0;
+					#:::::::::: ctor
+	SDK_STATIC_SINIT_END		=.;
+
+					#:::::::::: text/rodata
+					. = ALIGN(32);
+	SDK_STATIC_TEXT_END		=.;
+	
+	#
+	#  DATA BLOCK: READ WRITE
+	#
+	SDK_STATIC_DATA_START		=.;
+					#:::::::::: Data
+					. = ALIGN(4);
+					. = ALIGN(4);
+	SDK_OVERLAY_DIGEST		=.;
+					# NO DIGEST
+	SDK_OVERLAY_DIGEST_END		=.;
+					#:::::::::: Data
+					. = ALIGN(32);
+	SDK_STATIC_DATA_END		=.;
+	SDK_STATIC_END			=.;
+
+	SDK_STATIC_TEXT_SIZE		= SDK_STATIC_TEXT_END - SDK_STATIC_TEXT_START;
+	SDK_STATIC_DATA_SIZE		= SDK_STATIC_DATA_END - SDK_STATIC_DATA_START;
+	SDK_STATIC_SIZE			= SDK_STATIC_END      - SDK_STATIC_START;
+	__sinit__			= SDK_STATIC_SINIT_START;	# For static initializer
+	__exception_table_start__	= SDK_STATIC_ETABLE_START;	# For exception table
+	__exception_table_end__		= SDK_STATIC_ETABLE_END;	# For exception table
+	} > main
+
+	.main.bss:
+	{
+	ALIGNALL(4);			. = ALIGN(32);
+					
+	#
+	#  BSS BLOCK
+	#
+	SDK_STATIC_BSS_START		=.;
+					#:::::::::: bss
+					. = ALIGN(4);
+					. = ALIGN(4);
+					#:::::::::: bss
+					. = ALIGN(32);
+	SDK_STATIC_BSS_END		= .;
+	SDK_STATIC_BSS_SIZE		= SDK_STATIC_BSS_END - SDK_STATIC_BSS_START;
+
+	} >> main
+	
+	
+	############################ AUTOLOADS ##############################
+	SDK_AUTOLOAD.ITCM.START			= 0x01ff8000;
+	SDK_AUTOLOAD.ITCM.END			= SDK_AUTOLOAD.ITCM.START;
+	SDK_AUTOLOAD.ITCM.BSS_END		= SDK_AUTOLOAD.ITCM.START;
+	SDK_AUTOLOAD.ITCM.SIZE			= 0;
+	SDK_AUTOLOAD.ITCM.BSS_SIZE		= 0;
+	SDK_AUTOLOAD.DTCM.START			= 0x027e0000;
+	SDK_AUTOLOAD.DTCM.END			= SDK_AUTOLOAD.DTCM.START;
+	SDK_AUTOLOAD.DTCM.BSS_END		= SDK_AUTOLOAD.DTCM.START;
+	SDK_AUTOLOAD.DTCM.SIZE			= 0;
+	SDK_AUTOLOAD.DTCM.BSS_SIZE		= 0;
+	SDK_AUTOLOAD_START			= SDK_STATIC_END;
+	SDK_AUTOLOAD_SIZE			= 0;
+	SDK_AUTOLOAD_NUMBER			= 0;
+
+
+	SDK_AUTOLOAD_ITCM_START			= SDK_AUTOLOAD.ITCM.START;
+	SDK_AUTOLOAD_ITCM_END			= SDK_AUTOLOAD.ITCM.END;
+	SDK_AUTOLOAD_ITCM_BSS_END		= SDK_AUTOLOAD.ITCM.BSS_END;
+	SDK_AUTOLOAD_ITCM_SIZE			= SDK_AUTOLOAD.ITCM.SIZE;
+	SDK_AUTOLOAD_ITCM_BSS_SIZE		= SDK_AUTOLOAD.ITCM.BSS_SIZE;
+	SDK_AUTOLOAD_DTCM_START			= SDK_AUTOLOAD.DTCM.START;
+	SDK_AUTOLOAD_DTCM_END			= SDK_AUTOLOAD.DTCM.END;
+	SDK_AUTOLOAD_DTCM_BSS_END		= SDK_AUTOLOAD.DTCM.BSS_END;
+	SDK_AUTOLOAD_DTCM_SIZE			= SDK_AUTOLOAD.DTCM.SIZE;
+	SDK_AUTOLOAD_DTCM_BSS_SIZE		= SDK_AUTOLOAD.DTCM.BSS_SIZE;
+
+	############################ AUTOLOAD_INFO ##########################
+	.binary.AUTOLOAD_INFO:
+	{
+	} > binary.AUTOLOAD_INFO
+	
+	SDK_AUTOLOAD_LIST			= SDK_AUTOLOAD_START + SDK_AUTOLOAD_SIZE;
+	SDK_AUTOLOAD_LIST_END			= SDK_AUTOLOAD_START + SDK_AUTOLOAD_SIZE + SIZEOF(.binary.AUTOLOAD_INFO);
+	SDK_AUTOLOAD_SIZE			= SDK_AUTOLOAD_SIZE  + SIZEOF(.binary.AUTOLOAD_INFO);
+	
+	############################ STATIC_FOOTER ##########################
+	.binary.STATIC_FOOTER:
+	{
+		WRITEW 0xdec00621;		# LE(0x2106C0DE) = NITRO CODE
+		WRITEW _start_ModuleParams - ADDR(.main);
+		WRITEW 0;			# NO DIGEST
+	} > binary.STATIC_FOOTER
+	
+	############################ OVERLAYS ###############################
+	SDK_OVERLAY_NUMBER			= 3;
+
+	.overlay_0:
+	{
+	ALIGNALL(4);				. = ALIGN(32);
+						
+	#
+	#   TEXT BLOCK: READ ONLY
+	#
+	SDK_OVERLAY_overlay_0_ID		=0;	### SEGMENT overlay_0 OVERLAY ID
+	SDK_OVERLAY.overlay_0.ID		=0;
+	SDK_OVERLAY.overlay_0.START	=.;
+	SDK_OVERLAY.overlay_0.TEXT_START	=.;
+						#:::::::::: text/rodata
+						aaa.o (.text)
+						bbb.o (.text)
+						. = ALIGN(4);
+						aaa.o (.rodata)
+						bbb.o (.rodata)
+						. = ALIGN(4);
+						aaa.o (.init)
+						bbb.o (.init)
+						. = ALIGN(4);
+	SDK_OVERLAY.overlay_0.SINIT_START	=.;
+						#:::::::::: ctor
+						aaa.o (.ctor)
+						bbb.o (.ctor)
+						aaa.o (.sinit)
+						bbb.o (.sinit)
+						WRITEW	0;
+						#:::::::::: ctor
+	SDK_OVERLAY.overlay_0.SINIT_END	=.;
+
+						#:::::::::: text/rodata
+						. = ALIGN(32);
+	SDK_OVERLAY.overlay_0.TEXT_END	=.;
+
+	#
+	#  DATA BLOCK: READ WRITE
+	#
+	SDK_OVERLAY.overlay_0.DATA_START	=.;
+						#:::::::::: Data
+						aaa.o (.sdata)
+						bbb.o (.sdata)
+						. = ALIGN(4);
+						aaa.o (.data)
+						bbb.o (.data)
+						. = ALIGN(4);
+						#:::::::::: Data
+						. = ALIGN(32);
+	SDK_OVERLAY.overlay_0.DATA_END	=.;
+	SDK_OVERLAY.overlay_0.END		=.;
+
+	SDK_OVERLAY.overlay_0.TEXT_SIZE	= SDK_OVERLAY.overlay_0.TEXT_END - SDK_OVERLAY.overlay_0.TEXT_START;
+	SDK_OVERLAY.overlay_0.DATA_SIZE	= SDK_OVERLAY.overlay_0.DATA_END - SDK_OVERLAY.overlay_0.DATA_START;
+	SDK_OVERLAY.overlay_0.SIZE		= SDK_OVERLAY.overlay_0.END      - SDK_OVERLAY.overlay_0.START;
+
+	} > overlay_0
+
+	.overlay_0.bss:
+	{
+	ALIGNALL(4);				. = ALIGN(32);
+						
+	#
+	#  BSS BLOCK
+	#
+	SDK_OVERLAY.overlay_0.BSS_START	= .;
+						#:::::::::: bss
+						aaa.o (.bss)
+						bbb.o (.bss)
+						. = ALIGN(4);
+						aaa.o (.sbss)
+						bbb.o (.sbss)
+						. = ALIGN(4);
+						#:::::::::: bss
+						. = ALIGN(32);
+	SDK_OVERLAY.overlay_0.BSS_END	= .;
+
+	SDK_OVERLAY.overlay_0.BSS_SIZE	= SDK_OVERLAY.overlay_0.BSS_END - SDK_OVERLAY.overlay_0.BSS_START;
+	
+	} >> overlay_0
+
+	.overlay_1:
+	{
+	ALIGNALL(4);				. = ALIGN(32);
+						
+	#
+	#   TEXT BLOCK: READ ONLY
+	#
+	SDK_OVERLAY_overlay_1_ID		=1;	### SEGMENT overlay_1 OVERLAY ID
+	SDK_OVERLAY.overlay_1.ID		=1;
+	SDK_OVERLAY.overlay_1.START	=.;
+	SDK_OVERLAY.overlay_1.TEXT_START	=.;
+						#:::::::::: text/rodata
+						ccc.o (.text)
+						ddd.o (.text)
+						. = ALIGN(4);
+						ccc.o (.rodata)
+						ddd.o (.rodata)
+						. = ALIGN(4);
+						ccc.o (.init)
+						ddd.o (.init)
+						. = ALIGN(4);
+	SDK_OVERLAY.overlay_1.SINIT_START	=.;
+						#:::::::::: ctor
+						ccc.o (.ctor)
+						ddd.o (.ctor)
+						ccc.o (.sinit)
+						ddd.o (.sinit)
+						WRITEW	0;
+						#:::::::::: ctor
+	SDK_OVERLAY.overlay_1.SINIT_END	=.;
+
+						#:::::::::: text/rodata
+						. = ALIGN(32);
+	SDK_OVERLAY.overlay_1.TEXT_END	=.;
+
+	#
+	#  DATA BLOCK: READ WRITE
+	#
+	SDK_OVERLAY.overlay_1.DATA_START	=.;
+						#:::::::::: Data
+						ccc.o (.sdata)
+						ddd.o (.sdata)
+						. = ALIGN(4);
+						ccc.o (.data)
+						ddd.o (.data)
+						. = ALIGN(4);
+						#:::::::::: Data
+						. = ALIGN(32);
+	SDK_OVERLAY.overlay_1.DATA_END	=.;
+	SDK_OVERLAY.overlay_1.END		=.;
+
+	SDK_OVERLAY.overlay_1.TEXT_SIZE	= SDK_OVERLAY.overlay_1.TEXT_END - SDK_OVERLAY.overlay_1.TEXT_START;
+	SDK_OVERLAY.overlay_1.DATA_SIZE	= SDK_OVERLAY.overlay_1.DATA_END - SDK_OVERLAY.overlay_1.DATA_START;
+	SDK_OVERLAY.overlay_1.SIZE		= SDK_OVERLAY.overlay_1.END      - SDK_OVERLAY.overlay_1.START;
+
+	} > overlay_1
+
+	.overlay_1.bss:
+	{
+	ALIGNALL(4);				. = ALIGN(32);
+						
+	#
+	#  BSS BLOCK
+	#
+	SDK_OVERLAY.overlay_1.BSS_START	= .;
+						#:::::::::: bss
+						ccc.o (.bss)
+						ddd.o (.bss)
+						. = ALIGN(4);
+						ccc.o (.sbss)
+						ddd.o (.sbss)
+						. = ALIGN(4);
+						#:::::::::: bss
+						. = ALIGN(32);
+	SDK_OVERLAY.overlay_1.BSS_END	= .;
+
+	SDK_OVERLAY.overlay_1.BSS_SIZE	= SDK_OVERLAY.overlay_1.BSS_END - SDK_OVERLAY.overlay_1.BSS_START;
+	
+	} >> overlay_1
+
+	.overlay_2:
+	{
+	ALIGNALL(4);				. = ALIGN(32);
+						
+	#
+	#   TEXT BLOCK: READ ONLY
+	#
+	SDK_OVERLAY_overlay_2_ID		=2;	### SEGMENT overlay_2 OVERLAY ID
+	SDK_OVERLAY.overlay_2.ID		=2;
+	SDK_OVERLAY.overlay_2.START	=.;
+	SDK_OVERLAY.overlay_2.TEXT_START	=.;
+						#:::::::::: text/rodata
+						eee.o (.text)
+						fff.o (.text)
+						. = ALIGN(4);
+						eee.o (.rodata)
+						fff.o (.rodata)
+						. = ALIGN(4);
+						eee.o (.init)
+						fff.o (.init)
+						. = ALIGN(4);
+	SDK_OVERLAY.overlay_2.SINIT_START	=.;
+						#:::::::::: ctor
+						eee.o (.ctor)
+						fff.o (.ctor)
+						eee.o (.sinit)
+						fff.o (.sinit)
+						WRITEW	0;
+						#:::::::::: ctor
+	SDK_OVERLAY.overlay_2.SINIT_END	=.;
+
+						#:::::::::: text/rodata
+						. = ALIGN(32);
+	SDK_OVERLAY.overlay_2.TEXT_END	=.;
+
+	#
+	#  DATA BLOCK: READ WRITE
+	#
+	SDK_OVERLAY.overlay_2.DATA_START	=.;
+						#:::::::::: Data
+						eee.o (.sdata)
+						fff.o (.sdata)
+						. = ALIGN(4);
+						eee.o (.data)
+						fff.o (.data)
+						. = ALIGN(4);
+						#:::::::::: Data
+						. = ALIGN(32);
+	SDK_OVERLAY.overlay_2.DATA_END	=.;
+	SDK_OVERLAY.overlay_2.END		=.;
+
+	SDK_OVERLAY.overlay_2.TEXT_SIZE	= SDK_OVERLAY.overlay_2.TEXT_END - SDK_OVERLAY.overlay_2.TEXT_START;
+	SDK_OVERLAY.overlay_2.DATA_SIZE	= SDK_OVERLAY.overlay_2.DATA_END - SDK_OVERLAY.overlay_2.DATA_START;
+	SDK_OVERLAY.overlay_2.SIZE		= SDK_OVERLAY.overlay_2.END      - SDK_OVERLAY.overlay_2.START;
+
+	} > overlay_2
+
+	.overlay_2.bss:
+	{
+	ALIGNALL(4);				. = ALIGN(32);
+						
+	#
+	#  BSS BLOCK
+	#
+	SDK_OVERLAY.overlay_2.BSS_START	= .;
+						#:::::::::: bss
+						eee.o (.bss)
+						fff.o (.bss)
+						. = ALIGN(4);
+						eee.o (.sbss)
+						fff.o (.sbss)
+						. = ALIGN(4);
+						#:::::::::: bss
+						. = ALIGN(32);
+	SDK_OVERLAY.overlay_2.BSS_END	= .;
+
+	SDK_OVERLAY.overlay_2.BSS_SIZE	= SDK_OVERLAY.overlay_2.BSS_END - SDK_OVERLAY.overlay_2.BSS_START;
+	
+	} >> overlay_2
+
+	
+	############################ MAIN EX ##################################
+	# MAIN EX Area
+	.dummy.MAIN_EX:
+	{
+		. = ALIGN(32);
+	} > dummy.MAIN_EX
+	
+	############################ ARENA ##################################
+	.arena.MAIN:
+	{
+						. = ALIGN(32);
+		SDK_SECTION_ARENA_START		=.;
+	} > arena.MAIN
+	
+	.arena.MAIN_EX:
+	{
+						. = ALIGN(32);
+		SDK_SECTION_ARENA_EX_START	=.;
+	} > arena.MAIN_EX
+	
+	.arena.ITCM:
+	{
+						. = ALIGN(32);
+		SDK_SECTION_ARENA_ITCM_START	=.;
+	} > arena.ITCM
+
+	.arena.DTCM:
+	{
+						. = ALIGN(32);
+		SDK_SECTION_ARENA_DTCM_START	=.;
+	} > arena.DTCM
+	
+	############################ OVERLAYDEFS ############################
+	.main_defs:
+	{
+		###  main module information 
+		WRITEW ADDR(.main);			# Load address
+		WRITEW _start;					# Entry address
+		WRITEW SDK_STATIC_SIZE + SDK_AUTOLOAD_SIZE;	# Size of module
+		WRITEW _start_AutoloadDoneCallback;		# Callback autoload done
+		
+		###  overlay filename 
+		WRITES ("overlay_0.sbin");	# Overlay 0
+		WRITES ("overlay_1.sbin");	# Overlay 1
+		WRITES ("overlay_2.sbin");	# Overlay 2
+	
+	} > main_defs
+
+
+	############################ OVERLAYTABLE ###########################
+	.main_table:
+	{
+		#	 Overlay 0
+		WRITEW 0;				# Overlay ID
+		WRITEW ADDR(.overlay_0);			# Load address
+		WRITEW SDK_OVERLAY.overlay_0.SIZE;		# Size of module
+		WRITEW SDK_OVERLAY.overlay_0.BSS_SIZE;	# Size of bss
+		WRITEW SDK_OVERLAY.overlay_0.SINIT_START;	# Start address of static init
+		WRITEW SDK_OVERLAY.overlay_0.SINIT_END;	# End address of static init
+		WRITEW 0;				# ROM file ID
+		WRITEW 0;					# Reserved
+		
+		#	 Overlay 1
+		WRITEW 1;				# Overlay ID
+		WRITEW ADDR(.overlay_1);			# Load address
+		WRITEW SDK_OVERLAY.overlay_1.SIZE;		# Size of module
+		WRITEW SDK_OVERLAY.overlay_1.BSS_SIZE;	# Size of bss
+		WRITEW SDK_OVERLAY.overlay_1.SINIT_START;	# Start address of static init
+		WRITEW SDK_OVERLAY.overlay_1.SINIT_END;	# End address of static init
+		WRITEW 1;				# ROM file ID
+		WRITEW 0;					# Reserved
+		
+		#	 Overlay 2
+		WRITEW 2;				# Overlay ID
+		WRITEW ADDR(.overlay_2);			# Load address
+		WRITEW SDK_OVERLAY.overlay_2.SIZE;		# Size of module
+		WRITEW SDK_OVERLAY.overlay_2.BSS_SIZE;	# Size of bss
+		WRITEW SDK_OVERLAY.overlay_2.SINIT_START;	# Start address of static init
+		WRITEW SDK_OVERLAY.overlay_2.SINIT_END;	# End address of static init
+		WRITEW 2;				# ROM file ID
+		WRITEW 0;					# Reserved
+		
+		
+	} > main_table
+	
+	
+	############################ OTHERS #################################
+	SDK_MAIN_ARENA_LO = SDK_SECTION_ARENA_START;
+	SDK_IRQ_STACKSIZE = 1024;	# Allocated in DTCM
+	SDK_SYS_STACKSIZE = 8192;		# When 0 means all remains of DTCM
+	
+	# Module filelist
+	.binary.MODULE_FILES:
+	{
+		WRITES ("main.sbin");
+		WRITES ("main_defs.sbin");
+		WRITES ("main_table.sbin");
+	} > binary.MODULE_FILES
+
+	# ITCM/DTCM size checker => check AUTOLOAD_ITCM/DTCM
+	.check.ITCM:
+	{
+		. = . + SDK_AUTOLOAD_ITCM_SIZE + SDK_AUTOLOAD_ITCM_BSS_SIZE;
+	} > check.ITCM
+	
+	SDK_SYS_STACKSIZE_SIGN = (SDK_SYS_STACKSIZE < 0x80000000) * 2 - 1;
+	.check.DTCM:
+	{
+		. = . + SDK_AUTOLOAD_DTCM_SIZE + SDK_AUTOLOAD_DTCM_BSS_SIZE;
+		. = . + SDK_IRQ_STACKSIZE + SDK_SYS_STACKSIZE * SDK_SYS_STACKSIZE_SIGN;
+	} > check.DTCM
+
+}

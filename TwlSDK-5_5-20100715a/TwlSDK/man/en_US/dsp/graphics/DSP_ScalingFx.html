@@ -1,0 +1,170 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title>DSP_ScalingFx</title>
+<link rel="stylesheet" href="../../css/nitro.css" type="text/css" />
+</head>
+<body>
+
+<h1>DSP_ScalingFx* <IMG src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+
+<pre><code>
+BOOL DSP_ScalingFxAsyncEx(
+        const void* src,
+        void* dst,
+        u16 img_width,
+        u16 img_height,
+        fx32 rx,
+        fx32 ry,
+        DSPGraphicsScalingMode mode,
+        u16 x,
+        u16 y,
+        u16 width,
+        u16 height,
+        DSP_GraphicsCallback callback
+    );
+
+BOOL DSP_ScalingFx(src, dst, img_width, img_height, rx, ry, mode);
+BOOL DSP_ScalingFxEx(src, dst, img_width, img_height, rx, ry, mode, x, y, width, height);
+BOOL DSP_ScalingFxAsync(src, dst, img_width, img_height, rx, ry, mode, callback);
+</code></pre>
+
+<h2>Arguments</h2>
+<table style="width:100%">
+<tbody>
+<tr>
+<td style="width:13%"><CODE>src</CODE></td>
+<td style="width:87%">Buffer in main memory that holds the data to convert.</td>
+</tr>
+<tr>
+<td style="width:13%"><CODE>dst</CODE></td>
+<td style="width:87%">Buffer in main memory that will hold the converted data.<br /><span style='color:Red'>You must allocate a buffer large enough to store the converted data.</span></td>
+</tr>
+<tr>
+<td style="width:13%"><CODE>img_width</CODE></td>
+<td style="width:87%">Width of the image to convert.</td>
+</tr>
+<tr>
+<td style="width:13%"><CODE>img_height</CODE></td>
+<td style="width:87%">Height of the image to convert.</td>
+</tr>
+<tr>
+<td style="width:13%"><CODE>rx</CODE></td>
+<td style="width:87%">Horizontal scaling factor.<br /><span style='color:Red'>This is valid between 31 and 0.001. Decimals will be truncated to three decimal places.</span></td>
+</tr>
+<tr>
+<td style="width:13%"><CODE>ry</CODE></td>
+<td style="width:87%">Vertical scaling factor.<br /><span style='color:Red'>This is valid between 31 and 0.001. Decimals will be truncated to three decimal places.</span>
+</td>
+</tr>
+<tr>
+<td style="width:13%"><CODE>mode</CODE></td>
+<td style="width:87%">Interpolation method for scaling up (expanding) or scaling down (shrinking). Specifies the <CODE>DSPGraphicsScalingMode</CODE> (described below).</td>
+</tr>
+<tr>
+<td style="width:13%"><CODE>x</CODE></td>
+<td style="width:87%">X-coordinate of the region to process, with the coordinate system origin (0,0) located at the upper-left of <CODE>src</CODE>.</td>
+</tr>
+<tr>
+<td style="width:13%"><CODE>y</CODE></td>
+<td style="width:87%">Y-coordinate of the region to process, with the coordinate system origin (0,0) located at the upper-left of <CODE>src</CODE>.</td>
+</tr>
+<tr>
+<td style="width:13%"><CODE>width</CODE></td>
+<td style="width:87%">Width of the region to process.</td>
+</tr>
+<tr>
+<td style="width:13%"><CODE>height</CODE></td>
+<td style="width:87%">Height of the region to process.</td>
+</tr>
+<tr>
+<td style="width:13%"><CODE>callback</CODE></td>
+<td style="width:87%">Callback function when processing ends.</td>
+</tr>
+</tbody>
+</table>
+
+<h2>Return Values</h2>
+<p>Returns <CODE>TRUE</CODE> when processing ends normally.<br>Returns <CODE>FALSE</CODE> when conversion did not end normally or the graphics component is already processing something.</p>
+
+<h2>Description</h2>
+<p>Uses the DSP to expand or shrink image data.</p>
+
+<p>The addresses indicated by <CODE>src</CODE> and <CODE>dst</CODE> must be 4-byte aligned.</p>
+<p>Data is transferred between main memory and the DSP (WRAM-C) using the AHB. Data transfers between main memory and the DSP run at a lower priority than DMA data transfers, so AHB arbitration causes delays if another process uses frequent DMA transfers while scaling is being processed.</p>
+
+<p>Factors are specified as fixed-point numbers (<CODE>fx32</CODE>). Due to underflow that can occur during decimal calculations, the converted size may differ from the intended value. However, you can use the <a href="DSP_Macro.html"><CODE>DSP_CALC_SCALING_SIZE_FX</CODE></a> macro to get the converted size that results from the <CODE>DSP_ScalingFx*</CODE> functions. We have provided a function, <a href="DSP_CalcScalingFactor.html"><code>DSP_CalcScalingFactorFx32</code></a>, that takes the converted size as an argument and can get the factors to pass to this function.
+</p>
+
+<p><span style='color:Red'>Note that there are restrictions in this function for values that can be specified as arguments because of design issues of the internal processes. For more information, see <B>Note</B>, below.</span></p>
+
+<p>
+The interpolation method used while processing is defined by <CODE>DSPGraphicsScalingMode</CODE> as follows.
+</p>
+<pre><code>
+typedef DSPWord DSPGraphicsScalingMode;
+#define DSP_GRAPHICS_SCALING_MODE_N_NEIGHBOR (DSPGraphicsScalingMode)0x0001
+#define DSP_GRAPHICS_SCALING_MODE_BILINEAR   (DSPGraphicsScalingMode)0x0002
+#define DSP_GRAPHICS_SCALING_MODE_BICUBIC    (DSPGraphicsScalingMode)0x0003
+</code></pre>
+<p>Starting from the top, these represent nearest-neighbor, bilinear, and bicubic interpolation. As a basic rule, processing time increases as you move down the list.
+</p>
+
+<p>When the asynchronous versions of this function (<CODE>*Async</CODE>) are run, the callback function registered as an argument is invoked to send a notification that conversion has finished. <span style='color:Red'>Callback functions are invoked by interrupts from the DSP, so callbacks never return if interrupts have been prohibited by a function such as <A href="../../os/irq/OS_DisableIrq.html"><CODE>OS_DisableIrq</CODE></A>. Do not disable DSP interrupts from another process while asynchronous versions of this function are running.</span>
+</p>
+
+<p>With the <CODE>*Ex</CODE> versions of this function, you can specify an arbitrary region of the source image and process only that region.
+</p>
+
+<h2>Note</h2>
+<p>In the synchronous version, the <code>OS_Sleep</code> function waits for the process to complete. Therefore, call the <A href="../../os/thread/OS_InitThread.html"><CODE>OS_InitThread</CODE></A>, <A href="../../os/time/OS_InitTick.html"><CODE>OS_InitTick</CODE></A>, and <A href="../../os/alarm/OS_InitAlarm.html"><CODE>OS_InitAlarm</CODE></A> functions beforehand.</p>
+
+<p>Be careful because when the following conditions are met with this function, the internal DSP process does not end. If the conditions are met <a href="../../os/debug/SDK_ASSERT.html"><CODE>SDK_ASSERTMSG</CODE></a> is called. 
+</p>
+
+<ul>
+<li>When the post-process data size is larger than the size of the original data 
+<table style="width:80%">
+<tbody>
+<tr>
+<td style="width:55%"><B>mode</B></td><td><B>Condition</B></td>
+</tr>
+<tr>
+<td><CODE>DSP_GRAPHICS_SCALING_MODE_N_NEIGHBOR<br>DSP_GRAPHICS_SCALING_MODE_BILINEAR</CODE></td>
+<td>(Width of output data) (vertical scaling factor) &gt;=8192</td>
+</tr><tr>
+<td><CODE>DSP_GRAPHICS_SCALING_MODE_BICUBIC</CODE></td>
+<td>(Width of output data) (vertical scaling factor) &gt;=4096</td>
+</tr>
+</tbody>
+</table>
+
+<li>When the post-process data size is smaller than the size of the original data 
+<table style="width:80%">
+<tbody>
+<tr>
+<td style="width:55%"><B>mode</B></td><td><B>Condition</B></td>
+</tr>
+<tr>
+<td><CODE>DSP_GRAPHICS_SCALING_MODE_N_NEIGHBOR<br>DSP_GRAPHICS_SCALING_MODE_BILINEAR</CODE></td>
+<td>(Width of input data) &gt;=8192 </td>
+<tr>
+<td><CODE>DSP_GRAPHICS_SCALING_MODE_BICUBIC</CODE></td>
+<td>(Width of input data) &gt;=4096 </td>
+</tr>
+</tbody>
+</table>
+</ul>
+
+<h2>See Also</h2>
+<p><a href="DSP_LoadGraphics.html"><CODE>DSP_LoadGraphics</CODE></a><BR> <a href="DSP_UnloadGraphics.html"><CODE>DSP_UnloadGraphics</CODE></a><BR> <a href="DSP_Scaling.html"><CODE>DSP_Scaling*</CODE></a><BR> <a href="../../os/irq/OS_DisableIrq.html"><CODE>OS_DisableIrq</CODE></a><BR> <a href="DSP_Macro.html"><CODE>DSP_CALC_SCALING_SIZE_FX</CODE></a><BR> <a href="DSP_CalcScalingFactor.html"><CODE>DSP_CalcScalingFactor*</CODE></a><BR> <a href="../../fx/fx32.html"><CODE>fx32</CODE></a></p>
+
+<h2>Revision History</h2>
+<p>
+2009/04/03 Added descriptions about the restrictions related to arguments in <B>Note</B>. <br>2008/10/22 Added a note about changes in the synchronous function.<br> 2008/09/06 Added information about data transfer methods. <br>2008/08/28 Initial version.
+</p>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<LINK rel="stylesheet" type="text/css" href="../../css/nitro.css">
+<TITLE>SND Demos</TITLE>
+</HEAD>
+<BODY>
+<H1>Sound Demos</H1>
+<H2>Location</H2>
+<P><CODE>$TwlSDK/build/demos/snd<BR> $TwlSDK/build/demos.TWL/snd</CODE></P>
+
+<H2>Compilation</H2>
+<P>Move to the <CODE>$TwlSDK/build/demos/snd</CODE> (or <CODE>$TwlSDK/build/demos.TWL/snd</CODE>) directory and enter the following.</P>
+<BLOCKQUOTE><CODE>% make</CODE></BLOCKQUOTE>
+<P>&nbsp; The compilation begin, and the SRL executable file and the NEF or TEF files with binary information are generated in <CODE>$TwlSDK/build/demos/fs/(sample name)/bin/(platform)/(target)/</CODE>.</P>
+<BLOCKQUOTE><CODE>$TwlSDK/build/demos/snd/(sample name)/bin/(platform)/(target)/</CODE><BR> <CODE>$TwlSDK/build/demos.TWL/snd/(sample name)/bin/(platform)/(target)/</CODE></BLOCKQUOTE>
+<P> For example:</P>
+<BLOCKQUOTE><CODE>$TwlSDK/build/demos/snd/channel/bin/ARM9-TS/Release/main.srl</CODE></BLOCKQUOTE>
+<P>is the executable file for the <CODE>channel</CODE> demo.</P>
+
+<H2>Execution</H2>
+<H3>For NITRO ROMs</H3>
+
+<P>If using IS-NITRO-DEBUGGER:</P>
+<UL>
+<LI>Load and execute an NLF file with IS-NITRO-DEBUGGER
+<LI>Execute an SRL file with IS-NITRO-DEBUGGER
+<LI>Execute an SRL file with IS-NITRO-DEBUGGER using the <CODE>loadrun.exe</CODE> tool from a command line
+</UL>
+<P>If using IS-TWL-DEBUGGER:</P>
+<UL>
+<LI>Load and execute an NLF file with IS-TWL-DEBUGGER
+<LI>Execute an SRL file with IS-TWL-DEBUGGER
+<LI>Execute an SRL file with IS-TWL-DEBUGGER using the <CODE>loadrun.TWL.exe</CODE> tool from a command line
+</UL>
+<H3>For TWL/NITRO Hybrid ROMs</H3>
+<P>If using IS-NITRO-DEBUGGER:</P>
+<UL>
+<LI>Execute an SRL file with IS-NITRO-DEBUGGER
+<LI>Execute an SRL file with IS-NITRO-DEBUGGER using the <CODE>loadrun.exe</CODE> tool from a command line
+</UL>
+<P>If using IS-TWL-DEBUGGER:</P>
+<UL>
+<LI>Load and execute a TLF file with IS-TWL-DEBUGGER
+<LI>Execute an SRL file with IS-TWL-DEBUGGER
+<LI>Execute an SRL file with IS-TWL-DEBUGGER using the <CODE>loadrun.TWL.exe</CODE> tool from a command line
+</UL>
+<H3>For TWL Limited ROMs</H3>
+<P>If using IS-TWL-DEBUGGER:</P>
+<UL>
+<LI>Load and execute a TLF file with IS-TWL-DEBUGGER
+<LI>Execute an SRL file with IS-TWL-DEBUGGER
+<LI>Execute an SRL file with IS-TWL-DEBUGGER using the <CODE>loadrun.TWL.exe</CODE> tool from a command line
+</UL>
+
+<H2>Description</H2>
+<TABLE width="720">
+  <TBODY>
+    <TR>
+<TH>Name</TH>
+<TH>Directory</TH>
+<TH>Operation</TH>
+    </TR>
+    <TR>
+<TD width="187"><CODE>channel</CODE></TD>
+<TD><CODE>demos</CODE></TD>
+<TD width="525">This is a simple demo that uses a channel for playback.</TD>
+    </TR>
+    <TR>
+<TD width="187"><CODE>stream</CODE></TD>
+<TD><CODE>demos</CODE></TD>
+<TD width="525">Uses a channel to play a stream while loading the waveform data in real time.</TD>
+    </TR>
+    <TR>
+<TD width="187"><CODE>synth</CODE></TD>
+<TD><CODE>demos</CODE></TD>
+<TD width="525">Creates and plays waveform data in real time without using waveform data.</TD>
+    </TR>
+    <TR>
+<TD width="187"><CODE>capture</CODE></TD>
+<TD><CODE>demos</CODE></TD>
+<TD width="525">Uses sound capture to add effects to the output sound.</TD>
+    </TR>
+    <TR>
+<TD width="187"><CODE>seq</CODE></TD>
+<TD><CODE>demos</CODE></TD>
+<TD width="525">Plays a sequence using a standard MIDI file (SMF). The sequence is processed on the ARM9 side.</TD>
+    </TR>
+    <TR>
+<TD width="187"><CODE>extraFunc</CODE></TD>
+<TD><CODE>demos.TWL</CODE></TD>
+<TD width="525">Uses various extended features for sound unique to the TWL.</TD>
+    </TR>
+    <TR>
+<TD width="187"><CODE>IIRFilterdemo</CODE></TD>
+<TD><CODE>demos.TWL</CODE></TD>
+<TD width="525">Applies the IIR filter, which is an extended sound feature only for TWL, to sound outputs.</TD>
+    </TR>
+    <TR>
+<TD width="187"><CODE>IIRFilterdemo-mic</CODE></TD>
+<TD><CODE>demos.TWL</CODE></TD>
+<TD width="525">Applies the IIR filter, which is an extended sound feature only for TWL, to microphone input.</TD>
+    </TR>
+    <TR>
+<TD width="187"><CODE>ignoreHWVolumeDemo</CODE></TD>
+<TD><CODE>demos.TWL</CODE></TD>
+<TD width="525">Plays sound with the specified timing at the specified volume.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<H2>Operation</H2>
+<P>The SND library demos do not work on <CODE>ensata</CODE>.</P>
+
+<H2>See Also</H2>
+<P><A href="../../snd/list_snd.html">SND function list</A></P>
+<H2>Revision History</H2>
+<P>
+2009/02/03 Added <CODE>ignoreHWVolumeDemo</CODE>.<BR> 2008/09/29 Added two IIR filter demos.<BR> 2008/07/15 Added a description of <CODE>extraFunc</CODE>.<BR> 2008/07/11 Changed descriptions to support TWL.<BR> 2005/04/12 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

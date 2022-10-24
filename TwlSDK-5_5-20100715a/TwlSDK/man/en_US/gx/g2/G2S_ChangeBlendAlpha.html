@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 8.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>G2S_ChangeBlendAlpha</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">G2S_ChangeBlendAlpha <img src="../../image/NTR.gif"align="middle"><img src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+
+<dl>
+  <dd>
+<PRE>
+<CODE>#include &lt;nitro/gx/g2.h&gt;</CODE><BR>
+<CODE>void G2S_ChangeBlendAlpha(int ev1, int ev2);</CODE></PRE></dd>
+</dl><h2>Arguments</h2>
+
+<table border="1" width="100%">
+  
+    <tr>
+<td width="13%"><SPAN class="argument">ev1</SPAN></td>
+<td width="87%">Alpha-blending coefficient for the first target screen (0 &le; <SPAN class="argument">ev1</SPAN> &le; 31)</td>
+  </tr>
+    <TR>
+<TD><em><SPAN class="argument">ev2</SPAN></TD>
+<TD>Alpha-blending coefficient for the second target screen (0 &le; <SPAN class="argument">ev2</SPAN> &le; 31)</TD>
+    </TR>
+  
+</table>
+<h2>Return Values</h2>
+<p>None.</p>
+<H2>Description</H2>
+<P>Sets only the alpha-blending coefficient for the sub 2D Engine. If the values of <SPAN class="argument">ev1</SPAN> and <SPAN class="argument">ev2</SPAN> are greater than 16, the alpha-blending coefficient that is actually set is 16.</P>
+
+<h2>See Also</h2>
+<P><A href="G2S_BlendNone.html"><CODE>G2S_BlendNone</CODE></A><BR> <A href="G2S_SetBlendAlpha.html"><CODE>G2S_SetBlendAlpha</CODE></A><BR> <A href="G2S_SetBlendBrightness.html"><CODE>G2S_SetBlendBrightness</CODE></A><BR> <A href="G2S_SetBlendBrightnessExt.html"><CODE>G2S_SetBlendBrightnessExt</CODE></A><BR> <A href="G2S_ChangeBlendBrightness.html"><CODE>G2S_ChangeBlendBrightness</CODE></A></P>
+<H2>Revision History</H2>
+<P>2008/10/30 Added description relating to the alpha-blending coefficient.</P>
+<P>2004/02/09 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

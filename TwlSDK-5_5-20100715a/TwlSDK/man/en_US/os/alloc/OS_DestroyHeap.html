@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>OS_DestroyHeap</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">OS_DestroyHeap <IMG src="../../image/NTR.gif" align="middle"><IMG src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+<DL>
+  <DD>
+  <PRE><CODE>#include &lt;nitro/os.h&gt;</CODE></PRE>
+  <PRE><CODE>void OS_DestroyHeap( OSArenaId id, OSHeapHandle heap );
+  </CODE></PRE>
+</DL>
+<H2>Arguments</H2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="13%"><EM><STRONG>id</STRONG></EM></TD>
+<TD width="87%">Arena from which the heap to be destroyed.</TD>
+    </TR>
+    <TR>
+<TD><B><I>heap</I></B></TD>
+<TD>Handle of the heap to be destroyed.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>Return Values</H2>
+<P>None.</P>
+<H2>Description</H2>
+<P>Destroys a heap region.</P>
+<P>Arena <SPAN class="argument">id</SPAN> specifies the arena ID. For more information on this value, see the <a  href="../arena/OS_InitArena.html"><code>OS_InitArena</code></a> function.</P>
+<P>Not only heaps created using the <A href="OS_CreateHeap.html"><CODE>OS_CreateHeap</CODE></A> function, but also special heaps created by the <A href="OS_CreateExtraHeap.html"><CODE>OS_CreateExtraHeap</CODE></A> function can be destroyed by this function.</P>
+<P>For DEBUG builds, the build stops on an assert if an attempt is made using the <A href="OS_AllocFromHeap.html"><CODE>OS_AllocFromHeap</CODE></A> function to allocate a region for a heap destroyed by this function. Returns <CODE>NULL</CODE> in the case of RELEASE and FINALROM builds.</P>
+
+<H2>See Also</H2>
+<P><CODE>OS_CreateHeap</CODE><BR> <CODE>OS_AllocFromHeap</CODE><BR> <A href="OS_CreateExtraHeap.html"><CODE>OS_CreateExtraHeap</CODE></A></P>
+<H2>Revision History</H2>
+<P>2009/04/03 Added description that the function can also be used for special heaps as well.<BR> 2004/01/06 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

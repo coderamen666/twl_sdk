@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title>FS_GetArchiveResource</title>
+<link rel="stylesheet" href="../../css/nitro.css" type="text/css" />
+</head>
+<body>
+<h1>FS_GetArchiveResource <img src="../../image/NTR.gif"align="middle"><img src="../../image/TWL.gif" align="middle"></h1>
+<h2>Syntax</h2>
+
+<pre><code>
+#include &lt;nitro/fs.h&gt;
+
+BOOL FS_GetArchiveResource(const char *path, <a href="../FSArchiveResource.html">FSArchiveResource</a> *resource);
+</code></pre>
+<h2>Arguments</h2>
+<table style="width:100%">
+<tbody>
+<tr>
+<td style="width:13%"><CODE>path</CODE></td>
+<td style="width:87%">Path name that specifies an archive.</td>
+</tr>
+<tr>
+<td style="width:13%"><CODE>resource</CODE></td>
+<td style="width:87%"><a href="../FSArchiveResource.html">FSArchiveResource</a> structure that will store the resource information that is obtained.</td>
+</tr>
+</tbody>
+</table>
+
+<h2>Return Values</h2>
+<p>Returns TRUE if the resource information could be obtained properly; returns FALSE otherwise. In case of failure, the error details can be obtained using <code><a href="../archive/FS_GetArchiveResultCode.html">FS_GetArchiveResultCode()</a></code>.</p>
+
+<h2>Description</h2>
+<p>Gets the current resource information for the archive located at the specified path.</p>
+<p>This function is used primarily to check for available space in <a href="../overview/about_Archive.html#FAT">FAT format</a> archives. To determine the Save Data size of a NAND application, also see the information about the <a href="../../tools/SaveDataSize.html">Save Data Size List</a>.</p>
+
+<h2>Note</h2>
+<ul>
+<li>This function cannot be called from the interrupt handler (IRQ mode). Also note that in some cases processing may not end if interrupts are left prohibited.</li>
+</ul>
+
+<h2>See Also</h2>
+<p><code><a href="../../tools/SaveDataSize.html">Save Data Size List</a><br /> <a href="../FSArchiveResource.html">FSArchiveResource</a><br /> <a href="../archive/FS_GetArchiveResultCode.html">FS_GetArchiveResultCode</a></code></p>
+
+<h2>Revision History</h2>
+<p>
+2009/01/13 Added a link to the Save Data Size List.<br />2007/12/17 Initial version.
+</p>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META http-equiv="Content-Style-Type" content="text/css">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+	<TITLE>NNS_G3dGeIsImmOK</TITLE>
+	<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+
+<BODY>
+
+<H1 align="left">NNS_G3dGeIsImmOK</H1>
+
+<H2>Syntax</H2>
+<DL>
+  <DD>
+  <PRE><CODE>#include &lt;nnsys/g3d/gecom.h&gt;</CODE></PRE>
+  <PRE><CODE>BOOL NNS_G3dGeIsImmOK(void);</CODE></PRE>
+</DL>
+
+<H2>Arguments</H2>
+<P>None.</P>
+
+<H2>Return Values</H2>
+<P>Returns <code>TRUE</code> when geometry commands may be sent directly to the geometry engine.</P>
+
+<H2>Description</H2>
+<P>Determines whether geometry commands may be sent directly to the geometry engine (using functions defined in <code>g3imm.h</code> of the SDK). This is only permitted if (1) there is no geometry command buffer or the geometry command buffer is empty, and (2) transfer of geometry commands via the <code><a href="NNS_G3dGeSendDL.html">NNS_G3dGeSendDL</a></code> function is complete.</P>
+
+
+<H2>See Also</H2>
+<P><CODE><A href="NNS_G3dGeFlushBuffer.html">NNS_G3dGeFlushBuffer</A></CODE></P>
+<H2>Revision History</H2>
+<P>2004/10/15 Added description.<br /> 2004/08/02 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+
+</HTML>

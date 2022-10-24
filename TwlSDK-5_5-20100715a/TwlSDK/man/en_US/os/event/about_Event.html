@@ -1,0 +1,169 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>Events</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">Events: Overview  <IMG src="../../image/NTR.gif" align=middle><IMG src="../../image/TWL.gif" align=middle></H1>
+<P>The first method for synchronizing threads is to control them using events.</P>
+<P>Events consist of information provided to an event structure. By calling functions available in the SDK, an event can be generated to signal moribund threads that are waiting for an event. If a waiting thread fulfills the specified conditions, its state can be changed from <I>waiting</I> to <I>runnable</I>.</P>
+<BLOCKQUOTE><IMG src="event_image1.gif" width="501" height="466" border="0"></BLOCKQUOTE>
+<H2>Event Structure</H2>
+<P>The event structure's data is of type <CODE>OSEvent</CODE>, and has the following members:<BR>
+</P>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+      <TH>Member Name</TH>
+      <TH>Type</TH>
+      <TH>Usage</TH>
+    </TR>
+    <TR>
+      <TD><CODE>flag</CODE></TD>
+      <TD><CODE>u32</CODE></TD>
+      <TD>Event flag. Stores the flag of the given event.</TD>
+    </TR>
+    <TR>
+      <TD><CODE>queue</CODE></TD>
+      <TD><CODE>OSThreadQueue</CODE></TD>
+      <TD>Thread queue. Used to pause (put in the <EM>waiting</EM> state) or start threads.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>Initializing the Event Structure</H2>
+<P>Before making a thread wait for an event, the structure must be initialized.<BR>The initialization function is <A href="OS_InitEvent.html"><CODE>OS_InitEvent</CODE></A>.<BR>
+</P>
+<BLOCKQUOTE>
+<table style="width:80%">
+<tr>
+<td style="background-color:lightyellow"><CODE>OS_InitEvent( &amp;event );</CODE>
+</td>
+</tr>
+</table>
+</BLOCKQUOTE>
+<H2>Waiting for Events</H2>
+<P>To wait for an event, you must take an event structure that has been initialized with the <A href="OS_InitEvent.html"><CODE>OS_InitEvent</CODE></A> function and pass it to the <A href="OS_WaitEvent.html"><CODE>OS_WaitEvent</CODE></A> function.</P>
+<P>To specify the completion conditions when waiting for an event, use the arguments of the <A href="OS_WaitEvent.html"><CODE>OS_WaitEvent</CODE></A> function. These are specified as a bit pattern (<CODE>pattern</CODE>) and a mode (<CODE>mode</CODE>). Depending on the mode, waiting will complete when either (1) all bits in the event flag's bit pattern become 1, or (2) any of the bits in the event flag's bit pattern become 1.<BR>
+</P>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+      <TH>Value of mode</TH>
+      <TH>Completion Conditions</TH>
+    </TR>
+    <TR>
+      <TD><CODE>OS_EVENT_MODE_AND</CODE></TD>
+      <TD>Stop waiting when all bits become 1</TD>
+    </TR>
+    <TR>
+      <TD><CODE>OS_EVENT_MODE_OR</CODE></TD>
+      <TD>Stop waiting when any bits become 1</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P><BR> Until the specified condition is fulfilled, threads for which this function has been called will be in the <EM>waiting</EM> state. Strictly speaking, there will be a short time required to find out whether the condition has been fulfilled, but the thread will enter the waiting state immediately if the condition has not been fulfilled. In other words, <FONT color="#ff0000">calling this function may cause execution to switch to a separate thread.</FONT></P>
+<P>Use the <A href="OS_WaitEvent.html"><CODE>OS_WaitEventEx</CODE></A> function if you want to clear the event flag once the condition is fulfilled.</P>
+<P>The return value will be the value of the event flag when the condition is fulfilled. If you have specified that the event flag should be cleared with the <A href="OS_WaitEvent.html"><CODE>OS_WaitEventEx</CODE></A> function, the flag value before the clear operation will be returned.<BR>
+</P>
+<BLOCKQUOTE>
+<table style="width:80%">
+  
+    <tr>
+<td style="background-color:lightyellow"><CODE>OS_WaitEvent( &amp;event, pattern, mode );</CODE><BR> <CODE>OS_WaitEventEx( &amp;event, pattern, mode, clearBit );<BR></CODE></td>
+    </tr>
+  
+</table>
+</BLOCKQUOTE>
+<P><BR> If the completion conditions have already been fulfilled, control will return immediately without a thread function being called.<BR>
+</P>
+<H2>Setting Event Flags</H2>
+<P>Call the <A href="OS_SignalEvent.html"><CODE>OS_SignalEvent</CODE></A> function to set an event flag and signal a <I>waiting</I> thread.<BR>
+</P>
+<BLOCKQUOTE>
+<table style="width:80%">
+  
+    
+    <tr>
+<td style="background-color:lightyellow"><CODE>OS_SignalEvent( &amp;event, setBit );</CODE></td>
+    </tr>
+  
+
+</table>
+</BLOCKQUOTE>
+<P><BR> Internally, after setting the event, this function will use the thread queue within the event structure to reschedule.<FONT color="#ff0000">Calling this function may cause execution to switch to a separate thread.</FONT></P>
+<H2>Clearing Event Flags</H2>
+<P>Call the <A href="OS_ClearEvent.html"><CODE>OS_ClearEvent</CODE></A> function to clear a particular bit in the event structure's event flag. To clear all bits, call the <A href="OS_ClearEvent.html"><CODE>OS_ClearAllEvent</CODE></A> function.<BR>
+</P>
+<BLOCKQUOTE>
+<table style="width:80%">
+  
+    
+    
+    <tr>
+<td style="background-color:lightyellow"><CODE>OS_ClearEvent( &amp;event, clearBit );</CODE><BR> <CODE>OS_ClearAllEvent( &amp;event )</CODE></td>
+    </tr>
+  
+
+
+</table>
+</BLOCKQUOTE>
+<P><BR> Control will not switch to another thread as a result of this function.</P>
+<H2>Polling Event Flags</H2>
+<P>The standard procedure for waiting for events is to use the <A href="OS_WaitEvent.html"><CODE>OS_WaitEvent</CODE></A> thread function, but it is also possible to poll the <A href="OS_PollEvent.html"><CODE>OS_PollEvent</CODE></A> function to determine whether the conditions are fulfilled on your own.<BR>
+</P>
+<BLOCKQUOTE>
+<table style="width:80%">
+  
+    
+    
+    
+    <tr>
+<td style="background-color:lightyellow"><CODE>OS_PollEvent( &amp;event, pattern, mode );</CODE><BR> <CODE>OS_PollEventEx( &amp;event, pattern, mode, clearBit );</CODE></td>
+    </tr>
+  
+
+
+
+</table>
+</BLOCKQUOTE>
+<P><BR> Here, the completion conditions for waiting are the same as those for the <CODE><A href="OS_WaitEvent.html">OS_WaitEvent*</A></CODE> functions.</P>
+<P>If the return value is nonzero, the conditions will be deemed to have been fulfilled, and that return value will be the value of the event flag. If the return value is 0, the conditions are not fulfilled.</P>
+<P>Like the <A href="OS_WaitEvent.html">OS_WaitEventEx</A> function, the <A href="OS_PollEvent.html"><CODE>OS_PollEventEx</CODE></A> function allows you to clear specified bits using a clear flag when the conditions have been fulfilled.</P>
+<H2>Example 1</H2>
+<P>Here, let's consider the case where we have three threads: a thread waiting for events, thread 1, and thread 2. In this example, the thread waiting for events is waiting for <CODE>MY_EVENT1</CODE> (thread 1) and <CODE>MY_EVENT2</CODE> (thread 2) to be signaled. It will continue waiting until both are signaled.<BR>
+</P>
+<BLOCKQUOTE >
+<table style="width:80%"><tr><td style="background-color:lightyellow"><CODE>OSEvent event;<BR> <BR> #define MY_EVENT1  0x00000001<BR> #define MY_EVENT2  0x00000002<BR> #define MY_EVENT  (MY_EVENT1 | MY_EVENT2)<BR> <BR> //-------- thread waiting on events<BR> func()<BR> {<BR> OS_InitEvent( &amp;event );<BR> :<BR>(void)OS_WaitEvent( &amp;event, MY_EVENT, <FONT color="#ff0000">OS_EVENT_MODE_AND</FONT> );<BR> OS_Printf( &quot;signaled EVENT1 and EVENT2\n&quot; );<BR> :<BR>}<BR> <BR> //-------- thread 1<BR> thread1()<BR> {<BR> :<BR>OS_SignalEvent( &amp;event, MY_EVENT1 );<BR> :<BR>}<BR> <BR> //-------- thread 2<BR> thread2()<BR> {<BR> :<BR>OS_SignalEvent( &amp;event, MY_EVENT2 );<BR> :<BR> }</CODE></td></tr></table>
+</BLOCKQUOTE>
+<P><BR>
+</P>
+<P>In the example above, the waiting thread waited until both <CODE>MY_EVENT1</CODE> and <CODE>MY_EVENT2</CODE> were signaled. Only one change, shown below, is necessary to change this so that it will wait only until either one is signaled.<BR>
+</P>
+<BLOCKQUOTE >
+<table style="width:80%"><tr><td style="background-color:lightyellow"><CODE>// </CODE>Part of <CODE>func()</CODE> in the example above has been changed.<BR> <BR> <CODE>   (void)OS_WaitEvent( &amp;event, MY_EVENT, <FONT color="#ff0000">OS_EVENT_MODE_OR</FONT> );<BR> OS_Printf( &quot;signaled EVENT1 or EVENT2\n&quot; );<BR> <BR></CODE></td></tr></table>
+</BLOCKQUOTE>
+<H2>Example 2</H2>
+<P>In this example we have two threads: a thread waiting for events, and thread 1, which signals <CODE>MY_EVENT1</CODE> periodically. The thread waiting for events will start up each time <CODE>MY_EVENT1</CODE> is signaled. Once its processing completes, it will go back to waiting for events and enter the <EM>moribund</EM> state.<BR> <BR>
+<BLOCKQUOTE>
+<table style="width:80%"><tr><td style="background-color:lightyellow"><CODE>OSEvent event;<BR> <BR> #define MY_EVENT1  0x00000001<BR> <BR> //-------- this thread waits for an event<BR> func()<BR> {<BR> OS_InitEvent( &amp;event );<BR> :<BR>while(1)<BR> {<BR> <FONT color="#ff0000">(void)OS_WaitEventEx( &amp;event, MY_EVENT1,<BR> OS_EVENT_MODE_AND,<BR> MY_EVENT1);</FONT><BR> OS_Printf( &quot;signaled EVENT1\n&quot; );<BR> }<BR> :<BR>}<BR> <BR> //-------- Thread 1<BR> thread1()<BR> {<BR> :<BR>OS_SignalEvent( &amp;event, MY_EVENT1 );<BR> :<BR>OS_SignalEvent( &amp;event, MY_EVENT1 );<BR> :<BR> }<BR></CODE></td></tr></table>
+</BLOCKQUOTE>
+<BR>
+<P>In this example, we use the <A href="OS_WaitEvent.html"><CODE>OS_WaitEventEx</CODE></A> function to clear <CODE>MY_EVENT1</CODE> when the event completes. This is done in order to accept events again.</P>
+<P>If this code is changed so that the waiting thread waits for events with the <A href="OS_WaitEvent.html"><CODE>OS_WaitEvent</CODE></A> function and clears <CODE>flag</CODE> by itself after completion, and an interrupt occurs after the <A href="OS_WaitEvent.html"><CODE>OS_WaitEvent</CODE></A> function completes but before <CODE>flag</CODE> is cleared, it will not be possible to catch the next single time <CODE>MY_EVENT1</CODE> is signaled. (This is not a problem if interrupts are prohibited for the duration of this sequence, but that would be no different from using the <A href="OS_WaitEvent.html"><CODE>OS_WaitEventEx</CODE></A> function.)<BR>
+</P>
+<BLOCKQUOTE>
+<table style="width:80%"><tr><td style="background-color:lightyellow"><CODE>// By changing func() as shown below, some events may be dropped.</CODE><BR><BR> <CODE>func()<BR> {<BR> OS_InitEvent( &amp;event );<BR> :<BR>while(1)<BR> {<BR> <FONT color="#ff0000">(void)OS_WaitEvent( &amp;event, MY_EVENT1,<BR> OS_EVENT_MODE_AND );</FONT><BR> // When the event occurs here<BR> // Immediately cleared on the line below<BR><FONT color="#ff0000">event-&gt;flag = 0;</FONT>          <BR> OS_Printf( &quot;signaled EVENT1\n&quot; );<BR> }<BR> :<BR> }<BR></CODE>
+</td></tr></table>
+</BLOCKQUOTE>
+<P><BR>
+</P>
+<H2>See Also</H2>
+<P><A href="OS_InitEvent.html"><CODE>OS_InitEvent</CODE></A><BR> <A href="OS_WaitEvent.html"><CODE>OS_WaitEvent*</CODE></A><BR> <A href="OS_SignalEvent.html"><CODE>OS_SignalEvent</CODE></A><BR> <A href="OS_ClearEvent.html"><CODE>OS_Clear*Event</CODE></A><BR> <A href="OS_PollEvent.html"><CODE>OS_PollEvent*</CODE></A></P>
+<H2>Revision History</H2>
+<P>2007/12/04 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

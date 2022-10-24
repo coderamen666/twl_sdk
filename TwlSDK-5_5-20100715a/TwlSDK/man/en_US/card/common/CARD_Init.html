@@ -1,0 +1,38 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>CARD_Init</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">CARD_Init <img src="../../image/NTR.gif"align="middle"><img src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/card.h&gt;</CODE><BR> <BR> <CODE>void CARD_Init( void );</CODE><br> <br>
+  </dd>
+</dl>
+<h2>Arguments</h2>
+<p>
+None.
+</p>
+
+<h2>Return Values</h2>
+<p>None.</p>
+
+<H2>Description</H2>
+<P>Initializes the CARD module.<BR>This function must be called at least once before any CARD function is called. However, if you call it more than once, nothing happens. This function is called from inside the <A href="../../os/init/OS_Init.html"><CODE>OS_Init</CODE></A> function, so after that there is no need to call it from the application. <br><br> This function generates an asynchronous process thread during initialization processing. This thread is used internally when restrictions on arguments or the operating environment prevent <A href="../rom/CARD_ReadRomAsync.html"><CODE>CARD_ReadRomAsync</CODE></A> and other asynchronous functions from running in an interrupt handler alone. The priority of this thread is set to <A href="../card_thread_priority_default_const.html"><CODE>CARD_THREAD_PRIORITY_DEFAULT</CODE></A> by default. It can be changed with the <A href="CARD_SetThreadPriority.html"><CODE>CARD_SetThreadPriority</CODE></A> function. <br>
+</p>
+<h2>See Also</h2>
+<p><a href="CARD_IsAvailable.html"><CODE>CARD_IsAvailable</CODE></a><BR> <a href="../../os/init/OS_Init.html"><CODE>OS_Init</CODE></a></P>
+<H2>Revision History</H2>
+2009/05/19 Revised the text about <CODE>OS_Init</CODE>.<BR> 2005/04/11 Added an explanation about the automatic creation of an asynchronous thread.<br> 2004/10/18 Added mention that this function is called by <CODE>OS_Init</CODE>.<br> 2004/07/05 Initial version.<br>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

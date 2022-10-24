@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>NNS_G2dMakeSimpleMultiCellToOams</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+<h1 align="left">NNS_G2dMakeSimpleMultiCellToOams</h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+		<pre><CODE>#include &lt;nnsys/g2d/g2d_MultiCellAnimation.h&gt;</CODE></pre>
+  <pre><CODE>
+u16 NNS_G2dMakeSimpleMultiCellToOams
+( 
+    GXOamAttr*                      pDstOams, 
+    u16                             numDstOams,
+    const NNSG2dMultiCellInstance*  pMCellInst, 
+    const MtxFx22*                  pMtxSR, 
+    const NNSG2dFVec2*              pBaseTrans,
+    u16                             affineIndex,
+    BOOL                            bDoubleAffine 
+)
+
+  </CODE></pre>
+  </dd>
+</dl><h2>Arguments</h2>
+
+<table border="1" width="100%">
+  <tr>
+<td width="13%"><CODE>pDstOams</CODE></td>
+<td width="87%">[OUT] Pointer to the start of the buffer that stores the transformation result</td>
+  </tr>
+  <tr>
+<td width="13%"><CODE>numDstOams</CODE></td>
+<td width="87%">[IN] Length of the buffer that stores the transformation result</td>
+  </tr>
+  <tr>
+<td width="13%"><CODE>pMCellInst</CODE></td>
+<td width="87%">[IN] Multicell entity</td>
+  </tr>
+  <tr>
+<td width="13%"><CODE>pMtxSR</CODE></td>
+<td width="87%">[IN] Affine transformation (optional)</td>
+  </tr>
+  <tr>
+<td width="13%"><CODE>affineIdx</CODE></td>
+<td width="87%">[IN] Affine index (optional)</td>
+  </tr>
+  <tr>
+<td width="13%"><CODE>pBaseTrans</CODE></td>
+<td width="87%">[IN] Translation value (optional)</td>
+  </tr>
+  <tr>
+<td width="13%"><CODE>bDoubleAffine</CODE></td>
+<td width="87%">[IN] Whether or not to use the double-size affine mode</td>
+  </tr>
+  </table>
+<h2>Return Values</h2>
+<p>The number of OBJs used.
+</p>
+<H2>Description</H2>
+<P>
+Writes out the OBJ array that renders the multicell. A sufficient space must be allocated in the buffer.<BR>Pass <CODE>NULL</CODE> to <CODE>pMtxSR</CODE> and <CODE>pBaseTrans</CODE> when you do not want to perform affine transformation or translation. If performing an affine transformation, specify an affine index.<BR>The <CODE>NNS_G2dMakeCellToOams</CODE> function is executed internally using this function's own component cell animation as an argument.<BR><BR><B>Note:</B> The affine transformation matrix that is taken in by this function must be a standard-format matrix. The matrix format used for affine parameters in the 2D Graphics Engine, where the matrix uses an inverse scale value, cannot be used.<BR><B>Note:</B> When applying an affine transformation matrix, any flip effect already applied to the OBJ will be lost.<BR><BR> <BR> This function can process only multicells consisting of cell animations to which the SR (scale and rotate) transformation has not been applied.<BR> If rendering a multicell composed of SR-transformed cell animations, consider using a different method, such as the renderer module.<BR>
+
+</p>
+
+<h2>See Also</h2>
+<p><A href="../CellAnimation/NNS_G2dMakeCellToOams.html"><CODE>NNS_G2dMakeCellToOams</CODE></A></p>
+<H2>Revision History</H2>
+<P>2004/09/01 Added a description of the restrictions on cell animations making up multicells.<BR>2004/08/02 Added description of the restrictions when applying an affine transformation.<BR>
+2004/05/28 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

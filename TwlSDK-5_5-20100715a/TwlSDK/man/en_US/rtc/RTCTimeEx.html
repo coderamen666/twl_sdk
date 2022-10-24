@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>RTCTimeEx</title>
+<LINK rel="stylesheet" href="../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">RTCTimeEx <img src="../image/NTR.gif" align="middle"><img src="../image/TWL.gif" align="middle"></h1>
+
+<h2>Definition</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/rtc.h&gt;</CODE><BR>
+  <PRE><CODE>typedef struct {
+         u32        hour;
+         u32        minute;
+         u32        second;
+         u32        millisecond;
+} RTCTimeEx;</CODE></PRE>
+  </dd>
+
+</dl><h2>Elements</h2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+      <TD width="300"><em><strong><font face="Courier New">hour</font></strong></em></TD>
+      <TD width="700">Numerical value, from 0 to 23, that indicates the hour.</TD>
+    </TR>
+    <TR>
+      <TD><em><strong><font face="Courier New">minute</font></strong></em></TD>
+      <TD>Numerical value, from 0 to 59, that indicates the minute.</TD>
+    </TR>
+    <TR>
+      <TD><em><strong><font face="Courier New">second</font></strong></em></TD>
+      <TD>Numerical value, from 0 to 59, that indicates the second.</TD>
+    </TR>
+    <TR>
+      <TD><em><strong><font face="Courier New">second</font></strong></em></TD>
+      <TD>Numerical value, from 0 to 999, that indicates the millisecond.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<H2>Description</H2>
+<P>This structure extends <A href="RTCTime.html"><CODE>RTCTime</CODE></A> to show the time up to millisecond accuracy.<BR>It shows the hours, minutes, seconds, and milliseconds.</P>
+
+<h2>See Also</h2>
+<P>
+  <CODE>
+    <A href="RTCTime.html">RTCTime</A>,
+    <A href="RTC_GetDateTimeExFromSWClock.html">RTC_GetDateTimeExFromSWClock</A>
+  </CODE>
+</P>
+
+<H2>Revision History</H2>
+<P>
+2008/04/17 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

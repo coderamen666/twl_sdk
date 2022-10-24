@@ -1,0 +1,85 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>OS_InitChina</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">OS_InitChina <img src="../../image/NTR.gif" align="middle"><img src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+<DL>
+  <DD>
+  <PRE><CODE>#include &lt;nitro/os.h&gt;</CODE></PRE>
+  <PRE><CODE>void OS_InitChina( const char** isbn, OSChinaIsbn param );
+  </CODE></PRE>
+</DL>
+<H2>Arguments</H2>
+<table border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="20%" rowspan="5"><EM><STRONG><FONT face="Courier New">isbn</FONT></STRONG></EM></TD>
+<TD colspan="4">Four ISBN-related strings displayed on the Health and Safety screen. The format of the strings is shown below. Characters other than numbers or a dash are handled as a space.</TD>
+    </TR>
+    <TR>
+      <TD width="3%"><CENTER>0</CENTER></TD>
+<TD width="12%"><CODE>char[ 17 ]</CODE></TD>
+      <TD width="20%"><CODE>&quot;***-*-******-**-*&quot;</CODE></TD>
+<TD width="45%">ISBN</TD>
+    </TR>
+    <TR>
+      <TD><CENTER>1</CENTER></TD>
+<TD><CODE>char[ 12 ]</CODE></TD>
+      <TD><CODE>&quot;***-****-***&quot;</CODE></TD>
+<TD>&#21512;&#21516;&#30331;&#35352;&#21495; (China-specific classification code)</TD>
+    </TR>
+    <TR>
+      <TD><CENTER>2</CENTER></TD>
+<TD><CODE>char[ 4 ]</CODE></TD>
+      <TD><CODE>&quot;****&quot;</CODE></TD>
+<TD>&#26032;&#20986;&#38899;&#31649; (China-specific information displayed on left side)</TD>
+    </TR>
+    <TR>
+      <TD><CENTER>3</CENTER></TD>
+<TD><CODE>char[ 3 ]</CODE></TD>
+      <TD><CODE>&quot;****&quot;</CODE></TD>
+<TD>&#26032;&#20986;&#38899;&#31649; (China-specific information displayed on right side)</TD>
+    </TR>
+    <TR>
+<TD width="20%" rowspan="4"><EM><STRONG><FONT face="Courier New">param</FONT></STRONG></EM></TD>
+<TD colspan="4">Behavior related to display of the ISBN number.</TD>
+    </TR>
+    <TR>
+<TD colspan="3"><CODE>OS_CHINA_ISBN_DISP</CODE></TD>
+<TD colspan="1">Displays the ISBN number.</TD>
+    </TR>
+    <TR>
+<TD colspan="3"><CODE>OS_CHINA_ISBN_NO_DISP</CODE></TD>
+<TD colspan="1">Do not display the ISBN number. (A Health and Safety screen is also not displayed.)</FONT></TD>
+    </TR>
+    <TR>
+<TD colspan="3"><CODE>OS_CHINA_ISBN_CHECK_ROM</CODE></TD>
+<TD colspan="1">Specify this when creating ROMs for censoring. This always displays the ISBN number and waits for button input on the Health and Safety screen.</TD>
+    </TR>
+  </TBODY>
+</table>
+
+<H2>Return Values</H2>
+<P>None.</P>
+
+<H2>Description</H2>
+<P>This function checks hardware startup restrictions after the system is initialized, in the same way as the <A href="OS_Init.html"><CODE>OS_Init</CODE></A> function.</P>
+<P>If an application designed for China is launched properly on a Chinese-market console, this function displays the Health and Safety screen and also displays other mandatory information, such as the ISBN number. However, if <CODE>OS_CHINA_ISBN_NO_DISP</CODE> is specified in <SPAN class="argument">param</SPAN>, the Health and Safety screen is not displayed and the ISBN number is not indicated.</P>
+<P>The string, such as the ISBN number, displayed on the Health and Safety screen is specified using <SPAN class="argument">isbn</SPAN>. However, if <CODE>OS_CHINA_ISBN_NO_DISP</CODE> is specified in <SPAN class="argument">param</SPAN>, <SPAN class="argument">isbn</SPAN> is not used at all because the Health and Safety screen is not displayed. (The specification is disregarded.)</P>
+<P>To make an application for China, you must use this function instead of the <A href="OS_Init.html"><CODE>OS_Init</CODE></A> function and define accompanying information in the ROM image that indicates that the application has Chinese-language support. For more information, see the description of <A href="../../tools/makerom.html"><CODE>makerom</CODE></A>.</P>
+<P>For information on system initialization, see the description of the <A href="OS_Init.html"><CODE>OS_Init</CODE></A> function.</P>
+<H2>See Also</H2>
+<P><CODE><A href="OS_Init.html">OS_Init</A></CODE>
+</P>
+<H2>Revision History</H2>
+<P>2009/11/05 Revised the description of operations when <CODE>OS_CHINA_ISBN_NO_DISP</CODE> is specified in param.<BR>2009/09/07 Revised the description of operations when <CODE>OS_CHINA_ISBN_NO_DISP</CODE> is specified in param. Revised the description of startup restrictions.<BR>2009/05/27 Added a second argument.<BR>2009/04/07 Support for display of 17-digit ISBN numbers.<BR>2005/05/14 Added to Description.<BR>2005/04/25 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

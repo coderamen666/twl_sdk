@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>NNS_G2dDrawOneOam3DDirectUsingParamCacheFast</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+<h1 align="left">NNS_G2dDrawOneOam3DDirectUsingParamCacheFast</h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+		<pre><CODE>#include &lt;nnsys/g2d/g2d_OamSoftwareSpriteDraw.h&gt;</CODE></pre>
+  <pre><CODE>
+    void    NNS_G2dDrawOneOam3DDirectUsingParamCacheFast
+    ( 
+        s16                             posX,
+        s16                             posY,
+        s16                             posZ,
+        const GXOamAttr*                pOam
+    );
+                            
+</CODE></pre>
+  </dd>
+</dl><h2>Arguments</h2>
+
+<table border="1" width="100%">
+  
+  <tr>
+<td width="13%"><CODE>posX</CODE></td>
+<td width="87%">[IN] X position</td>
+  </tr>
+  <tr>
+<td width="13%"><CODE>posY</CODE></td>
+<td width="87%">[IN] Y position</td>
+  </tr>
+  <tr>
+<td width="13%"><CODE>posZ</CODE></td>
+<td width="87%">[IN] Z position</td>
+  </tr>
+  <tr>
+<td width="13%"><CODE>pOam</CODE></td>
+<td width="87%">[IN] OAM attribute</td>
+  </tr>
+  
+  </table>
+<h2>Return Values</h2>
+<p>None.
+</p>
+<H2>Description</H2>
+<P>
+Sprite-renders the OAM using the cache of the parameter (the UV parameter). Configure the cache parameter before executing this function. Configure the cache parameter using the <CODE>NNS_G2dSetOamSoftEmuSpriteParamCache</CODE> function.<BR><BR> The current matrix of the 3D graphics engine is not saved before or after the function is called.<BR> <BR> When writing large numbers of sprites that reference an identical texture, perform an efficient rendering process by calculating and configuring the UV value only once.<BR> <BR>Note that with this function, the OAM flip flag is ignored. (The UV parameters are determined when the <a href="NNS_G2dSetOamSoftEmuSpriteParamCache.html"><code>NNS_G2dSetOamSoftEmuSpriteParamCache</code></a> function is executed.)<BR> When rendering a flipped sprite, a flip-configured OAM (<code>GXOamAttr</code>) must be passed as an argument of the <code>NNS_G2dSetOamSoftEmuSpriteParamCache</code> function, and the cache parameter must be updated.<BR>
+
+<BR>
+<PRE>
+    NNS_G2dDrawOneOam3DDirectUsingParamCache() Rendering
+        Process = UV Parameter Setting x 1 + Render x N
+    Normal Rendering
+        Process = ( UV Parameter Setting + Render) x N</p>
+</PRE>
+
+<h2>See Also</h2>
+<p>
+<A href="NNS_G2dSetOamSoftEmuSpriteParamCache.html"><CODE>NNS_G2dSetOamSoftEmuSpriteParamCache</CODE></A>
+</p>
+<H2>Revision History</H2>
+<P>2004/11/10 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

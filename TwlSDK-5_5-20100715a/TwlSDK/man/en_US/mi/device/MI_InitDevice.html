@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>MI_InitDevice</title>
+<link rel="stylesheet" href="../../css/nitro.css" type="text/css" />
+</head>
+<body>
+<h1>MI_InitDevice <IMG src="../../image/NTR.gif" align="middle"><IMG src="../../image/TWL.gif" align="middle"></h1>
+<h2>Syntax</h2>
+<dl>
+  <dd>
+<code>#include &lt;nitro/mi.h&gt;<br />
+  <br />
+  void MI_InitDevice(MIDevice *device, void *userdata,
+                   <A href="MIDeviceReadFunction.html">MIDeviceReadFunction</A> read,
+                   <A href="MIDeviceWriteFunction.html">MIDeviceWriteFunction</A> write);</code></dd>
+</dl>
+
+<h2>Arguments</h2>
+<table border="1" width="100%">
+  <tbody>
+    <tr>
+      <td width="13%"><em><strong>device</strong></em></td>
+      <td width="87%">Pointer to the <A href="MIDevice.html"><CODE>MIDevice</CODE></A> structure to be initialized.</td>
+    </tr>
+    <tr>
+      <td width="13%"><em><strong>userdata</strong></em></td>
+      <td width="87%">Any user-defined value to be linked with the structure.</td>
+    </tr>
+    <tr>
+      <td width="13%"><em><strong>read</strong></em></td>
+      <td width="87%">The pointer to the callback function that will be used for read access.</td>
+    </tr>
+    <tr>
+      <td width="13%"><em><strong>device</strong></em></td>
+      <td width="87%">The pointer to the callback function that will be used for write access.</td>
+    </tr>
+  </TBODY>
+</table>
+
+<h2>Return Values</h2>
+<p>None.</p>
+
+<h2>Description</h2>
+<p>Specifies the callbacks to use for read and write access and a freely configurable argument, and initializes the <A href="MIDevice.html"><CODE>MIDevice</CODE></A> structure.<br />Calling <A href="MI_ReadDevice.html"><CODE>MI_ReadDevice()</CODE></A> or <A href="MI_WriteDevice.html"><CODE>MI_WriteDevice()</CODE></A> with this structure will cause the callback functions to be called directly.<br />
+</p>
+<p>
+This is a utility feature designed to separate the device control component from the module design. For more information, see the reference for the <a href="MIDevice.html"><CODE>MIDevice</CODE></a> structure.
+</p>
+
+<h2>See Also</h2>
+<p><code><a href="MI_ReadDevice.html">MI_ReadDevice</a>, <a href="MI_WriteDevice.html">MI_WriteDevice</a><br /> <a href="MIDevice.html">MIDevice</a>, <a href="MIDeviceReadFunction.html">MIDeviceReadFunction</a>, <a href="MIDeviceWriteFunction.html">MIDeviceWriteFunction</a><br /></code></p>
+<h2>Revision History</h2>
+<p>
+2007/05/09 Initial version.
+</p>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

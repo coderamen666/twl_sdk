@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>FS_ForceToEnableLatencyEmulation</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">FS_ForceToEnableLatencyEmulation <img src="../../image/TWL.gif" align="middle"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/fs.h&gt;</CODE><BR> <BR> <CODE>void FS_ForceToEnableLatencyEmulation( void );</CODE><br> <br>
+  </dd>
+</dl>
+<h2>Arguments</h2>
+<p>None.</p>
+
+<h2>Return Values</h2>
+<p>None.</p>
+
+<H2>Description</H2>
+<p>This function simulates the random wait times that occur when accessing the console NAND memory or SD Card memory after device performance has deteriorated.<br /> This feature, which must be explicitly called, is always enabled for Debug and Release builds. It is disabled for FINALROM builds.</p>
+
+<H2>Notes</H2>
+<p>This function has no effect on commercially released systems.</p>
+
+<h2>See Also</h2>
+<p>
+<A href="../overview/about_Archive.html#FAT">FAT archives</A>
+</p>
+
+<h2>Revision History</h2>
+<p>
+2009/01/07 Explained that the feature is always disabled for FINALROM builds.<br />2008/11/27 Initial version.<br />
+</p>
+
+<hr><p>CONFIDENTIAL</p></body>
+</html>

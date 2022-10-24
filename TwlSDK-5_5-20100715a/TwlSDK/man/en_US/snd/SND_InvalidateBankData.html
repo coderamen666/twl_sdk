@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"><html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>SND_InvalidateBankData</title>
+<link rel="stylesheet" href="../css/nitro.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.65.1">
+</head>
+<body>
+<div class="refentry" lang="ja"><a name="IDAFLWT"></a><div class="titlepage">
+<div></div>
+<div></div>
+</div>
+<h1>SND_InvalidateBankData <IMG src="../image/NTR.gif" width="24" height="12" border="0" align=middle><IMG src="../image/TWL.gif" width="24" height="12" border="0" align=middle></h1>
+<h2>Syntax</h2>
+<dl>
+<dd><pre class="funcsynopsisinfo"><code>#include &lt;nitro/snd.h&gt;</code></pre></dd>
+<dd><pre class="funcprototype"><code class="funcprototype">void SND_InvalidateBankData( const void* <var>start</var>, const void* <var>end</var> );</code><br></pre></dd>
+</dl>
+<div class="refsection" lang="ja"><a name="IDA4MWT"></a>
+      <h2>Arguments</h2>
+      
+      <div class="variablelist">
+<table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><em><strong><code>start</code></strong></em></td>
+<td>The starting address of the data being invalidated.</td>
+</tr>
+<tr>
+<td><em><strong><code>end</code></strong></em></td>
+<td>The ending address of the data being invalidated.</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+    </div>
+<div class="refsection" lang="ja"><a name="IDAUNWT"></a>
+      <h2>Return Values</h2>
+
+      <p>None.</p>
+    </div>
+<div class="refsection" lang="ja"><a name="IDA1NWT"></a>
+      <h2>Description</h2>
+      <p>
+Invalidates bank data.
+</p>
+      <p>
+Any sequence that is playing using bank data from inside the specified region gets forcibly stopped.
+</p>
+      <div class="note">
+<h3 class="title">Note</h3>
+<p>
+This function is an ARM7 reserved function. After this function is called, its processing will occur only after the command is issued with the <tt class="function"><a href="SND_FlushCommand.html">SND_FlushCommand</a></tt> function.
+</p>
+<p>
+If you must synchronize something to the completion of this processing, first, use the <tt class="function"><a href="SND_GetCurrentCommandTag.html">SND_GetCurrentCommandTag</a></tt> function to obtain the command tag immediately after calling this function. Then, after the command is issued, use the command tag and call either the <tt class="function"><a href="SND_IsFinishedCommandTag.html">SND_IsFinishedCommandTag</a></tt> or <tt class="function"><a href="SND_WaitForCommandProc.html">SND_WaitForCommandProc</a></tt> function to confirm that processing has finished or to wait for it to complete.
+</p>
+</div>
+    </div>
+<h2>See Also</h2>
+<p><code><a href="SND_FlushCommand.html">SND_FlushCommand</a>, <a href="SND_GetCurrentCommandTag.html">SND_GetCurrentCommandTag</a>, <a href="SND_IsFinishedCommandTag.html">SND_IsFinishedCommandTag</a>, <a href="SND_WaitForCommandProc.html">SND_WaitForCommandProc</a></code></p>
+<h2>Revision History</h2>
+<p>
+2005/02/17 Added a note about ARM7 command processing. <br>2004/07/20 Initial version.
+</p>
+</div>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

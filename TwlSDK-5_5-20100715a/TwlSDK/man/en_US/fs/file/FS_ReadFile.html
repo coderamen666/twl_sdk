@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title>FS_ReadFile</title>
+<link rel="stylesheet" href="../../css/nitro.css" type="text/css" />
+</head>
+<body>
+
+<h1>FS_ReadFile <img src="../../image/NTR.gif"align="middle"><img src="../../image/TWL.gif" align="middle"></h1>
+<h2>Syntax</h2>
+<pre><code>
+#include &lt;nitro/fs.h&gt;
+s32 FS_ReadFile( <A href="../fs_file_type.html">FSFile</a> *p_file, void *dst, s32 len);
+</code></pre>
+
+<h2>Arguments</h2>
+<table style="width:100%">
+<tbody>
+<tr>
+<td style="width:13%"><CODE>file</CODE></td>
+<td style="width:87%"><A href="../fs_file_type.html">FSFile</a> structure that indicates an opened file.</td>
+</tr>
+<tr>
+<td style="width:13%"><CODE>dst</CODE></td>
+<td style="width:87%">Destination buffer</td>
+</tr>
+<tr>
+<td style="width:13%"><CODE>len</CODE></td>
+<td style="width:87%">Length of data being read, in bytes.</td>
+</tr>
+</tbody>
+</table>
+
+<h2>Return Values</h2>
+<p>If the data is correctly read, it returns the number of bytes. Otherwise it returns a value of -1.</p>
+
+<h2>Description</h2>
+<p>This function reads a specified size of data from the file pointer's current position. If the specified amount of data would extend beyond the end of the file, the function reads to the end of the file and returns the number of bytes to that point.<br /><br /> If you are using the <A href="../archive_rom_spec.html"><code>ROM archive</code></A> to read Game Card data, also see the description for the <a href="../../card/rom/CARD_ReadRomAsync.html"><code>CARD_ReadRomAsync</code></a> function.
+</p>
+<p>The read process executed by this function differs depending on which archive has been implemented. In some cases, DMA, ARM7, or other external memory devices may be used. The FS library guarantees the consistency of CPU cache and real memory before and after the call to this function. If the application inadvertently references the contents of the read buffer before this function has completed its read process, the consistency of CPU cache and real memory will be lost. For this reason, the buffer passed to this function should not be referenced until processing is complete.
+</p>
+
+<h2>Note</h2>
+<ul style="color:Red">
+<li>This function puts the thread to sleep to wait for the process to complete. As a result, it cannot be called from the interrupt handler (IRQ mode).</li>
+<li>In some cases, processing may not end if interrupts are left prohibited.</li>
+<li>The data that is read is guaranteed to be synchronized in the CPU cache, but writeback to the actual memory is not always guaranteed. When using this data to transfer data to external devices such as the DMA, DSP, or ARM7, the cache must be stored explicitly.</li>
+</ul>
+
+<h2>See Also</h2>
+<p><code> <a href="FS_CloseFile.html">FS_CloseFile</a><BR> <a href="../fs_file_type.html">FSFile</a><BR><a href="FS_GetFileLength.html">FS_GetFileLength</a><BR> <a href="FS_OpenFileEx.html">FS_OpenFileEx</a><BR> <a href="FS_OpenFileFast.html">FS_OpenFileFast</a><BR> <a href="FS_SeekFile.html">FS_SeekFile</a><BR> <a href="FS_SeekFileToBegin.html">FS_SeekFileToBegin</a><BR> <a href="FS_SeekFileToEnd.html">FS_SeekFileToEnd</a></code></p>
+
+<h2>Revision History</h2>
+<p>
+2008/12/05 Noted that the buffer should not be referenced during processing.<br />2008/10/02 Updated part of the See Also list.<br />2008/02/27 Added mention that the cache synchronicity of the read data is not guaranteed.<br />2005/08/28 Added links to <code>CARD_ReadRomAsync</code> function in description.<br />2004/09/24 Added text under Caution regarding the conditions for calling and completing this function.<br />2004/04/01 Initial version.
+</p>
+
+<hr><p>CONFIDENTIAL</p></body>
+</html>

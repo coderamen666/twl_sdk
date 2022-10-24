@@ -1,0 +1,282 @@
+<html>
+<head>
+<title>TWL-System NITRO-Player Revision History</title>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="content-style-type" content="text/css" />
+<style type="text/css">
+<!--
+    
+H1
+{
+    font-weight         : bold;
+    font-size           : 250%;
+    text-align          : left;
+    color               : #46f;
+    margin              : 0em 0em 0.5em 0em;
+}
+
+H2
+{
+    font-weight         : bold;
+    font-size           : 150%;
+    text-align          : left;
+    margin              : 2em 0em 0.5em 0em;
+    padding-top         : 8pt;
+    border-top-style    : double;
+    border-top-width    : 3px;
+}
+
+H3
+{
+    font-weight         : bold;
+    font-size           : 120%;
+    margin              : 1em 0em 0.5em 0em;
+    padding-top         : 8pt;
+    border-top-style    : solid;
+    border-top-width    : 1px;
+}
+
+H4
+{
+    font-weight         : normal;
+    font-size           : 100%;
+    margin              : 0em 0em 0em 0.5em;
+}
+
+DIV.date
+{
+    font-size           : normal;
+    text-align          : right;
+    margin              : 0pt 0pt 12pt 0pt;
+}
+
+DIV.licence
+{
+    margin: 0em;
+    border-style : solid;
+    border-width : 1px;
+}
+
+P
+{
+    font-size           : normal;
+    margin              : 0em 1em 0.5em 1em;
+    line-height         : 150%;
+}
+
+PRE
+{
+    font-size           : normal;
+    margin              : 0em 0em 1em 2em;
+    line-height         : 120%;
+}
+
+DT
+{
+    margin              : 1em 0em 0em 1em;
+}
+DD
+{
+    margin-left         : 3em;
+}
+UL
+{
+    margin-top         : 0em;
+}
+
+-->
+</style>
+</head>
+<body>
+
+<h1>TWL-System NITRO-Player Revision History</h1>
+
+<h2>Index</h2>
+
+<h3><a href="#version_2_2_0_0">2.2.0 PR</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_83-P01">Note 83-P01: Added description of using IS-NITRO-DEBUGGER and IS-TWL-MIDI in combination</a></li>
+</ul>
+<h3><a href="#version_2_1_0">2.1.0</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_81-P02">Note 81-P02: Revised communication with IS-NITRO-UIC</a></li>
+<li><a href="#note_81-P03">Note  81-P03: Updated for IS-TWL-MIDI</a></li>
+<li><a href="#note_81-P04">Note 81-P04: Hardware volume now displayed</a></li>
+</ul>
+<h4>Problem Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_81-P01">Note 81-P01: Fixed bug where SARC file size becomes 0 bytes</a></li>
+<li><a href="#note_81-P05">Note 81-P05: Fixed bug when sending large amounts of data</a></li>
+</ul>
+<h3><a href="#version_2_0_0_0">2.0.0 RC</a></h3>
+<h4>Problem Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_78-P01">Note 78-P01: Corrected problem with hard disk recording feature</a></li>
+</ul>
+<h3><a href="#version_20080408">2008/04/08 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_76-P01">Note 76-P01: (Manual) Changed the format of the Revision History and revised the page headers</a></li>
+</ul>
+<h3><a href="#version_20070314">2007/03/14 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_64-P01">Note 64-P01: Added conversion feature that allows you to specify the conversion file type</a></li>
+</ul>
+<h3><a href="#version_20050901">2005/09/01 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_50-P01">Note 50-P01: Added MIDI reset feature</a></li>
+</ul>
+<h4>Problem Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_50-P02">Note 50-P02: Fixed bug where the conversion log would not display more than a fixed number of characters</a></li>
+</ul>
+<h3><a href="#version_20050606">2005/06/06 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_45-P01">Note 45-P01: Precautions when upgrading versions</a></li>
+</ul>
+<h4>Problem Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_45-P02">Note 45-P02: Fixed bug that occurred with execution on IS-NITRO-UIC</a></li>
+<li><a href="#note_45-P03">Note 45-P03: Fixed bug with portamento in real-time MIDI</a></li>
+</ul>
+<h3><a href="#version_20050328">2005/03/28 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_43-P01">Note 43-P01: Precautions when upgrading versions</a></li>
+<li><a href="#note_43-P02">Note 43-P02: Added a feature for sequence skip playback</a></li>
+<li><a href="#note_43-P03">Note 43-P03: Added a hard disk recording feature</a></li>
+<li><a href="#note_43-P04">Note 43-P04: Remembering window positions</a></li>
+<li><a href="#note_43-P05">Note 43-P05: Added shortcut key assignments</a></li>
+</ul>
+<h4>Problem Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_43-P06">Note 43-P06: Fixed bug that caused execution to run out of control when an unlabeled sequence archive was opened</a></li>
+</ul>
+<h3><a href="#version_20050131">2005/01/31 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_39-P01">Note 39-P01: Precautions when upgrading versions</a></li>
+<li><a href="#note_39-P02">Note 39-P02: Added a heap simulation feature</a></li>
+<li><a href="#note_39-P03">Note 39-P03: Added a feature for simultaneously playing multiple sequences</a></li>
+<li><a href="#note_39-P04">Note 39-P04: Added a feature for referencing and writing sequence variables</a></li>
+<li><a href="#note_39-P05">Note 39-P05: Improved the channel meter</a></li>
+</ul>
+<h3><a href="#version_20041206">2004/12/06 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_34-P01">Note 34-P01: Precautions when upgrading versions</a></li>
+<li><a href="#note_34-P02">Note 34-P02: Added support for sorting the list</a></li>
+<li><a href="#note_34-P03">Note 34-P03: Added display of paths in the title bar</a></li>
+</ul>
+
+
+<h2 id="version_2_2_0_0">Changes in 2.2.0 PR</h2>
+<h3 id="note_83-P01">Note 83-P01: Added description of using IS-NITRO-DEBUGGER and IS-TWL-MIDI in combination</h3>
+<p>Added description to the <I>NITRO-Player User Manual</I> of how to use IS-NITRO-DEBUGGER and IS-TWL-MIDI in combination.
+</p>
+<h2 id="version_2_1_0">Changes in 2.1.0</h2>
+<h3 id="note_81-P01">Note 81-P01: Fixed bug where SARC file size becomes 0 bytes</h3>
+<p>When you pressed CTRL+S when a SARC file had been loaded to <CODE>NitroPlayer.exe</CODE>, the size of the SARC file would become 0 bytes. That bug has been fixed.
+</p>
+<h3 id="note_81-P02">Note 81-P02: Revised communication with IS-NITRO-UIC</h3>
+<p>IS-NITRO-UIC did not operate properly when <CODE>NitroPlayer.srl</CODE> was started on a Nintendo DS system, so we added <CODE>NitroPlayerUIC.srl</CODE>, which does operate correctly. For more information, see the <I>NITRO-Player User Manual</I>.
+</p>
+<h3 id="note_81-P03">Note  81-P03: Updated for IS-TWL-MIDI</h3>
+<p>Real-time MIDI playback is now possible by combining IS-TWL-DEBUGGER and IS-TWL-MIDI. For more information, see the <I>NITRO-Player User Manual</I>.
+</p>
+<h3 id="note_81-P04">Note 81-P04: Hardware volume now displayed</h3>
+<p>When run on a Nintendo DSi system (or on IS-TWL-DEBUGGER), hardware volume is now displayed as a value in the lower screen.
+</p>
+<h3 id="note_81-P05">Note 81-P05: Fixed bug when sending large amounts of data</h3>
+<p>Communication would be disconnected when an attempt was made to send a large amount of data to the application on the console. That bug has been fixed.
+</p>
+<h2 id="version_2_0_0_0">Changes in 2.0.0 RC</h2>
+<h3 id="note_78-P01">Note 78-P01: Corrected problem with hard disk recording feature</h3>
+<p>When recording to the hard disk started, the DS system-side application halted, and any communication was cut off. Those problems have been fixed.
+</p>
+<h2 id="version_20080408">Changes in Version 2008/04/08</h2>
+<h3 id="note_76-P01">Note 76-P01: (Manual) Changed the format of the Revision History and revised the page headers</h3>
+<p>The format of the Revision History has been changed in the document <CODE>NITRO_Player_UserManual.pdf</CODE>, and the page headers have been revised.
+</p>
+<h2 id="version_20070314">Changes in Version 2007/03/14</h2>
+<h3 id="note_64-P01">Note 64-P01: Added conversion feature that allows you to specify the conversion file type</h3>
+<p>Added a feature that converts by allowing you to specify the file type to convert. Applying this feature can shorten the conversion time. For more details, see the <I>NITRO-Player User Manual</I>.
+</p>
+<h2 id="version_20050901">Changes in Version 2005/09/01</h2>
+<h3 id="note_50-P01">Note 50-P01: Added MIDI reset feature</h3>
+<p>You can initialize the MIDI features of a Nintendo DS system by using the NITRO-Player application menu or clicking a toolbar button.
+</p>
+<h3 id="note_50-P02">Note 50-P02: Fixed bug where the conversion log would not display more than a fixed number of characters</h3>
+<p>A log is displayed when conversions are performed on NITRO-Player, but the log could display only a certain number of characters. This problem has been corrected.
+</p>
+<h2 id="version_20050606">Changes in Version 2005/06/06</h2>
+<h3 id="note_45-P01">Note 45-P01: Precautions when upgrading versions</h3>
+<p>When using a copy of the DS system-side NITRO-Player program that has been written to a DS development flash card, always be sure to rewrite the card with the latest version of the DS system-side program.
+</p>
+<h3 id="note_45-P02">Note 45-P02: Fixed bug that occurred with execution on IS-NITRO-UIC</h3>
+<p>With NITRO-Player version 1.1.0, when the DS system-side program was written to a DS development flash card and used on IS-NITRO-UIC, the IS-NITRO-UIC was not recognized by the PC. This was fixed.
+</p>
+<h3 id="note_45-P03">Note 45-P03: Fixed bug with portamento in real-time MIDI</h3>
+<p>When playing a real-time MIDI and using portamento, the pitch change started at the wrong position. This was fixed.
+</p>
+<h2 id="version_20050328">Changes in Version 2005/03/28</h2>
+<h3 id="note_43-P01">Note 43-P01: Precautions when upgrading versions</h3>
+<p>When using a copy of the DS system-side NITRO-Player program that has been written to a DS development flash card, always be sure to rewrite the card with the latest version of the DS system-side program.
+</p>
+<h3 id="note_43-P02">Note 43-P02: Added a feature for sequence skip playback</h3>
+<p>By specifying the amount to skip using a tick on the sequence panel, playback of the sequence starts from the specified position. There are several cautions when using this feature. For more details, see the <I>NITRO-Player User Manual</I>.
+</p>
+<h3 id="note_43-P03">Note 43-P03: Added a hard disk recording feature</h3>
+<p>Waveform data captured with sound capture can now be recorded in real time to a hard drive on a PC. For more details, see the <I>NITRO-Player User Manual</I>.
+</p>
+<h3 id="note_43-P04">Note 43-P04: Remembering window positions</h3>
+<p>The position of windows in NITRO-Player is now remembered at shutdown and restored to the same position when the application next starts up.
+</p>
+<h3 id="note_43-P05">Note 43-P05: Added shortcut key assignments</h3>
+<p>Shortcut keys were assigned for the following menu items.
+</p>
+<ul><li> <B>File</B> &rarr; <B>Reload</B> CTRL+R
+</li>
+<li> <B>Play</B> &rarr; <B>MIDI Bank</B> CTRL+B
+</li>
+</ul>
+<h3 id="note_43-P06">Note 43-P06: Fixed bug that caused execution to run out of control when an unlabeled sequence archive was opened</h3>
+<p>A bug would cause NITRO-Player to abnormally shut down when the user tried to display a sequence archive list on NITRO-Player if unlabeled sequences existed in the sequence archive. This bug has been fixed.
+</p>
+<h2 id="version_20050131">Changes in Version 2005/01/31</h2>
+<h3 id="note_39-P01">Note 39-P01: Precautions when upgrading versions</h3>
+<p>When using a copy of the DS system-side NITRO-Player program that has been written to a DS development flash card, always be sure to rewrite the card with the latest version of the DS system-side program.
+</p>
+<h3 id="note_39-P02">Note 39-P02: Added a heap simulation feature</h3>
+<p>A heap simulation feature was added, which allows you to check how the heap state changes when you perform operations such as loading or deleting sound data.
+</p>
+<h3 id="note_39-P03">Note 39-P03: Addition of a feature for simultaneously playing multiple sequences</h3>
+<p>Due to the addition of 16 new player windows, multiple sequences can be played back simultaneously.
+</p>
+<h3 id="note_39-P04">Note 39-P04: Added a feature for referencing and writing sequence variables</h3>
+<p>A sequence variable panel was added, which allows you to reference and write sequence variables from the NITRO-Player.
+</p>
+<h3 id="note_39-P05">Note 39-P05: Improved the channel meter</h3>
+<p>The channel meter that had been displayed on the upper screen of the Nintendo DS has been moved to the lower screen. The information it displays is now more detailed.
+</p>
+<h2 id="version_20041206">Changes in Version 2004/12/06</h2>
+<h3 id="note_34-P01">Note 34-P01: Precautions when upgrading versions</h3>
+<p>When using a copy of the DS system-side NITRO-Player program that has been written to a DS development flash card, always be sure to rewrite the card with the latest version of the DS system-side program.
+</p>
+<h3 id="note_34-P02">Note 34-P02: Added support for sorting the list</h3>
+<p>In the <B>List</B> window of the NITRO-Player application, clicking a column header sorts the contents by that header category. If you continue to click the same header, it switches between ascending and descending order.
+</p>
+<h3 id="note_34-P03">Note 34-P03: Added display of paths in the title bar</h3>
+<p>A change was made so the path name of the opened sound archive appears in the title bar of the NITRO-Player application.
+</p>
+
+
+<br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br>
+
+<hr><p>CONFIDENTIAL</p></body>
+</html>

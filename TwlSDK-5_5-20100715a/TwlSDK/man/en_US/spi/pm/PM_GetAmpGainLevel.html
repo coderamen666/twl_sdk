@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>PM_GetAmpGainLevel</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">PM_GetAmpGainLevel <IMG src="../../image/TWL.gif" width="24" height="12" border="0" align="middle"></H1>
+<H2>Syntax</H2>
+<DL>
+  <DD>
+  <PRE><CODE>#include &lt;twl/spi.h&gt;</CODE></PRE>
+  <PRE><CODE>u32 PM_GetAmpGainLevel( u8* levelBuf );
+  </CODE></PRE>
+</DL>
+<H2>Arguments</H2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="13%"><EM><STRONG>levelBuf</STRONG></EM></TD>
+<TD width="87%">Buffer to store the obtained results for settings values that determine the amp gain.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>Return Values</H2>
+<P>If <CODE>PM_RESULT_SUCCESS</CODE>, the command was run successfully.</P>
+<P>If <CODE>PM_RESULT_BUSY</CODE>, the SPI was occupied by other processing and unable to process this function.</P>
+<H2>Description</H2>
+<P>Gets the current setting for the programmable amp gain.</P>
+<P>It saves a <CODE>u8</CODE> value in <SPAN class="argument">levelBuf</SPAN>. The values it can obtain are in the range of 0 to 119 (120 levels).
+</P>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+<TH>Value Stored in <SPAN class="argument">levelBuf</SPAN></TH>
+<TH>Gain             </TH>
+    </TR>
+    <TR>
+      <TD> 0</TD>
+<TD> 10.5 dB</TD>
+    </TR>
+    <TR>
+      <TD> 1</TD>
+<TD> 11.0 dB</TD>
+    </TR>
+    <TR>
+      <TD> 2</TD>
+<TD> 11.5 dB</TD>
+    </TR>
+    <TR>
+      <TD> :</TD>
+      <TD> :</TD>
+    </TR>
+    <TR>
+<TD> n</TD>
+<TD>10.5 + (<I>n</I> x 0.5) dB</TD>
+    </TR>
+    <TR>
+      <TD> :</TD>
+      <TD> :</TD>
+    </TR>
+    <TR>
+      <TD> 119</TD>
+<TD> 70.0 dB</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>This function uses PXI to send a command to execute the operation in question on the ARM7 processor. Once it receives that command, the ARM7 executes it by manipulating the PMIC.</P>
+
+<P><BR> <BR> <B>About <CODE>PM_RESULT_BUSY</CODE></B></P>
+<P>The SPI is used for various other processes besides power management. If you call this function while another process is using it, this function sends a command to the ARM7. There, the SPI is determined to be BUSY, and <CODE>PM_RESULT_BUSY</CODE> is dispatched to the ARM9 without actually processing this function. Likewise, if you call this function while another PM process is running, that fact is determined on the ARM9, and this function returns <CODE>PM_RESULT_BUSY</CODE>. (In this case, the determination is made before notification is sent to the ARM7.)</P>
+<P>Accordingly, if you want to ensure that this function succeeds, make it loop until it succeeds as shown below. (This example does not take into account mistakes such as wrong arguments.)</P>
+<BLOCKQUOTE style="background-color:#ffffcc"><B>Example:</B><BR> <CODE>while( PM_GetAmpGainLevel( ... ) != PM_RESULT_SUCCESS )<BR> {<BR> }</CODE></BLOCKQUOTE>
+<P><BR> <BR> <B>Differences Between the <CODE>PM_GetAmpGain</A></CODE> and <A href="PM_GetAmpGainLevel.html"><CODE>PM_GetAmpGainLevel</CODE></A> Functions</B></P>
+<P>There are two types of functions to get the gain settings: <A href="PM_GetAmpGain.html"><CODE>PM_GetAmpGain</CODE></A> and <CODE>PM_GetAmpGainLevel</CODE> (this function). The former has existed since the old Nintendo DS system and can get four gain levels. (Four gain levels can be set, as well.) The latter function is explained in this reference page; it is new, has been added for the TWL system, and can get 120 gain levels.</P>
+<P>The <A href="PM_GetAmpGain.html"><CODE>PM_GetAmpGain</CODE></A> function can get four levels and is usable in any mode.</P>
+<P>The <CODE>PM_GetAmpGainLevel</CODE> function can get 120 levels and is usable only in TWL hybrid and TWL limited mode. The CODEC mode decides whether 120 levels are actually configured internally. The codec is configured with 120 levels when it is running in TWL mode (this should always be TWL mode).</P>
+<P>If 4 levels have been configured internally, this function gets a setting value that corresponds to 120 levels. On the other hand, if 120 levels have been configured internally and the <A href="PM_GetAmpGain.html"><CODE>PM_GetAmpGain</CODE></A> function attempts to get a 4-level value, the 120 levels are divided into 4 sections from which an approximate 4-level value is returned.</P>
+<P>The following table shows the 120-level values obtained from the <A href="PM_GetAmpGainLevel.html"><CODE>PM_GetAmpGainLevel</CODE></A> function when 4 levels are configured internally.
+</P>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+<TH width="272"><B>Configured Value</B></TH>
+<TH width="466">Gain (120 Levels)         </TH>
+    </TR>
+    <TR>
+<TD width="272"><CODE>PM_AMPGAIN_20</CODE></TD>
+<TD width="466"> 31 (26.0 dB) </TD>
+    </TR>
+    <TR>
+<TD width="272"><CODE>PM_AMPGAIN_40</CODE></TD>
+<TD width="466"> 43 (32.0 dB)</TD>
+    </TR>
+    <TR>
+<TD width="272"><CODE>PM_AMPGAIN_80</CODE></TD>
+<TD width="466"> 55 (38.0 dB)</TD>
+    </TR>
+    <TR>
+<TD width="272"><CODE>PM_AMPGAIN_160</CODE></TD>
+<TD width="466"> 67 (44.0 dB)</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P><BR>The values 31, 43, 55, and 67 are given the constant definitions <CODE>PM_AMPGAIN_LEVEL_DS0</CODE>, <CODE>PM_AMPGAIN_LEVEL_DS1</CODE>, <CODE>PM_AMPGAIN_LEVEL_DS2</CODE>, and <CODE>PM_AMPGAIN_LEVEL_DS3</CODE>, respectively.</P>
+<H2>Internal Operation</H2>
+<P>On NITRO hardware, reads the value of the PMIC register <CODE>PGA_GAIN</CODE>. On TWL hardware, reads the codec value.</P>
+<H2>See Also</H2>
+<P><A href="PM_Init.html"><CODE>PM_Init</CODE></A><BR> <A href="PM_SetAmpGain.html"><CODE>PM_SetAmpGainLevel*</CODE></A><BR> <A href="PM_GetAmpGain.html"><CODE>PM_GetAmpGain</CODE></A></P>
+<H2>Revision History</H2>
+<P>2009/06/03 Removed a description of the <CODE>PM_Init</CODE> function (because <CODE>OS_Init</CODE> is now required). <BR>2008/08/23 Mentioned <CODE>PM_RESULT_BUSY</CODE>. <BR>2008/05/01 Split off from <CODE>PM_GetAmpGain</CODE>.</P>
+
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

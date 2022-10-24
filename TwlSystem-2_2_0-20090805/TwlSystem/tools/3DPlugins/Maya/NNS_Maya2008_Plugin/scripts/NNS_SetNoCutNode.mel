@@ -1,0 +1,239 @@
+/******************************************************************************
+	NINTENDO NITRO-System Maya Plugin
+
+	File:         NNS_SetNoCutNode.mel
+	Description:  set no cut node
+	Date:         2007/03/06
+	Author:       Takashi Endo
+
+	Copyright 2003-2009 Nintendo. All rights reserved.
+******************************************************************************/
+
+// UpdateWindow
+
+/******************************************************************************
+	variables
+******************************************************************************/
+global int $nnsSetNoCutNode_AttrJob = -1;
+
+/******************************************************************************
+	add attribute
+******************************************************************************/
+proc AddAttribute(string $xform)
+{
+	addAttr -ln "nns_no_cut" -at "bool" -dv 0 $xform;
+}
+
+/******************************************************************************
+	delete attr change job
+******************************************************************************/
+proc DeleteAttrChangeJob()
+{
+	global int $nnsSetNoCutNode_AttrJob;
+
+	if (`window -ex nnsSetNoCutNode_Win` &&
+		$nnsSetNoCutNode_AttrJob != -1 &&
+		`scriptJob -ex $nnsSetNoCutNode_AttrJob`)
+	{
+		scriptJob -k $nnsSetNoCutNode_AttrJob;
+	}
+
+	$nnsSetNoCutNode_AttrJob = -1;
+}
+
+/******************************************************************************
+	set attr change job
+******************************************************************************/
+proc SetAttrChangeJob(string $xform)
+{
+	global int $nnsSetNoCutNode_AttrJob;
+
+	DeleteAttrChangeJob();
+
+	if (!`attributeQuery -n $xform -ex "nns_no_cut"`)
+	{
+		AddAttribute($xform);
+	}
+
+	$nnsSetNoCutNode_AttrJob = `scriptJob -kws -p nnsSetNoCutNode_Win
+		-ac ($xform + ".nns_no_cut") "nnsSetNoCutNode_UpdateWindow(0)"`;
+}
+
+/******************************************************************************
+	set attribute
+******************************************************************************/
+proc SetAttribute(int $no_cutting)
+{
+	//-----------------------------------------------------------------------------
+	// get selection
+	string $xforms[] = `ls -sl -typ transform`;
+	if (size($xforms) == 0)
+	{
+		error "No transform node is selected";
+	}
+
+	//-----------------------------------------------------------------------------
+	// loop for xform
+	for ($xform in $xforms)
+	{
+		if (!`attributeQuery -n $xform -ex "nns_no_cut"`)
+		{
+			AddAttribute($xform);
+		}
+		setAttr ($xform + ".nns_no_cut") $no_cutting;
+	}
+}
+
+/******************************************************************************
+	no cut node callback
+******************************************************************************/
+global proc nnsSetNoCutNode_NoCutNodeCB()
+{
+	SetAttribute(`optionMenuGrp -q -sl nnsSetNoCutNode_NoCutNode` - 1);
+}
+
+/******************************************************************************
+	update window
+******************************************************************************/
+global proc nnsSetNoCutNode_UpdateWindow(int $set_job_flag)
+{
+	//-----------------------------------------------------------------------------
+	// get selection
+	string $xforms[] = `ls -sl -typ transform`;
+	int $enableFlag = (size($xforms) > 0);
+
+	//-----------------------------------------------------------------------------
+	// set xform name
+	string $xforms_name;
+	if ($enableFlag)
+	{
+		$xforms_name = $xforms[0];
+		int $xform_size = size($xforms);
+		for ($ixform = 1; $ixform < $xform_size; ++$ixform)
+		{
+			if ($ixform == 3)
+			{
+				$xforms_name += ", ...";
+				break;
+			}
+			$xforms_name += ",  " + $xforms[$ixform];
+		}
+	}
+	else
+	{
+		$xforms_name = "(No transform node is selected)";
+	}
+	text -e -l $xforms_name nnsSetNoCutNode_XformName;
+
+	//-----------------------------------------------------------------------------
+	// set current attr
+	if ($enableFlag)
+	{
+		string $xform = $xforms[0];
+		int $no_cutting = (`attributeQuery -n $xform -ex "nns_no_cut"`) ?
+			`getAttr ($xform + ".nns_no_cut")` : 0;
+		optionMenuGrp -e -sl ($no_cutting + 1) nnsSetNoCutNode_NoCutNode;
+
+		//-----------------------------------------------------------------------------
+		// set attr change job
+		if ($set_job_flag)
+		{
+			SetAttrChangeJob($xform);
+		}
+	}
+
+	//-----------------------------------------------------------------------------
+	// set enable state
+	control -e -en $enableFlag nnsSetNoCutNode_NoCutNode;
+}
+
+/******************************************************************************
+	main
+******************************************************************************/
+global proc NNS_SetNoCutNode()
+{
+	//-----------------------------------------------------------------------------
+	// get selection
+	//string $xforms[] = `ls -sl -typ transform`;
+	//if (size($xforms) == 0)
+	//	error "No transform node is selected";
+
+	//-----------------------------------------------------------------------------
+	// create window
+	int $wd = 400;
+	int $ht = 160;
+	if (!`window -exists nnsSetNoCutNode_Win`)
+	{
+		window -t "NITRO Set No Cut Node" -wh $wd $ht -mxb 0
+			nnsSetNoCutNode_Win;
+		columnLayout -adj 1 -cat "both" 4 -cal "center" -rs 4;
+
+		//-----------------------------------------------------------------------------
+		// xform name
+		frameLayout -lv 0 -cll 0 -cl 0 -bv 1 -bs "etchedIn";
+			columnLayout -adj 1 -cal "center" -rs 8;
+			
+			text -l "" nnsSetNoCutNode_XformName;
+
+			setParent ..; // columnLayout
+		setParent ..; // formLayout
+
+		//-----------------------------------------------------------------------------
+		// attribute
+		frameLayout -lv 0 -cll 0 -cl 0 -bv 1 -bs "etchedIn";
+			columnLayout -adj 1 -rs 8;
+
+			optionMenuGrp -l ""
+				-cw 1 120 -rat 1 "both" 4 -cal 1 "right"
+				-cc "nnsSetNoCutNode_NoCutNodeCB"
+				nnsSetNoCutNode_NoCutNode;
+				menuItem -l "Cut this node if possible";
+				menuItem -l "Don't cut this node";
+
+			setParent ..; // columnLayout
+		setParent ..; // formLayout
+
+		//-----------------------------------------------------------------------------
+		// close button
+		string $closeCmd = "deleteUI nnsSetNoCutNode_Win";
+		string $form = `formLayout -nd 100`;
+			string $closeBtn = `button -h 26 -l "Close" -c $closeCmd`;
+			formLayout -e
+				-af $closeBtn "top" 0
+				-af $closeBtn "left" 0
+				-af $closeBtn "bottom" 0
+				-af $closeBtn "right" 0
+				$form;
+		setParent ..; // formLayout
+
+		setParent ..; // columnLayout
+
+		setFocus $closeBtn;
+
+		//-----------------------------------------------------------------------------
+		// set window delete job
+		scriptJob -uid nnsSetNoCutNode_Win "$nnsSetNoCutNode_AttrJob = -1";
+
+		//-----------------------------------------------------------------------------
+		// set selection change job
+		scriptJob -p nnsSetNoCutNode_Win
+			-e "SelectionChanged" "nnsSetNoCutNode_UpdateWindow(1)";
+	}
+	if (`window -q -w nnsSetNoCutNode_Win` < $wd)
+	{
+		window -e -w $wd nnsSetNoCutNode_Win;
+	}
+	if (`window -q -h nnsSetNoCutNode_Win` < $ht)
+	{
+		window -e -h $ht nnsSetNoCutNode_Win;
+	}
+	//window -e -wh $wd $ht nnsSetNoCutNode_Win;
+
+	//-----------------------------------------------------------------------------
+	// update window
+	nnsSetNoCutNode_UpdateWindow(1);
+
+	//-----------------------------------------------------------------------------
+	// show window
+	showWindow nnsSetNoCutNode_Win;
+}

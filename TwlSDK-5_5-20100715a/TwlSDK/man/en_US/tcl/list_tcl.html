@@ -1,0 +1,72 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css" text="text/css">
+<title>TCL Function List</title>
+<link rel="stylesheet" href="../css/apilist.css">
+</head>
+<body>
+<h1>DSi Photo Database Library (TCL) List of Functions</h1>
+
+<h3><a name="general">General</a></h3>
+<table>
+<tr><th width="25%"><a href="TCL_GetTableBufferSize.html" target="_self">TCL_GetTableBufferSize</a><td width="24"><img src="../image/TWL.gif"><td>Returns the buffer size needed to load the management file.
+<tr><th width="25%"><a href="TCL_GetWorkBufferSize.html" target="_self">TCL_GetWorkBufferSize</a><td width="24"><img src="../image/TWL.gif"><td>Returns working buffer size needed to load the management file.
+<tr><th width="25%"><a href="TCL_CalcNumEnableToTakePictures.html" target="_self">TCL_CalcNumEnableToTakePictures</a><td width="24"><img src="../image/TWL.gif"><td>Calculates the number of photos that can be taken.
+<tr><th width="25%"><a href="TCL_GetCurrentSecond.html" target="_self">TCL_GetCurrentSecond</a><td width="24"><img src="../image/TWL.gif"><td>Gets the current time, in seconds.
+</table>
+
+<h3><a name="admin_file">Using Management Files</a></h3>
+<table>
+<tr><th width="25%"><a href="TCL_LoadTable.html" target="_self">TCL_LoadTable</a><td width="24"><img src="../image/TWL.gif"><td>Loads the management file.
+<tr><th width="25%"><a href="TCL_CreateTable.html" target="_self">TCL_CreateTable</a><td width="24"><img src="../image/TWL.gif"><td>Generates the management file.
+<tr><th width="25%"><a href="TCL_RepairTable.html" target="_self">TCL_RepairTable</a><td width="24"><img src="../image/TWL.gif"><td>Repairs the management file.
+<tr><th width="25%"><a href="TCL_SortTable.html" target="_self">TCL_SortTable</a><td width="24"><img src="../image/TWL.gif"><td>Sorts the photo information in the management file.
+</table>
+
+<h3><a name="search">Search-Related</a></h3>
+<table>
+<tr><th width="25%"><a href="TCL_InitSearchObject.html" target="_self">TCL_InitSearchObject</a><td width="24"><img src="../image/TWL.gif"><td>Initializes the search object.
+<tr><th width="25%"><a href="TCL_GetNumPictures.html" target="_self">TCL_GetNumPictures</a><td width="24"><img src="../image/TWL.gif"><td>Gets the number of photos that match the search conditions.
+<tr><th width="25%"><a href="TCL_SearchNextPictureInfo.html" target="_self">TCL_SearchNextPictureInfo</a><td width="24"><img src="../image/TWL.gif"><td>Gets the information of the next photo that matches the search conditions.
+<tr><th width="25%"><a href="TCL_SearchPictureInfoByIndex.html" target="_self">TCL_SearchPictureInfoByIndex</a><td width="24"><img src="../image/TWL.gif"><td>Gets the photo information that matches the search conditions.
+<tr><th width="25%"><a href="TCL_SearchNextPicturePath.html" target="_self">TCL_SearchNextPicturePath</a><td width="24"><img src="../image/TWL.gif"><td>Gets the path to where the next photo that matches the search conditions is stored.
+<tr><th width="25%"><a href="TCL_SearchPicturePathByIndex.html" target="_self">TCL_SearchPicturePathByIndex</a><td width="24"><img src="../image/TWL.gif"><td>Gets the path to where the photo that matches the search conditions is stored.
+<tr><th width="25%"><a href="TCL_PrintPicturePath.html" target="_self">TCL_PrintPicturePath</a><td width="24"><img src="../image/TWL.gif"><td>Gets from the photo path from the photo information.
+<tr><th width="25%"><a href="TCL_GetPictureInfoFromPath.html" target="_self">TCL_GetPictureInfoFromPath</a><td width="24"><img src="../image/TWL.gif"><td>Gets photo information from the path to a saved photo.
+</table>
+
+<h3><a name="photo">Photo-Related</a></h3>
+<table>
+<tr><th width="25%"><a href="TCL_GetJpegEncoderBufferSize.html" target="_self">TCL_GetJpegEncoderBufferSize</a><td width="24"><img src="../image/TWL.gif"><td>Returns the work buffer size required for JPEG encoding.
+<tr><th width="25%"><a href="TCL_EncodeAndWritePicture.html" target="_self">TCL_EncodeAndWritePicture(Ex)</a><td width="24"><img src="../image/TWL.gif"><td>Encodes the image data in JPEG and saves it.
+<tr><th width="25%"><a href="TCL_GetLastWrittenPicturePath.html" target="_self">TCL_GetLastWrittenPicturePath</a><td width="24"><img src="../image/TWL.gif"><td>Returns the path of the image last written.
+<tr><th width="25%"><a href="TCL_GetLastWrittenPictureInfo.html" target="_self">TCL_GetLastWrittenPictureInfo</a><td width="24"><img src="../image/TWL.gif"><td>Returns photo information for the last image to be written.
+<tr><th width="25%"><a href="TCL_DecodePicture.html" target="_self">TCL_DecodePicture</a><td width="24"><img src="../image/TWL.gif"><td>Decodes the image file in JPEG.
+<tr><th width="25%"><a href="TCL_IsSameImageType.html" target="_self">TCL_IsSameImageType</a><td width="24"><img src="../image/TWL.gif"><td>Determines whether image types are the same.
+<tr><th width="25%"><a href="TCL_DeletePicture.html" target="_self">TCL_DeletePicture</a><td width="24"><img src="../image/TWL.gif"><td>Deletes an image file.
+<tr><th width="25%"><a href="TCL_ChangePictureFavoriteType.html" target="_self">TCL_ChangePictureFavoriteType</a><td width="24"><img src="../image/TWL.gif"><td>Changes the favorite type.
+</table>
+
+<h3><a name="const">Constants</a></h3>
+<table>
+<tr><th width="25%"><a href="TCLConst.html" target="_self">General Constants</a><td width="24"><img src="../image/TWL.gif"><td>Various constants.
+<tr><th width="25%"><a href="TCLResult.html" target="_self">TCLResult</a><td width="24"><img src="../image/TWL.gif"><td>Processing result.
+<tr><th width="25%"><a href="TCLFavoriteType.html" target="_self">TCLFavoriteType</a><td width="24"><img src="../image/TWL.gif"><td>Favorites type.
+<tr><th width="25%"><a href="TCLImageType.html" target="_self">TCLImageType</a><td width="24"><img src="../image/TWL.gif"><td>Image type.
+<tr><th width="25%"><a href="TCLKeyType.html" target="_self">TCLKeyType</a><td width="24"><img src="../image/TWL.gif"><td>Signature type applied to the photo.
+<tr><th width="25%"><a href="TCLSearchCondition.html" target="_self">TCLSearchCondition</a><td width="24"><img src="../image/TWL.gif"><td>Search conditions.
+<tr><th width="25%"><a href="TCLSortType.html" target="_self">TCLSortType</a><td width="24"><img src="../image/TWL.gif"><td>Type used to sort the management file.
+</table>
+
+<h3><a name="struct">Types and Structures</a></h3>
+<table>
+<tr><th width="25%"><a href="TCLAccessor.html" target="_self">TCLAccessor</a><td width="24"><img src="../image/TWL.gif"><td>Use the accessor to access various TCL functions.
+<tr><th width="25%"><a href="TCLPictureInfo.html" target="_self">TCLPictureInfo</a><td width="24"><img src="../image/TWL.gif"><td>Shows the photo information in the management file.
+<tr><th width="25%"><a href="TCLSearchObject.html" target="_self">TCLSearchObject</a><td width="24"><img src="../image/TWL.gif"><td>Used with search-related functions.
+<tr><th width="25%"><a href="TCLMakerNote.html" target="_self">TCLMakerNote</a><td width="24"><img src="../image/TWL.gif"><td>The structure inserted in the Exif <CODE>Maker Note</CODE> tag of the JPEG image metadata.
+</table>
+
+<table border="0" height="100%"><tr><td style="background-color : white;"></td></tr></table>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

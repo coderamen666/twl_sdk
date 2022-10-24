@@ -1,0 +1,160 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>Banner: Overview</TITLE>
+<LINK rel="stylesheet" href="../css/nitro.css" type="text/css">
+<STYLE type="text/css">
+<!--
+.sample_source{
+  background-color : #e8e8e8;
+}
+H3{
+  color : teal;
+}
+.command_list{
+  margin-bottom : 16pt;
+}
+.command_desc{
+  }
+.command_item{
+  margin-top : 16pt;
+  background-color : #e8e8e8;
+}
+.blockquoted_table {
+  border : 1px;
+  width : 80%;
+}
+TD,TH{
+  border-color	: #c0d8d8;
+  padding       : 1pt 4pt 1pt 4pt;
+  border-width  : 1px;
+  border-style  : solid;
+}
+-->
+</STYLE>
+</HEAD>
+<BODY>
+
+<H1 align="left">Banner: Overview</H1>
+
+<H2>Description</H2>
+<P>This is an overview of the banner files that are displayed at the launcher screen of the TWL or Nintendo DS/DS Lite systems.</P>
+
+<P>TWL banners that are displayed on TWL systems are in the same format as NTR banners that are displayed on Nintendo DS/DS Lite systems, except that they add animation data. As a result, if a TWL banner is displayed on a Nintendo DS/DS Lite system or in DS Download Play, it appears as a static image just like an NTR banner. On TWL systems, however, animations are displayed for TWL banners.
+</P>
+
+<P>For downloadable software (or &quot;user NAND applications&quot;), another type of banner called a &quot;sub-banner&quot; can be displayed. For more about sub-banners, see <A href="../na/subBanner/about_subBanner.html">Sub-Banner Overview</A>.</P>
+
+<H2>Banner Format</H2>
+<P>NTR banners and TWL banners have different formats, as shown below.</P>
+
+<P>NTR Banners
+<TABLE border="1" width="100%">
+<TR><TD width="200">Banner Comment</TD><TD width="800">Game Title for Each Language</TD></TR>
+<TR><TD width="200">Banner Icon Bitmap</TD><TD width="800">One 32x32-pixel image</TD></TR>
+<TR><TD width="200">Color Palette for Banner Icon</TD><TD width="800">16-color, 1 set</TD></TR>
+</TABLE></P>
+
+<P>TWL Banners
+<TABLE>
+<TR><TD width="200">NTR Banners</TD><TD width="800">Same as above</TD></TR>
+<TR><TD width="200">Bitmaps for Animation</TD><TD width="800">Eight 32x32-pixel images</TD></TR>
+<TR><TD width="200">Color Palette for Animation</TD><TD width="800">16-color, 1 set</TD></TR>
+<TR><TD width="200">Animation Control Data</TD><TD width="800">Managed by 64 data elements for controlling 1-255 frames</TD></TR>
+</TABLE></P>
+<P>TWL banners contain NTR banners. This internal NTR banner is displayed on a Nintendo DS/DS Lite system, and the animation is displayed on a TWL system.</P>
+<H2>How to Create</H2>
+<P>There are three ways to create banner files. However, if you want to create banners specifically for Nintendo DS software (<I>not</I> TWL-enhanced or TWL-exclusive software), you should use the third method (<CODE>ntexconv</CODE> / static image).</P>
+<P><IMG src="about_Banner.gif" border="0"></P>
+<P>
+<H3>1. Using NITRO-CHARACTER</H3>
+<P>For information on how to create cell animation data (<CODE>*.nce</CODE>) for TWL banners using NITRO-CHARACTER, see <A href="bannerNitroCharacter.html">Banner Creation Procedure Using NITRO-CHARACTER</A>.
+</P>
+
+<P>Use <A href="bannercvtr.html"><CODE>bannercvtr</CODE></A> to convert NCE files that were created using NITRO-CHARACTER.</P>
+<P>To create the TWL banner, use <A href="makebannerTWL.html"><CODE>makebanner.TWL</CODE></A> to convert the data output by <A href="bannercvtr.html"><CODE>bannercvtr</CODE></A> along with a BSF file that sets the banner comments.</P>
+<H3>2. Using ntexconv (Animation)</H3>
+<P>Create up to eight 16-color 32x32-pixel bitmaps. Use <A href="ntexconv.html"><CODE>ntexconv</CODE></A> to convert these bitmaps. Create an XML file that lists the converted data and the content of the animation, and then convert this XML file with <A href="bannercvtr.html"><CODE>bannercvtr</CODE></A>.
+</P>
+<P>To create the TWL banner, use <A href="makebannerTWL.html"><CODE>makebanner.TWL</CODE></A> to convert the data output by <A href="bannercvtr.html"><CODE>bannercvtr</CODE></A> along with a BSF file that sets the banner comments.</P>
+<P>See <A href="bannercvtr.html"><CODE>bannercvtr</CODE></A> for details about how to write the XML file.</P>
+<H3>3. Using ntexconv (Still Image)</H3>
+<P>Use this method to create NTR banners or TWL banners that are not animated.</P>
+<P>Create a single 16-color 32x32-pixel bitmap. Convert the bitmap using <A href="ntexconv.html"><CODE>ntexconv</CODE></A>.</P>
+<P>To create the banner file, use <A href="makebanner.html"><CODE>makebanner</CODE></A> or <A href="makebannerTWL.html"><CODE>makebanner.TWL</CODE></A> (for Nintendo DS software and TWL-enhanced software, respectively) to convert both the data output by <A href="ntexconv.html"><CODE>ntexconv</CODE></A> and the BSF file that sets the banner comments.
+
+</P>
+
+<H2>Implementation in Applications</H2>
+<P>Specify the banner you have created in a <A href="makerom.html">ROM Specification File</A> (<CODE>.rsf</CODE>). The specified banner is set for the SRL file that was created by the <A href="makerom.html"><CODE>makerom</CODE> or <CODE>makerom.TWL</CODE></A> tool.</P>
+<BLOCKQUOTE>
+<PRE class="sample_source"><CODE>   #  ROM SPEC FILE
+
+Property
+{
+    ....
+    #
+    # BANNER FILE: generated from Banner Spec File
+    #
+    BannerFile    banner.bnr
+}</CODE></PRE>
+</BLOCKQUOTE>
+<P>See <A href="makerom.html"><CODE>makerom</CODE> / <CODE>makerom.TWL</CODE></A> for details.</P>
+<H2>Samples</H2>
+The following samples illustrate each of these banner creation methods.
+<H3>1. Using NITRO-CHARACTER</H3>
+<P><CODE>$TwlSDK/build/demos.TWL/tips/TWLBanner_anim1</CODE></P>
+<H3>2. Using ntexconv (Animation)</H3>
+<P><CODE>$TwlSDK/build/demos.TWL/tips/TWLBanner_anim2</CODE></P>
+<H3>3. Using ntexconv (Still Image)</H3>
+<P>Creating NTR Banners</P>
+<P><CODE>$TwlSDK/build/demos/tips/NTRBanner</CODE></P>
+<P>Creating TWL Banners</P>
+<P><CODE>$TwlSDK/build/demos.TWL/tips/TWLBanner_image</CODE></P>
+
+<H2>Verification Procedure</H2>
+<P>Both <A href="makebannerTWL.html"><CODE>makebanner.TWL</CODE></A> and <A href="makebanner.html"><CODE>makebanner</CODE></A> check the banner's game title to ensure that characters can be displayed and that the character width stays within the display frame of the Nintendo DS, DS Lite, or DSi system. Specifications for the display of game titles are set forth in the programming guidelines. If a warning is displayed, be sure to correct the problem.
+</P>
+<P>Banners can be checked without use of a card by using the <A href="addbanner.html"><CODE>addbanner</CODE></A> tool.<BR>However, this is supported only for displaying card applications. See the following procedures for displaying user NAND applications, which vary slightly. The following procedures do not use <A href="addbanner.html"><CODE>addbanner</CODE></A>.</P>
+
+<H3>Nintendo DS Software</H3>
+<H4>Displaying on a Nintendo DS/DS Lite System</H4>
+<P>Burn the ROM on a flash card, insert the card into a Nintendo DS/DS Lite system, and check the banner display.<BR>After running a ROM in IS-NITRO-DEBUGGER, you can also check it using <B>Tools</B> &rarr; <B>Game Banner</B>.
+</P>
+<H4>Displaying on a TWL System</H4>
+<P>Burn the ROM on a flash card, insert the card into a TWL system or IS-TWL-DEBUGGER, and check the game title display.<BR>Although a flash-card application cannot be started by a commercial TWL system, it is possible to check the banner.</P>
+<H3>TWL-Enhanced Software (on Game Card)</H3>
+<H4>Displaying on a Nintendo DS/DS Lite System</H4>
+<P>Burn the ROM on a flash card, insert the card into a Nintendo DS/DS Lite system, and check the banner display.<BR>
+</P>
+<H4>Displaying on a TWL System</H4>
+<P>Burn the ROM on a flash card, insert the card into a TWL system used for development or into IS-TWL-DEBUGGER hardware, and check the banner display.<BR>The banner cannot be confirmed by inserting the card into a commercial TWL system.</P>
+<H3>TWL-Exclusive Software (on Game Card)</H3>
+<H4>Displaying on a TWL System</H4>
+<P>Burn the ROM on a flash card, insert the card into a TWL system used for development or into IS-TWL-DEBUGGER hardware, and check the banner display.<BR>The banner cannot be confirmed by inserting the card into a commercial TWL system.</P>
+<H3>User NAND Applications</H3>
+<P>Use <A href="../romfiles/TwlNmenu.html"><CODE>TwlNmenu</CODE></A> to import a TAD file to a TWL system used for development or to the IS-TWL-DEBUGGER hardware. Then check the banner display.</P>
+
+<P>You can also check the banner display on the Software Management screen under <B>System Settings</B>.<BR>Icons on the Software Management screen are displayed in the same way as they are by the launcher, but there are limits to the number of banner-comment characters that can be displayed.<BR>Note that if the number of characters exceeds the limit, the excess is displayed as &quot;<CODE>...</CODE>&quot;.</P>
+
+<P>The following shows the number of characters that are displayed for banner comments in the DS and TWL launchers.
+<TABLE>
+<TR><TH width="200"></TH><TH width="200">DS Launcher</TH><TH width="200">TWL Launcher</TH><TH width="200">TWL Software Management Screen</TH></TR>
+<TR><TH width="200">Width of Area</TH><TD width="200">140 px</TD><TD width="200">240 px</TD><TD width="200">202 px</TD></TR>
+<TR><TH width="200">Maximum number of <I>W</I>'s</TH><TD width="200">23</TD><TD width="200">17</TD><TD width="200">16</TD></TR>
+<TR><TH width="200">Maximum number of <I>M</I>'s</TH><TD width="200">23</TD><TD width="200">20</TD><TD width="200">19</TD></TR>
+<TR><TH width="200">Maximum number of <I>w</I>'s</TH><TD width="200">23</TD><TD width="200">20</TD><TD width="200">19</TD></TR>
+<TR><TH width="200">Maximum number of <I>i</I>'s</TH><TD width="200">69</TD><TD width="200">80</TD><TD width="200">64</TD></TR>
+</TABLE></P>
+<H2>See Also</H2>
+<P><A href="ntexconv.html"><CODE>ntexconv</CODE></A><BR> <A href="bannercvtr.html"><CODE>bannercvtr</CODE></A><BR> <A href="makebannerTWL.html"><CODE>makebanner.TWL</CODE></A><BR> <A href="makebanner.html"><CODE>makebanner</CODE></A><BR> <A href="addbanner.html"><CODE>addbanner</CODE></A><BR> <A href="../na/subBanner/about_subBanner.html">Sub-Banner Overview</A><BR> <A href="../demos/tips/tipsdemos.html">Miscellaneous Sample Demos: Tips</A><BR> <A href="bannerNitroCharacter.html">Banner Creation Procedure Using NITRO-CHARACTER</A></P>
+
+<H2>Revision History</H2>
+<P>
+2009/03/27 Revised a figure. Fixed typos and removed parts with old content. <BR>2009/03/10 Revised information on the color palette for TWL banners and explained how to check the banner using IS-NITRO-DEBUGGER. <BR>2008/11/28 Moved <B>Using NITRO-CHARACTER</B> to another page. <BR>2008/11/11 Made revisions in accordance with <CODE>addbanner</CODE> TWL support. <BR>2008/10/20 Changed the maximum number of characters. Added confirmation methods.<BR> 2008/09/29 Added a build sample.<BR> 2008/09/26 Added information about the Software Management screen.<BR> 2008/09/25 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

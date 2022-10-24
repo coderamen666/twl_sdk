@@ -1,0 +1,37 @@
+#! make -f
+#----------------------------------------------------------------------------
+#  Project:  TwlSDK
+#  File:     modulerules.emtype.IS
+#
+#  Copyright 2003-2009 Nintendo.  All rights reserved.
+#
+# These coded instructions, statements, and computer programs contain
+# proprietary information of Nintendo of America Inc. and/or Nintendo
+# Company Ltd., and are protected by Federal copyright law.  They may
+# not be disclosed to third parties or copied or duplicated in any form,
+# in whole or in part, without the prior written consent of Nintendo.
+#
+# $Date:: 2009-06-04#$
+# $Rev: 10698 $
+# $Author: okubata_ryoma $
+#----------------------------------------------------------------------------
+
+#----------------------------------------------------------------------------
+#  Run command for IS-TWL-EMULATOR and IS-NITRO-EMULATOR
+#----------------------------------------------------------------------------
+ifneq	($(TARGET_ROM),)
+
+.PHONY: run test-run
+run:
+	@$(LOADRUN) $(LOADRUN_FLAGS) $(BINDIR)/$(firstword $(TARGET_BIN))
+
+#test-run:
+#	@echo ==== $(CURDIR)                                       >  $(AUTOTESTLOG).tmp
+#	@echo :TEST-TARGET: [$(BINDIR)/$(firstword $(TARGET_BIN))] >> $(AUTOTESTLOG).tmp
+#	@echo                                                      >> $(AUTOTESTLOG).tmp
+#	cscript $(TWL_TOOLSDIR)/bin/runEmu.js //Nologo //T:60 $(BINDIR)/$(firstword $(TARGET_BIN)) $(AUTOTESTLOG).tmp
+#	@gawk '/<AUTO-TEST> / || NR <= 30' $(AUTOTESTLOG).tmp >> $(AUTOTESTLOG)
+#	@echo                         >> $(AUTOTESTLOG)
+endif
+
+#----- End of modulerules.emtype.IS -----

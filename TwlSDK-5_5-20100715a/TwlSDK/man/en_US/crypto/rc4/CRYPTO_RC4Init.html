@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>CRYPTO_RC4Init</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">CRYPTO_RC4Init <IMG src="../../image/NTR.gif" width="23" height="12" border="0" align="middle"><IMG src="../../image/TWL.gif" width="23" height="12" border="0" align="middle"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+  <pre><CODE>#include &lt;nitro/crypto.h&gt;
+
+void CRYPTO_RC4Init(<a href="CRYPTORC4Context.html">CRYPTORC4Context</a>* context, const void* key, u32 key_len);
+</CODE></pre>
+</dd>
+</dl>
+
+<h2>Arguments</h2>
+<TABLE border="1" width="100%" class="arguments">
+  <TBODY>
+    <TR>
+<TH>context</TH>
+<TD>Context structure where the RC4 key information, etc., is kept</TD>
+    </TR>
+    <TR>
+<TH>key</TH>
+<TD>Pointer to the byte sequence for the encryption/decryption key used with the RC4 algorithm.</TD>
+    </TR>
+    <TR>
+<TH>key_len</TH>
+<TD>Length of the key specified by <SPAN class="argument">key</SPAN>. The length of the key must be 16 bytes or less; longer lengths are truncated to 16 bytes.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<h2>Return Values</h2>
+<p>
+None.
+</p>
+
+<H2>Description</H2>
+<P>
+Initializes the RC4 algorithm encryption structures and sets the encryption/decryption key.
+</P>
+<P>
+This function is called internally when performing operations with CRYPTO_RC4, so it does not need to be called.
+</P>
+
+<h2>See Also</h2>
+<p><A href="CRYPTO_RC4Encrypt.html"><CODE>CRYPTO_RC4Encrypt</CODE></A><BR> <A href="CRYPTO_RC4.html"><CODE>CRYPTO_RC4</CODE></A><BR> <A href="CRYPTO_RC4FastInit.html"><CODE>CRYPTO_RC4_FastInit</CODE></A></p>
+
+<H2>Revision History</H2>
+<P>
+2008/02/25 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

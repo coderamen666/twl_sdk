@@ -1,0 +1,38 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>CARD_IsEnabled</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+<body>
+<h1 align="left">CARD_IsEnabled <img src="../../image/NTR.gif"align="middle"><img src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/card.h&gt;</CODE><BR>
+  <BR>
+  <CODE>BOOL CARD_IsEnabled( void );</CODE><br>
+  <br>
+  </dd>
+</dl>
+<h2>Arguments</h2>
+<p>None.</p>
+<h2>Return Values</h2>
+<p>Returns <CODE>TRUE</CODE> if the Game Card is accessible in the current state, and <CODE>FALSE</CODE> otherwise.</p>
+<H2>Description</H2>
+<P>Determines whether the Game Card is accessible in the current state. The program will be forced to halt if the Game Card is accessed when prohibited by the current state. A child program that has started from a wireless download will return FALSE in its initial state. Use the <A href="CARD_Enable.html"><CODE>CARD_Enable</CODE></A> function to change the state to enable access. <br>
+</p>
+<BR>
+<h2>See Also</h2>
+<p>
+<A href="CARD_Init.html">CARD_Init</A><BR> <A href="CARD_Enable.html">CARD_Enable</A> <BR>
+</P>
+<H2>Revision History</H2>
+<P>
+2004/12/15 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

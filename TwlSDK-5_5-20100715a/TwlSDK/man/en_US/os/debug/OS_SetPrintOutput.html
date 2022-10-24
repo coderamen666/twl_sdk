@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>OS_SetPrintOutput</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">OS_SetPrintOutput <IMG src="../../image/NTR.gif" align="middle"><IMG src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+<DL>
+<DD><CODE>#include &lt;nitro/os.h&gt;</CODE><BR> <BR> <CODE>void OS_SetPrintOutput( OSPrintOutputProc proc, int num );</CODE>
+</DL>
+<BLOCKQUOTE>
+<P><CODE><BR> (#define directives are given below.)<BR> void OS_SetPrintOutput_Arm9( int num );<BR> void OS_SetPrintOutput_Arm7( int num );<BR> void OS_SetPrintOutput_Arm9Err( int num );<BR> void OS_SetPrintOutput_Arm7Err( int num );<BR></CODE></P>
+</BLOCKQUOTE>
+<H2>Arguments</H2>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+<TD><B><I>proc</I></B></TD>
+<TD>Specified processor.</TD>
+    </TR>
+    <TR>
+<TD><B><I>num</I></B></TD>
+<TD>Output window.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>Return Values</H2>
+<P>None.</P>
+<H2>Description</H2>
+<P>If the destination for debug output has not been set with a function like <CODE><A href="OS_Printf.html">OS_Printf</A></CODE>, this function specifies the default output destination to use.<BR>The setting made by this function will also apply if the output destination has been set as <CODE>OS_PRINT_OUTPUT_CURRENT</CODE>.</P>
+<P>We use the term &quot;standard output&quot; to refer to the destination for normal output, like that from <CODE><A href="OS_Printf.html">OS_Printf</A></CODE>. Likewise, we use the term &quot;error output&quot; to refer to the destination for highly urgent output, like that from <CODE><A href="OS_Panic.html">OS_Panic()</A></CODE>.</P>
+<P>The <B><I>proc</I></B> argument is a <CODE>OSPrintOutputProc</CODE>-type enumerated type, and specifies one of the following values.<BR>
+</P>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+<TH>Value of <EM><STRONG>proc</STRONG></EM></TH>
+<TH>Description</TH>
+    </TR>
+    <TR>
+<TD><CODE> OS_PRINT_OUTPUT_PROC_ARM9</CODE></TD>
+<TD>Standard output for the ARM9 processor.</TD>
+    </TR>
+    <TR>
+<TD><CODE> OS_PRINT_OUTPUT_PROC_ARM7</CODE></TD>
+<TD>Standard output for the ARM7 processor.</TD>
+    </TR>
+    <TR>
+<TD><CODE> OS_PRINT_OUTPUT_PROC_ARM9ERR</CODE></TD>
+<TD>Error output for the ARM9 processor.</TD>
+    </TR>
+    <TR>
+<TD><CODE> OS_PRINT_OUTPUT_PROC_ARM7ERR</CODE></TD>
+<TD>Error output for the ARM7 processor.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P><BR> ARM7 settings can also be changed from the ARM9 side. The reverse is also possible.<BR>
+</P>
+<P><B><I>num</I></B> can be set to either 0-3 or <CODE>OS_PRINT_OUTPUT_NONE</CODE>.<BR>
+</P>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+<TH>Value of <EM><STRONG>num</STRONG></EM></TH>
+<TH>Description</TH>
+    </TR>
+    <TR>
+      <TD><CODE> 0</CODE></TD>
+<TD>Output to output window 0.</TD>
+    </TR>
+    <TR>
+      <TD><CODE> 1</CODE></TD>
+<TD>Output to output window 1.</TD>
+    </TR>
+    <TR>
+      <TD><CODE> 2</CODE></TD>
+<TD>Output to output window 2.</TD>
+    </TR>
+    <TR>
+      <TD><CODE> 3</CODE></TD>
+<TD>Output to output window 3.</TD>
+    </TR>
+    <TR>
+<TD><CODE> OS_PRINT_OUTPUT_NONE</CODE></TD>
+<TD>Do not output.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>
+<BR> <CODE>OS_SetPrintOutput<FONT color="#ff0000">_Arm9</FONT>( num )</CODE> is the <CODE>#define</CODE> directive for <CODE>OS_SetPrintOutput( <FONT color="#ff0000">OS_PRINT_OUTPUT_PROC_ARM9</FONT>, num )</CODE>.<BR><CODE>OS_SetPrintOutput<FONT color="#ff0000">_Arm7</FONT>( num )</CODE> is the <CODE>#define</CODE> directive for <CODE>OS_SetPrintOutput( <FONT color="#ff0000">OS_PRINT_OUTPUT_PROC_ARM7</FONT>, num )</CODE>.<BR><CODE>OS_SetPrintOutput<FONT color="#ff0000">_Arm9Err</FONT>( num )</CODE> is the <CODE>#define</CODE> directive for <CODE>OS_SetPrintOutput( <FONT color="#ff0000">OS_PRINT_OUTPUT_PROC_ARM9ERR</FONT>, num )</CODE>.<BR><CODE>OS_SetPrintOutput<FONT color="#ff0000">_Arm7Err</FONT>( num )</CODE> is the <CODE>#define</CODE> directive for <CODE>OS_SetPrintOutput( <FONT color="#ff0000">OS_PRINT_OUTPUT_PROC_ARM7ERR</FONT>, num )</CODE>.<BR>
+</P>
+<H2>See Also</H2>
+<P><A href="OS_Printf.html"><CODE>OS_Printf</CODE></A><BR></P>
+<H2>Revision History</H2>
+<P>2008/10/01 Corrected an argument typo.<br />2008/01/12 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

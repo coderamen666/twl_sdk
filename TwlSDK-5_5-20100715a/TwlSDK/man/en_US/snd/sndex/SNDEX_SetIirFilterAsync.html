@@ -1,0 +1,135 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+	<HEAD>
+		<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>SNDEX_SetIirFilterAsync</title>
+		<link rel="stylesheet" href="../../css/nitro.css" type="text/css">
+	</HEAD>
+	<BODY>
+		<H1>SNDEX_SetIirFilterAsync <IMG src="../../image/TWL.gif" width="24" height="12" border="0" align=middle></H1>
+
+		<H2>Definition</H2>
+		<DL>
+			<DD><CODE>#include &lt;twl/snd.h&gt;</CODE></DD>
+			<DD><PRE><CODE>SNDEXResult
+SNDEX_SetIirFilterAsync(SNDEXIirFilterTarget target,
+const SNDEXIirFilterParam* pParam,
+SNDEXCallback callback,
+void* arg)</CODE></PRE></DD>
+		</DL>
+
+		<H2>Arguments</H2>
+		<TABLE>
+			<TBODY>
+				<TR>
+					<TH width="25%">target</TH>
+					<TD width="75%">Target to which to apply an IIR filter, indicated as an <A href="SNDEXIirFilterTarget.html"><CODE>SNDEXIirFilterTarget</CODE></A> enumerated type.</TD>
+				</TR>
+				<TR>
+					<TH width="25%">pParam</TH>
+					<TD width="75%"><A href="SNDEXIirFilterParam.html">SNDEXIirFilterParam</A> structure that determines the attributes of the IIR filter.</TD>
+				</TR>
+                <TR>
+<TH width="25%">callback</TH>
+<TD width="75%">Callback function to invoke after the IIR filter is set.</TD>
+                </TR>
+                <TR>
+<TH width="25%">arg</TH>
+<TD width="75%">Argument to pass to the callback function.</TD>
+                </TR>
+			</TBODY>
+		</TABLE>
+
+<H2>Return Values</H2>
+		<H3>Function Return Values</H3>
+		<TABLE>
+			<TBODY>
+				<TR>
+					<TH width="25%">SNDEX_RESULT_SUCCESS</TH>
+					<TD width="75%">Asynchronous processing started successfully. The asynchronous processing results will be passed as an argument to the function registered in <SPAN class="argument">callback</SPAN>.</TD>
+				</TR>
+				<TR>
+					<TH width="25%">SNDEX_RESULT_ILLEGAL_STATE</TH>
+					<TD width="75%">Returned when this function is called on the NITRO platform or when the codec is running in CODEC-DS mode.</TD>
+				</TR>
+				<TR>
+					<TH width="25%">SNDEX_RESULT_BEFORE_INIT</TH>
+					<TD width="75%">Extended sound features have not been initialized by the <A href="SNDEX_Init.html"><CODE>SNDEX_Init</CODE></A> function.</TD>
+				</TR>
+				<TR>
+					<TH width="25%">SNDEX_RESULT_EXCLUSIVE</TH>
+					<TD width="75%">Processing for other extended sound features is running. p					Note that mutexes are used for each of the extended sound features, so they cannot be used simultaneously.<BR>As mentioned in the <A href="./doc/aboutSNDEX.html">SNDEX Library Overview</A>, this error is also returned while shutter sound playback is being processed.</TD>
+				</TR>
+				<TR>
+					<TH width="25%">SNDEX_RESULT_PXI_SEND_ERROR</TH>
+					<TD width="75%">A PXI command failed to be sent to the ARM7. This error occurs when the PXI send queue for the ARM7 has filled up or when the hardware has detected an error. As a result, the state may improve when a retry is made.</TD>
+				</TR>
+				<TR>
+					<TH width="25%">SNDEX_RESULT_ILLEGAL_TARGET</TH>
+					<TD width="75%">Returned when the <CODE>target</CODE> argument value is outside the valid range.</TD>
+				</TR>
+			</TBODY>
+		</TABLE>
+
+		<H3>Asynchronous Process Results</H3>
+		<TABLE>
+			<TBODY>
+				<TR>
+					<TH width="25%">SNDEX_RESULT_SUCCESS</TH>
+					<TD width="75%">The whole series of operations completed successfully.</TD>
+				</TR>
+				<TR>
+					<TH width="25%">SNDEX_RESULT_ILLEGAL_STATE</TH>
+					<TD width="75%">This function has been called on the NITRO platform, when the codec is running in CODEC-DS mode, or while the shutter sound is being played by the <A href="../../dsp/common/DSP_PlayShutterSound.html"><CODE>DSP_PlayShutterSound</CODE></A> function.</TD>
+				</TR>
+				<TR>
+					<TH width="25%"><CODE>SNDEX_RESULT_EXCLUSIVE</CODE></TH>
+					<TD width="75%">A mutex error occurred in the ARM7. This error depends upon the progress of ARM7 processing, so conditions may improve when a retry is made.</TD>
+				</TR>
+				<TR>
+					<TH width="25%">SNDEX_RESULT_DEVICE_ERROR</TH>
+					<TD width="75%">The ARM7 internally failed to change the speaker volume for an external device. Conditions may improve on a retry, but continued failures after multiple retries could indicate that the external device is not responding, so you may handle this as if it was a notification of success.</TD>
+				</TR>
+				<TR>
+					<TH width="25%">SNDEX_RESULT_FATAL_ERROR</TH>
+					<TD width="75%">This error should not ordinarily occur. This may occur when an illegal PXI command was sent directly, ignoring library state management; when the ARM7 component and the extended sound feature library have different versions; when library state management has fallen into an abnormal state due to memory corruption; or when other such conditions arise. There is no way to recover from this at run time.
+					</TD>
+				</TR>
+			</TBODY>
+		</TABLE>
+
+		<H2>Description</H2>
+		<P>
+			Sets the IIR filters (from 1 to 5 stages) to apply to audio data input from the microphone. This function must be called once for each filter stage being set in a multistage filter.<BR>After configuration is complete, the user-specified callback function will be invoked.
+		</P>
+        <P>
+To generate parameters for a low-pass filter, high-pass filter, band-pass filter, and band-elimination filter, use <CODE>$TwlSDK/docs/TechnicalNotes/IIR_FilterBuilder.xls</CODE>. However, you cannot calculate parameters by specifying characteristics of the filter. See <A href="doc/aboutIirFilterBuilder.html">How to Use IIR_FilterBuilder</A> for more details.
+        </P>
+        <P>
+If this function does not return a value of <CODE>SNDEX_RESULT_SUCCESS</CODE>, the asynchronous processing and callback will not be run.<BR>Also note that a PXI receive interrupt will send notification when the asynchronous processing is complete, so callbacks will not occur if PXI receive interrupts are prohibited.</P>
+
+<P>To maintain the shutter sound playback volume, this function returns <CODE>SNDEX_RESULT_ILLEGAL_STATE</CODE> and quits without doing anything while the <A href="../../dsp/common/DSP_PlayShutterSound.html"><CODE>DSP_PlayShutterSound</CODE></A> function is executing.<BR>The library initializes the IIR filter settings while the shutter sound is playing and then reconfigures the settings after playback has finished.</P>
+
+<P>The system will wait for the IIR filters to finish being set before either entering sleep mode or performing hardware reset. For more information, see the <A href="../../spi/pm/about_sleep.html">Sleep</A> and <A href="../../spi/pm/about_exit.html">Hardware Reset and Shutdown</A> overviews.</P>
+		<H2>Note</H2>
+        <P>
+You can only set one IIR filter stage at a time. This function will return a <CODE>SNDEX_RESULT_EXCLUSIVE</CODE> error if it is called again while an IIR filter is currently being set.
+        </P>
+<P>It takes somewhere between 10 and several hundred milliseconds to set a single IIR filter stage.<FONT color="red">While it is being set, SPI mutexes will be used on the ARM7. During this time, microphone sampling, Touch Screen sampling, power management, and NVRAM will be forced to wait, causing delays.</FONT>Accordingly, use caution when using the devices listed above in parallel with this function.</P>
+        <P>
+			<B><FONT color="red">You must take special care when setting IIR filter parameters. </FONT></B> If you configure an IIR filter to increase the gain of input audio data, some input sources will cause the calculation results to be saturated (topped out at the maximum value) and hence distort the sound. As a basic rule, with uncertain input sources IIR filters should be used to reduce the gain. When setting multiple IIR filters, make sure no stage is saturated. This is because filters will be applied in order, one stage at a time, to the input waveform (see <A href="SNDEXIirFilterTarget.html"><CODE>SNDEXIirFilterTarget</CODE></A> for information on the order in which filters are applied). In particular, because IIR filters use previous output data, setting parameters to amplify it may cause sound to be emitted from the speakers regardless of the system volume or mute state set by the <A href="SNDEX_SetMute.html"><CODE>SNDEX_SetMute</CODE></A> function.
+		</P>
+		<P>Restrictions will be applied depending on the filter target <SPAN class="argument">target</SPAN> when this function is used.</P>
+		<P><FONT color="red">When <SPAN class="argument">target</SPAN> indicates microphone input data (<CODE>SNDEX_IIR_FILTER_ADC_*</CODE>), proper sampling data cannot be obtained because the A/D converter is stopped during configuration.</FONT>Because it is acceptable to simply avoid using the sampling data from this interval, microphone sampling itself does not need to be stopped.</P>
+
+		<H2>See Also</H2>
+		<P>
+			<A href="SNDEX_SetIirFilter.html"><CODE>SNDEX_SetIirFilter</CODE></A><BR> <A href="SNDEXIirFilterTarget.html"><CODE>SNDEXIirFilterTarget</CODE></A><BR> <A href="SNDEXIirFilterParam.html"><CODE>SNDEXIirFilterParam</CODE></A><BR> <A href="doc/aboutIirFilterBuilder.html"><CODE>Using IIR_FilterBuilder</CODE></A>
+		</P>
+
+		<H2>Revision History</H2>
+		<P>
+			2011/11/01 Adjusted <CODE>target</CODE> value.<BR>2009/05/27 Added a cautionary note about setting IIR filter parameters. <BR>2008/11/07 Noted that <CODE>SNDEX_RESULT_EXCLUSIVE</CODE> is returned during shutter sound playback (deleted the text added on 2008/09/26). <BR>2008/11/06 Made a correction in Asynchronous Process Results (<CODE>SNDEX_RESULT_EXCLUSIVE</CODE>) under <B>Return Values</B>. <BR>2008/09/26 Added a description of behavior during shutter sound playback. <BR>2008/09/16 Added links to overview pages for Sleep and Hardware Reset and Shutdown. <BR>2008/09/11 Revised <B>Return Values</B>. Added mention of the processing time and effect on  other devices to <B>Note</B>.<BR> 2008/09/06 Added a link to Using IIR_FilterBuilder.<BR> 2008/08/26 Added a description of restrictions during function execution to <B>Note</B>.<BR> 2008/07/08 Initial version.
+		</P>
+	<hr><p>CONFIDENTIAL</p></BODY>
+</HTML>

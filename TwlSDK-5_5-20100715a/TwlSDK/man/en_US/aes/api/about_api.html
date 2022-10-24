@@ -1,0 +1,154 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>AES Basic Functions: Overview</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">AES Cipher Basic Functions: Overview</h1>
+
+<H2>Description</H2>
+
+<h3 class="inline">Overview</h3>
+<p>
+The TWL-SDK AES cipher library provides encryption functions using the AES algorithm. This library supports two cipher modes: (1) CTR mode, which performs simple encryption, and (2) CCM mode, which performs simple encryption and also contains mechanisms for detecting modification of the data.
+</p>
+
+
+
+<h3 class="inline">Terms</h3>
+<p>
+Here, we explain the terminology used in the documentation related to the TWL-SDK AES cipher library. This terminology explains the usage of these terms within the documentation of the TWL-SDK AES cipher library. Our usage of these terms may differ somewhat from the standard definitions used within the field of cryptography. 
+</p>
+
+<table class="table">
+<tbody>
+<tr><th>secret<td>In terms of the cipher, what must not be disclosed to the public. Also covers such information.
+<tr><th>Encryption<td>The process of transforming information in a restorable manner to eliminate its apparent meaning.
+<tr><th>plaintext
+    <td>The data that will be encrypted. This refers to binary data as well as text data.
+<tr><th>ciphertext<td>The result of encrypting plaintext. Like plaintext, in general this refers to binary data as well as text data.
+<tr><th>decryption<td>The process of restoring plaintext from ciphertext.  
+<tr><th>block cipher<td>A cipher algorithm that encrypts plaintext of a fixed length and outputs ciphertext of a fixed length.
+<tr><th>AES<td>One type of block cipher algorithm that generates 16 bytes of ciphertext from 16 bytes of plaintext.
+<tr><th>MAC<td>The data used to detect modification of data. It stands for Message Authentication Code.
+<tr><th>Cipher Mode<td>Term indicating use of an algorithm that encrypts data of an arbitrary length by using a block cipher.
+<tr><th>CTR Mode<td>One of the cipher modes. It stands for <EM><STRONG>C</STRONG>oun<STRONG>T</STRONG>e<STRONG>R</STRONG></EM> mode.
+<tr><th>CCM Mode<td>One of the cipher modes. In addition to the processing performed in CTR mode, this mode also adds a MAC to the ciphertext. This mode stands for <EM><STRONG>C</STRONG>ounter with <STRONG>C</STRONG>ipher block chaining <STRONG>M</STRONG>essage authentication code</EM>.
+<tr><th>Adata<td>Part of the input data in CCM mode. It does not get encrypted, but is subject to MAC operations.
+<tr><th>Pdata<td>Part of the input data in CCM mode. It gets encrypted and is subject to MAC operations.
+<tr><th>Key<td>Data that makes the ciphertexts differ, even when the same plaintext and cipher algorithm are used. It is secret.
+<tr><th nowrap>initial counter value
+    <td>Data that makes the ciphertexts differ in CTR mode, even if the same key, plaintext, and cipher algorithm are used.
+        It is not secret. A different value must be used each time encryption is performed.
+<tr><th>nonce
+    <td>Data that makes the ciphertexts and MACs differ in CCM mode, even if the same key, plaintext, and cipher algorithm are used.
+        It is not secret. A different value must be used each time encryption is performed.
+<tr><th>Signature<td>Adding a MAC.
+</tbody>
+</table>
+
+
+
+<h3 class="inline">Cipher Mode</h3>
+<p>
+The following shows the relationship between the data and the two cipher modes that the TWL-SDK AES cipher library supports.
+</p>
+
+<h4 class="inline">CTR Mode</h4>
+<p>
+In CTR mode, the plaintext is encrypted and nothing more. Decryption of the ciphertext requires the same key and initial counter value that were used during encryption.
+</p>
+<img src="ctr.png">
+
+<h4 class="inline">CCM Mode</h4>
+<p>
+In CCM mode, the Pdata is encrypted and a MAC is generated for the sake of verifying the integrity of the Pdata. In addition to Pdata, the MAC can include information called Adata that is not encrypted but whose integrity must be verified. The Adata can include anything (for example, the data size). Decryption of the ciphertext requires the same key and nonce that were used during encryption. Verification of the ciphertext also requires the same Adata that was used during encryption.
+
+</p>
+<img src="ccm.png">
+
+
+
+<h3 class="inline">Performance</h3>
+<p>
+The following shows the approximate performance per byte for encryption and decryption. In addition to this, each encryption or decryption operation requires about 60000 cycles (@134.06 MHz) of overhead.
+</p>
+
+<table class="table">
+<thead>
+<tr><th colspan="2">Mode<th>Number of Cycles (@134.06 MHz)
+</thead>
+<tbody>
+<tr><th colspan="2">CTR Mode<td>8.4 cycles/byte
+<tr><th rowspan="2">CCM Mode<th>Adata<td>4.9 cycles/byte
+<tr><th>Pdata<td>8.4 cycles/byte
+
+</tbody>
+</table>
+
+
+
+<h3 class="inline">Limitations</h3>
+<p>
+Compared with the standard AES library, the TWL-SDK AES cipher library has the following limitations.
+</p>
+
+<h4 class="inline">CTR Mode</h4>
+<ul>
+<li>Ciphertext is non-interchangeable.
+</ul>
+
+<h4 class="inline">CCM Mode</h4>
+<ul>
+<li>The maximum size each for Adata and Pdata is 1,048,560 bytes (1 MB - 16 bytes). 
+<li>The size of the Adata must be a multiple of 16.
+<li>The Adata data size is not included when calculating the MAC. You must include it in the Adata if it is necessary.
+<li>The size of the nonce is fixed at 96 bits.
+<li>The ciphertext and MAC are non-interchangeable.
+</ul>
+
+
+
+<h3 class="inline">Security Precautions</h3>
+<p>
+CTR mode has a certain property: If you take ciphertext produced in this mode and invert any bit, the corresponding bit of the plaintext obtained by decrypting this ciphertext will also be inverted as compared to the original plaintext. 
+</p>
+<p>
+For example, assume that the plaintext represented by the bit array in the first line below is encrypted, resulting in the ciphertext represented by the bit array in the second line. 
+</p>
+<code class="src"><pre>
+plaintext:     00011010000111111100100101010001<span style="background-color: blue; color: white; font-weight: bold;">1</span>001000010100111110110010001001
+ciphertext:    01000010011011110100011110001011<span style="background-color: blue; color: white; font-weight: bold;">0</span>111110001010011001001000011101
+</pre></code>
+<p>
+We now invert a bit in the ciphertext (for example, the 33rd bit), calling the result ciphertext'. 
+</p>
+<code class="src"><pre>
+ciphertext': 01000010011011110100011110001011<span style="background-color: red; color: white; font-weight: bold;">1</span>111110001010011001001000011101
+</pre></code>
+<p>
+If we decrypt ciphertext' and call the result plaintext', plaintext' will have the 33rd bit inverted compared with the original plaintext.
+</p>
+<code class="src"><pre>
+plaintext':   00011010000111111100100101010001<span style="background-color: red; color: white; font-weight: bold;">0</span>001000010100111110110010001001
+</pre></code>
+<p>
+There are ways to use this property. If an attacker can guess the plaintext and also possesses some sample ciphertext, the attacker can generate any ciphertext encrypted with the key that was used to encrypt that sample, even without knowing the key. In cases where this property would be problematic, you must use CCM mode. In CCM mode, you can detect the kind of modification described above, because this mode adds a MAC.
+</p>
+
+
+
+<H2>Revision History</H2>
+<P>
+2008/09/03 Added a note that the Adata size is not added in CCM mode. <br>2007/12/25 Initial version.
+</p>
+
+<hr><p>CONFIDENTIAL</p></body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"><html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>SND_ReadDriverInfo</title>
+<link rel="stylesheet" href="../css/nitro.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.65.1">
+</head>
+<body>
+<div class="refentry" lang="ja"><a name="IDAFLWT"></a><div class="titlepage">
+<div></div>
+<div></div>
+</div>
+<h1>SND_ReadDriverInfo <IMG src="../image/NTR.gif" width="24" height="12" border="0" align=middle><IMG src="../image/TWL.gif" width="24" height="12" border="0" align=middle></h1>
+<h2>Syntax</h2>
+<dl>
+<dd><pre class="funcsynopsisinfo"><code>#include &lt;nitro/snd.h&gt;</code></pre></dd>
+<dd><pre class="funcprototype"><code class="funcprototype">void SND_ReadDriverInfo( struct SNDDriverInfo* <var>info</var> );</code><br></pre></dd>
+</dl>
+<div class="refsection" lang="ja"><a name="IDARMWT"></a>
+      <h2>Arguments</h2>
+      
+      <div class="variablelist">
+<table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><em><strong><code>info</code></strong></em></td>
+<td>Pointer to the driver information structure to store the read information</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+    </div>
+<div class="refsection" lang="ja"><a name="IDAANWT"></a>
+      <h2>Return Values</h2>
+
+      <p>None.</p>
+    </div>
+<div class="refsection" lang="ja"><a name="IDAHNWT"></a>
+      <h2>Description</h2>
+      <p>
+Reads the sound driver information.
+</p>
+      <p>
+The information that was read is stored in <strong><em><code>info</code></em></strong>, the sound driver structure. Once the read completes, call the <tt class="function"><a href="SND_ReadChannelInfo.html">SND_ReadChannelInfo</a></tt>, <tt class="function"><a href="SND_ReadPlayerInfo.html">SND_ReadPlayerInfo</a></tt>, and <tt class="function"><a href="SND_ReadTrackInfo.html">SND_ReadTrackInfo</a></tt> functions to extract the necessary information from the sound driver information structure.
+</p>
+      <div class="note">
+<h3 class="title">Note</h3>
+<p>
+Note that information that was read is written directly to memory. Accordingly, when data remains in the cache, you must delete it with <tt class="function"><a href="../os/cache/DC_InvalidateRange.html">DC_InvalidateRange</a></tt> or a similar function before referencing the information.
+</p>
+<p>
+The memory region indicated by the pointer passed to the argument cannot be deleted until the process on ARM7 completes.
+        </p>
+<p>
+This function is an ARM7 command scheduling function. After this function is called, its processing will occur only after the command is issued with the <tt class="function"><a href="SND_FlushCommand.html">SND_FlushCommand</a></tt> function.
+</p>
+<p>
+If program execution must be synchronized with process completion, first use the <tt class="function"><a href="SND_GetCurrentCommandTag.html">SND_GetCurrentCommandTag</a></tt> function to obtain the command tag immediately after calling this function. Then, after the command is issued, use the command tag and call either the <tt class="function"><a href="SND_IsFinishedCommandTag.html">SND_IsFinishedCommandTag</a></tt> or <tt class="function"><a href="SND_WaitForCommandProc.html">SND_WaitForCommandProc</a></tt> function to confirm that processing has finished or to wait for it to complete.
+</p>
+</div>
+    </div>
+<h2>See Also</h2>
+<p><code><a href="SND_ReadChannelInfo.html">SND_ReadChannelInfo</a>, <a href="SND_ReadPlayerInfo.html">SND_ReadPlayerInfo</a>, <a href="SND_ReadTrackInfo.html">SND_ReadTrackInfo</a>, <a href="SND_FlushCommand.html">SND_FlushCommand</a>, <a href="SND_GetCurrentCommandTag.html">SND_GetCurrentCommandTag</a>, <a href="SND_IsFinishedCommandTag.html">SND_IsFinishedCommandTag</a>, <a href="SND_WaitForCommandProc.html">SND_WaitForCommandProc</a></code></p>
+<h2>Revision History</h2>
+<p>2005/02/17 Initial version.</p>
+</div>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

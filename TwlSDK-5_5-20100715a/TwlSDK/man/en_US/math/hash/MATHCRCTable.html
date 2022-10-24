@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 8.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>MATHCRC*Table</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">MATHCRC*Table <img src="../../image/NTR.gif"align="middle"><img src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+
+<dl>
+  <dd>
+<PRE>
+<CODE>#include &lt;nitro/math/crc.h&gt;<BR>
+typedef struct MATHCRC8Table
+{
+    u8 table[256];
+} MATHCRC8Table;
+
+typedef struct MATHCRC16Table
+{
+    u16 table[256];
+} MATHCRC16Table;
+
+typedef struct MATHCRC32Table
+{
+    u32 table[256];
+} MATHCRC32Table;
+</CODE></PRE>
+  </dd>
+</dl>
+<H2>Description</H2>
+<P>Structure for the tables used to compute various CRCs. Initialize it with a <CODE><A href="MATH_CRCInitTable.html">MATH_CRC*InitTable</A></CODE> function, and then use it with <A href="MATH_CRCUpdate.html"><CODE>MATH_CRC*Update</CODE></A> and <A href="MATH_CalcCRC.html"><CODE>MATH_CalcCRC*</CODE></A> functions.<BR><BR> CRC (Cyclic Redundancy Check:  an error detection method that uses check values.
+</P>
+
+<h2>See Also</h2>
+<P><a href="MATH_CRCInitTable.html"><code>MATH_CRC*InitTable</code></a>, <a href="MATH_CRCInit.html"><code>MATH_CRC*Init</code></a>, <a href="MATH_CRCUpdate.html"><code>MATH_CRC*Update</code></a>, <a href="MATH_CRCGetHash.html"><code>MATH_CRC*GetHash</code></a></P>
+<H2>Revision History</H2>
+<P>
+2005/04/12 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

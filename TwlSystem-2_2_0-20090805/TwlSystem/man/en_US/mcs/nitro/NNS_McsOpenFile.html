@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title>NNS_McsOpenFile</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">NNS_McsOpenFile</h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+		
+  <pre><CODE>#include &lt;nnsys/mcs.h&gt;</CODE></pre>
+	  
+  <pre><CODE>u32 NNS_McsOpenFile(
+        NNSMcsFile* pFile,
+        const char* fileName,
+        u32         openFlag);</CODE></pre>
+	</dd>
+</dl><h2>Arguments</h2>
+
+<table border="1" width="100%">
+ <tr> 
+<td width="13%"><CODE>pFile</CODE></td>
+<td width="87%">Pointer to the file information structure.</td>
+ </tr>
+ <tr> 
+<td width="13%"><CODE>fileName</CODE></td>
+<td width="87%">Pointer to the null-terminated string that indicates an open file or a newly created file. If <CODE>NULL</CODE> is specified, a dialog window for selecting a file opens on the PC.</td>
+ </tr>
+ <tr> 
+<td width="13%"><CODE>openFlag</CODE></td>
+<td width="87%">How to open file or create file, and type of read or write (details explained below).</td>
+ </tr>
+</table>
+<h2>Return Values</h2>
+<p>Zero if the file opened successfully. A non-zero value otherwise. See <B>Description</B> for details on the possible return values.</p>
+<H2>Description</H2>
+<p>Opens an existing file on the PC, or creates a new file and opens it.</p>
+<p>Use <CODE>openFlag</CODE> to specify the method to use to open the file.</p>
+<table>
+ <tr> 
+<td><CODE>NNS_MCS_FILEIO_FLAG_READ</CODE></td>
+<td>Opens an existing file for reading.</td>
+ </tr>
+ <tr> 
+<td><CODE>NNS_MCS_FILEIO_FLAG_WRITE</CODE></td>
+<td>Creates a new file for writing and open the file. If the file already exists, it is first deleted.</td>
+ </tr>
+ <tr> 
+<td><CODE>NNS_MCS_FILEIO_FLAG_FORCE</CODE></td>
+<td>If <code>NNS_MCS_FILEIO_FLAG_WRITE</code> is specified and a file already exists, the user is not prompted about overwriting the file. If this flag is not specified and a file already exists, a dialog opens on the PC, prompting the user to confirm that the file is to be overwritten.</td>
+ </tr>
+ <tr> 
+<td><CODE>NNS_MCS_FILEIO_FLAG_INCENVVAR</CODE></td>
+<td>Specify this flag if a PC environment variable is included in the filename string specified by <code>fileName</code>. The environment variable is enclosed by percent marks (&quot;%&quot;), for example, <CODE>%TWLSYSTEM_ROOT%\SourceTreeMap.txt</CODE>.</td>
+ </tr>
+    <tr>
+<td><CODE>NNS_MCS_FILEIO_FLAG_CREATEDIR</CODE></td>
+<td>When you specify <code>NNS_MCS_FILEIO_FLAG_WRITE</code> and create a file specified by <code>fileName</code>, if the directory in which the file is supposed to reside does not exist, this creates the directory. However, if <code>NNS_MCS_FILEIO_FLAG_INCENVVAR</code> has been specified and the PC environment variable contained in the filename string specified by <code>fileName</code> does not exist, as a safety measure the function fails without creating a directory.</td>
+    </tr>
+  </table>
+<p>The return value takes one of the following values.</p>
+<table>
+  <tbody>
+    <tr>
+<td><CODE>NNS_MCS_FILEIO_ERROR_SUCCESS</CODE> (0)</td>
+<td>The function was successful.</td>
+    </tr>
+    <tr>
+<td><CODE>NNS_MCS_FILEIO_ERROR_COMERROR</CODE></td>
+<td>A communications error occurred.</td>
+    </tr>
+    <tr>
+<td><CODE>NNS_MCS_FILEIO_ERROR_NOTCONNECT</CODE></td>
+<td>Not connected to the MCS server.</td>
+    </tr>
+    <tr>
+<td><CODE>NNS_MCS_FILEIO_ERROR_SERVERERROR</CODE></td>
+<td>An error has occurred due to a file operation on the MCS server side. The error code is a Win32 system error code that you can get with the <code>NNS_McsGetServerErrorCode</code> function.</td>
+    </tr>
+  </tbody>
+</table>
+<h2>See Also</h2>
+<p><a href="NNS_McsReadFile.html"><CODE>NNS_McsReadFile</CODE></a><BR> <a  href="NNS_McsWriteFile.html"><CODE>NNS_McsWriteFile</CODE></a><BR> <a  href="NNS_McsCloseFile.html"><CODE>NNS_McsCloseFile</CODE></a></p>
+<H2>Revision History</H2>
+<P>
+2008/06/20 Changed the environment variable to <CODE>TWLSYSTEM_ROOT</CODE>. <br>2005/01/24 Added descriptions regarding error codes.<br />2004/10/18 Added a description of the flag <code>NNS_MCS_FILEIO_FLAG_INCENVVAR</code>.<br>2004/07/01 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

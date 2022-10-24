@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>OS_RestoreInterrupts_IrqAndFiq</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">OS_RestoreInterrupts_IrqAndFiq <img src="../../image/NTR.gif" align="middle"><img src="../../image/TWL.gif" align="middle"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/os.h&gt;</CODE><BR> <BR> <CODE>OSIntrMode OS_RestoreInterrupts_IrqAndFiq( OSIntrMode state );</CODE></dd>
+</dl>
+<h2>Arguments</h2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="13%"><CODE>state</CODE></TD>
+<TD width="87%">Interrupt state to set.<BR><CODE>OSIntrMode</CODE> is a <CODE>u32</CODE> typedef.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<h2>Return Values</h2>
+<p>Returns a value that indicates the state before this function was called.</p>
+<p>The return value type is <CODE>OSIntrMode</CODE> (a <CODE>u32</CODE> typedef), but the return value will be the logical sum of the <CODE>OSIntrMode_Irq</CODE> and <CODE>OSIntrMode_Fiq</CODE> enumerated types.<BR><BR> The <CODE>OSIntrMode_Irq</CODE> enumerated type:</p>
+<TABLE cellspacing="2">
+  <TBODY>
+    <TR>
+<TH>Value</TH>
+<TH>Previous state</TH>
+    </TR>
+    <TR>
+<TD><CODE>OS_INTRMODE_IRQ_DISABLE</CODE></TD>
+<TD>IRQ Disable (prohibited)</TD>
+    </TR>
+    <TR>
+<TD><CODE>OS_INTRMODE_IRQ_ENABLE</CODE></TD>
+<TD>IRQ Enable (permitted)</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<p>The <CODE>OSIntrMode_Fiq</CODE> enumerated type:</P>
+<TABLE cellspacing="2">
+  <TBODY>
+    <TR>
+<TH>Value</TH>
+<TH>Previous State</TH>
+    </TR>
+    <TR>
+<TD><CODE>OS_INTRMODE_FIQ_DISABLE</CODE></TD>
+<TD>FIQ Disable (prohibited)</TD>
+    </TR>
+    <TR>
+<TD><CODE>OS_INTRMODE_FIQ_ENABLE</CODE></TD>
+<TD>FIQ Enable (permitted)</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>Description</H2>
+<P>Sets the interrupt state.</P>
+<P>It takes the interrupt state given by <CODE>state</CODE>. The state given is the logical sum of the IRQ status expressed in the <CODE>OSIntrMode_Irq</CODE> enumerated type and the FIQ status expressed in the <CODE>OSIntrMode_Fiq</CODE> enumerated type.</P>
+<P>However, it is expected that the <CODE>state</CODE> parameter will often be used primarily to restore the previous state by specifying to it the return value of the <A href="OS_EnableInterrupts_IrqAndFiq.html"><CODE>OS_EnableInterrupts_IrqAndFiq</CODE></A> or <A href="OS_DisableInterrupts_IrqAndFiq.html"><CODE>OS_DisableInterrupts_IrqAndFiq</CODE></A> function.</P>
+<P>These return values represent the states prior to calling these functions.</P>
+<P><B>Example:</B></P>
+<BLOCKQUOTE style="background-color:#ffffd0;"><CODE>OSIntrMode e = OS_DisableInterrupts_IrqAndFiq();<BR> <BR> // Interrupts are disabled here<BR> <BR> (void)OS_RestoreInterrupts_IrqAndFiq( e );</CODE></BLOCKQUOTE>
+
+<h2>Internal Operation</h2>
+<P>The CPSR register (current program status register) IRQ and FIQ interrupt control bits are set/reset.</P>
+
+<h2>See Also</h2>
+<p><A href="OS_EnableInterrupts_IrqAndFiq.html"><CODE>OS_EnableInterrupts_IrqAndFiq</CODE></A><BR> <A href="OS_DisableInterrupts_IrqAndFiq.html"><CODE>OS_DisableInterrupts_IrqAndFiq</CODE></A><BR> <A href="OS_RestoreInterrupts.html"><CODE>OS_RestoreInterrupts</CODE></A></p>
+
+<H2>Revision History</H2>
+<P>
+2005/03/08 Standardized the Japanese word for &quot;interrupt&quot;.<br /> 2004/03/04 Moved from the <CODE>OS_RestoreInterrupts</CODE> function.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

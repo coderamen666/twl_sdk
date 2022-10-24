@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+	<HEAD>
+		<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+		<title>SNDEX_GetDSPMixRate</title>
+		<link rel="stylesheet" href="../../css/nitro.css" type="text/css">
+	</HEAD>
+	<BODY>
+		<H1>SNDEX_GetDSPMixRate <IMG src="../../image/TWL.gif" width="24" height="12" border="0" align=middle></H1>
+
+		<H2>Syntax</H2>
+		<DL>
+			<DD><CODE>#include &lt;twl/snd.h&gt;</CODE></DD>
+			<DD><PRE><CODE>SNDEXResult SNDEX_GetDSPMixRate( u8* rate );</CODE></PRE></DD>
+		</DL>
+
+		<H2>Arguments</H2>
+		<TABLE>
+			<TBODY>
+				<TR>
+					<TH width="25%"><SPAN class="argument">rate</SPAN></TH>
+					<TD width="75%">Pointer to the variable that gets the rate at which CPU and DSP audio output is mixed.</TD>
+				</TR>
+			</TBODY>
+		</TABLE>
+
+		<H2>Return Values</H2>
+		<TABLE>
+			<TBODY>
+				<TR>
+					<TH width="25%"><CODE>SNDEX_RESULT_SUCCESS</CODE></TH>
+					<TD width="75%">The whole series of operations completed successfully.</TD>
+				</TR>
+				<TR>
+					<TH width="25%"><CODE>SNDEX_RESULT_ILLEGAL_STATE</CODE></TH>
+					<TD width="75%">This function has been called on the NITRO platform or from an exception handler.</TD>
+				</TR>
+				<TR>
+					<TH width="25%"><CODE>SNDEX_RESULT_BEFORE_INIT</CODE></TH>
+					<TD width="75%">Extended sound features have not been initialized by the <A href="SNDEX_Init.html"><CODE>SNDEX_Init</CODE></A> function.</TD>
+				</TR>
+				<TR>
+					<TH width="25%"><CODE>SNDEX_RESULT_EXCLUSIVE</CODE></TH>
+					<TD width="75%">Processing for other extended sound features is running. Note that mutexes are used for each of the extended sound features, so they cannot be used simultaneously.<BR>This is also returned when a mutex error occurred in the ARM7. When this is the case, the situation may improve on a retry because the error is dependent on the progress of processing in ARM7.<BR>As mentioned in the <A href="./doc/aboutSNDEX.html">SNDEX Library Overview</A>, the error also returns during processing of shutter sound playback.</TD>
+				</TR>
+				<TR>
+					<TH width="25%"><CODE>SNDEX_RESULT_PXI_SEND_ERROR</CODE></TH>
+					<TD width="75%">A PXI command failed to be sent to the ARM7. This error occurs when the PXI send queue for the ARM7 has filled up, or when the hardware has detected an error. As a result, the state may improve when a retry is made.</TD>
+				</TR>
+				<TR>
+					<TH width="25%"><CODE>SNDEX_RESULT_FATAL_ERROR</CODE></TH>
+					<TD width="75%">This error should not ordinarily occur. This may occur when an illegal PXI command was sent directly, ignoring library state management; when the ARM7 component and the extended sound feature library have different versions; when library state management has fallen into an abnormal state due to memory corruption; or when other such conditions arise. There is no way to recover from this at run time.
+					</TD>
+				</TR>
+			</TBODY>
+		</TABLE>
+
+		<H2>Description</H2>
+		<P>
+			Synchronously gets the rate at which CPU and DSP audio output is mixed. The mixing ratio is a value from 0 to 8.
+		</P>
+		<TABLE>
+			<TBODY>
+				<TR>
+					<TH width="25%">0</TH>
+					<TD width="75%">CPU 0%, DSP 100%</TD>
+				</TR>
+				<TR>
+					<TH width="25%">1</TH>
+					<TD width="75%">CPU 12.5%, DSP 87.5%</TD>
+				</TR>
+				<TR>
+					<TH width="25%">2</TH>
+					<TD width="75%">CPU 25%, DSP 75%</TD>
+				</TR>
+				<TR>
+					<TH width="25%">3</TH>
+					<TD width="75%">CPU 37.5%, DSP 62.5%</TD>
+				</TR>
+				<TR>
+					<TH width="25%">4</TH>
+					<TD width="75%">CPU 50%, DSP 50%</TD>
+				</TR>
+				<TR>
+					<TH width="25%">5</TH>
+					<TD width="75%">CPU 62.5%, DSP 37.5%</TD>
+				</TR>
+				<TR>
+					<TH width="25%">6</TH>
+					<TD width="75%">CPU 75%, DSP 25%</TD>
+				</TR>
+				<TR>
+					<TH width="25%">7</TH>
+					<TD width="75%">CPU 87.5%, DSP 12.5%</TD>
+				</TR>
+				<TR>
+					<TH width="25%">8</TH>
+					<TD width="75%">CPU 100%, DSP 0%</TD>
+				</TR>
+			</TBODY>
+		</TABLE>
+		<P>
+			This function calls the <A href="SNDEX_GetDSPMixRateAsync.html"><code>SNDEX_GetDSPMixRateAsync</code></A> function internally and stops its own calling thread until asynchronous processing has completed. This function expects to be called from a thread, so it fails if it is called from an exception handler. Note that this function continues to block internally if PXI receive interrupts are prohibited, because PXI receive interrupts are used to detect the processing's completion.
+		</P>
+
+		<H2>See Also</H2>
+		<P>
+			<A href="SNDEX_GetDSPMixRateAsync.html"><CODE>SNDEX_GetDSPMixRateAsync</CODE></A><BR> <A href="SNDEX_SetDSPMixRate.html"><CODE>SNDEX_SetDSPMixRate</CODE></A>
+		</P>
+
+		<H2>Revision History</H2>
+		<P>
+2008/11/07 Added mention that <CODE>SNDEX_RESULT_EXCLUSIVE</CODE> is returned during processing of shutter sound playback.<BR> 2008/02/15 Initial version.
+		</P>
+	<hr><p>CONFIDENTIAL</p></body>
+</HTML>

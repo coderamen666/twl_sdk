@@ -1,0 +1,222 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META http-equiv="Content-Style-Type" content="text/css">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<BASE target="main">
+<TITLE>List of Supervisor Call (SVC) Functions</TITLE>
+<LINK rel="stylesheet" href="../css/apilist.css">
+</HEAD>
+<BODY>
+<H1>Supervisor Call (SVC) Function List</H1>
+
+<H3><A name="IntrWait">Wait for Interrupt</A></H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+      <TH width="25%"><A href="SVC_WaitVBlankIntr.html" target="_self">SVC_WaitVBlankIntr</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Waits in Halt status until a V-Blank interrupt is generated.</TD>
+    </TR>
+    <TR>
+      <TH><A href="SVC_Halt.html" target="_self">SVC_Halt</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Stops the CPU core and changes to the halt status.</TD>
+    </TR>
+    <TR>
+      <TH><A href="SVC_Sleep.html" target="_self">SVC_Sleep</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Stops the original system clock. (ARM7 only).</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<H3><A name="Wait">Waiting</A></H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+      <TH width="25%"><A href="SVC_WaitByLoop.html" target="_self">SVC_WaitByLoop</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Waits by making a loop in the system ROM.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<H3><A name="Memory">Memory Operations</A></H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+      <TH width="25%"><A href="SVC_CpuClear.html" target="_self">SVC_CpuClear*</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Uses CPU to perform memory clear.</TD>
+    </TR>
+    <TR>
+      <TH width="25%"><A href="SVC_CpuCopy.html" target="_self">SVC_CpuCopy*</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Uses CPU to perform memory copy.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<H3><A name="Uncompress">Expanding Compressed Data</A></H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+      <TH width="25%"><A href="SVC_UnpackBits.html" target="_self">SVC_UnpackBits</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Expands the data filled with fixed 0.</TD>
+    </TR>
+    <TR>
+      <TH><A href="SVC_UncompressLZ.html" target="_self">SVC_UncompressLZ8</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Expands the LZ77-compressed data in 8-bit units.</TD>
+    </TR>
+    <TR>
+      <TH><A href="SVC_UncompressRL.html" target="_self">SVC_UncompressRL8</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Expands run-length compressed data in 8-bit units.</TD>
+    </TR>
+    <TR>
+      <TH width="25%"><A href="SVC_UncompressLZ8FromDevice.html" target="_self">SVC_UncompressLZ8FromDevice</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Expands the LZ77 compressed data that exists in the device in units of 8 bits.</TD>
+    </TR>
+    <TR>
+      <TH><A href="SVC_UncompressLZ.html" target="_self">SVC_UncompressLZ16FromDevice</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Expands the LZ77 compressed data that exists in the device in units of 16 bits.</TD>
+    </TR>
+    <TR>
+      <TH><A href="SVC_UncompressRL.html" target="_self">SVC_UncompressRL16FromDevice</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Expands the runlength compressed data that exists in the device in units of 16 bits</TD>
+    </TR>
+    <TR>
+      <TH><A href="SVC_UncompressHuffmanFromDevice.html" target="_self">SVC_UncompressHuffmanFromDevice</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Expands the Huffman compressed data in the device in units of 32 bits.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<H3><A name="Calc">Arithmetic Operations</A></H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+      <TH width="25%"><A href="SVC_Div.html" target="_self">SVC_Div</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Performs division and obtains the result</TD>
+    </TR>
+    <TR>
+      <TH width="25%"><A href="SVC_DivRem.html" target="_self">SVC_DivRem</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Performs division and obtains the remainder</TD>
+    </TR>
+    <TR>
+      <TH><A href="SVC_Sqrt.html" target="_self">SVC_Sqrt</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Performs square root operation and obtains the result</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<H3><A name="Crc">CRC</A></H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+      <TH><A href="SVC_GetCRC16.html" target="_self">SVC_GetCRC16</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Calculates CRC-16</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<H3><A name="Sign">Signature</A></H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+      <TH width="25%"><A href="SVC_InitSignHeap.html" target="_self">SVC_InitSignHeap</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Specifies the heap to use with <CODE>SVC_Decrypt*</CODE>.</TD>
+    </TR>
+    <TR>
+      <TH><A href="SVC_DecryptRSA.html" target="_self">SVC_DecryptRSA</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Performs RSA decryption.</TD>
+    </TR>
+    <TR>
+      <TH><A href="SVC_DecryptSign.html" target="_self">SVC_DecryptSign</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Decrypts signed data.</TD>
+    </TR>
+    <TR>
+      <TH><A href="SVC_DecryptSignDER.html" target="_self">SVC_DecryptSignDER</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Decrypts signed data in DER format.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H3><A name="Sha-1">Hash</A></H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+      <TH><A href="SVC_SHA1Init.html" target="_self">SVC_SHA1Init</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Configures the context for SHA1.</TD>
+    </TR>
+    <TR>
+      <TH><A href="SVC_SHA1Update.html" target="_self">SVC_SHA1Update</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Updates the SHA1 digest value.</TD>
+    </TR>
+    <TR>
+      <TH><A href="SVC_SHA1GetHash.html" target="_self">SVC_SHA1GetHash</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Gets the SHA1 digest value.</TD>
+    </TR>
+    <TR>
+      <TH><A href="SVC_CalcSHA1.html" target="_self">SVC_CalcSHA1</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Utility function for performing SHA1 calculations.</TD>
+    </TR>
+    <TR>
+      <TH><A href="SVC_CompareSHA1.html" target="_self">SVC_CompareSHA1</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Compares two SHA1 digest values.</TD>
+    </TR>
+    <TR>
+      <TH><A href="SVC_RandomSHA1.html" target="_self">SVC_RandomSHA1</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Gets a pseudo-random number using SHA1.</TD>
+    </TR>
+<TR>
+<TD class="separator" colspan=3></TD>
+</TR>
+    <TR>
+      <TH><A href="SVC_HMACSHA1Init.html" target="_self">SVC_HMACSHA1Init</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Configures the context for HMAC-SHA1.</TD>
+    </TR>
+    <TR>
+      <TH><A href="SVC_HMACSHA1Update.html" target="_self">SVC_HMACSHA1Update</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Updates the HMAC-SHA1 digest value.</TD>
+    </TR>
+    <TR>
+      <TH><A href="SVC_HMACSHA1GetHash.html" target="_self">SVC_HMACSHA1GetHash</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Gets the HMAC-SHA1 digest value.</TD>
+    </TR>
+    <TR>
+      <TH><A href="SVC_CalcHMACSHA1.html" target="_self">SVC_CalcHMACSHA1</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Utility function for performing HMAC-SHA1 calculations.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<table border="0" height="100%"><tr><td style="background-color : white;"></td></tr></table>
+
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

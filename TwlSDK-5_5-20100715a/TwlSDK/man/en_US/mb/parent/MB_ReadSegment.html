@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>MB_ReadSegment</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">MB_ReadSegment <IMG src="../../image/NTR.gif" width="24" height="12" border="0" align=middle><IMG src="../../image/TWL.gif" width="24" height="12" border="0" align=middle></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/mb.h&gt;</CODE><BR>
+  <BR>
+  <CODE>BOOL MB_ReadSegment(FSFile *file, void *buf, u32 len);</CODE><br>
+  <br>
+  </dd>
+</dl>
+<h2>Arguments</h2>
+<p>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="13%"><EM><STRONG>file</STRONG></EM></TD>
+<TD width="87%">The <code>FSFile</code> structure that holds the program file handle. The seek position of this file must point to the top of the program binary. Also, the seek position holds the initial position when returned from this function. When NULL is specified for this pointer, the parent application is seen as a download program file and the segment is extracted.
+	  </TD>
+    </TR>
+    <TR>
+<TD width="13%"><EM><STRONG>buf</STRONG></EM></TD>
+<TD width="87%">Pointer to the memory that saves the extracted segment information.</TD>
+    </TR>
+    <TR>
+<TD width="13%"><EM><STRONG>len</STRONG></EM></TD>
+<TD width="87%">Byte size of <code>buf</code>. This size must at least that of <code><A href="../mb_segment_buffer_min_const.html">MB_SEGMENT_BUFFER_MIN</A></code>.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</p>
+
+<h2>Return Values</h2>
+<p>This function returns <code>TRUE</code> when the segment data is extracted correctly from the program. Otherwise, it returns <code>FALSE</code>.</p>
+
+<H2>Description</H2>
+<P>
+This function extracts only the segment data necessary for the download process from the specified program file. Applications must call the <CODE><A href="MB_RegisterFile.html">MB_RegisterFile</A></CODE> function using the segment data obtained with this function.<br><br> When the specified buffer size is at least the value returned by the <code><A href="MB_GetSegmentLength.html">MB_GetSegmentLength</A></code> function, calling this function prepares all segment data in memory. When the size is smaller than that returned by the <code><A href="MB_GetSegmentLength.html">MB_GetSegmentLength</A></code> function, but at least <code><A href="../mb_segment_buffer_min_const.html">MB_SEGMENT_BUFFER_MIN</A></code> (as required), it is set to dynamically load the remainder that it cannot prepare in memory from the specified archive. In the case of this setting, it is frequently impossible to respond immediately to child requests, which slightly reduces transfer efficiency.<br><font color="#800000">When this setting is used, a single thread will be automatically started in the MB library. For details, see the <B>Internal Operation</B> section.</font><br><br>This function fails if the size is less than <code><A href="../mb_segment_buffer_min_const.html">MB_SEGMENT_BUFFER_MIN</A></code>.<br> <br>
+<pre><CODE>
+<STRONG>Example:</STRONG>
+    BOOL    reg_file_done = FALSE;
+
+    FSFile file[1];
+    FS_InitFile(file);
+    if(FS_OpenFileEx(file, p_game_reg-&gt;romFilePathp, FS_FILEMODE_R)) {
+        u32  len = MB_GetSegmentLength(file);
+        if(len > 0) {
+            void *mem = OS_Alloc(len);
+            if(mem != NULL) {
+                if(MB_ReadSegment(file, mem, len)) {
+                    if(MB_RegisterFile(p_game_reg, mem)) {
+                        reg_file_done = TRUE;
+                    }
+                }
+            }
+        }
+        FS_CloseFile(file);
+    }
+<BR>
+</CODE></pre><BR>
+<h2>Internal Operation</h2>
+<p>
+This function calls the <CODE><A href="../../fs/file/FS_ReadFile.html">FS_ReadFile</A></CODE> function internally.<br><br> Note that when you use segment data that is dynamically set to be read from the archive, and call the <code><A href="MB_RegisterFile.html">MB_RegisterFile</A></code> function, only one internal thread is started automatically to access the archive. This thread exists until either the <CODE><A href="../common/MB_End.html">MB_End</a></CODE> or <CODE><A href="../common/MB_EndToIdle.html">MB_EndToIdle</a></CODE> function completes. The priority of this thread is 0 and it will sleep until there is a child group request for segment data, accessing the card at irregular intervals as necessary.<br>
+</p>
+<h2>See Also</h2>
+<p>
+<code><A href="../../fs/file/FS_ReadFile.html">FS_ReadFile</A><BR> <A href="../common/MB_End.html">MB_End</A><BR> <A href="../common/MB_EndToIdle.html">MB_EndToIdle</A><BR> <A href="MB_GetSegmentLength.html">MB_GetSegmentLength</A><BR> <A href="../mb_segment_buffer_min_const.html">MB_SEGMENT_BUFFER_MIN</A><BR> <A href="MB_RegisterFile.html">MB_RegisterFile</A></code> 
+</P>
+<H2>Revision History</H2>
+<P>
+2008/10/02 Revised part of the sample code.<br>2005/04/11 Added description of task thread.<br /> 2004/12/07 Changed description because in the read delay method, the target has been extended from <code>NITRO-CARD</code> to any archive.<br /> 2004/11/11 Changed description to include the clone boot release and new read delay method.<br /> 2004/09/10 Added description of the operation when specifying NULL for the file pointer.<br /> 2004/08/09 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

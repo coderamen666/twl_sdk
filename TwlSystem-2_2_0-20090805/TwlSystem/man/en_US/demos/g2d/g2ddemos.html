@@ -1,0 +1,289 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<LINK rel="stylesheet" type="text/css" href="../../css/nitro.css">
+<TITLE>G2D Demos</TITLE>
+</HEAD>
+<BODY>
+<H1>G2D Sample Demos</H1>
+<H2>Location</H2>
+<P><CODE>$TwlSystem/build/demos/g2d/</CODE></P>
+<H2>Compilation</H2>
+<P>Move to the <CODE>$TwlSystem/build/demos/g2d/</CODE> directory and run:</P>
+<BLOCKQUOTE><CODE>% make</CODE></BLOCKQUOTE>
+<P>&nbsp;Compiling begins, and the SRL executable file and the NEF or TEF files with the binary information are generated in:</P>
+<BLOCKQUOTE><CODE>$TwlSystem/build/demos/g2d/samples/[sample_name]/bin/[platform]/[target]/</CODE></BLOCKQUOTE>
+<P> &nbsp;For example:</P>
+<BLOCKQUOTE><CODE>$TwlSystem/build/demos/g2d/samples/Cell_Simple/bin/ARM9-TS.HYB/Release/</CODE></BLOCKQUOTE>
+<P>The executable file of the release version for the NITRO/TWL Hybrid of the <CODE>Cell_Simple</CODE> demo is generated in the path described above.</P>
+
+
+<H2>Execution</H2>
+<P>Move to <CODE>$TwlSystem/build/demos/g2d/(samples|bg|Text)/(sample_name)/bin/(platform)/(target)/</CODE>. Depending on the type of the built ROM, one of the following methods is used for execution.</P>
+
+<H3>For NITRO ROMs</H3>
+
+<P>When using the Ensata emulator:</P>
+<UL>
+<LI>Execute the NEF and SRL files with <CODE>ensata</CODE>.
+</UL>
+<P>When using IS-NITRO-DEBUGGER:</P>
+<UL>
+<LI>Load and execute an NLF file with IS-NITRO-DEBUGGER.
+<LI>Execute an SRL file with IS-NITRO-DEBUGGER.
+<LI>Execute an SRL file with IS-NITRO-DEBUGGER using the <CODE>loadrun.exe</CODE> tool from a command line.
+</UL>
+<P>When using IS-TWL-DEBUGGER:</P>
+<UL>
+<LI>Load and execute an NLF file with IS-TWL-DEBUGGER.
+<LI>Execute an SRL file with IS-TWL-DEBUGGER.
+<LI>Execute an SRL file with IS-TWL-DEBUGGER using the <CODE>loadrun.TWL.exe</CODE> tool from a command line.
+</UL>
+<H3>For TWL/NITRO Hybrid ROMs</H3>
+<P>When using IS-NITRO-DEBUGGER:</P>
+<UL>
+<LI>Execute an SRL file with IS-NITRO-DEBUGGER.
+<LI>Execute an SRL file with IS-NITRO-DEBUGGER using the <CODE>loadrun.exe</CODE> tool from a command line.
+</UL>
+<P>When using IS-TWL-DEBUGGER:</P>
+<UL>
+<LI>Load and execute a TLF file with IS-TWL-DEBUGGER.
+<LI>Execute an SRL file with IS-TWL-DEBUGGER.
+<LI>Execute an SRL file with IS-TWL-DEBUGGER using the <CODE>loadrun.TWL.exe</CODE> tool from a command line.
+</UL>
+<H3>For TWL Limited ROMs</H3>
+<P>When using IS-TWL-DEBUGGER:</P>
+<UL>
+<LI>Load and execute a TLF file with IS-TWL-DEBUGGER.
+<LI>Execute an SRL file with IS-TWL-DEBUGGER.
+<LI>Execute an SRL file with IS-TWL-DEBUGGER using the <CODE>loadrun.TWL.exe</CODE> tool from a command line.
+</UL>
+
+
+<H2>Description</H2>
+<H4>OBJ Samples</H4>
+<TABLE width="800">
+  <TBODY>
+    <TR>
+<TD width="187"><A href="../../../../build/demos/g2d/samples/Cell_Simple/src/main.c"><CODE>Cell_Simple</CODE></A></TD>
+<TD width="576">This sample performs simple rendering for a cell. It uses a low-level API.</TD>
+    </TR>
+    <TR>
+<TD width="187"><A href="../../../../build/demos/g2d/samples/CellAnimation/src/main.c"><CODE>CellAnimation</CODE></A></TD>
+<TD width="576">This sample draws and updates cell animation.</TD>
+    </TR>
+    <TR>
+<TD width="187"><A href="../../../../build/demos/g2d/samples/Entity/src/main.c"><CODE>Entity</CODE></A></TD>
+<TD width="576">This sample uses an entity to display cell animation. It also switches the color palette.</TD>
+    </TR>
+    <TR>
+<TD width="187"><A href="../../../../build/demos/g2d/samples/MultiCellAnimation/src/main.c"><CODE>MultiCellAnimation</CODE></A></TD>
+<TD width="576">This sample draws and updates multicell animation.</TD>
+    </TR>
+    <TR>
+<TD width="187"><A href="../../../../build/demos/g2d/samples/OamManagerEx/src/main.c"><CODE>OamManagerEx</CODE></A></TD>
+<TD width="576">This is an extended OAM manager sample.<br />It displays more than 128 OBJ in time division and displays OBJ using the OBJ drawing order specifications and the display priority.</TD>
+    </TR>
+    <TR>
+<TD width="187"><A href="../../../../build/demos/g2d/samples/OamManagerEx2/src/main.c"><CODE>OamManagerEx2</CODE></A></TD>
+<TD width="576">This is an extended OAM manager sample.<br />This sample of the application combines the OAM manager and extended OAM manager.</TD>
+    </TR>
+    <TR>
+<TD width="187"><A href="../../../../build/demos/g2d/samples/OamManagerEx3/src/main.c"><CODE>OamManagerEx3</CODE></A></TD>
+<TD width="576">This sample uses the extended OAM manager in combination with the renderer.</TD>
+    </TR>
+    <TR>
+<TD width="187"><A href="../../../../build/demos/g2d/samples/Renderer_2LCD/src/main.c"><CODE>Renderer_2LCD</CODE></A></TD>
+<TD width="576">This sample uses the renderer module to display two screens. The screen display area can be changed.</TD>
+    </TR>
+    <TR>
+<TD width="187"><A href="../../../../build/demos/g2d/samples/Renderer_Simple/src/main.c"><CODE>Renderer_Simple</CODE></A></TD>
+<TD width="576">This sample draws cell animation using the renderer module.</TD>
+    </TR>
+    <TR>
+<TD width="187"><A href="../../../../build/demos/g2d/samples/SoftwareSprite/src/main.c"><CODE>SoftwareSprite</CODE></A></TD>
+<TD width="576">This is a software sprite drawing sample. It displays many sprites on the screen.</TD>
+    </TR>
+    <TR>
+<TD width="187"><A href="../../../../build/demos/g2d/samples/SoftwareSprite2/src/main.c"><CODE>SoftwareSprite2</CODE></A></TD>
+<TD width="576">This is a software sprite drawing sample. It uses various attributes to display sprites on the screen.</TD>
+    </TR>
+    <TR>
+<TD width="187"><A href="../../../../build/demos/g2d/samples/VRamAnimation/src/main.c"><CODE>VRamAnimation</CODE></A></TD>
+<TD width="576">This sample draws VRAM transfer animation.</TD>
+    </TR>
+    <TR>
+<TD width="187"><A href="../../../../build/demos/g2d/samples/Renderer_Callback1/src/main.c"><CODE>Renderer_Callback1</CODE></A></TD>
+<TD width="576">The user can customize this sample using the callback function of the renderer.</TD>
+    </TR>
+    <TR>
+<TD width="187"><A href="../../../../build/demos/g2d/samples/Renderer_Callback2/src/main.c"><CODE>Renderer_Callback2</CODE></A></TD>
+<TD width="576">This sample performs visible calling of each OBJ by using the callback function of the renderer.</TD>
+    </TR>
+    <TR>
+<TD width="187"><A href="../../../../build/demos/g2d/samples/Renderer_PerfCheck/src/main.c"><CODE>Renderer_PerfCheck</CODE></A></TD>
+<TD width="576">This sample evaluates the performance of the renderer.</TD>
+    </TR>
+    <TR>
+<TD width="187"><A href="../../../../build/demos/g2d/samples/RendererCore/src/main.c"><CODE>RendererCore</CODE></A></TD>
+<TD width="576">This sample shows how to use the renderer core by itself.</TD>
+    </TR>
+    <TR>
+<TD width="187"><A href="../../../../build/demos/g2d/samples/RendererCore2/src/main.c"><CODE>RendererCore2</CODE></A></TD>
+<TD width="576">This sample shows how to use the renderer core API. It also evaluates performance.</TD>
+    </TR>
+    <TR>
+<TD width="187"><A href="../../../../build/demos/g2d/samples/OamSoftwareSpriteDraw/src/main.c"><CODE>OamSoftwareSpriteDraw</CODE></A></TD>
+<TD width="576">This sample compares the performance of each OAM for the software sprite drawing API.</TD>
+    </TR>
+    <TR>
+<TD width="187"><A href="../../../../build/demos/g2d/samples/Renderer_CharChange/src/main.c"><CODE>Renderer_CharChange</CODE></A></TD>
+<TD width="576">This sample renders by changing image proxies used by the renderer. It also uses partial character-data conversion functionality with the converter's <CODE>-cr</CODE> option.</TD>
+    </TR>
+    <TR>
+<TD width="187"><A href="../../../../build/demos/g2d/samples/UserExAttribute/src/main.c"><CODE>UserExAttribute</CODE></A></TD>
+<TD width="576">This demo uses the user-extended attributes.</TD>
+    </TR>
+    <TR>
+<TD width="187"><A href="../../../../build/demos/g2d/samples/MultiCell_UILayout/src/main.c"><CODE>MultiCell_UILayout</CODE></A></TD>
+<TD width="576">This demo uses multicell to perform user interface processing.</TD>
+    </TR>
+    
+    
+  </TBODY>
+</TABLE>
+
+<H4>BG Samples</H4>
+<TABLE width="800">
+  <TBODY>
+    <TR>
+<TD width="187"><A href="../../../../build/demos/g2d/bg/MinimumBg/src/main.c"><CODE>MinimumBG</CODE></A></TD>
+<TD width="576">Displays backgrounds on the top and bottom screens.</TD>
+    </TR>
+    <TR>
+<TD width="187"><A href="../../../../build/demos/g2d/bg/ShareBg/src/main.c"><CODE>ShareBG</CODE></A></TD>
+<TD width="576">Displays backgrounds that share the same character data and color palette.</TD>
+    </TR>
+    <TR>
+<TD width="187"><A href="../../../../build/demos/g2d/bg/BgEx/src/main.c"><CODE>BgEx</CODE></A></TD>
+<TD width="576">Displays a background that uses the extended palette and partial character data.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<H4>Text Drawing Samples</H4>
+<TABLE width="800">
+  <TBODY>
+    <TR>
+<TD width="187"><A href="../../../../build/demos/g2d/Text/BGText/src/main.c"><CODE>BGText</CODE></A></TD>
+<TD width="576">Displays text strings on a text BG.</TD>
+    </TR>
+    <TR>
+<TD width="187"><A href="../../../../build/demos/g2d/Text/BGAffine/src/main.c"><CODE>BGAffine</CODE></A></TD>
+<TD width="576">Displays text strings on an affine BG.</TD>
+    </TR>
+    <TR>
+<TD width="187"><A href="../../../../build/demos/g2d/Text/OBJ1D/src/main.c"><CODE>OBJ1D</CODE></A></TD>
+<TD width="576">Displays text strings on a 1D mapping OBJ.</TD>
+    </TR>
+    <TR>
+<TD width="187"><A href="../../../../build/demos/g2d/Text/OBJ2DRect/src/main.c"><CODE>OBJ2DRect</CODE></A></TD>
+<TD width="576">Displays text strings on a 2D mapping OBJ.</TD>
+    </TR>
+    <TR>
+<TD width="187"><A href="../../../../build/demos/g2d/Text/CanvasCell/src/main.c"><CODE>CanvasCell</CODE></A></TD>
+<TD width="576">Displays CharCanvas as a cell.</TD>
+    </TR>
+    <TR>
+<TD width="187"><A href="../../../../build/demos/g2d/Text/ShiftJISText/src/main.c"><CODE>ShiftJISText</CODE></A></TD>
+<TD width="576">Displays ShiftJIS text strings.</TD>
+    </TR>
+    <TR>
+<TD width="187"><A href="../../../../build/demos/g2d/Text/UTF16Text/src/main.c"><CODE>UTF16Text</CODE></A></TD>
+<TD width="576">Displays UTF16 text strings.</TD>
+    </TR>
+    <TR>
+<TD width="187"><A href="../../../../build/demos/g2d/Text/UTF8Text/src/main.c"><CODE>UTF8Text</CODE></A></TD>
+<TD width="576">Displays UTF8 text strings.</TD>
+    </TR>
+    <TR>
+<TD width="187"><A href="../../../../build/demos/g2d/Text/CP1252Text/src/main.c"><CODE>CP1252Text</CODE></A></TD>
+<TD width="576">Displays CP1252 text strings.</TD>
+    </TR>
+    <TR>
+<TD width="187"><A href="../../../../build/demos/g2d/Text/DoubleBuffering/src/main.c"><CODE>DoubleBuffering</CODE></A></TD>
+<TD width="576">Displays text strings using an off-screen buffer.</TD>
+    </TR>
+    <TR>
+<TD width="187"><A href="../../../../build/demos/g2d/Text/DrawLetter/src/main.c"><CODE>DrawLetter</CODE></A></TD>
+<TD width="576">Uses text-drawing function.</TD>
+    </TR>
+    <TR>
+<TD width="187"><A href="../../../../build/demos/g2d/Text/DrawLetters/src/main.c"><CODE>DrawLetters</CODE></A></TD>
+<TD width="576">Uses text-string drawing function.</TD>
+    </TR>
+    <TR>
+<TD width="187"><A href="../../../../build/demos/g2d/Text/DrawTaggedText/src/main.c"><CODE>DrawTaggedText</CODE></A></TD>
+<TD width="576">Uses <a href="../../g2d/TextCanvas/NNS_G2dTextCanvasDrawTaggedText.html"><CODE>NNS_G2dTextCanvasDrawTaggedText</CODE></a>.</TD>
+    </TR>
+    <TR>
+<TD width="187"><A href="../../../../build/demos/g2d/Text/MinimumCanvas/src/main.c"><CODE>MinimumCanvas</CODE></A></TD>
+<TD width="576">Dynamically constructs CharCanvas to match the text strings.</TD>
+    </TR>
+    <TR>
+<TD width="187"><A href="../../../../build/demos/g2d/Text/PortraitHW/src/main.c"><CODE>PortraitHW</CODE></A></TD>
+<TD width="576">Performs a vertical hold display by rotating the background.</TD>
+    </TR>
+    <TR>
+<TD width="187"><A href="../../../../build/demos/g2d/Text/PortraitSW/src/main.c"><CODE>PortraitSW</CODE></A></TD>
+<TD width="576">Performs a vertical hold display by using a font for holding the Nintendo DS system vertically.</TD>
+    </TR>
+    <TR>
+<TD width="187"><A href="../../../../build/demos/g2d/Text/DrawVertical/src/main.c"><CODE>DrawVertical</CODE></A></TD>
+<TD width="576">This is a sample of drawing vertically. A Japanese Windows environment is required in order to build this sample.</TD>
+    </TR>
+    <TR>
+<TD width="187"><A href="../../../../build/demos/g2d/Text/SimpleFontView/src/main.c"><CODE>SimpleFontView</CODE></A></TD>
+<TD width="576">Simply displays of glyph image in the font resource.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+
+<H2>Operating Environment</H2>
+<P>Normal operation for all of the samples using IS-TWL-DEBUGGER, IS-NITRO-EMULATOR, and Ensata has been confirmed.</P>
+<H2>See Also</H2>
+<P><A href="../../g2d/list_g2d.html">G2D Function List</A></P>
+<H2>Revision History</H2>
+<P>
+2008/06/20 Updated compile method and execution method for TWL.<BR>
+2007/03/14 Added the <CODE>PortraitHW</CODE>, <CODE>PortraitSW</CODE>, and <CODE>DrawVertical</CODE> samples.<BR>
+2006/05/29 Added the <CODE>CP1252Text</CODE> sample.<BR>
+2005/09/01 Added the <CODE>Renderer_CharChange</CODE>, <CODE>UserExAttribute</CODE>, and <CODE>MultiCell_UILayout</CODE> samples.<BR>
+2005/07/12 Added the <CODE>CanvasCell</CODE> sample.<BR>
+2005/06/27 Added the <CODE>BgEx</CODE> sample.<BR>
+2005/06/06 Added the <CODE>Renderer_CharChange</CODE> sample.<BR>
+2005/05/25 Added text rendering samples.<br><BR>
+2005/03/28 Added <code>OamManagerEx3</code>.<br />
+
+2005/01/24 Deleted the description of IS-NITRO-EMULATOR in <B>Execution</B>, deleted the description of TEG in <B>Operating Environment</B>, and changed TS to IS-NITRO-EMULATOR.
+Changed to IS-NITRO-EMULATOR.<BR>
+
+2004/12/06 Added the <code>OamManagerEx2</code> sample.<br /><BR>
+
+2004/11/10 Added six samples:   <code>Renderer_Callback1</code>, 
+                                <code>Renderer_Callback2</code>, 
+                                <CODE>Renderer_PerfCheck</CODE>, 
+                                <code>RendererCore</code>, 
+                                <CODE>RendererCore2</CODE>, 
+                                and <code>OamSoftwareSpriteDraw</code>.<br>
+                          
+2004/09/02 Added <code>BG</code> samples.<br />
+2004/08/02 Initial version.
+
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

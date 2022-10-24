@@ -1,0 +1,705 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>TWL-System 3ds Max Plug-In Revision History</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta http-equiv="content-style-type" content="text/css" />
+<style type="text/css">
+<!--
+    
+H1
+{
+    font-weight         : bold;
+    font-size           : 250%;
+    text-align          : left;
+    color               : #46f;
+    margin              : 0em 0em 0.5em 0em;
+}
+
+H2
+{
+    font-weight         : bold;
+    font-size           : 150%;
+    text-align          : left;
+    margin              : 2em 0em 0.5em 0em;
+    padding-top         : 8pt;
+    border-top-style    : double;
+    border-top-width    : 3px;
+}
+
+H3
+{
+    font-weight         : bold;
+    font-size           : 120%;
+    margin              : 1em 0em 0.5em 0em;
+    padding-top         : 8pt;
+    border-top-style    : solid;
+    border-top-width    : 1px;
+}
+
+H4
+{
+    font-weight         : normal;
+    font-size           : 100%;
+    margin              : 0em 0em 0em 0.5em;
+}
+
+DIV.date
+{
+    font-size           : normal;
+    text-align          : right;
+    margin              : 0pt 0pt 12pt 0pt;
+}
+
+DIV.licence
+{
+    margin: 0em;
+    border-style : solid;
+    border-width : 1px;
+}
+
+P
+{
+    font-size           : normal;
+    margin              : 0em 1em 0.5em 1em;
+    line-height         : 150%;
+}
+
+PRE
+{
+    font-size           : normal;
+    margin              : 0em 0em 1em 2em;
+    line-height         : 120%;
+}
+
+DT
+{
+    margin              : 1em 0em 0em 1em;
+}
+DD
+{
+    margin-left         : 3em;
+}
+UL
+{
+    margin-top         : 0em;
+}
+
+-->
+</style>
+</head>
+<body>
+
+<h1>TWL-System 3ds Max Plug-In Revision History</h1>
+
+<h2>Index</h2>
+
+<h3><a href="#version_2_2_0_0">2.2.0 PR</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_83-X01">Note 83-X01: Ended support for 3ds Max 8.0</a></li>
+</ul>
+<h3><a href="#version_2_1_1">2.1.1</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_82-X01">Note 82-X01: 3ds Max version </a></li>
+<li><a href="#note_82-X02">Note 82-X02: Support for 3ds Max 2010 (Windows 32-bit version)</a></li>
+</ul>
+<h4>Problem Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_82-X03">Note 82-X03: Corrected problems in NITRO Replace Character and NITRO Rename Over 16 Characters</a></li>
+</ul>
+<h3><a href="#version_2_1_0">2.1.0</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_81-X01">Note 81-X01: (Manual) Revised Material Types and Attributes</a></li>
+</ul>
+<h4>Bug Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_81-X02">Note 81-X02: Revised so that an error occurs when a node name or material name is blank</a></li>
+<li><a href="#note_81-X03">Note 81-X03: When mesh does not have polygons, warning is now displayed, and <CODE>NULL</CODE> is output</a></li>
+<li><a href="#note_81-X04">Note 81-X04: Fixed invalid modifier bug</a></li>
+<li><a href="#note_81-X05">Note 81-X05: Fixed bug in Physique export</a></li>
+</ul>
+<h3><a href="#version_2_0_0">2.0.0</a></h3>
+<h4>Added and Modified Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_80-X01">Note 80-X01:  Accelerated exporting with specified frame range</a></li>
+</ul>
+<h4>Problem Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_80-X02">Note 80-X02:  Fixed bug when Merge Useless Node specified</a></li>
+<li><a href="#note_80-X03">Note 80-X03:  Fixed bug in Physique export</a></li>
+</ul>
+<h3><a href="#version_2_0_0_1">2.0.0 RC2</a></h3>
+<h4>Added and Modified Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_79-X01">Note 79-X01:  (Manual) Revised in conjunction with NITRO-System name change</a></li>
+</ul>
+<h3><a href="#version_2_0_0_0">2.0.0 RC</a></h3>
+<h4>Added and Modified Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_78-X01">Note 78-X01:  (Manual) Revised section 3.2.2 Nodes That Are Not Exported</a></li>
+<li><a href="#note_78-X02">Note 78-X02:  (Manual) Revised section 3.4 Object Animation</a></li>
+</ul>
+<h4>Problem Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_78-X03">Note 78-X03:  Fixed bug for Compress Node = Unite</a></li>
+<li><a href="#note_78-X04">Note 78-X04:  Fixed bug for &quot;UV range over&quot; warning</a></li>
+</ul>
+<h3><a href="#version_20080618">2008/06/18 Version</a></h3>
+<h4>Added and Modified Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_77-X01">Note 77-X01:  Updated for 3ds Max 2009 (Windows 32-bit version)</a></li>
+<li><a href="#note_77-X02">Note 77-X02:  Ended support for 3ds Max 7.0</a></li>
+<li><a href="#note_77-X03">Note 77-X03:  (Manual) Added mention of the settings files for the plug-in</a></li>
+</ul>
+<h4>Problem Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_77-X04">Note 77-X04:  Fixed bug in Save/Load Scene Settings</a></li>
+</ul>
+<h3><a href="#version_20080408">2008/04/08 Version</a></h3>
+<h4>Added and Modified Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_76-X01">Note 76-X01:  (Manual) Changed Revision History format; revised headings and subheadings</a></li>
+</ul>
+<h3><a href="#version_20080324">2008/03/24 Version</a></h3>
+<h4>Added and Modified Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_75-X01">Note 75-X01:  Added intermediate file batch export functionality</a></li>
+<li><a href="#note_75-X02">Note 75-X02:  Updated to handle relative path texture files</a></li>
+<li><a href="#note_75-X03">Note 75-X03:  (Manual) Added List of Supported Features</a></li>
+<li><a href="#note_75-X04">Note 75-X04:  (Manual) Revised section 3.7 NURBS Models</a></li>
+<li><a href="#note_75-X05">Note 75-X05  (Manual) Revised section 3.8 Subdivision Surfaces</a></li>
+</ul>
+<h4>Problem Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_75-X06">Note 75-X06:  Fixed bug resulting in incorrect output of normal, vertex color, and texture coordinates</a></li>
+<li><a href="#note_75-X07">Note 75-X07:  Fixed bug resulting in incorrect output of texture pattern animation</a></li>
+<li><a href="#note_75-X08">Note 75-X08:  Fixed bug resulting in incorrect output of <CODE>&lt;material&gt; tex_palette_idx</CODE></a></li>
+<li><a href="#note_75-X09">Note 75-X09:  Fixed bug resulting in output of invalid ICA, IMA,and ITA files</a></li>
+</ul>
+<h3><a href="#version_20080123">2008/01/23 Version</a></h3>
+<h4>Added and Modified Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_73-X01">Note 73-X01:  Updated for 3ds Max 2008</a></li>
+</ul>
+<h3><a href="#version_20071217">2007/12/17 Version</a></h3>
+<h4>Added and Modified Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_72-X01">Note 72-X01:  Added NITRO Set Render Priority plug-in</a></li>
+<li><a href="#note_72-X02">Note 72-X02:  (Manual) Revised section 2.11 Skinning</a></li>
+<li><a href="#note_72-X03">Note 72-X03:  (Manual) Added section 2.12 Biped </a></li>
+<li><a href="#note_72-X04">Note 72-X04:  (Manual) Added section 2.13 Physique</a></li>
+<li><a href="#note_72-X05">Note 72-X05  (Manual) Deleted Character Studio section</a></li>
+</ul>
+<h4>Problem Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_72-X06">Note 72-X06:  Fixed bug when using Biped</a></li>
+</ul>
+<h3><a href="#version_20071126">2007/11/26 Version</a></h3>
+<h4>Added and Modified Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_71-X01">Note 71-X01:  (Manual) Added information about IFL file loop outputs to section 2.10.5 Texture Pattern Animation</a></li>
+</ul>
+<h4>Problem Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_71-X02">Note 71-X02:  Fixed bug where system did not operate correctly when the starting time in Max was not 0</a></li>
+<li><a href="#note_71-X03">Note 71-X03:  Fixed bug where output would not occur with a value in the start frame of the output option</a></li>
+<li><a href="#note_71-X04">Note 71-X04:  Fixed bug where operations were not correct if the ITP file was output without outputting the IMD file</a></li>
+<li><a href="#note_71-X05">Note 71-X05  Fixed bug where operations were incorrect when the frame to be output was out of the range of the frame specified the IFL file</a></li>
+</ul>
+<h3><a href="#version_20070618">2007/06/18 Version</a></h3>
+<h4>Added and Modified Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_68-X01">Note 68-X01:  Changed the name of the plug-in's main menu to NITRO-System</a></li>
+</ul>
+<h4>Problem Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_68-X02">Note 68-X02:  Fixed bug where Max ended in error depending on the state of the <B>Triangulation</B> option</a></li>
+<li><a href="#note_68-X03">Note 68-X03:  Fixed bug where models using skinning were not correctly output</a></li>
+<li><a href="#note_68-X04">Note 68-X04:  Fixed bug where models configured with a very small weight value were not output correctly</a></li>
+</ul>
+<h3><a href="#version_20070518">2007/05/18 Version</a></h3>
+<h4>Problem Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_67-X01">Note 67-X01:  Fixed bug where <CODE>&lt;tex_image&gt;</CODE>, <CODE>&lt;tex_palette&gt;</CODE>, and <CODE>&lt;material&gt;</CODE> were not stored in alphabetical order</a></li>
+<li><a href="#note_67-X02">Note 67-X02:  Fixed bug where names were changed even though the node and material names were not duplicated</a></li>
+<li><a href="#note_67-X03">Note 67-X03:  Revised to display a warning when material names are duplicated</a></li>
+</ul>
+<h3><a href="#version_20070423">2007/04/23 Version</a></h3>
+<h4>Added and Modified Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_65-X01">Note 65-X01:  Official support for 3ds Max 7.0 and 3ds Max 8.0</a></li>
+<li><a href="#note_65-X02">Note 65-X02:  Ended support for 3ds Max 6</a></li>
+</ul>
+<h4>Problem Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_65-X03">Note 65-X03:  Fixed bug where ICA files were not correctly output</a></li>
+<li><a href="#note_65-X04">Note 65-X04:  Fixed bug where ITP files were not correctly output</a></li>
+<li><a href="#note_65-X05">Note 65-X05  Fixed to display indices of problematic vertices when &quot;Wrong weighted vertices exist&quot; error occurs</a></li>
+<li><a href="#note_65-X06">Note 65-X06:  Fixed bug in determining &quot;Wrong weighted vertices exist&quot; error</a></li>
+</ul>
+<h3><a href="#version_20070123">2007/01/23 Version</a></h3>
+<h4>Added and Modified Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_62-X01">Note 62-X01:  Updated for 3ds Max 9.0</a></li>
+<li><a href="#note_62-X02">Note 62-X02:  (Manual) Added section 2.1 3ds Max Version</a></li>
+<li><a href="#note_62-X03">Note 62-X03:  (Manual) Added section 2.1.1 Notes Specific to 3ds Max 9.0</a></li>
+</ul>
+<h4>Problem Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_62-X04">Note 62-X04:  Corrected to not output <CODE>&lt;tex_srt_anm&gt;</CODE> for materials without textures in the case of ITA files</a></li>
+</ul>
+<h3><a href="#version_20060714">2006/07/14 Version</a></h3>
+<h4>Added and Modified Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_60-X01">Note 60-X01:  (Manual) Added explanation to known bug list for Biped output bug</a></li>
+<li><a href="#note_60-X02">Note 60-X02:  (Manual) Revised attribute name in section 5.4 Custom Attributes</a></li>
+</ul>
+<h4>Problem Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_60-X03">Note 60-X03:  Fixed bug where 3ds crashes when multi/sub object materials are used</a></li>
+<li><a href="#note_60-X04">Note 60-X04:  Fixed bug where diffuse map path is set to an incorrect path</a></li>
+<li><a href="#note_60-X05">Note 60-X05  Fixed bug where a warning was not output when UV value was outside the allowable range of -2048 to 2047</a></li>
+<li><a href="#note_60-X06">Note 60-X06:  Fixed bug where file handle was inappropriately deallocated when checking the Targa format file</a></li>
+<li><a href="#note_60-X07">Note 60-X07:  Fixed bug where the <CODE>&lt;nrm&gt;</CODE> tag was always output regardless of changes in the value of <CODE>&lt;mtx_idx&gt;</CODE></a></li>
+<li><a href="#note_60-X08">Note 60-X08:  Changed rounding when calculating matrices to the prior setting</a></li>
+</ul>
+<h3><a href="#version_20051215">2005/12/15 Version</a></h3>
+<h4>Added and Modified Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_54-X01">Note 54-X01:  Revised to not output <CODE>&lt;material_array&gt;</CODE>, <CODE>&lt;matrix_array&gt;</CODE>, and <CODE>&lt;polygon_array&gt;</CODE> elements when their sizes are 0</a></li>
+<li><a href="#note_54-X02">Note 54-X02:  Fixed bug where the IMD file's <CODE>&lt;box_test&gt;</CODE> element was output with an incorrect value</a></li>
+<li><a href="#note_54-X03">Note 54-X03:  Deleted the rounding used when calculating unneeded matrices</a></li>
+</ul>
+<h3><a href="#version_20050708">2005/07/08 Version</a></h3>
+<h4>Added and Modified Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_48-X01">Note 48-X01:  Updated for intermediate file format version 1.6.0</a></li>
+<li><a href="#note_48-X02">Note 48-X02:  Fixed bug where colors in some areas became darker when creating a 4x4 texel compressed texture</a></li>
+<li><a href="#note_48-X03">Note 48-X03:  Updated the NITRO Set Material Attribute plug-in</a></li>
+<li><a href="#note_48-X04">Note 48-X04:  (Manual) Added Known Bug List</a></li>
+<li><a href="#note_48-X05">Note 48-X05  (Manual) Added statement recommending the use of IFL files over NITRO Morpher materials</a></li>
+</ul>
+<h3><a href="#version_20050121">2005/01/21 Version</a></h3>
+<h4>Added and Modified Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_38-X01">Note 38-X01:  Updated for intermediate file format version 1.5.0</a></li>
+<li><a href="#note_38-X02">Note 38-X02:  Updated the NITRO Set Material Attribute plug-in</a></li>
+<li><a href="#note_38-X03">Note 38-X03:  Added NITRO Show Render Priority plug-in</a></li>
+<li><a href="#note_38-X04">Note 38-X04:  (Manual) Added section 2.6.8 Polygon Rendering Priority</a></li>
+<li><a href="#note_38-X05">Note 38-X05  (Manual) Revised explanation of interpolation in section 3.2.5 Animation Options </a></li>
+<li><a href="#note_38-X06">Note 38-X06:  (Manual) Added attributes to section 5.4 Custom Attributes</a></li>
+<li><a href="#note_38-X07">Note 38-X07:  (Manual) Added warnings</a></li>
+</ul>
+<h3><a href="#version_20041224">2004/12/24 Version</a></h3>
+<h4>Added and Modified Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_36-X01">Note 36-X01:  Created Japanese language version</a></li>
+</ul>
+<h3><a href="#version_20041026">2004/10/26 Version</a></h3>
+<h4>Added and Modified Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_30-X01">Note 30-X01:  (Manual) Updated imd Options figure</a></li>
+<li><a href="#note_30-X02">Note 30-X02:  (Manual) Updated <B>TriangulationForce</B> option within the imd Options</a></li>
+</ul>
+<h3><a href="#version_20041014">2004/10/14 Version</a></h3>
+<h4>Added and Modified Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_27-X01">Note 27-X01:  (Manual) Updated imd Options figure</a></li>
+<li><a href="#note_27-X02">Note 27-X02:  (Manual) Updated TriangulationForce option within the imd Options</a></li>
+</ul>
+<h3><a href="#version_20041011">2004/10/11 Version</a></h3>
+<h4>Added and Modified Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_25-X01">Note 25-X01:  Moved location of <B>Force Quads</B> option</a></li>
+<li><a href="#note_25-X02">Note 25-X02:  Added a warning for intermediate file output</a></li>
+</ul>
+<h3><a href="#version_20041004">2004/10/04 Version</a></h3>
+<h4>Added and Modified Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_23-X01">Note 23-X01:  (Manual) Added explanation for supported Character Studio functionality</a></li>
+</ul>
+<h3><a href="#version_20040916">2004/09/16 Version</a></h3>
+<h4>Added and Modified Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_21-X01">Note 21-X01:  Added NITRO Replace Character plug-in</a></li>
+<li><a href="#note_21-X02">Note 21-X02:  Added NITRO Rename Over 16 Characters plug-in </a></li>
+</ul>
+<h3><a href="#version_20040819">2004/08/19 Version</a></h3>
+<h4>Added and Modified Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_18-X01">Note 18-X01:  Added progress bar to dialog box for outputting from the <B>Apply</B> button</a></li>
+</ul>
+<h3><a href="#version_20040810">2004/08/10 Version</a></h3>
+<h4>Added and Modified Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_16-X01">Note 16-X01:  Revised calculation of texture matrices for calculating <I>s</I> and <I>t</I> coordinates</a></li>
+<li><a href="#note_16-X02">Note 16-X02:  (Manual) Added explanation for not outputting the vertex color of any node</a></li>
+</ul>
+<h3><a href="#version_20040802">2004/08/02 Version</a></h3>
+<h4>Added and Modified Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_15-X01">Note 15-X01:  Updated for TGA file with additional information for the NINTENDO NITRO-System</a></li>
+<li><a href="#note_15-X02">Note 15-X02:  Added <CODE>scaling_rule</CODE> to ICA file's <CODE>&lt;node_anm_info&gt;</CODE></a></li>
+<li><a href="#note_15-X03">Note 15-X03:  Added an error and warning for intermediate file output</a></li>
+<li><a href="#note_15-X04">Note 15-X04:  Changed such that document terminology matches 3ds Max user interface</a></li>
+<li><a href="#note_15-X05">Note 15-X05   Added support for IFL files</a></li>
+<li><a href="#note_15-X06">Note 15-X06:  Added the N3ES file I/O feature to intermediate file output plug-in</a></li>
+</ul>
+
+
+<h2 id="version_2_2_0_0">Changes in 2.2.0 PR</h2>
+<h3 id="note_83-X01">Note 83-X01: Ended support for 3ds Max 8.0</h3>
+<p>Ended support for 3ds Max 8.0.
+</p>
+<h2 id="version_2_1_1">Changes in 2.1.1</h2>
+<h3 id="note_82-X01">Note 82-X01: 3ds Max version </h3>
+<p>This update does not contain the plug-in for 3ds Max 8.0. Also, support is scheduled to be provided for 3ds Max. 9.0 and later at the next update. 
+</p>
+<h3 id="note_82-X02">Note 82-X02: Support for 3ds Max 2010 (Windows 32-bit version)</h3>
+<p>There is now support for 3ds Max 2010 (Windows 32-bit version).
+</p>
+<h3 id="note_82-X03">Note 82-X03: Corrected problems in NITRO Replace Character and NITRO Rename Over 16 Characters</h3>
+<p>Corrected a problem where it was not possible to change the material name applied to nodes that have parent nodes, using NITRO Replace Character and NITRO Rename Over 16 Characters.
+</p>
+<h2 id="version_2_1_0">Changes in 2.1.0</h2>
+<h3 id="note_81-X01">Note 81-X01: (Manual) Revised Material Types and Attributes</h3>
+<p>Revised the cautionary note regarding opacity in Material Types and Attributes.
+</p>
+<h3 id="note_81-X02">Note 81-X02: Revised so that an error occurs when a node name or material name is blank</h3>
+<p>Revised so that now an error occurs when a node name or a material name is left blank.
+</p>
+<h3 id="note_81-X03">Note 81-X03: When mesh does not have polygons, warning is now displayed, and <CODE>NULL</CODE> is output</h3>
+<p>When a mesh does not have polygons, a warning is now displayed, and <CODE>NULL</CODE> is output.
+</p>
+<h3 id="note_81-X04">Note 81-X04: Fixed invalid modifier bug</h3>
+<p>When an error occurred during output, sometimes the modifier would become invalid. That bug has been fixed.
+</p>
+<h3 id="note_81-X05">Note 81-X05: Fixed bug in Physique export</h3>
+<p>When Physique was used for a model, sometimes the pose in the IMD file would not be output correctly. That bug has been fixed.
+</p>
+<h2 id="version_2_0_0">Changes in 2.0.0</h2>
+<h3 id="note_80-X01">Note 80-X01:  Accelerated exporting with specified frame range</h3>
+<p>Exporting with a specified frame range has been accelerated.
+</p>
+<h3 id="note_80-X02">Note 80-X02:  Fixed bug when Merge Useless Node specified</h3>
+<p>When <CODE>Merge Useless Node</CODE> was specified, sometimes the <CODE>&lt;node&gt;</CODE> child would not be correctly exported. That bug was fixed.
+</p>
+<h3 id="note_80-X03">Note 80-X03:  Fixed bug in Physique export</h3>
+<p>When Physique was used for a model, the pose of the IMD file would not be exported correctly. That bug was fixed.
+</p>
+<h2 id="version_2_0_0_1">Changes in 2.0.0 RC2</h2>
+<h3 id="note_79-X01">Note 79-X01:  (Manual) Revised in conjunction with NITRO-System name change</h3>
+<p>Changed NITRO-System to TWL-System.
+</p>
+<h2 id="version_2_0_0_0">Changes in 2.0.0 RC</h2>
+<h3 id="note_78-X01">Note 78-X01:  (Manual) Revised section 3.2.2 Nodes That Are Not Exported</h3>
+<p>Made revisions to section 3.2.2 Nodes That Are Not Exported.
+</p>
+<h3 id="note_78-X02">Note 78-X02:  (Manual) Revised section 3.4 Object Animation</h3>
+<p>Revised the explanation about hiding in section 3.4 Object Animation.
+</p>
+<h3 id="note_78-X03">Note 78-X03:  Fixed bug for Compress Node = Unite</h3>
+<p>When <CODE>Compress Node</CODE> was <CODE>Unite</CODE>,  the <CODE>volume_r</CODE> of <CODE>&lt;polygon&gt;</CODE> would not be exported correctly. That bug has been fixed.
+</p>
+<h3 id="note_78-X04">Note 78-X04:  Fixed bug for &quot;UV range over&quot; warning</h3>
+<p>The &quot;UV range over&quot; warning was sometimes incorrectly determined. That bug has been fixed.
+</p>
+<h2 id="version_20080618">Changes in Version 2008/06/18</h2>
+<h3 id="note_77-X01">Note 77-X01:  Updated for 3ds Max 2009 (Windows 32-bit version)</h3>
+<p>There is now support for 3ds Max 2009 (Windows 32-bit version).
+</p>
+<h3 id="note_77-X02">Note 77-X02:  Ended support for 3ds Max 7.0</h3>
+<p>3ds Max 7.0 is no longer supported.
+</p>
+<h3 id="note_77-X03">Note 77-X03:  (Manual) Added mention of the settings files for the plug-in</h3>
+<p>Added information on the settings files for the plug-in, <CODE>max.n3es</CODE> and <CODE>menusettings.bin</CODE>.
+</p>
+<h3 id="note_77-X04">Note 77-X04:  Fixed bug in Save/Load Scene Settings</h3>
+<p>When a new Scene was created and then saved without running the output plug-in, the Save/Load Scene Settings would be turned off. That bug has been fixed.
+</p>
+<h2 id="version_20080408">Changes in Version 2008/04/08</h2>
+<h3 id="note_76-X01">Note 76-X01:  (Manual) Changed Revision History format; revised headings and subheadings</h3>
+<p>Changed the format of the Revision History in <CODE>NITRO_MaxPlugin.pdf</CODE>. Also revised the document's headings and subheadings.
+</p>
+<h2 id="version_20080324">Changes in Version 2008/03/24</h2>
+<h3 id="note_75-X01">Note 75-X01:  Added intermediate file batch export functionality</h3>
+<p>Added a feature for the batch export of intermediate files.
+</p>
+<h3 id="note_75-X02">Note 75-X02:  Updated to handle relative path texture files</h3>
+<p>There is now support for Texture files with paths that are not absolute paths.
+</p>
+<h3 id="note_75-X03">Note 75-X03:  (Manual) Added List of Supported Features</h3>
+<p>Added List of Supported Features.
+</p>
+<h3 id="note_75-X04">Note 75-X04:  (Manual) Revised section 3.7 NURBS Models</h3>
+<p>Revised section 3.7 NURBS Models.
+</p>
+<h3 id="note_75-X05">Note 75-X05:  (Manual) Revised section 3.8 Subdivision Surfaces</h3>
+<p>Revised section 3.8 Subdivision Surfaces.
+</p>
+<h3 id="note_75-X06">Note 75-X06:  Fixed bug resulting in incorrect output of normal, vertex color, and texture coordinates</h3>
+<p>When <B>Use Primitive Strip</B> was on, the normal, vertex color, and texture coordinates were not output correctly sometimes. That bug has been fixed.
+</p>
+<h3 id="note_75-X07">Note 75-X07:  Fixed bug resulting in incorrect output of texture pattern animation</h3>
+<p>When multiple materials used the same texture, the texture pattern animation was not output correctly. That bug has been fixed.
+</p>
+<h3 id="note_75-X08">Note 75-X08:  Fixed bug resulting in incorrect output of <CODE>&lt;material&gt; tex_palette_idx</CODE></h3>
+<p>When multiple materials used the same texture palette, the <CODE>&lt;material&gt; tex_palette_idx</CODE> was not output correctly. That bug has been fixed.
+</p>
+<h3 id="note_75-X09">Note 75-X09:  Fixed bug resulting in output of invalid ICA, IMA,and ITA files</h3>
+<p>Sometimes, invalid ICA, IMA, and ITA files were output. That bug has been fixed.
+</p>
+<h2 id="version_20080123">Changes in Version 2008/01/23</h2>
+<h3 id="note_73-X01">Note 73-X01:  Updated for 3ds Max 2008</h3>
+<p>There is now support for 3ds Max 2008 (Windows 32-bit version).
+</p>
+<h2 id="version_20071217">Changes in Version 2007/12/17</h2>
+<h3 id="note_72-X01">Note 72-X01:  Added NITRO Set Render Priority plug-in</h3>
+<p>Added plug-in for NITRO Set Render Priority to edit rending priority.
+</p>
+<h3 id="note_72-X02">Note 72-X02:  (Manual) Revised section 2.11 Skinning</h3>
+<p>Revised section 2.11 Skinning.
+</p>
+<h3 id="note_72-X03">Note 72-X03:  (Manual) Added section 2.12 Biped </h3>
+<p>Added section 2.12 Biped .
+</p>
+<h3 id="note_72-X04">Note 72-X04:  (Manual) Added section 2.13 Physique</h3>
+<p>Added section 2.12 Physique.
+</p>
+<h3 id="note_72-X05">Note 72-X05:  (Manual) Deleted Character Studio section</h3>
+<p>Deleted Character Studio section.
+</p>
+<h3 id="note_72-X06">Note 72-X06:  Fixed bug when using Biped</h3>
+<ul><li> Fixed a problem where the pose is not output if the IMD file applied a scan when using Biped.
+</li>
+<li> Fixed bug where the initial frame is not output correctly when using Biped animation.
+</li>
+</ul>
+<h2 id="version_20071126">Changes in Version 2007/11/26</h2>
+<h3 id="note_71-X01">Note 71-X01:  (Manual) Added information about IFL file loop outputs to section 2.10.5 Texture Pattern Animation</h3>
+<p>Added information about IFL file loop outputs to section 2.10.5 Texture Pattern Animation in the plug-in manual.
+</p>
+<h3 id="note_71-X02">Note 71-X02:  Fixed bug where system did not operate correctly when the starting time in Max was not 0</h3>
+<p>Fixed bug where system did not operate correctly when the starting time at Max was not 0.
+</p>
+<h3 id="note_71-X03">Note 71-X03:  Fixed bug where output would not occur with a value in the start frame of the output option</h3>
+<p>Fixed bug where the IMD file's material color and the texture SRT were not at the values for the Start Frame output option.
+</p>
+<h3 id="note_71-X04">Note 71-X04:  Fixed bug where operations were not correct if the ITP file was output without outputting the IMD file</h3>
+<p>Fixed bug where operations were not correct if the ITP file is output without outputting the IMD file.
+</p>
+<h3 id="note_71-X05">Note 71-X05:  Fixed bug where operations were incorrect when the frame to be output was out of the range of the frame specified the IFL file</h3>
+<p>Fixed bug where operations were incorrect when the frame to be output is out of range for the frame specified in the IFL file for texture pattern animation.
+</p>
+<h2 id="version_20070618">Changes in Version 2007/06/18</h2>
+<h3 id="note_68-X01">Note 68-X01:  Changed the name of the plug-in's main menu to NITRO-System</h3>
+<p>Changed the name of the plug-in's main menu to NITRO-System.
+</p>
+<h3 id="note_68-X02">Note 68-X02:  Fixed bug where Max ended in error depending on the state of the <B>Triangulation</B> option</h3>
+<p>Fixed bug where Max ended in error when the <B>Triangulation</B> option was output using <B>As Is</B> or <B>As Is With Quad Checking</B>.
+</p>
+<h3 id="note_68-X03">Note 68-X03:  Fixed bug where models using skinning were not correctly output</h3>
+<p>Fixed bug where model that used skinning was incorrectly output when the <B>Triangulation</B> option was set to <B>Generate Quads</B>.
+</p>
+<h3 id="note_68-X04">Note 68-X04:  Fixed bug where models configured with a very small weight value were not output correctly</h3>
+<p>Fixed bug where the model set with a very small weight value is not output correctly when the <B>Force Full Weight</B> option is enabled.
+</p>
+<h2 id="version_20070518">Changes in Version 2007/05/18</h2>
+<h3 id="note_67-X01">Note 67-X01:  Fixed bug where <CODE>&lt;tex_image&gt;</CODE>, <CODE>&lt;tex_palette&gt;</CODE>, and <CODE>&lt;material&gt;</CODE> were not stored in alphabetical order</h3>
+<p>Fixed bug where <CODE>&lt;tex_image&gt;</CODE>, <CODE>&lt;tex_palette&gt;</CODE>, and <CODE>&lt;material&gt;</CODE> of the IMD file were not stored in alphabetical order by name.
+</p>
+<h3 id="note_67-X02">Note 67-X02:  Fixed bug where names were changed even though the node and material names were not duplicated</h3>
+<p>Fixed bug where names were changed even though the node and material names were not duplicated.
+</p>
+<h3 id="note_67-X03">Note 67-X03:  Revised to display a warning when material names are duplicated</h3>
+<p>Revised to display a warning, &quot;Material name changed,&quot; when material names are duplicated.
+</p>
+<h2 id="version_20070423">Changes in Version 2007/04/23</h2>
+<h3 id="note_65-X01">Note 65-X01:  Official support for 3ds Max 7.0 and 3ds Max 8.0</h3>
+<p>Official support for 3ds Max 7.0 and 3ds Max 8.0. See the notes in the setup manual when using conventional plug-ins for 3ds Max 6 with versions 7.0, 7.5, and 8.0.
+</p>
+<h3 id="note_65-X02">Note 65-X02:  Ended support for 3ds Max 6</h3>
+<p>Ended support for 3ds Max 6.
+</p>
+<h3 id="note_65-X03">Note 65-X03:  Fixed bug where ICA files were not correctly output</h3>
+<p>Fixed bug where ICA file were not correctly output when <B>Compress Node</B> is <B>Merge Useless Node</B>.
+</p>
+<h3 id="note_65-X04">Note 65-X04:  Fixed bug where ITP files were not correctly output</h3>
+<p>Fixed bug where ITP files were not correctly output when the texture file specified by the IFL file is not the file path.
+</p>
+<h3 id="note_65-X05">Note 65-X05:  Fixed to display indices of problematic vertices when &quot;Wrong weighted vertices exist&quot; error occurs</h3>
+<p>Revised to display the indices of the problematic vertices when the &quot;Wrong weighted vertices exist&quot; error occurs.
+</p>
+<h3 id="note_65-X06">Note 65-X06:  Fixed bug in determining &quot;Wrong weighted vertices exist&quot; error</h3>
+<p>Fixed bug in determining &quot;Wrong weighted vertices exist&quot; error.
+</p>
+<h2 id="version_20070123">Changes in Version 2007/01/23</h2>
+<h3 id="note_62-X01">Note 62-X01:  Updated for 3ds Max 9.0</h3>
+<p>There is now support for 3ds Max 9.0 (32-bit version).
+</p>
+<h3 id="note_62-X02">Note 62-X02:  (Manual) Added section 2.1 3ds Max Version</h3>
+<p>Added section 2.1 3ds Max Version.
+</p>
+<h3 id="note_62-X03">Note 62-X03:  (Manual) Added section 2.1.1 Notes Specific to 3ds Max 9.0</h3>
+<p>Added section 2.1.1 Notes Specific to 3ds Max 9.0.
+</p>
+<h3 id="note_62-X04">Note 62-X04:  Corrected to not output <CODE>&lt;tex_srt_anm&gt;</CODE> for materials without textures in the case of ITA files</h3>
+<p>Corrected not to output <CODE>&lt;tex_srt_anm&gt;</CODE> for materials without textures in the case of ITA files.
+</p>
+<h2 id="version_20060714">Changes in Version 2006/07/14</h2>
+<h3 id="note_60-X01">Note 60-X01:  (Manual) Added explanation to known bug list for Biped output bug</h3>
+<p>Added explanation to known bug list for Biped output bug.
+</p>
+<h3 id="note_60-X02">Note 60-X02:  (Manual) Revised attribute name in section 5.4 Custom Attributes</h3>
+<p>Revised attribute name in custom attribute list.
+</p>
+<h3 id="note_60-X03">Note 60-X03:  Fixed bug where 3ds crashes when multi/sub object materials are used</h3>
+<p>Fixed bug where 3ds Max would crash if NITRO Show Lighting or NITRO Show Display Face was run while a model for which a multi/sub object material is displayed in 3dsmax view.
+</p>
+<h3 id="note_60-X04">Note 60-X04:  Fixed bug where diffuse map path is set to an incorrect path</h3>
+<p>Fixed bug where the path to the diffuse map was set to the wrong path when consecutively exporting using a script.
+</p>
+<h3 id="note_60-X05">Note 60-X05:  Fixed bug where a warning was not output when UV value was outside the allowable range of -2048 to 2047</h3>
+<p>Fixed bug where a warning was not being output when the UV value was outside the allowable range of -2048 to 2047.
+</p>
+<h3 id="note_60-X06">Note 60-X06:  Fixed bug where file handle was inappropriately deallocated when checking the Targa format file</h3>
+<p>Fixed bug where the file handle was inappropriately deallocated when checking the Targa format file.
+</p>
+<h3 id="note_60-X07">Note 60-X07:  Fixed bug where the <CODE>&lt;nrm&gt;</CODE> tag was always output regardless of changes in the value of <CODE>&lt;mtx_idx&gt;</CODE></h3>
+<p>Fixed bug where the <CODE>&lt;nrm&gt;</CODE> tag was always output regardless of changes in the value of <CODE>&lt;mtx_idx&gt;</CODE> of the IMD file.
+</p>
+<h3 id="note_60-X08">Note 60-X08:  Changed rounding when calculating matrices to the prior setting</h3>
+<p>Returned rounding process for calculation of matrices to previous setting because there is the possibility that cracks can occur in polygons.
+</p>
+<h2 id="version_20051215">Changes in Version 2005/12/15</h2>
+<h3 id="note_54-X01">Note 54-X01:  Revised to not output <CODE>&lt;material_array&gt;</CODE>, <CODE>&lt;matrix_array&gt;</CODE>, and <CODE>&lt;polygon_array&gt;</CODE> elements when their sizes are 0</h3>
+<p>Revised to not output elements of <CODE>&lt;material_array&gt;</CODE>, <CODE>&lt;matrix_array&gt;</CODE>, and <CODE>&lt;polygon_array&gt;</CODE> of the IMD file when their sizes are 0.
+</p>
+<h3 id="note_54-X02">Note 54-X02:  Fixed bug where the IMD file's <CODE>&lt;box_test&gt;</CODE> element was output with an incorrect value</h3>
+<p>Fixed bug where the IMD file's <CODE>&lt;box_test&gt;</CODE> element was output with an incorrect value.
+</p>
+<h3 id="note_54-X03">Note 54-X03:  Deleted the rounding used when calculating unneeded matrices</h3>
+<p>Deleted the rounding used when calculating unneeded matrices. This has resulted in more accurate float values being output to the intermediate files.
+</p>
+<h2 id="version_20050708">Changes in Version 2005/07/08</h2>
+<h3 id="note_48-X01">Note 48-X01:  Updated for intermediate file format version 1.6.0</h3>
+<p>Added support for version 1.6.0 of the intermediate file format.
+</p>
+<h3 id="note_48-X02">Note 48-X02:  Fixed bug where colors in some areas became darker when creating a 4x4 texel compressed texture</h3>
+<p>Colors in some area became darker when creating a 4x4 texel compressed texture without added information whose filename ended in <CODE>_cmp4</CODE>. This bug has been fixed. There are cases in which the palette data amount increases more than in earlier versions.
+</p>
+<h3 id="note_48-X03">Note 48-X03:  Updated the NITRO Set Material Attribute plug-in</h3>
+<p>Updated the NITRO Set Material Attribute plug-in.
+</p>
+<ul><li> Added Texture Effect Matrix.
+</li>
+<li> Deleted Tex Gen ST.
+</li>
+</ul>
+<h3 id="note_48-X04">Note 48-X04:  (Manual) Added Known Bug List</h3>
+<p>Added Known Bug List.
+</p>
+<h3 id="note_48-X05">Note 48-X05:  (Manual) Added statement recommending the use of IFL files over NITRO Morpher materials</h3>
+<p>Added statement recommending the use of IFL files over NITRO Morpher materials.
+</p>
+<h2 id="version_20050121">Changes in Version 2005/01/21</h2>
+<h3 id="note_38-X01">Note 38-X01:  Updated for intermediate file format version 1.5.0</h3>
+<p>Added support for version 1.5.0 of the intermediate file format.
+</p>
+<h3 id="note_38-X02">Note 38-X02:  Updated the NITRO Set Material Attribute plug-in</h3>
+<p>Updated the NITRO Set Material Attribute plug-in.
+</p>
+<ul><li> Added configurable attributes.
+</li>
+</ul>
+<h3 id="note_38-X03">Note 38-X03:  Added NITRO Show Render Priority plug-in</h3>
+<p>Added plug-in for NITRO Set Render Priority.
+</p>
+<h3 id="note_38-X04">Note 38-X04:  (Manual) Added section 2.6.8 Polygon Rendering Priority</h3>
+<p>Added section 2.6.8 Polygon Rendering Priority.
+</p>
+<h3 id="note_38-X05">Note 38-X05:  (Manual) Revised explanation of interpolation in section 3.2.5 Animation Options </h3>
+<p>Revised the description of interpolation in section 3.2.5 Animation Options 
+</p>
+<h3 id="note_38-X06">Note 38-X06:  (Manual) Added attributes to section 5.4 Custom Attributes</h3>
+<p>Added attributes to section 5.4 Custom Attributes.
+</p>
+<h3 id="note_38-X07">Note 38-X07:  (Manual) Added warnings</h3>
+<p>Added warnings.
+</p>
+<h2 id="version_20041224">Changes in Version 2004/12/24</h2>
+<h3 id="note_36-X01">Note 36-X01:  Created Japanese language version</h3>
+<p>Created Japanese language version.
+</p>
+<h2 id="version_20041026">Changes in Version 2004/10/26</h2>
+<h3 id="note_30-X01">Note 30-X01:  (Manual) Updated imd Options figure</h3>
+<p>Updated imd Options figure.
+</p>
+<h3 id="note_30-X02">Note 30-X02:  (Manual) Updated <B>TriangulationForce</B> option within the imd Options</h3>
+<p>Updated <B>TriangulationForce</B> option within the imd Options.
+</p>
+<h2 id="version_20041014">Changes in Version 2004/10/14</h2>
+<h3 id="note_27-X01">Note 27-X01:  (Manual) Updated imd Options figure</h3>
+<p>Updated imd Options figure.
+</p>
+<h3 id="note_27-X02">Note 27-X02:  (Manual) Updated <B>TriangulationForce</B> option within the imd Options</h3>
+<p>Updated <B>TriangulationForce</B> option within the imd Options.
+</p>
+<h2 id="version_20041011">Changes in Version 2004/10/11</h2>
+<h3 id="note_25-X01">Note 25-X01:  Moved location of <B>Force Quads</B> option</h3>
+<p>Moved location of <B>Force Quads</B> option for the intermediate file output plug-in.
+</p>
+<h3 id="note_25-X02">Note 25-X02:  Added a warning for intermediate file output</h3>
+<p>Added a warning during intermediate file output.
+</p>
+<h2 id="version_20041004">Changes in Version 2004/10/04</h2>
+<h3 id="note_23-X01">Note 23-X01:  (Manual) Added explanation for supported Character Studio functionality</h3>
+<p>Added explanation for supported Character Studio functionality.
+</p>
+<h2 id="version_20040916">Changes in Version 2004/09/16</h2>
+<h3 id="note_21-X01">Note 21-X01:  Added NITRO Replace Character plug-in</h3>
+<p>Added NITRO Replace Character plug-in that replaces element name strings.
+</p>
+<h3 id="note_21-X02">Note 21-X02:  Added NITRO Rename Over 16 Characters plug-in </h3>
+<p>Added NITRO Rename Over 16 Characters plug-in to change element names that exceed 16 characters.
+</p>
+<h2 id="version_20040819">Changes in Version 2004/08/19</h2>
+<h3 id="note_18-X01">Note 18-X01:  Added progress bar to dialog box for outputting from the <B>Apply</B> button</h3>
+<p>Added progress bar to dialog box for outputting from the <B>Apply</B> button.
+</p>
+<h2 id="version_20040810">Changes in Version 2004/08/10</h2>
+<h3 id="note_16-X01">Note 16-X01:  Revised calculation of texture matrices for calculating <I>s</I> and <I>t</I> coordinates</h3>
+<p>Revised calculation of texture matrices for calculating <I>s</I> and <I>t</I> coordinates.
+</p>
+<h3 id="note_16-X02">Note 16-X02:  (Manual) Added explanation for not outputting the vertex color of any node</h3>
+<p>Added explanation for not outputting the vertex color of any node.
+</p>
+<h2 id="version_20040802">Changes in Version 2004/08/02</h2>
+<h3 id="note_15-X01">Note 15-X01:  Updated for TGA file with additional information for the Nintendo NITRO-System</h3>
+<p>Support added for TGA files with additional information for the Nintendo NITRO-System.
+</p>
+<h3 id="note_15-X02">Note 15-X02:  Added <CODE>scaling_rule</CODE> to ICA file's <CODE>&lt;node_anm_info&gt;</CODE></h3>
+<p>Added <CODE>scaling_rule</CODE> to ICA file's <CODE>&lt;node_anm_info&gt;</CODE>.
+</p>
+<h3 id="note_15-X03">Note 15-X03:  Added an error and warning for intermediate file output</h3>
+<p>Added an error and warning for intermediate file output.
+</p>
+<h3 id="note_15-X04">Note 15-X04:  Changed such that document terminology matches 3ds Max user interface</h3>
+<p>Changed such that document terminology matches 3ds Max user interface.
+</p>
+<h3 id="note_15-X05">Note 15-X05:  Support for IFL files</h3>
+<p>Support added for output of ITP files that use IFL files.
+</p>
+<h3 id="note_15-X06">Note 15-X06:  Added the N3ES file I/O feature to intermediate file output plug-in</h3>
+<p>Added ability to import and export option settings for the intermediate file output plug-in as N3ES files.
+</p>
+
+
+<br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br>
+
+<hr><p>CONFIDENTIAL</p></body>
+</html>

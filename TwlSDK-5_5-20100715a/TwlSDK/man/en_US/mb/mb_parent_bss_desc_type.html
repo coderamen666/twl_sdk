@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>MBParentBssDesc</title>
+<LINK rel="stylesheet" href="../css/nitro.css" type="text/css">
+</head>
+<body>
+<h1 align="left">MBParentBssDesc <IMG src="../image/NTR.gif" width="24" height="12" border="0" align=middle><IMG src="../image/TWL.gif" width="24" height="12" border="0" align=middle></h1>
+<h2>Definition</h2>
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/mb.h&gt;</CODE><BR>
+  <BR>
+<PRE><CODE>
+typedef	struct
+{
+    u16         length;
+    u16         rssi;
+    u16    bssid[3];
+    u16         ssidLength;
+    u8              ssid[32];
+    u16         capaInfo;
+    struct
+    {
+        u16     basic;
+        u16     support;
+    } rateSet;
+    u16         beaconPeriod;
+    u16         dtimPeriod;
+    u16         channel;
+    u16         cfpPeriod;
+    u16         cfpMaxDuration;
+} MBParentBssDesc;
+</CODE></PRE>
+  <br>
+  </dd>
+</dl>
+<H2>Description</H2>
+<P>The structure where parent information for the multiboot child is saved.<br />This is equivalent to the <code><a href="../wm/wm/WMBssDesc.html">WMbssDesc</a></code> structure with <code>gameInfo</code> removed. The GGID that was set from the multiboot parent is stored in little-endian format in <code>ssid[0]</code>, <code>ssid[1]</code>, <code>ssid[2]</code>, and <code>ssid[3]</code>. The system keeps only one instance of this structure, which can be retrieved with the <CODE><A href="common/MB_GetMultiBootParentBssDesc.html">MB_GetMultiBootParentBssDesc</A></CODE> function.<BR>It is also referenced internally when obtaining connected parent information with the <CODE><A href="child/MB_ReadMultiBootParentBssDesc.html">MB_ReadMultiBootParentBssDesc</A></CODE> function. <BR>
+</P>
+<h2>See Also</h2>
+<p><CODE><A href="mb_game_registry_type.html">MBGameRegistry</A><BR> <A href="common/MB_GetMultiBootParentBssDesc.html">MB_GetMultiBootParentBssDesc</A></CODE></p>
+<H2>Revision History</H2>
+<P>
+2004/11/02 Matched the structure definition to the header file.<br /> 2004/10/06 Corrected links.<br /> 2004/08/09 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

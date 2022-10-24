@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 8.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>ELAdrEntry</title>
+<LINK rel="stylesheet" href="../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">ELAdrEntry <img src="../image/TWL.gif" align="middle"></h1>
+<h2>Definition</h2>
+
+<dl>
+  <dd>
+  <PRE><CODE>#include &lt;twl/el.h&gt;</CODE><BR>
+typedef struct {
+  void*      next;
+  char*      name;
+  void*      adr;
+  u16        func_flag;
+  u16        thumb_flag;
+}ELAdrEntry;
+</PRE>
+  </dd>
+</dl>
+<h2>Description</h2>
+<P>This structure stores export symbol information.<BR>The <CODE>makelst</CODE> tool will generate a C file and export symbol information to it using this structure.<BR> <BR>
+</P>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+      <TD width="13%"><EM><STRONG>next</STRONG></EM></TD>
+      <TD width="87%">The next address entry.</TD>
+    </TR>
+    <TR>
+      <TD width="13%"><EM><STRONG>name</STRONG></EM></TD>
+      <TD width="87%">Symbol name.</TD>
+    </TR>
+    <TR>
+      <TD width="13%"><EM><STRONG>adr</STRONG></EM></TD>
+      <TD width="87%">Symbol address.</TD>
+    </TR>
+    <TR>
+      <TD width="13%"><EM><STRONG>func_flag</STRONG></EM></TD>
+      <TD width="87%">A value of 0 indicates data and 1 indicates a function.</TD>
+    </TR>
+    <TR>
+      <TD width="13%"><EM><STRONG>thumb_flag</STRONG></EM></TD>
+      <TD width="87%">A value of 0 indicates an ARM code and 1 indicates a Thumb code.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<H2>Revision History</H2>
+<P>2008/01/21 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

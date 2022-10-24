@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>TCM: Overview </TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">TCM: Overview <IMG src="../../image/NTR.gif" width="24" height="12" border="0" align="middle"><IMG src="../../image/TWL.gif" width="24" height="12" border="0" align="middle"></H1>
+<P>TCM is an abbreviation for &quot;Tightly Coupled Memory.&quot; It is high-speed memory attached directly to the ARM9 core. Because this memory is not connected to the ARM9 bus, it is possible for the ARM9 to perform process using TCM, even in DMA.</P>
+<P>There are two types of TCM: Instruction TCM (ITCM) and Data TCM (DTCM). ITCM has 32 KB of space, and DTCM has 16 KB. ITCM can store instructions and data. DTCM can store data, but cannot store instructions.</P>
+<H2>Enabling and Disabling</H2>
+<P>ITCM and DTCM can be enabled and disabled with the following functions.</P>
+<P><A href="OS_EnableITCM.html"><CODE>OS_EnableITCM</CODE></A> enables ITCM.<BR><A href="OS_DisableITCM.html"><CODE>OS_DisableITCM</CODE></A> disables ITCM.<BR><A href="OS_EnableDTCM.html"><CODE>OS_EnableDTCM</CODE></A> enables DTCM. <BR><A href="OS_DisableDTCM.html"><CODE>OS_DisableDTCM</CODE></A> disables DTCM.</P>
+<H2>Mapping</H2>
+<P>ITCM can be mapped to an address that is a multiple of 32 KB, and DTCM can be mapped to an address that is 16 KB.</P>
+<P>These are placed at the following addresses.
+</P>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+<TH>TCM Type</TH>
+<TH>Size</TH>
+<TH>Usage</TH>
+<TH>Address</TH>
+    </TR>
+    <TR>
+<TD>ITCM</TD>
+<TD>32KB</TD>
+<TD>Instruction Code / Data</TD>
+<TD>0x01FF8000 - 0x01FFFFFF</TD>
+    </TR>
+    <TR>
+<TD>DTCM</TD>
+<TD>16KB</TD>
+<TD>Data<BR>
+      </TD>
+<TD><CODE>0x027E0000</CODE> to <CODE>0x027E3FFF</CODE><BR> (for a NITRO ROM) <B><FONT color="#ff0000">(Note 1)</FONT></B><BR> <CODE>0x02FE0000</CODE> to <CODE>0x02FE3FFF</CODE><BR> (for a hybrid or limited ROM) <B><FONT color="#ff0000">(Note 2)</FONT></B></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P><BR> <B><FONT color="#ff0000">(Note 1)</FONT></B> DTCM starts at <CODE>0x027E0000</CODE> for a NITRO ROM. This is regardless of whether the NITRO ROM is run on NITRO hardware or TWL hardware.</P>
+<P><B><FONT color="#ff0000">(Note 2)</FONT></B> DTCM starts at <CODE>0x02FE0000</CODE> for a hybrid ROM or a limited ROM. This is obvious when running in TWL mode, but also applies to a hybrid ROM that is running in NITRO mode, regardless of the hardware.</P>
+<P>Note that DTCM addresses thus depend upon the ROM type instead of the operating mode.</P>
+<H3>Functions to Get ITCM Addresses</H3>
+<P>In ITCM, <A href="OS_GetITCMAddress.html"><CODE>OS_GetITCMAddress</CODE></A> is prepared as a function to get the <CODE>HW_ITCM</CODE> constant. The <code>HW_ITCM</code> constant is defined at the default ITCM starting address: <code>0x01FF8000</code>.</P>
+<H3>Functions to Get DTCM Addresses</H3>
+<P>For DTCM, use the <a href="OS_GetDTCMAddress.html"><CODE>OS_GetDTCMAddress</CODE></a> function to get the mapped address. The <a href="OS_SetDTCMAddress.html"><CODE>OS_SetDTCMAddress</CODE></a> function sets the address. The stack region and each type of hook vector are mapped for the DTCM. The program may become unstable if the mapping locations are changed while the program is running. It is therefore recommended that you avoid making frequent changes with one program.</P>
+<H2>TCM-Related CP15 Settings</H2>
+<P>The ITCM and DTCM configurations depend on the configuration of the internal register of co-processor 15 (<code>CP15</code>). TWL-SDK provides functions that directly access this register. ITCM and DTCM both have <CODE>Set</CODE> and <CODE>Get</CODE> functions that take arguments to be provided to the register (or loaded from the register). However, to use them (particularly the <CODE>Set</CODE> functions), you must have a firm understanding of their operating principles.</P>
+<P><A href="OS_SetITCMParam.html"><CODE>OS_SetITCMParam</CODE></A> sets the ITCM parameters.<BR><A href="OS_GetITCMParam.html"><CODE>OS_GetITCMParam</CODE></A> gets the ITCM parameters.<BR><A href="OS_SetDTCMParam.html"><CODE>OS_SetDTCMParam</CODE></A> sets the DTCM parameters.<BR><A href="OS_GetDTCMParam.html"><CODE>OS_GetDTCMParam</CODE></A> gets the DTCM parameters.</P>
+<H2>See Also</H2>
+<P><CODE><A href="../list_os.html#Tcm">An Overview of OS Functions (TCM)</A><BR></CODE></P>
+<H2>Revision History</H2>
+<P>2009/04/13 Fixed mistakes in DTCM addresses. <BR>2007/11/28 Added an explanation of TWL mode. <BR>2005/04/13 Changed the default DTCM address. <BR>2004/12/14 Revised issues such as terminology and word endings. <BR>2004/11/09 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

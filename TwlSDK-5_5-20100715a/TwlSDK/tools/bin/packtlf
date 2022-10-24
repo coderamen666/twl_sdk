@@ -1,0 +1,15 @@
+#!/bin/perl
+
+use strict;
+
+if( @ARGV != 1 )
+{
+	print STDERR "packtlf [sample.tlf]\n";
+	exit 1;
+}
+
+my $me = $0;
+my $packnlf = $me;
+$packnlf =~ s/packtlf$/packnlf/;
+
+exit system "gawk -f $packnlf $ARGV[0]";

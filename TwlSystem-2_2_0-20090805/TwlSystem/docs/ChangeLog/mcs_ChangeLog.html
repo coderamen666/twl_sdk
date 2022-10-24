@@ -1,0 +1,285 @@
+<html>
+<head>
+<title>TWL-System Multiple Channel Stream Revision History</title>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="content-style-type" content="text/css" />
+<style type="text/css">
+<!--
+    
+H1
+{
+    font-weight         : bold;
+    font-size           : 250%;
+    text-align          : left;
+    color               : #46f;
+    margin              : 0em 0em 0.5em 0em;
+}
+
+H2
+{
+    font-weight         : bold;
+    font-size           : 150%;
+    text-align          : left;
+    margin              : 2em 0em 0.5em 0em;
+    padding-top         : 8pt;
+    border-top-style    : double;
+    border-top-width    : 3px;
+}
+
+H3
+{
+    font-weight         : bold;
+    font-size           : 120%;
+    margin              : 1em 0em 0.5em 0em;
+    padding-top         : 8pt;
+    border-top-style    : solid;
+    border-top-width    : 1px;
+}
+
+H4
+{
+    font-weight         : normal;
+    font-size           : 100%;
+    margin              : 0em 0em 0em 0.5em;
+}
+
+DIV.date
+{
+    font-size           : normal;
+    text-align          : right;
+    margin              : 0pt 0pt 12pt 0pt;
+}
+
+DIV.licence
+{
+    margin: 0em;
+    border-style : solid;
+    border-width : 1px;
+}
+
+P
+{
+    font-size           : normal;
+    margin              : 0em 1em 0.5em 1em;
+    line-height         : 150%;
+}
+
+PRE
+{
+    font-size           : normal;
+    margin              : 0em 0em 1em 2em;
+    line-height         : 120%;
+}
+
+DT
+{
+    margin              : 1em 0em 0em 1em;
+}
+DD
+{
+    margin-left         : 3em;
+}
+UL
+{
+    margin-top         : 0em;
+}
+
+-->
+</style>
+</head>
+<body>
+
+<h1>TWL-System Multiple Channel Stream Revision History</h1>
+
+<h2>Index</h2>
+
+<h3><a href="#version_2_2_0">2.2.0</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_84-C01">Note 84-C01: (Library) Added support for builds of the MCS library in environments where the IS-TWL-DEBUGGER software is not installed</a></li>
+</ul>
+<h3><a href="#version_2_2_0_0">2.2.0 PR</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_83-C01">Note 83-C01: (Library) Added functions to perform end processing</a></li>
+<li><a href="#note_83-C02">Note 83-C02: (Library) Added support for builds in environments where the IS-TWL-DEBUGGER software is not installed</a></li>
+<li><a href="#note_83-C03">Note 83-C03: (Library) TWL-SDK initialization function calls when running the IS-TWL-DEBUGGER hardware</a></li>
+</ul>
+<h3><a href="#version_2_1_0">2.1.0</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_81-C01">Note 81-C01: (MCS Server) Updated for programs built as <CODE>TWLSDK_PLATFORM=NITRO</CODE> (SRL files) when connected to the IS-TWL-DEBUGGER hardware</a></li>
+<li><a href="#note_81-C02">Note 81-C02: (MCS Server) Official support for debugger sharing</a></li>
+</ul>
+<h3><a href="#version_2_0_0_1">2.0.0 RC2</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_79-C01">Note 79-C01: (Library) Fixed problem with Windows program of MCS sample demo <CODE>basic</CODE> not operating</a></li>
+</ul>
+<h3><a href="#version_2_0_0_0">2.0.0 RC</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_78-C01">Note 78-C01: (Library) Added a C# version of the MCS sample demo <CODE>basic</CODE></a></li>
+</ul>
+<h3><a href="#version_20080408">2008/04/08 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_76-C01">Note 76-C01: (Manual) Changed the format of the Revision History</a></li>
+<li><a href="#note_76-C02">Note 76-C02: (Library, MCS Server) Support for TWL</a></li>
+</ul>
+<h4>Problem Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_76-C03">Note 76-C03: (Library) Corrected problem with the file input/output functions</a></li>
+</ul>
+<h3><a href="#version_20071126">2007/11/26 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_71-C01">Note 71-C01: (Library) Changed function argument</a></li>
+</ul>
+<h3><a href="#version_20070314">2007/03/14 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_64-C01">Note 64-C01:  (Library) Support for turning the DS card slot ON </a></li>
+</ul>
+<h3><a href="#version_20060529">2006/05/29 Version</a></h3>
+<h4>Problem Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_59-C01">Note 59-C01: (Library) Fixed problem where the file size was not returned correctly when loading the file</a></li>
+</ul>
+<h3><a href="#version_20050901">2005/09/01 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_50-C01">Note 50-C01: (Library) Support for DEBUGGER SHARING</a></li>
+</ul>
+<h3><a href="#version_20050328">2005/03/28 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_43-C01">Note 43-C01: (Library) Added a function</a></li>
+<li><a href="#note_43-C02">Note 43-C02: (MCS Server) Added a feature</a></li>
+</ul>
+<h3><a href="#version_20050131">2005/01/31 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_39-C01">Note 39-C01: (Library) Changed function behavior</a></li>
+<li><a href="#note_39-C02">Note 39-C02: (Library) Added a function</a></li>
+<li><a href="#note_39-C03">Note 39-C03: (Library) Changed function name</a></li>
+</ul>
+<h3><a href="#version_20041110">2004/11/10 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_31-C01">Note 31-C01: (Library) Changed function name</a></li>
+<li><a href="#note_31-C02">Note 31-C02: (Library) Enhanced the feature</a></li>
+</ul>
+<h3><a href="#version_20040902">2004/09/02 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_20-C01">Note 20-C01: (Library) Changed function name</a></li>
+<li><a href="#note_20-C02">Note 20-C02: (Library) Changed argument type</a></li>
+</ul>
+
+
+<h2 id="version_2_2_0">Changes in 2.2.0</h2>
+<h3 id="note_84-C01">Note 84-C01: (Library) Added support for builds of the MCS library in environments where the IS-TWL-DEBUGGER software is not installed</h3>
+<p>It is now possible to build the MCS library in environments where the IS-TWL-DEBUGGER software is not installed.
+</p>
+<p>However, the communication features do not function when SRL files built in such an environment are run on the IS-TWL-DEBUGGER hardware.
+</p>
+<h2 id="version_2_2_0_0">Changes in 2.2.0 PR</h2>
+<h3 id="note_83-C01">Note 83-C01: (Library) Added functions to perform end processing</h3>
+<p>Added a function that performs the next end process. Calling the end process causes the work memory that was allocated during initialization to be freed.
+</p>
+<h3 id="note_83-C02">Note 83-C02: (Library) Added support for builds in environments where the IS-TWL-DEBUGGER software is not installed</h3>
+<p>It is now possible to build even in environments where the IS-TWL-DEBUGGER software is not installed.
+</p>
+<p>However, the communication features do not function when SRL files built in such an environment are run on the IS-TWL-DEBUGGER hardware.
+</p>
+<h3 id="note_83-C03">Note 83-C03: (Library) TWL-SDK initialization function calls when running the IS-TWL-DEBUGGER hardware</h3>
+<p>When running on IS-TWL-DEBUGGER hardware, the <CODE>OS_InitTick</CODE> and <CODE>OS_InitAlarm</CODE> functions are now called by the <CODE>NNS_McsInit</CODE> function.
+</p>
+<h2 id="version_2_1_0">Changes in 2.1.0</h2>
+<h3 id="note_81-C01">Note 81-C01: (MCS Server) Updated for programs built as <CODE>TWLSDK_PLATFORM=NITRO</CODE> (SRL files) when connected to the IS-TWL-DEBUGGER hardware</h3>
+<p>Up until now, when the MCS server was connected to the IS-TWL-DEBUGGER hardware, communication was not possible when the program that was running was a <CODE>TWLSDK_PLATFORM=NITRO</CODE> build (an SRL file).
+</p>
+<p>Communication is now possible when the MCS library and the IS-TWL-DEBUGGER software are both version 0.76 or later.
+</p>
+<h3 id="note_81-C02">Note 81-C02: (MCS Server) Official support for debugger sharing</h3>
+<p>Support is now official for the debugger sharing feature in IS-TWL-DEBUGGER's software, version 1.01 and later.
+</p>
+<h2 id="version_2_0_0_1">Changes in 2.0.0 RC2</h2>
+<h3 id="note_79-C01">Note 79-C01: (Library) Fixed problem with Windows program of MCS sample demo <CODE>basic</CODE> not operating</h3>
+<p>The Windows-side program of the MCS sample demo <CODE>basic</CODE> did not operate correctly. This problem has been corrected.
+</p>
+<h2 id="version_2_0_0_0">Changes in 2.0.0 RC</h2>
+<h3 id="note_78-C01">Note 78-C01: (Library) Added a C# version of the MCS sample demo <CODE>basic</CODE></h3>
+<p>The Windows-side program sample of the MCS sample demo <CODE>basic</CODE> was coded in C++. A C# version has also been added.
+</p>
+<h2 id="version_20080408">Changes in Version 2008/04/08</h2>
+<h3 id="note_76-C01">Note 76-C01: (Manual) Changed the format of the Revision History</h3>
+<p>The format of the Revision History in the document <CODE>mcs.pdf</CODE> has been changed.
+</p>
+<h3 id="note_76-C02">Note 76-C02: (Library, MCS Server) Support for TWL</h3>
+<p>There is now support for the TWL-TS board.
+</p>
+<h3 id="note_76-C03">Note 76-C03: (Library) Corrected problem with the file input/output functions</h3>
+<p>Depending on the state of the connection with the MCS server, the file input/output functions would fall into an infinite loop. This problem has been corrected.
+</p>
+<h2 id="version_20071126">Changes in Version 2007/11/26</h2>
+<h3 id="note_71-C01">Note 71-C01: (Library) Changed function argument </h3>
+<p>The work memory used by the MCS library was previously allocated statically inside the library. However, from this version, the work memory is now specified at initialization. In line with this specification change, the arguments for the Nintendo DS functions <CODE>NNS_McsInit</CODE> and <CODE>NNS_McsInitFileIO</CODE> have been changed.
+</p>
+<h2 id="version_20070314">Changes in Version 2007/03/14</h2>
+<h3 id="note_64-C01">Note 64-C01: (Library) Support for turning the DS Card Slot ON</h3>
+<p>A command line option that turns the DS Card Slot power ON has been added.
+</p>
+<h2 id="version_20060529">Changes in Version 2006/05/29</h2>
+<h3 id="note_59-C01">Note 59-C01: (Library) Fixed problem where the file size was not returned correctly when loading the file</h3>
+<p>Fixed a problem where the size of the loaded file was incorrectly returned, in the Nintendo DS function <CODE>NNS_McsReadFile</CODE>.
+</p>
+<h2 id="version_20050901">Changes in Version 2005/09/01</h2>
+<h3 id="note_50-C01">Note 50-C01: (Library) Support for DEBUGGER SHARING</h3>
+<p>Now supports DEBUGGER SHARING of IS-NITRO-DEBUGGER version 1.56 and later.
+</p>
+<h2 id="version_20050328">Changes in Version 2005/03/28</h2>
+<h3 id="note_43-C01">Note 43-C01: (Library) Added a function</h3>
+<p>Added the <CODE>NNS_McsSeekFile</CODE> function, which changes the current file pointer position.
+</p>
+<h3 id="note_43-C02">Note 43-C02: (MCS Server) Added a feature</h3>
+<p>Made changes in the MCS server application so that the time interval for getting data from the Nintendo DS can be changed in the <B>Options</B> dialog box.
+</p>
+<h2 id="version_20050131">Changes in Version 2005/01/31</h2>
+<h3 id="note_39-C01">Note 39-C01: (Library) Changed function behavior</h3>
+<p>Until now, when the MCS server was not connected to the Nintendo DS hardware, the <CODE>NNS_McsOpenFile</CODE> and <CODE>NNS_McsFindFirstFile</CODE> functions were blocked until that connection was made. As of this version, if there is no connection, the functions exits with an error.
+</p>
+<h3 id="note_39-C02">Note 39-C02: (Library) Added a function</h3>
+<p>The following functions have been added.
+</p>
+<ul><li> <CODE>NNS_McsInitPrint</CODE>, <CODE>NNS_McsPutString</CODE>, and <CODE>NNS_McsPrintf</CODE>, to output character strings to the MCS server console
+</li>
+<li> <CODE>NNS_McsIsServerConnect</CODE>, which determines the MCS server connection state
+</li>
+<li> <CODE>NNS_McsGetServerErrorCode</CODE>, which gets the error code of the error that occurred in Windows during file input/output
+</li>
+</ul>
+<h3 id="note_39-C03">Note 39-C03: (Library) Changed function name</h3>
+<p>The function <CODE>NNS_McsUnregisterRecvResouce</CODE> is now <CODE>NNS_McsUnregisterRecvResource</CODE>.
+</p>
+<h2 id="version_20041110">Changes in Version 2004/11/10</h2>
+<h3 id="note_31-C01">Note 31-C01: (Library) Changed function name</h3>
+<p>Changed the name of the <CODE>NNS_McsGetTotaStreamReadableSize</CODE> function to <CODE>NNS_McsGetTotalStreamReadableSize</CODE>.
+</p>
+<h3 id="note_31-C02">Note 31-C02: (Library) Enhanced the feature</h3>
+<p>Made it possible to include PC environment variables in the filename patterns specified with the <CODE>NNS_McsOpenFile</CODE> and <CODE>NNS_McsFindFirstFile</CODE> functions.
+</p>
+<h2 id="version_20040902">Changes in Version 2004/09/02</h2>
+<h3 id="note_20-C01">Note 20-C01: (Library) Changed function name</h3>
+<p>The name of the <CODE>NNS_McsGetStreamlReadbleSize</CODE> function was changed to <CODE>NNS_McsGetStreamReadableSize</CODE>. Also, the name of the <CODE>NNS_McsGetTotaStreamlReadbleSize</CODE> function was changed to <CODE>NNS_McsGetTotaStreamReadableSize</CODE>.
+</p>
+<h3 id="note_20-C02">Note 20-C02: (Library) Changed argument type</h3>
+<p>Previously, the data transmission recognition value that can be determined by the user was type u32. However, because only 16 bits were valid, the type was changed to u16.
+</p>
+
+
+<br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br>
+
+<hr><p>CONFIDENTIAL</p></body>
+</html>

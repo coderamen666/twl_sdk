@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title>FS_FILEMODE_*</title>
+<link rel="stylesheet" href="../css/nitro.css" type="text/css" />
+</head>
+<body>
+
+<h1>FS_FILEMODE_* <img src="../image/NTR.gif"align="middle"><img src="../image/TWL.gif" align="middle"></h1>
+<h2>Definition</h2>
+<pre><code>
+#define FS_FILEMODE_R               0x00000001UL
+#define FS_FILEMODE_W               0x00000002UL
+#define FS_FILEMODE_L               0x00000004UL
+#define FS_FILEMODE_RW              (FS_FILEMODE_R | FS_FILEMODE_W)
+#define FS_FILEMODE_RWL             (FS_FILEMODE_R | FS_FILEMODE_W | FS_FILEMODE_L)
+</code></pre>
+
+<h2>Description</h2>
+<p>Constants used if specifying the access mode when opening a file or directory using the file system API.</p>
+
+<table>
+<tr><td>FS_FILEMODE_R</td><td>Requests only read access.</td></tr>
+<tr><td>FS_FILEMODE_W</td><td>Requests only write access. If the file already exists, its contents will be wiped out, and a new file of size 0 will be created.</td></tr>
+<tr><td>FS_FILEMODE_RW</td><td>Requests both read and write access.</td></tr>
+<tr><td>FS_FILEMODE_RWL</td><td>Requests both read and write access, but changes to the file size after the file is opened will be prohibited, and the following internal checks will be enabled automatically.
+<ul>
+<li>Operations that use <code><a href="file/FS_WriteFile.html">FS_WriteFile()</a></code> to add to the file after the terminator will be suppressed. When called at the terminator, it will return 0.</li>
+<li>Operations that use <code><a href="file/FS_SetFileLength.html">FS_SetFileLength()</a></code> to change the size will always fail and return <a href="fs_result_const.html">FS_RESULT_PERMISSION_DENIED</a>.</li>
+</ul></td></tr>
+</table>
+
+<h2>See Also</h2>
+<p><code><a href="file/FS_OpenFileEx.html">FS_OpenFileEx</a><BR> <a href="directory/FS_OpenDirectory.html">FS_OpenDirectory</a></code></p>
+
+<h2>Revision History</h2>
+<p>
+2008/04/17 Added details for each option.<br /> 2008/04/14 Added the <CODE>FS_FILEMODE_L</CODE> option.<br /> 2007/09/18 Initial version.<br />
+</p>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

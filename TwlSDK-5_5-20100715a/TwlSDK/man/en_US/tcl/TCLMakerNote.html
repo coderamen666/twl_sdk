@@ -1,0 +1,47 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title>TCLMakerNote</title>
+<link rel="stylesheet" href="../css/nitro.css" type="text/css">
+</head>
+<body>
+<h1 align="left">TCLMakerNote <img src="../image/TWL.gif" align="middle"></h1>
+
+<h2>Definition</h2>
+<dl>
+	<dd>
+	<code>#include &lt;twl/tcl.h&gt;</code><br/> <br/>
+	<pre><code>
+typedef struct
+{
+    union
+    {
+        u32 bitField;
+        struct
+        {
+            u32 imageType :  2;
+            u32 reserved0 : 30;
+        };
+    };
+    u32 reserved1;
+} TCLMakerNote;
+	</code></pre>
+</dl>
+
+<h2>Description</h2>
+<p>This structure embeds information in a JPEG file's Exif tag , which enables the image to be loaded by the DSi camera.</p>
+<p>The <a href="TCL_EncodeAndWritePicture.html"><code>TCL_EncodeAndWritePicture(Ex)</code></a> function that is used when encoding embeds to the MakerNote internally, so there is no need to be directly concerned with this structure.</p>
+<p>Sometimes it is necessary to evaluate the appropriateness of the decoded JPEG image. For more information, see the <a href="TCL_IsSameImageType.html"><code>TCL_IsSameImageType</code></a> function.</p>
+<p>The direct use of any of its members from an application is prohibited.</p>
+
+<h2>See Also</h2>
+<p><a href="TCL_EncodeAndWritePicture.html"><CODE>TCL_EncodeAndWritePicture(Ex)</CODE></a><BR> <a href="TCL_IsSameImageType.html"><CODE>TCL_IsSameImageType</CODE></a></p>
+
+<h2>Revision History</h2>
+<p>
+2009/03/04 Added description of use of structure when encoding/decoding.<br/> 2008/10/07 Initial version.
+</p>
+
+<hr><p>CONFIDENTIAL</p></body>
+</html>

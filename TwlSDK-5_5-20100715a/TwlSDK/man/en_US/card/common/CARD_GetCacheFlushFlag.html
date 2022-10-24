@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+<meta name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title>CARD_GetCacheFlushFlag</title>
+<link rel="stylesheet" href="../../css/nitro.css" type="text/css" />
+</head>
+
+<body>
+
+<h1 align="left">CARD_GetCacheFlushFlag<img src="../../image/NTR.gif"align="middle"><img src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+
+<dl>
+  <dd>
+<code>#include &lt;nitro/card.h&gt;</code><br />
+  <br />
+  <code>void CARD_GetCacheFlushFlag(BOOL *icache, BOOL *dcache);</code><br />
+  <br />
+  </dd>
+</dl>
+<h2>Arguments</h2>
+<table border="1" width="100%">
+  <tbody>
+    <tr>
+      <td width="13%"><SPAN class="argument">icache</SPAN></td>
+      <td width="87%">Pointer that stores that instruction cache's auto-invalidation flag.<br /> If not necessary, specify <CODE>NULL</CODE>.</td>
+    </tr>
+    <tr>
+      <td width="13%"><SPAN class="argument">dcache</SPAN></td>
+      <td width="87%">Pointer that stores that data cache's auto-invalidation flag.<br /> If not necessary, specify <CODE>NULL</CODE>.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Return Values</h2>
+<p>None.</p>
+
+<h2>Description</h2>
+<p>Finds out whether the invalidation process to flush the cache will take place automatically when a process to load ROM data occurs inside the library.<br /> For details, see the description of the <a href="CARD_SetCacheFlushFlag.html"><CODE>CARD_SetCacheFlushFlag</CODE></a> function.<br />
+</p>
+<h2>See Also</h2>
+<p><a href="CARD_SetCacheFlushFlag.html"><CODE>CARD_SetCacheFlushFlag</CODE></a></p>
+
+<h2>Revision History</h2>
+<p>
+2008/12/05 Initial version.
+</p>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

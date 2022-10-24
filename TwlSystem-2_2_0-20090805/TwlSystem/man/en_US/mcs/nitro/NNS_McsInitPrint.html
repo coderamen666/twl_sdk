@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>NNS_McsInitPrint</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">NNS_McsInitPrint</h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+		
+  <pre><CODE>#include &lt;nnsys/mcs.h&gt;</CODE></pre>
+	  
+  <pre><CODE>void NNS_McsInitPrint(
+         void*   pBuffer,
+         u32     size);</CODE></pre>
+	</dd>
+</dl>
+
+<h2>Arguments</h2>
+<table border="1" width="100%">
+ 
+    <tr> 
+<td width="13%"><CODE>pBuffer</CODE></td>
+<td width="87%">Work buffer used for string output. Use the buffer designated here with the <code>NNS_McsPrintf</code> function.</td>
+ </tr>
+ <tr> 
+<td width="13%"><CODE>size</CODE></td>
+<td width="87%">Size (in bytes) of the work buffer used for string output</td>
+ </tr>
+</table>
+
+<h2>Return Values</h2>
+<p>None.</p>
+
+<H2>Description</H2>
+<p>Performs the initialization necessary to make the MCS string output function usable. To create a string for output, the string output function <A href="NNS_McsPrintf.html"><CODE>NNS_McsPrintf</CODE></A> uses the buffer designated with the arguments <code>pBuffer</code> and <code>size</code>. The maximum length of the string that the <code>NNS_McsPrintf</code> function can output is the size (in bytes) designated with the argument <code>size</code>.</p>
+
+<h2>See Also</h2>
+<p><A href="NNS_McsPutString.html"><CODE>NNS_McsPutString</CODE></A><BR> <A href="NNS_McsPrintf.html"><CODE>NNS_McsPrintf</CODE></A><BR> <A href="NNS_McsFinalizePrint.html"><CODE>NNS_McsFinalizePrint</CODE></A></p>
+
+<H2>Revision History</H2>
+<p>2009/03/11 Added links to <B>See Also</B>.<br />2004/12/17 Initial version.</p>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

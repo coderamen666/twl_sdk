@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"><html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>NNS_SndStrmSetChannelVolume</title>
+<link rel="stylesheet" href="../css/nitro.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.65.1">
+</head>
+<body>
+<div class="refentry" lang="ja"><a name="IDAKKWT"></a><div class="titlepage">
+<div></div>
+<div></div>
+</div>
+<h1>NNS_SndStrmSetChannelVolume</h1>
+<h2>Syntax</h2>
+<dl>
+<dd><pre class="funcsynopsisinfo"><code>#include &lt;nnsys/snd.h&gt;</code></pre></dd>
+<dd><pre class="funcprototype"><code class="funcprototype">void NNS_SndStrmSetChannelVolume(
+        NNSSndStrm* <var>stream</var>,
+        int <var>chNo</var>,
+        int <var>volume</var> );</code><br></pre></dd>
+</dl>
+<div class="refsection" lang="ja"><a name="IDA4LWT"></a>
+<h2>Arguments</h2>
+      
+      <div class="variablelist">
+<table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><em><strong><code>stream</code></strong></em></td>
+<td>Pointer to a stream structure.</td>
+</tr>
+<tr>
+<td><em><strong><code>chNo</code></strong></em></td>
+<td>The channel number.</td>
+</tr>
+<tr>
+<td><em><strong><code>volume</code></strong></em></td>
+<td>Volume value. Units are 0.1dB. 0dB designates maximum volume.</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+    </div>
+<div class="refsection" lang="ja"><a name="IDA1MWT"></a>
+<h2>Return Values</h2>
+
+<p>None.</p>
+    </div>
+<div class="refsection" lang="ja"><a name="IDACNWT"></a>
+<h2>Description</h2>
+      <p>
+Changes the stream's channel volume.
+</p>
+      <p>
+The channel number <em><strong><code>chNo</code></strong></em> is the number of the currently streaming channel. The channel number <em><strong><code>chNo</code></strong></em> value is not directly related to the channel numbers assigned by how channels are mounted in the NITRO sound circuit. For example, if you allocate two channels with the <CODE><tt class="function"><a href="NNS_SndStrmAllocChannel.html">NNS_SndStrmAllocChannel</a></tt></CODE> function, the first channel will be channel number 0, and the second channel will be channel number 1.
+</p>
+      <p>
+The default volume is 0dB. This effect of this volume value is independent from the <tt class="function"><a href="NNS_SndStrmSetVolume.html">NNS_SndStrmSetVolume</a></tt> value. The two values are cumulative.
+</p>
+    </div>
+<h2>See Also</h2>
+<p><a href="NNS_SndStrmAllocChannel.html"><code>NNS_SndStrmAllocChannel</code></a>, <a href="NNS_SndStrmSetVolume.html"><code>NNS_SndStrmSetVolume</code></a></p>
+<h2>Revision History</h2>
+<p>2004/08/10 Initial version.<br></p>
+</div>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

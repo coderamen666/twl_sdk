@@ -1,0 +1,36 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>Debug (Stack Overflow Check): Overview</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">Debug (Stack Overflow Check): Overview <IMG src="../../image/NTR.gif" align="middle"><IMG src="../../image/TWL.gif" align="middle"></H1>
+<P>The stack region is used when a program is running. This region is used for saving registers and for storing automatic variables. A <I>stack overflow</I> occurs when the amount of stack consumed exceeds the size of the region created for use as the stack region. Because it is difficult for developers to see how much of the stack region is being used, and because most programs will have advanced further before the bugs caused by a stack overflow are triggered, it is difficult to track down stack-related bugs. </P>
+<P>TWL-SDK includes a mechanism to check for stack overflows to help make this easier. In principle, this works by writing a certain value to the stack region, then checking whether that value has since been overwritten in order to determine if that particular region was used for the stack. TWL-SDK places these checking mechanisms in three locations: the top of the stack, the bottom of the stack, and an arbitrary position within the stack. These checking mechanisms are also called <I>canaries</I>.</P>
+<P>Magic numbers that are not often used as addresses are chosen as the canaries' values.</P>
+<BLOCKQUOTE><IMG src="image_Stack1.gif" width="366" height="332" border="0"></BLOCKQUOTE>
+<P>In the figure above, if canary 1 is overwritten, there is a good chance that a stack underflow has occurred. (There is always a chance that the canary has been overwritten because of a bug in a program completely unrelated to the stack. The same caveat also applies below.)</P>
+<P>If canary 3 is overwritten, there is a good chance that a stack overflow has occurred.</P>
+<P>There is also another canary that the developer is free to set at will. This corresponds to canary 2 in the figure above. However, if a stack overflow has actually occurred, the program's behavior will be undefined; in order to detect in advance that a stack overflow is <EM>likely</EM> to occur, you can consider placing the user-defined canary near the bottom of the stack by setting the warning offset, so this canary can function as a warning threshold.</P>
+<BLOCKQUOTE><IMG src="image_Stack2.gif" width="527" height="283" border="0"></BLOCKQUOTE>
+<H2>Stack Canaries for Each Thread</H2>
+<P>Creating a thread automatically writes  magic numbers at the top and bottom of the stack. (This is equivalent to <I>checker1</I> and <I>checker3</I> in the previous diagram.) The user-configurable warning level checker, equivalent to <I>checker2</I> in the previous diagram, is not set. If necessary, you can set it using the <CODE><A href="OS_SetThreadStackWarningOffset.html">OS_SetThreadStackWarningOffset</A></CODE> function. Note that setting a warning offset for the canary when the region in question is already being used as a stack will affect program behavior. Be sure to set a warning offset when the stack is not being used (for example, immediately after the thread is created).</P>
+<P>A checker is created for each thread.</P>
+<P>A checker is placed at the top and bottom of the stack even for the thread that directly calls the <CODE><A href="../thread/OS_InitThread.html">OS_InitThread</A></CODE> function (launch thread). Checkers are not placed for idle threads.</P>
+<H2>Stack Overflow Check</H2>
+<P>Call <CODE><A href="OS_CheckStack.html">OS_CheckStack()</A></CODE> from your application to find out whether the magic numbers that were written as canaries have since been changed to different values. The system will halt on <CODE><A href="../debug/OS_Panic.html">OS_Panic()</A></CODE> if even one of the three canaries has been overwritten. In FINALROM builds, this call will be overwritten with code that has no effect.</P>
+<P>If you want to look up the function's return value instead of halting on <CODE><A href="../debug/OS_Panic.html">OS_Panic()</A></CODE>, call <CODE><A href="OS_GetStackStatus.html">OS_GetStackStatus()</A></CODE>. This returns accurate information even for FINALROM builds.</P>
+<P>These canary-checking functions are only valid for the stack of the current thread. They are unable to detect stack overflows in other threads.</P>
+<H2>IRQ Stack</H2>
+<P>Canaries to check for stack overflows can also be set for the IRQ stack that is used when interrupts occur.</P>
+<P>&nbsp;<CODE><A href="OS_SetIrqStackChecker.html">OS_SetIrqStackChecker()</A></CODE>: Writes magic numbers as canaries for checking the IRQ stack.<BR>&nbsp;<CODE><A href="OS_SetIrqStackWarningOffset.html">OS_SetIrqStackWarningOffset()</A></CODE>: Sets the warning offset position for the IRQ stack and writes a magic number as a canary there.<BR>&nbsp;<CODE><A href="OS_CheckIrqStack.html">OS_CheckIrqStack()</A></CODE>: Finds out whether any of the IRQ stack canaries were overwritten, and halts the program if so.<BR>&nbsp;<CODE><A href="OS_GetIrqStackStatus.html">OS_GetIrqStackStatus()</A></CODE>: Looks up whether any IRQ stack canaries have been overwritten and returns the result.</P>
+<H2>See Also</H2>
+<P><CODE><A href="../list_os.html#Debug-Stack">OS Function List: Debug (Stack Check)</A><BR></CODE></P>
+<H2>Revision History</H2>
+<P>2008/09/16 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

@@ -1,0 +1,173 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META http-equiv="Content-Style-Type" content="text/css">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 8.0.0.0 for Windows">
+<BASE target="main">
+<TITLE>Chance Encounter Communication Library (WXC) API Function List </TITLE>
+<LINK rel="stylesheet" href="../css/apilist.css">
+</HEAD>
+<BODY>
+<H1>Chance Encounter Communication Library (WXC) API Function List </H1>
+<H3><A name="common">Common</A></H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TH width="25%"><A href="common/WXC_Init.html" target="_self">WXC_Init</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Initializes the WXC library. </TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="common/WXC_Start.html" target="_self">WXC_Start</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Activates wireless inside the WXC library.  </TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="common/WXC_Stop.html" target="_self">WXC_Stop</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Stops wireless inside the WXC library.  </TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="common/WXC_End.html" target="_self">WXC_End</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Ends the WXC library.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="common/WXC_GetStateCode.html" target="_self">WXC_GetStateCode</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets the current internal state. </TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="common/WXC_IsParentMode.html" target="_self">WXC_IsParentMode</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Determines if the internal wireless state is currently in parent mode. </TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="common/WXC_GetParentParam.html" target="_self">WXC_GetParentParam</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>References the WMParentParam structure in parent mode. </TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="common/WXC_GetParentBssDesc.html" target="_self">WXC_GetParentBssDesc</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>References the WMBssDesc structure of the connection target in parent mode. </TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="common/WXC_SetParentParameter.html" target="_self">WXC_SetParentParameter</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Sets the parent mode communication parameters for wireless.  </TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="common/WXC_SetChildMode.html" target="_self">WXC_SetChildMode</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Sets the internal wireless so that it can only be in child mode. </TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="common/WXC_RegisterCommonData.html" target="_self">WXC_RegisterCommonData</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Registers data blocks that should be exchanged.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="common/WXC_SetInitialData.html" target="_self">WXC_SetInitialData</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Sets the send and receive data block used in the initial data exchange. </TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="common/WXC_AddData.html" target="_self">WXC_AddData</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Adds data block for continuing data exchange. </TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="common/WXC_UnregisterData.html" target="_self">WXC_UnregisterData</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Releases the registered data block from the library. </TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="common/WXC_GetUserBitmap.html" target="_self">WXC_GetUserBitmap</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Obtains the status of currently-connected users as a bitmap. </TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="common/WXC_GetCurrentGgid.html" target="_self">WXC_GetCurrentGgid</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets the GGID that is selected in the current connection. </TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="common/WXC_GetOwnAid.html" target="_self">WXC_GetOwnAid</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets the its own AID in the current connection. </TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="common/WXC_GetUserInfo.html" target="_self">WXC_GetUserInfo</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Obtains information about a currently-connected user. </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H3><A name="const">Constants</A></H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TH width="25%"><A href="wxc_consts.html" target="_self">WXC_WORK_SIZE</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Size of the work memory that is used inside the WXC library. </TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="wxc_consts.html" target="_self">WXC_PACKET_SIZE_MIN</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>The minimum send size that can be specified with <A href="common/WXC_SetParentParameter.html">WXC_SetParentParameter</A> function. </TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="wxc_consts.html" target="_self">WXC_PACKET_SIZE_MAX</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>The maximum send size that can be specified with <A href="common/WXC_SetParentParameter.html">WXC_SetParentParameter</A> function. </TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="wxc_consts.html" target="_self">WXC_REGISTER_DATA_MAX</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Maximum number of data blocks that can be registered with the <A href="common/WXC_RegisterCommonData.html">WXC_RegisterCommonData</A> function.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="wxc_consts.html" target="_self">WXC_MAX_DATA_SIZE</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Maximum send/receive data size that can be specified in the <A href="common/WXC_RegisterCommonData.html">WXC_RegisterCommonData</A> function.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H3><A name="struct">Types, Structures</A></H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TH width="25%"><A href="WXCStateCode.html" target="_self">WXCStateCode</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Enumerated value that indicates internal states and notification events in the WXC library.  </TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="WXCCallback.html" target="_self">WXCCallback</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Format for callback functions called from the WXC library.  </TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="WXCBeaconFoundCallback.html" target="_self">WXCBeaconFoundCallback</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>The callback argument structure that is passed with the <A href="WXCStateCode.html">WXC_STATE_BEACON_RECV</A> notification of system callback. </TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="WXCUserInfo.html" target="_self">WXCUserInfo</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>The user information that the WXC library maintains for each AID. </TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="WXCBlockDataFormat.html" target="_self">WXCBlockDataFormat</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Structure that shows the block data information used in WXC library callbacks etc.  </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+
+<table border="0" height="100%"><tr><td style="background-color : white;"></td></tr></table>
+
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

@@ -1,0 +1,40 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>OS_IsForceDisableWireless</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">OS_IsForceDisableWireless <IMG src="../../image/TWL.gif" align="middle"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;twl/os.h&gt;</CODE><BR> <BR> <CODE>BOOL OS_IsForceDisableWireless(void);</CODE></dd>
+</dl>
+<h2>Arguments</h2>
+<P>None.</P>
+<h2>Return Values</h2>
+<p>Determines whether use of wireless communications was prohibited when a TWL version was produced.</p>
+<p>Returns TRUE when the device is operating as TWL-specific with wireless communications prohibited. Returns FALSE when operating as a normal TWL.</p>
+<p>This function always returns <CODE>FALSE</CODE> if the device is not operating in TWL mode.</p>
+<H2>Description</H2>
+<p>Determines whether use of wireless communications was prohibited when a TWL version was produced.</P>
+<P>This function is designed to identify special TWL devices, so it does not need to be used in normal applications.<BR>If you want to determine the status of wireless communication features configured in the TWL, use the <A href="OS_IsAvailableWireless.html">OS_IsAvailableWireless</A> function.</P>
+
+<p></P>
+<h2>See Also</h2>
+<p><CODE><a href="OSOwnerInfo.html">OSOwnerInfoEx</a>, <A href="OS_IsAvailableWireless.html">OS_IsAvailableWireless</A></CODE></p>
+
+<H2>Revision History</H2>
+<P>2008/12/16 Corrected typos.</P>
+<P>2008/10/29 Explained that this function does not need to be used in normal applications.</P>
+<P>2008/09/02 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

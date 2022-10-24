@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"><html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>NNS_SndPlayerSetTrackMute*</title>
+<link rel="stylesheet" href="../css/nitro.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.65.1">
+</head>
+<body>
+<div class="refentry" lang="ja"><a name="IDAKKAU"></a><div class="titlepage">
+<div></div>
+<div></div>
+</div>
+<h1>NNS_SndPlayerSetTrackMute*</h1>
+<h2>Syntax</h2>
+<dl>
+<dd><pre class="funcsynopsisinfo"><code>#include &lt;nnsys/snd.h&gt;</code></pre></dd>
+<dd><pre class="funcprototype"><code class="funcprototype">void NNS_SndPlayerSetTrackMute(
+        NNSSndHandle* <var>handle</var>,
+        u16 <var>trackBitMask</var>,
+        BOOL <var>flag</var> );</code><br><code class="funcprototype">void NNS_SndPlayerSetTrackMuteEx(
+        NNSSndHandle* <var>handle</var>,
+        u16 <var>trackBitMask</var>,
+        NNSSndSeqMute <var>mute</var> );</code><br></pre></dd>
+</dl>
+<div class="refsection" lang="ja"><a name="IDADNAU"></a>
+<h2>Arguments</h2>
+      
+      <div class="variablelist">
+<table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><em><strong><code>handle</code></strong></em></td>
+<td>The sound handle pointer.</td>
+</tr>
+<tr>
+<td><em><strong><code>trackBitMask</code></strong></em></td>
+<td>This is the track bit mask.</td>
+</tr>
+<tr>
+<td><em><strong><code>flag</code></strong></em></td>
+<td>Flag to indicate whether to mute or cancel. When <code>TRUE</code>, mute is applied; when <code>FALSE</code>, mute is canceled.</td>
+</tr>
+<tr>
+<td><em><strong><code>mute</code></strong></em></td>
+<td>Represents the mute setting.</td>
+</tr>
+</tbody>
+</table>
+</div>
+    </div>
+<div class="refsection" lang="ja"><a name="IDAHOAU"></a>
+<h2>Return Values</h2>
+
+<p>None.</p>
+    </div>
+<div class="refsection" lang="ja"><a name="IDAOOAU"></a>
+<h2>Description</h2>
+      <p>
+Mutes and stops a sequence track. 
+</p>
+      <p>
+The sequence tracks bound to the sound handle <em><strong><code>handle</code></strong></em> can be muted and/or stopped. This function does not perform any action if the sound handle is invalid. 
+</p>
+      <p>
+Use <em><strong><code>trackBitMask</code></strong></em> to specify the tracks to be set. The tracks are identified from the lower bit in sequence: Track 0, Track 1, Track 2 .... All tracks that have enabled bits will have their mute settings changed. For example, to change the mute settings of Track 2 and Track 5, use  (1 &lt;&lt; 2) | (1 &lt;&lt; 5); i.e., 0x0024. 
+</p>
+      <p>
+When you mute using the <tt class="function">NNS_SndPlayerSetTrackMute</tt> function, the sound that is playing stops immediately. To not stop the sound immediately, use the <tt class="function">NNS_SndPlayerSetTrackMuteEx</tt> function.
+</p>
+      <p>
+Select from the following values for the mute setting <em><strong><code>mute</code></strong></em>:
+</p>
+<div class="table"><a name="IDAKPAU"></a><p class="title"><b>Table. NNSSndSeqMute</b></p>
+<table summary="NNSSndSeqMute" border="1">
+<colgroup><col><col></colgroup>
+<thead>
+<tr>
+<th>Label</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NNS_SND_SEQ_MUTE_OFF</td>
+<td>Releases mute.</td>
+</tr>
+<tr>
+<td>NNS_SND_SEQ_MUTE_NO_STOP</td>
+<td>Mutes without stopping the currently playing sound.</td>
+</tr>
+<tr>
+<td>NNS_SND_SEQ_MUTE_RELEASE</td>
+<td>Mutes after releasing the sound that is playing.</td>
+</tr>
+<tr>
+<td>NNS_SND_SEQ_MUTE_STOP</td>
+<td>Immediately stops the currently playing sound and mutes.</td>
+</tr>
+</tbody>
+</table>
+</div>
+      <div class="note">
+<h3 class="title">Note</h3>
+<p>
+The <tt class="function">NNS_SndPlayerSetTrackMuteEx</tt> function can only be used with SDK version 3.1 and later.
+</p>
+<p>
+When you mute tracks using the <tt class="function">NNS_SndPlayerSetTrackMute</tt> function or when <span class="symbol"><CODE>NNS_SND_SEQ_MUTE_STOP</CODE></span> is specified by the <tt class="function">NNS_SndPlayerSetTrackMuteEx</tt> function, all playing sounds are forcibly stopped and no subsequent sounds will be played. If mute is canceled, sound will be produced but not begin to play immediately. Note that sound will begin to play on the next note-on. 
+</p>
+<p>
+If a mute setting is already configured in the sequence data, the value that is set later will be valid. 
+</p>
+</div>
+    </div>
+<h2>See Also</h2>
+<p>None.</p>
+<h2>Revision History</h2>
+<p>2006/03/20 Added the NNS_SndPlayerSetTrackMuteEx function <br>2004/06/01 Revised the text to state that the Sound Handle binds to the sequence <br>2004/04/01 Initial version<br></p>
+</div>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

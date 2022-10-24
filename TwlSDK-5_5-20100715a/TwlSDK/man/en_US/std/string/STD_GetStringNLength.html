@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 8.0.2.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>STD_GetStringNLength</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">STD_GetStringNLength<img src="../../image/NTR.gif"align="middle"><img src="../../image/TWL.gif" align="middle"></h1>
+<h2>Syntax</h2>
+<dl>
+  <dd><PRE><CODE>#include &lt;nitro/std.h&gt;
+
+int STD_GetStringNLength( char* str, int len );</CODE></PRE>
+  <PRE><CODE>int STD_StrNLen( char* str, int len );
+</CODE></PRE></dd>
+</dl>
+
+<h2>Arguments</h2>
+<table border="1" width="100%">
+  <tbody>
+    <TR>
+      <TD width="200"><EM><STRONG><FONT face="Courier New">str</FONT></STRONG></EM></TD>
+      <TD width="800">Specifies the string pointer.</TD>
+    </TR>
+    <TR>
+      <TD width="200"><EM><STRONG><FONT face="Courier New">len</FONT></STRONG></EM></TD>
+      <TD width="800">Specifies the maximum return value.</TD>
+    </TR>
+  </tbody>
+</table>
+
+<h2>Return Values</h2>
+<p>
+Returns the string length when it is less than <SPAN class="argument">len</SPAN>. Returns <SPAN class="argument">len</SPAN> otherwise.
+</p>
+
+<H2>Description</H2>
+<P>
+Finds the length of string <EM><STRONG><CODE>str</CODE></STRONG></EM>. If it is longer than <SPAN class="argument">len</SPAN>, however, <SPAN class="argument">len</SPAN> is returned. This has the same behavior as the <CODE>strnlen</CODE> function in the C standard library. By specifying <SPAN class="argument">len</SPAN> as the size of the array (region) that stores a string, you can prevent an abnormally large string count from being returned when the string overflows the region.
+</P>
+<P>
+<CODE>STD_StrNLen</CODE> is defined as another name for <CODE>STD_GetStringNLength</CODE>.
+</P>
+
+<h2>See Also</h2>
+<P>
+	<CODE>
+		<A href="STD_GetStringLength.html">STD_GetStringLength</A>
+	</CODE>
+</P>
+
+
+<H2>Revision History</H2>
+<P>
+2008/07/31 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

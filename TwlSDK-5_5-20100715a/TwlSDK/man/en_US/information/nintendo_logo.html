@@ -1,0 +1,89 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>Logo to Protect Against Illegal Products</TITLE>
+<LINK rel="stylesheet" href="../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+
+<H1 align="left">Nintendo Logo to Protect Against Illegal Products</H1>
+<H2>Overview</H2>
+<P>
+The TWL-SDK includes data for implementing a logo to protect against illegal products. This logo must be displayed when a card application starts.<BR>Do not change the size, proportions, or color of this logo when using this data.<BR><BR>Note: Although a Fontworks font is used for the words &quot;Licensed by&quot;and &quot;Published by&quot; this does not need to be listed in associated instruction manuals.
+</P>
+
+<H2>Location</H2>
+<P>
+The logo to protect against illegal products is located in the <CODE>$TwlSDK/data/nintendo_logo</CODE> directory of the TWL-SDK.<BR>There are three logos in the directory.
+</P>
+
+<table class="table float_left">
+<thead>
+<tr><th>Filename<th>Description
+</thead>
+<tbody>
+<tr><th>LicensedByNintendo<td>For game manufacturer titles
+<tr><th>Nintendo<td>For Nintendo titles
+<tr><th>PublishedByNintendo<td>For titles whose sales license was purchased by Nintendo or that are sold on consignment
+</tbody>
+</table>
+
+<br clear="all">
+
+<H2>Policies for Dealing with Illegal Products</H2>
+<P>
+Nintendo's policy for dealing with illegal products is as follows: Support legal business by excluding illegal products from the market.<BR>Display of the Nintendo logo is an effective means of achieving this policy.<BR>For more details on Nintendo's policies to protect against illegal products, see the <I>DS Programming Guidelines</I> and the <I>TWL Programming Guidelines</I>. The guidelines are released separately.
+</P>
+
+<H2>Distribution Data Format</H2>
+<P>
+Two types of data are provided: BMP texture data and Nitro-Character data. Either type may be used.<BR>A vertical type is also available. Select the appropriate type for your project.
+</P>
+<H3>NITRO CHARACTER Format</H3>
+<P>
+The project folder contains three types of data: screen data, character data, and palette data.<BR>Although unjustified character data is distributed, justification may be performed according to the specifications of each project.<BR>(However, do not change the color palette, size of the logo itself, or dot pattern.)
+</P>
+
+<H3>BMP Format</H3>
+<P>
+256 x 192 dot, index color mode (16-color) BMP data
+</P>
+
+<H2>Logo Fade-In/Fade-Out (60 fps)</H2>
+<P>
+Fade-In:	15 frames (0.25 sec)<BR>Fixed Display:	60 frames (1 sec)<BR> Fade-Out: 15 frames (0.25 sec)<BR><BR>Note: The display times are approximate guidelines. Slight changes may be made to accommodate individual project specifications.
+</P>
+<H2>Color Variations</H2>
+<P>
+At present, 3 different color variations are provided.<BR>Use one of these three variations regardless of whether the application is a Japanese language version, a non-Japanese version, or a trial version.<BR>(Nintendo recommends using the gray logo. Use the white and black logos if they are needed to match the colors of screens that appear before and after.)
+</P>
+<table class="table float_left">
+<thead>
+<tr><th>Filename<th>Description
+</thead>
+<tbody>
+<tr><th>*Black_White.*<td>Black logo on a white background
+<tr><th>*Gray_White.*<td>Gray logo on a white background
+<tr><th>*White_Black.*<td>White logo on a black background
+</tbody>
+</table>
+<br clear="all">
+<H2>Samples</H2>
+<P>
+A sample showing how to display the Licensed by Nintendo logo is located in the following directory.<BR><BR><CODE>$TwlSDK/build/demos/tips/DisplayLogo</CODE>
+</P>
+<H2>Rules for Display</H2>
+<P>
+Display the logo appropriately, in accordance with the <I>DS Programming Guidelines</I> and <I>TWL Programming Guidelines</I>.
+</P>
+
+<H2>Revision History</H2>
+<P>
+2010/02/18 Made changes to reflect the addition of the vertical type logo data.<br/> 2009/11/10 Initial version.
+</P>
+
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

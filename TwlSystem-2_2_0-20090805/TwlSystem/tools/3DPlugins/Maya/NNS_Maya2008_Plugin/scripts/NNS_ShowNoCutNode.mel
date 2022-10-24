@@ -1,0 +1,38 @@
+/******************************************************************************
+	NINTENDO NITRO-System Maya Plugin
+
+	File:         NNS_ShowNoCutNode.mel
+	Description:  show no cut node
+	Date:         2004/11/04
+	Author:       Takashi Endo
+
+	Copyright 2003-2009 Nintendo. All rights reserved.
+******************************************************************************/
+
+/******************************************************************************
+	main
+******************************************************************************/
+global proc NNS_ShowNoCutNode()
+{
+	int $node_count = 0;
+	select -cl;
+	string $xforms[] = `ls -typ transform`;
+	for ($xform in $xforms) {
+		if (`attributeQuery -n $xform -ex "nns_no_cut"`) {
+			if (`getAttr ($xform + ".nns_no_cut")` == 1) {
+				select -add $xform;
+				++$node_count;
+			}
+		}
+	}
+
+	if ($node_count == 0)
+		print "Not found\n";
+	else {
+		string $msg = "Found: " + $node_count + " transform node";
+		if ($node_count >= 2)
+			$msg += "s";
+		print ($msg + "\n");
+	}
+}
+

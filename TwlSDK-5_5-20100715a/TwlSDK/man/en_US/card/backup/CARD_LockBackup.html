@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>CARD_LockBackup</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">CARD_LockBackup <img src="../../image/NTR.gif"align="middle"><img src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/card.h&gt;</CODE><BR>
+  <BR>
+  <CODE>void	CARD_LockBackup(u16 lock_id);</CODE><br>
+  <br>
+  </dd>
+</dl>
+<h2>Arguments</h2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+      <TD width="13%"><EM><STRONG>lock_id</STRONG></EM></TD>
+      <TD width="87%">ID used to lock the card.<BR>
+	  This is obtained with the <CODE>OS_GetLockID</CODE> function.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<h2>Return Values</h2>
+<p>None.</p>
+
+<H2>Description</H2>
+<P>This function locks the access bus to the CARD backup device. If another module (with another ID) has already locked the bus, <code>CARD_LockRom</code> waits until the bus returns to an unlocked state before it executes The function will return control after locking the card. <BR>
+</P>
+<H2>Note</H2>
+<P>
+<FONT color="#800000">All functions that access a CARD backup device must first lock the access bus.<BR> You cannot access a CARD ROM device and a backup device simultaneously.<BR> While one bus is locked, other bus locks are forced to wait.<BR></FONT>
+</P>
+<h2>See Also</h2>
+<p><CODE><A href="../../os/spinLock/OS_GetLockID.html">OS_GetLockID</A>, <A href="../../os/spinLock/OS_LockCard.html">OS_LockCard</A>, <A href="../../os/spinLock/OS_LockCartridge.html">OS_LockCartridge</A>, <A href="CARD_UnlockBackup.html">CARD_UnlockBackup</A></CODE></p>
+
+<H2>Revision History</H2>
+<P>
+2004/09/06 Added the description for the prototype.<br> 2004/08/31 Added the description of function always succeeding.<br> 2004/07/23 Changed lock ID type from u32 to u16.<br> 2004/07/13 Addition concerning exclusive control of CARD ROM device and backup device<br> 2004/07/10 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

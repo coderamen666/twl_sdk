@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+
+<HEAD>
+	<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+	<META http-equiv="Content-Style-Type" content="text/css">
+	<LINK rel="stylesheet" type="text/css" href="../../css/nitro.css">
+	<TITLE>Fnd Demos</TITLE>
+</HEAD>
+
+<BODY>
+<H1>Foundation Library Sample Demo</H1>
+
+<H2>Location</H2>
+<P><CODE>$TwlSystem/build/demos/fnd</CODE></P>
+
+<H2>Compilation</H2>
+<P>Move to the <CODE>$TwlSystem/build/demos/fnd</CODE> directory and run:</P>
+<BLOCKQUOTE><CODE>% make</CODE></BLOCKQUOTE>
+<P>&nbsp;Compiling begins, and the SRL executable file and the NEF or TEF files with the binary information are generated in:</P>
+<BLOCKQUOTE><CODE>$TwlSystem/build/demos/fnd/(sample_name)/bin/(platform)/(target)/</CODE></BLOCKQUOTE>
+<P>&nbsp;For example:</P>
+<BLOCKQUOTE><CODE>$TwlSystem/build/demos/fnd/archive/bin/ARM9-TS.HYB/Release/</CODE></BLOCKQUOTE>
+<P>The executable file of the release version for the NITRO/TWL hybrid of the <CODE>archive</CODE> demo is generated in the path described above.</P>
+
+
+<H2>Execution</H2>
+<P>Move to <CODE>$TwlSystem/build/demos/fnd/(sample_name)/bin/(platform)/(target)/</CODE>. Depending on the type of the built ROM, one of the following methods is used for execution.</P>
+
+<H3>For NITRO ROMs</H3>
+
+<P>When using the Ensata emulator:</P>
+<UL>
+<LI>Execute the NEF and SRL files with <CODE>ensata</CODE>.
+</UL>
+<P>When using IS-NITRO-DEBUGGER:</P>
+<UL>
+<LI>Load and execute an NLF file with IS-NITRO-DEBUGGER.
+<LI>Execute an SRL file with IS-NITRO-DEBUGGER.
+<LI>Execute an SRL file with IS-NITRO-DEBUGGER using the <CODE>loadrun.exe</CODE> tool from a command line.
+</UL>
+<P>When using IS-TWL-DEBUGGER:</P>
+<UL>
+<LI>Load and execute an NLF file with IS-TWL-DEBUGGER.
+<LI>Execute an SRL file with IS-TWL-DEBUGGER.
+<LI>Execute an SRL file with IS-TWL-DEBUGGER using the <CODE>loadrun.TWL.exe</CODE> tool from a command line.
+</UL>
+<H3>For TWL/NITRO Hybrid ROMs</H3>
+<P>When using IS-NITRO-DEBUGGER:</P>
+<UL>
+<LI>Execute an SRL file with IS-NITRO-DEBUGGER.
+<LI>Execute an SRL file with IS-NITRO-DEBUGGER using the <CODE>loadrun.exe</CODE> tool from a command line.
+</UL>
+<P>When using IS-TWL-DEBUGGER:</P>
+<UL>
+<LI>Load and execute a TLF file with IS-TWL-DEBUGGER.
+<LI>Execute an SRL file with IS-TWL-DEBUGGER.
+<LI>Execute an SRL file with IS-TWL-DEBUGGER using the <CODE>loadrun.TWL.exe</CODE> tool from a command line.
+</UL>
+<H3>For TWL Limited ROMs</H3>
+<P>When using IS-TWL-DEBUGGER:</P>
+<UL>
+<LI>Load and execute a TLF file with IS-TWL-DEBUGGER.
+<LI>Execute an SRL file with IS-TWL-DEBUGGER.
+<LI>Execute an SRL file with IS-TWL-DEBUGGER using the <CODE>loadrun.TWL.exe</CODE> tool from a command line.
+</UL>
+
+
+<H2>Description</H2>
+<BR>
+<TABLE width="720">
+  <TBODY>
+    <TR>
+<TD width="187"><A href="../../../../build/demos/fnd/archive/src/main.c"><CODE>archive</CODE></A></TD>
+<TD width="525">Reads in the BG data from the archive and displays it on the screen.</TD>
+    </TR>
+    <TR>
+<TD width="187"><A href="../../../../build/demos/fnd/archive2/src/main.c"><CODE>archive2</CODE></A></TD>
+<TD width="525">Reads in the BG data from the compressed archive and displays it on the screen.</TD>
+    </TR>
+    <TR>
+<TD width="187"><A href="../../../../build/demos/fnd/heap/src/main.c"><CODE>heap</CODE></A></TD>
+<TD width="525">Shows simple uses for expanded, frame, and unit heaps. Nothing will be displayed on the screen, but the heap status will be displayed in the debug output.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>Operating Environment</H2>
+<P>Normal operation for all of the samples using IS-TWL-DEBUGGER, IS-NITRO-EMULATOR, and Ensata has been confirmed.</P>
+<H2>See Also</H2>
+<P><A href="../../fnd/list_fnd.html">Fnd Function List</A></P>
+<H2>Revision History</H2>
+<P>
+2008/06/20 Updated compile method and execution method for TWL.<br>2005/01/21 Deleted the description of IS-NITRO-EMULATOR in <B>Execution</B>, deleted the description of TEG in <B>Operating Environment</B>, and changed TS to IS-NITRO-EMULATOR. 2004/08/02 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

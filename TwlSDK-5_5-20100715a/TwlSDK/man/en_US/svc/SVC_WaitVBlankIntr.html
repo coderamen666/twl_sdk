@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>SVC_WaitVBlankIntr</TITLE>
+<LINK rel="stylesheet" href="../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">SVC_WaitVBlankIntr <IMG src="../image/NTR.gif" align="middle"><IMG src="../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+<DL>
+  <DD>
+  <PRE><CODE>#include &lt;nitro/os/common/systemCall.h&gt;</CODE></PRE>
+  <PRE><CODE>void SVC_WaitVBlankIntr( void );</CODE></PRE>
+</DL>
+<H2>Arguments</H2>
+<P>None.</P>
+<H2>Return Values</H2>
+<P>None.</P>
+<H2>Description</H2>
+<P>Waits until a V-Blank interrupt is generated.</P>
+<P>In order to allow the CPU <FONT color="red">to switch to another thread</FONT> when it becomes available, all occurrences of <CODE>SVC_WaitVBlankIntr</CODE> will be replaced by calls to the <A href="../os/system/OS_WaitVBlankIntr.html"><CODE>OS_WaitVBlankIntr</CODE></A> function. As a result, although system calls are not normally used, system calls may be made without being replaced when the environment variable <CODE>NITRO_SVC_WAITVBLANK_COMPATIBLE</CODE> has been set.</P>
+
+<H3>Using System Calls</H3>
+<P>
+Continues to wait in a <code>Halt</code> state until a V-Blank interrupt is generated. In other words, the CPU <FONT color="red">does not switch to another thread</FONT> even if there is available time. If you want to switch to another thread when the CPU is available, use <A href="../os/system/OS_WaitVBlankIntr.html"><CODE>OS_WaitVBlankIntr()</A></CODE>.
+</P>
+<P>
+Set the V-Blank check flag with <code><a href="../os/irq/OS_SetIrqCheckFlag.html">OS_SetIrqCheckFlag</a>(&nbsp;OS_IE_V_BLANK&nbsp;)</code> in the V-Blank interrupt handler. SVC_WaitVBlankIntr() assumes that V-Blank has occurred based on the fact this flag has been set after the IRQ interrupt internal to this function.
+</P>
+<P>
+When multiple threads are used at the same time, the overhead for the system call can be reduced in comparison to repeatedly calling <code><a href="../os/system/OS_Halt.html">OS_Halt()</a></code>.
+</P>
+<P>
+If this function is called for the same interrupt at the same time for multiple threads, be aware that only one thread can be restored for each corresponding V-Blank.
+</P>
+
+<H2>See Also</H2>
+<P><CODE><A href="../os/irq/OS_SetIrqCheckFlag.html">OS_SetIrqCheckFlag</A>, <A href="../os/system/OS_Halt.html">OS_Halt</A><BR> <A href="../os/system/OS_WaitVBlankIntr.html">OS_WaitVBlankIntr</A></CODE></P>
+<H2>Revision History</H2>
+<P>
+2005/11/21 Added a description that replaced the <CODE>OS_WaitVBlankIntr</CODE> function call.<BR> 2005/10/07 Added a note that one cannot switch to other threads. <BR>2004/11/02 Deleted the description of <CODE>SVC_WaitIntr()</CODE>.<BR> 2004/04/22 Added a note regarding use with multiple threads.<BR> 2004/01/18 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

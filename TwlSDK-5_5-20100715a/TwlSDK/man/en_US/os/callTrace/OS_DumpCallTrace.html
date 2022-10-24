@@ -1,0 +1,41 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>OS_DumpCallTrace</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">OS_DumpCallTrace <IMG src="../../image/NTR.gif" align="middle"><IMG src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+<DL>
+<DD><CODE>#include &lt;nitro/os.h&gt;</CODE><BR> <BR> <CODE>void OS_DumpCallTrace( void );</CODE>
+</DL>
+<H2>Arguments</H2>
+<P>None.</P>
+<H2>Return Values</H2>
+<P>None.</P>
+<H2>Description</H2>
+<P>Displays function call trace information.</P>
+<P>It displays the trace information that is present at the time it is called. If you are using a thread system, it will display information for the current thread. To display information for a particular thread, use the <A href="OS_DumpThreadCallTrace.html"><CODE>OS_DumpThreadCallTrace</CODE></A> function.</P>
+<P>The following is a description of trace information in the case of stack mode.</P>
+<BLOCKQUOTE><B>Display Example:</B><br>
+<BLOCKQUOTE><CODE>OS_DumpCallTrace: lr=0x02004438<br> &nbsp;&nbsp;&nbsp;&nbsp;    test3: lr=0x0200447c, r0=0x000000cb<br> &nbsp;&nbsp;  test2: lr=0x020044b0, r0=0x000000c9<br> test1: lr=0x0200426c, r0=0x000000c8<br></CODE></BLOCKQUOTE>
+The example indicates that currently, <CODE>OS_DumpCallTrace</CODE> is called, trace information is displayed, and the function returns the address <CODE>0x2004438</CODE>. Before that, <CODE>test3</CODE> was called, and the address <CODE>0x2004447c</CODE> was returned. Before that, <CODE>test2</CODE> was called, and the address <CODE>0x20044b0</CODE> was returned. Before that, <CODE>test1</CODE>, was called, and the address <CODE>0x200426c</CODE> was returned.  (The display of <CODE>r0</CODE> is optional.)<BR> <IMG src="img02.jpg" border="0" width="560" height="322"></BLOCKQUOTE>
+<P>The following is a description of trace information in the case of log mode.</P>
+<BLOCKQUOTE><B>Display Example:</B><br>
+<BLOCKQUOTE><CODE>OS_DumpCallTrace: lr=0x02004438<BR> test3: lr=0x0200447c, r0=0x000000cb<BR> test2: lr=0x020044b0, r0=0x000000c9<br> test1: lr=0x0200426c, r0=0x000000c8<BR> test3: lr=0x0200447c, r0=0x000000cb<BR> test2: lr=0x020044b0, r0=0x000000c9<br> test1: lr=0x0200426c, r0=0x000000c8<br></CODE></BLOCKQUOTE>
+The example indicates that currently, <CODE>OS_DumpCallTrace</CODE> is called, trace information is displayed, and the function returns the address <CODE>0x2004438</CODE>. Additionally, before this function was called, of the functions that were compiled with the <CODE>profile</CODE> feature ON, <CODE>test1</CODE> -&gt; <CODE>test2</CODE> -&gt; <CODE>test3</CODE> -&gt; <CODE>test1</CODE> -&gt; <CODE>test2</CODE> -&gt; <CODE>test3</CODE> were entered, in this order. However, which function called what function cannot be determined.</BLOCKQUOTE>
+
+<P>Concerning R0 &ndash; R3 register display: Including this information in the function call trace buffer is optional. Including one register costs 4 additional bytes in the buffer for each function call. Including the 4 registers R0 &ndash; R3 costs 16 additional bytes for each function call. The R0 that is displayed is the value at the time that the function is called. In the case of C function arguments, it is the first argument. R1 is the second argument, R2 is the third argument, and R3 is the fourth argument. In the case of functions that do not take these arguments, these arguments are indeterminate values that have no special meaning. R0 and subsequent information will not be displayed for calls to <CODE>OS_DumpCallTrace</CODE> or <A href="OS_DumpThreadCallTrace.html"><CODE>OS_DumpThreadCallTrace</CODE></A> themselves.</P>
+<P>If this function is compiled for debugging, it functions properly. However, if compiled for the final ROM version (<CODE>FINALROM</CODE>) library, it does not do anything.</P>
+<H3><BR> Display Mode</H3>
+<P>If an accurate display of all information takes priority over speed, as it does in this function, we recommend temporarily setting the display to blocking mode. See the <A href="../debug/OS_SetPrintBlockingMode.html"><CODE>OS_SetPrintBlockingMode</CODE></A> function for further details.</P>
+<H2>See Also</H2>
+<P><A href="OS_InitCallTrace.html"><CODE>OS_InitCallTrace</CODE></A><BR> <A href="OS_DumpThreadCallTrace.html"><CODE>OS_DumpThreadCallTrace</CODE></A><BR> <A href="../debug/OS_SetPrintBlockingMode.html"><CODE>OS_SetPrintBlockingMode</CODE></A></P>
+<H2>Revision History</H2>
+<P>2009/04/03 Added description of blocking mode.<BR> 2004/04/22 Added description of stack mode and log mode.<BR> 2004/04/13 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

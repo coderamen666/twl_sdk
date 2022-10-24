@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"><html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>NNS_SndArcSetCurrent</title>
+<link rel="stylesheet" href="../css/nitro.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.65.1">
+</head>
+<body>
+<div class="refentry" lang="ja"><a name="IDAKKAU"></a><div class="titlepage">
+<div></div>
+<div></div>
+</div>
+<h1>NNS_SndArcSetCurrent</h1>
+<h2>Syntax</h2>
+<dl>
+<dd><pre class="funcsynopsisinfo"><code>#include &lt;nnsys/snd.h&gt;</code></pre></dd>
+<dd><pre class="funcprototype"><code class="funcprototype">NNSSndArc* NNS_SndArcSetCurrent( NNSSndArc* <var>arc</var> );</code><br></pre></dd>
+</dl>
+<div class="refsection" lang="ja"><a name="IDA5LAU"></a>
+<h2>Arguments</h2>
+      
+      <div class="variablelist">
+<table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><em><strong><code>arc</code></strong></em></td>
+<td>The sound archive pointer</td>
+</tr>
+</tbody>
+</table>
+</div>
+    </div>
+<div class="refsection" lang="ja"><a name="IDAOMAU"></a>
+<h2>Return Values</h2>
+
+<p>Returns current sound archive pointer before it is set.</p>
+    </div>
+<div class="refsection" lang="ja"><a name="IDAVMAU"></a>
+<h2>Description</h2>
+      <p>
+Changes the current sound archive.
+</p>
+      <p>
+The functions that handle the sound archive are all executed on the current sound archive. The current sound archive can be changed by using this function.
+</p>
+      <p>
+Use the <code><a href="NNS_SndArcGetCurrent.html">NNS_SndArcGetCurrent</a></code> function to get the current sound archive.
+</p>
+      <div class="note">
+<h3 class="title">Note</h3>
+<p>
+Functions whose name starts with &quot;NNS_SndArc&quot; (including those of the form NNS_SndArcPlayer*) reference the current sound archive. To use more than one sound archive, the sound archive to be used must be set as the current sound archive before calling these functions.
+</p>
+</div>
+    </div>
+<h2>See Also</h2>
+<p><a href="NNS_SndArcGetCurrent.html">NNS_SndArcGetCurrent</a></p>
+<h2>Revision History</h2>
+<p>2006/09/13 Added a note.<br>2004/06/01 Initial version.</p>
+</div>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

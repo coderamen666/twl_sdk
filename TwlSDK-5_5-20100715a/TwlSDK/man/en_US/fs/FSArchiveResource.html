@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title>FSArchiveResource</title>
+<link rel="stylesheet" href="../css/nitro.css" type="text/css" />
+</head>
+<body>
+
+<h1>FSArchiveResource <img src="../image/NTR.gif"align="middle"><img src="../image/TWL.gif" align="middle"></h1>
+<h2>Definition</h2>
+<pre><code>
+
+typedef struct FSArchiveResource
+{
+    u64     totalSize;
+    u64     availableSize;
+    u32     maxFileHandles;
+    u32     currentFileHandles;
+    u32     maxDirectoryHandles;
+    u32     currentDirectoryHandles;
+    // for FAT archives.
+    u32     bytesPerSector;
+    u32     sectorsPerCluster;
+    u32     totalClusters;
+    u32     availableClusters;
+}
+FSArchiveResource;
+
+</code></pre>
+
+<h2>Description</h2>
+<p>A structure that indicates the resource information that can be obtained with <code><a href="archive/FS_GetArchiveResource.html">FS_GetArchiveResource()</a></code>. The details of each member are as follows.</p>
+<table>
+<tr><td>totalSize</td><td>Indicates the total size of an archive in bytes.<br />Note that this will be a 64-bit integer.</td></tr>
+<tr><td>availableSize</td><td>Indicates the amount of free space within an archive in bytes.<br />Note that this will be a 64-bit integer.</td></tr>
+<tr><td>maxFileHandles</td><td>Indicates the maximum number of files that can be opened simultaneously.</td></tr>
+<tr><td>currentFileHandles</td><td>Indicates the number of files that are currently open.</td></tr>
+<tr><td>maxDirectoryHandles</td><td>Indicates the maximum number of directories that can be opened simultaneously.</td></tr>
+<tr><td>currentDirectoryHandles</td><td>Indicates the number of directories that are currently open.</td></tr>
+<tr><td colspan='2' style='background-color:white'>The following members are only valid for archives that have FAT as the internal structure, such as <a href="archive_nand_spec.html">NAND archives</a> and <a href="archive_sdmc_spec.html">SD Card archives</a>.</td></tr>
+<tr><td>bytesPerSector</td><td>Indicates the number of bytes per sector.</td></tr>
+<tr><td>sectorsPerCluster</td><td>Indicates the number of sectors per cluster.</td></tr>
+<tr><td>totalClusters</td><td>Indicates the total number of clusters.</td></tr>
+<tr><td>availableClusters</td><td>Indicates the number of available clusters.</td></tr>
+</table>
+
+<h2>See Also</h2>
+<p><code><a href="archive/FS_GetArchiveResource.html">FS_GetArchiveResource</a></code></p>
+
+<h2>Revision History</h2>
+<p>
+2007/12/17 Initial version.
+</p>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

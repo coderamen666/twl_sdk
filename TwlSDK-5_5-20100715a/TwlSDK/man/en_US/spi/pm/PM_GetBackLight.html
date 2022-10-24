@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>PM_GetBattery</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">PM_GetBackLight <IMG src="../../image/NTR.gif" width="24" height="12" border="0" align="middle"><IMG src="../../image/TWL.gif" width="24" height="12" border="0" align="middle"></H1>
+<H2>Syntax</H2>
+<DL>
+  <DD>
+  <PRE><CODE>#include &lt;nitro/spi.h&gt;</CODE></PRE>
+  <PRE><CODE>u32 PM_GetBackLight( PMBackLightSwitch* top, PMBackLightSwitch* bottom );
+</CODE></PRE>
+</DL>
+<H2>Arguments</H2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="20%"><EM><STRONG>top</STRONG></EM></TD>
+<TD width="87%">Buffer where the state of the upper screen backlight is written.</TD>
+    </TR>
+    <TR>
+<TD><EM><STRONG>bottom</STRONG></EM></TD>
+<TD>Buffer where the state of the lower screen backlight is written.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>Return Values</H2>
+<P>If <CODE>PM_RESULT_SUCCESS</CODE>, the command ran successfully.</P>
+<P>If <CODE>PM_RESULT_BUSY</CODE>, the SPI was occupied by other processing and unable to process this function.</P>
+
+<P>This function gets the backlight states and writes them to the addresses indicated by <SPAN class="argument">top</SPAN> and <SPAN class="argument">bottom</SPAN>. The saved values are as follows.</P>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+<TH>Saved Value</TH>
+<TH>Backlight State</TH>
+    </TR>
+    <TR>
+<TD><CODE>PM_BACKLIGHT_ON</CODE></TD>
+<TD>Backlight is ON.</TD>
+    </TR>
+    <TR>
+<TD><CODE>PM_BACKLIGHT_OFF</CODE></TD>
+<TD>Backlight is OFF.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>Description</H2>
+<P>Checks the state of the backlight.</P>
+<P>The <SPAN class="argument">top</SPAN> and <SPAN class="argument">bottom</SPAN> arguments are pointers to the <code>PMBackLightSwitch</code> type. The results of this function are stored there. If you specify <CODE>NULL</CODE> for a pointer, this function does not write the state of the corresponding backlight.</P>
+<P>This function uses PXI to send the command that performs the corresponding operation in the ARM7 processor. The ARM7 side that receives that command is executed by operating the PMIC.</P>
+<P><FONT color="#ff0000">This function can be used from an interrupt handler. This function cannot be used in interrupt-prohibited states other than interrupt handlers.</FONT></P>
+<P><BR> <BR> <B>About <CODE>PM_RESULT_BUSY</CODE></B></P>
+<P>The SPI is used for various other processes besides power management. If you call this function while another process is using it, this function sends a command to the ARM7. There, the SPI is determined to be BUSY, and <CODE>PM_RESULT_BUSY</CODE> is dispatched to the ARM9 without actually processing this function. Likewise, if you call this function while another PM process is running, that fact is determined on the ARM9, and this function returns <CODE>PM_RESULT_BUSY</CODE>. (In this case, the determination is made before notification is sent to the ARM7.)</P>
+<P>Accordingly, if you want to ensure that this function succeeds, make it loop until it succeeds as shown below. (This example does not take into account mistakes such as wrong arguments.)</P>
+<BLOCKQUOTE style="background-color:#ffffcc"><B>Example</B><BR> <CODE>while( PM_GetBackLight( ... ) != PM_RESULT_SUCCESS )<BR> {<BR> }</CODE></BLOCKQUOTE>
+<H2>Internal Operation</H2>
+<P>This function reads the value of the PMIC register PMIC_CTL.</P>
+<H2>See Also</H2>
+<P><a href="PM_Init.html"><code>PM_Init</code></a><BR><a href="PM_SetBackLight.html"><code>PMSetBackLight</code></a></P>
+<H2>Revision History</H2>
+<P>2009/06/03 Removed a description of the <CODE>PM_Init</CODE> function (because <CODE>OS_Init</CODE> is now required). <BR>2008/12/05 Added a cautionary note concerning use when interrupts are prohibited. <BR>2008/08/23 Mentioned <CODE>PM_RESULT_BUSY</CODE>. <BR>2005/07/07 Mentioned the <CODE>PM_RESULT_ERROR</CODE> return value. <BR>2004/08/09 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

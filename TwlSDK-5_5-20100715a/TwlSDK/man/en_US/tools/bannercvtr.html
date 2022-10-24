@@ -1,0 +1,143 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>bannercvtr</TITLE>
+<LINK rel="stylesheet" href="../css/nitro.css" type="text/css">
+<STYLE type="text/css">
+<!--
+.sample_source{
+  background-color : #e8e8e8;
+}
+H3{
+  color : teal;
+}
+.command_list{
+  margin-bottom : 16pt;
+}
+.command_desc{
+  }
+.command_item{
+  margin-top : 16pt;
+  background-color : #e8e8e8;
+}
+.blockquoted_table {
+  border : 1px;
+  width : 80%;
+}
+TD,TH{
+  border-color	: #c0d8d8;
+  padding       : 1pt 4pt 1pt 4pt;
+  border-width  : 1px;
+  border-style  : solid;
+}
+-->
+</STYLE>
+</HEAD>
+<BODY>
+<H1 align="left">bannercvtr <IMG src="../image/TWL.gif" align="middle"></H1>
+<H2>Description</H2>
+<P>TWL Banner Converter is a command-line tool that converts either cell animations created with NITRO-CHARACTER or NBF files created with <A href="ntexconv.html"><CODE>ntexconv</CODE></A> into binary files for use as TWL banner icons.</P>
+<H2>Using the Tool</H2>
+<H3>Start Command</H3>
+<P><CODE>% bannercvtr.exe [option] NCE_FILE | XML_FILE</CODE></P>
+<P><CODE>NCE_FILE</CODE> specifies an NCE file (cell animation) created with NITRO-CHARACTER.</P>
+<P><CODE>XML_FILE</CODE> specifies an XML file that describes the contents of the NBF files created with <A href="ntexconv.html"><CODE>ntexconv</CODE></A> as well as the content of the animation.</P>
+<P>The <CODE>-h</CODE> option displays simple instructions.</P>
+<P>The <CODE>--version</CODE> option displays the version of <CODE>bannercvtr</CODE>.</P>
+<P>The <CODE>-o &lt;output file&gt;</CODE> option specifies the output file.</P>
+<P>The <CODE>-x</CODE> option converts an NCE file created with NITRO-CHARACTER into NBF files and an XML file for the banner icon.</P>
+<P>The <CODE>-v</CODE> option displays detailed information about the conversion.</P>
+<H2>Converting Cell Animations Created with NITRO-CHARACTER</H2>
+<P>For information on how to create cell animation data (<CODE>*.nce</CODE>) for TWL banners using NITRO-CHARACTER, see <A href="bannerNitroCharacter.html">Banner Creation Procedure Using NITRO-CHARACTER</A>.
+</P>
+<H3>Start Command</H3>
+<P>Running the following command from the command line outputs a binary file in the same folder as the NCE file. This file has the same name as the NCE file except that its file extension is BIN.</P>
+
+<P><CODE>% bannercvtr.exe data.nce</CODE></P>
+
+<P>The output file can also be specified as shown below.</P>
+
+<P><CODE>% bannercvtr.exe -o C:\data\output.bin data.nce</CODE></P>
+
+<P>The NCG and NCL files that are referenced by the NCE file must be saved in either the same project or the same folder as the NCE file.</P>
+
+<H2>Converting NBF Files Created with <A href="ntexconv.html">ntexconv</A></H2>
+<H3>Start Command</H3>
+<H4>Creating NBF Files</H4>
+<P>Use <CODE>ntexconv</CODE> to convert image files to NBF files. Run <CODE>ntexconv</CODE> with options like those shown below.</P>
+
+<P><CODE>% ntexconv.exe -no -bg -bgb -bgnc -f palette16 image0.bmp</CODE></P>
+
+<P>When assigning the transparent color 0 to an image file with an alpha channel specified, use the <CODE>-ta</CODE> option. When transparent colors (RGB) are specified, use the <CODE>-tc</CODE> option. Although NBFC, NBFP, and NBFS files are created after running <CODE>ntexconv</CODE>, NBFS files are not used with the TWL Banner Converter.</P>
+
+<H4>Creating XML Files for Banner Icons</H4>
+<P>This creates the NBF files used for the banner icon, as well as an XML file which encodes the animation content. The format of the XML file is explained in the next section.</P>
+
+<H4>Running TWL Banner Converter</H4>
+<P>Running the following command from the command line outputs a binary file in the same folder as the XML file. This file has the same name as the XML file except that its file extension is BIN.</P>
+
+<P><CODE>% bannercvtr.exe data.xml</CODE></P>
+
+<P>The output file can also be specified as shown below.</P>
+
+<P><CODE>% bannercvtr.exe -o C:\data\output.bin data.xml</CODE></P>
+<H3>Format of XML Files for Banner Icons</H3>
+<H4>Example XML File for a Banner Icon</H4>
+<BLOCKQUOTE>
+<PRE class="sample_source"><CODE>&lt;?xml version=&quot;1.0&quot; encoding=&quot;Shift_JIS&quot;?&gt;
+&lt;banner&gt;
+&lt;character_array&gt;
+    &lt;character&gt;character0.nbfc&lt;/character&gt;
+    &lt;character&gt;character1.nbfc&lt;/character&gt;
+&lt;/character_array&gt;
+&lt;palette_array&gt;
+    &lt;palette&gt;palette0.nbfp&lt;/palette&gt;
+&lt;/palette_array&gt;
+&lt;animation loop_mode=&quot;loop&quot;&gt;
+    10 0 0 N
+    20 1 0 N
+     5 0 0 N
+&lt;/animation&gt;
+&lt;/banner&gt;</CODE></PRE>
+</BLOCKQUOTE>
+<BLOCKQUOTE>
+<DL class="command_list">
+<DT class="command_item"><CODE>&lt;character_array&gt;</CODE>
+<DD class="command_desc">Use the <CODE>&lt;character_array&gt;</CODE> element to list the NBFC files (character data) to use. Up to 8 <CODE>&lt;character_array&gt;</CODE> elements can be listed.<BR>If the path of an NBFC file is not a full path, it is interpreted as a relative path from the folder where the XML file is located.
+<DT class="command_item"><CODE>&lt;palette_array&gt;</CODE>
+<DD class="command_desc">Use the <CODE>&lt;palette_array&gt;</CODE> element to list the NBFP files (palette data) to use. Only 1 <CODE>&lt;palette_array&gt;</CODE> element can be listed.<BR>If the path of an NBFP file is not a full path, it is interpreted as a relative path from the folder where the XML file is located.
+<DT class="command_item"><CODE>&lt;animation&gt;</CODE>
+<DD class="command_desc">Encodes the content of the animation.<BR>Specify the behavior of the animation using the <CODE>loop_mode</CODE> attribute. To loop, use <CODE>loop</CODE>. To stop after the last frame, use <CODE>stop</CODE>. You can code sets of key data in <CODE>&lt;animation&gt;</CODE>, as shown below.
+
+<PRE class="sample_source"><CODE>[<B>Number of frames</B>] [<B>Character Number</B>] [<B>Palette Number</B>] [<B>Flip</B>]<BR>    <I>(Do not use brackets in the actual file.)</I></CODE></PRE>
+
+Include as many sets of key data as necessary.<BR><B>Number of frames</B> is the number of frames displayed using the designated character, palette, and flip setting. The maximum number of frames is 255. Specifying 0 causes the given item of key data to be ignored.<BR><B>Character Number</B> is the character's number within <CODE>&lt;character_array&gt;</CODE>. The first <CODE>&lt;character&gt;</CODE> element is 0.<BR><B>Palette Number</B> is the number of the <CODE>&lt;palette_array&gt;</CODE>. <FONT color=#ff0000>It should always be set to 0.</FONT><BR><CODE>N</CODE> is always used for flip. (The flip feature has been removed. Specifying <CODE>H</CODE>, <CODE>V</CODE>, <CODE>VH</CODE> or <CODE>HV</CODE>, which had previously been usable, will result in an error.)<BR> <BR><BR>
+
+If the <CODE>loop_mode</CODE> attribute is <CODE>stop</CODE>, the maximum number of key data sets is 63. If the <CODE>loop_mode</CODE> attribute is <CODE>loop</CODE>, the maximum number of key data sets is 64.
+</DL>
+</BLOCKQUOTE>
+
+<H3>Outputting NBF Files and an XML File for the Banner Icon</H3>
+<P>Running the following command from the command line converts an NCE file created with NITRO-CHARACTER into NBF files and an XML file for the banner icon.</P>
+
+<P><CODE>% bannercvtr.exe -x data.nce</CODE></P>
+
+<P>This outputs an XML file and some NBF files to the same folder as the NCE file. The XML file has the same name as the NCE file except that its file extension is XML. The NBF files are output with the names <CODE>character0.nbfc, character1.nbfc, character2.nbfc, ...</CODE> (for character data) and the names <CODE>palette0.nbfp, palette1.nbfp, palette2.nbfp, ...</CODE> (for palette data). If the <CODE>-x</CODE> option is specified, a binary file for the banner icon is not output.</P>
+
+<P>It is also possible to specify the XML file that is output, as shown below. (The NBF files are output to the same directory as the XML file).</P>
+
+<P><CODE>% bannercvtr.exe -x -o C:\data\output.xml data.nce</CODE></P>
+
+<P>The NCG and NCL files that are referenced by the NCE file must be saved in either the same project or the same folder as the NCE file.</P>
+<H2>Location</H2>
+<P><CODE>$TwlSDK/tools/bin/bannercvtr.exe</CODE></P>
+<H2>See Also</H2>
+<P><A href="about_Banner.html">Banner Overview</A><BR> <A href="makebannerTWL.html"><CODE>makebanner.TWL</CODE></A><BR> <A href="ntexconv.html"><CODE>ntexconv</CODE></A><BR> <A href="bannerNitroCharacter.html">Banner Creation Procedure Using NITRO-CHARACTER</A></P>
+<H2>Revision History</H2>
+<P>
+2011/04/08 Added that the flip feature was removed. <BR> 2008/11/04 Added animation limitations. <BR> 2008/09/12 Initial release.</P>
+<hr><p>CONFIDENTIAL</p></BODY>
+</HTML>

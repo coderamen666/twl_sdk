@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title>FSPathInfo</title>
+<link rel="stylesheet" href="../css/nitro.css" type="text/css" />
+</head>
+<body>
+
+<h1>FSPathInfo <img src="../image/NTR.gif"align="middle"><img src="../image/TWL.gif" align="middle"></h1>
+<h2>Definition</h2>
+<pre><code>
+
+#define FS_ATTRIBUTE_IS_DIRECTORY   0x00000100UL
+#define FS_ATTRIBUTE_IS_PROTECTED   0x00000200UL
+#define FS_ATTRIBUTE_IS_OFFLINE     0x00000400UL
+
+#define FS_ATTRIBUTE_DOS_MASK       0x000000FFUL
+#define FS_ATTRIBUTE_DOS_READONLY   0x00000001UL
+#define FS_ATTRIBUTE_DOS_HIDDEN     0x00000002UL
+#define FS_ATTRIBUTE_DOS_SYSTEM     0x00000004UL
+#define FS_ATTRIBUTE_DOS_VOLUME     0x00000008UL
+#define FS_ATTRIBUTE_DOS_DIRECTORY  0x00000010UL
+#define FS_ATTRIBUTE_DOS_ARCHIVE    0x00000020UL
+
+typedef struct FSPathInfo
+{
+    u32         attributes;
+    <a href="FSDateTime.html">FSDateTime</a>  ctime;
+    <a href="FSDateTime.html">FSDateTime</a>  mtime;
+    <a href="FSDateTime.html">FSDateTime</a>  atime;
+    u32         filesize;
+    u32         id;
+}
+FSPathInfo;
+
+</code></pre>
+
+<h2>Description</h2>
+<p>A structure that indicates the entry information that can be obtained with <code><a href="directory/FS_GetPathInfo.html">FS_GetPathInfo()</a></code>. The details of each member are as follows.</p>
+<table>
+<tr><td>attributes</td><td>The attributes of the entry. This is a combination of the attributes indicated by <CODE>FS_ATTRIBUTE_*</CODE>.
+<table style="background-color:white">
+<tr><td>FS_ATTRIBUTE_IS_DIRECTORY</td><td>This indicates that the entry is a directory.</td></tr>
+<tr><td>FS_ATTRIBUTE_IS_PROTECTED</td><td>This indicates that the entire archive that the entry belongs to is in a state in which writes are prohibited at a hardware level. This flag might be valid for <a href="archive_rom_spec.html">ROM archives</a> or <a href="archive_sdmc_spec.html">SD Card archives</a>, for example.</td></tr>
+<tr><td>FS_ATTRIBUTE_IS_OFFLINE</td><td>Indicates that the file referred to by the entry cannot be accessed in the current operating environment.<br />This flag is returned when a program running in the NITRO environment has referred to the information of a TWL-only file.<br />(For more information on the specification of TWL-only files, see the explanation about the <CODE>Put</CODE> parameter in <a href="../tools/makerom.html">makerom.TWL</a>.)</td></tr>
+<tr><td colspan="2">The attributes below are only valid for archives based on the FAT format.</td></tr>
+<tr><td>FS_ATTRIBUTE_DOS_READONLY</td><td>Indicates that the entry is read-only.</td></tr>
+<tr><td>FS_ATTRIBUTE_DOS_HIDDEN</td><td>This indicates that the entry is a hidden file.</td></tr>
+<tr><td>FS_ATTRIBUTE_DOS_SYSTEM</td><td>This indicates that the entry is a system file.</td></tr>
+<tr><td>FS_ATTRIBUTE_DOS_VOLUME</td><td>This indicates that the entry is a volume label.</td></tr>
+<tr><td>FS_ATTRIBUTE_DOS_DIRECTORY</td><td>This indicates that the entry is a directory. This is the same as FS_ATTRIBUTE_IS_DIRECTORY.</td></tr>
+<tr><td>FS_ATTRIBUTE_DOS_ARCHIVE</td><td>This indicates that the entry is an archive file.</td></tr>
+</table></td></tr>
+<tr><td>ctime</td><td>The creation date/time for an entry, expressed as an <a href="FSDateTime.html"><code>FSDateTime</code></a> type. If the date/time information is invalid, all members will be 0.</td></tr>
+<tr><td>mtime</td><td>The last date/time modified for an entry, expressed as an <a href="FSDateTime.html"><code>FSDateTime</code></a> type. If the date/time information is invalid, all members will be 0.</td></tr>
+<tr><td>atime</td><td>The last-accessed date/time for an entry, expressed as an <a href="FSDateTime.html"><code>FSDateTime</code></a> type. If the date/time information is invalid, all members will be 0.</td></tr>
+<tr><td>filesize</td><td>Size of the file. Only valid if the entry is a file.</td></tr>
+<tr><td>id</td><td>The ID of the file or directory. The value that is obtained can be used with functions such as <code><a href="file/FS_OpenFileFast.html">FS_OpenFileFast</a></code>. In cases where file IDs or directory IDs are not supported, such as with <a href="archive_nand_spec.html">NAND archives</a>, <code>FS_INVALID_FILE_ID</code> will always result.</td></tr>
+</table>
+
+<h2>See Also</h2>
+<p><code><a href="directory/FS_GetPathInfo.html">FS_GetPathInfo</a></code></p>
+
+<h2>Revision History</h2>
+<p>
+2009/01/08 Added explanation about TWL-only files.<br />2008/12/08 Added the <CODE>FS_ATTRIBUTE_IS_OFFLINE</CODE> flag.<br />2008/06/13 Added the <CODE>FS_ATTRIBUTE_IS_PROTECTED</CODE> flag.<br />2007/12/13 Initial version.<br />
+</p>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

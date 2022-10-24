@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>Exclusion Control (Spinlock): </TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">Exclusion Control (Spinlock): Overview<IMG src="../../image/NTR.gif" align="middle"><IMG src="../../image/TWL.gif" align="middle"></H1>
+<P>A spinlock is a mechanism that uses the ARM processor <code>swp</code> instruction to perform exclusion control among threads and processors.</P>
+<P>Mutexes and messages can also be used to perform exclusion control among threads, but unlike those mechanisms, spinlocks do not cause thread switching when locked. Instead, control loops, waiting for the locks to become unlocked.</P>
+<P>Spinlocks are used for the following purposes within the TWL-SDK.</P>
+<UL>
+<LI>Exclusive control between processors for accessing the Game Pak.
+<LI>Exclusive control between processors for accessing the Game Card.
+<LI>Exclusive control between processors for accessing VRAM C and VRAM D.
+<LI>Synchronization between processors when they are initialized (<CODE><A href="OS_InitLock.html">OS_InitLock</A></CODE>).
+</UL>
+<P>This page describes the synchronization processing functions that use these TWL-SDK spinlocks.</P>
+<H2>Initializing a Spinlock Used by the SDK</H2>
+<P><CODE><A href="OS_InitLock.html">OS_InitLock</A></CODE> performs the initialization for spinlocks used by the SDK. This function is called by the <CODE><A href="../init/OS_Init.html">OS_Init</A></CODE> function, so there is no need for the application to call it again.</P>
+<P>The <CODE><A href="OS_InitLock.html">OS_InitLock</A></CODE> function also synchronizes processing with the other processor's <CODE><A href="OS_InitLock.html">OS_InitLock</A></CODE> function.</P>
+<H2>Card Access Exclusion Control</H2>
+<P>Generally, ARM7 has Game Card access privileges. Calling <code><a href="OS_LockCard.html">OS_LockCard</a></code> gives access privileges to ARM9, and locks out access from ARM7.</P>
+<P>Calling <code><a href="OS_UnlockCard.html">OS_UnlockCard</a></code> returns the access privileges to ARM7 and removes the lock.</P>
+<P><code><a href="OS_LockCard.html">OS_LockCard</a></code> does not return from the function until there is a lock, but <code><a href="OS_TryLockCard.html">OS_TryLockCard</a></code> only attempts the lock once. The return value indicates whether the lock was successful.</P>
+<H2>GamePak Access Exclusion Control</H2>
+<P>Generally, ARM7 has Game Pak access privileges. Calling <code><a href="OS_LockCartridge.html">OS_LockCartridge</a></code> gives access privileges to ARM9 and locks out access from ARM7.</P>
+<P>Calling <a href="OS_UnlockCartridge.html"><code>OS_UnlockCartridge</code></a> returns the access privileges to ARM7 and removes the lock.</P>
+<P><code><a href="OS_LockCartridge.html">OS_LockCartridge</a></code> does not return from the function until there is a lock, but <code><a href="OS_TryLockCartridge.html">OS_TryLockCartridge</a></code> only attempts the lock once and returns immediately. The return value indicates whether the lock was successful.</P>
+<H2>ID Used in the Lock Function</H2>
+<P>When the ID used in the lock (a <code>u16</code> value) attempts to access the same resources between threads or between processors (cards, GamePaks, etc.), they must have different values. The TWL-SDK provides the following functions to manipulate these lock IDs.</P>
+<P><code><a href="OS_GetLockID.html">OS_GetLockID</a></code> returns a value that is not in use from among the ID candidates available on ARM9. This value guarantees that there is no conflict with other modules regardless of whether it is on ARM9 or ARM7. However, one of the conditions is that other modules are also using <code><a href="OS_GetLockID.html">OS_GetLockID</a></code> to obtain values. The <CODE><A href="OS_GetLockID.html">OS_GetLockID</A></CODE> function is also used in places that need it within the TWL-SDK, so there is no conflict with values set by the application.</P>
+<P>Once an ID is no longer in use, unlock it with <code><a href="OS_ReleaseLockID.html">OS_ReleaseLockID</a></code>. By calling this function, the specified ID is returned to the <code><a href="OS_GetLockID.html">OS_GetLockID</a></code> candidates and can be used in other locks from any subsequent <code><a href="OS_GetLockID.html">OS_GetLockID</a></code>.</P>
+<P>The values that can be obtained with <code><a href="OS_GetLockID.html">OS_GetLockID</a></code> range from <code>0x40&nbsp;-&nbsp;0x6F</code>.</P>
+<P>The same function is also in the ARM7-side library and can obtain values from <code>0x80&nbsp;-&nbsp;0xA0</code>.
+</P>
+<H2>See Also</H2>
+<P><CODE><A href="../list_os.html#Mutex">Overview of OS Functions (Exclusion Control)<BR></A></CODE></P>
+<H2>Revision History</H2>
+<P>2009/06/03 Explained that calling <CODE>OS_Init</CODE> is now required.<BR> 2004/12/14 Corrected typos.<br /> 2004/11/15 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

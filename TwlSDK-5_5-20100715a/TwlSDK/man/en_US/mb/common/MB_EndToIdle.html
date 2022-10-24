@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>MB_EndToIdle</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">MB_EndToIdle <IMG src="../../image/NTR.gif" width="24" height="12" border="0" align=middle><IMG src="../../image/TWL.gif" width="24" height="12" border="0" align=middle></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/mb.h&gt;</CODE><BR> <BR> <CODE>void    MB_EndToIdle(void);</CODE><br> <br>
+  </dd>
+</dl>
+<h2>Arguments</h2>
+<p>
+None.
+</p>
+
+<h2>Return Values</h2>
+<p>None.</p>
+
+<H2>Description</H2>
+<P>Ends MB library.<BR> If the <CODE><A href="../parent/MB_StartParentFromIdle.html">MB_StartParentFromIdle</A></CODE> function has configured this device to run as the parent device, this function automatically ends that processing.<BR><BR> The DMA channels and memory assigned with the <CODE><A href="MB_Init.html">MB_Init</A></CODE> function are freed and become available to the user again.<BR>When the termination process is complete, the argument status is returned for the value passed by <code>MB_COMM_PSTATE_END</code> as a callback of the <code><A href="../parent/MB_CommSetParentStateCallback.html">MB_CommSetParentStateCallback</A></code> function. <BR> <font color="#800000">This function must be called in combination with a call to the <CODE><A href="../parent/MB_StartParentFromIdle.html">MB_StartParentFromIdle</A></CODE> function.</font></p>
+<BR>
+<h2>Internal Operation</h2>
+<p><font color="#800000">If wireless features are operating, this function calls the <CODE><a href="../../wm/wm/WM_Reset.html">WM_Reset</a></CODE> function internally to stop wireless communications.<br>When the completion callback is called, the wireless library enters the <a href="../../wm/wm/wm_state_diagram.html"><code>IDLE</code> state</a>.<BR></font></p>
+<h2>See Also</h2>
+<p><CODE><A href="MB_Init.html">MB_Init</A><BR> <A href="../parent/MB_StartParentFromIdle.html">MB_StartParentFromIdle</A> <BR></CODE></P>
+<H2>Revision History</H2>
+<P>
+2004/10/24 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

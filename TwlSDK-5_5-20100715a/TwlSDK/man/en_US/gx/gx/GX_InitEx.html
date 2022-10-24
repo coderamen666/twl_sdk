@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 8.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>GX_InitEx</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">GX_InitEx <img src="../../image/NTR.gif"align="middle"><img src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+
+<dl>
+  <dd>
+<PRE><CODE>#include &lt;nitro/gx/gx.h&gt;
+
+void GX_InitEx(u32 dma_no);<BR></CODE></PRE>
+  </dd>
+</dl><h2>Arguments</h2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="237"><SPAN class="argument">dma_no</SPAN></TD>
+<TD width="609">The DMA number to use with GX.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<h2>Return Values</h2>
+<p>None.</p>
+<H2>Description</H2>
+<P>Initializes all graphics registers that are not 3D-related. It calls <CODE><A href="GX_SetPower.html">GX_SetPower</A> (GX_POWER_ALL)</CODE>.<BR><BR>The GX function uses DMA 3 by default, but you can specify the DMA number to use in the GX function. You can also specify <CODE>GX_DMA_NOT_USE</CODE> in the arguments to not use the DMA.<br> <FONT color="#800000">Before calling this function, you must call the <A href="../../os/spinLock/OS_InitLock.html"><code>OS_InitLock</code></A> or <A href="../../os/init/OS_Init.html"><code>OS_Init</code></A> function.</FONT>
+</P>
+<h2>See Also</h2>
+<P><A href="GX_Init.html"><CODE>GX_Init</CODE></A><BR> <A href="../g3/G3X_Init.html"><CODE>G3X_Init</CODE></A><BR> <A href="../g3/G3X_Reset.html"><CODE>G3X_Reset</CODE></A><BR> <A href="../g3/G3X_InitTable.html"><CODE>G3X_InitTable</CODE></A><BR> <A href="GX_InitNDMAEx.html"><CODE>GX_InitNDMAEx</CODE></A></P>
+<H2>Revision History</H2>
+<P>2005/03/14</P>
+<UL>
+<LI>Corrected link errors.
+</UL>
+<P>2005/02/18</P>
+<UL>
+<LI>Added warning that <code>OS_Init</code> must be called in advance.
+</UL>
+<P>
+2004/07/28 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

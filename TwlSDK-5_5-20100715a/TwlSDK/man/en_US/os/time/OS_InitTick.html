@@ -1,0 +1,34 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>OS_InitTick</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">OS_InitTick <IMG src="../../image/NTR.gif" align="middle"><IMG src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+<DL>
+  <DD>
+  <PRE><CODE>#include &lt;nitro/os.h&gt;</CODE></PRE>
+  <PRE><CODE>void OS_InitTick( void );
+ </CODE></PRE>
+</DL>
+<H2>Arguments</H2>
+<P>None.</P>
+<H2>Return Values</H2>
+<P>None.</P>
+<H2>Description</H2>
+<P>This function allocates a timer for ticks and initializes it.</P>
+<P><EM>Ticks</EM> are a method of using a hardware timer to generate a <CODE>u64</CODE> increment count. A tick is also the obtained value. Although the timer itself is 16 bits, in addition to the 16-bit cycle, which is one unit, there is also an internal counter.  As a result it creates a 64-bit tick value. (The frequency of the system clock is <CODE>OS_SYSTEM_CLOCK</CODE> Hz, so ticks run at <CODE>OS_SYSTEM_CLOCK</CODE> / 64 Hz.)</P>
+<P>The <CODE>OS_InitTick</CODE> function internally sets the tick value to 0. Therefore it is possible to assume that the value obtained with the <CODE><A href="OS_GetTick.html">OS_GetTick</A></CODE> function is the time since <CODE>OS_InitTick()</CODE>.</P>
+<P>A timer that is allocated for ticks becomes system-reserved. A user cannot use it as a timer with the <CODE><A href="../timer/OS_StartTimer.html">OS_StartTimer</A></CODE> function or similar functions. Do not call the <CODE>OS_InitTick</CODE> function if the user wants to use all of the timers.</P>
+<P>Ticks are necessary when you use the alarm system. Call <CODE>OS_InitTick()</CODE> before calling the alarm system initialization declaration function <CODE><A href="../alarm/OS_InitAlarm.html">OS_InitAlarm</A></CODE>.</P>
+<H2>See Also</H2>
+<P><CODE><A href="OS_GetTick.html">OS_GetTick</A>, <A href="OS_GetTickLo.html">OS_GetTickLo</A>, <A href="OS_SetTick.html">OS_SetTick</A>, <A href="../alarm/OS_InitAlarm.html">OS_InitAlarm</A><BR></CODE></P>
+<H2>Revision History</H2>
+<P>2004/02/25 Changed <code>systemClock</code> to <code>tick</code>.<br /> 2004/02/04 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

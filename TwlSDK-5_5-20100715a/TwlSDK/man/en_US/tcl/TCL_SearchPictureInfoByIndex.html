@@ -1,0 +1,51 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title>TCL_SearchPictureInfoByIndex</title>
+<link rel="stylesheet" href="../css/nitro.css" type="text/css">
+</head>
+<body>
+<h1 align="left">TCL_SearchPictureInfoByIndex <img src="../image/TWL.gif" align="middle"></h1>
+
+<h2>Definition</h2>
+<dl>
+	<dd>
+	<code>#include &lt;twl/tcl.h&gt;</code><br/> <br/>
+	<pre><code>
+TCLResult TCL_SearchPictureInfoByIndex( const TCLAccessor* pAccessor ,
+                                        const TCLPictureInfo** ppPicInfo ,
+                                        const TCLSearchObject* pSearchObj ,
+                                        int index );
+	</code></pre>
+</dl>
+
+<h2>Arguments</h2>
+<p>
+<table>
+<tr><td>pAccessor<td><a href="TCLAccessor.html">Accessor</a>
+<tr><td>ppPicInfo<td><a href="TCLPictureInfo.html">Pointer to where search information is stored</a>
+<tr><td>pSearchObj<td><a href="TCLSearchObject.html">Search object</a>
+<tr><td>index<td>Index of photo information to get from photos that match the search conditions
+</table>
+</p>
+
+<h2>Return Values</h2>
+<p><a href="TCLResult.html">Processing result</a></p>
+
+<h2>Description</h2>
+<p>Gets information in the order defined by the <SPAN class="argument">index</SPAN> argument from photos that match the search conditions.</p>
+<p>If the returned value is not <code>TCL_RESULT_SUCCESS</code>, the retrieved information is unreliable.</p>
+<p>Behavior is undefined if a function such as <a href="TCL_EncodeAndWritePicture.html"><code>TCL_EncodeAndWritePicture</code></a>, <a href="TCL_SortTable.html"><code>TCL_SortTable</code></a>, or <a href="TCL_DeletePicture.html"><CODE>TCL_DeletePicture</CODE></a> changes the number or order of photos being managed during a search.</p>
+<p>The accessor must be initialized by the <a href="TCL_LoadTable.html"><code>TCL_LoadTable</code></a> or <a href="TCL_CreateTable.html"><code>TCL_CreateTable</code></a> function.</p>
+
+<h2>See Also</h2>
+<p><code><a href="TCL_InitSearchObject.html">TCL_InitSearchObject</a></code></p>
+
+<h2>Revision History</h2>
+<p>
+2009/03/23 Added a condition when behavior would be undefined.<br> 2009/03/04 Fixed typos.<br/> 2008/10/07 Initial version.
+</p>
+
+<hr><p>CONFIDENTIAL</p></body>
+</html>

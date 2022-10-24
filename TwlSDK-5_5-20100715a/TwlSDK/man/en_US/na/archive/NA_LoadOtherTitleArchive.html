@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>NA_LoadOtherTitleArchive</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">NA_LoadOtherTitleArchive <IMG src="../../image/TWL.gif" width="23" height="12" border="0" align="middle"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+  <pre><CODE>#include &lt;twl/na.h&gt;
+
+<a href="../../fs/fs_result_const.html">FSResult</a> NA_LoadOtherTitleArchive( const char*    initialCode,
+                                   <a href="NATitleArchive.html">NATitleArchive</a> archive);
+</CODE></pre>
+</dd>
+</dl>
+
+<h2>Arguments</h2>
+<TABLE border="1" width="100%" class="arguments">
+  <TBODY>
+    <TR>
+<TH>initialCode</TH>
+<TD>Specifies the game code for the target NAND application as a 4-character ASCII string. It does not need to be null-terminated.</TD>
+    </TR>
+    <TR>
+<TH>archive</TH>
+<TD>Specifies the type of save data to load.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<h2>Return Values</h2>
+<p>
+Returns <code>FS_RESULT_SUCCESS</code> if processing completed successfully. <br>Other values indicate an error. The following values, in particular, have specific meanings.
+</p>
+
+<table class="table">
+<tr><th>FS_RESULT_ALREADY_DONE<td>Save data has already been loaded from another NAND application.
+<tr><th>FS_RESULT_PERMISSION_DENIED<td>The NAND application has a different company code.
+<tr><th>FS_RESULT_UNSUPPORTED<td>This is running on the Nintendo DS and cannot be used.
+</table>
+
+
+<H2>Description</H2>
+<P>
+Loads the specified NAND application's save data region to the file system.
+</p>
+<P>
+You can only load save data from NAND applications with the same company code as this application. You cannot load save data from NAND applications with a different company code.
+</p>
+<P>
+If <span class="argument">archive</span> is <code>NA_TITLE_ARCHIVE_DATAPUB</code>, the save data is loaded as <CODE>otherPub</CODE> archive. If <span class="argument">archive</span> is <code>NA_TITLE_ARCHIVE_DATAPRV</code>, it is loaded as <CODE>otherPrv</CODE> archive.
+</p>
+<P>
+Only a single save data region from another NAND application can be loaded at once. To access more than one save data region, you must call the <code><a href="NA_UnloadOtherTitleArchive.html">NA_UnloadOtherTitleArchive</a></code> function to unload a save data region whenever one is accessed.
+</p>
+
+<h2>See Also</h2>
+<p><CODE><A href="NA_UnloadOtherTitleArchive.html">NA_UnloadOtherTitleArchive</A></CODE></p>
+
+<H2>Revision History</H2>
+<P>
+2009/05/13 Added link to <B>See Also</B>.<br>
+ 2008/09/16 Added <CODE>FS_RESULT_UNSUPPORTED</CODE> to the return values. <br>2008/07/14 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

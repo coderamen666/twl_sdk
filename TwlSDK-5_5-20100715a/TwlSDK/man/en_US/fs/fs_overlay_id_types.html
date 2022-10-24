@@ -1,0 +1,41 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>FSOverlayID, FS_[LTD}OVERLAY_ID, FS_EXTERN_[LTD]OVERLAY</title>
+<LINK rel="stylesheet" href="../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">FSOverlayID, FS_OVERLAY_ID, FS_EXTERN_OVERLAY <img src="../image/NTR.gif"align="middle"><img src="../image/TWL.gif" align="middle"></h1>
+<h1 align="left">FS_LDTOVERLAY_ID, FS_EXTERN_LDTOVERLAY <img src="../image/BPT.gif"align="middle"><img src="../image/TWL.gif" align="middle"></h1>
+<h2>Definition</h2>
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/fs.h&gt;</CODE><BR> <BR>
+  <CODE><pre>
+typedef u32 FSOverlayID;
+#define  FS_EXTERN_OVERLAY(name)   extern u32 SDK_OVERLAY_ ## name ## _ID[1]
+#define  FS_OVERLAY_ID(name)       ((u32)&amp;(SDK_OVERLAY_ ## name ## _ID))
+#define	FS_EXTERN_LTDOVERLAY(name)  extern u32 SDK_LTDOVERLAY_ ## name ## _ID[1]
+#define	FS_LTDOVERLAY_ID(name)      ((u32)&(SDK_LTDOVERLAY_ ## name ## _ID))
+</pre></CODE><br>
+</dd>
+</dl>
+
+<H2>Description</H2>
+<P>These macros define the module ID of the overlay that is specified by the <code><A href="overlay/FS_LoadOverlay.html">FS_LoadOverlay</A></code> and <code><A href="overlay/FS_UnloadOverlay.html">FS_UnloadOverlay</A></code> functions. These are generated at link time by <code>makerom</code>, so they can be used at on the program side as shown below.<BR> <BR> (1) Use an LSF file to specify an overlay.<BR> <BR> <B>Example:</B><BR> <CODE>Overlay overlay_1<BR> {<BR> After  main<BR> Object  func_1.o<BR> }</CODE><BR> <BR> (2) Use the macros in a program to declare an overlay ID.<BR><BR><BR> <B>Example:</B><BR> <CODE>FS_EXTERN_OVERLAY(overlay_1);</CODE><BR> <BR> <BR> (3) Specify an overlay ID in the <code><A href="overlay/FS_LoadOverlay.html">FS_LoadOverlay</A></code> function or the <A href="overlay/FS_UnloadOverlay.html"><CODE>FS_UnloadOverlay</CODE></A> function.<BR><BR><BR> <B>Example:</B><BR> <CODE>FS_LoadOverlay(MI_PROCESSOR_ARM9, FS_OVERLAY_ID(overlay_1));</CODE><BR> <BR> or <BR> <BR> <CODE>FSOverlayID id = FS_OVERLAY_ID(overlay_1);<BR> FS_LoadOverlay(MI_PROCESSOR_ARM9, id);</CODE><BR> <BR> <BR> <code>FS_EXTERN_LTDOVERLAY, FS_LTDOVERLAY_ID</code> are used instead of <code>FS_EXTERN_OVERLAY, FS_OVERLAY_ID</code> when using overlays in the LTD region.
+</P>
+<h2>See Also</h2>
+<p><A href="fs_overlay_info_type.html"><CODE>FSOverlayInfo</CODE></A><BR> <A href="overlay/FS_LoadOverlayInfo.html"><CODE>FS_LoadOverlayInfo</CODE></A><BR> <A href="overlay/FS_LoadOverlay.html"><CODE>FS_LoadOverlay</CODE></A><BR> <A href="overlay/FS_UnloadOverlay.html"><CODE>FS_UnloadOverlay</CODE></A></p>
+
+<H2>Revision History</H2>
+<P>
+2009/11/11 Added descriptions of FS_EXTERN_LTDOVERLAY and FS_LTDOVERLAY_ID<br>2005/06/02 Changed &amp; to &amp;amp;<br>2004/11/02 Corrected the structure definition to match the header file.<br>2004/09/24 Revised links.<br>2004/04/08 Revised the description in line with changes to the FSOverlayID type.<br>2004/04/05 Initial version.<br>
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

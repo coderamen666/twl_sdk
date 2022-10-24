@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>Overview of the OAM Software Sprite Rendering Module</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+<h1 align="left">OAM Software Sprite Rendering Module</h1>
+<H2>Description</H2>
+<P>This module provides a feature that allows simple rendering of OAMs using a software sprite.</P>
+
+<h2>Advantages to OAM Software Sprite Rendering</h2>
+<P>Using the OAM Manager for software sprite display has the following advantages.</P>
+
+<h3>Same Usage as OAM</h3>
+<P>Functions have been prepared that can take the 2D graphics engine OAM as an argument, making it possible to render using software sprites without having to involve the TWL and NITRO 3D graphics engine.</P>
+
+<h3>Avoid OAM Limits</h3>
+<P>It is possible to avoid limits such as the maximum display number and the greater-than-2x-display magnification limit.</P>
+    
+<h3>Fast Rendering with UV Parameter Caching</h3>
+<P>The OAM software sprite rendering module usually interprets the OAM attributes for each rendering and calculates the UV parameters. The OAM software sprite rendering module caches this UV parameter to avoid recalculations, which allows for a fast rendering feature.</P>
+
+<h2>Cautions for OAM Software Sprite Rendering</h2>
+<P>The OAM software sprite rendering module is designed so that even when using the software sprite it can be used in the same manner as the 2D graphics engine OAM. However, due to the differences in hardware features between the 2D and 3D graphics engines, complete compatibility is not possible.</P>
+
+
+<h3>Differences in Character Data</h3>
+<P>For the character data used by 2D graphics engine OBJs and the texture data used by software sprites, both format and placement within VRAM are different. Therefore, software sprites require software-sprite-specific character data that is separate from OBJ character data.</P>
+
+<h3>Differences in Affine Matrix Scale</h3>
+<P>The affine matrix scale used with 2D graphics engine OBJs is interpreted differently from the affine matrix scale used with software sprites (polygons). The matrix set up for 2x magnification with OBJs shrinks by one-half with software sprites.</P>
+
+<h3>Specifying Affine Transformation Parameter Numbers</h3>
+<P>In the OAM attributes, affine matrix numbers and flip flags share the same bits. Normally, you can distinguish them by looking at the state of the rotation/enlargement/reduction enable flag.<br>However, to achieve the features of software sprite rendering (for example, flip-rendering an affine-transformed OBJ), this module does not check the state of the rotation/enlargement/reduction enable flag.<br> For this reason, if affine transformation parameter numbers are set to a value of 8 or greater, they are mistaken for flip flags.<br><br> When this module is used by itself, there is no need to specify affine transformation parameter numbers, so this is not a problem. However, you must be careful when using the OAM manager's software sprite rendering feature.</P>
+
+<h3>Handling Alpha Values</h3>
+<P>This module does not regulate the state of the 3D graphics engine's alpha values. If alpha values are set to zero, the 3D graphics engine renders polygons as wireframes. For this reason, depending on the situation, it is sometimes necessary to write user code for processes that, for example, do not perform rendering at all.<br></P>
+
+<h3>Mosaic Feature</h3>
+<P>With 2D graphics engine OBJs, the mosaic feature can be set to ON and OFF in units of each OBJ. However, with software sprites the mosaic feature can be set to ON and OFF only for the entire software sprite.</P>
+
+<h3>Priority with BG</h3>
+<P>With 2D graphics engine OBJs, the priority order with BG can be set for units of each OBJ. However, with software sprites the priority can be specified only for the entire software sprite.</P>
+
+<h3>Correction of Texture Sampling Position When Using the Flip Feature</h3>
+<P>The OAM software sprite rendering module is designed to be able to register a UV value correction function. The texture sampling position for the TWL and NITRO 3D graphics engine is fixed in relation to the LCD pixel direction. Therefore, the sampling position shifts out of sync if the UV direction of increase differs from the pixel direction. In the OAM software sprite rendering module, OBJ rendering that used the flip feature can be reproduced by inverting the UV value. Inverting the UV value reverses the UV direction of increase, so the need arises to correct the UV value. The UV value direction of increase also shifts off the pixel direction when using affine conversion, and correction processing is required. However, because correction was expected to require high calculation load, it was determined that it is more realistic to resolve this problem on the resource side. G2D does not have support for a correction step.</P>
+
+<h2>See Also</h2>
+<p>
+None.
+</p>
+<H2>Revision History</H2>
+<P>
+2008/06/20 Added description for TWL. <BR> 2007/11/26 Added description for alpha values. <BR> 2004/12/06 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

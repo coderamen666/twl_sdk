@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 Trial for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>NNS_McsRegisterStreamRecvBuffer</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">NNS_McsRegisterStreamRecvBuffer</h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+		
+  <pre><CODE>#include &lt;nnsys/mcs.h&gt;</CODE></pre>
+	  
+  <pre><CODE>void NNS_McsRegisterStreamRecvBuffer(
+         u16     channel,
+         void*   buf,
+         u32     bufSize);</CODE></pre>
+	</dd>
+</dl><h2>Arguments</h2>
+
+<table border="1" width="100%">
+ <tr> 
+<td width="13%"><CODE>channel</CODE></td>
+<td width="87%">Value for identifying a stream. Specify in the range of 0 to <CODE>0x3FFF</CODE>. The range of <CODE>0x4000</CODE> to <CODE>0x7FFF</CODE> is reserved for TWL-System applications. The range of <CODE>0x8000</CODE> to <CODE>0xFFFF</CODE> is reserved for the MCS system.</td>
+ </tr>
+ <tr> 
+<td width="13%"><CODE>buf</CODE></td>
+<td width="87%">Receive buffer to register.</td>
+ </tr>
+ <tr> 
+<td width="13%"><CODE>bufSize</CODE></td>
+<td width="87%">Size of the receive buffer to register.</td>
+ </tr>
+</table>
+<h2>Return Values</h2>
+<p>None.</p>
+<H2>Description</H2>
+<p>Registers a buffer for receiving data. The <code>NNS_McsRegisterRecvCallback</code> function gets called internally, so this function cannot be used at the same time as the data receive callback. This function also internally allocates an information area inside the specified buffer for internal use. For this reason, the size of the buffer must be at least 48.</p>
+<p>If the reception buffer becomes so full with received data that it does not have free space for newly-received data, this newly-received data gets discarded. For this reason, it is  essential to set the buffer size large enough to handle the data volumes involved in communications.</p>
+<h2>See Also</h2>
+<p><a href="NNS_McsRegisterRecvCallback.html"><CODE>NNS_McsRegisterRecvCallback</CODE></a><BR> <a href="NNS_McsUnregisterRecvResource.html"><CODE>NNS_McsUnregisterRecvResource</CODE></a></p>
+<H2>Revision History</H2>
+<P>
+2008/06/20 Changed NITRO-System to TWL-System.<br>2004/10/08 Added a description of the <CODE>channel</CODE> argument. Added <code>NNS_McsUnregisterRecvResource</code> in <B>See Also</B>.<br />2004/08/26 Changed the type of the <CODE>channel</CODE> argument.<br>2004/06/01 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

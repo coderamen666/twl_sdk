@@ -1,0 +1,389 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META http-equiv="Content-Style-Type" content="text/css">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 8.0.0.0 for Windows">
+<BASE target="main">
+<TITLE>List of Single-Card Play (MB) functions</TITLE>
+<LINK rel="stylesheet" href="../css/apilist.css">
+</HEAD>
+<BODY>
+<H1>List of Single-Card Play (MB) functions</H1>
+<H3><A name="Init">Initialization</A></H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+      <TH width="25%"><A href="common/MB_Init.html" target="_self">MB_Init</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Initializes the library.</TD>
+    </TR>
+    <TR>
+      <TH width="25%"><A href="common/MB_End.html" target="_self">MB_End</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Closes the library. The wireless library reverts to the state before initialization.</TD>
+    </TR>
+    <TR>
+      <TH width="25%"><A href="common/MB_EndToIdle.html" target="_self">MB_EndToIdle</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Closes the library. The wireless library changes to the <CODE>IDLE</CODE> state.</TD>
+    </TR>
+    <TR>
+      <TH width="25%"><A href="common/MB_GetParentSystemBufSize.html" target="_self">MB_GetParentSystemBufSize</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Obtains the size of the work memory used by MB.</TD>
+    </TR>
+    <TR>
+      <TH width="25%"><A href="common/MB_GetTgid.html" target="_self">MB_GetTgid</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Obtains the TGID value specified at the time of initialization.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H3><A name="Child">Child (after multiboot)</A></H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+      <TH width="25%"><A href="common/MB_IsMultiBootChild.html" target="_self">MB_IsMultiBootChild</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/BPT.gif"></TD>
+      <TD>Determines whether the application itself is a multiboot child.</TD>
+    </TR>
+    <TR>
+      <TH width="25%"><A href="common/MB_GetMultiBootParentBssDesc.html" target="_self">MB_GetMultiBootParentBssDesc</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/BPT.gif"></TD>
+      <TD>Obtains multiboot parent information.</TD>
+    </TR>
+    <TR>
+      <TH width="25%"><A href="child/MB_GetMultiBootDownloadParameter.html" target="_self">MB_GetMultiBootDownloadParameter</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/BPT.gif"></TD>
+      <TD>Obtains the user-defined extended parameters during download.</TD>
+    </TR>
+    <TR>
+      <TH width="25%"><A href="child/MB_ReadMultiBootParentBssDesc.html" target="_self">MB_ReadMultiBootParentBssDesc</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/BPT.gif"></TD>
+      <TD>Obtains the information for the <CODE>WM_StartConnect</CODE> function based on the multiboot parent information.</TD>
+    </TR>
+    <TR>
+      <TH><A href="common/MB_GetUserVolatData.html">MB_GetUserVolatData</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/BPT.gif"></TD>
+      <TD>Extracts the user data in <code>MBGameInfoVolatile</code> from the MB parent beacon.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H3><A name="Parent">Parent</A></H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+      <TH width="25%"><A href="parent/MB_SetParentCommSize.html" target="_self">MB_SetParentCommSize</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Sets the communication data size of the parent.</TD>
+    </TR>
+    <TR>
+      <TH width="25%"><A href="parent/MB_SetParentCommParam.html" target="_self">MB_SetParentCommParam</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Sets the communication data size of the parent and the maximum number of children to be connected.</TD>
+    </TR>
+    <TR>
+      <TH width="25%"><A href="parent/MB_SetPowerSaveMode.html" target="_self">MB_SetPowerSaveMode</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Sets the parent's wireless energy-saving mode.</TD>
+    </TR>
+    <TR>
+      <TH width="25%"><A href="parent/MB_SetLifeTime.html" target="_self">MB_SetLifeTime</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Sets lifetimes for the parent's wireless communication.</TD>
+    </TR>
+    <TR>
+      <TH width="25%"><A href="parent/MB_StartParent.html" target="_self">MB_StartParent</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Starts processing as a multiboot parent.</TD>
+    </TR>
+    <TR>
+      <TH width="25%"><A href="parent/MB_StartParentFromIdle.html" target="_self">MB_StartParentFromIdle</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Starts processing as a multiboot parent with the wireless library in the <CODE>IDLE</CODE> state.</TD>
+    </TR>
+    <TR>
+      <TH width="25%"><A href="parent/MB_CommGetChildrenNumber.html" target="_self">MB_CommGetChildrenNumber</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Obtains the total number of connected children.</TD>
+    </TR>
+    <TR>
+      <TH width="25%"><A href="parent/MB_CommGetChildUser.html" target="_self">MB_CommGetChildUser</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Obtains the connection information for the specified child.</TD>
+    </TR>
+
+    <TR>
+      <TH width="25%"><A href="parent/MB_CommGetParentState.html" target="_self">MB_CommGetParentState</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Obtains the state of the current parent.</TD>
+    </TR>
+    <TR>
+      <TH width="25%"><A href="parent/MB_CommSetParentStateCallback.html" target="_self">MB_CommSetParentStateCallback</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Sets the callback function, which notifies you of changes to the parent state.</TD>
+    </TR>
+    <TR>
+      <TH width="25%"><A href="parent/MB_GetSegmentLength.html" target="_self">MB_GetSegmentLength</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Gets the segment length for the specified program.</TD>
+    </TR>
+    <TR>
+      <TH width="25%"><A href="parent/MB_ReadSegment.html" target="_self">MB_ReadSegment</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Gets the segment information from the specified program.</TD>
+    </TR>
+    <TR>
+      <TH width="25%"><A href="parent/MB_RegisterFile.html" target="_self">MB_RegisterFile</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Registers the specified program in the download process.</TD>
+    </TR>
+    <TR>
+      <TH width="25%"><A href="parent/MB_UnregisterFile.html" target="_self">MB_UnregisterFile</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Specifies a registered application and releases it from the download list.</TD>
+    </TR>
+    <TR>
+      <TH width="25%"><A href="parent/MB_CommResponseRequest.html" target="_self">MB_CommResponseRequest</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Sends a response to the child that requested the connection.</TD>
+    </TR>
+    <TR>
+      <TH width="25%"><A href="parent/MB_CommStartSending.html" target="_self">MB_CommStartSending</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Sends a download start notice to the child that has been granted the connection request.</TD>
+    </TR>
+    <TR>
+      <TH width="25%"><A href="parent/MB_CommStartSendingAll.html" target="_self">MB_CommStartSendingAll</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Sends the download start notification to all children that have been granted the connection request.</TD>
+    </TR>
+    <TR>
+      <TH width="25%"><A href="parent/MB_CommIsBootable.html" target="_self">MB_CommIsBootable</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Determines whether the specific child is bootable.</TD>
+    </TR>
+    <TR>
+      <TH width="25%"><A href="parent/MB_CommBootRequest.html" target="_self">MB_CommBootRequest</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Sends the boot request to a specific bootable child.</TD>
+    </TR>
+    <TR>
+      <TH width="25%"><A href="parent/MB_CommBootRequestAll.html" target="_self">MB_CommBootRequestAll</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Sends the boot request to all bootable children.</TD>
+    </TR>
+    <TR>
+      <TH><A href="parent/MB_DisconnectChild.html" target="_self">MB_DisconnectChild</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Forcibly disconnects a child device.</TD>
+    </TR>
+    <TR>
+      <TH width="25%"><A href="parent/MB_GetGameEntryBitmap.html" target="_self">MB_GetGameEntryBitmap</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Obtains all AID bitmaps that are entered for the specified game information.</TD>
+    </TR>
+    <TR>
+      <TH><A href="common/MB_SetSendVolatCallback.html">MB_SetSendVolatCallback</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Sets the callback used when sending <code>MBGameInfoVolatile</code> as a beacon.</TD>
+    </TR>
+    <TR>
+      <TH><A href="common/MB_SetUserVolatData.html">MB_SetUserVolatData</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Sets the user info in <code>MBGameInfoVolatile</code>.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H3><A name="FakeChild">Fake Multiboot Child</A></H3>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+      <TH><A href="fake_child/MB_FakeInit.html">MB_FakeInit</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Initializes a fake multiboot child.</TD>
+    </TR>
+    <TR>
+      <TH><A href="fake_child/MB_FakeEnd.html">MB_FakeEnd</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Ends a fake multiboot child process. Use this function to terminate the process when download is successful or when canceling.</TD>
+    </TR>
+    <TR>
+      <TH><A href="fake_child/MB_FakeGetWorkSize.html">MB_FakeGetWorkSize</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Obtains the buffer size required for a fake multiboot child.</TD>
+    </TR>
+    <TR>
+      <TH><A href="fake_child/MB_FakeStartScanParent.html">MB_FakeStartScanParent</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Starts scanning for a multiboot parent.</TD>
+    </TR>
+    <TR>
+      <TH><A href="fake_child/MB_FakeEndScan.html">MB_FakeEndScan</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Ends scanning for a multiboot parent.</TD>
+    </TR>
+    <TR>
+      <TH><A href="fake_child/MB_FakeSetCStateCallback.html">MB_FakeSetCStateCallback</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Sets a callback function that broadcasts the entry state to a multiboot parent.</TD>
+    </TR>
+    <TR>
+      <TH><A href="fake_child/MB_FakeEntryToParent.html">MB_FakeEntryToParent</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Makes an entry to a multiboot parent.</TD>
+    </TR>
+    <TR>
+      <TH><A href="fake_child/MB_FakeGetParentGameInfo.html">MB_FakeGetParentGameInfo</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Obtains a scanned multiboot parent's game information.</TD>
+    </TR>
+    <TR>
+      <TH><A href="fake_child/MB_FakeGetParentBssDesc.html">MB_FakeGetParentBssDesc</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Obtains a scanned multiboot parent's connection information.</TD>
+    </TR>
+    <TR>
+      <TH><A href="fake_child/MB_FakeReadParentBssDesc.html">MB_FakeReadParentBssDesc</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Obtains a scanned multiboot parent's connection information, including flag or packet size settings.</TD>
+    </TR>
+    <TR>
+      <TH><A href="fake_child/MB_FakeSetVerboseScanCallback.html">MB_FakeSetVerboseScanCallback</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Sets a callback for acquiring the live beacons received while scanning for a multiboot parent.</TD>
+    </TR>
+    <TR>
+      <TH><A href="fake_child/MB_FakeSetCompareGGIDCallback.html">MB_FakeSetCompareGGIDCallback</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Sets a callback for filtering when scanning for a multiboot parent.</TD>
+    </TR>
+    
+  </TBODY>
+</TABLE>
+<H3><A name="const">Constants and Structures</A></H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+      <TH width="25%"><A href="mb_comm_parent_consts.html" target="_self">MB_COMM_PARENT_*</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Constant that shows the range of sizes that can be set for the communication by a multiboot parent.</TD>
+    </TR>
+    <TR>
+      <TH width="25%"><A href="mb_segment_buffer_min_const.html" target="_self">MB_SEGMENT_BUFFER_MIN</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Constant that indicates the minimum buffer size required for the <CODE><A href="parent/MB_ReadSegment.html" target="_self">MB_ReadSegment</A></CODE> function.</TD>
+    </TR>
+    <TR>
+      <TH width="25%"><A href="mb_game_consts.html" target="_self">MB_ICON_*</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Constants that define the format of multiboot icons.</TD>
+    </TR>
+    <TR>
+      <TH width="25%"><A href="mb_game_consts.html" target="_self">MB_GAME_*</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Constants that define the format of multiboot game information.</TD>
+    </TR>
+    <TR>
+      <TH width="25%"><A href="mb_game_consts.html" target="_self">MB_USER_*</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Constants that define the format of multiboot user information.</TD>
+    </TR>
+    <TR>
+      <TH width="25%"><A href="mb_tgid_auto_const.html" target="_self">MB_TGID_AUTO</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Constant that specifies automatic generation of TGID.</TD>
+    </TR>
+    <TR>
+      <TH width="25%"><A href="mb_fake_work_size_const.html" target="_self">MB_FAKE_WORK_SIZE</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Constant that expresses the work buffer size needed by the fake multiboot child.</TD>
+    </TR>
+    <TR>
+      <TH width="25%"><A href="mb_error_status_type.html" target="_self">MBErrorStatus</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Structure that is passed as an argument of the <CODE><A href="mb_comm_pstate_const.html" target="_self">MB_COMM_PSTATE_ERROR</A></CODE> callback.</TD>
+    </TR>
+    <TR>
+      <TH width="25%"><A href="mb_err_code_const.html" target="_self">MBErrCode</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Enumerator type that defines the error codes of the MB library.</TD>
+    </TR>
+    <TR>
+      <TH width="25%"><A href="mb_comm_pstate_const.html" target="_self">MBCommPState</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Enumerator that shows the parent state.</TD>
+    </TR>
+    <TR>
+      <TH><A href="mb_comm_cstate_const.html" target="_self">MBCommCState</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Enumerated value that indicates the child state when using a fake child.</TD>
+    </TR>
+    <TR>
+      <TH width="25%"><A href="mb_comm_response_request_type_const.html" target="_self">MBCommResponseRequestType</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Enumerated value for indicating the type of response to the child connection request.</TD>
+    </TR>
+    <TR>
+      <TH width="25%"><A href="mb_comm_pstate_callback_type.html" target="_self">MBCommPStateCallback</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>The format of the callback function, which notifies you of changes to the parent state.</TD>
+    </TR>
+    <TR>
+      <TH><A href="mb_comm_cstate_callback_type.html" target="_self">MBCommCStateCallbackFunc</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Callback function format that indicates update of a fake child state.</TD>
+    </TR>
+    <TR>
+      <TH width="25%"><A href="mb_game_registry_type.html" target="_self">MBGameRegistry</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Structure showing game information registered in the download process.</TD>
+    </TR>
+    <TR>
+      <TH width="25%"><A href="mb_icon_info_type.html" target="_self">MBIconInfo</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Structure showing the format of user icons.</TD>
+    </TR>
+    <TR>
+      <TH width="25%"><A href="mb_user_info_type.html" target="_self">MBUserInfo</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Structure showing user information.</TD>
+    </TR>
+    <TR>
+      <TH width="25%"><A href="mb_parent_bss_desc_type.html" target="_self">MBParentBssDesc</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Structure showing connection information for the multiboot parent.</TD>
+    </TR>
+    <TR>
+      <TH><A href="common/MBGameInfo.html">MBGameInfo</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Structure showing multiboot parent game information.</TD>
+    </TR>
+    <TR>
+      <TH><A href="fake_child/MBFakeScanCallback.html">MBFakeScanCallback</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Structure showing parent information that can be obtained with a parent scan callback.</TD>
+    </TR>
+    <TR>
+      <TH><A href="fake_child/MBFakeScanCallbackFunc.html">MBFakeScanCallbackFunc</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Callback function that notifies of the parent scan callback.</TD>
+    </TR>
+    <TR>
+      <TH><A href="fake_child/MBFakeCompareGGIDCallbackFunc.html">MBFakeCompareGGIDCallbackFunc</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>The callback function for filtering the parent scan.</TD>
+    </TR>
+    <TR>
+      <TH><A href="fake_child/MBFakeScanErrorCallback.html">MBFakeScanErrorCallback</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+      <TD>Error information structure passed as a callback argument if an error occurs during a parent scan.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<table border="0" height="100%"><tr><td style="background-color : white;"></td></tr></table>
+
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>MI_AllocWramx</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">MI_AllocWram* <IMG src="../../image/TWL.gif" align="middle"></h1>
+<h2>Syntax</h2>
+
+<dl>
+<dd><CODE>#include &lt;twl/mi.h&gt;</CODE></dd>
+  <dd> </dd>
+<dd><CODE>u32 MI_AllocWram( <A href="../mi_constant.html">MIWramPos</A> wram, <A href="../mi_constant.html">MIWramSize</A> size, <A href="../mi_constant.html">MIWramPro</A>c proc )</CODE></dd>
+<dd><CODE>u32 MI_AllocWramSlot( <A href="../mi_constant.html">MIWramPos</A> wram, int slot, <A href="../mi_constant.html">MIWramSize</A> size, <A href="../mi_constant.html">MIWramPro</A>c proc )</CODE></dd>
+</dl>
+<dl>
+<dd><CODE>(define)<br> <font color="#7f7f7f">#define MI_AllocWram_A( size, proc );</font><br> #define MI_AllocWram_B( size, proc );<br> #define MI_AllocWram_C( size, proc );<br> <font color="#7f7f7f">#define MI_AllocWramSlot_A( slot, size, proc );</font><br> #define MI_AllocWramSlot_B( slot,.size, proc );<br> #define MI_AllocWramSlot_C( slot, size, proc );<br></CODE></dd>
+</dl>
+<h2>Arguments</h2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="13%"><EM><STRONG>wram</STRONG></EM></TD>
+<TD width="87%">WRAM to allocate.</TD>
+    </TR>
+    <TR>
+<TD><B><I>slot</I></B></TD>
+<TD>Slot number.</TD>
+    </TR>
+    <TR>
+<TD><B><I>size</I></B></TD>
+<TD>Size of the region to allocate.</TD>
+    </TR>
+    <TR>
+<TD><B><I>proc</I></B></TD>
+<TD>Processor to use.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<h2>Return Values</h2>
+<p>Returns the starting address if the allocation was successful.<BR>Returns <CODE>MI_WRAM_ALLOC_FAIL</CODE> (defined as 0) if allocation failed.</p>
+
+<H2>Description</H2>
+<P>Allocates a region from WRAM.</P>
+<P><I><B>wram</B></I> is of type <CODE><A href="../mi_constant.html">MIWramPos</A></CODE> and specifies the target WRAM. It should be <CODE>MI_WRAM_A</CODE>, <CODE>MI_WRAM_B</CODE>, or <CODE>MI_WRAM_C</CODE>.</P>
+<P><B><I>size</I></B> is the size of the region to be allocated. It is of type <CODE><A href="../mi_constant.html">MIWramSize</A></CODE> and should be of the form <CODE>MI_WRAM_SIZE_xxxKB</CODE>. The &quot;xxx&quot; portion should hold a value between 0 and 256. WRAM-A can be allocated in 64-KB chunks; WRAM-B and WRAM-C can be allocated in 32-KB chunks.</P>
+<P><B><I>proc</I></B> indicates which processor will use the region to be allocated. This is of type <A href="../mi_constant.html"><CODE>MIWramProc</A></CODE> and is <CODE>MI_WRAM_ARM9</CODE>, <CODE>MI_WRAM_ARM7</CODE>, or <CODE>MI_WRAM_DSP</CODE>.</P>
+<P><font color="#7f7f7f"><CODE>MI_AllocWram_A</CODE> is the #define directive of <CODE>MI_AllocWram( MI_WRAM_A, ... )</CODE>. </font><BR><CODE>MI_AllocWram_B</CODE> is the #define directive of <CODE>MI_AllocWram( MI_WRAM_B, ... )</CODE>. <BR><CODE>MI_AllocWram_C</CODE> is the #define directive of <CODE>MI_AllocWram( MI_WRAM_C, ... )</CODE>. <BR><font color="#7f7f7f"><CODE>MI_AllocWramSlot_A</CODE> is the #define directive of <CODE>MI_AllocWramSlot( MI_WRAM_A, ... )</CODE>. </font><BR><CODE>MI_AllocWramSlot_B</CODE> is the #define directive of <CODE>MI_AllocWramSlot( MI_WRAM_B, ... )</CODE>. <BR><CODE>MI_AllocWramSlot_C</CODE> is the #define directive of <CODE>MI_AllocWramSlot( MI_WRAM_C, ... )</CODE>. <BR>
+</P>
+<P>Memory allocated by the <CODE>MI_AllocWram*</CODE> functions must satisfy the following conditions and must be allocated beginning from the low-order address side.</P>
+<P> - They are not in use at the time. <BR>- They are either reserved by the specified processor or are not reserved by any of the processors. <BR>- A contiguous region of the specified size can be allocated.</P>
+<P> </P>
+<P>With the <CODE>MI_AllocWramSlot*</CODE> functions, the location to be allocated can be specified. However, if the region does not fulfill the allocation conditions, this will fail, even if there are other locations that can be allocated.</P>
+<P>(Example) Assume that WRAM-C is reserved as shown below. However, let's assume that no regions have been allocated yet.</P>
+<P align="center"><BR> <IMG src="image3.gif" border="0"><BR>
+</P>
+<P>If nothing has been allocated yet, <BR> <CODE>MI_AllocWram_C( MI_WRAM_SIZE_64KB, MI_WRAM_ARM7 )</CODE> <BR> will allocate slots 2 and 3. The return value will be 0x03950000.</P>
+<P>If nothing has been allocated yet, <BR> <CODE>MI_AllocWram_C( MI_WRAM_SIZE_64KB, MI_WRAM_DSP )</CODE><BR> will allocate slots 3 and 4. The return value will be 0x03958000.</P>
+<P>If nothing has been allocated yet, allocation will fail with the following:<BR> <CODE>MI_AllocWram_C( MI_WRAM_SIZE_96KB, MI_WRAM_ARM7 )</CODE><BR> The return value will be <CODE>MI_WRAM_ALLOC_FAIL</CODE> (=0).</P>
+
+<h2>See Also</h2>
+<P><A href="about_Wram.html">Overview: Work RAM</A><BR> <A href="../mi_constant.html">MI-Related Constants</A></P>
+
+<H2>Revision History</H2>
+<P>2007/08/22 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>CAMERAPhotoMode</TITLE>
+<LINK rel="stylesheet" href="../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">CAMERAPhotoMode <IMG src="../image/TWL.gif" align="middle"></H1>
+<H2>Definition</H2>
+<DL>
+  <DD>
+  <CODE>#include &lt;twl/camera.h&gt;</CODE><BR>
+  <BR>
+  <PRE><CODE>
+typedef enum
+{
+    CAMERA_PHOTO_MODE_NORMAL,
+    CAMERA_PHOTO_MODE_PORTRAIT,
+    CAMERA_PHOTO_MODE_LANDSCAPE,
+    CAMERA_PHOTO_MODE_NIGHTVIEW,
+    CAMERA_PHOTO_MODE_LETTER,
+
+    CAMERA_PHOTO_MODE_MAX
+}
+CAMERAPhotoMode;
+</CODE></PRE>
+</DL>
+
+<H2>Elements</H2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+      <TD width="13%"><EM><STRONG>CAMERA_PHOTO_MODE_NORMAL</STRONG></EM></TD>
+      <TD width="87%">Unadjusted camera setting mode.</TD>
+    </TR>
+    <TR>
+      <TD width="13%"><EM><STRONG>CAMERA_PHOTO_MODE_PORTRAIT</STRONG></EM></TD>
+      <TD width="87%">Portrait mode.</TD>
+    </TR>
+    <TR>
+      <TD width="13%"><EM><STRONG>CAMERA_PHOTO_MODE_LANDSCAPE</STRONG></EM></TD>
+      <TD width="87%">Landscape mode.</TD>
+    </TR>
+    <TR>
+      <TD width="13%"><EM><STRONG>CAMERA_PHOTO_MODE_NIGHTVIEW</STRONG></EM></TD>
+      <TD width="87%">Night view mode.</TD>
+    </TR>
+    <TR>
+      <TD width="13%"><EM><STRONG>CAMERA_PHOTO_MODE_LETTER</STRONG></EM></TD>
+      <TD width="87%">Text mode.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<H2>Description</H2>
+<P>
+This is an enumerated type that is used to specify the camera's photo mode. To use a night snap mode, which is not included in this list, set <CODE>CAMERA_PHOTO_MODE_LANDSCAPE</CODE> and then <A href="CAMERAFrameRate.html"><CODE>CAMERA_FRAME_RATE_15_TO_2</CODE></A>.<BR><BR> <B>Note:</B> The photo mode adjusts the gamma correction and gain, but it also overwrites the sharpness, exposure, and white balance settings. The following values will be set.
+<TABLE>
+  <TBODY>
+    <TR>
+      <TD></TD>
+      <TD>NORMAL</TD>
+      <TD>PORTRAIT</TD>
+      <TD>LANDSCAPE</TD>
+      <TD>NIGHTVIEW</TD>
+      <TD>LETTER</TD>
+    </TR>
+    <TR>
+      <TD>Sharpness</TD>
+      <TD>0</TD>
+      <TD>-2</TD>
+      <TD>+1</TD>
+      <TD>-1</TD>
+      <TD>+2</TD>
+    </TR>
+    <TR>
+      <TD>Exposure</TD>
+      <TD>0</TD>
+      <TD>0</TD>
+      <TD>0</TD>
+      <TD>+2</TD>
+      <TD>+2</TD>
+    </TR>
+    <TR>
+      <TD>WhiteBalance</TD>
+      <TD>NORMAL</TD>
+      <TD>NORMAL</TD>
+      <TD>DAYLIGHT</TD>
+      <TD>NORMAL</TD>
+      <TD>NORMAL</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</P>
+
+<H2>Revision History</H2>
+<P>2008/03/17 Changed <CODE>CAMERA_PHOTO_MODE_PLAIN</CODE> to <CODE>CAMERA_PHOTO_MODE_NORMAL</CODE>, removed <CODE>CAMERA_PHOTO_MODE_FSE</CODE>, and added descriptions. <BR>2008/03/13 Added <CODE>CAMERA_PHOTO_MODE_PLAIN</CODE>. <BR>2007/11/12 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

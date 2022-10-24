@@ -1,0 +1,155 @@
+BODY {
+	color				: black;
+	background-color	: white;
+	font-family			: Arial;
+	font-size			: 10pt;
+}
+
+A:LINK {
+	color			: #0000cc;
+	background		: inherit;
+	text-decoration	: none;
+}
+
+A:VISITED {
+	color			: #666622;
+	background		: inherit;
+	text-decoration	: none;
+}
+
+A:HOVER {
+	color			: #0000cc;
+	background		: #d0e0f0;
+	text-decoration	: underline;
+}
+
+A:ACTIVE {
+	color			: #cc0088;
+	background		: inherit;
+	text-decoration	: underline;
+}
+
+/*
+P {
+	position		: relative;
+	left			: 6px;
+	z-index			: auto;
+	font-family		: Arial;
+}
+*/
+
+PRE {
+	left			: 12px;
+	padding-left	: 0.5em;
+}
+
+TABLE {
+	border-width		: 0pt
+	margin-top			: 2pt;
+	margin-bottom		: 2pt;
+	margin-left			: 0pt;
+	margin-right		: 0pt;
+	padding-left		: 0pt;
+	padding-right		: 0pt;
+}
+
+TD,TH {
+	padding				: 0pt;
+	border-width		: 0pt;
+	border-style		: none none none none;
+	font-size		: 10pt;
+}
+
+DT {
+	font-weight		: bold;
+	margin-bottom		: 2pt;
+}
+
+DD {
+	margin-left		: 4pt;
+	font-size		: 9.5pt;
+	padding-top		: 2px;
+}
+
+UL {
+	margin-left		: 3ex;
+}
+
+LI {
+	margin-bottom		: 1ex;
+}
+
+H3 {
+	font-size		: 16px;
+	font-weight		: bold;
+	padding-top		: 10px;
+	border-width		: 1px 0 0 0;
+	border-color		: #000000;
+	border-style		: solid none none none;
+}
+
+H3.category {
+	background		: #bfefff;
+}
+
+H4 {
+	font-weight		: bold;
+	text-decoration		: underline;
+}
+
+H1.title {
+	font-size		: 24pt;
+	font-weight		: bold;
+}
+
+span.version {
+	color			: #ff0000;
+	background		: inherit;
+	font-size		: 14pt;
+	font-weight		: bold;
+}
+
+div.confidential {
+	color			: #660000;
+	background:		: inherit;
+	font-size		: 14pt;
+	font-weight		: bold;
+	font-family		: Impact, monospace;
+}
+
+P.note {
+	color			: #000000;
+	background		: inherit;
+	font-size		: 8pt;
+	font-family		: Century Gothic, monospace;
+}
+
+P.caution {
+	color			: inherit;
+	font-weight		: bold;
+	font-size		: 12pt;
+	background		: #ffff00;
+	width			: 99%;
+	padding			: 3px;
+	margin			: 2px 0px;
+}
+
+P.copyright {
+	color			: inherit;
+	background		: inherit;
+	font-size		: 8pt;
+	font-family		: monospace;
+}
+
+P.recommend {
+	color			: #cc2288;
+	background		: inherit;
+	font-weight		: bold;
+	text-align		: right;
+}
+
+P.toc {
+	color			: #cc0066;
+	background		: inherit;
+	font-size		: 8pt;
+}

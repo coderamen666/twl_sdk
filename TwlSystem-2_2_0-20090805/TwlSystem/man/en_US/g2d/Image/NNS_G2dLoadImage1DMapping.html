@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>NNS_G2dLoadImage1DMapping</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+<h1 align="left">NNS_G2dLoadImage1DMapping</h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+		<pre><CODE>#include &lt;nnsys/g2d/g2d_Image.h&gt;</CODE></pre>
+  <pre><CODE>void NNS_G2dLoadImage1DMapping( 
+                        const NNSG2dCharacterData*  pSrcData, 
+                        u32                         baseAddr, 
+                        NNS_G2D_VRAM_TYPE           type, 
+                        NNSG2dImageProxy*           pImgProxy );
+  </CODE></pre>
+  </dd>
+</dl><h2>Arguments</h2>
+
+<table border="1" width="100%">
+  <tr>
+<td width="13%"><CODE>pSrcData</CODE></td>
+<td width="87%">[IN] Input image data source</td>
+  </tr>
+  <tr>
+<td width="13%"><CODE>baseAddr</CODE></td>
+<td width="87%">[IN] Load destination address</td>
+  </tr>
+  <tr>
+<td width="13%"><CODE>type</CODE></td>
+<td width="87%">[IN] VRAM type to use (3D, 2D-Main, or 2D-Sub)</td>
+  </tr>
+  <tr>
+<td width="13%"><CODE>pImgProxy</CODE></td>
+<td width="87%">[OUT] Image proxy that stores the load result</td>
+  </tr>
+  </table>
+<h2>Return Values</h2>
+<p>None.
+</p>
+<H2>Description</H2>
+<P>
+Loads the image data to the hardware and sets the load results and the image format to the image proxy.<BR>This function is used exclusively for the 1D mapping mode's raw images. If 2D Graphics Engine VRAM has been specified, this function internally sets the 2D Graphics Engine character mode to 1D mapping mode.<BR><BR><B>Note:</B> 1D mapping 256K mode data cannot be used when <code>NNS_G2D_VRAM_TYPE_2DSUB</code> is specified for <CODE>type</CODE>. (In that case, assertion fails.)
+</p>
+
+<h2>See Also</h2>
+<p>None.</p>
+<H2>Revision History</H2>
+<P>2004/05/28 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

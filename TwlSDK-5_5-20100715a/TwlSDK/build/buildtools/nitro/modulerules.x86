@@ -1,0 +1,201 @@
+#! make -f
+#----------------------------------------------------------------------------
+# Project:  TwlSDK - modulerules - common rules for build system
+# File:     modulerules.x86
+#
+# Copyright 2003-2008 Nintendo.  All rights reserved.
+#
+# These coded instructions, statements, and computer programs contain
+# proprietary information of Nintendo of America Inc. and/or Nintendo
+# Company Ltd., and are protected by Federal copyright law.  They may
+# not be disclosed to third parties or copied or duplicated in any form,
+# in whole or in part, without the prior written consent of Nintendo.
+#
+# $Date:: 2008-10-07#$
+# $Rev: 8882 $
+# $Author: adachi_hiroaki $
+#----------------------------------------------------------------------------
+
+
+TWLSDK_MSG_COMPILE			= "  compile:"
+
+
+#----------------------------------------------------------------------------
+#	Implicit RULES
+#----------------------------------------------------------------------------
+WARNING		= -Wall
+
+LEX		= flex
+YACC		= bison -y
+STRIP		= strip -s
+
+# workaround for flex gen code to avoid warnings
+%.yy.o:WARNING	+= -Wno-unused-label -Wno-unused-function
+
+ifdef	DEBUG
+MACROS		+= -DDEBUG -g
+endif
+
+ifdef	NITRO_DEBUG
+MACROS		+= -g
+endif
+
+define COMPILE_C
+	$(CC_X86) $(MACROS) -DSDK_WIN32 $(WARNING) -c -I. -I$(NITRO_INCDIR) $< -o $@
+endef
+
+define COMPILE_CXX
+	$(CXX_X86) $(MACROS) -DSDK_WIN32 $(WARNING) -c -I. -I$(NITRO_INCDIR) $< -o $@
+endef
+
+%.o:		%.c
+ifdef SILENT
+	echo $(TWLSDK_MSG_COMPILE) $(notdir $<)
+endif
+	$(COMPILE_C)
+
+%.o:		%.cpp
+ifdef SILENT
+	echo $(TWLSDK_MSG_COMPILE) $(notdir $<)
+endif
+	$(COMPILE_CXX)
+
+%.yy.c:		%.l
+	$(LEX) -P$(basename $<)_yy -o$@ $<
+
+%.tab.c:	%.y
+	$(YACC) -d -p $(basename $<)_yy -b $(basename $<) $<
+
+%.tab.h:	%.tab.c;
+
+ifndef	NITRO_DEBUG
+ifneq	($(NO_STRIP),TRUE)
+define DO_STRIP
+$(if $(filter %.exe,$(1)),$(STRIP) $(filter %.exe,$(1)),$(TRUE))
+endef
+endif
+endif
+
+ifndef DO_STRIP
+define DO_STRIP
+$(TRUE)
+endef
+endif
+
+#----------------------------------------------------------------------------
+#  MAKE TARGETS
+#----------------------------------------------------------------------------
+
+.PHONY:	all default build build_platform do-build install install_platform do-install \
+	clean clobber super-clobber
+
+
+#----------------------------------------------------------------------------
+
+.PHONY:	make-subdir-p-% make-submake-p-% make-sub make-sub-p-pre make-sub-p
+
+SUBDIRS_PREFIX   = make-subdir-p-
+SUBDIRS_PARALLEL = $(addprefix $(SUBDIRS_PREFIX),$(SUBDIRS_P))
+
+SUBMAKES_PREFIX   = make-submake-p-
+SUBMAKES_PARALLEL = $(addprefix $(SUBMAKES_PREFIX),$(SUBMAKES_P))
+
+$(SUBDIRS_PARALLEL):$(SUBDIRS_PREFIX)%: make-sub-p-pre
+	@+$(MAKE) -C $(*F) $(MAKECMDGOALS)
+
+$(SUBMAKES_PARALLEL):$(SUBMAKES_PREFIX)%: make-sub-p-pre
+	@+$(MAKE) -C $(*D) -f $(*F) $(MAKECMDGOALS)
+
+make-sub-p-pre:
+	@+$(foreach DIR,$(SUBDIRS),$(MAKE) -C $(DIR) $(MAKECMDGOALS) $(AND)) $(TRUE)
+	@+$(foreach FILE,$(SUBMAKES),$(MAKE) -C $(dir $(FILE)) -f $(notdir $(FILE)) $(MAKECMDGOALS) $(AND)) $(TRUE)
+
+make-sub-p: make-sub-p-pre $(SUBDIRS_PARALLEL)	$(SUBMAKES_PARALLEL)
+
+make-sub: make-sub-p
+
+#----------------------------------------------------------------------------
+#  make build
+#----------------------------------------------------------------------------
+
+build: build_platform
+
+build_platform: make-sub
+		@$(ECHO_CURDIR)
+ifdef	TARGETS
+		@$(DO_MAKEDIR)
+		@+$(REMAKE) do-build
+ifndef	NITRO_DEBUG
+ifneq	($(NO_STRIP),TRUE)
+ifneq	($(STRIP_TARGETS),)
+		strip $(STRIP_TARGETS)
+endif
+endif
+endif
+ifdef	INSTALL_TARGETS
+		@+$(REMAKE) do-install
+endif
+endif
+
+full:
+	@+$(REMAKE) build_platform
+
+#----------------------------------------------------------------------------
+#  make install
+#----------------------------------------------------------------------------
+
+install: install_platform
+
+install_platform: make-sub
+		@$(ECHO_CURDIR)
+ifdef	INSTALL_TARGETS
+		@+$(REMAKE) do-install
+endif
+
+
+define DO_INSTALL
+	$(INSTALL) -d $(INSTALL_DIR) $(AND)					\
+	$(foreach FILE, $(INSTALL_TARGETS),			   		\
+		if [ ! -e $(INSTALL_DIR)/$(notdir $(FILE)) -o			\
+			$(FILE) -nt $(INSTALL_DIR)/$(notdir $(FILE)) ];		\
+		then 								\
+			$(ECHO) "  install: $(FILE) -> $(INSTALL_DIR)" $(AND)	\
+			$(INSTALL) $(FILE) $(INSTALL_DIR)/$(notdir $(FILE)) $(AND)\
+			$(call DO_STRIP,$(INSTALL_DIR)/$(notdir $(FILE)));	\
+		fi $(AND) ) $(TRUE)
+endef
+
+
+do-install:
+	@$(DO_INSTALL)
+
+full-install:
+	@+$(REMAKE) install_platform
+
+#----------------------------------------------------------------------------
+#  make do-autotest
+#----------------------------------------------------------------------------
+
+do-autotest: make-sub
+		@$(ECHO_CURDIR)
+
+
+#----------------------------------------------------------------------------
+#  make clobber & clean
+#----------------------------------------------------------------------------
+
+super-clobber clobber: make-sub
+		@$(ECHO_CURDIR)
+		-$(RM) $(GDIRT_CLEAN)   $(LDIRT_CLEAN)
+		-$(RM) $(GDIRT_CLOBBER) $(LDIRT_CLOBBER)
+		-$(RM) $(GDIRT_INSTALLED)
+
+
+#----------------------------------------------------------------------------
+
+clean: make-sub
+		@$(ECHO_CURDIR)
+		-$(RM) $(GDIRT_CLEAN)   $(LDIRT_CLEAN)
+
+
+#----- End of modulerules -----

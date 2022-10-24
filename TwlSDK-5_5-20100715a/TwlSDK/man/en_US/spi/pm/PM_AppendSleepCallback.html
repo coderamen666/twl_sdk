@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>PM_[Append|Prepend|Insert]*SleepCallback</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">PM_[Append|Prepend|Insert]*SleepCallback <IMG src="../../image/NTR.gif" width="24" height="12" border="0" align="middle"><IMG src="../../image/TWL.gif" width="24" height="12" border="0" align="middle"></H1>
+<H2>Syntax</H2>
+<DL>
+  <DD>
+  <PRE><CODE>#include &lt;nitro/spi.h&gt;</CODE></PRE>
+  <PRE><CODE>void PM_AppendPreSleepCallback( PMSleepCallbackInfo* info );
+void PM_PrependPreSleepCallback( PMSleepCallbackInfo* info );
+void PM_InsertPreSleepCallback( PMSleepCallbackInfo* info, int priority );
+
+void PM_AppendPostSleepCallback( PMSleepCallbackInfo* info );
+void PM_PrependPostSleepCallback( PMSleepCallbackInfo* info );
+void PM_InsertPostSleepCallback( PMSleepCallbackInfo* info, int priority );
+
+typedef void (*PMSleepCallback)( void* );</CODE></PRE>
+</DL>
+<H2>Arguments</H2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="13%"><SPAN class="argument">info</SPAN></TD>
+<TD width="87%">Pointer to the structure that includes the information for the callback to add.</TD>
+    </TR>
+    <TR>
+<TD><SPAN class="argument">priority</SPAN></TD>
+<TD>Priority level. Used to determine the registration order in the callback list. Takes a value from 0 to 255.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>Return Values</H2>
+<P>None.</P>
+<H2>Description</H2>
+<P>Registers a sleep mode callback.</P>
+<P>The <CODE>*PreSleepCallback</CODE> functions register callbacks that are invoked immediately before the system enters sleep mode. The <CODE>*PostSleepCallback</CODE> functions register callbacks that are invoked upon recovering from sleep mode.</P>
+<P>Callbacks are <CODE>void</CODE> functions that take a single <CODE>void*</CODE> argument.</P>
+<P>Multiple callbacks can be registered and will be connected by a list. There are two callback lists: one that is called immediately before entering sleep mode and one that is called after recovering from sleep mode. Each callback has a priority, and is ordered in the list and run in ascending priority order. These callback functions are invoked from inside the <A href="PM_GoSleepMode.html"><CODE>PM_GoSleepMode</CODE></A> function.</P>
+<P>Use the <A href="PM_SetSleepCallbackInfo.html"><CODE>PM_SetSleepCallbackInfo</CODE></A> function to register the callback and callback argument in the callback information structure pointed to by <SPAN class="argument">info</SPAN>. This function registers <SPAN class="argument">info</SPAN> on the callback list. If <SPAN class="argument">info</SPAN> has already been added to the list, this function returns without doing anything. When a callback is registered on the callback list, it is ordered according to the callback priority given by <SPAN class="argument">priority</SPAN>. The value of <SPAN class="argument">priority</SPAN> can range from -255 (<CODE>PM_CALLBACK_PRIORITY_MIN</CODE>) to 255 (<CODE>PM_CALLBACK_PRIORITY_MAX</CODE>).</P>
+<P>The <CODE>PM_AppendPreSleepCallback</CODE> function registers a callback at the end of the pre-sleep callback list, giving it a priority of 255.</P>
+<P>The <CODE>PM_PrependPreSleepCallback</CODE> function registers a callback at the start of the pre-sleep callback list, giving it a priority of -255.</P>
+<P>The <CODE>PM_InsertPreSleepCallback</CODE> function registers a callback in the pre-sleep callback list, giving it the specified priority.</P>
+<P>The <CODE>PM_AppendPostSleepCallback</CODE> function registers a callback at the end of the post-sleep callback list, giving it a priority of 255.</P>
+<P>The <CODE>PM_PrependPostSleepCallback</CODE> function registers a callback at the start of the post-sleep callback list, giving it a priority of -255.</P>
+<P>The <CODE>PM_InsertPostSleepCallback</CODE> function registers a callback in the post-sleep callback list, giving it the specified priority.</P>
+<P>When a callback is registered using an &quot;<CODE>Append</CODE>&quot; function, it is placed <EM>after</EM> any other existing callbacks that also have a priority of 255. When a callback is registered using a &quot;<CODE>Prepend</CODE>&quot; function, it is placed <EM>before</EM> any other existing callbacks that also have a priority of 0. When a callback is registered using an &quot;<CODE>Insert</CODE>&quot; function, it is placed after any other existing callbacks that have the same priority. In other words, specifying a priority of 255 to an <CODE>Insert</CODE> function causes it to behave identically to an <CODE>Append</CODE> function. However, specifying a priority of -255 to an <CODE>Insert</CODE> function does not result in the same behavior as a <CODE>Prepend</CODE> function.</P>
+<P> <B>Callback Removal</B></P>
+<P>Call the <A href="PM_DeleteSleepCallback.html"><CODE>PM_DeletePreSleepCallback</CODE></A> or <A href="PM_DeleteSleepCallback.html"><CODE>PM_DeletePostSleepCallback</CODE></A> functions to remove callbacks from the lists.</P>
+<P> <B>Example</B></P>
+<BLOCKQUOTE style="background-color:#ffffcc;"><CODE>//---- sleep callback info<BR> <FONT color="#ff0000">PMSleepCallbackinfo c1info;<BR> PMSleepCallbackinfo c2info;</FONT><BR> <BR> //---- Callback before sleep mode<BR> void myCallback1( void* )<BR> {<BR> OS_Printf( &quot;go to sleep mode.\n&quot; );<BR> }<BR> <BR> //---- Callback after sleep mode<BR> void myCallback2( void* )<BR> {<BR> OS_Printf( &quot;now return from sleep mode.\n&quot; );<BR> }<BR> <BR> //---- Main<BR> void NitroMain( void )<BR> {<BR> :<BR>//---- set callback to callback info<BR> <FONT color="#ff0000">PM_SetSleepCallbackInfo( &amp;c1info, myCallback1, NULL );<BR> PM_SetSleepCallbackInfo( &amp;c2info, myCallback2, NULL );</FONT><BR> <BR> //---- set pre-callback for sleep mode<BR> <FONT color="#ff0000">PM_AppendPreSleepCallback( &amp;c1info );</FONT><BR> <BR> //---- set post-callback for sleep mode<BR> <FONT color="#ff0000">PM_AppendPostSleepCallback( &amp;c2info );</FONT><BR> <BR> //---- go to sleep mode<BR> PM_GoSleepMode(...);<BR> :<BR> }</CODE></BLOCKQUOTE>
+<H2>See Also</H2>
+<P><A href="PM_Init.html"><CODE>PM_Init</CODE></A><BR> <A href="PM_GetLEDPattern.html"><CODE>PM_GoSleepMode</CODE></A><BR> <A href="PM_DeleteSleepCallback.html"><CODE>PM_DeletePreSleepCallback</CODE></A><BR> <A href="PM_DeleteSleepCallback.html"><CODE>PM_DeletePostSleepCallback</CODE></A><BR> <A href="PM_SetSleepCallbackInfo.html"><CODE>PM_SetSleepCallbackInfo</CODE></A></P>
+<H2>Revision History</H2>
+<P>2008/07/15 Changed the lowest priority value available to developers from 0 to -255. <BR>2008/06/12 Added priority settings. <BR>2005/09/14 Changed <CODE>PM_SetSleepCallback</CODE> to <CODE>PM_SetSleepCallbackInfo</CODE>.<BR> 2005/06/02 Clarified the callback's caller. <BR>2004/10/06 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

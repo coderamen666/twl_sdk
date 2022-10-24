@@ -1,0 +1,38 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title>TCL_GetCurrentSecond</title>
+<link rel="stylesheet" href="../css/nitro.css" type="text/css">
+</head>
+<body>
+<h1 align="left">TCL_GetCurrentSecond <img src="../image/TWL.gif" align="middle"></h1>
+
+<h2>Definition</h2>
+<dl>
+	<dd>
+	<code>#include &lt;twl/tcl.h&gt;</code><br/> <br/>
+	<pre><code>
+s64 TCL_GetCurrentSecond( void );
+	</code></pre>
+</dl>
+
+<h2>Arguments</h2>
+<p>None.</p>
+
+<h2>Return Values</h2>
+<p>Current time (in seconds)</p>
+
+<h2>Description</h2>
+<p>Gets the current time, in seconds.</p>
+<p>It is defined as a weak symbol reference. This function makes an internal call to <code>RTC_GetDateTime</code>. Redefine the function if RTC-exclusive processing is required.</p>
+
+<h2>See Also</h2>
+
+<h2>Revision History</h2>
+<p>
+2008/10/07 Initial version.
+</p>
+
+<hr><p>CONFIDENTIAL</p></body>
+</html>

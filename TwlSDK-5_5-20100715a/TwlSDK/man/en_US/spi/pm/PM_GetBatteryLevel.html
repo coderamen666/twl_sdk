@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>PM_GetBatteryLevel</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">PM_GetBatteryLevel <IMG src="../../image/TWL.gif" width="24" height="12" border="0" align="middle"></H1>
+<H2>Syntax</H2>
+<DL>
+  <DD>
+  <PRE><CODE>#include &lt;twl/spi.h&gt;</CODE></PRE>
+  <PRE><CODE>u32 PM_GetBatteryLevel( u16* levelBuf );
+</CODE></PRE>
+</DL>
+<H2>Arguments</H2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="13%"><EM><STRONG>levelBuf</STRONG></EM></TD>
+<TD width="87%">Buffer storing the remaining battery life for the battery pack.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>Return Values</H2>
+<P>If <CODE>PM_RESULT_SUCCESS</CODE>, the command was run successfully.</P>
+<P>If <CODE>PM_RESULT_BUSY</CODE>, the SPI was occupied by other processing and unable to process this function.</P>
+<P>If <CODE>PM_RESULT_ERROR</CODE>, this function could not be used. This error means that this function was called during operation in NITRO mode. It will not be returned in any other situation.</P>
+<P>If the command succeeded, a value indicating the remaining battery life of the battery pack will be stored at the address indicated by <SPAN class="argument">levelBuf</SPAN>. This value indicates one of six levels, from 0 (<CODE>PM_BATTERY_LEVEL_MIN</CODE>) to 5 (<CODE>PM_BATTERY_LEVEL_MAX</CODE>). Smaller values indicate that there is less battery life remaining.</P>
+<H2>Description</H2>
+<P>Checks the remaining battery capacity of the battery pack.</P>
+<P>This function uses PXI to send the command that performs the corresponding operation in the ARM7 processor. The ARM7 side that receives that command is executed by operating the PMIC.</P>
+<P>A return value of <CODE>PM_RESULT_SUCCESS</CODE> indicates that the command was run successfully, and that the results are stored at the address given by the <CODE>u16</CODE>-type pointer <SPAN class="argument">levelBuf</SPAN>. This value indicates one of six levels, from 0 (<CODE>PM_BATTERY_LEVEL_MIN</CODE>) to 5 (<CODE>PM_BATTERY_LEVEL_MAX</CODE>). Smaller values indicate that there is less battery life remaining.
+</P>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+<TH>Value Stored in <SPAN class="argument">levelBuf</SPAN></TH>
+<TH>Remaining Battery Life (Approximately)</TH>
+<TH>LED Color on TWL</TH>
+    </TR>
+    <TR>
+<TD><B>5</B> (<CODE>PM_BATTERY_LEVEL_MAX</CODE>)</TD>
+      <TD>100%</TD>
+<TD rowspan="3"><FONT color="#0099ff">&#x25A0;</FONT> Blue (steady light)</TD>
+    </TR>
+    <TR>
+      <TD><B> 4</B></TD>
+      <TD>60%</TD>
+    </TR>
+    <TR>
+      <TD><B> 3</B></TD>
+      <TD>30%</TD>
+    </TR>
+    <TR>
+      <TD><B> 2</B></TD>
+      <TD>10%</TD>
+<TD><FONT color="#ff0000">&#x25A0;</FONT> Red (steady light)</TD>
+    </TR>
+    <TR>
+      <TD><B> 1</B></TD>
+      <TD>1%</TD>
+<TD rowspan="2"><FONT color="#ff0000">&#x25A0;</FONT><FONT color="#330000">&#x25A0;</FONT> Red (blinking light)</TD>
+    </TR>
+    <TR>
+<TD><B>0</B> (<CODE>PM_BATTERY_LEVEL_MIN</CODE>)</TD>
+      <TD>0%</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>The color and steady/blinking status of the LED cannot be controlled by applications.</P>
+<P>The remaining battery charge level is only a guideline. There may be some error due to individual differences or degree of degradation between battery packs. For example, a value of 2 stored in <SPAN class="argument">levelBuf</SPAN> represents a 10% charge, but this does not mean that this value results when a 10% charge level is reached. <FONT color="#ff0000">Be sure to take this as an approximate guideline with a wide degree of variation.</FONT> The actual remaining charge could be 5 or 20 percent. The remaining battery charge is split into 6 levels, and is one index used only by TWL units. As such, calculation of a standard value for remaining battery charge time based on the obtained charge level is impossible.</P>
+<H3>Getting Values Internally</H3>
+<P>Internally, the remaining battery life will only change <FONT color="#ff0000">approximately once per second</FONT>. If the backlight brightness is suddenly changed from the lowest to the highest setting and this causes the remaining battery life to drop by a sudden discrete amount in hardware terms, when the microprocessor checks remaining battery life, it will adjust its results to return continuous values.</P>
+<P>However, this does not apply to applications that do not require exit processing, do not use SD Card or NAND memory, and which are likely to use up the battery completely (in other words, card applications). Even if you set a battery LOW callback for such applications, it is possible for remaining battery life to suddenly decrease past the point where the callback would have been called, until it reaches the forced shutdown level and the power is cut off.</P>
+<H3>Callbacks</H3>
+<P>When a value of 1 is detected for the remaining battery life, the callback function set by the <A href="PM_SetBatteryLowCallback.html"><CODE>PM_SetBatteryLowCallback</CODE></A> function will be invoked to send a notification that the remaining battery life is low. However, as indicated by <B>Getting Values Internally</B>, in applications such as card applications that do not require exit processing, <FONT color="#ff0000">internal values change discretely and may skip directly to 0. In such a case, the callback will not be invoked.</FONT></P>
+<P>In applications that require shutdown processing, such as NAND applications, the microprocessor adjusts the values, so there is no chance of values changing discretely and the callback being missed as a result. If it detects a remaining battery level of 0, the hardware will perform shutdown processing. Shutdown processing is not performed for applications that do not use SD Cards or NAND memory.</P>
+<H3>Similar Functions</H3>
+<P>The <A href="PM_GetBattery.html"><CODE>PM_GetBattery</CODE></A> function is similar to <CODE>PM_GetBatteryLevel</CODE>, but it can only get the remaining battery life as one of two levels. It is structured this way because the NITRO hardware was aware of only two levels of remaining battery life.</P>
+<H3>Returning Error Values</H3>
+<P><FONT color="#ff0000">This function only operates on TWL hardware running in TWL mode. </FONT>It cannot be used on NITRO hardware or TWL hardware running in NITRO mode. The function can be called, but it will return <CODE>PM_RESULT_ERROR</CODE>. The function will not return <CODE>PM_RESULT_ERROR</CODE> in TWL Mode.</P>
+<H3>About PM_RESULT_BUSY</H3>
+<P>The SPI is used for various other processes besides power management. If you call this function while another process is using it, this function sends a command to the ARM7. There, the SPI is determined to be BUSY, and <CODE>PM_RESULT_BUSY</CODE> is notified to the ARM9 without actually processing this function. Likewise, if you call this function while another PM process is running, that fact is determined on the ARM9 side, and this function returns <CODE>PM_RESULT_BUSY</CODE>. (In this case, the determination is made before notification is sent to the ARM7.)</P>
+<P>Accordingly, if you want to ensure that this function succeeds, make it loop until it succeeds as shown below. (This example does not take into account mistakes such as wrong arguments.)</P>
+<BLOCKQUOTE style="background-color:#ffffcc"><B>Example</B><BR> <CODE>while( PM_GetBatteryLevel( ... ) != PM_RESULT_SUCCESS )<BR> {<BR> }</CODE></BLOCKQUOTE>
+<H2>See Also</H2>
+<P><A href="PM_GetBattery.html"><CODE>PM_GetBattery</CODE></A><BR> <A href="PM_SetBatteryLowCallback.html"><CODE>PM_SetBatteryLowCallback</CODE></A></P>
+<H2>Revision History</H2>
+<P>2009/06/03 Removed a description of the <CODE>PM_Init</CODE> function (because <CODE>OS_Init</CODE> is now required). <BR>2008/11/11 Adjusted the guidelines for the remaining battery life. <BR>2008/08/23 Mentioned <CODE>PM_RESULT_BUSY</CODE>. <BR>2008/04/09 Adjusted the guidelines for the remaining battery life. <BR>2008/02/07 Added guidelines for the remaining battery life. <BR>2008/01/24 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

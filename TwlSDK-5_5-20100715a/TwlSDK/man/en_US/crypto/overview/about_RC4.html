@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!--==========================================================================
+  Copyright 2006 Nintendo.  All rights reserved.
+
+  These coded instructions, statements, and computer programs contain
+  proprietary information of Nintendo of America Inc. and/or Nintendo
+  Company Ltd., and are protected by Federal copyright law.  They may
+  not be disclosed to third parties or copied or duplicated in any form,
+  in whole or in part, without the prior written consent of Nintendo.
+ ==========================================================================-->
+<HTML>
+<HEAD>
+	<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+	<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+	<META http-equiv="Content-Style-Type" content="text/css">
+	<TITLE>Encryption Using the RC4 Algorithm: Overview</TITLE>
+	<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">Encryption Using the RC4 Algorithm: Overview</H1>
+<H2>Description</H2>
+<H3>Purpose and Restrictions</H3>
+<P>
+	An encryption function that uses the RC4 algorithm was prepared so you can perform encryption easily with a low impact on the system load. Use this function when you do not want dynamically generated game data to be sent over the network unencrypted or when you do not want to save data to backup memory unencrypted.
+</P>
+<P>
+	However, because shared key encryption is used with RC4, the key data used for both encryption and decryption must be stored in the software. Therefore, the key may be discovered by analyzing the ROM binary, which could threaten encryption. <span style="color: red;">Do not use this function alone for encrypting highly sensitive data or for verifying the author of data.</span>
+</P>
+<P>
+	If you need to authenticate the data author, use the <CODE><A href="../sign/CRYPTO_VerifySignature.html">CRYPTO_VerifySignature</A></CODE> function to verify the digital signature.&lt;! Be sure to use SSL communications (enabled using SOC_EnableSsl) for safely communicating with the server using the TWL WiFi library. &gt;
+</P>
+<H3>Features of the RC4 Algorithm</H3>
+<P>
+	The RC4 algorithm has the following features.
+</P>
+<ul>
+	<li>Public key encryption.</li>
+	<li>Stream encryption.</li>
+	<li>High-speed encryption/decryption.</li>
+	<li>An efficient analysis technique has not been announced.</li>
+</ul>
+<P>
+	Using stream encryption is simple because the number of input bytes matches the number of output bytes. However, it may not remain robust if certain precautions are not followed. Be sure to note the precautions described below. 
+</P>
+<H3>Principle of Operation of the RC4 Algorithm</H3>
+<P>
+	The RC4 algorithm works by creating a uniquely defined random number string from the key, then XOR-ing the original data with the random number string. As a result, the same key always generates the same encryption random number string. This is described as follows:
+</P>
+<ol>
+	<li>The same encrypted data is always generated from the same key and the same data. In other words, it is possible to tell whether one encrypted text has the same source data as another encrypted text. (Dictionary Attack)</li>
+	<li>When two sets of data generated using the same encryption key are XOR-ed, it is possible to obtain the result of XOR-ing the original plain text data. (This is one type of differential attack.)</li>
+	<li>It is possible to reverse a bit of data after decryption by reversing one bit of data anywhere in the encrypted text. (Bit inversion attack)</li>
+</ol>
+<P>
+	To foil dictionary attacks and differential attacks, a unique initialization vector (IV) is created each time and added to the public key to create a real key for the RC4 algorithm to use. When the encrypted data is sent, the unencrypted IV must also be sent. For example, out of the 128 bits passed as a key to the RC4 function, 96 are handled as the true private key. The remaining 32 bits are the initialization vector, and are filled with a different number each time.
+</P>
+<P>
+	To avoid bit inversion attacks, a message digest value such as MD5 or SHA-1 is attached to any sent data.  Because an attacker does not know the original data, the correct message digest value cannot be calculated even if the attacker changed any bits. Functions for finding MD5 and SHA-1 are provided in the TWL-SDK.
+</P>
+<P>
+	For more details, refer to any number of general references on encryption available.
+</P>
+<H2>See Also</H2>
+<P><CODE><A href="../list_crypto.html#rc4">List of CRYPTO Functions</A><BR></CODE></P>
+<H2>Revision History</H2>
+<P>
+2006/03/07 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

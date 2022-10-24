@@ -1,0 +1,175 @@
+#! make -f
+#----------------------------------------------------------------------------
+#  Project:  TwlSDK
+#  File:     commondefs.emtype.IS
+#
+#  Copyright 2007-2009 Nintendo.  All rights reserved.
+#
+# These coded instructions, statements, and computer programs contain
+# proprietary information of Nintendo of America Inc. and/or Nintendo
+# Company Ltd., and are protected by Federal copyright law.  They may
+# not be disclosed to third parties or copied or duplicated in any form,
+# in whole or in part, without the prior written consent of Nintendo.
+#
+# $Date:: 2010-03-17#$
+# $Rev: 11313 $
+# $Author: okubata_ryoma $
+#----------------------------------------------------------------------------
+
+EMPTY					?=
+SPACE	 				?= $(EMPTY) $(EMPTY)
+
+ifdef	IS_TWL_DEBUGGER_DIR
+#----------------------------------------------------------------------------
+#  Setting for IS-TWL-EMULATOR
+#----------------------------------------------------------------------------
+
+ifndef IS_TWL_DIR
+IS_TWL_DIR				= $(IS_TWL_DEBUGGER_DIR)
+endif
+
+ISDBG_ROOT				:= $(patsubst %/,%,$(subst $(SPACE),\ ,$(subst \,/,$(IS_TWL_DIR))))
+#ISDBG_EMULATOR			:= $(ISDBG_ROOT)/X86/bin/ISNITROEMULATOR.exe
+ISDBG_TWL_DEBUGGER		:= $(ISDBG_ROOT)/X86/bin/ISTD.exe
+#ISDBG_NITLOAD			:= $(ISDBG_ROOT)/Samples/download/X86/Release/nitload.exe
+#ISDBG_NITLOAD_GCC		:= $(TWL_TOOLSDIR)/bin/_nitload.exe
+ISDBG_NITLOAD_OPTION	?= -p
+#ISDBG_ROOT_NOSPACE		:= $(subst \,/,$(shell cygpath -d $(ISDBG_ROOT)))
+ISDBG_ROOT_NOSPACE		= $(call encode_specialchar,$(call cygpathm,$(IS_TWL_DIR)))
+
+
+TWL_LINK_ISTD			:= yes
+MACRO_FLAGS				+= -DSDK_LINK_ISTD	
+
+
+ifeq	($(CODEGEN_PROC),ARM9)
+ISDBG_INCDIRS			= $(ISDBG_ROOT_NOSPACE)/Target/include/ARM9
+ISDBG_LIBDIRS			= $(ISDBG_ROOT_NOSPACE)/Target/lib/ARM9-TS
+
+ifeq	($(CODEGEN_CC),ARM)
+ISDBG_LIBS_TWL			?= libistdmainparm.a
+ifndef FORCE_DISABLE_IS_NITRO_DEBUGGER
+ISDBG_LIBS_NITRO		?= libisdmainparm.a
+endif
+ISDBG_LIBS				?= $(ISDBG_LIBS_TWL) $(ISDBG_LIBS_NITRO)
+else #	($(CODEGEN_CC),THUMB)
+ISDBG_LIBS_TWL			?= libistdmainpthumb.a
+ifndef FORCE_DISABLE_IS_NITRO_DEBUGGER
+ISDBG_LIBS_NITRO		?= libisdmainpthumb.a
+endif
+ISDBG_LIBS				?= $(ISDBG_LIBS_TWL) $(ISDBG_LIBS_NITRO)
+endif
+
+STUBS_LIBS				+= libstubsisd$(NITRO_LIBSUFFIX).a libstubsistd$(NITRO_LIBSUFFIX).a
+
+else #	($(CODEGEN_PROC),ARM7)
+ISDBG_INCDIRS 			= $(ISDBG_ROOT_NOSPACE)/Target/include/ARM7
+ISDBG_LIBDIRS 			= $(ISDBG_ROOT_NOSPACE)/Target/lib/ARM7-TS
+
+ifeq	($(CODEGEN_CC),ARM)
+ISDBG_LIBS_TWL			?= libistdsubparm.a
+ISDBG_LIBS_NITRO		?= libisdsubparm.a
+ISDBG_LIBS				?= $(ISDBG_LIBS_TWL) $(ISDBG_LIBS_NITRO)
+#ISDBG_LIBS    			?= libistdsubparm.a	\
+#						   libisdsubparm.a
+else #	($(CODEGEN_CC),THUMB)
+ISDBG_LIBS_TWL			?= libistdsubpthumb.a
+ISDBG_LIBS_NITRO		?= libisdsubpthumb.a
+ISDBG_LIBS				?= $(ISDBG_LIBS_TWL) $(ISDBG_LIBS_NITRO)
+#ISDBG_LIBS				?= libistdsubpthumb.a	\
+#						   libisdsubpthumb.a
+endif
+
+STUBS_LIBS				+= libstubsisd_sp$(NITRO_LIBSUFFIX).a libstubsistd_sp$(NITRO_LIBSUFFIX).a
+
+endif	# end of "	($(CODEGEN_PROC),ARM9)"
+#----------------------------------------------------------------------------
+
+
+
+
+#----------------------------------------------------------------------------
+else	# IS-TWL-DEBUGGER is not installed
+ifdef	IS_NITRO_DIR
+#----------------------------------------------------------------------------
+#  Setting for IS-NITRO-EMULATOR
+#----------------------------------------------------------------------------
+
+ISDBG_ROOT				:= $(patsubst %/,%,$(subst $(SPACE),\ ,$(subst \,/,$(IS_NITRO_DIR))))
+ISDBG_EMULATOR			:= $(ISDBG_ROOT)/X86/bin/ISNITROEMULATOR.exe
+ISDBG_NITRO_DEBUGGER	:= $(ISDBG_ROOT)/X86/bin/ISND.exe
+ISDBG_NITLOAD			:= $(ISDBG_ROOT)/Samples/download/X86/Release/nitload.exe
+ISDBG_NITLOAD_GCC		:= $(NITRO_TOOLSDIR)/bin/_nitload.exe
+ISDBG_NITLOAD_OPTION	?= -p
+#ISDBG_ROOT_NOSPACE		:= $(subst \,/,$(shell cygpath -d $(ISDBG_ROOT)))
+ISDBG_ROOT_NOSPACE		= $(call encode_specialchar,$(call cygpathm,$(IS_NITRO_DIR)))
+
+
+NITRO_LINK_ISD			:= yes
+MACRO_FLAGS				+= -DSDK_LINK_ISD
+
+
+ifeq	($(CODEGEN_PROC),ARM9)
+ISDBG_INCDIRS			= $(ISDBG_ROOT_NOSPACE)/TEG/mainp/include
+ISDBG_LIBDIRS			= $(ISDBG_ROOT_NOSPACE)/TEG/mainp/lib
+
+ifeq	($(CODEGEN_CC),ARM)
+ISDBG_LIBS_NITRO		?= libisdmainparm.a
+ISDBG_LIBS				?= $(ISDBG_LIBS_NITRO)
+#ISDBG_LIBS				?= libisdmainparm.a
+else #	($(CODEGEN_CC),THUMB)
+ISDBG_LIBS_NITRO		?= libisdmainpthumb.a
+ISDBG_LIBS				?= $(ISDBG_LIBS_NITRO)
+#ISDBG_LIBS				?= libisdmainpthumb.a
+endif
+
+STUBS_LIBS				+= libstubsisd$(NITRO_LIBSUFFIX).a libstubsistd$(NITRO_LIBSUFFIX).a
+
+else #	($(CODEGEN_PROC),ARM7)
+ISDBG_INCDIRS 			= $(ISDBG_ROOT_NOSPACE)/TEG/subp/include
+ISDBG_LIBDIRS 			= $(ISDBG_ROOT_NOSPACE)/TEG/subp/lib
+
+ifeq	($(CODEGEN_CC),ARM)
+ISDBG_LIBS_NITRO		?= libsidsubparm.a
+ISDBG_LIBS				?= $(ISDBG_LIBS_NITRO)
+#ISDBG_LIBS	    		?= libisdsubparm.a
+else #	($(CODEGEN_CC),THUMB)
+ISDBG_LIBS_NITRO		?= libisdsubpthumb.a
+ISDBG_LIBS				?= $(ISDBG_LIBS_NITRO)
+#ISDBG_LIBS  	  		?= libisdsubpthumb.a
+endif
+
+STUBS_LIBS				+= libstubsisd_sp$(NITRO_LIBSUFFIX).a libstubsistd_sp$(NITRO_LIBSUFFIX).a
+
+endif	# end of "ifeq	($(CODEGEN_PROC),ARM9)"
+#----------------------------------------------------------------------------
+
+
+
+
+
+#----------------------------------------------------------------------------
+else	# IS-TWL-DEBUGGER and IS-NITRO-DEBUGGER are not installed
+#----------------------------------------------------------------------------
+#  Setting for STUBS of IS-TWL-EMULATOR and IS-NITRO-EMULATOR
+#----------------------------------------------------------------------------
+
+ifeq	($(CODEGEN_PROC),ARM9)
+STUBS_LIBS				+= libstubsistd$(NITRO_LIBSUFFIX).a		\
+						   libstubsisd$(NITRO_LIBSUFFIX).a
+else #	($(CODEGEN_PROC),ARM7)
+STUBS_LIBS				+= libstubsistd_sp$(NITRO_LIBSUFFIX).a	\
+						   libstubsisd_sp$(NITRO_LIBSUFFIX).a
+endif
+
+
+
+
+
+#----------------------------------------------------------------------------
+endif	# end of "ifdef IS_NITRO_DIR"
+endif	# end of "ifdef IS_TWL_DEBUGGER_DIR"
+
+
+#----- End of commondefs.emtype.IS -----
+

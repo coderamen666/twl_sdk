@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>MI_Store*</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">MI_Store* <IMG src="../../image/NTR.gif" align="middle"><IMG src="../../image/TWL.gif" align="middle"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/mi.h&gt;</CODE><BR> <BR> <CODE>SDK_INLINE void MI_StoreLE8 (void *ptr, u8 val);<br> SDK_INLINE void MI_StoreLE16(void *ptr, u16 val);<br> SDK_INLINE void MI_StoreLE32(void *ptr, u32 val);<br> SDK_INLINE void MI_StoreLE64(void *ptr, u64 val);<br> SDK_INLINE void MI_StoreBE8 (void *ptr, u8 val);<br> SDK_INLINE void MI_StoreBE16(void *ptr, u16 val);<br> SDK_INLINE void MI_StoreBE32(void *ptr, u32 val);<br> SDK_INLINE void MI_StoreBE64(void *ptr, u64 val);<br></CODE><br>
+  </dd>
+</dl>
+<h2>Arguments</h2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="13%"><EM><STRONG>ptr</STRONG></EM></TD>
+<TD width="87%">The address to write to.<br>Alignment to a 16-bit, 32-bit, or 64-bit boundary is not required.</TD>
+    </TR>
+    <TR>
+<TD width="13%"><EM><STRONG>val</STRONG></EM></TD>
+<TD width="87%">The value to write.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<h2>Return Values</h2>
+<p>None.</p>
+
+<H2>Description</H2>
+<P>Stores a value in the specified address using the specified endian. LE represents little-endian, while BE represents big-endian.<br></p>
+<p>These 8-bit versions do not actually perform any conversions, but they have been included for uniform source code visibility.</p>
+<H2>See Also</H2>
+<P><CODE><A href="MI_SwapEndian.html">MI_SwapEndian*</A><BR> <A href="MI_Load.html">MI_Load*</A><BR> <A href="MI_HTo.html">MI_HTo*</A><BR> <A href="MI_ToH.html">MI_*ToH*</A></CODE></P>
+<H2>Revision History</H2>
+<P>
+2007/11/21 Added a description of the 64-bit version.<br> 2006/06/13 Added a description of the 8-bit version.<br> 2006/04/05 Initial version.<br>
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title>SSP_StartJpegEncoderWithEncodeData</title>
+<link rel="stylesheet" href="../../css/nitro.css" type="text/css" />
+</head>
+<body>
+
+<h1>SSP_StartJpegEncoderWithEncodeData <img src="../../image/NTR.gif" align="middle"><img src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+
+<pre><code>
+u32 SSP_StartJpegEncoderWithEncodeData(u8 *dst, u32 limit, u8 *wrk, u32 width, u32 height, u32 quality, u32 sampling, u32 option);
+</code></pre>
+
+<h2>Arguments</h2>
+<table style="width:100%">
+<tbody>
+<tr>
+<td style="width:13%"><SPAN class="argument">dst</SPAN></td>
+<td style="width:87%">Buffer that stores encoded results.</td>
+</tr>
+<tr>
+<td style="width:13%"><SPAN class="argument">limit</SPAN></td>
+<td style="width:87%">Size of <SPAN class="argument">dst</SPAN>. Encoding fails if this size is exceeded.</td>
+</tr>
+<tr>
+<td style="width:13%"><SPAN class="argument">wrk</SPAN></td>
+<td style="width:87%">Working buffer. This must be 4-byte aligned. Use the same value specified to the <a href="SSP_ConvertJpegEncodeData.html"><CODE>SSP_ConvertJpegEncodeData</CODE></a> function.</td>
+</tr>
+<tr>
+<td style="width:13%"><SPAN class="argument">width</SPAN></td>
+<td style="width:87%">The width (in pixels) of the image to be encoded.<br>Make the same specifications as for the <a href="SSP_ConvertJpegEncodeData.html"><CODE>SSP_ConvertJpegEncodeData</CODE></a> function.</td>
+</tr>
+<tr>
+<td style="width:13%"><SPAN class="argument">height</SPAN></td>
+<td style="width:87%">The height (in pixels) of the image to be encoded.<br>Make the same specifications as for the <a href="SSP_ConvertJpegEncodeData.html"><CODE>SSP_ConvertJpegEncodeData</CODE></a> function.</td>
+</tr>
+<tr>
+<td style="width:13%"><SPAN class="argument">quality</SPAN></td>
+<td style="width:87%">Encoding quality.<br>Values from 1 to 100 can be specified, where 100 represents the highest quality and the largest size.</td>
+</tr>
+<tr>
+<td style="width:13%"><SPAN class="argument">sampling</SPAN></td>
+<td style="width:87%">The main image output format (<CODE>SSP_JPEG_OUTPUT_YUV444</CODE>, <CODE>SSP_JPEG_OUTPUT_YUV420</CODE>, or <CODE>SSP_JPEG_OUTPUT_YUV422</CODE>).<br> Make the same specifications as for the <a href="SSP_ConvertJpegEncodeData.html"><CODE>SSP_ConvertJpegEncodeData</CODE></a> function.</td>
+</tr>
+<tr>
+<td style="width:13%"><SPAN class="argument">option</SPAN></td>
+<td style="width:87%">The encoding option (<CODE>SSP_JPEG_RGB555</CODE>, <CODE>SSP_JPEG_YUV422</CODE>, or <CODE>SSP_JPEG_THUMBNAIL</CODE>).<br> Make the same specifications as for the <a href="SSP_ConvertJpegEncodeData.html"><CODE>SSP_ConvertJpegEncodeData</CODE></a> function.</td>
+</tr>
+</tbody>
+</table>
+
+
+<h2>Return Values</h2>
+<p>Returns the size of the created JPEG file when successful.<BR>Returns 0 when it fails.</p>
+
+<h2>Description</h2>
+<p>Encodes image data converted into a JPEG file using the <a href="SSP_ConvertJpegEncodeData.html"><CODE>SSP_ConvertJpegEncodeData</CODE></a> function.<br>The <SPAN class="argument">wrk</SPAN>, <SPAN class="argument">width</SPAN>, <SPAN class="argument">height</SPAN>, <SPAN class="argument">sampling</SPAN>, and <SPAN class="argument">option</SPAN> arguments must be specified in the same manner as for the <a href="SSP_ConvertJpegEncodeData.html"><CODE>SSP_ConvertJpegEncodeData</CODE></a> function.<br>If you want to perform the conversion and encoding processes at once, use the <a href="SSP_StartJpegEncoder.html"><CODE>SSP_StartJpegEncoder</CODE></a> function.<br><br> <font color="red"><B>Note:</B></font><br> Regardless of whether this function succeeds or fails at encoding, after completion the values set by the <a href="SSP_SetJpegEncoderDateTime.html"><CODE>SSP_SetJpegEncoderDateTime</CODE></a>, <a href="SSP_SetJpegEncoderDateTimeNow.html"><CODE>SSP_SetJpegEncoderDateTimeNow</CODE></a>, <a href="SSP_SetJpegEncoderMakerNote.html"><CODE>SSP_SetJpegEncoderMakerNote</CODE></a>, and <a href="SSP_SetJpegEncoderMakerNoteEx.html"><CODE>SSP_SetJpegEncoderMakerNoteEx</CODE></a> functions are cleared.<br>If this function does not call the <a href="SSP_SetJpegEncoderDateTime.html"><CODE>SSP_SetJpegEncoderDateTime</CODE></a> or <a href="SSP_SetJpegEncoderDateTimeNow.html"><CODE>SSP_SetJpegEncoderDateTimeNow</CODE></a> function in advance, the <a href="SSP_GetDateTime.html"><CODE>SSP_GetDateTime</CODE></a> function is called.
+</p>
+
+<h2>See Also</h2>
+<p><a href="SSP_SetJpegEncoderDateTime.html"><CODE>SSP_SetJpegEncoderDateTime</CODE></a><BR> <a href="SSP_SetJpegEncoderDateTimeNow.html"><CODE>SSP_SetJpegEncoderDateTimeNow</CODE></a><BR> <a href="SSP_ConvertJpegEncodeData.html"><CODE>SSP_ConvertJpegEncodeData</CODE></a><BR> <a href="SSP_StartJpegEncoder.html"><CODE>SSP_StartJpegEncoder</CODE></a><BR> <a href="SSP_SetJpegEncoderMakerNote.html"><CODE>SSP_SetJpegEncoderMakerNote</CODE></a><BR> <a href="SSP_SetJpegEncoderMakerNoteEx.html"><CODE>SSP_SetJpegEncoderMakerNoteEx</CODE></a><BR> <a href="SSP_GetDateTime.html"><CODE>SSP_GetDateTime</CODE></a></p>
+
+<h2>Revision History</h2>
+<p>
+2009/07/16 Changed to explanation that matches function behavior.<br> 2009/04/28 Added information on alignment restrictions.<br> 2008/11/14 Initial version.
+</p>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

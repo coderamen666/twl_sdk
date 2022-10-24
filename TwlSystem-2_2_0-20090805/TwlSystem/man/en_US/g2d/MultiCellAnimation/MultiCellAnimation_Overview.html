@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>Multicell Animation Overview</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+<h1 align="left">Multicell Animation Overview</h1>
+<H2>Conceptual Diagram</H2>
+<P><IMG src="image.gif" border="0"></P>
+<H2>Description</H2>
+Multicell animation plays back multicell animations created with NITRO-CHARACTER. Multicell animation uses the internal Animation Controller to animate multicells. Multicells are composed of multiple cell animations.
+
+<h2>Multicell Animation Internal Data</h2>
+<h3>Pointer to the Multicell Data Bank</h3>
+The pointer to the multicell data bank loaded to the main memory is stored. The multicell data bank is static data and will not be rewritten. The multicells used by the multicell animation must be included in the multicell data bank designated by this pointer.
+
+<h3>Pointer to the Displayed Multicell Data</h3>
+The pointer to the multicell currently being displayed on the screen by animation playback is stored. The multicell designated by this pointer exists in the multicell data bank designated by the pointer to the multicell data bank. It exists as an internal member of the multicell entity being displayed.
+
+<h3>SRT Animation Results</h3>
+The multicell position, rotation, and scale changed by animation playback is stored.
+
+<h3>The Multicell Entity</h3>
+This concept expresses the entity of the multicell currently being displayed. The pointer to the displayed multicell data is stored internally. The entity also maintains information updated by the animation.
+
+<h3>Areas Updated by Animation</h3>
+
+The multicell entity maintains the information updated by the animation. Specifically, the information consists of the cell animation entities comprising the multicell animation and the nodes that store the location of the entities.<BR> There are two types of data structures for this information during runtime: one that shares cell animation and one that does not.<BR> The user can select the most suitable data structure with an option passed to the initialization function.<BR> <BR> When the format where cell animations are shared has been selected, the same cell animation playback is shared by multiple nodes (i.e., the total number of nodes N &gt;= number of cell animations).<BR> Furthermore, node states, such as SRT parameters and the visibility flag, are not maintained.<BR> These factors create the following characteristics.<BR> <BR>
+<pre>
+The memory capacity required for creating an entity is small.
+The processing load for animation updates is small.
+The number of affine parameters used is small (affine parameters are shared among the nodes that render the same cell animation).
+</pre>
+<BR> These characteristics are more evident when the same cell animations are used several times in a multicell.<BR> <BR> On the other hand, when the format where cell animations are not shared has been selected, cell animation entities are allocated for each node separately (i.e., the total number of node N == number of cell animations).<BR> Furthermore, a data region is maintained to store the node states.<BR> This organization allows the user program to overwrite node information and cell animation states (location, playback animation setting).<BR> <BR> If the user program does not need to overwrite this data, use the format where cell animation is shared.<BR>
+
+
+
+<h3>Nodes</h3>
+<P><IMG src="image1.gif" border="0"></P>
+Nodes are containers for storing information about rendering data. The pointer to the rendering data, rendering object position on the virtual screen, rotation, scale, affine conversion parameter setting information, etc. is stored in the node. They are used in the library as the compositional elements of the multicell entity.
+<h2>See Also</h2>
+<p>
+None.
+</p>
+<H2>Revision History</H2>
+<P>2005/01/31 Added &quot;Areas Updated by Animation&quot; to the description<br></P>
+<P>2004/12/06 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

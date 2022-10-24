@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>Hardware Reset and Shutdown: Overview</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">Hardware Reset and Shutdown: Overview<IMG src="../../image/TWL.gif" align=middle></H1>
+<P>This page provides explanations related to TWL hardware behavior.</P>
+<H2>Description</H2>
+<P>The TWL system has the following states in which applications will be ended.</P>
+<BLOCKQUOTE>
+<DL>
+<DT>Hardware Reset
+<DD>- The Power Button is pressed quickly<BR>- The <A href="PM_ForceToResetHardware.html"><CODE>PM_ForceToResetHardware</CODE></A> function is called<BR><A href="PM_ForceToResetHardware.html"><CODE>PM_ForceToResetHardware</CODE></A> is called internally by functions such as <A href="../../os/appJump/OS_RebootSystem.html"><CODE>OS_RebootSystem</CODE></A>, <A href="../../os/appJump/OS_JumpToSystemMenu.html"><CODE>OS_JumpToSystemMenu</CODE></A>, <A href="../../os/appJump/OS_JumpToWirelessSetting.html"><CODE>OS_JumpToWirelessSetting</CODE></A>, <A href="../../os/appJump/OS_JumpToInternetSetting.html"><CODE>OS_JumpToInternetSetting</CODE></A>, and <A href="../../os/appJump/OS_JumpToEULAViewer.html"><CODE>OS_JumpToEULAViewer</CODE></A>. These actions will cause a hardware reset. After a hardware reset is executed, the display returns to the system menu, the unit restarts itself, or another application is launched.<BR> <BR>
+<DT>Shutdown
+<DD>Shutdowns occur for the following reasons.<BR>- The Power Button is held down<BR>- The <CODE><A href="PM_ForceToPowerOff.html">OS_ForceToPowerOff</A></CODE> function is called<BR>- The battery has completely discharged<BR>- A Game Card is removed while the unit is sleeping<BR>Shutdown processing will turn OFF the power. (However, applications that do not require shutdown processing will simply operate until the battery is depleted without shutting down, so it will appear as though power has suddenly cut off.)<BR> <BR>
+<DT>Program Halt (endless loop)
+<DD>The application will halt when the <CODE><A href="../../os/debug/OS_Panic.html">OS_Panic</A></CODE>, <CODE><A href="../../os/system/OS_Terminate.html">OS_Terminate</A></CODE>, or <CODE><A href="../../os/system/OS_Exit.html">OS_Exit</A></CODE> function is called. These will simply place the CPU in a halted state, loop execution, or otherwise stop the application from performing any further meaningful operation. In DEBUG builds only, identical behavior occurs when the <CODE><A href="../../os/debug/SDK_ASSERT.html">SDK_ASSERT</A></CODE> function evaluates to a negative result. However, these are all called for debugging purposes during development or called because of problems in the program. In retail products, with one exception, none of these states should occur. The one exception&mdash;removing the Game Card while the application is running&mdash;causes the <CODE><A href="../../os/system/OS_Terminate.html">OS_Terminate</A></CODE> function to be called internally.<BR> <BR>
+<DT>Debugger Halts
+<DD>When a program is running on the IS-TWL-DEBUGGER, the program will halt if an exception occurs because of attempts to access an illegal address or execute an undefined instruction. If an exception occurs while running on an actual console, execution will loop in the exception handler. Either way, this will probably not occur with product versions. Additionally&mdash;although this is an obvious case&mdash;the program will halt if a developer clicks the <B>Stop TWL-CPUs</B> button in the debugger while the program is running, even though no exception occurs.<BR> <BR>
+<DT>Other
+<DD>If the battery lid is opened and the rechargeable battery is suddenly removed while the console is operating on battery power, the internal voltage will drop due to the lack of a power supply. The system may halt due to other unexpected reasons, such as hardware damage. We do not consider these here.<BR>
+</DL>
+Although as outlined above there are many states that will <EM>end</EM> the application, the key points to consider in shutdown processing are the states that cause hardware reset or shutdown. These have been narrowed down to the two explained below.</BLOCKQUOTE>
+<H2>Power Button</H2>
+<P>The Power Button on the TWL system will cause a hardware reset, shutdown, or hard power-off to occur, depending upon the length of time that the button is held down before being released.</P>
+<P>This is described in the following figure. When the Power Button is pressed, nothing will happen if it is released before <B>A</B>; a hardware reset will occur if it is released between <B>A</B> and <B>B</B>; a shutdown will occur if it is released between <B>B</B> and <B>C</B>; and the power will be forced to turn OFF immediately if the button continues to be held down past <B>C</B>. This hard power-off will occur even if the button is not released.</P>
+<P><IMG src="exit_PowerSw.gif" width="493" height="125" border="0" align="middle"></P>
+<P>If the Power Button on NITRO hardware is pressed, power is turned off immediately, regardless of how long the button is pressed.</P>
+<P>In addition, if the <A href="PM_ForceToResetHardware.html"><CODE>PM_ForceToResetHardware</CODE></A> function is called internally by functions such as <A href="../../os/appJump/OS_RebootSystem.html"><CODE>OS_RebootSystem</CODE></A>, <A href="../../os/appJump/OS_JumpToSystemMenu.html"><CODE>OS_JumpToSystemMenu</CODE></A>, <A href="../../os/AppJump/OS_JumpToWirelessSetting.html"><CODE>OS_JumpToWirelessSetting</CODE></A>, <A href="../../os/appJump/OS_JumpToInternetSetting.html"><CODE>OS_JumpToInternetSetting</CODE></A>, or <A href="../../os/appJump/OS_JumpToEULAViewer.html"><CODE>OS_JumpToEULAViewer</CODE></A>, a reset using the Power Button is ignored.</P>
+<H2>Exit Callback List</H2>
+<P>The exit callback is defined as follows: <BR> <CODE>typedef void (*PMGenCallback) (void *);</CODE><BR> It is a <CODE>void</CODE> function that takes a single <CODE>void*</CODE> argument.</P>
+<P>This exit callback will be invoked when a hardware reset or shutdown occurs. Multiple exit callbacks can be registered. They are internally stored in a list, and will be called in order when necessary. There are two callback functions: a pre-process shutdown callback and a post-process shutdown callback.</P>
+<P>The shutdown callback process only executes once. For example, if shutdown processing due to the Power Button being pressed or the voltage level going down is underway, and the Power Button is pressed again, it is ignored.</P>
+<P><IMG src="exit_List1.gif" width="345" height="216" border="0"></P>
+<P>The following explains the timing with which the functions in the two callback lists are called.</P>
+<H3>Power Button Was Pressed</H3>
+<P>In the <B>Power Button</B> figure above, the microprocessor sends an interrupt to the ARM7 when the Power Button has been held down until <B>A</B>. At this point, we do not know whether a hardware reset or a shutdown will occur, but we are certain that the application will exit.</P>
+<OL>
+<LI>The ARM7 sends an exit notification to the ARM9 through PXI.
+<LI>When the ARM9 receives the exit notification from the ARM7, it calls the pre-exit callback.
+<LI>The ARM9 notifies the ARM7 that it has finished exit preparations. Before this notification, it calls the post-exit callback.
+<LI>The ARM7 receives the completion notification for exit preparations from the ARM9. Depending on when the button is released, it will perform either a hardware reset or a shutdown.
+</OL>
+<P>However, when the <CODE><A href="PM_SetAutoExit.html">PM_SetAutoExit</A></CODE> function has configured the program to not exit automatically, the ARM9 will not send the completion callback for exit preparations to the ARM7 (step 3 above) until the application calls the <A href="PM_ReadyToExit.html"><CODE>PM_ReadyToExit</CODE></A> function. When the <CODE><A href="PM_ReadyToExit.html">PM_ReadyToExit</A></CODE> function is called, it internally invokes the post-exit callback and sends the completion notification for exit preparations to the ARM7. The current setting can be obtained with the <A href="PM_GetAutoExit.html"><CODE>PM_GetAutoExit</CODE></A> function.</P>
+<P>In other words,</P>
+<UL>
+<LI>The pre-process callback is called immediately when application shutdown has been determined (either hardware reset or shutdown). The callback is called from the interrupt handler.
+<LI>The post-process callback is called immediately after the pre-process callback when auto shutdown has been set; otherwise, the call is held until the user indicates that preparations for shutdown have been made. The former is called from the interrupt handler, and the latter is called from the <A href="PM_ReadyToExit.html"><CODE>PM_ReadyToExit</CODE></A> function called by the user. Therefore, it is called in the same mode as the <A href="PM_ReadyToExit.html"><CODE>PM_ReadyToExit</CODE></A> function.
+</UL>
+<P> </P>
+<P>There are two exceptions. The first exception is when the Power Button is pressed after the function used for application jump has been called. In this case, the application jump is cancelled, and control moves to processing when the Power Button has been pressed. (Hardware reset or shutdown is executed when the button is released.) The pre-process callback is not called. Only the post-process callback is called. This is done because the user has presumably already executed a process corresponding to the pre-process callback before using the application jump. The other exception is when the microcomputer detects low-level battery before reset is actually applied when a function that uses application jump has been called. In this case as well, the pre-process callback is not called, and control moves to the shutdown process due to the low battery.</P>
+<H3>Shutdown Due to a Drop in Battery Voltage</H3>
+<P>See the <B>Shutdown Caused by Low Battery</B> section of <A href="about_battery.html">Overview: Battery</A> for details.</P>
+<P>Here the microprocessor internally sends an interrupt to the ARM7. The ARM7 sends exit notification to the ARM9, and the rest consists of similar calls to exit callbacks as occur when the Power Button is pressed. However, this exit processing is not performed for applications (such as card applications) not requiring exit processing. With these, no interrupt is triggered.</P>
+<H3>Shutting Down Using the <A href="PM_ForceToPowerOff.html">PM_ForceToPowerOff</A> Function<BR>Shutting Down Because a Game Card Was Removed During Sleep Mode</H3>
+<P>This invokes the callbacks registered on the post-processing callback list. The hardware then powers down.<BR>The pre-processing callback is not invoked.</P>
+<H3>Executing a Hardware Reset Using <A href="PM_ForceToResetHardware.html">PM_ForceToResetHardware</A><BR>Executing a Hardware Reset Using <A href="../../os/appJump/OS_RebootSystem.html">OS_RebootSystem</A><BR>Returning to the System Menu Using <A href="../../os/appJump/OS_JumpToSystemMenu.html">OS_JumpToSystemMenu</A><BR>Jumping to System Settings Using <A href="../../os/AppJump/OS_JumpToWirelessSetting.html">OS_JumpToWirelessSetting</A><BR>Jumping to System Settings Using <A href="../../os/appJump/OS_JumpToInternetSetting.html">OS_JumpToInternetSetting</A><BR>Jumping to System Settings Using <A href="../../os/appJump/OS_JumpToEULAViewer.html">OS_JumpToEULAViewer</A></H3>
+<P>This invokes the callbacks registered on the post-processing callback list. The hardware will then be reset.<BR>The pre-processing callback is not invoked.</P>
+<H2>Exit Callback Registration</H2>
+<P>Callbacks have configurable priority levels. Applications can use priorities ranging from -255 (<CODE>PM_CALLBACK_PRIORITY_MIN</CODE>) to 255 (<CODE>PM_CALLBACK_PRIORITY_MAX</CODE>). The system (such as the SDK library and middleware) can use priorities ranging from -65,535 (<CODE>PM_CALLBACK_PRIORITY_SYSMIN</CODE>) to 65,535 (<CODE>PM_CALLBACK_PRIORITY_SYSMAX</CODE>). These priorities are used only to determine the order of the callback list. Items having smaller values are placed closer to the start of the list.</P>
+<P>Configure a callback function and its arguments in a <A href="PM_SetExitCallbackInfo.html"><CODE>PM_SetExitCallbackInfo</CODE></A> callback information structure, and register that structure to the list.</P>
+<P>It can be registered in one of three ways.</P>
+<UL>
+<LI><A href="PM_AppendExitCallback.html"><CODE>PM_PrependPreExitCallback</CODE></A>, <A href="PM_AppendExitCallback.html"><CODE>PM_PrependPostExitCallback</CODE></A><BR>Registered on the list when the priority level is -255. If there is already a registered callback with a priority of -255, the new callback will be registered in front of it.<BR>In other words, if you consider it only in terms of the priorities that the application can use, this inserts the new callback at the front of the list.<BR> <BR>
+<LI><A href="PM_AppendExitCallback.html"><CODE>PM_AppendPreExitCallback</CODE></A>, <A href="PM_AppendExitCallback.html"><CODE>PM_AppendPostExitCallback</CODE></A><BR>Registered on the list when the priority level is 255. If there is already a registered callback with a priority of 255, the new callback is registered behind it.<BR>In other words, if you consider it only in terms of the priorities that the application can use, this inserts the new callback at the end of the list.<BR> <BR>
+<LI><A href="PM_AppendExitCallback.html"><CODE>PM_InsertPreExitCallback</CODE></A>, <A href="PM_AppendExitCallback.html"><CODE>PM_InsertPostExitCallback</CODE></A><BR>Registered in the appropriate location when a priority level is specified. It is registered behind any other items with the same priority.<BR> <BR>
+</UL>
+<P><B>Example:</B></P>
+<BLOCKQUOTE>This shows where exit callbacks are registered using the <CODE>PM_Prepend*</CODE>, <CODE>PM_Append*</CODE>, and <CODE>PM_Insert*</CODE> functions on a list consisting of callbacks with priority -1000, -255, 10, 10, 20, 255, and 1000. Here the <CODE>PM_Insert*</CODE> functions illustrate using priorities of -255, 10, and 255, respectively.<BR>
+</BLOCKQUOTE>
+<BLOCKQUOTE><IMG src="exit_List2.gif" border="0"></BLOCKQUOTE>
+<H2>Exit Callback Removal</H2>
+<P>The configured callbacks can be removed using the <A href="PM_DeleteExitCallback.html"><CODE>PM_DeletePreExitCallback</CODE></A> and <A href="PM_DeleteExitCallback.html"><CODE>PM_DeletePostExitCallback</CODE></A> functions.</P>
+<H2>Exit Callback Display (For Debugger)</H2>
+<P>The <A href="PM_DumpExitCallback.html"><CODE>PM_DumpExitCallback</CODE></A> function is used in debugging to display the list of callbacks. It will not do anything in FINALROM builds.</P>
+<H2>Registered Exit Callbacks</H2>
+<P>The exit callbacks registered in the SDK perform the following operations in the following order.</P>
+<UL>
+<LI>Put the camera into standby mode.
+<LI>Stop the DSP.
+<LI>Wait until the process terminates during IIR filter configuration. Restore the speaker volume if a value has been saved by the <A href="../../snd/sndex/SNDEX_SetIgnoreHWVolume.html"><CODE>SNDEX_SetIgnoreHWVolume</CODE></A> function.
+<LI>Flush the NAND memory.
+<LI>Disconnect from access points and stop any active TWL wireless communications.
+</UL>
+<P>These callbacks are registered on the post-processing callback list, so control will pass through them even in a power disruption or forced reset.</P>
+<H2>Revision History</H2>
+<P>2009/02/03 Added a description of the process in SNDEX in the shutdown callback to be registered.<BR> 2008/12/11 Added the fact that the shutdown callback is called only once.<BR> 2008/11/04 Added a description of behavior when the Power Button is pressed during an application jump.<BR> 2008/09/12 Added an item describing the low battery callback.<BR> 2008/09/11 Added an item describing automatic shutdown.<BR> 2008/07/15 Changed the priority levels for users from 0 to 255 to -255 to 255.<BR> 2008/06/11 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

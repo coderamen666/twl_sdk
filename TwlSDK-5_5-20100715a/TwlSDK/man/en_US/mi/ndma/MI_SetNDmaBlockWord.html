@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>MI_SetNDmaBlockWord</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">MI_SetNDmaBlockWord <IMG src="../../image/TWL.gif" width="24" height="12" border="0" align=middle></H1>
+<H2>Syntax</H2>
+<DL>
+  <DD><CODE>#include &lt;twl/mi.h&gt;</CODE><BR>
+  <BR>
+  <CODE>void MI_SetNDmaBlockWord( u32 ndmaNo, u32 word );</CODE>
+  </DL>
+<H2>Arguments</H2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+      <TD><EM><STRONG>ndmaNo</STRONG></EM></TD>
+      <TD>DMA number to configure (0-3)</TD>
+    </TR>
+    <TR>
+      <TD><EM><STRONG>word</STRONG></EM></TD>
+      <TD>Number of words in the block transfer. Expressed as &quot;MI_NDMA_BWORD_n.&quot;</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>Return Values</H2>
+<P>None.</P>
+<H2>Description</H2>
+<P>Sets the default block transfer word count when the TWL's new DMA is run.</P>
+<P>The target is the DMA specified in <B><I>ndmaNo</I></B>. Here, the only action that's taking place is that the internal DMA config structure is being overwritten. The actual I/O registers cannot be overwritten until they are running.</P>
+<P>In <B><I>word</I></B>, specify the block transfer word count. The values that can be specified are listed below.<BR>
+</P>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+      <TH>Value</TH>
+      <TH>Description</TH>
+    </TR>
+    <TR>
+      <TD><CODE>MI_NDMA_BWORD_1</CODE></TD>
+      <TD>1 word             </TD>
+    </TR>
+    <TR>
+      <TD><CODE>MI_NDMA_BWORD_2</CODE></TD>
+      <TD>2 words</TD>
+    </TR>
+    <TR>
+      <TD><CODE>MI_NDMA_BWORD_4</CODE></TD>
+      <TD>4 words</TD>
+    </TR>
+    <TR>
+      <TD><CODE>MI_NDMA_BWORD_8</CODE></TD>
+      <TD>8 words</TD>
+    </TR>
+    <TR>
+      <TD><CODE>MI_NDMA_BWORD_16</CODE></TD>
+      <TD>16 words</TD>
+    </TR>
+    <TR>
+      <TD><CODE>MI_NDMA_BWORD_32</CODE></TD>
+      <TD>32 words</TD>
+    </TR>
+    <TR>
+      <TD><CODE>MI_NDMA_BWORD_64</CODE></TD>
+      <TD>64 words</TD>
+    </TR>
+    <TR>
+      <TD><CODE>MI_NDMA_BWORD_128</CODE></TD>
+      <TD>128 words</TD>
+    </TR>
+    <TR>
+      <TD><CODE>MI_NDMA_BWORD_256</CODE></TD>
+      <TD>256 words</TD>
+    </TR>
+    <TR>
+      <TD><CODE>MI_NDMA_BWORD_512</CODE></TD>
+      <TD>512 words</TD>
+    </TR>
+    <TR>
+      <TD><CODE>MI_NDMA_BWORD_1024</CODE></TD>
+      <TD>1024 words</TD>
+    </TR>
+    <TR>
+      <TD><CODE>MI_NDMA_BWORD_2048</CODE></TD>
+      <TD>2048 words</TD>
+    </TR>
+    <TR>
+      <TD><CODE>MI_NDMA_BWORD_4096</CODE></TD>
+      <TD>4096 words</TD>
+    </TR>
+    <TR>
+      <TD><CODE>MI_NDMA_BWORD_8192</CODE></TD>
+      <TD>8192 words</TD>
+    </TR>
+    <TR>
+      <TD><CODE>MI_NDMA_BWORD_16384</CODE></TD>
+      <TD>16384 words</TD>
+    </TR>
+    <TR>
+      <TD><CODE>MI_NDMA_BWORD_32768</CODE></TD>
+      <TD>32768 words</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>Internal Operation</H2>
+<P>Overwrites the library's internal DMA config structure. This value will later become the values of d19-16 in the DMAx_CNT register.</P>
+<H2>See Also</H2>
+<P><CODE><A href="MI_GetNDmaBlockWord.html">MI_GetNDmaBlockWord()</A><BR></CODE></P>
+<H2>Revision History</H2>
+<P>2007/09/06 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

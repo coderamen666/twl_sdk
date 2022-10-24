@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>OS_DumpCallTrace</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">OS_InitCallTrace <IMG src="../../image/NTR.gif" align="middle"><IMG src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+<DL>
+<DD><CODE>#include &lt;nitro/os.h&gt;</CODE><BR> <BR> <CODE>void OS_InitCallTrace( void* buf, u32 size, OSCallTraceMode mode );</CODE>
+</DL>
+<H2>Arguments</H2>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+<TD><I><B>buf</B></I></TD>
+<TD>Buffer used for function call trace</TD>
+    </TR>
+    <TR>
+<TD><I><B>size</B></I></TD>
+<TD>Size of buffer used for function call trace</TD>
+    </TR>
+    <TR>
+<TD><I><B>mode</B></I></TD>
+<TD>Function call trace mode</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>Return Values</H2>
+<P>None.</P>
+<H2>Description</H2>
+<P>Sets the buffer to be used for function call trace and begins the function trace.</P>
+<P>After you call this function and function call trace has been set, trace status becomes Enable.( This is the status after the <A href="OS_EnableCallTrace.html"><CODE>OS_EnableCallTrace</CODE></A> function is called.)</P>
+<P>In order for a function to be traced, it must be compiled with the <code>profile</code> feature ON. (When you compile with <CODE>TWL_PROFILE=TRUE</CODE>, at compile time the <CODE>-profile</CODE> option is attached, and the profile feature is ON.) When that code in which the <code>profile</code> feature is ON is mixed with code in which the <code>profile</code> feature is not ON, trace information is obtained only for the code in which the feature is ON.</P>
+<P>To enable features that are related to function call trace, at link time you must include <CODE>libos.CALLTRACE.a</CODE> (in the thumb version, <CODE>libos.CALLTRACE.thumb.a</CODE>). To do this, specify <CODE>TWL_PROFILE_TYPE=CALLTRACE</CODE> as a <CODE>make</CODE> option. You may also write it in the makefile. However, in the final ROM version (FINALROM) library, it will not do anything.</P>
+<P>Information used in tracing (<CODE>sizeof(OSCallTraceInfo) - sizeof(OSCallTrace)</CODE> bytes, which includes the buffer's end position, the current pointer, and so on) is stored in the front of the buffer <SPAN class="argument">buf</SPAN>. The rest of the buffer is filled with the trace information. If you are using a thread system, buffers are independent for each thread. Therefore, if you want to store trace information, you will have to define a separate buffer for each thread. </P>
+<P>The trace mode <SPAN class="argument">mode</SPAN> specifies the method used for recording. When <code>OS_CALLTRACE_STACK</code> is specified, it gets a record at the entry point of functions in which the <code>profile</code> feature is ON and discards the record at the exit. This is called &quot;stack mode.&quot; When <code>OS_CALLTRACE_LOG</code> is specified, it gets a record only at the entry point of functions in which the <code>profile</code> feature is ON. It does not discard the record at the exit. Using this, you can operate in a &quot;log mode&quot; in which a record is kept of past functions. </P>
+<P>When the function is called, the size that is stored is <code>sizeof(OSCallTrace)</code> bytes. In stack mode, when a function call nest with a maximum of <I>n</I> loops is generated, the buffer size, <SPAN class="argument">size</SPAN>, must be at least <code>sizeof(OSCallTraceInfo) - sizeof(OSCallTrace) + sizeof(OSCallTrace)*<I>n</I></code> bytes. Log mode uses the buffer as a ring buffer. Therefore, a buffer of the size in the expression shown above is able to attach <I>n</I> records.</P>
+<P>Now we will describe the operating principle in detail. When the profile feature is ON, <code>__PROFILE_ENTRY</code> and <code>__PROFILE_EXIT</code> codes that call functions are appended at a function's entry and exit points, respectively. The TWL-SDK uses them to get information (the return address and, optionally, arguments) in the function at the time it was entered at <CODE>__PROFILE_ENTRY</CODE>, and place this information in a buffer. In stack mode, it discards the most recently acquired information at <CODE>__PROFILE_EXIT</CODE>. In log mode, information is not discarded at <code>__PROFILE_EXIT</code>.</P>
+<P>The following diagram describes the operation in stack mode.</P>
+<P align="center"><IMG src="img01.jpg" border="0" width="560" height="467"></P>
+<P>To display the information that is in the function call trace buffer, call either the <A href="OS_DumpCallTrace.html"><code>OS_DumpCallTrace</code></A> or <A href="OS_DumpThreadCallTrace.html"><code>OS_DumpThreadCallTrace</code></A> function.</P>
+<BLOCKQUOTE style="background-color:#ffffc0"><CODE>(Example)<BR> <BR> #define BUFFER_SIZE 0x400<BR> u32 traceBuffer[ BUFFER_SIZE/sizeof(u32) ];<BR> <BR> OS_InitCallTrace( traceBuffer, BUFFER_SIZE, OS_CALLTRACE_STACK );<BR> :<BR>:<BR> OS_DumpCallTrace();<BR></CODE></BLOCKQUOTE>
+<H2>See Also</H2>
+<P><A href="OS_DumpCallTrace.html"><CODE>OS_DumpCallTrace</CODE></A><BR> <A href="OS_DumpThreadCallTrace.html"><CODE>OS_DumpThreadCallTrace</CODE></A><BR></P>
+<H2>Revision History</H2>
+<P>2009/03/04  Corrected formula for necessary buffer size.<BR> 2004/06/02 Changed the description of the <CODE>make</CODE> option.<BR> 2004/05/19 Added a description of the <CODE>make</CODE> options.<BR> 2004/04/22 Added a description of the stack mode and the log mode.<BR> 2004/04/13 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

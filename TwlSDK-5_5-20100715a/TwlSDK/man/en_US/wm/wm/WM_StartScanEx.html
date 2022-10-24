@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 8.0.2.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>WM_StartScanEx</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">WM_StartScanEx <img src="../../image/NTR.gif"><img src="../../image/TWL.gif"></H1>
+<h2>Syntax</h2>
+<dl>
+  <dd><PRE><CODE>#include &lt;nitro/wm.h&gt;
+
+<A href="WMErrCode.html">WMErrCode</A> WM_StartScanEx( <A href="WMCallbackFunc.html">WMCallbackFunc</A> callback , const <A href="WMScanExParam.html">WMScanExParam</A>* param );
+</CODE></PRE></dd>
+</dl>
+
+<h2>Arguments</h2>
+<TABLE width="100%">
+  <tbody>
+    <TR>
+<TD width="200"><CODE>callback</CODE></TD>
+<TD width="800">Designates the callback function to call when the asynchronous process completes. This callback is called from within the interrupt handler.</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>param</CODE></TD>
+<TD width="800">Designates a pointer to the structure that shows detailed scan control information. Pay attention to the cache because the ARM7 directly writes scan results to param &rarr; scanBuf.<BR>Specify a 32-byte aligned memory region, because this parameter is invalidated when the callback occurs.</TD>
+    </TR>
+  </tbody>
+</table>
+
+<h2>Return Values</h2>
+<p>Returns the results of the <CODE><A href="WMErrCode.html">WMErrCode</A></CODE> enumerated type process.</p>
+
+<H2>Description</H2>
+<P>Starts searching for a parent device. This function allows for finer control over the scan operations than <CODE><A href="WM_StartScan.html">WM_StartScan</A></CODE>. This function is only executable when the WM is in either the <A href="wm_state_diagram.html"><code>IDLE</code></A> or <A href="wm_state_diagram.html"><code>SCAN</code></A> state. If the WM is in the <A href="wm_state_diagram.html"><code>IDLE</code></A> state, this function changes the state to <A href="wm_state_diagram.html"><code>SCAN</code></A>. If the return value is <code>WM_ERRCODE_OPERATING</code>, a callback is generated after the scanning process has started properly. The callback is also generated when the scan process has completed. Though information about multiple parent devices can be obtained with one call, it is not the case that information about all parent devices can be obtained. This function must be called several times in order to obtain the information about all parent devices, and sometimes identical parent device information will be obtained. If no parent could be found after completing the scan, a callback is generated. You may continuously call <code>WM_StartScan</code> without calling <A href="WM_EndScan.html"><CODE>WM_EndScan</CODE></A>. Basically, this function searches only the wireless channel specified by <em><strong><code>param</code></strong></em>. However, there is a possibility of picking up the parent information on neighboring channels. When searching for parent devices on all channels, scan on the application side with <CODE><A href="WM_GetAllowedChannel.html">WM_GetAllowedChannel</A></CODE> once the channels with parent devices have been marked. Also, when multiple channels have been designated, the scans will each be performed in order from the lower-numbered channels for a fixed amount of time. However, at the point where no more empty space can be allocated in the buffer to store the next scan results, the continuous scan process will be terminated. Be aware that because of this termination, even if multiple channels have been assigned, there may be times that the larger-numbered channels are not scanned.
+</P>
+
+<H2>Notes</H2>
+<P>For additional details about caching the data passed in arguments, see the Wireless Communication Library Manual (AboutWirelessManager.pdf).</P>
+
+<h2>See Also</h2>
+<p><CODE><A href="WM_StartScan.html">WM_StartScan</A><BR> <A href="WM_EndScan.html">WM_EndScan</A><BR> <A href="WM_StartConnect.html">WM_StartConnect</A><BR> <A href="WM_Disconnect.html">WM_Disconnect</A><BR> <A href="WM_GetAllowedChannel.html">WM_GetAllowedChannel</A></CODE></p>
+
+<H2>Revision History</H2>
+<P>
+2008/12/17 Added a note about the caching of data passed in arguments and limitations on arguments.<BR>2005/06/08 Added the fact that the callback is called from the interrupt handler.<br>2005/02/21 Initial version.<BR>
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

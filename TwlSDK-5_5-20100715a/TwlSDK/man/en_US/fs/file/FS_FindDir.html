@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>FS_FindDir</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">FS_FindDir<img src="../../image/NTR.gif"align="middle"><img src="../../image/TWL.gif" align="middle"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/fs.h&gt;</CODE><BR> <BR> <CODE>BOOL FS_FindDir( FSFile *p_dir, const char *path );</CODE><br> <br>
+  </dd>
+</dl>
+<h2>Arguments</h2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="13%"><EM><STRONG>p_dir</STRONG></EM></TD>
+<TD width="87%">Address of the <code><a href="../fs_file_type.html">FSFile</a></code> structure.</TD>
+    </TR>
+    <TR>
+<TD width="13%"><EM><STRONG>path</STRONG></EM></TD>
+<TD width="87%">Directory's path name</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<h2>Return Values</h2>
+<p>If the directory list is correctly opened it returns TRUE. Otherwise it returns FALSE.</p>
+
+<H2>Description</H2>
+<P>This function opens a directory list using a specified path name. For more information on path name formatting, see the description of the <CODE>FS_OpenFileEx</CODE> function. If you call the <CODE>FS_ReadDir</CODE> function using the directory list that was opened, you will be able to sequentially list the file entries in the directory as an <CODE>FSDirEntry</CODE> structure. <BR>
+</P>
+<H2>Note</H2>
+<p><font color="#800000">This function cannot be called from the interrupt handler (IRQ mode).<br> Also note that in some cases processing may not end if interrupts are left prohibited.<br></font></p>
+<BR>
+<h2>See Also</h2>
+<p><CODE><A href="../fs_file_type.html">FSFile</A> <BR><A href="../fs_dir_entry_type.html">FSDirEntry</A><BR> <A href="FS_ReadDir.html">FS_ReadDir</A><BR> <A href="FS_TellDir.html">FS_TellDir</A> <BR><A href="FS_SeekDir.html">FS_SeekDir</A><BR> <A href="FS_RewindDir.html">FS_RewindDir</A><BR> <A href="FS_OpenFileEx.html">FS_OpenFileEx</A><BR> <A href="../fs_file_name_max_const.html">FS_FILE_NAME_MAX</A></CODE></p>
+
+<H2>Revision History</H2>
+<P>
+2008/10/02 Updated the See Also list.<BR>2004/09/24 Added the description in the Caution section regarding the conditions for calling this function.<br /> 2004/04/08 Revised description due to the integration of <CODE>FSDir</CODE> and <CODE>FSFile</CODE>.<br> 2004/04/01 Initial version.<br>
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

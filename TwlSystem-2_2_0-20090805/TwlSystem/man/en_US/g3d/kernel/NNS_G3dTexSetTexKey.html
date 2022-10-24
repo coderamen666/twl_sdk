@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META http-equiv="Content-Style-Type" content="text/css">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+	<TITLE>NNS_G3dTexSetTexKey</TITLE>
+	<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+
+<BODY>
+
+<H1 align="left">NNS_G3dTexSetTexKey</H1>
+
+<H2>Syntax</H2>
+<DL>
+  <DD>
+  <PRE><CODE>#include &lt;nnsys/g3d/kernel.h&gt;</CODE></PRE>
+  <PRE><CODE>void
+NNS_G3dTexSetTexKey(
+    NNSG3dResTex* pTex,
+    NNSG3dTexKey  texKey,
+    NNSG3dTexKey  tex4x4Key
+);</CODE></PRE>
+</DL>
+
+<H2>Arguments</H2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="13%"><CODE>pTex</CODE></TD>
+<TD width="87%">Pointer to the texture resource</TD>
+    </TR>
+    <TR>
+<TD width="13%"><CODE>texKey</CODE></TD>
+<TD width="87%">Texture key indicating the normal texture memory</TD>
+    </TR>
+    <TR>
+<TD width="13%"><CODE>tex4x4Key</CODE></TD>
+<TD width="87%">Texture key indicating the 4x4 texel compressed texture memory</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<H2>Return Values</H2>
+<P>None.</P>
+
+<H2>Description</H2>
+<P>Configures, in the texture resource, the texture keys that indicate the memory for storing normal textures and 4x4 texel compressed textures.</P>
+<P>The texture key is generated from the address and size of texture memory allocated in the VRAM. It is available by allocating the memory for the texture using the VRAM manager of the TWL-System library. The format of the texture key is the same as that of <code>NNSGfdTexKey</code>.</P>
+
+<H2>See Also</H2>
+<P><A href="NNS_G3dPlttSetPlttKey.html"><CODE>NNS_G3dPlttSetPlttKey</CODE></A></P>
+
+<H2>Revision History</H2>
+<P>
+2008/06/20 Changed NITRO-System to TWL-System.<BR> 2004/08/02 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+
+</HTML>

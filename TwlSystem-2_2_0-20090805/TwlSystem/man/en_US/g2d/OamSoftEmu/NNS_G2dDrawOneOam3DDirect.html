@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>NNS_G2dDrawOneOam3DDirect</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+<h1 align="left">NNS_G2dDrawOneOam3DDirect</h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+		<pre><CODE>#include &lt;nnsys/g2d/g2d_OamSoftwareSpriteDraw.h&gt;</CODE></pre>
+  <pre><CODE>
+	void NNS_G2dDrawOneOam3DDirect
+	( 
+		const GXOamAttr*                pOam, 
+		const NNSG2dImageAttr*          pTexImageAttr,
+		u32                             texBaseAddr,
+		u32                             pltBaseAddr
+	);
+	</CODE></pre>
+  </dd>
+</dl><h2>Arguments</h2>
+
+<table border="1" width="100%">
+  <tr>
+<td width="13%"><CODE>pOam</CODE></td>
+<td width="87%">[IN] GXOamAttr</td>
+  </tr>
+  <tr>
+<td width="13%"><CODE>pTexImageAttr</CODE></td>
+<td width="87%">[IN] Texture attribute</td>
+  </tr>
+  <tr>
+<td width="13%"><CODE>texBaseAddr</CODE></td>
+<td width="87%">[IN] Texture base address</td>
+  </tr>
+  <tr>
+<td width="13%"><CODE>pltBaseAddr</CODE></td>
+<td width="87%">[IN] Palette base address</td>
+  </tr>
+  </table>
+<h2>Return Values</h2>
+<p>None.
+</p>
+<H2>Description</H2>
+<P>
+Directly renders a single OBJ using the 3D Graphics Engine without using the internal buffer. Uses arguments to specify information used to set the texture data and palette data used by the 3D graphics engine. To draw an OBJ that references affine parameters, the user must either appropriately configure the affine-conversion settings in the 3D graphics engine before calling this function, or render the OBJ using the <code>NNS_G2dDrawOneOam3DDirectWithPosAffine</code> function. (<B>Note:</B> This is odd behavior that dates to an earlier version of this function.)<BR> <BR>The camera must be configured ahead of time. Use the <code>NNS_G2dSetupSoftwareSpriteCamera</code> function to configure the camera.
+</p>
+
+<h2>See Also</h2>
+<p>
+<a href="../SoftwareSprite/NNS_G2dSetupSoftwareSpriteCamera.html"><code>NNS_G2dSetupSoftwareSpriteCamera</code></a><BR> <a href="NNS_G2dDrawOneOam3DDirectWithPosAffine.html"><code>NNS_G2dDrawOneOam3DDirectWithPosAffine</code></a><BR> <a href="NNS_G2dDrawOneOam3DDirectXXXFast.html"><code>NNS_G2dDrawOneOam3DDirect*Fast</code></a>
+</p>
+<H2>Revision History</H2>
+<P>2004/05/28 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

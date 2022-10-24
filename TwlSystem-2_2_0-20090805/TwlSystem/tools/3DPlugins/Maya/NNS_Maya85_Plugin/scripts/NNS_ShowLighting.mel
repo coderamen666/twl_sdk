@@ -1,0 +1,188 @@
+/******************************************************************************
+	NINTENDO NITRO-System Maya Plugin
+
+	File:         NNS_ShowLighting.mel
+	Description:  show lighting
+	Date:         2007/03/06
+	Author:       Takashi Endo
+
+	Copyright 2003-2009 Nintendo. All rights reserved.
+******************************************************************************/
+
+/******************************************************************************
+	show	
+******************************************************************************/
+global proc nnsShowLighting_Show(int $lightMode)
+{
+	int $nodeCount = 0;
+	select -cl;
+	string $sgs[] = `ls -typ shadingEngine`;
+	for ($node in $sgs)
+	{
+		if ($node == "initialParticleSE" || $node == "swatchShadingGroup")
+		{
+			continue;
+		}
+
+		int $light0 = (`attributeQuery -n $node -ex "nns_lighting"`) ?
+			`getAttr ($node + ".nns_lighting")` : 1;
+		int $light1 = (`attributeQuery -n $node -ex "nns_lighting1"`) ?
+			`getAttr ($node + ".nns_lighting1")` : 0;
+		int $light2 = (`attributeQuery -n $node -ex "nns_lighting2"`) ?
+			`getAttr ($node + ".nns_lighting2")` : 0;
+		int $light3 = (`attributeQuery -n $node -ex "nns_lighting3"`) ?
+			`getAttr ($node + ".nns_lighting3")` : 0;
+
+		int $matchFlag = 0;
+		if ($lightMode == -1) // off
+		{
+			$matchFlag = (!$light0 && !$light1 && !$light2 && !$light3);
+		}
+		else if ($lightMode == 0)
+		{
+			$matchFlag = $light0;
+		}
+		else if ($lightMode == 1)
+		{
+			$matchFlag = $light1;
+		}
+		else if ($lightMode == 2)
+		{
+			$matchFlag = $light2;
+		}
+		else if ($lightMode == 3)
+		{
+			$matchFlag = $light3;
+		}
+		else // any
+		{
+			$matchFlag = ($light0 || $light1 || $light2 || $light3);
+		}
+
+		if ($matchFlag)
+		{
+			select -add -ne $node; // shadingEngine
+			string $ins[] = `listConnections -s 1 -d 0 ($node + ".ss")`;
+			if (size($ins))
+			{
+				select -add $ins[0]; // material
+			}
+			select -add $node; // shape or face
+			++$nodeCount;
+		}
+	}
+
+	if ($nodeCount == 0)
+	{
+		print "Not found\n";
+	}
+	else
+	{
+		string $msg = "Found: " + $nodeCount + " shadingEngine node";
+		if ($nodeCount >= 2)
+		{
+			$msg += "s";
+		}
+		print ($msg + "\n");
+	}
+}
+
+/******************************************************************************
+	main
+******************************************************************************/
+global proc NNS_ShowLighting()
+{
+	//-----------------------------------------------------------------------------
+	// backup selection
+	string $selBak[] = `ls -sl`;
+	string $selBakStr;
+	for ($sel in $selBak)
+	{
+		$selBakStr += ($sel + " ");
+	}
+	select -cl;
+	
+	//-----------------------------------------------------------------------------
+	// create window
+	int $wd = 300;
+	int $ht = 253;
+	if (!`window -exists nnsShowLighting_Win`)
+	{
+		string $closeCmd = "deleteUI nnsShowLighting_Win";
+		string $remainCmd = "if (!`checkBoxGrp -q -v1 nnsShowLighting_KeepSelecion`) {"
+			+ "select -cl;select -ne " + $selBakStr + ";}";
+
+		window -t "NITRO Show Lighting" -wh $wd $ht -mxb 0
+			nnsShowLighting_Win;
+
+		columnLayout -adj 1 -cat "both" 4 -cal "center" -rs 15;
+			columnLayout -adj 1 -cat "both" 4 -cal "center" -rs 4;
+
+				radioButtonGrp -nrb 1 -l "Lighting"
+					-l1 "Off"
+					-cw2 100 90
+					-on1 "nnsShowLighting_Show -1"
+					nnsShowLighting_LightOff;
+				radioButtonGrp -nrb 1 -l ""
+					-l1 "Light0 On"
+					-cw2 100 90
+					-on1 "nnsShowLighting_Show 0"
+					-scl "nnsShowLighting_LightOff"
+					nnsShowLighting_Light0;
+				radioButtonGrp -nrb 1 -l ""
+					-l1 "Light1 On"
+					-cw2 100 90
+					-on1 "nnsShowLighting_Show 1"
+					-scl "nnsShowLighting_LightOff"
+					nnsShowLighting_Light1;
+				radioButtonGrp -nrb 1 -l ""
+					-l1 "Light2 On"
+					-cw2 100 90
+					-on1 "nnsShowLighting_Show 2"
+					-scl "nnsShowLighting_LightOff"
+					nnsShowLighting_Light2;
+				radioButtonGrp -nrb 1 -l ""
+					-l1 "Light3 On"
+					-cw2 100 90
+					-on1 "nnsShowLighting_Show 3"
+					-scl "nnsShowLighting_LightOff"
+					nnsShowLighting_Light3;
+				radioButtonGrp -nrb 1 -l ""
+					-l1 "Any Light On"
+					-cw2 100 90
+					-on1 "nnsShowLighting_Show 16"
+					-scl "nnsShowLighting_LightOff"
+					nnsShowLighting_LightAny;
+
+				/*
+				checkBoxGrp -ncb 1 -l "" -l1 "Lighting" -v1 1
+					-cw2 150 100
+					-cc "nnsShowLighting_Show(#1)"
+					nnsShowLighting_Lighting;
+				*/
+
+			setParent ..;	// columnLayout
+
+			checkBoxGrp -ncb 1 -l "" -l1 "Keep Selection" -v1 1
+				-cw 1 100
+				nnsShowLighting_KeepSelecion;
+			string $closeBtn = `button -h 26 -l "Close"
+				-c ($remainCmd + $closeCmd)`;
+		setParent ..;	// columnLayout
+
+		setFocus $closeBtn;
+	}
+	if (`window -q -w nnsShowLighting_Win` < $wd)
+	{
+		window -e -w $wd nnsShowLighting_Win;
+	}
+	if (`window -q -h nnsShowLighting_Win` < $ht)
+	{
+		window -e -h $ht nnsShowLighting_Win;
+	}
+	//window -e -wh $wd $ht nnsShowLighting_Win;
+
+	//-----------------------------------------------------------------------------
+	// show window
+	showWindow nnsShowLighting_Win;
+}

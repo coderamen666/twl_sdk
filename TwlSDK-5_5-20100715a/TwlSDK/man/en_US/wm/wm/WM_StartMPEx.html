@@ -1,0 +1,109 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 8.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>WM_StartMP</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">WM_StartMPEx&nbsp;<img src="../../image/NTR.gif"><img src="../../image/TWL.gif"></H1>
+<h2>Syntax</h2>
+<dl>
+  <dd><PRE><CODE>#include &lt;nitro/wm.h&gt;
+
+<A href="WMErrCode.html">WMErrCode</A> WM_StartMPEx(
+        <A href="WMCallbackFunc.html">WMCallbackFunc</A>  callback ,
+        u16*            recvBuf ,
+        u16             recvBufSize ,
+        u16*            sendBuf ,
+        u16             sendBufSize ,
+        u16             mpFreq ,
+        u16             defaultRetryCount ,
+        BOOL            minPollBmpMode ,
+        BOOL            singlePacketMode ,
+        BOOL            fixFreqMode ,
+        BOOL            ignoreFatalError
+);
+</CODE></PRE></dd>
+</dl>
+
+<h2>Arguments</h2>
+<table border="1" width="100%">
+  <tbody>
+    <TR>
+<TD width="200"><CODE>callback</CODE></TD>
+<TD width="800">Callback function to be called when the notification of the status for the asynchronous process is sent or when the asynchronous process completes. This callback is called from within the interrupt handler.</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>recvBuf</CODE></TD>
+<TD width="800">Receive data storage buffer that the SDK uses internally. This value must be aligned to the 32-byte boundary. Because the ARM7 processor writes directly to the buffer, be careful of coherency with the cache.</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>recvBufSize</CODE></TD>
+<TD width="800">Size of the buffer that stores received data. This value must be larger than the return value of <a href="WM_GetMPReceiveBufferSize.html"><code>WM_GetMPReceiveBufferSize</code></a>. This value must also be in multiples of 64 bytes.</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>sendBuf</CODE></TD>
+<TD width="800">Send data storage buffer that the SDK uses internally. This value must be aligned to the 32-byte boundary. Because the ARM7 processor writes directly to the buffer, be careful of coherency with the cache.</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>sendBufSize</CODE></TD>
+<TD width="800">Send data storage buffer size that the SDK uses internally. This value must be larger than the return value of <a href="WM_GetMPReceiveBufferSize.html"><code>WM_GetMPReceiveBufferSize</code></a>. This value must also be in multiples of 32 bytes.</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>mpFreq</CODE></TD>
+<TD width="800">How many times to perform MP communications in one frame. If 0, the mode becomes the continuous communication mode. The continuous communication mode is provided for high capacity data communications. This argument affects only the parent.</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>defaultRetryCount</CODE></TD>
+<TD width="800">For communication on ports 0-7, default value of the number of resend attempts when the send attempt fails. This value has no relation to the communication that occurs on ports 8-15 and the resends can be repeated without limit. This argument affects only the parent.</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>minPollBmpMode</CODE></TD>
+<TD width="800">When <CODE>TRUE</CODE>, the value of the MP communications poll bitmap becomes the logical OR of the destination of the packet that the parent sends on that communication.<br /> When <CODE>FALSE</CODE>, it sets up the poll bitmaps of all child devices. The default value of <code>WM_StartMP</code> is <CODE>FALSE</CODE>.<br /> This argument affects only the parent.</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>singlePacketMode</CODE></TD>
+<TD width="800">When <CODE>TRUE</CODE>, this function always sends only one packet for each MP communication. When <CODE>FALSE</CODE>, the packets are packed as much as the send size allows. The default value in<CODE> WM_StartMP</CODE> is <CODE>FALSE</CODE>.</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>fixFreqMode</CODE></TD>
+<TD width="800">If a resend occurs, this normally performs continuous MP communications. However, if <CODE>TRUE</CODE>, the number of communications does not increase even if a resend occurs. In one frame, the number of MP communications that are performed is less than the number in the <code>mpFreq</code> argument. (There is always a possibility that the rate may fall below <CODE>mpFreq</CODE> due to the relationship of the communication path status and data length). <BR>Internally, the upper limit on the count, including MP communication resends, is implemented by setting the same value as <CODE>mpFreq</CODE>. If <CODE>mpFreq</CODE> is 0, this specification is ignored.<BR> This argument affects only the parent.</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>ignoreFatalError</CODE></TD>
+<TD width="800">If a fatal error occurs during MP communication due to the radio wave status, the parent is disconnected from a child and a child from the parent. However, when <code>TRUE</code>, the disconnection process is not executed even if a fatal error occurred, and the connection is maintained. This flag should not be set to <code>TRUE</code> for modes other than limited modes such as MB.</TD>
+    </TR>
+  </tbody>
+</table>
+
+<h2>Return Values</h2>
+<p>Returns the results of the <A href="WMErrCode.html"><CODE>WMErrCode</CODE></A> enumerated type process.</p>
+
+<H2>Description</H2>
+<P>Begins the MP mode. This function can be executed only if the WM is in either the <A href="wm_state_diagram.html">PARENT</A> state or the <A href="wm_state_diagram.html">CHILD</A> state. If the return value is <CODE>WM_ERRCODE_OPERATING</CODE>, a callback is generated after the MP mode change process is complete. The WM state changes to the appropriate <A href="wm_state_diagram.html"><code>MP_PARENT</code></A> or <A href="wm_state_diagram.html"><code>MP_CHILD</code></A> state. A callback is also generated when data is received through MP communication or when MP communication is complete. After entering the MP communication mode, the V-Blank synchronization process is executed automatically between connected devices. MP communication is attempted in each frame for the number of times that is specified by <code>mpFreq</code>. The number of attempts is not guaranteed and is dependent on the communication status. The maximum number of MP communication attempts that occur during a each frame varies with each communication parameter. The setting values set using this function (defaultRetryCount, minPollBmpMode, singlePacketMode, fixFreqMode, and ignoreFatalError) are only valid during the <A href="wm_state_diagram.html">MP_PARENT or MP_CHILD state</A> started by calling this function. After you configure these settings using <A href="WM_SetMPParameter.html">WM_SetMPParameter</A>, you can achieve the same effect by calling <A href="WM_StartMP.html">WM_StartMP</A>, but in that case, these settings are valid until WM returns to the <A href="wm_state_diagram.html">READY state</A>.</P>
+
+<P>Using <code>minPollBmpMode</code> requires a detailed understanding of MP communications. Because of this, it should normally not be set to &quot;valid.&quot; When set to &quot;valid,&quot; if ports 8 through 15 are used, communication must occur once every 60 seconds for all ports on all children.</P>
+
+<P>
+For a child performing MP communications, call WM_StartMPEx shortly after the child connects to a parent with <A href="WM_StartConnect.html"><code>WM_StartConnect</code></A>. From the time the connection is established until <CODE>WM_StartMPEx</CODE> is called, the child does not respond to messages sent by the parent. When this status exceeds the parent CAM lifetime set by <a href="WM_SetLifeTime.html"><code>WM_SetLifeTime</code></a>, the child is disconnected from the parent.
+</P>
+
+<P>
+Also, avoid trying to change the MP communications parameters by calling the <A href="WM_EndMP.html">WM_EndMP</A> function and the WM_StartMPEx function continuously while connected. MP communications internal information, such as Sequential communications information, will be initialized, so the consistency of communications before and afterwards will be lost.<BR>In order to change specific MP communications parameters such as MP communication frequency during MP communications, it is possible to use functions such as <A href="WM_SetMPFrequency.html">WM_SetMPFrequency</A> and <A href="WM_SetMPParameter.html">WM_SetMPParameter</A>.
+</P>
+
+<h2>See Also</h2>
+<p><A href="WM_StartMP.html"><CODE>WM_StartMP</CODE></A><BR> <A href="WM_EndMP.html"><CODE>WM_EndMP</CODE></A><BR> <A href="WM_SetMPDataToPort.html"><CODE>WM_SetMPDataToPort</CODE></A><BR> <A href="WM_SetPortCallback.html"><CODE>WM_SetPortCallback</CODE></A><BR> <A href="WM_SetMPFrequency.html"><CODE>WM_SetMPFrequency</CODE></A><BR> <A href="WM_SetMPParameter.html"><CODE>WM_SetMPParameter</CODE></A></p>
+
+<H2>Revision History</H2>
+<P>
+2007/05/02 Added a description of <CODE>fixFreqMode</CODE>.<BR> 2007/05/02 Changed code to match changes to the active range of setting values.<BR> 2006/01/13 Added warnings related to changes in MP communications parameters during communications.<BR> 2005/11/24 Changed text to reflect changes in the <CODE>WM_StartMP</CODE> function's features.<BR> 2005/06/08 Added text indicating the callback is called from the interrupt handler.<br> 2005/02/14 Added note about <CODE>minPollBmpMode</CODE>.<BR> 2004/10/22 Changed return value types.<BR> 2004/10/03 Added note about <CODE>ignoreFatalError</CODE>.<BR> 2004/09/25 Added and revised <B>Description</B>.<BR> 2004/08/27 Added <B>Arguments</B>.<BR> 2004/08/25 Initial version.<BR>
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

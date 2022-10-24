@@ -1,0 +1,283 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>TWL Bitmap Font</TITLE>
+<LINK rel="stylesheet" href="../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+
+<H1 align="left">TWL Bitmap Font</H1>
+<H2>Overview</H2>
+<P>
+The TWL-SDK includes a font resource called the TWL bitmap font.
+</P>
+<P>
+The TWL bitmap font is in the NITRO Font (NFTR) format described in TWL-System. An explanation of the NITRO font format, as well as a library for drawing characters using NITRO fonts, is included in TWL-System. Be sure to get the TWL-System package, which is provided separately.
+</P>
+<P>
+You can convert NITRO fonts into bitmap format by using <CODE>fontcvtr.exe</CODE> in TWL-System. When doing so, use the TWL bitmap font table for the character order file (XLOR).
+</P>
+<P>
+The TWL bitmap font is built into the TWL system as one of the system's internal fonts.<BR>NAND applications can use the system's internal fonts, so the TWL bitmap font can be used even if it is not included in an SRL.<BR>See <a href="../na/sharedFont/about_sharedFont.html">Internal Fonts</a> for more about the system's internal fonts. However, extended fonts for the Korean systems are large, so they are not embedded in the system. Include them in SRL.<BR>Also, card applications cannot use the system's internal fonts, so be sure to include them in the SRL.
+</P>
+
+<H2>License</H2>
+<P>
+You can use the TWL bitmap font freely for NITRO or TWL applications. For fonts other than those in Chinese versions, the use of effects such as shadows or outlines is also acceptable. Do not modify Chinese version fonts.
+</P>
+
+<H2>Location</H2>
+<P>
+TWL bitmap fonts are in the TWL-SDK <CODE>$TwlSDK/data/font</CODE> directory. There are 3 NFTR in this directory. However, the glyph designs are all the same; only size differs.
+</P>
+
+<P>
+Chinese versions and Korean versions use the same glyphs for both Medium and Small size fonts; visually, character sizes do not change.
+</P>
+
+<table class="table float_left">
+<caption>Fonts for worldwide systems</caption>
+<thead>
+<tr><th>Filename<th>Description
+</thead>
+<tbody>
+<tr><th>tbf_ww_l.NFTR<td>Large TWL bitmap font
+<tr><th>tbf_ww_m.NFTR<td>Medium TWL bitmap font
+<tr><th>tbf_ww_s.NFTR<td>Small TWL bitmap font
+</tbody>
+</table>
+
+<table class="table float_left">
+<caption>Fonts for Chinese systems</caption>
+<thead>
+<tr><th>Filename<th>Description
+</thead>
+<tbody>
+<tr><th>tbf_cn_l.NFTR<td>Large TWL bitmap font
+<tr><th>tbf_cn_m.NFTR<td>Medium TWL bitmap font
+<tr><th>tbf_cn_s.NFTR<td>Small TWL bitmap font
+</tbody>
+</table>
+
+<table class="table float_left">
+<caption>Fonts for Korean systems</caption>
+<thead>
+<tr><th>Filename<th>Description
+</thead>
+<tbody>
+<tr><th>tbf_kr_l.NFTR<td>Large TWL bitmap font
+<tr><th>tbf_kr_m.NFTR<td>Medium TWL bitmap font
+<tr><th>tbf_kr_s.NFTR<td>Small TWL bitmap font
+</tbody>
+</table>
+
+<table class="table float_left">
+<caption>Extended fonts for Korean systems</caption>
+<thead>
+<tr><th>Filename<th>Description
+</thead>
+<tbody>
+<tr><th>tbf_kr_ex_l.NFTR<td>Large TWL bitmap font
+<tr><th>tbf_kr_ex_m.NFTR<td>Medium TWL bitmap font
+<tr><th>tbf_kr_ex_s.NFTR<td>Small TWL bitmap font
+</tbody>
+</table>
+
+<br clear="all">
+
+<H2>Font Parameters</H2>
+<P>
+The NITRO Font parameters for the TWL bitmap font are shown in the table below. See the documentation for TWL-System for the meaning of the various terms.
+</P>
+
+<table class="table float_left">
+<caption>Fonts for worldwide systems</caption>
+<thead>
+<tr><th>Size<th>Large<th>Medium<th>Small
+</thead>
+<tbody>
+<tr><th>Data size<td>668,280 bytes<td>403,140 bytes<td>270,572 bytes
+<tr><th>Cell width<td>16 px<td>12 px<td>10 px
+<tr><th>Cell height<td>21 px<td>16 px<td>12 px
+<tr><th>Baseline position<td>17 px<td>13 px<td>10 px
+<tr><th>Maximum character width<td>17 px<td>13 px<td>11 px
+<tr><th>Linefeed size<td>21 px<td>16 px<td>12 px
+<tr><th>bpp<td colspan="3">2 bits/pixel (4 levels)
+<tr><th>Alternate characters<td colspan="3">U+0020 (half-width space)
+<tr><th>Encoding<td colspan="3">UTF-16
+</tbody>
+</table>
+
+<table class="table float_left">
+<caption>Fonts for Chinese systems</caption>
+<thead>
+<tr><th>Size<th>Large<th>Medium<th>Small
+</thead>
+<tbody>
+<tr><th>Data size<td>712,264 bytes<td>429,736 bytes<td>359,104 bytes
+<tr><th>Cell width<td>16 px<td>12 px<td>12 px
+<tr><th>Cell height<td>21 px<td>16 px<td>13 px
+<tr><th>Baseline position<td>17 px<td>13 px<td>11 px
+<tr><th>Maximum character width<td>16 px<td>13 px<td>12 px
+<tr><th>Linefeed size<td>21 px<td>16 px<td>13 px
+<tr><th>bpp<td colspan="3">2 bit/pixel (two tones, two intermediate colors not used)
+<tr><th>Alternate characters<td colspan="3">U+0020 (half-width space)
+<tr><th>Encoding<td colspan="3">UTF-16
+</tbody>
+</table>
+
+<table class="table float_left">
+<caption>Fonts for Korean systems (common with extended fonts)</caption>
+<thead>
+<tr><th>Size<th>Large<th>Medium<th>Small
+</thead>
+<tbody>
+<tr><th>Data size<td>332,220 bytes<td>199,776 bytes<td>155,628 bytes
+<tr><th>Cell width<td>16 px<td>12 px<td>12 px
+<tr><th>Cell height<td>21 px<td>16 px<td>12 px
+<tr><th>Baseline position<td>17 px<td>13 px<td>10 px
+<tr><th>Maximum character width<td>16 px<td>12 px<td>12 px
+<tr><th>Linefeed size<td>21 px<td>16 px<td>12 px
+<tr><th>bpp<td colspan="3">2 bit/pixel (two tones, two intermediate colors not used)
+<tr><th>Alternate characters<td colspan="3">U+0020 (half-width space)
+<tr><th>Encoding<td colspan="3">UTF-16
+</tbody>
+</table>
+
+<br clear="all">
+
+<H2>Character Sets</H2>
+<P>
+The internal fonts more or less cover the following character sets. The encoding is UTF-16.
+</P>
+
+<table class="table">
+<thead>
+<tr><th>Fonts for worldwide systems<th>Fonts for Chinese systems<th>Fonts for Korean systems<th>Extended fonts for Korean systems
+</thead>
+<tbody>
+<tr><td>
+  <ul>
+<li>ASCII
+<li>ISO 8859-1
+<li>ISO 8859-7
+<li>CP 932
+<li>CP 1252
+<li>CP 1253
+<li>JIS X0201
+<li>JIS X0208
+<li>DS External
+<li>Wii External
+  </ul>
+<td>
+  <ul>
+<li>ASCII
+<li>ISO 8859-1
+<li>ISO 8859-7
+<li>CP 1252
+<li>CP 1253
+<li>Full Width ASCII 94
+<li>Hirakana Katakana 169
+<li>Hanzi Common Level1 2500
+<li>Hanzi Common Level2 998 
+<li>GB2312
+<li>DS External
+<li>Wii External
+  </ul>
+<td>
+  <ul>
+<li>ASCII
+<li>ISO 8859-1
+<li>ISO 8859-7
+<li>CP 1252
+<li>CP 1253
+<li>Full Width ASCII 94
+<li>Hirakana Katakana 169
+<li>Hangul Symbol 539
+<li>Hangul Jamo Compatibility 94
+<li>KSX1001 2350
+<li>DS External
+<li>Wii External
+  </ul>
+<td>
+  <ul>
+<li>Fonts for Korean systems
+<li>Hangul Additional 8822
+  </ul>
+</tbody>
+</table>
+
+<H2>Glyph Images</H2>
+<P>
+Links to glyph lists for each font are listed below for reference.
+</P>
+<P>
+A known bug is that a 1-pixel right-side space normally provided for other characters is not allocated for U+E06B (&quot;?&quot;, the fifth character from the right in the third row) in small Wii external fonts for Chinese system fonts. Be aware that Nintendo has no plans to fix this in the future.
+</P>
+<table class="table float_left">
+<caption>Fonts for worldwide systems</caption>
+<thead>
+<tr><th>Glyph type<th>Glyph image
+</thead>
+<tr><th>ASCII<td><a href="tbf/ascii_l.png">(Large Font)</a>&nbsp;&nbsp;<a href="tbf/ascii_m.png">(Medium Font)</a>&nbsp;&nbsp;<a href="tbf/ascii_s.png">(Small Font)</a>
+<tr><th>Western European characters<td><a href="tbf/european_l.png">(Large Font)</a>&nbsp;&nbsp;<a href="tbf/european_m.png">(Medium Font)</a>&nbsp;&nbsp;<a href="tbf/european_s.png">(Small Font)</a>
+<tr><th>JIS X0201 Katakana<td><a href="tbf/x0201_kana_l.png">(Large Font)</a>&nbsp;&nbsp;<a href="tbf/x0201_kana_m.png">(Medium Font)</a>&nbsp;&nbsp;<a href="tbf/x0201_kana_s.png">(Small Font)</a>
+<tr><th>JIS X0208 Hiragana, Katakana, and Symbols<td><a href="tbf/x0208_phonogram_l.png">(Large Font)</a>&nbsp;&nbsp;<a href="tbf/x0208_phonogram_m.png">(Medium Font)</a>&nbsp;&nbsp;<a href="tbf/x0208_phonogram_s.png">(Small Font)</a>
+<tr><th>JIS X0208 Kanji Level 1<td><a href="tbf/x0208_level1_l.png">(Large Font)</a>&nbsp;&nbsp;<a href="tbf/x0208_level1_m.png">(Medium Font)</a>&nbsp;&nbsp;<a href="tbf/x0208_level1_s.png">(Small Font)</a>
+<tr><th>JIS X0208 Kanji Level 2<td><a href="tbf/x0208_level2_l.png">(Large Font)</a>&nbsp;&nbsp;<a href="tbf/x0208_level2_m.png">(Medium Font)</a>&nbsp;&nbsp;<a href="tbf/x0208_level2_s.png">(Small Font)</a>
+<tr><th>DS External<td><a href="tbf/ds_extension_l.png">(Large Font)</a>&nbsp;&nbsp;<a href="tbf/ds_extension_m.png">(Medium Font)</a>&nbsp;&nbsp;<a href="tbf/ds_extension_s.png">(Small Font)</a>
+<tr><th>Wii External<td><a href="tbf/wii_extension_l.png">(Large Font)</a>&nbsp;&nbsp;<a href="tbf/wii_extension_m.png">(Medium Font)</a>&nbsp;&nbsp;<a href="tbf/wii_extension_s.png">(Small Font)</a>
+</table>
+
+<table class="table float_left">
+<caption>Fonts for Chinese systems</caption>
+<thead>
+<tr><th>Glyph type<th>Glyph image
+</thead>
+<tr><th>ASCII<td><a href="tbf_cn/ascii_l.png">(Large Font)</a>&nbsp;&nbsp;<a href="tbf_cn/ascii_m.png">(Medium Font)</a>&nbsp;&nbsp;<a href="tbf_cn/ascii_s.png">(Small Font)</a>
+<tr><th>Western European characters<td><a href="tbf_cn/european_l.png">(Large Font)</a>&nbsp;&nbsp;<a href="tbf_cn/european_m.png">(Medium Font)</a>&nbsp;&nbsp;<a href="tbf_cn/european_s.png">(Small Font)</a>
+<tr><th>Full Width ASCII 94<td><a href="tbf_cn/Full_Width_Ascii_94_l.png">(Large Font)</a>&nbsp;&nbsp;<a href="tbf_cn/Full_Width_Ascii_94_m.png">(Medium Font)</a>&nbsp;&nbsp;<a href="tbf_cn/Full_Width_Ascii_94_s.png">(Small Font)</a>
+<tr><th>Hirakana Katakana 169<td><a href="tbf_cn/Hirakana_Katakana_16_l.png">(Large Font)</a>&nbsp;&nbsp;<a href="tbf_cn/Hirakana_Katakana_16_m.png">(Medium Font)</a>&nbsp;&nbsp;<a href="tbf_cn/Hirakana_Katakana_16_s.png">(Small Font)</a>
+<tr><th>Hanzi Common Level1<td><a href="tbf_cn/Hanzi_Common_Level1_l.png">(Large Font)</a>&nbsp;&nbsp;<a href="tbf_cn/Hanzi_Common_Level1_m.png">(Medium Font)</a>&nbsp;&nbsp;<a href="tbf_cn/Hanzi_Common_Level1_s.png">(Small Font)</a>
+<tr><th>Hanzi Common Level2<td><a href="tbf_cn/Hanzi_Common_Level2_l.png">(Large Font)</a>&nbsp;&nbsp;<a href="tbf_cn/Hanzi_Common_Level2_m.png">(Medium Font)</a>&nbsp;&nbsp;<a href="tbf_cn/Hanzi_Common_Level2_s.png">(Small Font)</a>
+<tr><th>GB2312<td><a href="tbf_cn/GB2312_l.png">(Large Font)</a>&nbsp;&nbsp;<a href="tbf_cn/GB2312_m.png">(Medium Font)</a>&nbsp;&nbsp;<a href="tbf_cn/GB2312_s.png">(Small Font)</a>
+<tr><th>DS External<td><a href="tbf_cn/ds_extension_l.png">(Large Font)</a>&nbsp;&nbsp;<a href="tbf_cn/ds_extension_m.png">(Medium Font)</a>&nbsp;&nbsp;<a href="tbf_cn/ds_extension_s.png">(Small Font)</a>
+<tr><th>Wii External<td><a href="tbf_cn/wii_extension_l.png">(Large Font)</a>&nbsp;&nbsp;<a href="tbf_cn/wii_extension_m.png">(Medium Font)</a>&nbsp;&nbsp;<a href="tbf_cn/wii_extension_s.png">(Small Font)</a>
+</table>
+
+<table class="table float_left">
+<caption>Fonts for Korean systems</caption>
+<thead>
+<tr><th>Glyph type<th>Glyph image
+</thead>
+<tr><th>ASCII<td><a href="tbf_kr/ascii_l.png">(Large Font)</a>&nbsp;&nbsp;<a href="tbf_kr/ascii_m.png">(Medium Font)</a>&nbsp;&nbsp;<a href="tbf_kr/ascii_s.png">(Small Font)</a>
+<tr><th>Western European characters<td><a href="tbf_kr/european_l.png">(Large Font)</a>&nbsp;&nbsp;<a href="tbf_kr/european_m.png">(Medium Font)</a>&nbsp;&nbsp;<a href="tbf_kr/european_s.png">(Small Font)</a>
+<tr><th>Full Width ASCII 94<td><a href="tbf_kr/Full_Width_Ascii_94_l.png">(Large Font)</a>&nbsp;&nbsp;<a href="tbf_kr/Full_Width_Ascii_94_m.png">(Medium Font)</a>&nbsp;&nbsp;<a href="tbf_kr/Full_Width_Ascii_94_s.png">(Small Font)</a>
+<tr><th>Hirakana Katakana 169<td><a href="tbf_kr/Hirakana_Katakana_16_l.png">(Large Font)</a>&nbsp;&nbsp;<a href="tbf_kr/Hirakana_Katakana_16_m.png">(Medium Font)</a>&nbsp;&nbsp;<a href="tbf_kr/Hirakana_Katakana_16_s.png">(Small Font)</a>
+<tr><th>Hangul Symbol 539<td><a href="tbf_kr/Hangul_Symbol_539_l.png">(Large Font)</a>&nbsp;&nbsp;<a href="tbf_kr/Hangul_Symbol_539_m.png">(Medium Font)</a>&nbsp;&nbsp;<a href="tbf_kr/Hangul_Symbol_539_s.png">(Small Font)</a>
+<tr><th>Hangul Jamo Compatibility 94<td><a href="tbf_kr/Hangul_Jamo_Compatibility_94_l.png">(Large Font)</a>&nbsp;&nbsp;<a href="tbf_kr/Hangul_Jamo_Compatibility_94_m.png">(Medium Font)</a>&nbsp;&nbsp;<a href="tbf_kr/Hangul_Jamo_Compatibility_94_s.png">(Small Font)</a>
+<tr><th>KSX1001 2350<td><a href="tbf_kr/KSX1001_2350_l.png">(Large Font)</a>&nbsp;&nbsp;<a href="tbf_kr/KSX1001_2350_m.png">(Medium Font)</a>&nbsp;&nbsp;<a href="tbf_kr/KSX1001_2350_s.png">(Small Font)</a>
+<tr><th>DS External<td><a href="tbf_kr/ds_extension_l.png">(Large Font)</a>&nbsp;&nbsp;<a href="tbf_kr/ds_extension_m.png">(Medium Font)</a>&nbsp;&nbsp;<a href="tbf_kr/ds_extension_s.png">(Small Font)</a>
+<tr><th>Wii External<td><a href="tbf_kr/wii_extension_l.png">(Large Font)</a>&nbsp;&nbsp;<a href="tbf_kr/wii_extension_m.png">(Medium Font)</a>&nbsp;&nbsp;<a href="tbf_kr/wii_extension_s.png">(Small Font)</a>
+</table>
+
+<table class="table float_left">
+<caption>Extended fonts for Korean systems</caption>
+<thead>
+<tr><th>Glyph type<th>Glyph image
+</thead>
+<tr><th>Hangul Additional 8822<td><a href="tbf_kr/Hangul_Additional_8822_l.png">(Large Font)</a>&nbsp;&nbsp;<a href="tbf_kr/Hangul_Additional_8822_m.png">(Medium Font)</a>&nbsp;&nbsp;<a href="tbf_kr/Hangul_Additional_8822_s.png">(Small Font)</a>
+</table>
+
+<br clear="all">
+
+<H2>Revision History</H2>
+<P>
+2009/07/06 Added extended font information for Korea.<BR> 2009/06/24 Corrected data sizes for worldwide systems; corrected baseline position for small size to 10; added description of <CODE>fontcvtr.exe</CODE> order file; added description of font information for China and Korea.<BR> 2008/09/16 Initial version.
+</P>
+
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="Shift_JIS"?>
+<job>
+    <script language="JScript">
+        <![CDATA[
+// This script sets environment variables used by the NITRO-Viewer package.
+// Values are set using this script's path.
+
+var envKind = /*"SYSTEM"*/"USER";
+var strViewerRoot = "TWLSYSTEM_ROOT";
+
+var wsh = WScript.CreateObject("WScript.Shell");
+var fso = WScript.CreateObject("Scripting.FileSystemObject");
+
+var strViewerRootPath = fso.GetParentFolderName(fso.GetParentFolderName(fso.GetParentFolderName(fso.GetParentFolderName(WScript.ScriptFullName))));
+strViewerRootPath = strViewerRootPath.replace(/\\/g, "/");
+
+wsh.Environment(envKind).item(strViewerRoot) = strViewerRootPath;
+// WScript.Echo("環境変数 " + strViewerRoot + " を \"" + strViewerRootPath + "\" にセットしました。");
+WScript.Echo("This sets the environment variable " + strViewerRoot + " to \"" + strViewerRootPath + "\".");
+        ]]>
+    </script>
+</job>

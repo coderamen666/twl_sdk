@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>MI_SwitchWram</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">MI_SwitchWram* <IMG src="../../image/TWL.gif" align="middle"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;twl/mi.h&gt;</CODE><BR>
+  <BR>
+  <CODE>int MI_SwitchWram( MIWramPos wram, MIWramProc proc, MIWramProc newProc
+  );<br>
+  int MI_SwitchWramSlot( MIWramPos wram, int slot, MIWramSize size, MIWramProc
+  proc, MIWramProc newProc );<br>
+   <br>
+  (define)<br>
+  <font color="#7f7f7f">void MI_SwitchWram_A( MIWramProc proc, MIWramProc newProc );</font><br>
+  void MI_SwitchWram_B( MIWramProc proc, MIWramProc newProc );<br>
+  void MI_SwitchWram_C( MIWramProc proc, MIWramProc newProc );<br>
+  <font color="#7f7f7f">void MI_SwitchWramSlot_A( int slot, MIWramSize size, MIWramProc proc, MIWramProc
+  newProc );</font><br>
+  void MI_SwitchWramSlot_B( int slot, MIWramSize size, MIWramProc proc, MIWramProc
+  newProc );<br>
+  void MI_SwitchWramSlot_C( int slot, MIWramSize size, MIWramProc proc, MIWramProc
+  newProc );</CODE></dd>
+</dl>
+<h2>Arguments</h2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+      <TD width="13%"><EM><STRONG>wram</STRONG></EM></TD>
+      <TD width="87%">WRAM region to be freed.</TD>
+    </TR>
+    <TR>
+      <TD><B><I>slot</I></B></TD>
+      <TD>Starting slot number.</TD>
+    </TR>
+    <TR>
+      <TD><B><I>size</I></B></TD>
+      <TD>Size.</TD>
+    </TR>
+    <TR>
+      <TD><B><I>proc</I></B></TD>
+      <TD>Master processor of the region to change.</TD>
+    </TR>
+    <TR>
+      <TD><B><I>newProc</I></B></TD>
+      <TD>Master processor after the change.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<h2>Return Values</h2>
+<p>Returns the number of blocks that were changed. If 0, nothing was changed. If -1, an error occurred.</p>
+
+<H2>Description</H2>
+<P>Changes the WRAM's master processor.</P>
+<P><B><I>wram</I></B> is the target WRAM.</P>
+<P><I><B>slot</B></I> is the starting slot number of the region to change.</P>
+<P><B><I>size</I></B> is the size of the region to change, and is specified as &quot;MI_WRAM_SIZE_xxxKB.&quot;</P>
+<P><B><I>proc</I></B> is the master processor of the region to be changed.</P>
+<P><B><I>newProc</I></B> is the new master processor of the region after the change.</P>
+
+<P>The <CODE>MI_SwitchWram</CODE> function changes the master processor within the specified WRAM from <B><I>proc</I></B> to <B><I>newProc</I></B>.</P>
+<P>The <CODE>MI_SwitchWramSlot</CODE> function attempts to make changes by specifying a region's <B><I>slot</I></B> and <B><I>size</I></B>. However, it will not change regions whose master processor is different from the specified processor.</P>
+<P><CODE><font color="#7f7f7f">MI_SwitchWram_A</CODE> is the #define directive of <CODE><font color="#7f7f7f">MI_SwitchWram( MI_WRAM_A, ... )</CODE>. </font><BR><CODE>MI_SwitchWram_B</CODE> is the #define directive of <CODE>MI_SwitchWram( MI_WRAM_B, ... )</CODE>. <BR><CODE>MI_SwitchWram_C</CODE> is the #define directive of <CODE>MI_SwitchWram( MI_WRAM_C, ... )</CODE>. <BR><font color="#7f7f7f"><CODE>MI_SwitchWramSlot_A</CODE> is the #define directive of <font color="#7f7f7f"><CODE>MI_SwitchWramSlot( MI_WRAM_A, ... )</CODE>. </font><BR><CODE>MI_SwitchWramSlot_B</CODE> is the #define directive of <CODE>MI_SwitchWramSlot( MI_WRAM_B, ... )</CODE>. <BR><CODE>MI_SwitchWramSlot_C</CODE> is the #define directive of <CODE>MI_SwitchWramSlot( MI_WRAM_C, ... )</CODE>. </P>
+<h2>See Also</h2>
+<P><A href="about_Wram.html">Overview (Work RAM)</A>, <A href="../mi_constant.html">MI-Related Constants</A> <BR> <CODE><A href="MI_AllocWram.html">MI_AllocWram*()</A></CODE>, <CODE><A href="MI_ReserveWram.html">MI_ReserveWram*()</A></CODE></P>
+
+<H2>Revision History</H2>
+<P>2007/10/08 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

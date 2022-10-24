@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>RTC_Init</title>
+<LINK rel="stylesheet" href="../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">RTC_Init <img src="../image/NTR.gif" align="middle"><img src="../image/TWL.gif" align="middle"></h1>
+
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/rtc.h&gt;</CODE><BR>
+  <PRE><CODE>void RTC_Init( void );</CODE></PRE>
+  </dd>
+
+</dl><h2>Arguments</h2>
+<p>None.</p>
+
+<h2>Return Values</h2>
+<p>None.</p>
+
+<H2>Description</H2>
+<P>Initializes the real-time clock API. Call this function before calling any real-time clock functions.</P>
+
+<h2>Note</h2>
+<P>
+The real-time clock stores data using a battery and continues to measure time even if the console's power is not turned on. <FONT color=red>This stored data is not initialized by the initialization functions. Note, therefore, the initial date and time values are not defined. </FONT>Although the console startup sequence zero-clears all alarm-related settings, these settings will carry over for any application restarts caused by a software reset.
+</P>
+<P>
+The end user can freely adjust the real-time clock's date and time using the console's System Settings. <FONT color=red>As a result, note that the date and time are not guaranteed to be consistent before and after the console is restarted.</FONT>
+</P>
+
+<h2>See Also</h2>
+<P><a href="RTC_SetAlarmStatus.html"><CODE>RTC_SetAlarmStatus</CODE></a><BR><a href="RTC_SetAlarmParam.html"><CODE>RTC_SetAlarmParam</CODE></a></P>
+
+<H2>Revision History</H2>
+<P>
+2008/09/16 Revised and added notes.<BR> 2004/07/01 Changed descriptions because the time notation was standardized.<BR> 2004/05/18 Initial version.<BR>
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

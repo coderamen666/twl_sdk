@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>OS_IsParentalControledApp</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">OS_IsParentalControledApp <IMG src="../../image/TWL.gif" align="middle"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;twl/os.h&gt;</CODE><BR>
+  <BR>
+  <CODE>BOOL OS_IsParentalControledApp(u8* appRatingInfo);</CODE></dd>
+</dl>
+<h2>Arguments</h2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+      <TD width="33%"><EM><STRONG>appRatingInfo</STRONG></EM></TD>
+      <TD width="67%">Pointer to the rating info.
+      (The 16 bytes embedded at offset 0x2F0 in the application's ROM header contain the rating information.)</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<h2>Return Values</h2>
+<p>If TRUE, indicates that the Parental Controls should be applied and that the application should prompt the user to enter the PIN.</p>
+<p>If FALSE, indicates that the application can be booted without applying any restrictions.</p>
+
+<H2>Description</H2>
+<p>Determines whether Parental Controls should be applied when an application is started up.</P>
+<p><EM><STRONG>appRatingInfo</STRONG></EM> is a pointer to the rating information, which is embedded at offset <CODE>0x2F0</CODE> within the application ROM's header. </P>
+<h2>See Also</h2>
+<p><CODE><a href="OSOwnerInfo.html">OSOwnerInfoEx</a></CODE></p>
+
+<H2>Revision History</H2>
+<P>2008/09/02 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

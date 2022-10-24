@@ -1,0 +1,37 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>Renderer_MtxState</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+<h1 align="left">Renderer Matrix State</h1>
+<H2>Renderer Matrix State Transition Diagram</H2>
+<P><IMG src="clip_image0022.gif"></P>
+<H2>Description</H2>
+<P>The renderer has an internal matrix stack. When the renderer carries out rendering with the 2D graphics engine, this internal stack takes care of the load processing to the matrix affine parameters. When rendering with the 2D graphics engine, the current matrix contents of the matrix stack are loaded to the OAM as affine parameters. The affine numbers need to be set up in the OAM attributes so the affine parameters are referenced.</P>
+
+<P>The renderer manages the matrix state and attempts to decrease the number of loads to conserve affine parameters.</P>
+
+<P>The matrix states can be divided roughly into the following categories:</P>
+<PRE>
+     Not SR(scale, rotation) converted.
+     SR(scale, rotation) converted, not read.
+     SR(scale, rotation) converted, not read. The current matrix has been pushed.
+     SR(scale, rotation) converted, read.
+&nbsp;
+</pre>
+<P>The matrix state transitions in response to events as shown in the diagram.</P>
+<h2>See Also</h2>
+<p>
+None.
+</p>
+<H2>Revision History</H2>
+<P>2004/12/06 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

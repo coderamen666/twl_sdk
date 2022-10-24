@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>G2_SetBG2Affine</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">G2_SetBG2Affine <img src="../../image/NTR.gif"align="middle"><img src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+
+<dl>
+  <dd>
+  <PRE><CODE>#include &lt;nitro/gx/g2.h&gt;
+
+void G2_SetBG2Affine(
+    const MtxFx22 * mtx,
+    int centerX,
+    int centerY,
+    int x1,
+    int y1
+);</CODE></PRE>
+  </dd>
+</dl><h2>Arguments</h2>
+
+<table border="1" width="100%">
+  
+    <tr>
+<td width="13%"><SPAN class="argument">mtx</SPAN></td>
+<td width="87%">Pointer to the conversion matrix</td>
+  </tr>
+    <TR>
+<TD><SPAN class="argument">centerX</SPAN></TD>
+<TD>X-component of the coordinates of the center of rotation</TD>
+    </TR>
+    <TR>
+<TD><SPAN class="argument">centerY</SPAN></TD>
+<TD>Y-component of the coordinates of the center of rotation</TD>
+    </TR>
+    <TR>
+<TD><SPAN class="argument">x1</SPAN></TD>
+<TD>X-component of coordinate before rotation (horizontal offset)</TD>
+    </TR>
+    <TR>
+<TD><SPAN class="argument">y1</SPAN></TD>
+<TD>Y-component of coordinate before rotation (vertical offset)</TD>
+    </TR>
+  </table>
+<h2>Return Values</h2>
+<p>None.</p>
+<H2>Description</H2>
+<P>Sets the BG2 affine transformation.</P>
+<P>Use the formula below to find the rotation and scaling centered on the points on the screen (center x and center y).</P>
+<P><IMG width="297" height="48" src="bg_affine_formula_1.gif" v:shapes="_x0000_i1025"></P>
+<P>Translation specifies in pixels the offset (x1, y1) of the BG screen with the display screen.</P>
+<BLOCKQUOTE style="background-color:#ffffcc">
+<CODE>
+<PRE>
+<B>Example:</B>
+Rotate/scale BG2 screen centered on a point (center x, center y) using the conversion matrix mtx and 
+translate dx to the x-axis direction and dy to the y-axis direction.
+<dl>
+G2_SetBG2Affine(
+    mtx,
+    centerX, centerY,
+    dx, dy );
+</CODE></dl><PRE></BLOCKQUOTE>
+<h2>See Also</h2>
+<P><A href="G2_SetBG3Affine.html"><CODE>G2_SetBG3Affine</CODE></A></P>
+<H2>Revision History</H2>
+<P>2009/07/10 Revised explanation of affine conversion and added an example.<BR>
+2004/01/19 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

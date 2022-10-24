@@ -1,0 +1,206 @@
+<html>
+<head>
+<title>TWL-System GraphicsFoundation Library Revision History</title>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="content-style-type" content="text/css" />
+<style type="text/css">
+<!--
+    
+H1
+{
+    font-weight         : bold;
+    font-size           : 250%;
+    text-align          : left;
+    color               : #46f;
+    margin              : 0em 0em 0.5em 0em;
+}
+
+H2
+{
+    font-weight         : bold;
+    font-size           : 150%;
+    text-align          : left;
+    margin              : 2em 0em 0.5em 0em;
+    padding-top         : 8pt;
+    border-top-style    : double;
+    border-top-width    : 3px;
+}
+
+H3
+{
+    font-weight         : bold;
+    font-size           : 120%;
+    margin              : 1em 0em 0.5em 0em;
+    padding-top         : 8pt;
+    border-top-style    : solid;
+    border-top-width    : 1px;
+}
+
+H4
+{
+    font-weight         : normal;
+    font-size           : 100%;
+    margin              : 0em 0em 0em 0.5em;
+}
+
+DIV.date
+{
+    font-size           : normal;
+    text-align          : right;
+    margin              : 0pt 0pt 12pt 0pt;
+}
+
+DIV.licence
+{
+    margin: 0em;
+    border-style : solid;
+    border-width : 1px;
+}
+
+P
+{
+    font-size           : normal;
+    margin              : 0em 1em 0.5em 1em;
+    line-height         : 150%;
+}
+
+PRE
+{
+    font-size           : normal;
+    margin              : 0em 0em 1em 2em;
+    line-height         : 120%;
+}
+
+DT
+{
+    margin              : 1em 0em 0em 1em;
+}
+DD
+{
+    margin-left         : 3em;
+}
+UL
+{
+    margin-top         : 0em;
+}
+
+-->
+</style>
+</head>
+<body>
+
+<h1>TWL-System GraphicsFoundation Library Revision History</h1>
+
+<h2>Index</h2>
+
+<h3><a href="#version_2_2_0_0">2.2.0 PR</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_83-G01">Note 83-G01: (Documentation) Revised description of VRAM manager</a></li>
+</ul>
+<h3><a href="#version_20080408">2008/04/08 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_76-G01">Note 76-G01:  (Manual) Reworked the format of the manual</a></li>
+</ul>
+<h3><a href="#version_20071126">2007/11/26 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_71-G01">Note 71-G01:  (Library) Revised restriction that could not allocate a larger region size than 128 KB or more</a></li>
+<li><a href="#note_71-G02">Note 71-G02:  (Library) Added function that clears the transfer queue</a></li>
+</ul>
+<h3><a href="#version_20070501">2007/05/01 Version</a></h3>
+<h4>Problem Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_66-G01">Note 66-G01:  (Library) Fixed a problem where a function that outputs debugging information was not called correctly</a></li>
+</ul>
+<h3><a href="#version_20070314">2007/03/14 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_64-G01">Note 64-G01:  (Library) Added function that outputs debugging information to each VRAM manager</a></li>
+</ul>
+<h3><a href="#version_20050901">2005/09/01 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_50-G01">Note 50-G01:  (Library) Added function that outputs debugging information to each VRAM manager</a></li>
+</ul>
+<h3><a href="#version_20041206">2004/12/06 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_34-G01">Note 34-G01:  (Library) Made a portion of the internal functions inline functions</a></li>
+<li><a href="#note_34-G02">Note 34-G02:  (Sample) Added three VRAM manager samples</a></li>
+</ul>
+<h4>Problem Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_34-G03">Note 34-G03:  (Library) Fixed a problem in initialization of the frame texture VRAM manager</a></li>
+<li><a href="#note_34-G04">Note 34-G04:  (Library) Fixed a problem in initialization of the linked list texture VRAM manager</a></li>
+</ul>
+<h3><a href="#version_20041012">2004/10/12 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_26-G01">Note 26-G01:  (Library) Added linked list VRAM manager</a></li>
+<li><a href="#note_26-G02">Note 26-G02:  (Library) Improved the efficiency of the frame texture VRAM manager</a></li>
+</ul>
+
+
+<h2 id="version_2_2_0_0">Changes in 2.2.0 PR</h2>
+<h3 id="note_83-G01">Note 83-G01: (Documentation) Revised description of VRAM manager</h3>
+<p>Corrected the description of allocating standard textures in section 3.1.2.1 of the <I>VRAM Manager Manual</I> to be in line with actual operation.
+</p>
+<h2 id="version_20080408">Changes in Version 2008/04/08</h2>
+<h3 id="note_76-G01">Note 76-G01:  (Manual) Reworked the format of the manual</h3>
+<p>Changed the format of the Revision History in the PDF manuals listed below and included document subheads. Also adjusted the position of page breaks so the manual is easier to read.
+</p>
+<ul><li><CODE>VramManager.pdf</CODE>
+</li>
+<li><CODE>VramTransferManager.pdf</CODE>
+</li>
+</ul>
+<h2 id="version_20071126">Changes in Version 2007/11/26</h2>
+<h3 id="note_71-G01">Note 71-G01:  (Library) Revised restriction that did not allow allocating a region of the size 128 KB and larger</h3>
+<p>Changed the internal processing on the link list VRAM manager and fixed a restriction that would not allow a region larger than 128 KB or higher at one time.
+</p>
+<h3 id="note_71-G02">Note 71-G02:  (Library) Added function that clears the transfer queue</h3>
+<p>Added the <CODE>NNS_GfdClearVramTransferManagerTask</CODE> function that clears the transfer queue in the VRAM transfer manager.
+</p>
+<h2 id="version_20070501">Changes in Version 2007/05/01</h2>
+<h3 id="note_66-G01">Note 66-G01:  (Library) Fixed a problem where a function that outputs debugging information was not called correctly</h3>
+<p>Fixed a problem where the <CODE>NNS_GfdDumpFrmTexVramManagerEx</CODE> function that outputs debugging information was not called correctly.
+</p>
+<h2 id="version_20070314">Changes in Version 2007/03/14</h2>
+<h3 id="note_64-G01">Note 64-G01:  (Library) Added function that outputs debugging information to each VRAM manager</h3>
+<p>Specified the debugging output callback in each VRAM manager and added the <CODE>NNS_GfdDumpXXX</CODE> function that outputs debugging information.
+</p>
+<h2 id="version_20050901">Changes in Version 2005/09/01</h2>
+<h3 id="note_50-G01">Note 50-G01:  (Library) Added function that outputs debugging information to each VRAM manager</h3>
+<p>Added the <CODE>NNS_GfdDumpXXX</CODE> function, which outputs debugging information to various VRAM managers.
+</p>
+<h2 id="version_20041206">Changes in Version 2004/12/06</h2>
+<h3 id="note_34-G01">Note 34-G01:  (Library) Made a portion of the internal functions inline functions</h3>
+<p>To improve performance, some internal functions were changed to inline functions.
+</p>
+<h3 id="note_34-G02">Note 34-G02:  (Sample) Added three VRAM manager samples</h3>
+<p>Added three sample demos that show how to use various VRAM Managers.
+</p>
+<h3 id="note_34-G03">Note 34-G03:  (Library) Fixed a problem in initialization of the frame texture VRAM manager</h3>
+<p>Fixed a problem where the frame texture VRAM manager was not initialized correctly when initialization was done multiple times with different parameters using the <CODE>NNS_GfdInitFrmTexVramManager</CODE> function. (Fixed a bug where the manager empty region search order setting became fixed to the setting at the first initialization. Under normal circumstances, the search order of free regions should be changed optimally for each initialization based on parameters.)</p>
+<h3 id="note_34-G04">Note 34-G04:  (Library) Fixed a problem in initialization of the linked list texture VRAM manager</h3>
+<ul><li> The problem was fixed where the manager was not initialized properly when the control VRAM region size was specified as smaller than the size of 1 slot (<CODE>0x20000</CODE>).
+</li>
+</ul>
+<ul><li> The bug was fixed where the manager was not initialized properly when the control region size was specified in units smaller than the size of 1 slot (<CODE>0x20000</CODE>).
+</li>
+</ul>
+<h2 id="version_20041012">Changes in Version 2004/10/12</h2>
+<h3 id="note_26-G01">Note 26-G01:  (Library) Added linked list VRAM manager</h3>
+<p>Added a linked list VRAM manager.
+</p>
+<h3 id="note_26-G02">Note 26-G02:  (Library) Improved the efficiency of the frame texture VRAM manager</h3>
+<p>Changed the order of free region search in accordance with the number of VRAM slots that the frame texture VRAM manager controls. This change makes it possible to use available VRAM efficiently.
+</p>
+
+
+<br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br>
+
+<hr><p>CONFIDENTIAL</p></body>
+</html>

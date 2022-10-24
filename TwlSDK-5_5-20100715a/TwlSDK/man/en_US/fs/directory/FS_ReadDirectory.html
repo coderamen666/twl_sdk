@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title>FS_ReadDirectory[W]</title>
+<link rel="stylesheet" href="../../css/nitro.css" type="text/css" />
+</head>
+<body>
+
+<h1>FS_ReadDirectoryW <img src="../../image/NTR.gif"align="middle"><img src="../../image/TWL.gif" align="middle"></h1>
+<h2>Syntax</h2>
+<pre><code>
+#include &lt;nitro/fs.h&gt;
+
+BOOL FS_ReadDirectory(<a href="../fs_file_type.html">FSFile</a> *dir, <a href="../FSDirectoryEntryInfo.html">FSDirectoryEntryInfo</a> *info);
+BOOL FS_ReadDirectoryW(<a href="../fs_file_type.html">FSFile</a> *file, <a href="../FSDirectoryEntryInfo.html">FSDirectoryEntryInfoW</a> *info);
+</code></pre>
+
+<h2>Arguments</h2>
+<table style="width:100%">
+<tbody>
+<tr>
+<td style="width:13%"><em><strong>dir</strong></em></td>
+<td style="width:87%">The <A href="../fs_file_type.html"><CODE>FSFile</CODE></a> structure with the directory handle.</td>
+</tr>
+<tr>
+<td style="width:13%"><em><strong>info</strong></em></td>
+<td style="width:87%">The <a href="../FSDirectoryEntryInfo.html"><CODE>FSDirectoryEntryInfo</CODE></a> or <a href="../FSDirectoryEntryInfo.html"><CODE>FSDirectoryEntryInfoW</CODE></a> structure where the entry information should be stored when it is obtained.</td>
+</tr>
+</tbody>
+</table>
+
+<h2>Return Values</h2>
+<p>Returns <CODE>TRUE</CODE> if the entry information was obtained properly; returns <CODE>FALSE</CODE> otherwise. In case of failure, use the <a href="../file/FS_GetResultCode.html"><CODE>FS_GetResultCode</CODE></a> function to get the error details.</p>
+
+<h2>Description</h2>
+<p>Reads only one item of entry information from a directory handle. Each time this function is called, the list position in the directory is incremented by 1. After the final entry is reached, it returns <CODE>FALSE</CODE>. For example, suppose you use the <a href="FS_OpenDirectory.html"><CODE>FS_OpenDirectory</CODE></a> function to open a directory that contains three files. When you call this function using that handle, it returns a value of <CODE>TRUE</CODE> three times. It returns a value of <CODE>FALSE</CODE> the fourth time and thereafter.</p>
+<p>Use the <CODE>FS_ReadDirectory</CODE> function to get the <a href="../FSDirectoryEntryInfo.html"><CODE>longname</CODE></a> field from the entry information in Shift_JIS encoding. Use the <CODE>FS_ReadDirectoryW</CODE> function to get the same field in UTF-16LE. FAT file systems, such as <a href="../archive_sdmc_spec.html">SD Card archives</a>, may use characters that cannot be expressed with Shift_JIS.</p>
+<p>Entry information for <a href="../overview/about_Archive.html#ROM_LTDFILE">TWL-exclusive files</a> can be obtained even when the system is operating in NITRO mode. You can determine whether access to the file is actually possible by checking the <a href="../FSPathInfo.html">FS_ATTRIBUTE_IS_OFFLINE</a> flag of the <a href="../FSDirectoryEntryInfo.html"><CODE>attributes</CODE></a> field.</p>
+
+<h2>Note</h2>
+<ul>
+<li>This function cannot be called from the interrupt handler (IRQ mode). Also, in some cases processing may not end if interrupts are still disabled.</li>
+</ul>
+
+<h2>See Also</h2>
+<p><a href="../fs_file_type.html"><CODE>FSFile</CODE></a><br /> <a href="../FSDirectoryEntryInfo.html"><CODE>FSDirectoryEntryInfo</CODE></a> <br /> <a href="FS_OpenDirectory.html"><CODE>FS_OpenDirectory</CODE></a><br /> <a href="FS_CloseDirectory.html"><CODE>FS_CloseDirectory</CODE></a></p>
+
+<h2>Revision History</h2>
+<p>
+2009/06/08 Added link to explanation of TWL-exclusive files.<br />2009/01/08 Added an explanation about TWL-exclusive files.<br />2008/09/02 Added notes concerning a Unicode version of the function.<br />2007/09/18 Initial version.
+</p>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>OS_InitPrintServer</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">OS_InitPrintServer <IMG src="../../image/NTR.gif" align="middle"><IMG src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+<DL>
+<DD><CODE>#include &lt;nitro/os.h&gt;</CODE><BR>
+ <BR>
+ <CODE>void OS_InitPrintServer( void );</CODE>
+</DL>
+<H2>Arguments</H2>
+<P>None.</P>
+<H2>Return Values</H2>
+<P>None.</P>
+<H2>Description</H2>
+<P>This is an initialization function to display debug messages from the ARM7.</P>
+<P>Because this function is an SDK library debugging function, there is no need to use it in ordinary applications. It is presumed that mainly library and middleware developers will use this.
+
+<P>Call this function before the <A href="../init/OS_Init.html"><CODE>OS_Init</CODE></A> function. 
+<P>With the <CODE>OS_InitPrintServer</CODE> function, allocate a buffer for ARM7 debug output in an area shared by ARM9 and ARM7 on the main memory. Later, store the string in this buffer by performing debug output with the ARM7. With the ARM9, periodically output the content of this buffer. (It is preferable to output about once every frame.) Call the <A href="OS_PrintServer.html"><CODE>OS_PrintServer</CODE></A> function to output the buffer content.
+
+<BLOCKQUOTE style="background-color:#ffffcc"><B>Example:</B>
+<PRE>
+void NitroMain(void)
+{
+    <FONT color="#ff0000">OS_InitPrintServer();</FONT>
+    OS_Init();
+        :
+
+    //---- main loop
+    while(1)
+    {
+        <FONT color="#ff0000">OS_PrintServer();</FONT>
+        SVC_WaitVBlankIntr();
+            :
+    }
+ 
+}</PRE></BLOCKQUOTE>
+<P><BR>
+If you are outputting ARM7 strings using this OS PrintServer feature, no matter where the output destination console is set for the ARM7, the output destination is the standard one for ARM9.</P>
+<P>In FINALROM builds, the <CODE>OS_InitPrintServer</CODE> function and the <A href="OS_PrintServer.html"><CODE>OS_PrintServer</CODE></A> function are replaced with code that does nothing.</P>
+<H3>Memory Used</H3>
+<P>The location to allocate the buffer that stores ARM7 debugging output is an area shared by ARM9 and ARM7 on the main memory. The size is 1 KB for the string buffer and 8 bytes for the pointer to specify the output position.</P>
+<H2>See Also</H2>
+<P><A href="OS_PrintServer.html"><CODE>OS_PrintServer</CODE></A></P>
+<H2>Revision History</H2>
+<P>2009/06/25 Described the method for using the function.<BR>
+ 2005/08/19 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

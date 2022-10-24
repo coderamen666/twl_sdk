@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>MI_WriteDevice</title>
+<link rel="stylesheet" href="../../css/nitro.css" type="text/css" />
+</head>
+<body>
+<h1>MI_WriteDevice <IMG src="../../image/NTR.gif" align="middle"><IMG src="../../image/TWL.gif" align="middle"></h1>
+<h2>Syntax</h2>
+<dl>
+  <dd>
+<code>#include &lt;nitro/mi.h&gt;<br />
+  <br />
+  int MI_WriteDevice(<A href="MIDevice.html">MIDevice</A> *device, const void *buffer, u32 offset, u32 length);</code></dd>
+</dl>
+
+<h2>Arguments</h2>
+<table border="1" width="100%">
+  <tbody>
+    <tr>
+      <td width="13%"><em><strong>device</strong></em></td>
+      <td width="87%">Pointer to the <A href="MIDevice.html"><CODE>MIDevice</CODE></A> structure to access.<br />
+      The device must have been initialized using <A href="MI_InitDevice.html"><CODE>MI_InitDevice()</CODE></A>.</td>
+    </tr>
+    <tr>
+      <td width="13%"><em><strong>buffer</strong></em></td>
+      <td width="87%">The transfer source memory where the data for writing is stored.</td>
+    </tr>
+    <tr>
+      <td width="13%"><em><strong>offset</strong></em></td>
+      <td width="87%">The starting address in the device where data should be written.</td>
+    </tr>
+    <tr>
+      <td width="13%"><em><strong>length</strong></em></td>
+      <td width="87%">The data write size.</td>
+    </tr>
+  </TBODY>
+</table>
+
+<h2>Return Values</h2>
+<p>If the function succeeds, it will return the actual amount of data that has been read. If it fails, it will return a negative value.</p>
+
+<h2>Description</h2>
+<p>Writes the data to a device using the <A href="MIDevice.html"><CODE>MIDevice</CODE></A> structure.<br />Internally, this just calls the callback function for writes specified in <A href="MI_InitDevice.html"><CODE>MI_InitDevice()</CODE></A>.</p>
+<p>
+This is a utility feature designed to separate the device control component from the module design. For more information, see the reference for the <a href="MIDevice.html"><CODE>MIDevice</CODE></a> structure.
+</p>
+
+<h2>See Also</h2>
+<p><code><a href="MI_InitDevice.html">MI_InitDevice</a>, <a href="MI_ReadDevice.html">MI_ReadDevice</a><br /> <a href="MIDevice.html">MIDevice</a>, <a href="MIDeviceReadFunction.html">MIDeviceReadFunction</a>, <a href="MIDeviceWriteFunction.html">MIDeviceWriteFunction</a><br /></code></p>
+<h2>Revision History</h2>
+<p>
+2007/05/09 Initial version.
+</p>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

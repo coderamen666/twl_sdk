@@ -1,0 +1,53 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title>TCL_DecodePicture</title>
+<link rel="stylesheet" href="../css/nitro.css" type="text/css">
+</head>
+<body>
+<h1 align="left">TCL_DecodePicture<img src="../image/TWL.gif" align="middle"></h1>
+
+<h2>Definition</h2>
+<dl>
+	<dd>
+	<code>#include &lt;twl/tcl.h&gt;</code><br/> <br/>
+	<pre><code>
+TCLResult TCL_DecodePicture( u8* fileBuffer ,
+                             u32 fileBufferSize ,
+                             void* imageBuffer ,
+                             s16 width ,
+                             s16 height ,
+                             u32 decodeOption );
+	</code></pre>
+</dl>
+
+<h2>Arguments</h2>
+<p>
+<table>
+<tr><td>fileBuffer<td>File buffer to be the decode source.
+<tr><td>fileBufferSize<td>Size of the file buffer to be the decode source.
+<tr><td>imageBuffer<td>Buffer for storing the image after decoding.<br/> When decoding the original image, the size is <code>TCL_JPEG_WIDTH</code> * <code>TCL_JPEG_HEIGHT</code> * 2.<br/> When decoding thumbnail images, the required buffer size is <code>SSP_JPEG_THUMBNAIL_WIDTH</code> * <code>SSP_JPEG_THUMBNAIL_HEIGHT</code> * 2.
+<tr><td>width<td>Horizontal width of the image that allows decoding.
+<tr><td>height<td>Vertical width of the image that allows decoding. 
+<tr><td>decodeOption<td>Option passed to the <code>SSP_StartJpegDecoder</code> function.
+</table>
+</p>
+
+<h2>Return Values</h2>
+<p><a href="TCLResult.html">Processing result</a></p>
+
+<h2>Description</h2>
+<p>Decodes read files in JPEG. This is a wrapper function for the <code>SSP_StartJpegDecoder</code> function.</p>
+<p>Because the different error checks and, when necessary, a signature check are performed internally, always use this function to decode.</p>
+<p>This function only decodes, so file reading itself should be done by the application using an FS function or something similar.</p>
+
+<h2>See Also</h2>
+
+<h2>Revision History</h2>
+<p>
+2009/03/04 Initial version.
+</p>
+
+<hr><p>CONFIDENTIAL</p></body>
+</html>

@@ -1,0 +1,66 @@
+/******************************************************************************
+	NINTENDO NITRO-System Maya Plugin
+
+	File:         NNS_CommonProc.mel
+	Description:  common procedure
+	Date:         2007/06/28
+	Author:       Takashi Endo
+
+	Copyright 2003-2009 Nintendo. All rights reserved.
+******************************************************************************/
+
+// NNS_SetCurDirFromFile
+
+/******************************************************************************
+	get unix file path
+		convert "\" to "/"
+		multi-byte is supported for 8.5-
+******************************************************************************/
+global proc string NNS_GetUnixFilePath(string $path)
+{
+	int $size = size($path);
+	string $dst = "";
+	int $ic;
+	for ($ic = 1; $ic <= $size; ++$ic)
+	{
+		$c = substring($path, $ic, $ic);
+		if ($c == "\\")
+		{
+			$c = "/";
+		}
+		$dst += $c;
+	}
+	return $dst;
+}
+
+/******************************************************************************
+	set current directory from file
+
+		for fileBrowserDialog
+******************************************************************************/
+global proc NNS_SetCurDirFromFile(string $path)
+{
+	if (size($path) == 0)
+	{
+		return;
+	}
+
+	string $projPath = `workspace -q -rd`;
+	string $dirPath = dirname($path);
+	string $checks[] =
+	{
+		$path,
+		$projPath + $path,
+		$dirPath,
+		$projPath + $dirPath
+	};
+	
+	for ($check in $checks)
+	{
+		if (`filetest -d $check`)
+		{
+			workspace -dir $check;
+			return;
+		}
+	}
+}

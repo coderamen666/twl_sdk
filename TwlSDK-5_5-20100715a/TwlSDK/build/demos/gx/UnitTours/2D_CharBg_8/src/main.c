@@ -1,0 +1,200 @@
+/*---------------------------------------------------------------------------*
+  Project:  TwlSDK - GX - demos - UnitTours/2D_CharBg_8
+  File:     main.c
+
+  Copyright 2003-2008 Nintendo.  All rights reserved.
+
+  These coded instructions, statements, and computer programs contain
+  proprietary information of Nintendo of America Inc. and/or Nintendo
+  Company Ltd., and are protected by Federal copyright law.  They may
+  not be disclosed to third parties or copied or duplicated in any form,
+  in whole or in part, without the prior written consent of Nintendo.
+
+  $Date:: 2008-09-18#$
+  $Rev: 8573 $
+  $Author: okubata_ryoma $
+ *---------------------------------------------------------------------------*/
+
+//---------------------------------------------------------------------------
+// A sample that controls two built-in windows:
+//
+// USAGE:
+//   A + [UP, DOWN, LEFT, RIGHT]: Move the position of the window 1.
+//   B + [UP, DOWN, LEFT, RIGHT]: Move the position of the window 2.
+//   L + [UP, DOWN, LEFT, RIGHT]: Change the size of the window 1.
+//   R + [UP, DOWN, LEFT, RIGHT]: Change the size of the window 2.
+//
+// HOWTO:
+// 1. Set windows visible by GX_SetVisibleWnd().
+// 2. Specify planes inside a window by G2_SetWndxInsidePlane().
+// 3. Specify planes outside windows by G2_SetWndOutsidePlane().
+// 4. Set the size and the position of a window by G2_SetWnd0Position().
+//---------------------------------------------------------------------------
+
+#ifdef SDK_TWL
+#include <twl.h>
+#else
+#include <nitro.h>
+#endif
+#include "DEMO.h"
+#include "data.h"
+
+#ifdef SDK_TWL
+void TwlMain(void)
+#else
+void NitroMain(void)
+#endif
+{
+    int     win1_x = 0, win2_x = 50, size1_x = 60, size2_x = 110;
+    int     win1_y = 0, win2_y = 50, size1_y = 60, size2_y = 110;
+
+    //---------------------------------------------------------------------------
+    // Initialization:
+    // They enable IRQ interrupts, initialize VRAM, and set BG #0 for text mode.
+    //---------------------------------------------------------------------------
+    DEMOInitCommon();
+    DEMOInitVRAM();
+    DEMOInitDisplayBG0Only();
+
+    //---------------------------------------------------------------------------
+    // Transmitting the character data and the palette data
+    //---------------------------------------------------------------------------
+    GX_LoadBG0Char(d_natsunoumi_schDT, 0, sizeof(d_natsunoumi_schDT));
+    GX_LoadBGPltt(d_natsunoumi_sclDT, 0, sizeof(d_natsunoumi_sclDT));
+    GX_LoadBG0Scr(d_natsunoumi_sscDT, 0, sizeof(d_natsunoumi_sscDT));
+
+    GX_SetVisibleWnd(GX_WNDMASK_W0 | GX_WNDMASK_W1);    // makes window #0 and window #1 visible
+
+    //---------------------------------------------------------------------------
+    // Setting the visible plane inside each window
+    //---------------------------------------------------------------------------
+    G2_SetWnd0InsidePlane(GX_WND_PLANEMASK_BG0, // BG #0 is visible inside window #0
+                          FALSE        // you can limit the zone of alpha blending applied if TRUE
+        );
+
+    G2_SetWnd1InsidePlane(GX_WND_PLANEMASK_BG0, // BG #0 is visible inside window #1
+                          FALSE        // you can limit the zone of alpha blending applied if TRUE
+        );
+
+    //---------------------------------------------------------------------------
+    // Setting the visible plane outside the windows
+    //---------------------------------------------------------------------------
+    G2_SetWndOutsidePlane(GX_WND_PLANEMASK_NONE, FALSE);        // not visible
+
+    DEMOStartDisplay();
+    //---------------------------------------------------------------------------
+    // Main Loop
+    //---------------------------------------------------------------------------
+    while (1)
+    {
+        DEMOReadKey();
+
+        if (DEMO_IS_PRESS(PAD_BUTTON_A))
+        {
+            if (DEMO_IS_PRESS(PAD_KEY_UP))
+                win1_y--;
+            if (DEMO_IS_PRESS(PAD_KEY_DOWN))
+                win1_y++;
+            if (DEMO_IS_PRESS(PAD_KEY_RIGHT))
+                win1_x++;
+            if (DEMO_IS_PRESS(PAD_KEY_LEFT))
+                win1_x--;
+        }
+        else if (DEMO_IS_PRESS(PAD_BUTTON_B))
+        {
+            if (DEMO_IS_PRESS(PAD_KEY_UP))
+                win2_y--;
+            if (DEMO_IS_PRESS(PAD_KEY_DOWN))
+                win2_y++;
+            if (DEMO_IS_PRESS(PAD_KEY_RIGHT))
+                win2_x++;
+            if (DEMO_IS_PRESS(PAD_KEY_LEFT))
+                win2_x--;
+        }
+        else if (DEMO_IS_PRESS(PAD_BUTTON_L))
+        {
+            if (DEMO_IS_PRESS(PAD_KEY_UP))
+                size1_y--;
+            if (DEMO_IS_PRESS(PAD_KEY_DOWN))
+                size1_y++;
+            if (DEMO_IS_PRESS(PAD_KEY_RIGHT))
+                size1_x++;
+            if (DEMO_IS_PRESS(PAD_KEY_LEFT))
+                size1_x--;
+        }
+        else if (DEMO_IS_PRESS(PAD_BUTTON_R))
+        {
+            if (DEMO_IS_PRESS(PAD_KEY_UP))
+                size2_y--;
+            if (DEMO_IS_PRESS(PAD_KEY_DOWN))
+                size2_y++;
+            if (DEMO_IS_PRESS(PAD_KEY_RIGHT))
+                size2_x++;
+            if (DEMO_IS_PRESS(PAD_KEY_LEFT))
+                size2_x--;
+        }
+
+        if (size1_y > 192)
+            size1_y = 192;
+        if (size1_x > 255)
+            size1_x = 255;
+        if (size1_y < 0)
+            size1_y = 0;
+        if (size1_x < 0)
+            size1_x = 0;
+        if (size2_y > 192)
+            size2_y = 192;
+        if (size2_x > 255)
+            size2_x = 255;
+        if (size2_y < 0)
+            size2_y = 0;
+        if (size2_x < 0)
+            size2_x = 0;
+
+        if (win1_y < 0)
+            win1_y = 0;
+        if (win1_y + size1_y > 192)
+            win1_y = 192 - size1_y;
+        if (win2_y < 0)
+            win2_y = 0;
+        if (win2_y + size2_y > 192)
+            win2_y = 192 - size2_y;
+
+
+#ifdef SDK_AUTOTEST
+        GX_SetBankForLCDC(GX_VRAM_LCDC_C);
+        EXT_TestSetVRAMForScreenShot(GX_VRAM_LCDC_C);
+        EXT_TestScreenShot(100, 0x61C32E25);
+        EXT_TestTickCounter();
+#endif //SDK_AUTOTEST
+
+        OS_WaitVBlankIntr();           // Waiting the end of VBlank interrupt
+
+        //---------------------------------------------------------------------------
+        // Specifying the position of the window #0
+        //---------------------------------------------------------------------------
+        G2_SetWnd0Position(win1_x, win1_y,      // the upper left
+                           win1_x + size1_x, win1_y + size1_y   // the lower right
+            );
+
+        //---------------------------------------------------------------------------
+        // Specifying the position of the window #1
+        //---------------------------------------------------------------------------
+        G2_SetWnd1Position(win2_x, win2_y,      // the upper left
+                           win2_x + size2_x, win2_y + size2_y   // the lower right
+            );
+    }
+}
+
+//---------------------------------------------------------------------------
+// VBlank interrupt function:
+//
+// Interrupt handlers are registered on the interrupt table by OS_SetIRQFunction.
+// OS_EnableIrqMask selects IRQ interrupts to enable, and
+// OS_EnableIrq enables IRQ interrupts.
+// Notice that you have to call 'OS_SetIrqCheckFlag' to check a VBlank interrupt.
+//---------------------------------------------------------------------------
+void VBlankIntr(void)
+{
+    OS_SetIrqCheckFlag(OS_IE_V_BLANK); // checking VBlank interrupt
+}

@@ -1,0 +1,95 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>MI_DmaCopy</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">MI_DmaCopy* <IMG src="../../image/NTR.gif" align="middle"><IMG src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+<DL>
+<DD><CODE>#include &lt;nitro/mi.h&gt;</CODE><BR> <BR> <CODE>void MI_DmaCopy32( u32 dmaNo,<BR> const void* src,<BR> void* dest,<BR> u32 size );</CODE><BR> <BR> <CODE>void MI_DmaCopy32_SetUp( u32 dmaNo,<BR> const void* src,<BR> void* dest,<BR> u32 size );</CODE><BR> <BR> <CODE>void MI_DmaCopy16( u32 dmaNo,<BR> const void* src,<BR> void* dest,<BR> u32 size );</CODE><BR> <BR> <CODE>void MI_DmaCopy16_SetUp( u32 dmaNo,<BR> const void* src,<BR> void* dest,<BR> u32 size );</CODE><BR> <BR> <CODE>void MI_DmaCopy32Async( u32 dmaNo,<BR> const void* src,<BR> void* dest,<BR> u32 size,<BR> MIDmaCallback callback,<BR> void* arg );</CODE><BR> <BR> <CODE>void MI_DmaCopy32Async_SetUp( u32 dmaNo,<BR> const void* src,<BR> void* dest,<BR> u32 size,<BR> MIDmaCallback callback,<BR> void* arg );</CODE><BR> <BR> <CODE>void MI_DmaCopy16Async( u32 dmaNo,<BR> const void* src,<BR> void* dest,<BR> u32 size,<BR> MIDmaCallback callback,<BR> void* arg );</CODE><BR> <BR> <CODE>void MI_DmaCopy16Async_SetUp( u32 dmaNo,<BR> const void* src,<BR> void* dest,<BR> u32 size,<BR> MIDmaCallback callback,<BR> void* arg );</CODE><BR>
+</DL>
+<H2>Arguments</H2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="13%"><EM><STRONG>dmaNo</STRONG></EM></TD>
+<TD width="87%">DMA channel used.</TD>
+    </TR>
+    <TR>
+<TD width="13%"><EM><STRONG>src</STRONG></EM></TD>
+<TD width="87%">Transfer source address.</TD>
+    </TR>
+    <TR>
+<TD width="13%"><EM><STRONG>dest</STRONG></EM></TD>
+<TD width="87%">Transfer destination address.</TD>
+    </TR>
+    <TR>
+<TD><EM><STRONG>size</STRONG></EM></TD>
+<TD>Transfer size.</TD>
+    </TR>
+    <TR>
+<TD><EM><STRONG>callback</STRONG></EM></TD>
+<TD>Callback when DMA ends.</TD>
+    </TR>
+    <TR>
+<TD><EM><STRONG>arg</STRONG></EM></TD>
+<TD>Callback argument when DMA ends.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>Return Values</H2>
+<P>None.</P>
+<H2>Description</H2>
+<P>Uses DMA to copy.</P>
+<P>The <CODE>*_SetUp</CODE> functions only configure the given settings without actually performing DMA. To actually start DMA, call the <A href="MI_DmaRestart.html"><CODE>MI_DmaRestart</CODE></A> function.</P>
+<P>The <CODE>MI_DmaCopy16*</CODE> functions copy in 16-bit units. Both the transfer source address and the transfer destination address must be 2-byte aligned.</P>
+<P>The <CODE>MI_DmaCopy32*</CODE> functions copy in 32-bit units. Both the transfer source address and the transfer destination address must be 4-byte aligned.</P>
+<P><code>MI_DmaCopy16</code> and <code>MI_DmaCopy32</code> wait inside the function until DMA completes. The <code>MI_DmaCopy16Async*</code> and <code>MI_DmaCopy32Async*</code> functions call a callback function when DMA ends. The callback, <SPAN class="argument">callback</SPAN>, is a <code>MIDmaCallback</code> type (a <code>void</code> type function that takes one <code>void*</code> argument). The <SPAN class="argument">callback</SPAN> argument is called from the system DMA interrupt handler and therefore is called even if interrupts are prohibited.</P>
+<P>To achieve maximum functionality, you need to understand how to use Async-type APIs.</P>
+<P>The following is an example of a function name, <code>Call_BackGroundJob_with_DMA</code>, that is placed in TCM.</P>
+<P>The following processes are performed.</P>
+<UL>
+<LI>Data transfer using DMA in the function begins.
+<LI>When the DMA ends, <code>isDmaFinished</code> will be set to <code>TRUE</code> within <code>callback()</code>.
+<LI>It is possible to poll <CODE>isDmaFinished</CODE> as a completion flag and call the <CODE>BackGroundJob</CODE> function repeatedly until DMA completes.
+</UL>
+<P>However, you must consider the following to have this process proceed as intended.</P>
+<UL>
+<LI>If <code>isDmaFinished</code> is not in TCM, stalling occurs during the <code>while(!isDmaFinished)</code> check.
+<LI>Stalling occurs if the <code>BackGroundJob</code> function accesses the ARM bus.
+<LI>In many cases, the stack also needs to be allocated in TCM. (The stack is allocated in DTCM with the default SDK configuration.)
+<LI>If this function is located in main memory, stalling occurs when DMA starts. Therefore, the <code>BackGroundJob</code> function cannot be called continuously.
+</UL>
+<BLOCKQUOTE style="background-color: #ffffcc">
+<PRE><CODE>
+//--- Sample code (this code must be in ITCM)
+void Call_BackGroundJob_with_DMA(void)
+{
+　　vu32 isDmaFinished = FALSE;
+　　　　：
+　　MI_DmaCopy32Async( dmaNo, srcArea, destArea, dataSize, callback, (void*)&isDmaFinished );
+　　while( !isDmaFinished ){ BackGroundJob(); }
+　　　　：
+}
+
+void callback( void* arg )
+{
+　 　*(vu32*)arg = TRUE;
+}</CODE></PRE>
+</BLOCKQUOTE>
+<H3><br> DMA Controller Bugs</H3>
+<P>The old DMAC exposed a hardware bug. With multiple DMAs and varying conditions, illegal read access results if the source address of DMA0 is of the form 0xmmnnnnnn (where 0xmm = 0x04 or 0x08 through 0xff, and nnnnnn = anything). The same restriction applies to the source address after the transfer is complete. For this reason, if the source address or source address when transfer terminates fall within this address range, execution stops on an <CODE><A href="../../os/debug/OS_Panic.html">OS_Panic</A></CODE> function inside the library.</P>
+<P>With the TWL, however, you can select to correct the problem with the old DMA circuit by using the <CODE><A href="../../scfg/scfg/SCFG_SetDmacFixed.html">SCFG_SetDmaFixed</A></CODE> function. No address check is performed if you select to correct the problem.</P>
+<H2>Internal Operation</H2>
+<P>Uses the following IO registers: DMA<i>n</i> source register (0x40000B0 + 12<i>n</i>), DMA<i>n</i> destination register (0x40000B4 + 12<i>n</i>), and DMA<i>n</i> control register (0x40000B8 + 12<i>n</i>). (<i>n</i> is the DMA channel used.))</P>
+<H2>See Also</H2>
+<P><A href="../memory/MI_CpuCopy.html"><CODE>MI_CpuCopy*</CODE></A><BR> <A href="MI_DmaClear.html"><CODE>MI_DmaClear*</CODE></A><BR> <A href="MI_DmaFill.html"><CODE>MI_DmaFill*</CODE></A><BR> <A href="MI_DmaRestart.html"><CODE>MI_DmaRestart</CODE></A><BR> <A href="MI_DmaSend.html"><CODE>MI_DmaSend*</CODE></A></P>
+<H2>Revision History</H2>
+<P>2009/11/20 Added a description of a bug in the DMA controller.<BR>2007/10/31 Added <CODE>_SetUp()</CODE>.<BR>2005/03/08 Standardized the notation used for the term &quot;interrupt&quot; in Japanese.<BR>2004/12/22 Added a description of calling the callback.<BR>2005/03/08 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

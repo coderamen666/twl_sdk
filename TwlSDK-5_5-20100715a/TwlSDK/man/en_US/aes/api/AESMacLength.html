@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>AESMacLength</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">AESMacLength <IMG src="../../image/TWL.gif" width="23" height="12" border="0" align="middle"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+  <pre><CODE>#include &lt;twl/aes.h&gt;
+
+typedef enum AESMacLength
+{
+    AES_MAC_LENGTH_4  = 1,      // 4 byte
+    AES_MAC_LENGTH_6  = 2,
+    AES_MAC_LENGTH_8  = 3,
+    AES_MAC_LENGTH_10 = 4,
+    AES_MAC_LENGTH_12 = 5,
+    AES_MAC_LENGTH_14 = 6,
+    AES_MAC_LENGTH_16 = 7,      // 16 byte
+    AES_MAX_LENGTH_MAX
+}
+AESMacLength;
+</CODE></pre><br>
+</dd>
+</dl>
+
+<H2>Members</H2>
+<TABLE border="1" width="100%" class="members">
+  <TBODY>
+    <TR>
+      <TH>AES_MAC_LENGTH_4</TH>
+      <TD>Specifies 4 bytes as the length of the MAC.</TD>
+    </TR>
+    <TR>
+      <TH>AES_MAC_LENGTH_6</TH>
+      <TD>Specifies 6 bytes as the length of the MAC.</TD>
+    </TR>
+    <TR>
+      <TH>AES_MAC_LENGTH_8</TH>
+      <TD>Specifies 8 bytes as the length of the MAC.</TD>
+    </TR>
+    <TR>
+      <TH>AES_MAC_LENGTH_10</TH>
+      <TD>Specifies 10 bytes as the length of the MAC.</TD>
+    </TR>
+    <TR>
+      <TH>AES_MAC_LENGTH_12</TH>
+      <TD>Specifies 12 bytes as the length of the MAC.</TD>
+    </TR>
+    <TR>
+      <TH>AES_MAC_LENGTH_14</TH>
+      <TD>Specifies 14 bytes as the length of the MAC.</TD>
+    </TR>
+    <TR>
+      <TH>AES_MAC_LENGTH_16</TH>
+      <TD>Specifies 16 bytes as the length of the MAC.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<H2>Description</H2>
+<P>
+Enumerated type for the byte length of the MAC (Message Authentication Code) used in CCM mode. We recommend using the longest length possible.
+</P>
+
+<H2>Revision History</H2>
+<P>
+2007/12/25 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

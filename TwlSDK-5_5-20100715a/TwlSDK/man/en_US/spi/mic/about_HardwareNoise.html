@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>Hardware Noise in Microphone Input: Overview</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">Hardware Noise in Microphone Input: Overview <IMG src="../../image/TWL.gif"></H1>
+<P>The explanation on this page relates to TWL hardware behavior.</P>
+<H2>Description</H2>
+<P>It has been confirmed that slight hardware noise at approximately 8 kHz will be mixed with microphone input on the TWL system. To remove this hardware noise and achieve clearer microphone input, use the <A href="../../snd/sndex/SNDEX_SetIirFilter.html"><CODE>SNDEX_SetIirFilter[Async]</CODE></A> functions to implement an 8 kHz BEF filter. This type of filter will damp a specific frequency component.
+</P>
+
+<H2>Implementation</H2>
+<P>We recommend that you pass the following parameters (<A href="../../snd/sndex/SNDEXIirFilterParam.html"><CODE>SNDEXIirFilterParam</CODE></A> structure) to one of the <A href="../../snd/sndex/SNDEX_SetIirFilter.html"><CODE>SNDEX_SetIirFilter[Async]</CODE></A> functions.</P>
+<UL>
+	<LI>For a Sampling Frequency of 32.73 kHz</LI>
+	<UL>
+		<LI>n0: 6B36</LI>
+		<LI>n1: FC2D</LI>
+		<LI>n2: 6B36</LI>
+		<LI>d1: 03D3</LI>
+		<LI>d2: A994</LI>
+	</UL>
+	<LI>For a Sampling Frequency of 47.61 kHz</LI>
+	<UL>
+		<LI>n0: 7108</LI>
+		<LI>n1: C7D7</LI>
+		<LI>n2: 7108</LI>
+		<LI>d1: 3829</LI>
+		<LI>d2: 9DF0</LI>
+	</UL>
+</UL>
+
+<H2>Notes</H2>
+<P>This filter can only be implemented in CODEC-TWL mode. Implementing the BEF filter will also damp normal 8 kHz components that are not noise.</P>
+
+<H2>Revision History</H2>
+<P>2008/09/01 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

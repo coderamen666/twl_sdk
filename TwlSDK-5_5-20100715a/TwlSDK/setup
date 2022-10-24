@@ -1,0 +1,20 @@
+#!/usr/bin/bash
+
+#----------------------------------------------------------------
+# This script is not for the direct execution.
+# Execute 'source ./setup'.
+#----------------------------------------------------------------
+
+tmp=`pwd`
+export TWLSDK_ROOT=`cygpath -m $tmp`
+echo "Set TWLSDK_ROOT: $TWLSDK_ROOT"
+
+#---- CWFOLDER_TWL is borrowed from CWFOLDER_NITRO temporally
+if [ ! -e "$CWFOLDER_TWL" ]; then
+if [ -e "$CWFOLDER_NITRO" ]; then
+export CWFOLDER_TWL=$CWFOLDER_NITRO
+echo "Set CWFOLDER_TWL: $CWFOLDER_TWL"
+else
+echo "***Error: Cannot set CodeWarrior folder for TWL."
+fi
+fi

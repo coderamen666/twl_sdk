@@ -1,0 +1,146 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>Mutual Exclusion (Mutex): Overview </TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">Mutual Exclusion (Mutex): Overview</H1>
+<P>A mutex (<I>mutual exclusion</I> service) is a mechanism to control thread execution. This mechanism can prevent multiple threads from executing simultaneously in particular places in the program and from simultaneously accessing data, registers, and other resources.</P>
+<H2>Initializing Mutexes</H2>
+<P>A mutex is initialized with the <a href="OS_InitMutex.html"><CODE>OS_InitMutex</CODE></a> function. One mutex can be configured for each OSMutex structure object.</P>
+<H2>Mutex Structure</H2>
+<P>The <CODE>OSMutex</CODE> structure is as follows.</P>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+      <TD>
+<pre>struct OSMutex
+{
+    OSThreadQueue   queue;
+    OSThread*       thread; // the current owner
+    s32             count;  // lock count (notice: use upper 1 byte as mutex type)
+
+    OSMutex*        prev;   // link for OSThread.queueMutex
+    OSMutex*        next;   // link for OSThread.queueMutex
+};</pre>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P><BR>The members <CODE>prev</CODE> and <CODE>next</CODE> manage mutex lists, but <CODE>queue</CODE>, <CODE>thread</CODE>, and <CODE>count</CODE> compose the actual mutex synchronization feature.</P>
+<P><code>queue</code> is the thread queue where the thread that is being made to wait by mutex is registered.</P>
+<P><CODE>thread</CODE> is the member that registers the current thread that is using this mutex to block other threads.</P>
+<P><code>count</code> is the member that manages the lock nest for this mutex. It counts the number of times the lock has been set. However, the upper 1 byte is used to indicate the mutex type. The remaining 24 bits are used for the count value. The type is included in <CODE>count</CODE> instead of setting it to a separate member in order to retain compatibility with previous versions of mutex. (<B>Note:</B> Because the emphasis is on speed, the upper limit of the count value is not checked. One mutex can use 24 bits, which is equal to roughly 1.667 million nested levels. That limit will probably never be reached.)</P>
+<P>The following section explains mutex types.</P>
+<H2>Mutex Types</H2>
+<P>The mutex types are STD, R, and W. (These are defined in the header as <CODE>OS_MUTEX_TYPE_STD</CODE> and so on. In the following explanation, they are referred to as STD, R, and W.) If no type is specified, <I>NONE</I> is used.</P>
+<P>For normal thread synchronization, an STD mutex is used. With this type of mutex, other threads are not permitted unconditional entry. </P>
+<P>The R and W types are called read-lock and write-lock mutexes.</P>
+<P>The read-lock mutex does not allow other threads to perform write or standard mutex locks. This type can be used when data is read. Multiple threads can simultaneously read the data without problem, but a data-writing process at this point could compromise the data consistency.</P>
+<P>The write-lock mutex can be used when a thread is writing data. The data to be written cannot come from multiple threads. The W mutex does not permit another thread to read the data during the writing process. A W mutex has lock policy similar to that of a STD mutex. They are not exactly the same because there are functions to change between read-lock and write-lock mutexes.</P>
+<P>An R mutex can change to a W type, and a W mutex can change an R type, provided there is only one level of locking by the thread with the mutex. In the following example, after data is written, the process immediately changes to reading without releasing the lock (thus permitting reading by another thread).</P>
+
+<BLOCKQUOTE style="background-color:#ffffcc"><PRE>OSMutex mutex;
+OS_InitMutex( &amp;mutex );
+
+<B>void write_and_read()</B>
+{
+ OS_LockMutexW( &amp;mutex ); <FONT color="#ff0000">&lt;- write lock</FONT> 
+ writeData();
+ OS_LockMutexFromWToR( &amp;mutex ); <FONT color="#ff0000">&lt;- Change from write lock to read lock</FONT>
+ readData();
+ OS_UnlockMutexR(); <FONT color="#ff0000">&lt;- Unlock with a read lock</FONT>
+}
+
+<B>void read()</B>
+{
+ OS_LockMutexR( &amp;mutex );
+ readData();
+ OS_UnlockMutexR( &amp;mutex );
+}
+
+
+<B>thread1()</B>
+{
+ write_and_read();
+}
+
+<B>thread2()</B>
+{
+ read();
+}
+</PRE></BLOCKQUOTE>
+
+<H2>Mutex Operations</H2>
+<P>The following operations can be performed on a mutex after it has been initialized.</P>
+<P> - Lock the mutex (<CODE>Lock</CODE> functions):<BR>
+<A href="OS_LockMutex.html"><CODE>OS_LockMutex</CODE></A>, <A href="OS_LockMutexRW.html"><CODE>OS_LockMutexR</CODE></A>, <A href="OS_LockMutexRW.html"><CODE>OS_LockMutexW</CODE></A></P>
+<P> - Unlock the mutex (<CODE>Unlock</CODE> functions):<BR>
+<A href="OS_UnlockMutex.html"><CODE>OS_UnlockMutex</CODE></A>, <A href="OS_UnlockMutexRW.html"><CODE>OS_UnlockMutexR</CODE></A>, <A href="OS_UnlockMutexRW.html"><CODE>OS_UnlockMutexW</CODE></A>, <A href="OS_UnlockMutexRW.html"><CODE>OS_UnlockMutexRW</CODE></A></P>
+<P> - Attempt to lock the mutex (<CODE>TryLock</CODE> functions):<BR>
+<A href="OS_TryLockMutex.html"><CODE>OS_TryLockMutex</CODE></A>, <A href="OS_TryLockMutexRW.html"><CODE>OS_TryLockMutexR</CODE></A>, <A href="OS_TryLockMutexRW.html"><CODE>OS_TryLockMutexW</CODE></A></P>
+<P>  </P>
+<P>When you lock a mutex, other threads are blocked from locking that mutex. However, read-lock mutexes do not block each other. A blocked thread waits for the mutex to be unlocked.</P>
+<P><CODE>Lock</CODE> functions wait until the lock is completed, but the <CODE>TryLock</CODE> functions return immediately, regardless of whether the mutex can be locked. You can determine from the returned value whether the lock was successful.</P>
+<P>The following operations are available for read-lock and  write-lock mutexes.</P>
+<P> - Change the mutex type: <BR>
+<A href="OS_LockMutexFromToRW.html"><CODE>OS_LockMutexFromRToW</CODE></A>, <A href="OS_LockMutexFromToRW.html"><CODE>OS_LockMutexFromWToR</CODE></A></P>
+<P> - Attempt to change the mutex type: <BR>
+<A href="OS_TryLockMutexFromToRW.html"><CODE>OS_TryLockMutexFromRToW</CODE></A>, <A href="OS_TryLockMutexFromToRW.html"><CODE>OS_TryLockMutexFromWToR</CODE></A></P>
+<P> </P>
+<H2>Internal Operations: Locking a Mutex</H2>
+<P>This section explains the internal operations when a mutex is locked.</P>
+<P>When the mutex is initialized by the <A href="OS_InitMutex.html"><CODE>OS_InitMutex</CODE></A> function, the owner of the <CODE>OSMutex</CODE> thread, the count value, the thread type, and the thread queue have the values shown in the following table. (The <CODE>count</CODE> member of <CODE>OSMutex</CODE> contains two pieces of information: the count value and the mutex type. This information is shown as <I>count</I> and <I>type</I>.)</P>
+<BLOCKQUOTE><IMG src="image_initial_member.gif" border="0"></BLOCKQUOTE>
+<P>This section explains locking with a standard mutex, not with a read-lock or write-lock mutex.</P>
+<P>If the <a href="OS_LockMutex.html"><CODE>OS_LockMutex</CODE></a> function is called in a program and the designated mutex is not being used in a lock at that point in time, <code>OS_LockMutex</code> records and locks the current thread.</P>
+<P>If a <a href="OS_LockMutex.html"><CODE>OS_LockMutex</CODE></a> call occurs for an already locked mutex, the mutex count is incremented, and the mutex is bypassed if it is being locked by the same thread as the current thread. If the thread is not the same, it goes into a pause state until the lock is released. Thread rescheduling occurs at this time.</P>
+<P>For example, consider the figure below when there is a <code>Mutex1</code> and a program that uses it for locking.</P>
+<BLOCKQUOTE><IMG src="image_mutex_l1.gif" border="0"></BLOCKQUOTE>
+<P><code>thread1</code> attempts to execute this program. <CODE>thread1</CODE> executes the mutex lock function <A href="OS_LockMutex.html"><CODE>OS_LockMutex( &amp;Mutex1 )</CODE></A>, but because <CODE>Mutex1</CODE> has not yet been used (determined to be true if its owner thread is <CODE>NULL</CODE>), <CODE>thread1</CODE> is recorded as the <CODE>Mutex1</CODE> owner thread, the count is set to <CODE>1</CODE>, and the program returns from the lock function.</P>
+<BLOCKQUOTE><IMG src="image_mutex_l2.gif" border="0"></BLOCKQUOTE>
+<P>Next, consider what happens when a separate thread, <code>thread2</code>, attempts to execute the same program. <CODE>thread2</CODE> runs <A href="OS_LockMutex.html"><CODE>OS_LockMutex( &amp;Mutex1 )</CODE></A>, but <CODE>Mutex1</CODE> is already being used in a lock. Because <code>thread2</code> is not the <code>mutex1</code> owner thread, <code>thread2</code> cannot proceed any further. As a result, <code>thread2</code> goes into a pause state. At this point, <code>thread2</code> is registered inside the <code>mutex1</code> thread queue as waiting for this lock to be released.<BLOCKQUOTE><IMG src="image_mutex_l3.gif" border="0"></BLOCKQUOTE>
+<P>Now consider a case where <CODE>thread1</CODE> once again runs <A href="OS_LockMutex.html"><CODE>OSLockMutex( &amp;Mutex1 )</CODE></A> (on the same line or a different line). <code>mutex1</code> is already being used in a lock, but the <code>mutex1</code> owner thread is the same as the current thread (<code>thread1</code>), so it can be bypassed. When this happens, the <code>mutex1</code> count increments.<BLOCKQUOTE><IMG src="image_mutex_l4.gif" border="0"></BLOCKQUOTE>
+<P>There are also times when multiple threads are registered in a single mutex thread queue. These threads are all blocked by that mutex. However, it is not necessarily the case that all threads are in a pause state on the same line. If the mutex is unlocked, all registered threads go into an executable state.<BLOCKQUOTE><IMG src="image_mutex_l5.gif" border="0"></BLOCKQUOTE>
+<H2>Internal Operations: Unlocking a Mutex</H2>
+<P>This section explains the internal operations when a mutex lock is being released (unlocked). Here, too, the explanation is in regards to a normal mutex and not a read-lock or write-lock mutex.</P>
+<P>The function for unlocking with mutex is <a href="OS_UnlockMutex.html"><CODE>OS_UnlockMutex</CODE></a>. However, calling this function does not invariably unlock the mutex. Only when the <CODE>count</CODE> value inside the mutex has decremented to 0 is the lock released. If the value is not zero, <CODE>count</CODE> is simply decremented, and control returns from the function.</P>
+<P>For example, consider the case in the figure below where <code>thread1</code> runs <A href="OS_UnlockMutex.html"><CODE>OS_UnlockMutex( &amp;Mutex1 )</CODE></A> while using <code>Mutex1</code> to block <code>thread2</code>.
+<BLOCKQUOTE><IMG src="image_mutex_u1.gif" border="0"></BLOCKQUOTE>
+<P>At this time, the count has been decremented to zero, so the thread registered in the thread queue is put into an executable state and is rescheduled. In this case, <code>thread2</code> goes into an executable state.</P>
+<BLOCKQUOTE><IMG src="image_mutex_u2.gif" border="0"></BLOCKQUOTE>
+<P>If <code>thread2</code> has higher priority than <code>thread1</code>, the threads are switched. In other words, <code>thread1</code> pauses, and <code>thread2</code> executes. In attempting to execute <A href="OS_LockMutex.html"><CODE>OS_LockMutex( &amp;Mutex1 )</CODE></A>, <code>thread2</code> was blocked by <code>thread1</code>. But this time, because <code>Mutex1</code> is released and initialized, <code>thread2</code> uses <code>Mutex1</code> to block the other threads.<BLOCKQUOTE><IMG src="image_mutex_u3.gif" border="0"><BR>
+</BLOCKQUOTE>
+<P>When <code>thread1</code> runs the <a href="OS_UnlockMutex.html"><CODE>OS_UnlockMutex</CODE></a> function and the count value is not zero after being decremented, it can be considered that there are other locks that have not been unlocked, and this can be bypassed. If this is the case, no thread rescheduling occurs. In this way, mutex locks can take on a nested structure.<BLOCKQUOTE><IMG src="image_mutex_u4.gif" border="0"></BLOCKQUOTE>
+<H2>Attempting to Lock a Mutex</H2>
+<P>Until there is a lock, <a href="OS_LockMutex.html"><CODE>OS_LockMutex</CODE></a> does not return from the function. On the other hand, <a href="OS_TryLockMutex.html"><CODE>OS_TryLockMutex</CODE></a> is a function that locks if it can, but that returns immediately if it cannot lock.
+
+
+
+
+<P>With the <a href="OS_TryLockMutex.html"><CODE>OS_TryLockMutex</CODE></a> function, you can learn from its return value whether the lock was a success.
+
+
+
+
+<P>These other try functions have been prepared in the same way.<P> - For <A href="OS_LockMutexRW.html"><CODE>OS_LockMutexR</CODE></A>, there is the <A href="OS_TryLockMutexRW.html"><CODE>OS_TryLockMutexR</CODE></A> function 
+<P> - For <A href="OS_LockMutexRW.html"><CODE>OS_LockMutexW</CODE></A>, there is the <A href="OS_TryLockMutexRW.html"><CODE>OS_TryLockMutexW</CODE></A> function
+<P> - For <A href="OS_LockMutexFromToRW.html"><CODE>OS_LockMutexFromRToW</CODE></A>, there is the <A href="OS_TryLockMutexFromToRW.html"><CODE>OS_TryLockMutexFromRToW</CODE></A> function
+
+<P> - For <A href="OS_LockMutexFromToRW.html"><CODE>OS_LockMutexFromWToR</CODE></A>, there is the <A href="OS_TryLockMutexFromToRW.html"><CODE>OS_TryLockMutexFromWToR</CODE></A> function
+
+<H2>When the Thread Ends</H2>
+<P>When the thread ends, every mutex locking that thread is unlocked. This is true not only for normal mutexes, but also for read-lock and write-lock mutexes.</P>
+<H2>Warning Messages</H2>
+<P>When a function specifies a pointer to a mutex that is <CODE>NULL</CODE> or the call is clearly unusual in some other way, the DEBUG build catches on the <A href="../debug/SDK_ASSERT.html"><CODE>SDK_ASSERT</CODE></A> function. If an unlock function is called for a mutex that has not been locked, &quot;<FONT color="#ff0000">Illegal unlock mutex</FONT>&quot; appears. If this message appears, verify that the lock and  unlock levels accurately correspond. Note that this message is output by the <A href="../debug/OS_TWarning.html"><CODE>SDK_TWarning</CODE></A> function, so the program does not stop.</P>
+<H2>See Also</H2>
+<P><CODE><A href="../list_os.html#Mutex">Overview of OS Functions (Exclusion Control)<BR></A></CODE></P>
+<H2>Revision History</H2>
+<P>2009/03/11 Standardized terminology for &quot;lock&quot; and &quot;block.&quot; Revised some of the text in the figures. <BR>2008/12/17 Revised contents to take read- and write-lock into account.<BR>
+2004/12/14 Revised terminology and word endings. <BR>2004/11/11 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

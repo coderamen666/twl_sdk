@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>RTC_SetTimeAsync</title>
+<LINK rel="stylesheet" href="../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">RTC_SetTimeAsync <img src="../image/NTR.gif" align="middle"><img src="../image/TWL.gif" align="middle"></h1>
+
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/rtc.h&gt;</CODE><BR>
+  <PRE><CODE><A href="RTCResult.html">RTCResult</A> RTC_SetTimeAsync(
+            const <A href="RTCTime.html">RTCTime</A>*    time,
+            <A href="RTCCallback.html">RTCCallback</A>       callback,
+            void*             arg );</CODE></PRE>
+  </dd>
+
+</dl><h2>Arguments</h2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="300"><em><strong><font face="Courier New">time</font></strong></em></TD>
+<TD width="700">Pointer to the buffer storing time data.</TD>
+    </TR>
+    <TR>
+<TD><em><strong><font face="Courier New">callback</font></strong></em></TD>
+<TD>Pointer to the callback function. This callback is called from inside the interrupt handler.</TD>
+    </TR>
+    <TR>
+<TD><em><strong><font face="Courier New">arg</font></strong></em></TD>
+<TD>Argument to pass to the callback function.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<h2>Return Values</h2>
+<P>If the request succeeds, it returns 0. If the request fails, it returns a numeric value other than 0.</P>
+
+<H2>Description</H2>
+<P>Asynchronously writes time data to the real-time clock. It sends time data to ARM7 and returns the process result without waiting for a response from the processor. To get the result from the processor, you must use the <SPAN class="argument">result</SPAN> argument. If this function fails, no operation is performed, and no user callback function is called.</P>
+
+<h2>Note</h2>
+<P><FONT color=red>Do not specify nonexistent hour:minute:second times in the time data to write. <BR>Also, the values in the buffer specified by the <SPAN class="argument">time</SPAN> argument are referenced in a manner that is not synchronous with this function. Do not modify the buffer contents until a user callback function confirms the completion of the asynchronous process.</FONT><BR><FONT color=red>Because it is prohibited for applications to change the system time, use this API only for debugging during development.<br /> In FINALROM builds, this function always fails and <CODE>RTC_RESULT_INVALID_COMMAND</CODE> is returned.</FONT></P>
+
+<h2>See Also</h2>
+<P><a href="RTC_SetTime.html"><CODE>RTC_SetTime</CODE></a><br> <a href="RTC_GetTime.html"><CODE>RTC_GetTime</CODE></a><br> <a href="RTC_GetTimeAsync.html"><CODE>RTC_GetTimeAsync</CODE></a><br> <a href="RTCResult.html"><CODE>RTCResult</CODE></a><br> <a href="RTCTime.html"><CODE>RTCTime</CODE></a><br> <a href="RTCCallback.html"><CODE>RTCCallback</CODE></a></P>
+
+<H2>Revision History</H2>
+<P>
+2009/07/29 Explained that the time setting command always fails in FINALROM builds.<br />
+ 2005/06/27 Added additional text indicating that callbacks are called from interrupt handlers. <br> 2004/07/01 Updated descriptions to standardize the time notation.<BR> 2004/05/18 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

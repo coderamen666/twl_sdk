@@ -1,0 +1,132 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>WXCStateCode</title>
+<LINK rel="stylesheet" href="../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">WXCStateCode <img src="../image/NTR.gif"align="middle"><img src="../image/TWL.gif" align="middle"></h1>
+<h2>Definition</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/wxc.h&gt;</CODE><BR> <BR>
+<PRE>
+typedef enum
+{
+    <font color="#008000">/* Internal state that can be obtained with the WXC_GetStatus function */</font>
+    WXC_STATE_END,            /* State before WXC library initialization */
+    WXC_STATE_ENDING,         /* After WXC_End function and during end processing */
+    WXC_STATE_READY,         /* After WXC_Init function and before the WXC_Start function */
+    WXC_STATE_ACTIVE,         /* After the WXC_Start function and wireless is enabled */
+
+    <font color="#008000">/* Internal event notification sent to system callback */</font>
+    WXC_STATE_CONNECTED,      /* Connection notification (argument is pointer to WXCUserInfo structure that stores the information of the connection partner) */
+    WXC_STATE_EXCHANGE_DONE,  /* Data exchange completed (The argument is receive buffer specified by user) */
+    WXC_STATE_BEACON_RECV     /* Beacon receive (Argument is WXCBeaconFoundCallback structure) */
+}
+WXCStateCode;
+</PRE>
+</CODE><br> <br>
+  </dd>
+</dl>
+
+<H2>Description</H2>
+<P>This shows the enumerator constants that indicate WXC library internal states. The meaning of each enumerator constant is shown in the following table: <br><br>Value obtained with the <A href="common/WXC_GetStateCode.html">WXC_GetStateCode</A> function
+<TABLE border="0">
+  <TBODY>
+
+    <TR>
+<TD>Value</TD>
+<TD>State</TD>
+	  <TD>System callback specified with the <A href="common/WXC_Init.html">WXC_Init</A> function</td>
+    </TR>
+
+    <TR>
+<TD>WXC_STATE_END</TD>
+<TD>This is the state before the initialization of the WXC library or after the completion of the end process function, <A href="common/WXC_End.html">WXC_End</A>.
+	  </TD>
+	  <td>Notified when end processing by the <A href="common/WXC_End.html">WXC_End</A> function is completed. <br>A pointer to the work memory allocated with the <A href="common/WXC_Init.html">WXC_Init</A> function is passed as an argument. <br>This memory will have already been released to the user application at the point when this callback occurs.</td>
+    </TR>
+
+    <TR>
+<TD>WXC_STATE_ENDING</TD>
+<TD>State in which the <A href="common/WXC_End.html">WXC_End</A> function is called and the wireless end process is performed.
+	  </TD>
+	  <td>Notified immediately from inside the <A href="common/WXC_End.html">WXC_End</A> function call. <br>NULL is always passed to an argument.</td>
+    </TR>
+
+    <TR>
+<TD>WXC_STATE_READY</TD>
+<TD>State after the <A href="common/WXC_Init.html">WXC_Init</A> function is called and before the <A href="common/WXC_Start.html">WXC_Start</A> function is called.
+	  </TD>
+	  <td>Notified from inside the <A href="common/WXC_Init.html">WXC_Init</A> function call or when the state transition process by <A href="common/WXC_Stop.html">WXC_Stop</A> function has completed. <br>NULL is always passed to an argument.</td>
+    </TR>
+
+    <TR>
+<TD>WXC_STATE_ACTIVE</TD>
+<TD>State in which internal wireless is active after a call of the <A href="common/WXC_Start.html">WXC_Start</A> function.
+	  </TD>
+	  <td>Notified immediately from inside the <A href="common/WXC_Start.html">WXC_Start</A> function call. <br>NULL is always passed to an argument.</td>
+    </TR>
+
+  </TBODY>
+</TABLE>
+
+<BR>Value communicated only to the system callback specified with <A href="common/WXC_Init.html">WXC_Init</A> function.
+
+<TABLE border="0">
+  <TBODY>
+
+    <TR>
+<TD>Value</TD>
+	  <TD>System callback specified with the <A href="common/WXC_Init.html">WXC_Init</A> function</td>
+    </TR>
+
+    <TR>
+<TD>WXC_STATE_CONNECTED</TD>
+	  <td>When started as a parent, notified each time a child is connected. <br>A pointer to the <A href="WXCUserInfo.html">WXCUserInfo</A> structure is passed as an argument.</td>
+    </TR>
+
+    <TR>
+<TD>WXC_STATE_BEACON_RECV</TD>
+	  <td>Notified each time a beacon from a parent that is a possible connection target is detected. <br>A pointer to the <A href="WXCBeaconFoundCallback.html">WXCBeaconFoundCallback</A> structure is passed as an argument.</td>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<BR>Value communicated only to the user callback specified with <A href="common/WXC_RegisterCommonData.html">WXC_RegisterCommonData</A> function.
+
+<TABLE border="0">
+  <TBODY>
+
+    <TR>
+<TD>Value</TD>
+	  <TD>User callback specified with the <A href="common/WXC_RegisterCommonData.html">WXC_RegisterCommonData</A> function</td>
+    </TR>
+
+    <TR>
+<TD>WXC_STATE_EXCHANGE_DONE</TD>
+	  <td>Notified each time data exchange completes.<br>The passed argument is a pointer to the <A href="WXCBlockDataFormat.html">WXCBlockDataFormat</A> structure that holds the received data.</td>
+    </TR>
+
+  </TBODY>
+</TABLE>
+
+<BR>
+</P>
+<h2>See Also</h2>
+<p><CODE><A href="WXCCallback.html">WXCCallback</A><BR><A href="WXCBeaconFoundCallback.html">WXCBeaconFoundCallback</A><BR><A href="WXCUserInfo.html">WXCUserInfo</A><br> <A href="common/WXC_Init.html">WXC_Init</A><BR><A href="common/WXC_Start.html">WXC_Start</A><BR><A href="common/WXC_End.html">WXC_End</A><BR><A href="common/WXC_GetStateCode.html">WXC_GetStateCode</A></CODE></p>
+
+<H2>Revision History</H2>
+<P>
+2006/02/20 Added descriptions for <CODE>WXC_STATE_EXCHANGE_DONE</CODE>. <br>2005/11/04 Added descriptions for <CODE>WXC_STATE_BEACON_RECV</CODE>. <br>2005/10/11 Modified descriptions for <CODE>WXC_STATE_READY</CODE>. <br>2005/08/04 Initial version.<br>
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

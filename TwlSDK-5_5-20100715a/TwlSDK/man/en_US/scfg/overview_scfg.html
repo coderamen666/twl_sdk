@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META http-equiv="Content-Style-Type" content="text/css">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<BASE target="main">
+<TITLE>System Configuration</TITLE>
+<LINK rel="stylesheet" href="../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1>System Configuration (SCFG) Overview <IMG src="../image/TWL.gif" width="24" height="12" border="0" align="middle"></H1>
+<P>The TWL system has features that can be configured for each hardware block. You can control the existence of a clock supply, compatibility with the Nintendo DS system, and other settings.</P>
+<P>Because NITRO hardware does not include a system configuration (SCFG) block, these functions are generally <FONT color="#ff0000">assumed to be called to run on TWL hardware</FONT>. However, the <A href="scfg/SCFG_GetCpuSpeed.html"><CODE>SCFG_GetCpuSpeed</CODE></A> function has been designed to return the correct value regardless of the environment in which it is called.</P>
+<H2>System ROM Settings</H2>
+
+<BLOCKQUOTE>The TWL system provides 64 KB of ARM9 system ROM for the TWL CPU and 8 KB of ARM9 system ROM for the NITRO CPU. This is switched by the ARM7. The ARM9 can determine which of these settings is in effect.</BLOCKQUOTE>
+<BLOCKQUOTE>This is obtained with the <A href="scfg/SCFG_GetSystemRomType.html" target="_self"><CODE>SCFG_GetSystemRomType</CODE></A> function.</BLOCKQUOTE>
+<H2>Secure ROM Settings</H2>
+<BLOCKQUOTE>You can determine if ARM9 secure ROM is accessible from AHB. This is configured by the ARM7.</BLOCKQUOTE>
+<BLOCKQUOTE>This is obtained with the <A href="scfg/SCFG_IsSecureRomAccessible.html" target="_self"><CODE>SCFG_IsSecureRomAccessible</CODE></A> function.</BLOCKQUOTE>
+<H2>Clock Control for New Blocks</H2>
+<P>The TWL system can control the clock supply to the blocks below.</P>
+<P><B>Camera CAM_CKI</B></P>
+<BLOCKQUOTE>This is set by the <A href="scfg/SCFG_SetCameraCKIClock.html" target="_self"><CODE>SCFG_SetCameraCKIClock</CODE></A> function, and its state is obtained with the <A href="scfg/SCFG_IsCameraCKIClockEnable.html" target="_self"><CODE>SCFG_IsCameraCKIClockEnable</CODE></A> function.</BLOCKQUOTE>
+<P><B>New WRAM (WRAM-A/B/C) Blocks</B></P>
+<BLOCKQUOTE>The <A href="scfg/SCFG_IsClockSuppliedToWram.html" target="_self"><CODE>SCFG_IsClockSuppliedToWram</CODE></A> function gets the state.<BR>This setting is configured by the ARM7 and fixed at startup and cannot be changed.</BLOCKQUOTE>
+<P><B>Camera I/F Block</B></P>
+<BLOCKQUOTE>This is set by the <A href="scfg/SCFG_SupplyClockToCamera.html" target="_self"><CODE>SCFG_SupplyClockToCamera</CODE></A> function, and its state is obtained with the <A href="scfg/SCFG_IsClockSuppliedToCamera.html" target="_self"><CODE>SCFG_IsClockSuppliedToCamera</CODE></A> function.</BLOCKQUOTE>
+<P><B>DSP Block</B></P>
+<BLOCKQUOTE>This is set with the <A href="scfg/SCFG_SupplyClockToDSP.html" target="_self"><CODE>SCFG_SupplyClockToDSP</CODE></A> function, and the state is obtained with the <A href="scfg/SCFG_IsClockSuppliedToDSP.html" target="_self"><CODE>SCFG_IsClockSuppliedToDSP</CODE></A> function.</BLOCKQUOTE>
+<H2>ARM9 Operating Frequency</H2>
+<BLOCKQUOTE>The TWL console can switch the operating frequency for the ARM9 processor to one of the following.<BR><BR>- 67.03 MHz (equal to NITRO) <BR>- 134.06 MHz (double speed) <BR> <BR> This is set by the <A href="scfg/SCFG_SetCpuSpeed.html" target="_self"><CODE>SCFG_SetCpuSpeed</CODE></A> function, and its state is obtained with the <A href="scfg/SCFG_GetCpuSpeed.html" target="_self"><CODE>SCFG_GetCpuSpeed</CODE></A> function.</BLOCKQUOTE>
+<BLOCKQUOTE>This is switched safely by running code with necessary empty loops on the ITCM.</BLOCKQUOTE>
+<BLOCKQUOTE>In TWL mode, the frequency becomes double-speed when the process enters the <CODE>NitroMain</CODE> function, and this setting is not changed even by the <A href="../os/init/OS_Init.html"><CODE>OS_Init</CODE></A> function.</BLOCKQUOTE>
+<H2>Access Settings</H2>
+<P><B>System Configuration Block</B></P>
+<BLOCKQUOTE>You can control the SCFG library's access to the system configuration blocks. Access is disabled by the <A href="scfg/SCFG_SetConfigBlockInaccessible.html" target="_self"><CODE>SCFG_SetConfigBlockInaccessible</CODE></A> function.<BR><BR> <FONT color="#ff0000">Once it has been disabled, all configuration blocks (including this access control) become inaccessible. Applications should not normally set this to be disabled.</FONT>Call the <A href="scfg/SCFG_IsConfigBlockAccessible.html" target="_self"><CODE>SCFG_IsConfigBlockAccessible</CODE></A> function to get the current state.</BLOCKQUOTE>
+<P><B>New WRAM (WRAM-A/B/C)</B></P>
+<BLOCKQUOTE>Controls access to the new WRAM (WRAM-A/B/C). This is configured by the ARM7. The ARM9 can get the state with the <A href="scfg/SCFG_IsWramAccessible.html" target="_self"><CODE>SCFG_IsWRamAccessible</CODE></A> function, but cannot change it.</BLOCKQUOTE>
+<P><B>New DMA</B></P>
+<BLOCKQUOTE>Controls access to the new DMA block.<BR>This is set by the <A href="scfg/SCFG_SetNDmaAccessible.html" target="_self"><CODE>SCFG_SetNDmaAccessible</CODE></A> function, and its state is obtained with the <A href="scfg/SCFG_IsNDmaAccessible.html" target="_self"><CODE>SCFG_IsNDmaAccessible</CODE></A> function.<BR>This is set to be accessible in TWL mode by default.</BLOCKQUOTE>
+<P><B>Camera</B></P>
+<BLOCKQUOTE>Controls access to the camera I/F block.<BR>This is set by the <A href="scfg/SCFG_SetCameraAccessible.html" target="_self"><CODE>SCFG_SetCameraAccessible</CODE></A> function, and its state is obtained with the <A href="scfg/SCFG_IsCameraAccessible.html" target="_self"><CODE>SCFG_IsCameraAccessible</CODE></A> function.<BR>This is set to be accessible in TWL mode by default.</BLOCKQUOTE>
+<P><B>DSP</B></P>
+<BLOCKQUOTE>Controls access to the DSP block.<BR>This is set by the <A href="scfg/SCFG_SetDSPAccessible.html" target="_self"><CODE>SCFG_SetDSPAccessible</CODE></A> function, and its state is obtained with the <A href="scfg/SCFG_IsDSPAccessible.html" target="_self"><CODE>SCFG_IsDSPAccessible</CODE></A> function.<BR>This is set to be accessible in TWL mode by default.</BLOCKQUOTE>
+<H2>Extended Feature Settings</H2>
+<P><B>INTC Circuit</B></P>
+<BLOCKQUOTE>The ARM9 interrupt controller can be configured to use extensions.<BR>This is set by the <A href="scfg/SCFG_SetIntcExpanded.html" target="_self"><CODE>SCFG_SetIntcExpanded</CODE></A> function, and its state is obtained with the <A href="scfg/SCFG_IsIntcExpanded.html" target="_self"><CODE>SCFG_IsIntcExpanded</CODE></A> function.<BR>Extensions are used in TWL mode by default.</BLOCKQUOTE>
+<P><B>LCDC Circuit</B></P>
+<BLOCKQUOTE>The LCDC circuit can be configured to use extensions (INI loads).<BR>This is set by the <A href="scfg/SCFG_SetLCDCExpanded.html" target="_self"><CODE>SCFG_SetLCDCExpanded</CODE></A> function, and its state is obtained with the <A href="scfg/SCFG_IsLCDCExpanded.html" target="_self"><CODE>SCFG_IsLCDCExpanded</CODE></A> function.<BR>Extensions are used in TWL mode by default.</BLOCKQUOTE>
+<P><B>VRAM Access</B></P>
+<BLOCKQUOTE>VRAM access can be configured to use extensions (per-byte writes and word access without wait states).<BR>This is set by the <A href="scfg/SCFG_SetVramExpanded.html" target="_self"><CODE>SCFG_SetVramExpanded</CODE></A> function, and its state is obtained with the <A href="scfg/SCFG_IsVramExpanded.html" target="_self"><CODE>SCFG_IsVramExpanded</CODE></A> function.<BR>Extensions are used in TWL mode by default.</BLOCKQUOTE>
+<H2>PSRAM Access Boundaries</H2>
+<BLOCKQUOTE>
+<P>PSRAM access boundaries can be configured. The available choices are 4 MB, 16 MB, and 32 MB.<BR> This is set by the <A href="scfg/SCFG_SetPsramBoundary.html" target="_self"><CODE>SCFG_SetPsramBoundary</CODE></A> function, and its state is obtained with the <A href="scfg/SCFG_GetPsramBoundary.html" target="_self"><CODE>SCFG_GetPsramBoundary</CODE></A> function. <FONT color="#ff0000">You should not change this setting.</FONT></P>
+</BLOCKQUOTE>
+<H2>NITRO Block Circuit Revisions</H2>
+<P><B>Old DMA Circuit</B></P>
+<BLOCKQUOTE>You can use a revised version of the old NITRO DMA circuit.<BR>This is set by the <A href="scfg/SCFG_SetDmacFixed.html" target="_self"><CODE>SCFG_SetDmacFixed</CODE></A> function, and its state is obtained with the <A href="scfg/SCFG_IsDmacFixed.html" target="_self"><CODE>SCFG_IsDmacFixed</CODE></A> function.<BR>Revisions are not used by default.</BLOCKQUOTE>
+<P><B>Geometry Circuit</B></P>
+<BLOCKQUOTE>You can use a revised version of the NITRO geometry circuit.<BR>This is set by the <A href="scfg/SCFG_SetGeometryFixed.html" target="_self"><CODE>SCFG_SetGeometryFixed</CODE></A> function, and its state is obtained with the <A href="scfg/SCFG_IsGeometryFixed.html" target="_self"><CODE>SCFG_IsGeometryFixed</CODE></A> function.<BR>Revisions are not used by default.</BLOCKQUOTE>
+<P><B>Renderer Circuit</B></P>
+<BLOCKQUOTE>You can use a revised version of the NITRO renderer circuit.<BR>This is set by the <A href="scfg/SCFG_SetRendererFixed.html" target="_self"><CODE>SCFG_SetRendererFixed</CODE></A> function, and its state is obtained with the <A href="scfg/SCFG_IsRendererFixed.html" target="_self"><CODE>SCFG_IsRendererFixed</CODE></A> function.<BR>Revisions are not used by default.</BLOCKQUOTE>
+<P><B>2D Engine Circuit</B></P>
+<BLOCKQUOTE>You can use a revised version of the NITRO 2D engine circuit.<BR>This is set by the <A href="scfg/SCFG_Set2DEngineFixed.html" target="_self"><CODE>SCFG_Set2DEngineFixed</CODE></A> function, and its state is obtained with the <A href="scfg/SCFG_Is2DEngineFixed.html" target="_self"><CODE>SCFG_Is2DEngineFixed</CODE></A> function.<BR>Revisions are not used by default. </BLOCKQUOTE>
+<P><B>Division Circuit</B></P>
+<BLOCKQUOTE>You can use a revised version of the NITRO divider circuit.<BR>This is set by the <A href="scfg/SCFG_SetDividerFixed.html" target="_self"><CODE>SCFG_SetDividerFixed</CODE></A> function, and its state is obtained with the <A href="scfg/SCFG_IsDividerFixed.html" target="_self"><CODE>SCFG_IsDividerFixed</CODE></A> function.<BR>Revisions are not used by default. </BLOCKQUOTE>
+<P><B>Memory Card I/F Circuit</B></P>
+<BLOCKQUOTE>You can use a revised version of the NITRO memory card I/F circuit.<BR>This is set by the <A href="scfg/SCFG_SetCardFixed.html" target="_self"><CODE>SCFG_SetCardFixed</CODE></A> function, and its state is obtained with the <A href="scfg/SCFG_IsCardFixed.html" target="_self"><CODE>SCFG_IsCardFixed</CODE></A> function.<BR>Revisions are not used by default.</BLOCKQUOTE>
+<P><BR>
+</P>
+<H2>See Also</H2>
+<P><A href="list_scfg.html">SCFG Function List</A></P>
+<H2>Revision History</H2>
+<P>2009/01/19 Added an explanation about ARM9 operating frequency.<BR> 2008/07/15 Added <B>See Also</B> and <B>Revision History</B>.<BR> 2007/09/06 Initial version.</P>
+<P>
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

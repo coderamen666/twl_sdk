@@ -1,0 +1,533 @@
+<html>
+<head>
+<title>TWL-System 3D Material Editor Revision History</title>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="content-style-type" content="text/css" />
+<style type="text/css">
+<!--
+    
+H1
+{
+    font-weight         : bold;
+    font-size           : 250%;
+    text-align          : left;
+    color               : #46f;
+    margin              : 0em 0em 0.5em 0em;
+}
+
+H2
+{
+    font-weight         : bold;
+    font-size           : 150%;
+    text-align          : left;
+    margin              : 2em 0em 0.5em 0em;
+    padding-top         : 8pt;
+    border-top-style    : double;
+    border-top-width    : 3px;
+}
+
+H3
+{
+    font-weight         : bold;
+    font-size           : 120%;
+    margin              : 1em 0em 0.5em 0em;
+    padding-top         : 8pt;
+    border-top-style    : solid;
+    border-top-width    : 1px;
+}
+
+H4
+{
+    font-weight         : normal;
+    font-size           : 100%;
+    margin              : 0em 0em 0em 0.5em;
+}
+
+DIV.date
+{
+    font-size           : normal;
+    text-align          : right;
+    margin              : 0pt 0pt 12pt 0pt;
+}
+
+DIV.licence
+{
+    margin: 0em;
+    border-style : solid;
+    border-width : 1px;
+}
+
+P
+{
+    font-size           : normal;
+    margin              : 0em 1em 0.5em 1em;
+    line-height         : 150%;
+}
+
+PRE
+{
+    font-size           : normal;
+    margin              : 0em 0em 1em 2em;
+    line-height         : 120%;
+}
+
+DT
+{
+    margin              : 1em 0em 0em 1em;
+}
+DD
+{
+    margin-left         : 3em;
+}
+UL
+{
+    margin-top         : 0em;
+}
+
+-->
+</style>
+</head>
+<body>
+
+<h1>TWL-System 3D Material Editor Revision History</h1>
+
+<h2>Index</h2>
+
+<h3><a href="#version_2_2_0">2.2.0</a></h3>
+<h4>Bug Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_84-M01">Note 84-M01: Fixed a bug where intermediate files were not loaded properly on PCs set to certain languages</a></li>
+</ul>
+<h3><a href="#version_2_1_0"> 2.1.0</a></h3>
+<h4>Problem Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_81-M01">Note 81-M01:  Fixed bug resulting in error when large element size in intermediate file</a></li>
+</ul>
+<h3><a href="#version_20080408">2008/04/08 Version</a></h3>
+<h4>Added and Modified Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_76-M01">Note 76-M01:  (Manual) Changed Revision History format; revised headings and subheadings</a></li>
+</ul>
+<h3><a href="#version_20050620">2005/06/20 Version</a></h3>
+<h4>Added and Modified Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_47-M01">Note 47-M01:  Added management feature for resident models by constantly displaying in the NITRO-Viewer</a></li>
+<li><a href="#note_47-M02">Note 47-M02:  Added ability to display usage status for NITRO-Viewer VRAM </a></li>
+</ul>
+<h3><a href="#version_20050228">2005/02/28 Version</a></h3>
+<h4>Added and Modified Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_41-M01">Note 41-M01:  Added information to the model's <B>File Information</B> property specific to IMD file size</a></li>
+<li><a href="#note_41-M02">Note 41-M02:  Added ability to run animation controls from NITRO-Viewer</a></li>
+<li><a href="#note_41-M03">Note 41-M03:  Added automatic playback option when transferring animation data</a></li>
+<li><a href="#note_41-M04">Note 41-M04:  Added ability to output NITRO-Viewer snapshot images</a></li>
+<li><a href="#note_41-M05">Note 41-M05:  Added one type of column to the node list display mode </a></li>
+<li><a href="#note_41-M06">Note 41-M06:  Added 18 types of columns to the material list display mode</a></li>
+<li><a href="#note_41-M07">Note 41-M07:  Added shared functionality for the list display mode</a></li>
+<li><a href="#note_41-M08">Note 41-M08:  Added ability to switch column order</a></li>
+<li><a href="#note_41-M09">Note 41-M09:  Added ability to reset column order and widths</a></li>
+<li><a href="#note_41-M10">Note 41-M10:  Added ability to switch column sort orders</a></li>
+</ul>
+<h3><a href="#version_20050202">2005/02/02 Version</a></h3>
+<h4>Added and Modified Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_40-M01">Note 40-M01:  Updated for NITRO intermediate file format version 1.6.0</a></li>
+<li><a href="#note_40-M02">Note 40-M02:  Added ability to edit properties of multiple selected objects when multiple objects are selected</a></li>
+<li><a href="#note_40-M03">Note 40-M03:  Expanded NITRO-Viewer game frame rate setting range</a></li>
+<li><a href="#note_40-M04">Note 40-M04:  Changed to display icons for each object in schematic displays of object views</a></li>
+<li><a href="#note_40-M05">Note 40-M05:  Added shortcut keys to switch the view keyboard focus</a></li>
+<li><a href="#note_40-M06">Note 40-M06:  (Manual) Revised explanation of object views and adjusted chapter organization</a></li>
+</ul>
+<h3><a href="#version_20041213">2004/12/13 Version</a></h3>
+<h4>Added and Modified Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_35-M01">Note 35-M01:  Updated for NITRO intermediate file format version 1.5.0</a></li>
+<li><a href="#note_35-M02">Note 35-M02:  Added binary conversion option settings to NITRO-Viewer settings</a></li>
+<li><a href="#note_35-M03">Note 35-M03:  Fixed display width for property views and added ability to toggle view visibility</a></li>
+<li><a href="#note_35-M04">Note 35-M04:  Changed to display indices at the top of the properties view for each object displayed in the properties view</a></li>
+<li><a href="#note_35-M05">Note 35-M05:  Adjusted each object's existing property layout</a></li>
+<li><a href="#note_35-M06">Note 35-M06:  Changed to load files using drag-and-drop operations for multiple files as well</a></li>
+<li><a href="#note_35-M07">Note 35-M07:  (Manual) Revised explanation of screen configuration for the main window</a></li>
+<li><a href="#note_35-M08">Note 35-M08:  (Manual) Revised explanation of graphics scene data</a></li>
+<li><a href="#note_35-M09">Note 35-M09:  (Manual) Revised explanations of menus</a></li>
+<li><a href="#note_35-M10">Note 35-M10:  (Manual) Revised explanation of shortcut keys</a></li>
+</ul>
+<h3><a href="#version_20041115">2004/11/15 Version</a></h3>
+<h4>Added and Modified Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_32-M01">Note 32-M01:  Changed shortcut keys for material setting copy/paste functionality</a></li>
+<li><a href="#note_32-M02">Note 32-M02:  Changed dialog interface for pasting portion of copied material</a></li>
+<li><a href="#note_32-M03">Note 32-M03:  Added ability to apply material settings to multiple other materials</a></li>
+<li><a href="#note_32-M04">Note 32-M04:  Changed NITRO-Viewer setting features</a></li>
+<li><a href="#note_32-M05">Note 32-M05:  Added ability to enable and disable animations</a></li>
+<li><a href="#note_32-M06">Note 32-M06:  Added ability to toggle animation loop playback on and off</a></li>
+<li><a href="#note_32-M07">Note 32-M07:  (Manual) Revised explanation of folder configuration</a></li>
+<li><a href="#note_32-M08">Note 32-M08:  (Manual) Added notes specific to copying and pasting material settings</a></li>
+<li><a href="#note_32-M09">Note 32-M09:  (Manual) Revised explanation specific to linear interpolation playback for animation fractional frames</a></li>
+<li><a href="#note_32-M10">Note 32-M10:  (Manual) Revised explanations of menus</a></li>
+<li><a href="#note_32-M11">Note 32-M011:  (Manual) Revised toolbar explanations</a></li>
+<li><a href="#note_32-M12">Note 32-M012:  (Manual) Revised explanation of shortcut keys</a></li>
+</ul>
+<h3><a href="#version_20041006">2004/10/06 Version</a></h3>
+<h4>Added and Modified Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_24-M01">Note 24-M01:  Changed settings functionality for specular reflection shininess table</a></li>
+<li><a href="#note_24-M02">Note 24-M02:  Changed settings functionality for fog density table</a></li>
+<li><a href="#note_24-M03">Note 24-M03:  Changed settings functionality for toon table</a></li>
+<li><a href="#note_24-M04">Note 24-M04:  Changed settings functionality for edge color</a></li>
+<li><a href="#note_24-M05">Note 24-M05:  Changed color picker dialog box</a></li>
+<li><a href="#note_24-M06">Note 24-M06:  Added ability to display animation properties</a></li>
+<li><a href="#note_24-M07">Note 24-M07:  (Manual) Added notes specific to NITRO-Viewer</a></li>
+</ul>
+<h4>Problem Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_24-M08">Note 24-M08:  Fixed bug where diffused color could not be set for certain model states</a></li>
+</ul>
+<h3><a href="#version_20040830">2004/08/30 Version</a></h3>
+<h4>Added and Modified Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_19-M01">Note 19-M01:  Updated for NITRO intermediate file format version 1.4.2</a></li>
+<li><a href="#note_19-M02">Note 19-M02:  (Manual) Added explanation of installation process</a></li>
+<li><a href="#note_19-M03">Note 19-M03:  (Manual) Revised explanation of node properties</a></li>
+</ul>
+<h3><a href="#version_20040817">2004/08/17 Version</a></h3>
+<h4>Added and Modified Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_17-M01">Note 17-M01:  Updated for NITRO-Viewer version 0.9.1</a></li>
+<li><a href="#note_17-M02">Note 17-M02:  Now supporting loading of IMA and ITA files and their previewing in NITRO-Viewer</a></li>
+<li><a href="#note_17-M03">Note 17-M03:  Added ability to toggle display of process meter and animation bar in NITRO-Viewer settings</a></li>
+<li><a href="#note_17-M04">Note 17-M04:  (Manual) Deleted notes specific to feature restrictions on loading animation files</a></li>
+<li><a href="#note_17-M05">Note 17-M05:  (Manual) Added notes specific to linear interpolation animation playback</a></li>
+</ul>
+<h3><a href="#version_20040802">2004/08/02 Version</a></h3>
+<h4>Added and Modified Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_15-M01">Note 15-M01:  Updated for NITRO intermediate file format version 1.4.1</a></li>
+<li><a href="#note_15-M02">Note 15-M02:  Added ability to communicate with NITRO-Viewer</a></li>
+<li><a href="#note_15-M03">Note 15-M03:  Added abilities to load and control animation files</a></li>
+<li><a href="#note_15-M04">Note 15-M04:  Added ability to differentiate colored display based on character count of the object name, to the object view list display mode</a></li>
+<li><a href="#note_15-M05">Note 15-M05:  Changed camera properties</a></li>
+<li><a href="#note_15-M06">Note 15-M06:  Changed light properties</a></li>
+<li><a href="#note_15-M07">Note 15-M07:  Added language settings functionality</a></li>
+<li><a href="#note_15-M08">Note 15-M08:  (Manual) Revised explanation of folder configuration</a></li>
+<li><a href="#note_15-M09">Note 15-M09:  (Manual) Revised overview explanation</a></li>
+<li><a href="#note_15-M10">Note 15-M10:  (Manual) Revised explanation of model properties</a></li>
+<li><a href="#note_15-M11">Note 15-M011:  (Manual) Added notes specific to unsupported portions of NITRO-Viewer for material properties</a></li>
+<li><a href="#note_15-M12">Note 15-M012:  (Manual) Revised explanation of how the different 3D computer graphic tool plug-ins work together</a></li>
+<li><a href="#note_15-M13">Note 15-M13:  (Manual) Added explanations of new menus</a></li>
+<li><a href="#note_15-M14">Note 15-M14:  (Manual) Added explanations of new toolbars</a></li>
+<li><a href="#note_15-M15">Note 15-M15:  (Manual) Added explanations of new shortcut keys</a></li>
+<li><a href="#note_15-M16">Note 15-M16:  (Manual) Revised trademark display</a></li>
+</ul>
+<h3><a href="#version_20040630">2004/06/30 Version</a></h3>
+<h4>Added and Modified Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_12-M01">Note 12-M01:  Deleted rotation angle (twist) from camera properties</a></li>
+</ul>
+<h3><a href="#version_20040524">2004/05/24 Version</a></h3>
+<h4>Added and Modified Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_07-M01">Note 07-M01:  Changed fovy setting range for camera properties</a></li>
+</ul>
+
+
+<h2 id="version_2_2_0">Changes in 2.2.0</h2>
+<h3 id="note_84-M01">Note 84-M01: Fixed a bug where intermediate files were not loaded properly on PCs set to certain languages</h3>
+<p>Fixed a bug where numeric data encoded in intermediate files was not loaded properly when the PC language was set to certain languages other than not Japanese or English.
+</p>
+<h2 id="version_2_1_0">Changes in 2.1.0</h2>
+<h3 id="note_81-M01">Note 81-M01:  Fixed bug resulting in error when large element size in intermediate file</h3>
+<p>When the intermediate file contained elements with more than 2 MB of content, an error would occur. That has been fixed.
+</p>
+<h2 id="version_20080408">Changes in Version 2008/04/08</h2>
+<h3 id="note_76-M01">Note 76-M01:  (Manual) Changed Revision History format; revised headings and subheadings</h3>
+<p>Changed the format of the Revision History in <CODE>NNS_3DMaterialEditor.pdf</CODE>. Also revised the document's headings and subheadings.
+</p>
+<h2 id="version_20050620">Changes in Version 2005/06/20</h2>
+<h3 id="note_47-M01">Note 47-M01:  Added management feature for resident models by constantly displaying in the NITRO-Viewer</h3>
+<p>Added ability to manage resident models by constantly displaying in the NITRO-Viewer.
+</p>
+<h3 id="note_47-M02">Note 47-M02:  Added ability to display usage status for NITRO-Viewer VRAM </h3>
+<p>Added ability to display usage status for NITRO-Viewer VRAM.
+</p>
+<h2 id="version_20050228">Changes in Version 2005/02/28</h2>
+<h3 id="note_41-M01">Note 41-M01:  Added information to the model's <B>File Information</B> property specific to IMD file size</h3>
+<p>Added information to model's <B>File Information</B> property specific to IMD file size.
+</p>
+<h3 id="note_41-M02">Note 41-M02:  Added ability to run animation controls from NITRO-Viewer</h3>
+<p>Added ability to run animation controls from NITRO-Viewer.
+</p>
+<h3 id="note_41-M03">Note 41-M03:  Added automatic playback option when transferring animation data</h3>
+<p>Changed binary conversion page in the NITRO-Viewer setting dialog box to the data transfer page and added an automatic playback option for animation data transfers.
+</p>
+<h3 id="note_41-M04">Note 41-M04:  Added ability to output NITRO-Viewer snapshot images</h3>
+<p>Added ability to output NITRO-Viewer snapshot images.
+</p>
+<h3 id="note_41-M05">Note 41-M05:  Added one type of column to the node list display mode </h3>
+<p>Added one type of column to the node list display mode,
+</p>
+<h3 id="note_41-M06">Note 41-M06:  Added 18 types of columns to the material list display mode</h3>
+<p>Added 18 column types to the material list display mode.
+</p>
+<h3 id="note_41-M07">Note 41-M07:  Added shared functionality for the list display mode</h3>
+<p>Added shared functionality for the list display mode.
+</p>
+<h3 id="note_41-M08">Note 41-M08:  Added ability to switch column order</h3>
+<p>Added ability to switch column order.
+</p>
+<h3 id="note_41-M09">Note 41-M09:  Added ability to reset column order and widths</h3>
+<p>Added ability to reset column order and widths.
+</p>
+<h3 id="note_41-M10">Note 41-M10:  Added ability to switch column sort orders</h3>
+<p>Added ability to switch column sort orders.
+</p>
+<h2 id="version_20050202">Changes in Version 2005/02/02</h2>
+<h3 id="note_40-M01">Note 40-M01:  Updated for NITRO intermediate file format version 1.6.0</h3>
+<p>Updated to support NITRO intermediate file format version 1.6.0. Changed texture coordinate conversion in material properties and added texture environment and projection mapping functionality.
+</p>
+<h3 id="note_40-M02">Note 40-M02:  Added ability to edit properties of multiple selected objects when multiple objects are selected</h3>
+<p>Added ability to edit properties of multiple selected objects when multiple objects are selected.
+</p>
+<ul><li> Changed the <B>Select Object</B> menu to the <B>Object</B> menu and changed the menu items.
+</li>
+<li> Changed the way the object display position movement works in the object view schematic.
+</li>
+<li> Added support for material settings' copy/paste functionality to multiple selected objects.
+</li>
+<li> Deprecated ability to apply material settings to multiple other materials. (This is so that similar operations can be more intuitively performed by the addition of this functionality.)
+</li>
+</ul>
+<h3 id="note_40-M03">Note 40-M03:  Expanded NITRO-Viewer game frame rate setting range</h3>
+<p>Expanded the NITRO-Viewer game frame rate setting range.
+</p>
+<h3 id="note_40-M04">Note 40-M04:  Changed to display icons for each object in schematic displays of object views</h3>
+<p>Changed to display icons of each object in schematic displays of object views.
+</p>
+<h3 id="note_40-M05">Note 40-M05:  Added shortcut keys to switch the view keyboard focus</h3>
+<p>Added shortcut keys to switch the view keyboard focus.
+</p>
+<h3 id="note_40-M06">Note 40-M06:  (Manual) Revised explanation of object views and adjusted chapter organization</h3>
+<p>Revised explanation of object views and adjusted chapter organization.
+</p>
+<h2 id="version_20041213">Changes in Version 2004/12/13</h2>
+<h3 id="note_35-M01">Note 35-M01:  Updated for NITRO intermediate file format version 1.5.0</h3>
+<p>Updated for NITRO intermediate file format version 1.5.0.
+</p>
+<ul><li> Added <B>Rendering Priority</B> and <B>File Information</B> to the model properties.
+</li>
+<li> Added <B>Rendering Priority</B> to the node properties.
+</li>
+<li> Added four types of flag settings to the <B>Attributes</B> material property.
+</li>
+<li> Changed the graphics scene properties.
+<ul></li>
+<li> Changed property types.
+</li>
+<li> Added a depth buffering setting to the <B>Camera</B> property.
+</li>
+<li> Added a translucent polygon Y sorting setting to the <B>Alpha/Translucent</B> property.
+</li>
+<li> Added a one-dot polygon display boundary depth value setting to the <B>Rendering</B> property.
+</li>
+</ul></ul>
+<h3 id="note_35-M02">Note 35-M02:  Added binary conversion option settings to NITRO-Viewer settings</h3>
+<p>Added binary conversion option settings to NITRO-Viewer settings.
+</p>
+<h3 id="note_35-M03">Note 35-M03:  Fixed display width for property views and added ability to toggle view visibility</h3>
+<p>Fixed display width for property views and added ability to toggle view visibility.
+</p>
+<h3 id="note_35-M04">Note 35-M04:  Changed to display indices at the top of the properties view for each object displayed in the properties view</h3>
+<p>Changed to display indices at the top of the properties view for each object displayed in the properties view.
+</p>
+<h3 id="note_35-M05">Note 35-M05:  Adjusted each object's existing property layout</h3>
+<p>Adjusted each object's existing property layout.
+</p>
+<h3 id="note_35-M06">Note 35-M06:  Changed to load files using drag-and-drop operations for multiple files as well</h3>
+<p>Changed to load files using drag-and-drop operations for multiple files as well.
+</p>
+<h3 id="note_35-M07">Note 35-M07:  (Manual) Revised explanation of screen configuration for the main window</h3>
+<p>Revised explanation of screen configuration for the main window.
+</p>
+<h3 id="note_35-M08">Note 35-M08:  (Manual) Revised explanation of graphics scene data</h3>
+<p>Revised explanation of graphics scene data.
+</p>
+<h3 id="note_35-M09">Note 35-M09:  (Manual) Revised explanations of menus</h3>
+<p>Revised explanations of menus.
+</p>
+<h3 id="note_35-M10">Note 35-M10:  (Manual) Revised explanation of shortcut keys</h3>
+<p>Revised explanation of shortcut keys.
+</p>
+<h2 id="version_20041115">Changes in Version 2004/11/15</h2>
+<h3 id="note_32-M01">Note 32-M01:  Changed shortcut keys for material setting copy/paste functionality</h3>
+<p>Changed shortcut keys for material setting copy/paste functionality.
+</p>
+<h3 id="note_32-M02">Note 32-M02:  Changed dialog interface for pasting portion of copied material</h3>
+<p>Changed dialog interface for pasting portion of copied material.
+</p>
+<h3 id="note_32-M03">Note 32-M03:  Added ability to apply material settings to multiple other materials</h3>
+<p>Added ability to apply material settings to multiple other materials.
+</p>
+<h3 id="note_32-M04">Note 32-M04:  Changed NITRO-Viewer setting features</h3>
+<p>Changed NITRO-Viewer setting features.
+</p>
+<ul><li> Added ability to manage multiple settings.
+</li>
+<li> Added feature to automatically toggle light shape visibility.
+</li>
+<li> Added game frame rate setting.
+</li>
+<li> Added light operation mode setting.
+</li>
+<li> Added ability to configure NITRO-Viewer shortcut keys.
+</li>
+</ul>
+<h3 id="note_32-M05">Note 32-M05:  Added ability to enable and disable animations</h3>
+<p>Added ability to enable and disable animations.
+</p>
+<h3 id="note_32-M06">Note 32-M06:  Added ability to toggle animation loop playback on and off</h3>
+<p>Added ability to toggle animation loop playback on and off.
+</p>
+<h3 id="note_32-M07">Note 32-M07:  (Manual) Revised explanation of folder configuration</h3>
+<p>Revised explanation of folder configuration.
+</p>
+<h3 id="note_32-M08">Note 32-M08:  (Manual) Added notes specific to copying and pasting material settings</h3>
+<p>Added notes specific to copying and pasting material settings.
+</p>
+<h3 id="note_32-M09">Note 32-M09:  (Manual) Revised explanation specific to linear interpolation playback for animation fractional frames</h3>
+<p>Revised explanation specific to linear interpolation playback for animation fractional frames.
+</p>
+<h3 id="note_32-M10">Note 32-M10:  (Manual) Revised explanations of menus</h3>
+<p>Revised explanations of menus.
+</p>
+<h3 id="note_32-M11">Note 32-M11:  (Manual) Revised toolbar explanations</h3>
+<p>Revised toolbar explanations.
+</p>
+<h3 id="note_32-M12">Note 32-M12:  (Manual) Revised explanation of shortcut keys</h3>
+<p>Revised explanation of shortcut keys.
+</p>
+<h2 id="version_20041006">Changes in Version 2004/10/06</h2>
+<h3 id="note_24-M01">Note 24-M01:  Changed settings functionality for specular reflection shininess table</h3>
+<p>Changed settings functionality for specular reflection shininess table.
+</p>
+<h3 id="note_24-M02">Note 24-M02:  Changed settings functionality for fog density table</h3>
+<p>Changed settings functionality for fog density table.
+</p>
+<h3 id="note_24-M03">Note 24-M03:  Changed settings functionality for toon table</h3>
+<p>Changed settings functionality for toon table.
+</p>
+<h3 id="note_24-M04">Note 24-M04:  Changed settings functionality for edge color</h3>
+<p>Changed settings functionality for edge color.
+</p>
+<h3 id="note_24-M05">Note 24-M05:  Changed color picker dialog box</h3>
+<p>Changed color picker dialog box.
+</p>
+<ul><li> Changed color list operation method.
+</li>
+<li> Added ability to initialize the color list
+</li>
+</ul>
+<h3 id="note_24-M06">Note 24-M06:  Added ability to display animation properties</h3>
+<p>Added ability to display animation properties.
+</p>
+<h3 id="note_24-M07">Note 24-M07:  (Manual) Added notes specific to NITRO-Viewer</h3>
+<p>Added notes specific to NITRO-Viewer.
+</p>
+<h3 id="note_24-M08">Note 24-M08:  Fixed bug where diffused color could not be set for certain model states</h3>
+<p>Diffused color could not be set for specific model states in material color properties. This bug has been fixed.. 
+</p>
+<h2 id="version_20040830">Changes in Version 2004/08/30</h2>
+<h3 id="note_19-M01">Note 19-M01:  Updated for NITRO intermediate file format version 1.4.2</h3>
+<p>Updated for NITRO intermediate file format version 1.4.2.
+</p>
+<h3 id="note_19-M02">Note 19-M02:  (Manual) Added explanation of installation process</h3>
+<p>Added explanation of installation process.
+</p>
+<h3 id="note_19-M03">Note 19-M03:  (Manual) Revised explanation of node properties</h3>
+<p>Revised explanation of node properties.
+</p>
+<h2 id="version_20040817">Changes in Version 2004/08/17</h2>
+<h3 id="note_17-M01">Note 17-M01:  Updated for NITRO-Viewer version 0.9.1</h3>
+<p>Updated for NITRO-Viewer version 0.9.1.
+</p>
+<h3 id="note_17-M02">Note 17-M02:  Now supporting loading of IMA and ITA files and their previewing in NITRO-Viewer</h3>
+<p>Now supporting the loading of material color animation (IMA files) and texture SRT animation (ITA files) and previewing them in NITRO-Viewer.
+</p>
+<h3 id="note_17-M03">Note 17-M03:  Added ability to toggle display of process meter and animation bar in NITRO-Viewer settings</h3>
+<p>Added ability to toggle display of process meter and animation bar in NITRO-Viewer settings.
+</p>
+<h3 id="note_17-M04">Note 17-M04:  (Manual) Deleted notes specific to feature restrictions on loading animation files</h3>
+<p>Deleted notes specific to feature restrictions on loading animation files.
+</p>
+<h3 id="note_17-M05">Note 17-M05:  (Manual) Added notes specific to linear interpolation animation playback</h3>
+<p>Added notes specific to linear interpolation animation playback.
+</p>
+<h2 id="version_20040802">Changes in Version 2004/08/02</h2>
+<h3 id="note_15-M01">Note 15-M01:  Updated for NITRO intermediate file format version 1.4.1</h3>
+<p>Updated for NITRO intermediate file format version 1.4.1.
+</p>
+<h3 id="note_15-M02">Note 15-M02:  Added ability to communicate with NITRO-Viewer</h3>
+<p>Added ability to communicate with NITRO-Viewer.
+</p>
+<h3 id="note_15-M03">Note 15-M03:  Added abilities to load and control animation files</h3>
+<p>Added abilities to load and control animation files.
+</p>
+<h3 id="note_15-M04">Note 15-M04:  Added ability to differentiate colored display based on character count of the object name, to the object view list display mode</h3>
+<p>Added ability to differentiate colored display based on character count of the object name, to the object view list display mode.
+</p>
+<h3 id="note_15-M05">Note 15-M05:  Changed camera properties</h3>
+<p>Changed camera properties.
+</p>
+<ul><li> Added ability for NITRO-Viewer to apply/get camera and focal point positions.
+</li>
+<li> Changed the <B>Near</B> and <B>Far</B> setting ranges.
+</li>
+</ul>
+<h3 id="note_15-M06">Note 15-M06:  Changed light properties</h3>
+<p>Changed light properties.
+</p>
+<ul><li> Added ability for NITRO-Viewer to apply and get lighting directions.
+</li>
+</ul>
+<h3 id="note_15-M07">Note 15-M07:  Added language settings functionality</h3>
+<p>Added language settings functionality.
+</p>
+<h3 id="note_15-M08">Note 15-M08:  (Manual) Revised explanation of folder configuration</h3>
+<p>Revised explanation of folder configuration.
+</p>
+<h3 id="note_15-M09">Note 15-M09:  (Manual) Revised overview explanation</h3>
+<p>Revised overview explanation.
+</p>
+<h3 id="note_15-M10">Note 15-M10:  (Manual) Revised explanation of model properties</h3>
+<p>Revised explanation of model properties.
+</p>
+<h3 id="note_15-M11">Note 15-M11:  (Manual) Added notes specific to unsupported portions of NITRO-Viewer for material properties</h3>
+<p>Added notes specific to unsupported portions of NITRO-Viewer for material properties.
+</p>
+<h3 id="note_15-M12">Note 15-M12:  (Manual) Revised explanation of how the different 3D computer graphic tool plug-ins work together</h3>
+<p>Revised explanation of how the different 3D computer graphic tool plug-ins work together.
+</p>
+<h3 id="note_15-M13">Note 15-M13:  (Manual) Added explanations of new menus</h3>
+<p>Added explanations of new menus.
+</p>
+<h3 id="note_15-M14">Note 15-M14:  (Manual) Added explanations of new toolbars</h3>
+<p>Added explanations of new toolbars.
+</p>
+<h3 id="note_15-M15">Note 15-M15:  (Manual) Added explanations of new shortcut keys</h3>
+<p>Added explanations of new shortcut keys.
+</p>
+<h3 id="note_15-M16">Note 15-M16:  (Manual) Revised trademark display</h3>
+<p>Revised trademark display.
+</p>
+<h2 id="version_20040630">Changes in Version 2004/06/30</h2>
+<h3 id="note_12-M01">Note 12-M01:  Deleted rotation angle (twist) from camera properties</h3>
+<p>Deleted rotation angle (twist) from camera properties.
+</p>
+<h2 id="version_20040524">Changes in Version 2004/05/24</h2>
+<h3 id="note_07-M01">Note 07-M01:  Changed fovy setting range for camera properties</h3>
+<p>Changed fovy setting range for camera properties.
+</p>
+
+
+
+<hr><p>CONFIDENTIAL</p></body>
+</html>

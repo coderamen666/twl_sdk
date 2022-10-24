@@ -1,0 +1,61 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title>SSP_StartJpegDecoder</title>
+<link rel="stylesheet" href="../../css/nitro.css" type="text/css" />
+</head>
+<body>
+
+<h1>SSP_StartJpegDecoder <img src="../../image/NTR.gif" align="middle"><img src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+
+<pre><code>
+BOOL SSP_StartJpegDecoder(u8* data, u32 size, void* dst, s16* width, s16* height, u32 option);
+</code></pre>
+
+<h2>Arguments</h2>
+<table style="width:100%">
+<tbody>
+<tr>
+<td style="width:13%"><em><strong>data</strong></em></td>
+<td style="width:87%">JPEG file to decode.</td>
+</tr>
+<tr>
+<td style="width:13%"><em><strong>size</strong></em></td>
+<td style="width:87%">Size of the JPEG file to decode.</td>
+</tr>
+<tr>
+<td style="width:13%"><em><strong>dst</strong></em></td>
+<td style="width:87%">Buffer used to store a decoded image.<br> A buffer of the size <SPAN class="argument">width</SPAN> * <SPAN class="argument">height</SPAN> * 2 is required.</td>
+</tr>
+<tr>
+<td style="width:13%"><em><strong>width</strong></em></td>
+<td style="width:87%">Maximum width allowed (in pixels) for the image to decode.<br>When decoding has finished, the decoded image's width is stored here.</td>
+</tr>
+<tr>
+<td style="width:13%"><em><strong>height</strong></em></td>
+<td style="width:87%">Maximum height allowed (in pixels) for the image to decode. When decoding has finished, the decoded image's height is stored here.</td>
+</tr>
+<tr>
+<td style="width:13%"><em><strong>option</strong></em></td>
+<td style="width:87%">Decoding option (<CODE>SSP_JPEG_THUMBNAIL</CODE>).</td>
+</tr>
+</tbody>
+</table>
+
+
+<h2>Return Values</h2>
+<p>Returns <CODE>TRUE</CODE> if successful.</p>
+
+<h2>Description</h2>
+<p>Decodes a JPEG file into RGB555 image data. JPEG files can be decoded only from the YUV420, YUV422, and YUV444 formats.<br> If <CODE>SSP_JPEG_THUMBNAIL</CODE> is specified for <SPAN class="argument">option</SPAN>, this function decodes a thumbnail image. If nothing is specified (0 is specified), it decodes the main image.<br> <br> <font color="red">Note:</font><br> This decoder is only guaranteed to decode JPEG files created using the SSP encoder.<br> Note that some JPEG files created with other software cannot be decoded.<br> Decoding often fails due to additional EXIF information.<br> When this happens, omit the EXIF information from the image .<br>
+</p>
+
+<h2>Revision History</h2>
+<p>
+2009/09/17 Added information about failed decoding of JPEG files.<br>2009/07/28 Revised the description of specifying options.<br>2009/01/09 Deleted the description of signatures.<br>2008/11/04 Added a description of when decoding fails.<br>2008/10/09 Added a description of configuring RSF files.<br>2008/09/15 Initial version.<br>
+</p>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

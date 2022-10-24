@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>WBT_PACKET_BITMAP_SIZE</title>
+<LINK rel="stylesheet" href="../css/nitro.css" type="text/css">
+</head>
+<body>
+<h1 align="left">WBT_PACKET_BITMAP_SIZE</h1>
+<h2>Definition</h2>
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/wbt.h&gt;</CODE><BR>
+  <BR>
+  <CODE>#define WBT_PACKET_BITMAP_SIZE(block_size, packet_size) \<br>
+  (((((block_size) + ((packet_size) - <A href="wbt_packet_size_min_const.html">WBT_PACKET_SIZE_MIN</A>) - 1)/((packet_size) - <A href="wbt_packet_size_min_const.html">WBT_PACKET_SIZE_MIN</A>)) + 31 )/sizeof(u32))  * sizeof(u32)</CODE><br>
+  <br>
+  </dd>
+</dl>
+<H2>Description</H2>
+<P>Calculates the size of the bitmap buffer for receive history records. This buffer must be of a certain size required for the reception processing done by the <a href="command/WBT_GetBlock.html"><CODE>WBT_GetBlock</CODE></a> function. Use this function when securing a static buffer during compile. <br>The size needed for the bitmap buffer for receive history records depends on the communication packet size, so use the <A href="common/WBT_CalcPacketbitmapSize.html"><CODE>WBT_CalcPacketbitmapSize</CODE></A> function to return the size dynamically at run time.<br><br> The details of each argument are as follows.<BR>
+<TABLE border="0">
+  <TBODY>
+    <TR>
+      <TD><CODE>block_size</CODE></TD>
+      <TD>Data block size to receive.</TD>
+    </TR>
+    <TR>
+      <TD><CODE>packet_size</CODE></TD>
+      <TD>MP communication packet size allocated to WBT during execution.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</P>
+<h2>See Also</h2>
+<p><A href="common/WBT_CalcPacketbitmapSize.html"><CODE>WBT_CalcPacketbitmapSize</CODE></A><BR> <a href="command/WBT_GetBlock.html"><CODE>WBT_GetBlock</CODE></a></p>
+<H2>Revision History</H2>
+<P>
+2005/02/18 Changed description of packet bitmap to &quot;receive archive record bitmap buffer.&quot;<br /> 2004/09/21 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

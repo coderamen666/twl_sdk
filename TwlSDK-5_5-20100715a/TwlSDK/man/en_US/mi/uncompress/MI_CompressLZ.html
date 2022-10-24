@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>MI_CompressLZ*</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">MI_CompressLZ* <IMG src="../../image/NTR.gif" align="middle"><IMG src="../../image/TWL.gif" align="middle"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/mi.h&gt;</CODE><BR> <BR> <CODE>u32 MI_CompressLZ( const u8 *srcp, u32 size, u8 *dstp );<BR> u32 MI_CompressLZFast( const u8 *srcp, u32 size, u8 *dstp, u8* work );<BR> <BR> u32 MI_CompressLZEx( const u8 *srcp, u32 size, u8 *dstp );<BR> u32 MI_CompressLZExFast( const u8 *srcp, u32 size, u8 *dstp, u8* work );<BR></CODE></dd>
+</dl>
+<h2>Arguments</h2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="13%"><SPAN class="argument">srcp</SPAN></TD>
+<TD width="87%">Source address where the data to compress is stored.</TD>
+    </TR>
+    <TR>
+<TD><SPAN class="argument">size</SPAN></TD>
+<TD>Data size of the source to compress.</TD>
+    </TR>
+    <TR>
+<TD width="13%"><SPAN class="argument">dstp</SPAN></TD>
+<TD width="87%">Needs a pointer to the compression destination buffer and a region greater than the source data size. Needs a 4-byte alignment.</TD>
+    </TR>
+    <TR>
+<TD><SPAN class="argument">work</SPAN></TD>
+<TD>Temporary work buffer used for data compression required by the <CODE>MI_CompressLZ*Fast()</CODE> line of functions.<BR>The number of bytes given by <CODE>MI_LZ_FAST_COMPRESS_WORK_SIZE</CODE> is required.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<h2>Return Values</h2>
+<p>Returns the size of the compressed data. If the data after compression is larger than the source file, no compression will be performed and a 0 will be returned.</p>
+
+<H2>Description</H2>
+<P>Performs LZ77 compression on the data, then writes it to a specified memory region. A region of the same size as the source data must be prepared in the compression destination buffer.
+</P>
+<P>
+When using functions having &quot;Fast&quot; as a suffix, processing is performed several times faster than with standard functions through the use of a work buffer while searching the slide dictionary.<BR>This process may take some time to complete, depending on the source data, because a simple search of the slide dictionary is carried out by an API that does not specify a work buffer.
+</P>
+<P>
+Although you can expect a higher compression ratio when using LZ77 extended compression (<CODE>MI_CompressLZEx*</CODE> functions) than when using conventional LZ77 compression, more consistent compression times may be possible when using <CODE>MI_CompressLZFast</CODE> when one considers that the worst case compression time with LZ77 extended compression is several times longer than the worst case when using the conventional <CODE>MI_CompressLZFast</CODE> function. Decompression speed is about the same with either method.<BR><BR> Although the <A href="MI_UncompressLZ.html"><CODE>MI_UncompressLZ*</CODE></A> functions or the <A href="MI_ReadUncompLZ.html"><CODE>MI_ReadUncompLZ</CODE></A> function can be used to decompress data regardless of which compression method was used, note that files compressed using LZ77 extended compression cannot be decompressed by programs that use an SDK version before NITRO-SDK 4.2.
+</P>
+
+<P>
+The function writes in 8-bit units, so for NITRO, an address in VRAM cannot be specified in <SPAN class="argument">dstp</SPAN>.<BR>An address in VRAM can be specified in <SPAN class="argument">srcp</SPAN> for both NITRO and TWL.<BR>
+</P>
+
+<h2>Internal Operation</h2>
+<P>Processing takes place only on the CPU, without the use of a system call or DMA.</P>
+
+<h2>See Also</h2>
+<p><A href="MI_UncompressLZ.html"><CODE>MI_UncompressLZ*</CODE></A><BR> <A href="MI_ReadUncompLZ.html"><CODE>MI_ReadUncompLZ</CODE></A><BR> <A href="MI_CompressRL.html"><CODE>MI_CompressRL</CODE></A><BR> <A href="MI_CompressHuffman.html"><CODE>MI_CompressHuffman</CODE></A></p>
+
+<H2>Revision History</H2>
+<P>
+2008/12/05 Added TWL-related description.<BR> 2007/11/01 Added LZ77 extended compression. Integrated <CODE>MI_CompressLZ*</CODE> series API reference.<BR> 2005/02/01 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

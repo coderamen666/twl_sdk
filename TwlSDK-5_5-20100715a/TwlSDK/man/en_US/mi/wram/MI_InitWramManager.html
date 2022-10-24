@@ -1,0 +1,33 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>MI_InitWramManager</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+<body>
+<h1 align="left">MI_InitWramManager <img src="../../image/TWL.gif" align="center"></h1>
+<h2>Syntax</h2>
+<dl>
+  <dd>
+<CODE>#include &lt;twl/mi.h&gt;</CODE><BR>
+  <BR>
+  <CODE>void MI_InitWramManager( void )</CODE><br>
+  </dd>
+</dl>
+<h2>Arguments</h2>
+<P>None.</P>
+<h2>Return Values</h2>
+<p>None.</p>
+<H2>Description</H2>
+<P>Initializes the WRAM manager for WRAM-A, WRAM-B, and WRAM-C.</P>
+<P>Call it as early as possible, before using WRAM-A, -B, or -C. This function is called from the <CODE><A href="../../os/init/OS_Init.html">OS_Init</A></CODE> function.</P>
+<P><FONT color="#ff0000">Immediately after initialization, all WRAM regions are reserved and allocated by the ARM9, ARM7, or DSP. </FONT>This reflects the information in the registers that configure the WRAM. The hardware is designed so that each WRAM slot in the register is always owned by something. Immediately after initialization, therefore, it is not possible to determine whether a WRAM slot has not been allocated. Free the slots or cancel the reservations if necessary.
+<h2>See Also</h2>
+<p><A href="about_Wram.html">Overview (Work RAM)</A></p>
+<H2>Revision History</H2>
+<P>2007/08/11 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

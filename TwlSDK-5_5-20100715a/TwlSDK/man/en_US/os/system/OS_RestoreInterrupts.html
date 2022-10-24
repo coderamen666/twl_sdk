@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>OS_RestoreInterrupts</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">OS_RestoreInterrupts <img src="../../image/NTR.gif" align="middle"><img src="../../image/TWL.gif" align="middle"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/os.h&gt;</CODE><BR>
+  <BR>
+  <CODE>OSIntrMode OS_RestoreInterrupts( OSIntrMode state );</CODE></dd>
+</dl>
+<h2>Arguments</h2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+      <TD width="13%"><EM><STRONG>state</STRONG></EM></TD>
+      <TD width="87%">Interrupt state to set.<BR>
+      <CODE>OSIntrMode</CODE> is a <CODE>u32</CODE> typedef.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<h2>Return Values</h2>
+<p>Returns a value that indicates the state before this function was called.</p>
+<p>The type of the return value is <CODE>OSIntrMode</CODE> (a <CODE>u32</CODE> typedef), but the values that can be returned will be one of the <CODE>OSIntrMode_Irq</CODE> enumerated type values below.<BR>
+</p>
+<TABLE cellspacing="2">
+  <TBODY>
+    <TR>
+      <TH>Value</TH>
+      <TH>Previous state</TH>
+    </TR>
+    <TR>
+      <TD>OS_INTRMODE_IRQ_DISABLE</TD>
+      <TD>IRQ Disable (prohibited)</TD>
+    </TR>
+    <TR>
+      <TD>OS_INTRMODE_IRQ_ENABLE</TD>
+      <TD>IRQ Enable (permitted)</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>Description</H2>
+<P>This function sets the interrupt state.</P>
+<P>It takes the interrupt state given by <B><I>state</I></B>. The state given is expressed as an <CODE>OSIntrMode_Irq</CODE> enumerated type. If <CODE>OS_INTRMODE_IRQ_ENABLE</CODE> is specified, the interrupts will be enabled, and if <CODE>OS_INTRMODE_IRQ_DISABLE</CODE> is specified, the interrupts will be disabled.</P>
+<P>However, it is expected that the <B><I>state</I></B> parameter will often be used primarily to restore the previous state by specifying to it the return value of the <CODE><A href="OS_EnableInterrupts.html">OS_EnableInterrupts</A></CODE> or <CODE><A href="OS_DisableInterrupts.html">OS_DisableInterrupts</A></CODE> function.</P>
+<P>The return value indicates the state prior to calling the function.</P>
+<P><BR> <B>Example</B></P>
+<BLOCKQUOTE style="background-color:#ffffd0;"><CODE>OSIntrMode e = OS_DisableInterrupts();<BR> <BR> // Interrupts are disabled here<BR> <BR> (void)OS_RestoreInterrupts( e );</CODE></BLOCKQUOTE>
+<h2>Internal Operation</h2>
+<P>Sets/resets the CPSR (current program status register) IRQ interrupt control bit.</P>
+
+<h2>See Also</h2>
+<p><CODE><A href="OS_EnableInterrupts.html">OS_EnableInterrupts</A>, <A href="OS_DisableInterrupts.html">OS_DisableInterrupts</A><br></CODE></p>
+
+<H2>Revision History</H2>
+<P>
+2005/03/08 Standardized the Japanese term for &quot;interrupt.&quot;<BR>2004/03/04 Changed so FIQ is not included in processing.<BR>2004/01/14 Changed so FIQ is included in processing.<BR>2003/12/01 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

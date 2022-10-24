@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>MI_GetWramMapEnd</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">MI_GetWramMapEnd* <IMG src="../../image/TWL.gif" align="middle"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;twl/mi.h&gt;</CODE><BR>
+  <BR>
+  <CODE>u32 MI_GetWramMapEnd_A( void )</CODE><br>
+  <CODE>u32 MI_GetWramMapEnd_B( void )</CODE><br>
+  <CODE>u32 MI_GetWramMapEnd_C( void )</CODE><br>
+  </dd>
+</dl>
+<h2>Arguments</h2>
+<P>None.</P>
+<h2>Return Values</h2>
+<p>Returns the upper-order address of the region where the WRAM is mapped to.</p>
+<H2>Description</H2>
+<P>Gets the upper-order address of the region where the specified WRAM region is mapped to.</P>
+<P><CODE>MI_GetWramMapEnd_A()</CODE> gets information about WRAM-A.<BR><CODE>MI_GetWramMapEnd_B()</CODE> gets information about WRAM-B.<BR><CODE>MI_GetWramMapEnd_C()</CODE> gets information about WRAM-C.</P>
+<P>The lower-order address is obtained using the <CODE><A href="MI_GetWramMapStart.html">MI_GetWramMapStart*</A></CODE> functions.</P>
+<h2>Internal Operation</h2>
+<p>Accesses I/O registers MBK6-MBK8.</p>
+
+<h2>See Also</h2>
+<P><A href="about_Wram.html">Overview (Work RAM)</A>, <A href="../mi_constant.html">MI-Related Constants</A> <BR> <A href="MI_GetWramMapStart.html"><CODE>MI_GetWramMapStart*()</CODE></A></P>
+
+<H2>Revision History</H2>
+<P>2007/08/22 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

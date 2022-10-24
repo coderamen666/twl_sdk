@@ -1,0 +1,558 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>makerom[.TWL]</TITLE>
+<LINK rel="stylesheet" href="../css/nitro.css" type="text/css">
+<STYLE type="text/css">
+<!--
+.sample_source{
+  background-color : #e8e8e8;
+}
+H3{
+  color : teal;
+}
+.command_list{
+  margin-bottom : 16pt;
+}
+.command_desc{
+  }
+.command_item{
+  margin-top : 16pt;
+  background-color : #e8e8e8;
+}
+.blockquoted_table {
+  border : 1px;
+  width : 80%;
+}
+TD,TH{
+  border-color	: #c0d8d8;
+  padding       : 1pt 4pt 1pt 4pt;
+  border-width  : 1px;
+  border-style  : solid;
+}
+-->
+</STYLE>
+</HEAD>
+<BODY>
+<H1 align="left">makerom <IMG src="../image/NTR.gif" align="middle"></H1>
+<H1 align="left">makerom.TWL <IMG src="../image/TWL.gif" align="middle"></H1>
+<H2>Description</H2>
+<P>The <code>makerom</code> tool creates ROM images for NITRO applications. It creates the ROM image based on the entries in a file called the ROM Spec file.</P>
+<P><CODE>makerom.TWL</CODE> is a tool that adds the ability to create ROM images for TWL to the features of the <CODE>makerom</CODE> tool. It has more parameters that can be specified.</P>
+<P>ROM images for TWL that are created with this tool will only run on TWL development hardware. The TWL-SDK environment cannot be used to create ROM images that run on retail TWL hardware. (ROM images created for NITRO will not run on retail TWL hardware, either.)</P>
+
+<H2>How to Use</H2>
+<H3>Start Command</H3>
+<H4>(1) Normal Start</H4>
+<PRE><CODE>% makerom [-d] [-DNAME=VALUE...] [-MDEFINES_FILE] [-F] [-A]
+            [-VFMT_VER] [-WWARNING_TYPE] SPECFILE [ROMFILE] [LISTFILE]</CODE></PRE>
+<PRE><CODE>% makerom.TWL [-DTARGET_PLATFORM=<I>target</I>] [-d] [-DNAME=VALUE...] [-MDEFINES_FILE] [-F] [-A]
+            [-VFMT_VER] [-WWARNING_TYPE] SPECFILE [ROMFILE] [LISTFILE]</CODE></PRE>
+<P>This links files in accordance with the contents of the ROM Spec file specified by <code>SPECFILE</code>, and creates a ROM image file named <code>ROMFILE</code>. (The ROM Spec file is described below.) At this stage, the ROM structure information is output to the file specified by <code>LISTFILE</code>.</P>
+<P><CODE>ROMFILE</CODE> and <CODE>LISTFILE</CODE> can be omitted. If you omit them, the two files use the same name as that specified by <CODE>SPECFILE</CODE> but with the extension changed to ROM and NLF, respectively. You can also use the <code>-D</code> option to define a variable and its value. The value of this variable can be referenced in the contents of the ROM Spec file.</P>
+<P>When using the <CODE>-D</CODE> option with <CODE>makerom.TWL.exe</CODE>, you must specify the <SPAN class="argument">target</SPAN> parameter in <CODE>TARGET_PLATFORM</CODE>. Specify <CODE>TWL-HYB</CODE> for the <SPAN class="argument">target</SPAN> parameter to build a TWL-enhanced application and <CODE>TWL-LTD</CODE> to build a TWL-exclusive application. Normally, the build system specifies the appropriate value.<FONT color="#ff0000">If this specification is not made, <CODE>'TWL-LTD'</CODE> is set by default.</FONT>
+
+<P>You can define variables and their values with the <CODE>-M</CODE> option, similar to the <CODE>-D</CODE> option. This takes as an argument a text file consisting of <CODE>[NAME=VALUE]</CODE> lines. Use this option to encode definitions of variables and variable values that might otherwise be too long for the length restrictions of the command line.<FONT color="#ff0000">When you use the <CODE>-D</CODE> option to define variable values that include whitespace (such as when enumerating object filenames), you must delimit the values with either <CODE>&quot;</CODE> or <CODE>'</CODE> because of how command line arguments are interpreted. However, when you use the <CODE>-M</CODE> option, variable values coded inside the definition file do not need to be delimited with quotation marks. If you use quotation marks, they are taken as part of the value itself.</FONT></P>
+<P>When the <code>-F</code> option is specified, a ROM image file is created even if the ROM file size exceeds the size limit (see <code>RomSize</code> in the <code>Property</code> section).</P>
+<P>If you specify the <code>-A</code> option, a check is performed to determine whether the ROM size limit (see <code>RomSize</code> in the <CODE>Property</CODE> section) is exceeded when adding a digital signature with the <a href="attachsign.html"><code>attachsign</code></a> command. Exceeding the limit causes an error. However, if the above-mentioned <code>-F</code> option has been specified, processing continues anyway.</P>
+<P><FONT color="#ff0000">Use the <CODE>-V</CODE> option to specify the output ROM image format number <CODE>FMT_VER</CODE>. This option ensures compatibility with previous versions. The default value is 2. For details, see <B>ROM Format Versions</B> below.</FONT></P>
+<P>The <code>-W</code> options output warnings that are normally suppressed. With <code>-Wrom_speedtype_undefined</code>, warnings are displayed when <code>RomSpeedType</code> in the <CODE>Property</CODE> section is not explicitly defined and is instead left in the SDK default setting. With the <code>-Wall</code> option, all warnings are output.</P>
+<P>The <code>-d</code> option is for outputting messages when debugging <code>makerom</code>. This is usually not necessary.</P>
+<H4>(2) The -l Option</H4>
+<P><CODE>% makerom [-d] [-DNAME=VALUE...] [-MDEFINES_FILE] [-VFMT_VER] -l SPECFILE [LISTFILE]</CODE></P>
+<P><CODE>% makerom.TWL [-d] [-DNAME=VALUE...] [-MDEFINES_FILE] [-VFMT_VER] -l SPECFILE [LISTFILE]</CODE></P>
+<P>This operates in the same way as the Normal Start method (1) except that a ROM image is not output. The file specified by <code>SPECFILE</code> is loaded, and the ROM structure information is output to <code>LISTFILE</code>.</P>
+<P><CODE>LISTFILE</CODE> can be omitted. If you omit it, the filename is set to the name specified by <CODE>SPECFILE</CODE>, with the extension replaced by the default extension for each platform. The default extension when creating NITRO ROM images is NLF, and the default extension when creating TWL ROM images is TLF. The <code>-D</code> option can be used to define a variable and its value. The value of this variable can be referenced in the contents of the ROM Spec file.</P>
+<P>The <code>-V</code> option behaves the same as described above in <B>(1) Normal Start</B>.</P>
+<H4>(3) The -r Option</H4>
+<P><CODE>% makerom [-d] [-F] [-A] [-VFMT_VER] -r LISTFILE [ROMFILE]</CODE></P>
+<P><CODE>% makerom.TWL [-d] [-F] [-A] [-VFMT_VER] -r LISTFILE [ROMFILE]</CODE></P>
+<P>This command constructs a ROM image from the ROM structure information specified by <code>LISTFILE</code> and outputs it as a file with the name specified by <code>ROMFILE</code>.</P>
+<P><CODE>ROMFILE</CODE> can be omitted. If you omit it, the filename is set to the same name as that specified by <CODE>SPECFILE</CODE>, but with the extension ROM.</P>
+<P>The <code>-F</code>, <code>-A</code>, and <CODE>-V</CODE> options behave in the same way as described above in <B>(1) Normal Start</B>.</P>
+
+<h4>(4) The -m Option</h4>
+<p><code>% makerom -m [ROMFILE] [ROMPATH] [HOSTPATH]</code></p>
+<p><code>% makerom.TWL -m [ROMFILE] [ROMPATH] [HOSTPATH]</code></p>
+<p>Replaces the content of the file specified by <code>HOSTPATH</code> with the content of the file stored at <code>ROMPATH</code> in the SRL file specified by <code>ROMFILE</code>. Using this option is effective when it is acceptable to replace only a single piece of data stored in an existing SRL file.
+<ul>
+<li>You must specify <code>ROMPATH</code> as a ROM archive path, such as &quot;<code>rom:/foo/bar.dat</code>.&quot; </li>
+<li>The file specified by <code>HOSTPATH</code> must have the same size as the file, specified by <code>ROMPATH</code>, to be replaced.</li>
+</ul>
+<H3>ROM Spec File Format</H3>
+<P>The contents of NITRO and TWL ROM images are managed using a simple file system. The ROM Spec file is a text file that encodes the structure of this file system. The file is divided into four sections for NITRO and six sections for TWL. <FONT color="#ff0000">The ROM Image Section must come after all other sections.</FONT>Section definitions are formatted with a declaration at start of each section definition, followed by section parameters enclosed in curly brackets (<CODE>{ }</CODE>).
+</P>
+<TABLE>
+  <TBODY>
+    <TR>
+<TH>Section Definition</TH>
+<TH>Section Definition Format</TH>
+    </TR>
+    <TR>
+<TD>ARM9 Executable Binary<BR> <IMG src="../image/NTR.gif" align="middle"><IMG src="../image/TWL.gif" align="middle"></TD>
+      <TD>
+      <PRE><CODE>Arm9
+{
+  <I>[ARM9 parameters]</I>
+  ....
+}</CODE></PRE>
+      </TD>
+    </TR>
+    <TR>
+<TD>ARM7 Executable Binary<BR> <IMG src="../image/NTR.gif" align="middle"><IMG src="../image/TWL.gif" align="middle"></TD>
+      <TD>
+      <PRE><CODE>Arm7
+{
+  <I>[ARM7 parameters]</I>
+  ....
+}</CODE></PRE>
+      </TD>
+    </TR>
+    <TR>
+<TD>ARM9 TWL-Exclusive Executable Binary<BR><IMG src="../image/TWL.gif" align="middle"></TD>
+      <TD>
+      <PRE><CODE>Arm9.Ltd
+{
+  <I>[ARM9 TWL-exclusive parameters]</I>
+  ....
+}</CODE></PRE>
+      </TD>
+    </TR>
+    <TR>
+<TD>ARM7 TWL-Exclusive Executable Binary<BR><IMG src="../image/TWL.gif" align="middle"></TD>
+      <TD>
+      <PRE><CODE>Arm7.Ltd
+{
+  <I>[ARM7 TWL-exclusive parameters]</I>
+  ....
+}</CODE></PRE>
+      </TD>
+    </TR>
+    <TR>
+<TD>Incidental<BR>Information<BR> <CODE>(Property)</CODE><BR> <IMG src="../image/NTR.gif" align="middle"><IMG src="../image/TWL.gif" align="middle"></TD>
+      <TD>
+      <PRE><CODE>Property
+{
+  <I>[Incidental information parameters]</I>
+  ....
+}</CODE></PRE>
+      </TD>
+    </TR>
+    <TR>
+<TD>Additional<BR>Incidental<BR>Information<BR> <CODE>(AppendProperty)</CODE><BR> <IMG src="../image/TWL.gif" align="middle"></TD>
+      <TD>
+      <PRE><CODE>AppendProperty
+{
+  <I>[Additional incidental information parameters]</I>
+  ....
+}</CODE></PRE>
+      </TD>
+    </TR>
+    <TR>
+<TD>Rating Information<BR> <CODE>(Rating)</CODE><BR> <IMG src="../image/TWL.gif" align="middle"></TD>
+      <TD>
+      <PRE><CODE>Rating
+{
+  <I>[Rating information parameters]</I>
+  ....
+}</CODE></PRE>
+      </TD>
+    </TR>
+    <TR>
+<TD>ROM Image<BR> <IMG src="../image/NTR.gif" align="middle"><IMG src="../image/TWL.gif" align="middle"></TD>
+      <TD>
+      <pre><code>RomSpec
+{
+  <i>[ROM image parameters]</i>
+  ....
+}</code></pre>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H3>Section Parameters</H3>
+<H4>ARM9 Section (ARM9 Executable Binary Definition Section) <IMG src="../image/NTR.gif" align="middle"><IMG src="../image/TWL.gif" align="middle"></H4>
+<P>Configures settings for ARM9-side executable binaries.</P>
+<BLOCKQUOTE>
+<DL class="command_list">
+<DT class="command_item"><CODE>Static</CODE> <I>[ARM9 Static Module filename]</I>
+<DD class="command_desc">Filename of the static module of the ARM9 executable file.
+<DT class="command_item"><CODE>OverlayDefs</CODE> <I>[ARM9 Overlay Names filename]</I>
+<DD class="command_desc">Filename of the ARM9 <CODE>OverlayDefs</CODE> file.
+<DT class="command_item"><CODE>OverlayTable</CODE> <I>[ARM9 OverlayTable filename]</I>
+<DD>Filename of the ARM9 <CODE>OverlayTable</CODE> file. This file is not needed if overlays are not used. In such cases, you can omit the <CODE>OverlayTable</CODE> define statement.<br>However, this omission cannot be made when using overlays in the Arm9.Ltd section.
+<DT class="command_item"><CODE>Nef</CODE> <I>[ARM9 NEF or TEF (debug information file) filename]</I>
+<DD class="command_desc">NEF file in which ARM9 debug information is saved.
+<DD class="command_desc">If you will not perform debugging, this <CODE>NEF</CODE> definition is not needed. If so, it can be omitted from the file.<BR>Instead of <code>Nef</code>, you can use the alternative keyword <code>Elf</code>.
+</DL>
+</BLOCKQUOTE>
+<H4>ARM7 Section (ARM7 Executable File Definition Section) <IMG src="../image/NTR.gif" align="middle"><IMG src="../image/TWL.gif" align="middle"></H4>
+<P>Configures settings for ARM7-side executable binaries.</P>
+<BLOCKQUOTE>
+<DL class="command_list">
+<DT class="command_item"><CODE>Static</CODE> <I>[ARM7 Static Module filename]</I><BR> <CODE>OverlayDefs</CODE> <I>[ARM7 Overlay Names filename]</I><BR> <CODE>OverlayTable</CODE> <I>[ARM7 OverlayTable filename]</I><BR> <CODE>Nef</CODE> <I>[ARM7 NEF or TEF (debug information file) filename]</I>
+<DD class="command_desc">Same as the ARM9 parameters.
+</DL>
+</BLOCKQUOTE>
+<H4>Arm9.Ltd Section (ARM9 TWL-Exclusive Executable Binary Definition Section) <IMG src="../image/TWL.gif" align="middle"></H4>
+<P>Configures settings for ARM9-side executable binaries that are only used when the application is run on a TWL.</P>
+<BLOCKQUOTE>
+<DL class="command_list">
+<DT class="command_item"><CODE>Static</CODE> <I>[ARM9 TWL-Exclusive Static Module filename]</I><BR> <CODE>OverlayDefs</CODE> <I>[ARM9 TWL-Exclusive Overlay Names filename]</I><BR> <CODE>OverlayTable</CODE> <I>[ARM9 TWL-Exclusive OverlayTable filename]</I><BR>
+<DD class="command_desc">Same as the ARM9 parameters.
+</DL>
+</BLOCKQUOTE>
+<H4>Arm7.Ltd Section (ARM7 TWL-Exclusive Executable File Definition Section) <IMG src="../image/TWL.gif" align="middle"></H4>
+<P>Configures settings for ARM7-side executable files that are only used when the application is run on a TWL.</P>
+<BLOCKQUOTE>
+<DL class="command_list">
+<DT class="command_item"><CODE>Static</CODE> <I>[ARM7 TWL-Exclusive Static Module filename]</I><BR> <CODE>OverlayDefs</CODE> <I>[ARM7 TWL-Exclusive Overlay Names filename]</I><BR> <CODE>OverlayTable</CODE> <I>[ARM7 TWL-Exclusive OverlayTable filename]</I><BR>
+<DD class="command_desc">Same as the ARM9 parameters.
+</DL>
+</BLOCKQUOTE>
+<H4>Property Section (Incidental Information Definition Section)</H4>
+<P>The &quot;◎&quot; symbol indicates settings that must be specified when creating the master ROM.</P>
+<P><B>Property Section (Items Common to NITRO/TWL)</B> <IMG src="../image/NTR.gif" align="middle"><IMG src="../image/TWL.gif" align="middle"></P>
+<BLOCKQUOTE>
+<DL class="command_list">
+<DT class="command_item"><CODE>RomHeaderTemplate</CODE> <I>[ROM Header Template filename]</I> ◎
+<DD class="command_desc">Template file for the ROM image header. When not specified, the default setting is <code>&quot;rom_header.template.sbin&quot;</code> in the same directory as <CODE>makerom[.TWL].exe</CODE>. For the filename, specify the name of the master ROM template file (distributed by Nintendo) for each game application to use when creating the master ROM.<FONT color="#FF0000">We do not recommend modifying the binary contents of the ROM header template file.</FONT>Set the incidental information for each master ROM by encoding the parameters below (such as <CODE>TitleName</CODE>) in a ROM Spec file.
+<DT class="command_item"><code>TitleName</CODE> <I>[Title name]</I> ◎
+<DD class="command_desc">Title name. Up to 12 alphanumeric ASCII-encoded characters. When it is shorter than 12 characters, the unused area is padded with zeros. When not specified, the value embedded in <CODE>RomHeaderTemplate</CODE> is used.
+<DT class="command_item"><code>MakerCode </CODE> <I>[Manufacturer code]</I> ◎
+<DD class="command_desc">Manufacturer code that was assigned when the licensing agreement was signed with Nintendo. Two ASCII characters.
+<DD class="command_desc">When not specified, the value embedded in <CODE>RomHeaderTemplate</CODE> is used.
+<DT class="command_item"><CODE>RemasterVersion</CODE> <I>[Remaster version]</I> ◎
+<DD class="command_desc">Remaster version number of the ROM being manufactured for retail products. Hexadecimal, decimal, or octal notation can be used. When not specified, the value embedded in <CODE>RomHeaderTemplate</CODE> is used. This is equivalent to the &quot;ROM version&quot; used in earlier versions. In previous versions of <CODE>makerom</CODE>, the definition of the term &quot;ROM version&quot; differed from Nintendo's standard definition, so this parameter's name was changed. For compatibility with previous ROM Spec files, the <CODE>&quot;RomVersion&quot;</CODE> keyword can be used as an alternate name.
+<DT class="command_item"><CODE>RomSpeedType</CODE> <I>[1TROM|MROM|UNDEFINED]</I> ◎
+<DD class="command_desc">Defines the ROM type and selects the proper access speed. <CODE>1TROM</CODE> specifies one-time PROM, and <CODE>MROM</CODE> specifies mask ROM. Because one-time PROM is the slower setting, if one-time PROM is selected, both one-time PROM and mask ROM will operate. However, the reverse is not true.
+<DD>If this parameter is not specified, it is treated as if <CODE>UNDEFINED</CODE> is specified. <CODE>UNDEFINED</CODE> takes the same setting for access speed as <CODE>1TROM</CODE>. However, when this parameter is <CODE>UNDEFINED</CODE>, a warning flag is set in the ROM registration data when the ROM binary is created, so that binary cannot be submitted as the final master ROM. This prevents the mistake of shipping the master ROM with the limited access speed unintentionally set. When creating the final master ROM, always specify either <CODE>1TROM</CODE> or <CODE>MROM</CODE> in the ROM Spec file.
+<DT class="command_item"><CODE>RomSize</CODE> <I>[64M|128M|256M|512M|1G|2G|4G]</I> ◎
+<DD class="command_desc">ROM capacity in bits. At present, you can select from <CODE>64M</CODE>, <CODE>128M</CODE>, <CODE>256M</CODE>, <CODE>512M</CODE>, <CODE>1G</CODE>, <CODE>2G</CODE>, or <CODE>4G</CODE>, specified as a string.<BR>An error is output if the ROM image exceeds the specified value. (If the <CODE>-F</CODE> option is specified, only a warning is output.)<BR>However, if you specify 1 gigabit (<CODE>1G</CODE>) or more, note that this specified value will differ from the actual usable size. (For details, see <A href="#ROMFORMAT_VER">ROM Format Versions</A>.)<BR>When no specification is made, the value embedded in <CODE>RomHeaderTemplate</CODE> (currently <CODE>2G</CODE>) is used.<BR>In NAND applications, this specification is ignored, and the most appropriate value is chosen automatically.
+<DT class="command_item"><CODE>RomFootPadding</CODE> <I>[TRUE|FALSE]</I> ◎
+<DD class="command_desc">Specify <CODE>TRUE</CODE> if you want to fill the unused region above the program storage area in ROM with data to create a binary that matches the ROM capacity specified by <CODE>RomSize</CODE>. The data stored in the unused region is the value specified with the <CODE>Padding</CODE> parameter in the <CODE>RomSpec</CODE> section. To enable this feature, you must specify <CODE>RomSize</CODE>. If this parameter is not specified, it takes the value <CODE>FALSE</CODE>.<BR><FONT color="#FF0000">For NAND applications, always specify <CODE>FALSE</CODE>.</FONT>
+<DT class="command_item"><CODE>RomHeader</CODE> <I>[ROM Header filename]</I>
+<DD>Name of the image file forming the header portion of the ROM image. This file is generated by embedding information from the ROM Spec file (and any other appropriate sources) into a copy of the template mentioned above.
+<DD>Normally there is no need to specify this. When it is not specified, a default filename is created by removing the file extension from the ARM9 static module filename, then appending <CODE>_header.sbin</CODE>.
+<DT class="command_item"><CODE>FileName</CODE> <I>[FileNameTable filename]</I>
+<DD>Name of the image file in the filename table portion of the ROM file system. This file is generated from the <CODE>RomSpec</CODE> item in the ROM Spec file. Normally there is no need to specify this. When not specified, a default filename is created by removing the file extension from the ARM9 static module filename, then appending <CODE>_files.sbin</CODE>.
+<DT class="command_item"><CODE>BannerFile</CODE> <I>[Banner filename]</I> ◎
+<DD class="command_desc">The banner file composed of the application identification image information and displayed on the NITRO startup menu.
+<DT class="command_item"><CODE>ForChina</CODE> <I>[TRUE|FALSE]</I>
+<DD class="command_desc">Whether this application supports running on Chinese version systems. It will run on the Chinese version of the system only when this property is set to <CODE>TRUE</CODE>. Also, to determine if the Chinese language was selected on a Chinese version of the System Settings menu, this property must be set to <CODE>TRUE</CODE>.<BR><FONT color="#FF0000">If nothing is specified, this is set to <CODE>FALSE</CODE> and the English-language code is obtained. The value embedded in <CODE>RomHeaderTemplate</CODE> is not used.</FONT>
+<DT class="command_item"><CODE>ForKorea</CODE> <I>[TRUE|FALSE]</I>
+<DD class="command_desc">Whether the application supports running on Korean version systems. Setting this property to <CODE>TRUE</CODE> does not apply any limits on the systems on which the applications can run. Also, to determine if the Korean language was selected on a Korean version of the System Settings menu, this property must be set to <CODE>TRUE</CODE> ahead of time. If nothing is specified, this is set to <CODE>FALSE</CODE> and the English-language code is obtained. The value embedded in <CODE>RomHeaderTemplate</CODE> is not used.</FONT>
+<DT class="command_item"><CODE>PermitLandingTmpJump</CODE> <I>[TRUE|FALSE]</I>
+<DD class="command_desc">Specify <CODE>TRUE</CODE> only if instructed to do so. The default is <CODE>FALSE</CODE>.
+
+</DL>
+</BLOCKQUOTE>
+<P><B>Property Section (TWL-Exclusive Items)</B> <IMG src="../image/TWL.gif" align="middle"></P>
+<BLOCKQUOTE>
+<DL class="command_list">
+<DT class="command_item"><CODE>RomHeaderLtd</CODE> <I>[ROM Header Template filename]</I> ◎
+<DD class="command_desc">Template file for the header of the ROM image TWL-exclusive region.<BR>Normally, specify <CODE>$(TWLSDK_ROOT)/tools/bin/rom_header.LTD.sbin</CODE>.
+<DT class="command_item"><CODE>DigestParam</CODE> <I>1024 32</I> ◎
+<DD class="command_desc">Specifies the units for calculating the hash-check table, described in the <a href="../fs/overview/about_Archive.html#ROM">ROM Archive Overview</a> in the FS library. Do not change the arguments from <CODE>1024 32</CODE>.
+<DT class="command_item"><CODE>WramMapping</CODE> <I>[MAP2_TS_HYB|MAP2_TS_LTD]</I> ◎
+<DD class="command_desc">Specifies the WRAM memory mapping. Specify <CODE>MAP2_TS_HYB</CODE> for a HYBRID ROM, and <CODE>MAP2_TS_LTD</CODE> for a LIMITED ROM.<BR>Normally, specifying <CODE>$(MAKEROM_WRAM_MAPPING)</CODE> ensures that the build system sets this appropriately.
+<DT class="command_item"><CODE>CardRegion</CODE> <I>[Japan|America|Europe|Australia|EuropeAndAustralia|AmericaAndAustralia|AmericaAndEuropeAndAustralia|China|Korea]</I> ◎
+<DD class="command_desc">Software's region.<BR><FONT color="#FF0000"><B>Note:</B> If the software region and system region differ, the launcher will not recognize the software.<BR>Although <CODE>ALL</CODE> has been set for the samples, that is a demo-specific setting and cannot be used when submitting a master ROM.</FONT><BR>To specify <CODE>China</CODE>, you must also set the <CODE>ForChina</CODE> property to <CODE>TRUE</CODE>. To specify <CODE>Korea</CODE>, you must also set the <CODE>ForKorea</CODE> property to <CODE>TRUE</CODE>.
+<DT class="command_item"><CODE>CodecMode</CODE> <I>[NTR|TWL]</I> ◎
+<DD class="command_desc">Specifies the CODEC operating mode when the application is run on a TWL system. For details on the CODEC operating mode, see <a href="../snd/sndex/doc/aboutSNDEX.html">TWL Extended Sound Features: Overview</a>. Specify <CODE>NTR</CODE> to run in CODEC-DS mode, and <CODE>TWL</CODE> to run in CODEC-TWL mode.<BR>Normally, specifying <CODE>$(MAKEROM_CODEC_MODE)</CODE> ensures that the build system sets this appropriately.
+<DT class="command_item"><CODE>WiFiConnectionIcon</CODE> <I>[TRUE|FALSE]</I>
+<DD class="command_desc">Specifies whether to display the Nintendo Wi-Fi Connection icon simultaneously when displaying the software's banner in the launcher. By displaying the icon on the launcher, you can start Nintendo Wi-Fi Connection when your application starts up, without having to get the user's consent again. To start Wi-Fi Connection at boot time, you must also specify <CODE>AgreeEULA</CODE>.<BR>If you specify this parameter and the wireless feature is then turned off under System Settings, it will become impossible to start the application from the launcher. Only specify this for applications that require wireless communication. <BR><CODE>TRUE</CODE> cannot be specified at the same time as <CODE>DSWirelessIcon</CODE>. If both specifications are required, prioritize the <CODE>WiFiConnectionIcon</CODE> specification.<BR>The default is <CODE>FALSE</CODE>.
+<DT class="command_item"><CODE>DSWirelessIcon</CODE> <I>[TRUE|FALSE]</I>
+<DD class="command_desc">Whether to display the DS Wireless icon simultaneously when displaying the software's banner in the launcher. By displaying the icon on the launcher, you can start DS Wireless Play when your application starts up, without having to get the user's consent again.<BR>If you specify this parameter and then turn off the wireless feature via System Settings, it is impossible to start the application from the launcher. Only specify this for applications that require wireless communication. <BR><CODE>TRUE</CODE> cannot be specified at the same time as <CODE>WiFiConnectionIcon</CODE>. If both specifications are required, prioritize the <CODE>WiFiConnectionIcon</CODE> specification.<BR>The default is <CODE>FALSE</CODE>.
+<DT class="command_item"><CODE>AgreeEULA</CODE> <I>[TRUE|FALSE]</I>
+<DD class="command_desc">Whether to prevent software from being started from the launcher if the user has not agreed to the terms of use. Specify <CODE>TRUE</CODE> only if an Internet connection is <FONT color="#FF0000">required</FONT> while using the software.<BR>If you specify this parameter, you must also specify <CODE>WiFiConnectionIcon</CODE>.<BR>Specify <CODE>FALSE</CODE> if an Internet connection is not required, but a service that uses the Internet, such as Nintendo Wi-Fi connection, is being supported as <FONT color="#FF0000">one of many features</FONT>. In such cases, instead of specifying this parameter, implement a mechanism in the game software to confirm that the user has agreed to the terms of use before attempting to connect to the Internet. (Agreement with the terms of use is checked by the TWL-DWC library. For details, see the TWL-DWC function reference manual.)<BR>The default is <CODE>FALSE</CODE>.
+<DT class="command_item"><CODE>PhotoAccess</CODE> <I>[Read|ReadWrite]</I>
+<DD class="command_desc">Specifies the access type for photo data in the <CODE>photo</CODE> region.<BR>Specify this only when using the TCL library to access the <CODE>photo</CODE> region.<BR>Specify <CODE>Read</CODE> for applications that only read photo data, and specify <CODE>ReadWrite</CODE> for applications that read and write photo data.
+
+</DL>
+</BLOCKQUOTE>
+<H4>AppendProperty Section (Additional Incidental Information Definition Section) <IMG src="../image/TWL.gif" align="middle"></H4>
+<P>Items in this section must be specified only when creating a NAND application.</P>
+<P>The &quot;◎&quot; symbol indicates settings that must be specified when creating the master ROM for a NAND application.</P>
+<BLOCKQUOTE>
+<DL class="command_list">
+<DT class="command_item"><CODE>Media</CODE> <I>[GameCard|NAND]</I> ◎
+<DD class="command_desc">Whether the software is a card application or a NAND application. For card applications, the entire <CODE>AppendProperty</CODE> section can be omitted.
+<DT class="command_item"><CODE>InitialCode</CODE> <I>[Game Code]</I>
+<DD class="command_desc">Game code as a 4-character ASCII string. If this is not specified, it will be set based on the ROM header.
+<DT class="command_item"><CODE>PublicSaveDataSize</CODE> <I>[Size of public save data]</I>
+<DD class="command_desc">Size of the public save data. Use <CODE>K</CODE> (indicating &quot;kilobytes&quot;) for the units. (For example: <CODE>2048K</CODE>.) If this parameter is not specified, it is interpreted as <CODE>0K</CODE>. For details on the values that can be specified, see the <A href="SaveDataSize.html">Save Data Size List</A>.
+<DT class="command_item"><CODE>PrivateSaveDataSize</CODE> <I>[Size of private save data]</I>
+<DD class="command_desc">Size of the private save data. Use <CODE>K</CODE> (<I>kilobytes</I>) for the units. (For example: <CODE>2048K</CODE>.) If this parameter is not specified, it is interpreted as <CODE>0K</CODE>. For details on the values that can be specified, see the <A href="SaveDataSize.html">Save Data Size List</A>.
+<DT class="command_item"><CODE>SubBannerFile</CODE> <I>[TRUE|FALSE]</I>
+<DD class="command_desc">Whether to use sub-banners.
+
+</DL>
+</BLOCKQUOTE>
+<H4>Rating Section (Rating Information Definition Section)<IMG src="../image/TWL.gif" align="middle"></H4>
+<P>This section is used to set ratings obtained from rating organizations.</P>
+<P>Ratings from the following rating organizations can be set separately. However, you can only set ratings from the rating organizations included in the software region (specified in <CODE>CardRegion</CODE> in the <CODE>Property</CODE> section).</P>
+<P>There is no rating organization in China, so if <CODE>CardRegion</CODE> is set to <CODE>China</CODE>, you cannot specify any ratings from any rating organization. For software for China, the ratings of all rating organizations are automatically set to <CODE>0</CODE> as a special workaround, regardless of the existence of the Rating section. (SDK version 5.3 and later.)</P>
+
+<BLOCKQUOTE>
+<TABLE class="blockquoted_table">
+<TBODY>
+<TR>
+<TH>Setting</TH><TH>Corresponding Rating Organization</TH><TH>Applicable Regions</TH><TH>Correspondence Between Settable Values and Ratings</TH>
+</TR>
+<TR>
+<TD><CODE>CERO</CODE></TD><TD>CERO</TD><TD>Japan (<CODE>Japan</CODE>)</TD>
+  <TD>
+    <DIV>
+<CODE>0</CODE>: A (all ages)<BR> <CODE>12</CODE>: B (12 years or older)<BR> <CODE>15</CODE>: C (15 years or older)<BR> <CODE>17</CODE>: D (17 years or older)<BR> <CODE>18</CODE>: Z (18 years or older)<BR> <CODE>PENDING</CODE>: Under review<BR>
+    </DIV>
+  </TD>
+</TR>
+<TR>
+<TD><CODE>ESRB</CODE></TD><TD>ESRB</TD><TD>North America (<CODE>America</CODE>)</TD>
+  <TD>
+    <DIV>
+<CODE> 3</CODE>: EARLY CHILDHOOD (EC, all ages)<BR> <CODE> 6</CODE>: EVERYONE (E, 6 years or older)<BR> <CODE>10</CODE>: EVERYONE10+ (E10+, 10 years or older)<BR> <CODE>13</CODE>: TEEN (T, 13 years or older)<BR> <CODE>17</CODE>: MATURE (M, 17 years or older)<BR> <CODE>PENDING</CODE>: Under review<BR>
+    </DIV>
+  </TD>
+</TR>
+<TR>
+<TD><CODE>USK</CODE></TD><TD>USK</TD>
+<TD>Europe (<CODE>Europe</CODE>)<BR> Europe and Australia (<CODE>EuropeAndAustralia</CODE>)</TD>
+  <TD>
+    <DIV>
+<CODE> 0</CODE>: No age limit<BR> <CODE> 6</CODE>: 6 years or older<BR> <CODE>12</CODE>: 12 years or older<BR> <CODE>16</CODE>: 16 years or older<BR> <CODE>18</CODE>: Unsuitable for minors<BR> <CODE>PENDING</CODE>: Under review<BR>
+    </DIV>
+  </TD>
+</TR>
+<TR>
+<TD><CODE>PEGI_GEN</CODE></TD><TD>PEGI (general)</TD>
+<TD>Europe (<CODE>Europe</CODE>)<BR> Europe and Australia (<CODE>EuropeAndAustralia</CODE>)</TD>
+  <TD>
+    <DIV>
+<CODE> 3</CODE>: 3 years or older<BR> <CODE> 7</CODE>: 7 years or older<BR> <CODE>12</CODE>: 12 years or older<BR> <CODE>16</CODE>: 16 years or older<BR> <CODE>18</CODE>: 18 years or older<BR> <CODE>PENDING</CODE>: Under review<BR>
+    </DIV>
+  </TD>
+</TR>
+<TR>
+<TD><CODE>PEGI_PRT</CODE></TD><TD>PEGI (Portugal)</TD>
+<TD>Europe (<CODE>Europe</CODE>)<BR> Europe and Australia (<CODE>EuropeAndAustralia</CODE>)</TD>
+  <TD>
+    <DIV>
+<CODE> 4</CODE>: 4 years or older<BR> <CODE> 6</CODE>: 6 years or older<BR> <CODE>12</CODE>: 12 years or older<BR> <CODE>16</CODE>: 16 years or older<BR> <CODE>18</CODE>: 18 years or older<BR> <CODE>PENDING</CODE>: Under review<BR>
+    </DIV>
+  </TD>
+</TR>
+<TR>
+<TD><CODE>PEGI_BBFC</CODE></TD><TD>PEGI (General) and BBFC</TD>
+<TD>Europe (<CODE>Europe</CODE>)<BR> Europe and Australia (<CODE>EuropeAndAustralia</CODE>)</TD>
+  <TD>
+    <DIV>
+<CODE> 3</CODE>: 3 years or older<BR> <CODE> 4</CODE> :U, Uc (recommended for 4 years or older)<BR> <CODE> 7</CODE>: 7 years or older<BR> <CODE> 8</CODE>: PG (recommended for 8 years or older)<BR> <CODE>12</CODE>: 12 years or older<BR> <CODE>15</CODE>: 16 years or older<BR> <CODE>16</CODE>: 16 years or older<BR> <CODE>18</CODE>: 18 years or older<BR> <CODE>PENDING</CODE>: Under review<BR>
+    </DIV>
+  </TD>
+</TR>
+<TR>
+<TD><CODE>COB</CODE></TD><TD>COB</TD>
+<TD>Australia (<CODE>Australia</CODE>)<BR> Europe and Australia (<CODE>EuropeAndAustralia</CODE>)</TD>
+  <TD>
+    <DIV>
+<CODE> 0</CODE>:  G (General, no age specified)<BR> <CODE> 7</CODE>: PG (Parental guidance recommended, no age specified)<BR> <CODE>14</CODE>:M (Recommended for adults, no age specified)<BR> <CODE>15</CODE>: MA15+ (Unsuitable for 15 years and younger, consent or a parent or guardian required for 15 years or younger)<BR> <CODE>PENDING</CODE>: Under review<BR>
+    </DIV>
+  </TD>
+</TR>
+<TR>
+<TD><CODE>GRB</CODE></TD><TD>GRB</TD>
+<TD>Korea (<CODE>Korea</CODE>)</TD>
+  <TD>
+    <DIV>
+<CODE>0</CODE>: All ages<BR> <CODE>12</CODE>: 12 years or older<BR> <CODE>15</CODE>: 15 years or older<BR> <CODE>18</CODE>: Not for minors<BR> <CODE>PENDING</CODE>: Under review<BR>
+    </DIV>
+  </TD>
+</TR>
+</TBODY>
+</TABLE>
+<P>Specify the following item only in exceptional cases when it has been determined that no rating is required.</P>
+<DL class="command_list">
+<DT class="command_item"><CODE>Unnecessary</CODE> <I>[TRUE|FALSE]</I>
+<DD class="command_desc">Specifies that no rating is necessary for the application. If <CODE>TRUE</CODE> is specified, no ratings can be set from any rating organization.<BR>The default is <CODE>FALSE</CODE>.
+</DL>
+</BLOCKQUOTE>
+<H4>RomSpec Section (ROM Image Definitions Section)</H4>
+<P><FONT color="#ff0000">This section must come after all other sections in the file.</FONT></P>
+<P><B>RomSpec Section (Items Common to NITRO/TWL)</B> <IMG src="../image/NTR.gif" align="middle"><IMG src="../image/TWL.gif" align="middle"></P>
+<BLOCKQUOTE>
+<DL class="command_list">
+<DT class="command_item"><code>Offset</code> <I>[Offset value]</I>
+<DD>Offset value for the location of files (or data) in the ROM image.<BR>To prevent the overlap of ROM image regions, the offset value must be larger than the final position of all files (or data) at that time. If it is not, an error occurs.
+<DT class="command_item"><code>OffsetMin</code> <I>[Offset value]</I>
+<DD>The same as <code>Offset</code>, except that no error occurs if the offset value is not larger than the final position of files. (Instead, the setting is ignored.)
+<DT class="command_item"><CODE>Segment All</CODE>
+<DD>Establishes <FONT color="#ff0000">all</FONT> data for file system management. This management data must precede other files and be placed at the start of ROM.
+<DT class="command_item"><CODE>Padding</CODE> <I>[Character code from 0 to 255]</I>
+<DD class="command_desc">Value to assign for padding when aligning the ROM image. A value from 0 through 255 can be specified. <FONT color="#ff0000">When the ROM format number is set to <CODE>1</CODE>, the default padding value is 0. When the format number is set to <CODE>2</CODE> or greater, the default padding value is 255.</FONT>
+<DT class="command_item"><CODE>Align</CODE> <I>[Alignment value]</I>
+<DD class="command_desc">Aligns the starting position in the ROM image of the next stored file or data to the specified memory boundary. Empty space is padded with the value specified by <code>Padding</code>. The alignment value must be a power of 2.<BR><FONT color="#ff0000">Because the <code>Align</code> statement is only used to temporarily manipulate the memory boundary of the file, it affects only the file specified immediately after the statement. To specify a permanent memory boundary, use the <code>AlignAll</code> statement.</FONT>
+<DT class="command_item"><CODE>AlignAll</CODE> <I>[Alignment value]</I>
+<DD class="command_desc">　Aligns the starting position in the ROM image of all subsequently stored files or data to the specified memory boundary. Empty space is padded with the value specified by <code>Padding</code>. If <code>Align</code> and <code>AlignAll</code> are both enabled, the value specified by <CODE>Align</CODE> is used. The default value of <code>AlignAll</code> is 512.<BR><FONT color="#ff0000"><B>Note:</B> Access to the NITRO software medium, NITRO CARD, is limited to 512-byte blocks when the file position boundary is set to less than 512.</FONT>
+<DT class="command_item"><CODE>HostRoot</CODE> <I>[PC-side root directory name]</I>
+<DD class="command_desc">Standard directory on the computer for the files stored in the ROM image. <code>HostRoot</code> can be omitted, in which case the current directory (<code>&quot;.&quot;</code>) is used as the default value.
+<DT class="command_item"><CODE>Root</CODE> <I>[NITRO -side root directory name]</I>
+<DD class="command_desc">Standard directory on NITRO for the files stored in the ROM image. The directory indicated by <code>HostRoot</code> on the computer is mapped to the NITRO directory indicated by <code>Root</code>. <code>Root</code> can be omitted, in which case the root directory (<code>&quot;/&quot;</code>) is used as the default value.
+<DT class="command_item"><CODE>File</CODE> <I>[Filename ...]</I>
+<DD class="command_desc">Files to store in the ROM image. If the specified filename is a directory, all files in all subdirectories are stored in the ROM image. However, any files or subdirectories that match the pattern specified by <code>Reject</code> are excluded. <CODE>*</CODE> and <CODE>?</CODE> can be used as wildcards when specifying a filename.<CODE>*</CODE> indicates any multiple number of characters; <CODE>?</CODE> indicates any character (1 byte).
+<DT class="command_item"><CODE>Reject</CODE> <I>[Filename pattern ...]</I>
+<DD class="command_desc">Filenames of files to not store in the ROM image. When directories or filenames containing wildcards are specified in the <code>File</code> statement, the <code>makerom</code> tool internally expands these specifications and creates a list of the files to store in ROM. Use the <code>Reject</code> definition to specify the files that you do not want included on this list.<BR><BR> By separating <CODE>Reject</CODE> statements with white space, multiple file name patterns can be written. Wildcards (<CODE>*</CODE> and <CODE>?</CODE>) can be used. Specifications with the <CODE>Reject</CODE> statement are valid for the subsequent <CODE>File</CODE> statement up to the next <CODE>Reject</CODE> statement, or to the point where the <CODE>RomSpec</CODE> section ends. By default, the <CODE>Reject</CODE> statement specifies to reject the filename patterns <CODE>CVS</CODE>, <CODE>vssver.scc</CODE>, and <CODE>.?*</CODE> (filenames that begin with periods).
+<DT class="command_item"><CODE>Fixed</CODE> <I>[Default | True | False ]</I>
+<DD>This statement is for correcting NLF file parameters. It controls the flag that determines whether subsequently placed data can be moved. There is normally no need for this. The default value is <code>Default</code> (auto-configuration according to the type of data being laid out).
+<DT class="command_item"><CODE>TagType</CODE> <I>[Default | Name | Id | None ]</I>
+<DD>This statement is for fixing NLF file parameters. It specifies the method for accessing data placed after this statement (automatically configured; by filename; by file ID; no access method). There is normally no need for this. The default value is <code>Default</code> (auto-configuration according to the type of data being laid out).
+</DL>
+</BLOCKQUOTE>
+<P><a name="ROMSPEC_TWL"><B>RomSpec Section (TWL-Exclusive Items)</B></a> <IMG src="../image/TWL.gif" align="middle"></P>
+<BLOCKQUOTE>
+<DL class="command_list">
+<DT class="command_item"><CODE>DllFile</CODE> <I>[Name of dynamic module used by the application] [Name of dynamic module that contains debug information] [ARM9/ARM7]</I>
+<DD class="command_desc">Specifies dynamic module files with debug information, used as the basis for the dynamic module files stored in the ROM image. You must designate whether the specified dynamic module is for the ARM9 or the ARM7.
+<DT class="command_item"><CODE>Put</CODE> <I>[TwlRom|NitroRom]</I>
+<DD class="command_desc">Toggles whether the files specified on subsequent lines will be placed into a TWL-exclusive or a NITRO-compatible region within the ROM. The default is <CODE>NitroRom</CODE>.<br />Files located in the <CODE>TwlRom</CODE> region are <a href="../fs/overview/about_Archive.html#ROM_LTDFILE">TWL-exclusive files</a> and cannot be read from ROM when running in a NITRO mode environment.</DL>
+</BLOCKQUOTE>
+<H3>Variable References and Modifier Options</H3>
+<P>　When you write the ROM Spec file, you can reference the value of a variable that is defined outside the ROM Spec file by coding the variable in the following format: <code> $(<I>[variable name]</I>)</code>. You can set variable values with the command-line options <CODE>-D</CODE><I>[variable name]</I><CODE>=</CODE><I>[value]</I> or <CODE>-M</CODE><em>[variable list filename]</em>, or by using environment variables. If the same variable is defined with a command-line option and an environment variable, the command-line option takes priority. If the same variable is defined twice by command-line options, the first defined value takes priority.</P>
+<P>The following is example code for referencing a variable.</P>
+<BLOCKQUOTE>
+<PRE class="sample_source"><CODE>RomSpec
+{
+    Offset     0x00000000
+    Segment    All
+    File       $(FILENAME)
+}</CODE></PRE>
+</BLOCKQUOTE>
+<P>　If the variable value is in the form of a file path, you can reference various parts of that path by attaching a modifier option immediately after the variable name. The following values can be referenced with the modifier options <CODE>:h</CODE>, <CODE>:t</CODE>, <CODE>:r</CODE>, and <CODE>:e</CODE>.</P>
+<BLOCKQUOTE>For <CODE>$(FILE)=C:/home/Twl/readme.txt</CODE>:
+<TABLE class="blockquoted_table">
+  <TBODY>
+    <TR>
+<TD><CODE>:h</CODE></TD>
+<TD>The portion of the path up to the final path delimiter.</TD>
+<TD><CODE>$(FILE:h)=C:/home/Twl/</CODE></TD>
+    </TR>
+    <TR>
+<TD><CODE>:t</CODE></TD>
+<TD>The portion of the path after the final path delimiter.</TD>
+<TD><CODE>$(FILE:t)=readme.txt</CODE></TD>
+    </TR>
+    <TR>
+<TD><CODE>:r</CODE></TD>
+<TD>The path, excluding the file extension.</TD>
+<TD><CODE>$(FILE:r)=C:/home/Twl/readme</CODE></TD>
+    </TR>
+    <TR>
+<TD><CODE>:e</CODE></TD>
+<TD>The file extension.</TD>
+<TD><CODE>$(FILE:e)=txt</CODE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</BLOCKQUOTE>
+<P><BR>
+</P>
+<H3>Other Formatting</H3>
+<P>　Keywords such as <code>RomSpec</code> used in section definitions can also be written in uppercase (<code>ROMSPEC</code>) or lowercase (<code>romspec</code>). Anything that follows a pound sign (<CODE>#</CODE>) is treated as a comment.</P>
+<P>　To specify multiple items in <code>File</code> and <code>Reject</code> statements, separate them with blank spaces. Use double quotes (<code>&quot; &quot;</code>) to specify filenames that include blank spaces.</P>
+<BLOCKQUOTE>
+<PRE class="sample_source"><CODE>#
+# Lines that begin with <CODE>#</CODE> are comments<BR>
+#
+Arm9
+{
+   Static      &quot;c:/Program Files/myApps/lib/main.sbin&quot;
+   OverlayDefs &quot;c:/Program Files/myApps/lib/overlaydefs.sbin&quot;
+}
+
+Property
+{
+   RomSpeedType    1TROM
+   BannerFile      ./etc/default.bnr
+}
+
+ROMSPEC  # Uppercase is also OK
+{
+   Segment  ALL
+   File     boo.dat foo.dat woo.dat
+}</CODE></PRE>
+</BLOCKQUOTE>
+<H3><A name="ROMFORMAT_VER">ROM Format Versions</A></H3>
+<P>　Parts of the ROM format have been changed to support new specifications for ROM sizes of 1 gigabit or greater. For ROM images of this size, a fixed-size region at the top is now reserved by the system. In the <CODE>makerom</CODE> tool of SDK version 3.2 and later, this new ROM format is the default configuration. If you want to output a ROM image in the older format of SDK version 3.1 and earlier, you must specify the <CODE>-V1</CODE> option.</P>
+
+<P>　The changes between the new and old formats are shown below:</P>
+<DIV align="left">
+<BLOCKQUOTE>
+<TABLE class="blockquoted_table">
+  <TBODY>
+    <TR>
+      <TH></TH>
+<TH>New ROM Format</TH>
+<TH>Old ROM Format</TH>
+    </TR>
+    <TR>
+<TD>Version Number</TD>
+      <TD><CODE>2</CODE></TD>
+      <TD><CODE>1</CODE></TD>
+    </TR>
+    <TR>
+<TD>Default <CODE>Padding</CODE> value</TD>
+      <TD><CODE>255</CODE></TD>
+      <TD><CODE>0</CODE></TD>
+    </TR>
+    <TR>
+<TD>Usable size on a 1-gigabit ROM</TD>
+<TD><CODE>125.5 MB = 1004 megabits</CODE></TD>
+<TD><CODE>128.0 MB = 1024 megabits</CODE></TD>
+    </TR>
+    <TR>
+<TD>Usable size on a 2-gigabit ROM</TD>
+<TD><CODE>251.0 MB = 2008 megabits</CODE></TD>
+<TD><CODE>256.0 MB = 2048 megabits</CODE></TD>
+    </TR>
+    <TR>
+<TD>Usable size on a 4-gigabit ROM</TD>
+<TD><CODE>501.625 MB = 4013 megabits</CODE></TD>
+<TD><CODE>512.0 MB = 4096 megabits</CODE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</BLOCKQUOTE>
+</DIV>
+<P>　The system-reserved region in the new ROM format is padded with a value of <CODE>255</CODE>. The default <CODE>Padding</CODE> value has also been changed from 0 to 255, regardless of the size of the ROM image.
+</P>
+<H3>Creating ROMs That Run on Production Hardware</H3>
+<P>
+ROM images that are created using <CODE>makerom.TWL</CODE> will only run on TWL development hardware. To create ROMs that run on TWL production hardware, Nintendo must handle the mastering. Developers do not need to confirm that the ROMs run on production hardware. ROM images created using <CODE>makerom.TWL</CODE> should be submitted for master ROM submission unchanged. For more details, see the <I>Master ROM Submission Guidelines</I>.
+</P>
+<P>
+Likewise, only NITRO ROMs that have been mastered will run on TWL production hardware. NITRO ROM images created using <CODE>makerom</CODE> will not run.
+</P>
+
+<H3>Other Notes</H3>
+<H4>Data in the Unused Region at the End of Master ROMs</H4>
+<P>
+The unused region at the end of master ROMs is automatically filled with <CODE>0xFF</CODE> by the <CODE>makerom</CODE> tool in TWL-SDK.
+</P>
+<H4>Data in Usage-Forbidden Regions of Master ROMs</H4>
+<P>For ROMs whose capacity is 1 gigabit or greater, there is a &quot;usage-forbidden&quot; region at the end of the ROM memory map where ROM code cannot be stored. This usage-forbidden region is automatically filled with <CODE>0xFF</CODE> by the <CODE>makerom</CODE> tool in TWL-SDK. For ROMs whose capacity is 1 gigabit or greater, the specification states that reading from the usage-forbidden region always outputs <CODE>0xFF</CODE>. For more about the sizes of usage-forbidden regions, see the <I>Game Card Manual</I>.</P>
+<H4>Use of Data Read from Access-Forbidden Regions</H4>
+<P>Data output by reading from access-forbidden regions of Game Cards is undefined. (As long as the FS functions of TWL-SDK are used to access files located on a Game Card, access-forbidden regions are never read from.) For more about access-forbidden regions of memory, see the <I>Game Card Manual</I>.</P>
+<H2>Location</H2>
+<P>
+<CODE>$TwlSDK/tools/bin/makerom.exe</CODE><BR> <CODE>$TwlSDK/tools/bin/makerom.TWL.exe</CODE><BR> <CODE>$TwlSDK/tools/bin/rom_header.template.sbin</CODE> <CODE>$TwlSDK/tools/bin/rom_header.LTD.sbin</CODE>
+</P>
+<H2>See Also</H2>
+<P><A href="makelcf.html"><CODE>makelcf</CODE></A><BR> <A href="makebanner.html"><CODE>makebanner</CODE></A></P>
+<H2>Revision History</H2>
+<P>2009/12/24 Corrected errors. AmericaEuropeAndAustralia → AmericaAndEuropeAndAustralia<BR>2009/11/11 Added conditions under which <CODE>OverlayTable</CODE> cannot be omitted.<BR>2009/09/02 Added a description of the <CODE>-m</CODE> option.<BR>2009/07/27 Added a description of support for Chinese applications to the description of the <CODE>Rating</CODE> section.<BR>2009/07/14 Added an explanation of <CODE>CardRegion</CODE> and explanation of the Korean rating organization.<BR>2009/06/08 Added link to the explanation of TWL-exclusive files.<br />2009/04/13 Added a link to the FS Library Overview from the description of <CODE>DigestParam</CODE>. <BR>2009/04/07 Added a description of the <CODE>PhotoAccess</CODE> property. <BR>2009/03/24 Revised explanations related to the priority order of <CODE>Align</CODE> and <CODE>AlignAll</CODE>. <BR>2009/03/10 Added a description of <CODE>CardRegion</CODE> and made revisions following a change to the name of the Australian rating organization. <BR>2009/02/06 Added a description of <CODE>CardRegion</CODE> and a new description of <CODE>Rating</CODE>. <BR>2009/02/03 Added a description of <CODE>WiFiConnectionIcon</CODE> and <CODE>AgreeEULA</CODE>. <BR>2009/01/08 Added a description of TWL-specific files. <BR>2008/12/16 Revised the description of the default value for <CODE>TARGET_PLATFORM</CODE>. <BR>2008/12/08 Removed the description of <CODE>JpegSign</CODE>. <BR>2008/10/31 Added a description of <CODE>RomSize</CODE>. <BR>2008/10/29 Revised the description of <CODE>WramMapping</CODE> and <CODE>CodecMode</CODE>. <BR>2008/10/22 Added to the description of <CODE>JpegSign</CODE>. <BR>2008/10/22 Added a description of <CODE>Property</CODE>. <BR>2008/09/16 Added descriptions related to running ROMs on development and production hardware. <BR>2008/09/12 Added a significant number of items and a heading for <CODE>makerom.TWL.exe</CODE>. <BR>2008/06/04 Changed the default value for <CODE>FixSound</CODE> and <CODE>FixSoundDMA</CODE> to <CODE>TRUE</CODE>. <BR>2008/03/28 Changed descriptions related to SCFG for the ARM7. <BR>2007/11/30 Added settings related to SCFG for the ARM7. <BR>2007/09/27 Added <CODE>DllFile</CODE>. <BR>2007/06/06 Added a description of the <CODE>-M</CODE> option. <BR>2007/03/29 Revised text in response to the fact that temporary specifications for the new <CODE>2Gbit</CODE> ROM format have been adopted as the final specifications. <BR>2006/10/06 Added a description of the scope of <CODE>Reject</CODE> statements. <BR>2006/08/18 Added a description of <CODE>ForKorea</CODE>. <BR>2005/05/09 Added support for ROM format versions. <BR>2005/04/26 Changed the term &quot;1-time PROM&quot; to &quot;one-time PROM.&quot; <BR>2005/04/11 Added a description of <CODE>ForChina</CODE>. <BR>2005/04/05 Added a description of <CODE>&quot;UNDEFINED&quot;</CODE> to <CODE>RomSpeedType</CODE>. <BR>2005/03/28 Added a description of <CODE>RomSpeedType</CODE> and the <CODE>-W</CODE> option. <BR>2004/09/22 Explained the order in which section headings appear. <BR>2004/07/23 Added descriptions for <CODE>Align</CODE> and <CODE>AlignAll</CODE>. <BR>2004/06/08 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

@@ -1,0 +1,41 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title>DSP_TryWaitForG711</title>
+<link rel="stylesheet" href="../../css/nitro.css" type="text/css" />
+</head>
+<body>
+
+<h1>DSP_TryWaitForG711 <IMG src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+
+<pre><code>
+BOOL DSP_TryWaitForG711(void);
+</code></pre>
+
+<h2>Arguments</h2>
+<p>None.</p>
+
+
+<h2>Return Values</h2>
+<p>Returns <CODE>TRUE</CODE> if the last G.711 function call has already completed; <CODE>FALSE</CODE> otherwise.</p>
+
+<h2>Description</h2>
+<p>Determines whether the last G.711 function call has already completed.<br />Use the <code><a href="DSP_WaitForG711.html">DSP_WaitForG711</a></code> function if you want to wait until it is complete.</p>
+
+<h2>Note</h2>
+<ul>
+<li>You must use the <code><a href="DSP_LoadG711.html">DSP_LoadG711</a></code> function to load the G.711 component before using this function.</li>
+</ul>
+
+<h2>See Also</h2>
+<p><code><a href="DSP_LoadG711.html">DSP_LoadG711</a> <a href="DSP_EncodeG711.html">DSP_EncodeG711</a> <a href="DSP_DecodeG711.html">DSP_DecodeG711</a> <a href="DSP_WaitForG711.html">DSP_WaitForG711</a></code></p>
+
+<h2>Revision History</h2>
+<p>
+2008/02/21 Initial version.
+</p>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

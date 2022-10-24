@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>NNS_G2dGetOamManExInstance</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+<h1 align="left">NNS_G2dGetOamManExInstance</h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+		<pre><CODE>#include &lt;nnsys/g2d/g2d_OAMEx.h&gt;</CODE></pre>
+  <pre><CODE>BOOL NNS_G2dGetOamManExInstance( 
+                                NNSG2dOamManagerInstanceEx*    pOam, 
+                                NNSG2dOamChunkList*             pOamOrderingTbl, 
+                                u8                              lengthOfOrderingTbl,
+                                u16                             numPooledOam,
+                                NNSG2dOamChunk*                 pPooledOam,
+                                u16                             lengthAffineBuffer,
+                                NNSG2dAffineParamProxy*         pAffineBuffer );
+
+  </CODE></pre>
+  </dd>
+</dl><h2>Arguments</h2>
+
+<table border="1" width="100%">
+  <tr>
+<td width="13%"><CODE>pOam</CODE></td>
+<td width="87%">[OUT] Extended OAM manager entity.</td>
+  </tr>
+  <tr>
+<td width="13%"><CODE>pOamOrderingTbl</CODE></td>
+<td width="87%">[IN] Starting address of the ordering table</td>
+  </tr>
+  <tr>
+<td width="13%"><CODE>lengthOfOrderingTbl</CODE></td>
+<td width="87%">[IN] Length of the ordering table (must be at least 1)</td>
+  </tr>
+  <tr>
+<td width="13%"><CODE>numPooledOam</CODE></td>
+<td width="87%">[IN] The number of <CODE>OBJChunk</CODE>s (must be at least 1)</td>
+  </tr>
+  <tr>
+<td width="13%"><CODE>pPooledOam</CODE></td>
+<td width="87%">[IN] Pointer to the <CODE>OBJChunk</CODE> array (must be non-<CODE>NULL</CODE> and have a length sufficient for <CODE>OBJChunk</CODE>)</td>
+  </tr>
+  <tr>
+<td width="13%"><CODE>lengthAffineBuffer</CODE></td>
+<td width="87%">[IN] Length of the affine parameter buffer array (if not used, set to zero)</td>
+  </tr>
+  <tr>
+<td width="13%"><CODE>pAffineBuffer</CODE></td>
+<td width="87%">[IN] Pointer to the affine parameter buffer array (if not used, set to <CODE>NULL</CODE>)</td>
+  </tr>
+  </table>
+<h2>Return Values</h2>
+<p><CODE>TRUE</CODE> if initialization succeeds.
+</p>
+<H2>Description</H2>
+<P>
+Initializes the extended OAM Manager. The Ordering table length becomes the maximum depth that can be specified when OBJs are registered. The longer the ordering table is, the greater the amount of overhead that is generated during rendering.<BR><BR> <BR> The <CODE>numPooledOam</CODE> argument is the maximum number of OBJs that can be registered in the manager.<BR> You must specify a value of 1 or greater.<BR> The <CODE>numPooledOam</CODE> argument can be larger than the number of OBJ attributes that the manager actually uses. (In such a case, the manager displays the OBJs using time-sharing over several frames.) <BR>Bear in mind that the number of OBJ attributes that the manager actually uses is determined by the return value of the OBJ registration function that is set by <A href="NNSG2dOamExEntryFunctions.html"><CODE>NNSG2dOamExEntryFunctions</CODE></A>. <BR>
+
+<BR> The <CODE>lengthAffineBuffer</CODE> argument is the maximum number of affine parameters that can be registered in the manager.<BR> When affine transformation is not used, set it to zero and set <CODE>pAffineBuffer</CODE> to <CODE>NULL</CODE>.<BR> <BR>
+
+The name of this function has been changed from <code>NNS_G2dGetNewOamInstanceEx</code>. The previous function remains under a different name in order to maintain compatibility.
+</p>
+
+<h2>See Also</h2>
+<p>
+<a href="NNS_G2dGetNewOamInstanceEx.html"><code>NNS_G2dGetNewOamInstanceEx</code></a><BR> <a href="NNS_G2dInitAffineManagerEx.html"><code>NNS_G2dInitAffineManagerEx</code></a><BR> <a href="NNS_G2dSetOamManExEntryFunctions.html"><code>NNS_G2dSetOamManExEntryFunctions</code></a><BR> <CODE><A href="NNSG2dOamExEntryFunctions.html">NNSG2dOamExEntryFunctions</A></code>
+</P>
+<H2>Revision History</H2>
+<P>2005/06/06 Added a link to <CODE>NNSG2dOamExEntryFunctions</CODE>.<BR>2005/06/06 Added <B>Description</B>.<BR>
+2004/08/02 Renamed function.<BR></P><P>2004/06/22 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

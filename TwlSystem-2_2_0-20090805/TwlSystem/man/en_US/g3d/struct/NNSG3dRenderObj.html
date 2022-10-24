@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META http-equiv="Content-Style-Type" content="text/css">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+	<TITLE>NNSG3dRenderObj</TITLE>
+	<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+
+<BODY>
+
+<H1 align="left">NNSG3dRenderObj</H1>
+<H2>Syntax</H2>
+<PRE class="construction">#include &lt;nnsys/g3d/kernel.h&gt;
+
+typedef struct NNSG3dRenderObj_
+{
+    u32 flag; // NNSG3dRenderObjFlag
+
+    NNSG3dResMdl*         resMdl;
+    NNSG3dAnmObj*         anmMat;
+    NNSG3dFuncAnmBlendMat funcBlendMat;
+    NNSG3dAnmObj*         anmJnt;
+    NNSG3dFuncAnmBlendJnt funcBlendJnt;
+    NNSG3dAnmObj*         anmVis;
+    NNSG3dFuncAnmBlendVis funcBlendVis;
+
+    // Callback information
+    NNSG3dSbcCallBackFunc cbFunc;              // No callback if NULL.
+    u8                    cbCmd;               // Specify the stop position with a command. NNS_G3D_SBC_***** (Define in res_struct.h).
+    u8                    cbTiming;            // NNSG3dSbcCallBackTiming (Define in sbc.h).
+    u16                   dummy_;
+
+    // Called immediately before the rendering begins. Generally used to set
+    // the callback vectors for NNS_G3dRS.
+    NNSG3dSbcCallBackFunc cbInitFunc;
+
+    // Pointer to the region managed by the user.
+    // If the pointer is set in advance, it can be used in the callback.
+    void*                 ptrUser;
+
+    u8*                   ptrUserSbc;
+
+    struct NNSG3dJntAnmResult_*   recJntAnm;
+    struct NNSG3dMatAnmResult_*   recMatAnm;
+
+    u32 hintMatAnmExist[NNS_G3D_SIZE_MAT_MAX / 32];
+    u32 hintJntAnmExist[NNS_G3D_SIZE_JNT_MAX / 32];
+    u32 hintVisAnmExist[NNS_G3D_SIZE_JNT_MAX / 32];
+}
+NNSG3dRenderObj;</PRE>
+<H2>Description</H2>
+<P>The <code>NNSG3dRenderObj</code> structure collects and stores the data needed to render a model. The structure stores the following data:</P>
+<UL>
+<LI>Pointer to the model resource (<a href="NNSG3dResMdl.html"><code>NNSG3dResMdl</code></a>)
+<LI>Pointer to the animation object (<a href="NNSG3dAnmObj.html"><code>NNSG3dAnmObj</code></a>)
+<LI>Pointer to the animation blend function
+<LI>Callback settings
+<LI>Pointer to the initialize function
+<LI>Pointer to the buffer that stores the animation calculations (<a href="NNSG3dJntAnmResult.html"><code>NNSG3dJntAnmResult</code></a>, <a href="NNSG3dMatAnmResult.html"><code>NNSG3dMatAnmResult</code></a>)
+<LI>Flag group for optimizing and customizing operations
+</UL>
+<P>The following processes must be conducted in order to use the <code>NNSG3dRenderObj</code> structure:</P>
+<OL>
+<LI>Allocate a region for the structure using the <a href="../mem/NNS_G3dAllocRenderObj.html" target="_self"><code>NNS_G3dAllocRenderObj</code></a> function (can also allocate to the stack without using this function)
+<LI>Initialize the structure with the <a href="../kernel/NNS_G3dRenderObjInit.html"><code>NNS_G3dRenderObjInit</code></a> function
+<LI>For animation, add the animation object using the <a href="../kernel/NNS_G3dRenderObjAddAnmObj.html"><code>NNS_G3dRenderObjAddAnmObj</code></a> function
+<LI>If a callback process is needed, register the callback function using either the <a href="../kernel/NNS_G3dRenderObjSetCallBack.html"><code>NNS_G3dRenderObjSetCallBack</code></a> or <a href="../kernel/NNS_G3dRenderObjSetInitFunc.html"><code>NNS_G3dRenderObjSetInitFunc</code></a> function
+<LI>If the joint and material calculation results are to be reused, register a buffer in the <code>NNSG3dRenderObj</code> structure using the <a href="../kernel/NNS_G3dRenderObjSetJntAnmBuffer.html"><code>NNS_G3dRenderObjSetJntAnmBuffer</code></a> or <a href="../kernel/NNS_G3dRenderObjSetMatAnmBuffer.html"><code>NNS_G3dRenderObjSetMatAnmBuffer</code></a> function
+<LI>Render using the <a href="../sbc/NNS_G3dDraw.html"><code>NNS_G3dDraw</code></a> function
+<LI>Once the allocated region is no longer necessary, release it using the <a href="../mem/NNS_G3dFreeRenderObj.html" target="_self"><code>NNS_G3dFreeRenderObj</code></a> function
+</OL>
+<P>You do not need to prepare the <code>NNSG3dRenderObj</code> structure if you are rendering with the <a href="../sbc/NNS_G3dDraw1Mat1Shp.html"><code>NNS_G3dDraw1Mat1Shp</code></a> function.</P>
+<H2>See Also</H2>
+<P><A href="../list_g3d.html#Kernel">Kernel</A></P>
+<H2>Revision History</H2>
+<P>2007/05/17 Added structure definition.<BR>2004/10/12 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+
+</HTML>

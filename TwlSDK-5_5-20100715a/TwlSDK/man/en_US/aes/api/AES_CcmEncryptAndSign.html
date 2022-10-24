@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>AES_CcmEncryptAndSign</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+<body>
+<h1 align="left">AES_CcmEncryptAndSign <IMG src="../../image/TWL.gif" width="23" height="12" border="0" align="middle"></h1>
+<h2>Syntax</h2>
+<dl>
+  <dd>
+  <pre><CODE>#include &lt;twl/aes.h&gt;
+
+#define AES_BLOCK_SIZE          16  // 128 bit
+
+#define AES_ADATA_BLOCK_NUM_MAX 0xFFFF
+#define AES_PDATA_BLOCK_NUM_MAX 0xFFFF
+
+#define AES_ADATA_SIZE_MAX      (AES_BLOCK_SIZE * AES_ADATA_BLOCK_NUM_MAX)
+#define AES_PDATA_SIZE_MAX      (AES_BLOCK_SIZE * AES_PDATA_BLOCK_NUM_MAX)
+
+<a href="AESResult.html">AESResult</a> AES_CcmEncryptAndSign( const <a href="AESNonce.html">AESNonce</a>* pNonce,
+                                 const void*     src,
+                                 u32             srcASize,
+                                 u32             srcPSize,
+                                 <a href="AESMacLength.html">AESMacLength</a>    macLength,
+                                 void*           dst,
+                                 <a href="AESCallback.html">AESCallback</a>     callback,
+                                 void*           arg );
+</CODE></pre>
+</dd>
+</dl>
+<h2>Arguments</h2>
+<TABLE border="1" width="100%" class="arguments">
+  <TBODY>
+    <TR>
+<TH>pNonce</TH>
+<TD>The nonce to use for encryption.</TD>
+    </TR>
+    <TR>
+<TH>src</TH>
+<TD>Pointer to the plaintext. Must be 4-byte aligned. In addition, it must point to a location in main memory.</TD>
+    </TR>
+    <TR>
+<TH>srcASize</TH>
+<TD>Size of the plaintext that will be subject to MAC operations but will not be encrypted. This must be between 0 and <code>AES_ADATA_SIZE_MAX</code>, inclusive, and must also be a multiple of <code>AES_BLOCK_SIZE</code> (=16).</TD>
+    </TR>
+    <TR>
+<TH>srcPSize</TH>
+<TD>Size of the plaintext that will be subject to MAC operations and encrypted. This must be between 0 and <code>AES_PDATA_SIZE_MAX</code>, inclusive.</TD>
+    </TR>
+    <TR>
+<TH>macLength</TH>
+<TD>Size of MAC.</TD>
+    </TR>
+    <TR>
+<TH>dst</TH>
+<TD>Pointer to the buffer that will store the ciphertext and MAC. Must be 4-byte aligned. In addition, it must point to a location in main memory. An area of byte length <span class="argument">srcPSize</span> + <span class="argument">macLength</span> is required.</TD>
+    </TR>
+    <TR>
+<TH>callback</TH>
+<TD>Pointer to the callback function to call when encryption completes. It is possible to specify <CODE>NULL</CODE>.</TD>
+    </TR>
+    <TR>
+<TH>arg</TH>
+<TD>User-defined parameter that is passed to the above callback function. Can be any value, including <CODE>NULL</CODE>.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<h2>Return Values</h2>
+<p>
+Returns <code>AES_RESULT_SUCCESS</code> if the AES operation was started successfully. Any other return values indicate an error.
+</p>
+<H2>Description</H2>
+<P>
+Starts the AES encryption and signature process in CCM mode.
+</p>
+<p>
+The encryption and signature will be done using the key that was set with <code><a href="AES_SetKey.html">AES_SetKey()</a></code> and the nonce that was specified in <span class="argument">pNonce</span>. The data to sign begins at <span class="argument">src</span> and will be of size <span class="argument">srcASize</span> + <span class="argument">srcPSize</span> bytes. The data to encrypt begins at <span class="argument">src</span> + <span class="argument">srcASize</span> and will be  of size <span class="argument">srcPSize</span> bytes. The encrypted result will be written to a <span class="argument">srcPSize</span>-byte area starting at <span class="argument">dst</span>, and a MAC whose size is indicated by <span class="argument">macLength</span> will be written just after that. When the encryption process completes, <span class="argument">callback</span> will be called, using the encrypted result and <span class="argument">arg</span> as arguments. <span class="argument">callback</span> is called from the interrupt handler, so note that it may be called even when interrupts are disabled. Conversely, also note that <span class="argument">callback</span> is not called when interrupts are disabled.
+</p>
+<p>
+For data layout in memory, refer to the following figure. <br> <br> <img src="ccm-encrypt.png">
+</p>
+<p>
+This function returns control immediately once it has started the processing. If processing starts without a problem, this function will return <code>AES_RESULT_SUCCESS</code>, but if an error occurs during subsequent processing, it will call <span class="argument">callback</span> with the error value and <span class="argument">arg</span> as arguments. Note that error notification done using this callback will be started from the interrupt handler, so depending on the situation, it's possible that the callback could deliver an error notification before control returns from the function.
+</p>
+<p>
+The encryption key must be set beforehand using <code><a href="AES_SetKey.html">AES_SetKey()</a></code>.
+</p>
+<p>
+The same key and nonce must be used for encryption and decryption. The key must not be leaked, but it isn't a problem if the nonce gets leaked. However, a different value must be used for the nonce each time this function is called.
+</p>
+<p>
+In general, the Adata size will be placed immediately after the CCM header in CCM mode, and the MAC will be calculated assuming that the Adata itself continues after the Adata size. This function, however, calculates the MAC as if the Adata is placed immediately after the CCM header. If you need the Adata size, you must include it in the Adata in advance.
+</p>
+<h2>See Also</h2>
+<p><CODE><A href="AES_CcmDecryptAndVerify.html">AES_CcmDecryptAndVerify</A></CODE></p>
+<H2>Revision History</H2>
+<P>
+2008/09/03 Added a note that the Adata size is not used when calculating the MAC.<br>2008/07/11 Added <CODE>AES_ADATA_SIZE_MAX</CODE> and <CODE>PDATA_SIZE_MAX</CODE>. <br>2007/12/25 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

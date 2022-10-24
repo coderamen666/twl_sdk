@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 8.0.2.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>STD_CopyLString</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">STD_CopyLString<img src="../../image/NTR.gif"align="middle"><img src="../../image/TWL.gif" align="middle"></h1>
+<h2>Syntax</h2>
+<dl>
+  <dd><PRE><CODE>#include &lt;nitro/std.h&gt;
+
+int STD_CopyLString( char* destp, const char* srcp, int siz );</CODE></PRE>
+  <PRE><CODE>int STD_StrLCpy( char* destp, const char* srcp, int siz );
+</CODE></PRE></dd>
+</dl>
+
+<h2>Arguments</h2>
+<table border="1" width="100%">
+  <tbody>
+    <TR>
+<TD width="200"><SPAN class="argument">destp</SPAN></TD>
+<TD width="800">Pointer to a copy destination.</TD>
+    </TR>
+    <TR>
+<TD width="200"><SPAN class="argument">srcp</SPAN></TD>
+<TD width="800">Pointer to the copy source.</TD>
+    </TR>
+    <TR>
+<TD width="200"><SPAN class="argument">siz</SPAN></TD>
+<TD width="800">Size of the write buffer of the copy destination.</TD>
+    </TR>
+  </tbody>
+</table>
+
+<h2>Return Values</h2>
+<p>
+Returns the copy target string pointer.
+</p>
+
+<H2>Description</H2>
+<P>
+Copies a maximum of (<SPAN class="argument">siz</SPAN>-1) characters from the <SPAN class="argument">srcp</SPAN> string to the <SPAN class="argument">destp</SPAN> string. It carries out the same operation as the C standard function <CODE>strlcpy</CODE>.
+<P>The <CODE>STD_StrLCpy</CODE> function is defined as another name for <CODE>STD_CopyLString</CODE>.</P>
+
+<h2>See Also</h2>
+<p><A href="STD_CopyString.html"><CODE>STD_CopyString</CODE></A><BR> <A href="STD_CopyLStringZeroFill.html"><CODE>STD_CopyLStringZeroFill</CODE></A></p>
+
+<H2>Revision History</H2>
+<P>
+2006/06/06 Changed function specifications to conform to the <CODE>strlcpy</CODE> function.<BR> 2006/05/15 Revised <B>Description</B>.<BR> 2005/10/5 Initial version.<BR>
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

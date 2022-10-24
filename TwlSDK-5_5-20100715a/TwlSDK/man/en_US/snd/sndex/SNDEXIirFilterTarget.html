@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+	<HEAD>
+		<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>SNDEXIirFilterTarget</title>
+		<link rel="stylesheet" href="../../css/nitro.css" type="text/css">
+	</HEAD>
+	<BODY>
+		<H1>SNDEXIirFilterTarget <IMG src="../../image/TWL.gif" width="24" height="12" border="0" align=middle></H1>
+
+		<H2>Definition</H2>
+		<DL>
+			<DD><CODE>#include &lt;twl/snd.h&gt;</CODE></DD>
+			<DD><PRE><CODE>typedef enum _SNDEXIirFilterTarget
+{
+SNDEX_IIR_FILTER_ADC_1 = 0,
+SNDEX_IIR_FILTER_ADC_2,
+SNDEX_IIR_FILTER_ADC_3,
+SNDEX_IIR_FILTER_ADC_4,
+SNDEX_IIR_FILTER_ADC_5,
+
+SNDEX_IIR_FILTER_TARGET_AVAILABLE_MAX,
+
+SNDEX_IIR_FILTER_RESERVED_1 = SNDEX_IIR_FILTER_TARGET_AVAILABLE_MAX,
+SNDEX_IIR_FILTER_RESERVED_2,
+SNDEX_IIR_FILTER_RESERVED_3,
+SNDEX_IIR_FILTER_RESERVED_4,
+SNDEX_IIR_FILTER_RESERVED_5,
+SNDEX_IIR_FILTER_RESERVED_6,
+SNDEX_IIR_FILTER_RESERVED_7,
+SNDEX_IIR_FILTER_RESERVED_8,
+SNDEX_IIR_FILTER_RESERVED_9,
+SNDEX_IIR_FILTER_RESERVED_10,
+SNDEX_IIR_FILTER_RESERVED_11,
+SNDEX_IIR_FILTER_RESERVED_12,
+SNDEX_IIR_FILTER_RESERVED_13,
+SNDEX_IIR_FILTER_RESERVED_14,
+SNDEX_IIR_FILTER_RESERVED_15,
+SNDEX_IIR_FILTER_TARGET_MAX
+} SNDEXIirFilterTarget;</CODE></PRE></DD>
+		</DL>
+
+		<H2>Elements</H2>
+		<TABLE>
+			<TBODY>
+				<TR>
+					<TH width="25%">SNDEX_IIR_FILTER_ADC_1 ... 5</TH>
+					<TD width="75%">IIR filter for microphone input data (stage 1 to stage 5).</TD>
+				</TR>
+				<TR>
+					<TH width="25%">SNDEX_IIR_FILTER_RESERVED_1 ... 15</TH>
+					<TD width="75%">Reserved by the system for future use. Do not specify it.</TD>
+				</TR>
+			</TBODY>
+		</TABLE>
+
+		<H2>Description</H2>
+		<P>
+			Enumerated type that indicates the target to which IIR filters will be applied.
+		</P>
+		<P>
+			Filters are applied in ascending numerical order, as follows.<BR>
+			<UL>
+				<LI>(Microphone) -&gt; A/D converter &rarr; ADC1 &rarr; ADC2 &rarr; ADC3 &rarr; ADC4 &rarr; ADC5 &rarr; microphone input data</LI>
+			</UL>
+		</P>
+        <P>
+<CODE>SNDEX_IIR_FILTER_RESERVED_nn</CODE> (<CODE>nn=1～15</CODE>) is reserved by the system, and must not be specified by users.<BR>
+        </P>
+		<H2>See Also</H2>
+		<P><A href="SNDEX_SetIirFilter.html"><CODE>SNDEX_SetIirFilter</CODE></A><BR> <A href="SNDEX_SetIirFilterAsync.html"><CODE>SNDEX_SetIirFilterAsync</CODE></A><BR> <A href="SNDEXIirFilterParam.html"><CODE>SNDEXIirFilterParam</CODE></A>
+		</P>
+
+		<H2>Revision History</H2>
+		<P>
+			2011/11/01 Adjusted the definition value. <br>2008/07/08 Initial version.
+		</P>
+	<hr><p>CONFIDENTIAL</p></BODY>
+</HTML>

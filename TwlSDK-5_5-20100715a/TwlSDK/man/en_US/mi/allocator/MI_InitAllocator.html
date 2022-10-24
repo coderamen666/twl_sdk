@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>MI_InitAllocator</title>
+<link rel="stylesheet" href="../../css/nitro.css" type="text/css" />
+</head>
+<body>
+<h1>MI_InitAllocator <IMG src="../../image/NTR.gif" align="middle"><IMG src="../../image/TWL.gif" align="middle"></h1>
+<h2>Syntax</h2>
+<dl>
+  <dd>
+<code>#include &lt;nitro/mi.h&gt;<br />
+  <br />
+  void MI_InitAllocator(<a href="MIAllocator.html">MIAllocator</a> *allocator,</code></dd>
+  <dd><code>             void *userdata,</code></dd>
+  <dd><code> <a href="MIAllocatorAllocFunction.html">            MIAllocatorAllocFunction</a> alloc,</code></dd>
+  <dd><code> <a href="MIAllocatorFreeFunction.html">            MIAllocatorFreeFunction</a> free);</code></dd>
+</dl>
+
+<h2>Arguments</h2>
+<table border="1" width="100%">
+  <tbody>
+    <tr>
+      <td style="width:13%"><em><strong>allocator</strong></em></td>
+      <td style="width:87%">Pointer to the <CODE><a href="MIAllocator.html">MIAllocator</a></CODE> structure to be initialized.</td>
+    </tr>
+    <tr>
+      <td style="width:13%"><em><strong>userdata</strong></em></td>
+      <td style="width:87%">Any user-defined value to be linked with the structure.</td>
+    </tr>
+    <tr>
+      <td style="width:13%"><em><strong>alloc</strong></em></td>
+      <td style="width:87%">Pointer to the callback function to be used for memory allocation.</td>
+    </tr>
+    <tr>
+      <td style="width:13%"><em><strong>free</strong></em></td>
+      <td style="width:87%">Pointer to the callback function to be used for memory deallocation.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Return Values</h2>
+<p>None.</p>
+
+<h2>Description</h2>
+<p>Specifies the callback to use for memory management and a freely configurable argument, and initializes the <a href="MIAllocator.html"><CODE>MIAllocator</CODE></a> structure.</p>
+<p>Calling <a href="MI_CallAlloc.html"><CODE>MI_CallAlloc()</CODE></a> or <a href="MI_CallFree.html"><CODE>MI_CallFree()</CODE></a> with this structure will cause the callback functions to be called directly.<br />For more information, see the reference for the <a href="MIAllocator.html"><CODE>MIAllocator</CODE></a> structure.
+</p>
+
+<h2>See Also</h2>
+<p><code><a href="MIAllocator.html">MIAllocator,</a> <a href="MIAllocatorAllocFunction.html">MIAllocatorAllocFunction</a>, <a href="MIAllocatorFreeFunction.html">MIAllocatorFreeFunction</a> <br /> <a href="MI_CallAlloc.html">MI_CallAlloc</a>, <a href="MI_CallFree.html">MI_CallFree</a></code></p>
+<h2>Revision History</h2>
+<p>2007/06/12 Initial version.</p>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

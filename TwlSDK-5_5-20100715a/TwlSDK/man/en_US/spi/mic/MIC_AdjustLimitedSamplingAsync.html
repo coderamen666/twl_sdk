@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 8.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+<TITLE>MIC_AdjustLimitedSamplingAsync</TITLE>
+</HEAD>
+
+<BODY>
+
+<H1 align="left">MIC_AdjustLimitedSamplingAsync <img src="../../image/TWL.gif"></H1>
+
+<H2>Syntax</H2>
+<DL>
+  <DD>
+<CODE>#include &lt;twl/spi.h&gt;</CODE><BR>
+  <PRE><CODE><A href="MICResult.html">MICResult</A> MIC_AdjustLimitedSamplingAsync(
+          u32             rate,
+          <A href="MICCallback.html">MICCallback</A>     callback,
+          void*           arg );</CODE></PRE>
+
+  </DD>
+</DL>
+
+<H2>Arguments</H2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+      <TD width="300"><em><strong><font face="Courier New">rate</font></strong></em></TD>
+      <TD width="700">Specifies the sampling cycle.</TD>
+    </TR>
+    <TR>
+      <TD><EM><STRONG><FONT face="Courier New">callback</FONT></STRONG></EM></TD>
+      <TD>Specifies the pointer to the callback function. This callback is called from within the interrupt handler.</TD>
+    </TR>
+    <TR>
+      <TD><EM><STRONG><FONT face="Courier New">arg</FONT></STRONG></EM></TD>
+      <TD>Specifies the argument passed to the callback function.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<H2>Return Values</H2>
+<P>
+Returns the processing result as a <CODE><A href="MICResult.html">MICResult</A></CODE> enumerated type. Returns <CODE>MIC_RESULT_SUCCESS</CODE> if the asynchronous process started normally; returns some other value if the process failed.
+</P>
+
+<H2>Description</H2>
+<P>
+Asynchronously begins adjustment of the sampling rate of the microphone's frequency-limited auto-sampling.<BR>This function issues a request to the ARM7 to adjust frequency-limited auto-sampling, then returns control to the caller without waiting for a response. You must use the <CODE>result</CODE> argument passed by the user callback function to get the ARM7 processing result. If this function fails, the asynchronous operation is not performed and the user callback function is not called.<BR>This function is only valid when frequency-limited auto-sampling has already begun. The sampling cycle is updated when the ARM7 receives the request, no earlier.
+</P>
+<P>
+Frequency-limited auto-sampling differs from normal auto-sampling in that the hardware does the actual sampling. As a result, stable sampling can be performed at precise cycles; also, by relaxing the CPU burden on the ARM7, effects of sampling on wireless communications and other I/O will be reduced. On the other hand, sampling cannot be performed at frequencies that are unsupported by the hardware. The following sampling frequencies can be specified for <CODE>rate</CODE>, but the frequencies that can be specified at a given time depend on the sound master frequency settings and thus are further limited to four of the following. A value of <CODE>MIC_RESULT_ILLEGAL_PARAMETER</CODE> will be returned if one of the limited frequencies is not specified.
+</P>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+      <TH width="20%"><center>Sound master frequency</center></TD>
+      <TH width="40%"><center>Settable frequency</center></TD>
+      <TH width="40%"><center>Description</center></TD>
+    </TR>
+    <TR>
+      <TD rowspan="4">32.73kHz</TD>
+      <TD><em><strong><font face="Courier New">MIC_SAMPLING_RATE_32730</font></strong></em></TD>
+      <TD>32.73 kHz (1/1 of the master frequency)</TD>
+    </TR>
+    <TR>
+      <TD><em><strong><font face="Courier New">MIC_SAMPLING_RATE_16360</font></strong></em></TD>
+      <TD>16.36kHz (1/2 of the master frequency)</TD>
+    </TR>
+    <TR>
+      <TD><em><strong><font face="Courier New">MIC_SAMPLING_RATE_10910</font></strong></em></TD>
+      <TD>10.91kHz (1/3 of the master frequency)</TD>
+    </TR>
+    <TR>
+      <TD><em><strong><font face="Courier New">MIC_SAMPLING_RATE_8180</font></strong></em></TD>
+      <TD>8.18kHz (1/4 of the master frequency)</TD>
+    </TR>
+    <TR>
+      <TD rowspan="4">47.61kHz</TD>
+      <TD><em><strong><font face="Courier New">MIC_SAMPLING_RATE_47610</font></strong></em></TD>
+      <TD>47.61kHz (1/1 of the master frequency)</TD>
+    </TR>
+    <TR>
+      <TD><em><strong><font face="Courier New">MIC_SAMPLING_RATE_23810</font></strong></em></TD>
+      <TD>23.81kHz (1/2 of the master frequency)</TD>
+    </TR>
+    <TR>
+      <TD><em><strong><font face="Courier New">MIC_SAMPLING_RATE_15870</font></strong></em></TD>
+      <TD>15.87kHz (1/3 of the master frequency)</TD>
+    </TR>
+    <TR>
+      <TD><em><strong><font face="Courier New">MIC_SAMPLING_RATE_11900</font></strong></em></TD>
+      <TD>11.90kHz (1/4 of the master frequency)</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<H2>Note</H2>
+<P>
+<FONT color=red>Because frequency-limited auto-sampling cannot be performed on the NITRO platform or when the CODEC is running in CODEC-DS mode, this function will instead internally call the <CODE><A href="MIC_AdjustAutoSamplingAsync.html">MIC_AdjustAutoSamplingAsync</A></CODE> auto-sampling control function.</FONT>
+</P>
+<P><FONT color=red>It has been confirmed that slight hardware noise is mixed with the microphone input on the TWL console. See <A href="./about_HardwareNoise.html">here</A> for a workaround.</FONT></P>
+<H2>See Also</H2>
+<P>
+<CODE><A href="MIC_AdjustLimitedSampling.html">MIC_AdjustLimitedSampling</A>, <A href="MIC_StartLimitedSamplingAsync.html">MIC_StartLimitedSamplingAsync</A>, <A href="MIC_StopLimitedSamplingAsync.html">MIC_StopLimitedSamplingAsync</A></CODE>
+</P>
+
+<H2>Revision History</H2>
+<P>
+2008/01/09 Added a note about the difference in behavior with CODEC mode. <BR>2007/11/17 Initial version.<BR>
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

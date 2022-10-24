@@ -1,0 +1,187 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>OS_IsRunOnEmulator</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">OS_IsRunOnEmulator <IMG src="../../image/NTR.gif" align="middle"><IMG src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+<DL>
+<DD><CODE>#include &lt;nitro/os.h&gt;</CODE><BR> <BR> <CODE>BOOL OS_IsRunOnEmulator( void );</CODE>
+</DL>
+<H2>Arguments</H2>
+<P>None.</P>
+<H2>Return Values</H2>
+<P>If the program is running on the ensata NITRO Software Emulator, <code>TRUE</code> is returned. Otherwise, <code>FALSE</code> is returned.</P>
+<H2>Description</H2>
+<P>Checks whether the program is running on the ensata NITRO Software Emulator (Ensata).</P>
+<P>This function is used to dynamically switch processing depending on whether the program is running on Ensata or some other environment. Use this function to create programs that will operate on Ensata and other environments.</P>
+<P>The <a href="OS_Printf.html"><code>OS_Printf</code></a> function uses this function to control the output destination.</P>
+<P>Because this is a debugging function, it always returns <code>FALSE</code> in the FINALROM version of the library.</P>
+<H3><BR> Similar Functions</H3>
+<P>The <A href="OS_IsRunOnDebugger.html"><CODE>OS_IsRunOnDebugger</CODE></A> function is also used for finding out the operating environment. It checks whether the program is running on either IS-NITRO-DEBUGGER or IS-TWL-DEBUGGER.</P>
+<H3><BR> Actual Values Due to the Environment or Build</H3>
+<P>The table below shows the differences in the values returned by the <A href="OS_IsRunOnDebugger.html"><CODE>OS_IsRunOnDebugger</CODE></A> and <CODE>OS_IsRunOnEmulator</CODE> functions due to the operating environment.<BR>
+</P>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+<TH colspan="4" style="background-color:#304040;"><FONT color="#ffffff">For NITRO Mode</FONT></TH>
+    </TR>
+    <TR>
+<TH>Operating Environment</TH>
+<TH>Build</TH>
+<TH>Value of <CODE>OS_IsRunOnDebugger</CODE></TH>
+<TH><CODE>Value of <CODE>OS_IsRunOnEmulator</CODE></CODE></TH>
+    </TR>
+    <TR>
+<TD>NTR system</TD>
+<TD>DEBUG<BR> RELEASE<BR> FINALROM</TD>
+<TD><B>FALSE</B></TD>
+<TD><B>FALSE</B></TD>
+    </TR>
+    <TR>
+<TD>Actual TWL unit</TD>
+<TD>DEBUG<BR> RELEASE<BR> FINALROM</TD>
+<TD><B>FALSE</B></TD>
+<TD><B>FALSE</B></TD>
+    </TR>
+    <TR>
+<TD rowspan="2">IS-NITRO-DEBUGGER<BR> (debugger software<BR> even if not connected)</TD>
+<TD>DEBUG<BR> RELEASE</TD>
+<TD><B><FONT color="#ff0000">TRUE</FONT></B></TD>
+<TD><B>FALSE</B></TD>
+    </TR>
+    <TR>
+<TD>FINALROM</TD>
+<TD><B>FALSE</B></TD>
+<TD><B>FALSE</B></TD>
+    </TR>
+    <TR>
+<TD rowspan="2">ENSATA EMULATOR</TD>
+<TD>DEBUG<BR>RELEASE</TD>
+<TD><B>FALSE</B></TD>
+<TD><B><FONT color="#ff0000">TRUE</FONT></B></TD>
+    </TR>
+    <TR>
+<TD>FINALROM</TD>
+<TD><B>FALSE</B></TD>
+<TD><B>FALSE</B></TD>
+    </TR>
+    <TR>
+<TD rowspan="2">IS-TWL-DEBUGGER<BR>(For general-purpose development: ARM9)</TD>
+<TD>DEBUG<BR>RELEASE</TD>
+<TD><B><FONT color="#ff0000">TRUE</FONT></B></TD>
+<TD><B>FALSE</B></TD>
+    </TR>
+    <TR>
+<TD>FINALROM</TD>
+<TD><B>FALSE</B></TD>
+<TD><B>FALSE</B></TD>
+    </TR>
+    <TR>
+<TD rowspan="2">IS-TWL-DEBUGGER<BR>(For component development:<BR>ARM9 + ARM7)</TD>
+<TD>DEBUG<BR>RELEASE</TD>
+<TD><B><FONT color="#ff0000">TRUE</FONT></B></TD>
+<TD><B>FALSE</B></TD>
+    </TR>
+    <TR>
+<TD>FINALROM</TD>
+<TD><B>FALSE</B></TD>
+<TD><B>FALSE</B></TD>
+    </TR>
+    <TR>
+<TD rowspan="2">IS-TWL-DEBUGGER<BR>(For general-purpose development: ARM9)<BR> Debugger software <BR> When not connected</TD>
+<TD>DEBUG<BR>RELEASE</TD>
+<TD><B><CODE>FALSE</CODE></B></TD>
+<TD><B><CODE>FALSE</CODE></B></TD>
+    </TR>
+    <TR>
+<TD>FINALROM</TD>
+<TD><B><CODE>FALSE</CODE></B></TD>
+<TD><B><CODE>FALSE</CODE></B></TD>
+    </TR>
+    <TR>
+<TD rowspan="2">IS-TWL-DEBUGGER<BR>(For component development:<BR>ARM9 + ARM7)<BR> Debugger software<BR> When not connected</TD>
+<TD>DEBUG<BR>RELEASE</TD>
+<TD><B><CODE>FALSE</CODE></B></TD>
+<TD><B><CODE>FALSE</CODE></B></TD>
+    </TR>
+    <TR>
+<TD>FINALROM</TD>
+<TD><B><CODE>FALSE</CODE></B></TD>
+<TD><B><CODE>FALSE</CODE></B></TD>
+    </TR>
+    <TR>
+<TH colspan="4" style="background-color:#304040;"><FONT color="#ffffff">For TWL Mode</FONT></TH>
+    </TR>
+    <TR>
+<TH>Operating Environment</TH>
+<TH>Build</TH>
+<TH>Value of the <CODE>OS_IsRunOnDebugger</CODE> function</TH>
+<TH>Value of <CODE>OS_IsRunOnEmulator</CODE></TH>
+    </TR>
+    <TR>
+<TD>Actual TWL unit</TD>
+<TD>DEBUG<BR>RELEASE<BR>FINALROM</TD>
+<TD><B>FALSE</B></TD>
+<TD><B>FALSE</B></TD>
+    </TR>
+    <TR>
+<TD rowspan="2">IS-TWL-DEBUGGER<BR>(For general-purpose development: ARM9)</TD>
+<TD>DEBUG<BR>RELEASE</TD>
+<TD><B><FONT color="#ff0000">TRUE</FONT></B></TD>
+<TD><B>FALSE</B></TD>
+    </TR>
+    <TR>
+<TD>FINALROM</TD>
+<TD><B>FALSE</B></TD>
+<TD><B>FALSE</B></TD>
+    </TR>
+    <TR>
+<TD rowspan="2">IS-TWL-DEBUGGER<BR>(For component development:<BR>ARM9 + ARM7)</TD>
+<TD>DEBUG<BR>RELEASE</TD>
+<TD><B><FONT color="#ff0000">TRUE</FONT></B></TD>
+<TD><B>FALSE</B></TD>
+    </TR>
+    <TR>
+<TD>FINALROM</TD>
+<TD><B>FALSE</B></TD>
+<TD><B>FALSE</B></TD>
+    </TR>
+    <TR>
+<TD rowspan="2">IS-TWL-DEBUGGER<BR>(For general-purpose development: ARM9)<BR> Debugger software<BR> When not connected</TD>
+<TD>DEBUG<BR>RELEASE</TD>
+<TD><B><CODE>FALSE</CODE></B></TD>
+<TD><B><CODE>FALSE</CODE></B></TD>
+    </TR>
+    <TR>
+<TD>FINALROM</TD>
+<TD><B><CODE>FALSE</CODE></B></TD>
+<TD><B><CODE>FALSE</CODE></B></TD>
+    </TR>
+    <TR>
+<TD rowspan="2">IS-TWL-DEBUGGER<BR>(For component development:<BR>ARM9 + ARM7)<BR> Debugger software<BR> When not connected</TD>
+<TD>DEBUG<BR>RELEASE</TD>
+<TD><B><CODE>FALSE</CODE></B></TD>
+<TD><B><CODE>FALSE</CODE></B></TD>
+    </TR>
+    <TR>
+<TD>FINALROM</TD>
+<TD><B><CODE>FALSE</CODE></B></TD>
+<TD><B><CODE>FALSE</CODE></B></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>Internal Operation</H2>
+<P>Makes a decision based on the the logical sum of the return value of the <A href="OS_GetConsoleType.html"><CODE>OS_GetConsoleType</CODE></A> function and the <CODE>OS_CONSOLE_ENSATA</CODE> bit.</P>
+<H2>See Also</H2>
+<P><A href="../debug/OS_Printf.html"><CODE>OS_Printf</CODE></A><BR> <A href="OS_IsRunOnDebugger.html"><CODE>OS_IsRunOnDebugger</CODE></A><BR> <A href="OS_GetConsoleType.html"><CODE>OS_GetConsoleType</CODE></A></P>
+<H2>Revision History</H2>
+<P>2009/10/30 Added information about operations when a debugger is not connected.<BR>2008/04/15 Added a table.<BR>2007/11/05 Changed descriptions.<BR>2004/02/19 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

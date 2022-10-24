@@ -1,0 +1,35 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>CARD_GetThreadPriority</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+<body>
+<h1 align="left">CARD_GetThreadPriority <img src="../../image/NTR.gif"align="middle"><img src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/card.h&gt;</CODE><BR>
+  <BR>
+  <CODE>u32	CARD_GetThreadPriority( void );</CODE><br>
+  <br>
+  </dd>
+</dl>
+<h2>Arguments</h2>
+<p>None.</p>
+<h2>Return Values</h2>
+<p>Returns the current CARD asynchronous process thread priority.</p>
+<H2>Description</H2>
+<P>Returns the priority of the current CARD asynchronous process thread. This thread is used internally when restrictions on arguments or the operating environment prevent <A href="../rom/CARD_ReadRomAsync.html"><CODE>CARD_ReadRomAsync</CODE></A> and other asynchronous CARD functions from running in an IRQ handler. The priority of this thread is set to <code><A href="../card_thread_priority_default_const.html">CARD_THREAD_PRIORITY_DEFAULT</A></code> by default. It can be changed with the <code><A href="CARD_SetThreadPriority.html">CARD_SetThreadPriority</A></code> function. <BR>
+</P>
+<h2>See Also</h2>
+<p><CODE><A href="CARD_SetThreadPriority.html">CARD_SetThreadPriority</A><BR> <A href="../rom/CARD_ReadRomAsync.html">CARD_ReadRomAsync</A><BR> <A href="../eeprom/CARD_ReadEepromAsync.html">CARD_ReadEepromAsync</A><BR> <A href="../eeprom/CARD_WriteEepromAsync.html">CARD_WriteEepromAsync</A><BR> <A href="../eeprom/CARD_VerifyEepromAsync.html">CARD_VerifyEepromAsync</A><BR> <A href="../eeprom/CARD_WriteAndVerifyEepromAsync.html">CARD_WriteAndVerifyEepromAsync</A></CODE></p>
+<H2>Revision History</H2>
+<P>
+2004/07/28 Added descriptions and links.<br /> 2004/07/19 Initial Version
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

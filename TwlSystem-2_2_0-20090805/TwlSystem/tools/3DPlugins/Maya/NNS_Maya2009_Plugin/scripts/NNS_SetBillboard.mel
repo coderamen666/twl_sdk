@@ -1,0 +1,241 @@
+/******************************************************************************
+	NINTENDO NITRO-System Maya Plugin
+
+	File:         NNS_SetBillboard.mel
+	Description:  set billboard
+	Date:         2007/03/06
+	Author:       Takashi Endo
+
+	Copyright 2003-2009 Nintendo. All rights reserved.
+******************************************************************************/
+
+// UpdateWindow
+
+/******************************************************************************
+	variables
+******************************************************************************/
+global int $nnsSetBillboard_AttrJob = -1;
+
+/******************************************************************************
+	add attribute
+******************************************************************************/
+proc AddAttribute(string $xform)
+{
+	addAttr -ln "nns_billboard" -at "enum"
+		-en "No Billboard=0:Billboard=1:Y-Billboard=2" -dv 0 $xform;
+}
+
+/******************************************************************************
+	delete attr change job
+******************************************************************************/
+proc DeleteAttrChangeJob()
+{
+	global int $nnsSetBillboard_AttrJob;
+
+	if (`window -ex nnsSetBillboard_Win` &&
+		$nnsSetBillboard_AttrJob != -1 &&
+		`scriptJob -ex $nnsSetBillboard_AttrJob`)
+	{
+		scriptJob -k $nnsSetBillboard_AttrJob;
+	}
+
+	$nnsSetBillboard_AttrJob = -1;
+}
+
+/******************************************************************************
+	set attr change job
+******************************************************************************/
+proc SetAttrChangeJob(string $xform)
+{
+	global int $nnsSetBillboard_AttrJob;
+
+	DeleteAttrChangeJob();
+
+	if (!`attributeQuery -n $xform -ex "nns_billboard"`)
+	{
+		AddAttribute($xform);
+	}
+
+	$nnsSetBillboard_AttrJob = `scriptJob -kws -p nnsSetBillboard_Win
+		-ac ($xform + ".nns_billboard") "nnsSetBillboard_UpdateWindow(0)"`;
+}
+
+/******************************************************************************
+	set attribute
+******************************************************************************/
+proc SetAttribute(int $billboard)
+{
+	//-----------------------------------------------------------------------------
+	// get selection
+	string $xforms[] = `ls -sl -typ transform`;
+	if (size($xforms) == 0)
+	{
+		error "No transform node is selected";
+	}
+
+	//-----------------------------------------------------------------------------
+	// loop for xform
+	for ($xform in $xforms)
+	{
+		if (!`attributeQuery -n $xform -ex "nns_billboard"`)
+		{
+			AddAttribute($xform);
+		}
+		setAttr ($xform + ".nns_billboard") $billboard;
+	}
+}
+
+/******************************************************************************
+	billboard callback
+******************************************************************************/
+global proc nnsSetBillboard_BillboardCB()
+{
+	SetAttribute(`optionMenuGrp -q -sl nnsSetBillboard_Billboard` - 1);
+}
+
+/******************************************************************************
+	update window
+******************************************************************************/
+global proc nnsSetBillboard_UpdateWindow(int $set_job_flag)
+{
+	//-----------------------------------------------------------------------------
+	// get selection
+	string $xforms[] = `ls -sl -typ transform`;
+	int $enableFlag = (size($xforms) > 0);
+
+	//-----------------------------------------------------------------------------
+	// set xform name
+	string $xforms_name;
+	if ($enableFlag)
+	{
+		$xforms_name = $xforms[0];
+		int $xform_size = size($xforms);
+		for ($ixform = 1; $ixform < $xform_size; ++$ixform)
+		{
+			if ($ixform == 3)
+			{
+				$xforms_name += ", ...";
+				break;
+			}
+			$xforms_name += ",  " + $xforms[$ixform];
+		}
+	}
+	else
+	{
+		$xforms_name = "(No transform node is selected)";
+	}
+	text -e -l $xforms_name nnsSetBillboard_XformName;
+
+	//-----------------------------------------------------------------------------
+	// set current attr
+	if ($enableFlag)
+	{
+		string $xform = $xforms[0];
+		int $billboard = (`attributeQuery -n $xform -ex "nns_billboard"`) ?
+			`getAttr ($xform + ".nns_billboard")` : 0;
+		optionMenuGrp -e -sl ($billboard + 1) nnsSetBillboard_Billboard;
+
+		//-----------------------------------------------------------------------------
+		// set attr change job
+		if ($set_job_flag)
+		{
+			SetAttrChangeJob($xform);
+		}
+	}
+
+	//-----------------------------------------------------------------------------
+	// set enable state
+	control -e -en $enableFlag nnsSetBillboard_Billboard;
+}
+
+/******************************************************************************
+	main
+******************************************************************************/
+global proc NNS_SetBillboard()
+{
+	//-----------------------------------------------------------------------------
+	// get selection
+	//string $xforms[] = `ls -sl -typ transform`;
+	//if (size($xforms) == 0)
+	//	error "No transform node is selected";
+
+	//-----------------------------------------------------------------------------
+	// create window
+	int $wd = 400;
+	int $ht = 160;
+	if (!`window -exists nnsSetBillboard_Win`)
+	{
+		window -t "NITRO Set Billboard" -wh $wd $ht -mxb 0
+			nnsSetBillboard_Win;
+		columnLayout -adj 1 -cat "both" 4 -cal "center" -rs 4;
+
+		//-----------------------------------------------------------------------------
+		// xform name
+		frameLayout -lv 0 -cll 0 -cl 0 -bv 1 -bs "etchedIn";
+			columnLayout -adj 1 -cal "center" -rs 8;
+			
+			text -l "" nnsSetBillboard_XformName;
+
+			setParent ..; // columnLayout
+		setParent ..; // formLayout
+
+		//-----------------------------------------------------------------------------
+		// attribute
+		frameLayout -lv 0 -cll 0 -cl 0 -bv 1 -bs "etchedIn";
+			columnLayout -adj 1 -rs 8;
+
+			optionMenuGrp -l "Billboard"
+				-cw 1 150 -rat 1 "both" 4 -cal 1 "right"
+				-cc "nnsSetBillboard_BillboardCB"
+				nnsSetBillboard_Billboard;
+				menuItem -l "No Billboard";
+				menuItem -l "Billboard";
+				menuItem -l "Y-Billboard";
+
+			setParent ..; // columnLayout
+		setParent ..; // formLayout
+
+		//-----------------------------------------------------------------------------
+		// close button
+		string $closeCmd = "deleteUI nnsSetBillboard_Win";
+		string $form = `formLayout -nd 100`;
+			string $closeBtn = `button -h 26 -l "Close" -c $closeCmd`;
+			formLayout -e
+				-af $closeBtn "top" 0
+				-af $closeBtn "left" 0
+				-af $closeBtn "bottom" 0
+				-af $closeBtn "right" 0
+				$form;
+		setParent ..; // formLayout
+
+		setParent ..; // columnLayout
+
+		setFocus $closeBtn;
+
+		//-----------------------------------------------------------------------------
+		// set window delete job
+		scriptJob -uid nnsSetBillboard_Win "$nnsSetBillboard_AttrJob = -1";
+
+		//-----------------------------------------------------------------------------
+		// set selection change job
+		scriptJob -p nnsSetBillboard_Win
+			-e "SelectionChanged" "nnsSetBillboard_UpdateWindow(1)";
+	}
+	if (`window -q -w nnsSetBillboard_Win` < $wd)
+	{
+		window -e -w $wd nnsSetBillboard_Win;
+	}
+	if (`window -q -h nnsSetBillboard_Win` < $ht)
+	{
+		window -e -h $ht nnsSetBillboard_Win;
+	}
+	//window -e -wh $wd $ht nnsSetBillboard_Win;
+
+	//-----------------------------------------------------------------------------
+	// update window
+	nnsSetBillboard_UpdateWindow(1);
+
+	//-----------------------------------------------------------------------------
+	// show window
+	showWindow nnsSetBillboard_Win;
+}

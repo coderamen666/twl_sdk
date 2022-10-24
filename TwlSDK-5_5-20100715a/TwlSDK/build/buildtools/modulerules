@@ -1,0 +1,335 @@
+#! make -f
+#----------------------------------------------------------------------------
+# Project:  TwlSDK
+# File:     modulerules
+#
+# Copyright 2007-2008 Nintendo.  All rights reserved.
+#
+# These coded instructions, statements, and computer programs contain
+# proprietary information of Nintendo of America Inc. and/or Nintendo
+# Company Ltd., and are protected by Federal copyright law.  They may
+# not be disclosed to third parties or copied or duplicated in any form,
+# in whole or in part, without the prior written consent of Nintendo.
+#
+# $Date:: 2009-07-10#$
+# $Rev: 10886 $
+# $Author: okubata_ryoma $
+#----------------------------------------------------------------------------
+ifndef TWLSDK_TOP_MODULERULES_
+TWLSDK_TOP_MODULERULES_ = TRUE
+
+ifdef TWLSDK_TOP_COMMONDEFS_
+#----------------------------------------------------------------------------
+
+-include $(BUILDTOOLSDIR)/commondefs.compat.post
+
+#----------------------------------------------------------------------------
+# Implicit RULES
+#----------------------------------------------------------------------------
+.SUFFIXES:	# Delete all suffix rules
+
+
+TWLSDK_MSG_ASSEMBLE		= " assemble:"
+TWLSDK_MSG_COMPILE		= "  compile:"
+TWLSDK_MSG_ARCHIVE		= "  archive:"
+TWLSDK_MSG_LINK			= "     link:"
+TWLSDK_MSG_MAKE_LCF		= " make lcf:"
+TWLSDK_MSG_MAKE_MCH		= " make mch:"
+TWLSDK_MSG_MAKE_SRL		= " make srl:"
+TWLSDK_MSG_MAKE_TAD		= " make tad:"
+TWLSDK_MSG_SIGN			= "     sign:"
+TWLSDK_MSG_MAKE_BNR		= " make bnr:"
+TWLSDK_MSG_VERSION		= " make ver:"
+
+ifneq	($(FORCE_BUILD),)
+VPATH				= $(SRCDIR)
+
+SSRCFILES			= $(addprefix $(OBJDIR)/,$(notdir $(SRCS)))
+ASRCFILES			= $(addprefix $(OBJDIR)/,$(notdir $(SRCS_AUTOLOAD)))
+VSRCFILES			= $(addprefix $(OBJDIR)/,$(notdir $(SRCS_OVERLAY)))
+LASRCFILES			= $(addprefix $(OBJDIR)/,$(notdir $(SRCS_LTDAUTOLOAD)))
+LVSRCFILES			= $(addprefix $(OBJDIR)/,$(notdir $(SRCS_LTDOVERLAY)))
+
+SOBJS_CC			= $(filter %.o,$(SSRCFILES:.c=.o))
+SOBJS_AS			= $(filter %.o,$(SSRCFILES:.s=.o))
+SOBJS_CXX			= $(filter %.o,$(SSRCFILES:.cpp=.o))
+AOBJS_CC			= $(filter %.o,$(ASRCFILES:.c=.o))
+AOBJS_AS			= $(filter %.o,$(ASRCFILES:.s=.o))
+AOBJS_CXX			= $(filter %.o,$(ASRCFILES:.cpp=.o))
+VOBJS_CC			= $(filter %.o,$(VSRCFILES:.c=.o))
+VOBJS_AS			= $(filter %.o,$(VSRCFILES:.s=.o))
+VOBJS_CXX			= $(filter %.o,$(VSRCFILES:.cpp=.o))
+LAOBJS_CC			= $(filter %.o,$(LASRCFILES:.c=.o))
+LAOBJS_AS			= $(filter %.o,$(LASRCFILES:.s=.o))
+LAOBJS_CXX			= $(filter %.o,$(LASRCFILES:.cpp=.o))
+LVOBJS_CC			= $(filter %.o,$(LVSRCFILES:.c=.o))
+LVOBJS_AS			= $(filter %.o,$(LVSRCFILES:.s=.o))
+LVOBJS_CXX			= $(filter %.o,$(LVSRCFILES:.cpp=.o))
+
+OBJS_CC				= $(SOBJS_CC)  $(AOBJS_CC)  $(VOBJS_CC)  $(LAOBJS_CC)  $(LVOBJS_CC)
+OBJS_AS				= $(SOBJS_AS)  $(AOBJS_AS)  $(VOBJS_AS)  $(LAOBJS_AS)  $(LVOBJS_AS)
+OBJS_CXX			= $(SOBJS_CXX) $(AOBJS_CXX) $(VOBJS_CXX) $(LAOBJS_CXX) $(LVOBJS_CXX)
+OBJS_STATIC			= $(SOBJS_CC)  $(SOBJS_AS) $(SOBJS_CXX) $(EXT_OBJS)
+OBJS_AUTOLOAD		= $(AOBJS_CC)  $(AOBJS_AS) $(AOBJS_CXX) $(EXT_OBJS_AUTOLOAD)
+OBJS_OVERLAY		= $(VOBJS_CC)  $(VOBJS_AS) $(VOBJS_CXX) $(EXT_OBJS_OVERLAY)
+OBJS_LTDAUTOLOAD	= $(LAOBJS_CC) $(LAOBJS_AS) $(LAOBJS_CXX) $(EXT_OBJS_LTDAUTOLOAD)
+OBJS_LTDOVERLAY		= $(LVOBJS_CC) $(LVOBJS_AS) $(LVOBJS_CXX) $(EXT_OBJS_LTDOVERLAY)
+OBJS				+= $(OBJS_STATIC) $(OBJS_AUTOLOAD) $(OBJS_OVERLAY) $(OBJS_LTDAUTOLOAD) $(OBJS_LTDOVERLAY)
+
+PCHDR_CACHE		 	?= $(ROOT)/cache/include
+GDIRT_CLOBBER		+= $(PCHDR_CACHE)/*.h* \
+                       $(BUILDTOOLSDIR)/*/verinfo.*
+endif
+
+
+#============================================================================
+#
+#  common rules
+#
+#============================================================================
+
+.PHONY: dirs
+
+dirs:
+#	@echo codegen=$(NITRO_CODEGEN), arch=$(ARCHGEN_TYPE)
+	@$(DO_MAKEDIR)
+
+
+#----------------------------------------------------------------------------
+#  make platform
+#----------------------------------------------------------------------------
+
+.PHONY: build build-nitro build-twl
+
+ifeq	($(PARALLEL_BUILD),TRUE)
+build: build-nitro build-twl
+else
+build: build-nitro 
+build-nitro: build-twl
+endif
+
+build-nitro: make-sub
+build-twl: make-sub
+
+build-nitro:
+	@+$(if $(filter NITRO,$(TARGET_PLATFORM_LIST)), $(REMAKE) REMAKE_TWLSDK_PLATFORM=NITRO build_platform)
+	
+build-twl:
+	@+$(if $(filter TWL,$(TARGET_PLATFORM_LIST)), $(REMAKE) REMAKE_TWLSDK_PLATFORM=TWL build_platform)
+
+
+
+.PHONY: install install-nitro install-twl
+
+ifeq	($(PARALLEL_BUILD),TRUE)
+install: install-nitro install-twl
+else
+install: install-nitro 
+install-nitro: install-twl
+endif
+
+install-nitro: make-sub
+install-twl: make-sub
+
+install-nitro:
+	@+$(if $(filter NITRO,$(TARGET_PLATFORM_LIST)), $(REMAKE) REMAKE_TWLSDK_PLATFORM=NITRO install_platform)
+	
+install-twl:
+	@+$(if $(filter TWL,$(TARGET_PLATFORM_LIST)), $(REMAKE) REMAKE_TWLSDK_PLATFORM=TWL install_platform)
+
+
+#----------------------------------------------------------------------------
+#  make targets
+#----------------------------------------------------------------------------
+
+.PHONY:	all default build install clean clobber full super-full
+
+BUILDCMDS = all default build
+
+#----------------------------------------------------------------------------
+
+ifdef SILENT
+DO_INSTALL_FILES_ECHO		= $(ECHO) "  install: $(notdir $(FILE)) -> $(subst $(subst \,/,$(TWLSDK_ROOT)),,$(1))"
+else
+DO_INSTALL_FILES_ECHO		= $(ECHO) "  install: $(FILE) -> $(1)"
+endif
+
+ifdef INSTALL_WORKAROUND
+define CMD_INSTALL
+install $(1) $(2) && touch -m -r $(1) $(2)
+endef
+else
+define CMD_INSTALL
+$(INSTALL) $(1) $(2)
+endef
+endif
+
+
+define DO_INSTALL_FILES
+	$(INSTALL) -d $(1) $(AND)							\
+	$(foreach FILE, $(2),								\
+		if [ ! -e $(1)/$(notdir $(FILE)) -o				\
+			$(FILE) -nt $(1)/$(notdir $(FILE)) ];		\
+		then 											\
+			$(call DO_INSTALL_FILES_ECHO,$(1)) $(AND)	\
+			$(call CMD_INSTALL,$(FILE),$(1)/$(notdir $(FILE)));	\
+		fi $(AND) ) $(TRUE)
+endef
+
+DO_INSTALL	= $(call DO_INSTALL_FILES,$(INSTALL_DIR),$(INSTALL_TARGETS))
+
+INSTALL_INDEX_SRC	= $(firstword $(INSTALL_TARGETS))
+INSTALL_INDEX_DEST	= $(INSTALL_DIR)/$(notdir $(INSTALL_INDEX_SRC))
+
+define DO_INSTALL_WILDCARD
+	$(INSTALL) -d $(INSTALL_DIR) $(AND)								\
+	if [ ! -e $(INSTALL_INDEX_DEST) -o 								\
+			$(INSTALL_INDEX_SRC) -nt $(INSTALL_INDEX_DEST) ];		\
+	then															\
+		$(foreach FILE, $(INSTALL_TARGETS),							\
+			$(call DO_INSTALL_FILES_ECHO,$(INSTALL_DIR)) $(AND)		\
+			$(INSTALL) $(FILE) $(INSTALL_DIR) $(AND) ) $(TRUE);		\
+	fi
+endef
+
+
+#----------------------------------------------------------------------------
+#  make parallelly
+#----------------------------------------------------------------------------
+
+.PHONY:	make-subdir-p-% make-submake-p-% make-sub make-sub-p-pre make-sub-p
+
+SUBDIRS_PREFIX   = make-subdir-p-
+SUBDIRS_PARALLEL = $(addprefix $(SUBDIRS_PREFIX),$(SUBDIRS_P))
+
+SUBMAKES_PREFIX   = make-submake-p-
+SUBMAKES_PARALLEL = $(addprefix $(SUBMAKES_PREFIX),$(SUBMAKES_P))
+
+$(SUBDIRS_PARALLEL):$(SUBDIRS_PREFIX)%: make-sub-p-pre
+	@+$(MAKE) $(SUBDIR_FLAGS) -C $* $(MAKECMDGOALS)
+
+$(SUBMAKES_PARALLEL):$(SUBMAKES_PREFIX)%: make-sub-p-pre
+	@+$(MAKE) $(SUBDIR_FLAGS) -C $(*D) -f $(*F) $(MAKECMDGOALS)
+
+make-sub-p-pre:
+	@+$(foreach DIR,$(SUBDIRS),$(MAKE) $(SUBDIR_FLAGS) -C $(DIR) $(MAKECMDGOALS) $(AND)) $(TRUE)
+	@+$(foreach FILE,$(SUBMAKES),$(MAKE) $(SUBDIR_FLAGS) -C $(dir $(FILE)) -f $(notdir $(FILE)) $(MAKECMDGOALS) $(AND)) $(TRUE)
+
+make-sub-p: make-sub-p-pre $(SUBDIRS_PARALLEL)	$(SUBMAKES_PARALLEL)
+
+ifneq	($(SKIP_SUBDIR),TRUE)
+make-sub: make-sub-p
+else
+make-sub:
+endif
+
+#============================================================================
+#
+#  platform specific rules
+#
+#============================================================================
+
+ifneq	($(filter TWL,$(TARGET_PLATFORM_LIST)),)
+include $(TWL_BUILDTOOLSDIR)/modulerules
+else
+ifneq	($(filter NITRO,$(TARGET_PLATFORM_LIST)),)
+include $(NITRO_BUILDTOOLSDIR)/modulerules
+else
+include $(BUILDTOOLSDIR)/modulerules.skip
+endif
+endif
+
+
+#----------------------------------------------------------------------------
+#  make full
+#----------------------------------------------------------------------------
+
+define makefull
+	@echo [[[ make full $(1) $(CURDIR) ]]]
+	@+unset NITRO_DEBUG NITRO_RELEASE NITRO_FINALROM TWL_DEBUG TWL_RELEASE TWL_FINALROM;	\
+		$(foreach a,DEBUG RELEASE FINALROM,													\
+			date "+::: %Y/%m/%d %H:%M:%S $a" $(AND)											\
+			$(REMAKE) TARGET_$a=TRUE DEFAULT_CODEGEN=ALL DEFAULT_ARCHGEN=ALL DEFAULT_TARGET_PLATFORM=ALL $(1) $(AND)	\
+		) $(TRUE)
+endef
+
+full:
+	$(call makefull,build)
+
+full-install:
+	$(call makefull,install)
+
+#----------------------------------------------------------------------------
+#  make testsrl
+#----------------------------------------------------------------------------
+
+define maketestsrl
+	@echo [[[ make testsrl $(1) $(CURDIR) ]]]
+	@+unset NITRO_DEBUG NITRO_RELEASE NITRO_FINALROM TWL_DEBUG TWL_RELEASE TWL_FINALROM;	\
+		$(foreach a,DEBUG RELEASE,															\
+			date "+::: %Y/%m/%d %H:%M:%S $a" $(AND)											\
+			$(REMAKE) TARGET_$a=TRUE DEFAULT_CODEGEN=ALL DEFAULT_ARCHGEN=ALL DEFAULT_TARGET_PLATFORM=ALL $(1) $(AND)	\
+		) $(TRUE)
+endef
+
+testsrl:
+	$(call maketestsrl,build)
+
+testsrl-install:
+	$(call maketestsrl,install)
+
+#----------------------------------------------------------------------------
+#  make super-full
+#----------------------------------------------------------------------------
+
+define makesuperfull
+	@echo [[[ make super-full $(1) $(CURDIR) ]]]
+	@+unset NITRO_DEBUG NITRO_RELEASE NITRO_FINALROM TWL_DEBUG TWL_RELEASE TWL_FINALROM;	\
+		$(foreach b,TS TEG,																	\
+		    $(foreach a,DEBUG RELEASE FINALROM,												\
+			    date "+::: %Y/%m/%d %H:%M:%S $a-$b" $(AND)									\
+			    $(REMAKE) TARGET_$a=TRUE TWL_PLATFORM=$b NITRO_PLATFORM=$b DEFAULT_CODEGEN=ALL DEFAULT_ARCHGEN=ALL DEFAULT_TARGET_PLATFORM=ALL $(1) $(AND) \
+		    ) \
+		) $(TRUE)
+endef
+
+super-full:
+	$(call makesuperfull,build)
+
+super-full-install:
+	$(call makesuperfull,install)
+
+#----------------------------------------------------------------------------
+#  make clobber & clean
+#----------------------------------------------------------------------------
+
+clobber: make-sub
+	@$(ECHO_CURDIR)
+	-$(RM) $(GDIRT_CLEAN)   $(LDIRT_CLEAN)   $(EDIRT_CLEAN)\
+               $(GDIRT_CLOBBER) $(LDIRT_CLOBBER) $(EDIRT_CLOBBER)
+ifneq	($(GDIRT_INSTALLED),)
+ifneq	($(FORCE_BUILD),)
+	$(call makefull,clobber-installed)
+else
+	@+$(REMAKE) clobber-installed
+endif
+endif
+
+
+super-clobber: make-sub
+	@$(ECHO_CURDIR)
+	-$(RM) $(GDIRT_CLEAN) $(LDIRT_CLEAN) $(EDIRT_CLEAN) $(GDIRT_CLOBBER) $(LDIRT_CLOBBER) $(EDIRT_CLOBBER)
+ifneq	($(GDIRT_INSTALLED),)
+	$(call makesuperfull,clobber-installed)
+endif
+
+#----------------------------------------------------------------------------
+
+clean: make-sub
+	@$(ECHO_CURDIR)
+	-$(RM) $(GDIRT_CLEAN) $(LDIRT_CLEAN) $(EDIRT_CLEAN)
+#----------------------------------------------------------------------------
+endif	# TWLSDK_TOP_COMMONDEFS_
+
+endif	# TWLSDK_TOP_MODULERULES_
+#----- End of modulerules -----

@@ -1,0 +1,76 @@
+#----------------------------------------------------------------------------
+# Project:  Project:  NitroSDK - MB - demos - multiboot-wfs
+# File:     main.lsf
+#
+# Copyright 2005-2008 Nintendo. All rights reserved.
+#
+# These coded instructions, statements, and computer programs contain
+# proprietary information of Nintendo of America Inc. and/or Nintendo
+# Company Ltd., and are protected by Federal copyright law. They may
+# not be disclosed to third parties or copied or duplicated in any form,
+# in whole or in part, without the prior written consent of Nintendo.
+#
+# $Log: main.lsf,v $
+# Revision 1.1  2005/06/23 09:05:39  yosizaki
+# Initial upload.
+#
+# $NoKeywords: $
+#----------------------------------------------------------------------------
+#
+#  Twl LCF SPEC FILE
+#
+
+Static main
+{
+	Address		$(ADDRESS_STATIC)
+	Object		$(OBJS_STATIC)
+	Library		$(LLIBS) $(GLIBS) $(CW_LIBS)
+
+#	Increase capacity of IRQ stack
+	StackSize	0 0x800
+}
+
+Autoload ITCM
+{
+	Address		$(ADDRESS_ITCM)
+	Object		*     		 (.itcm)
+	Object		$(OBJS_AUTOLOAD) (.text)
+	Object		$(OBJS_AUTOLOAD) (.rodata)
+}
+
+Autoload DTCM
+{
+	Address		$(ADDRESS_DTCM)
+	Object		*     		 (.dtcm)
+	Object		$(OBJS_AUTOLOAD) (.data)
+	Object		$(OBJS_AUTOLOAD) (.sdata)
+	Object		$(OBJS_AUTOLOAD) (.bss)
+	Object		$(OBJS_AUTOLOAD) (.sbss)
+}
+
+Overlay main_overlay_1
+{
+	After		main
+	Object		$(OBJDIR)/func_1.o
+}
+
+Overlay main_overlay_2
+{
+	After		main
+	Object		$(OBJDIR)/func_2.o
+}
+
+Overlay main_overlay_3
+{
+	After		ITCM
+	Object		$(OBJDIR)/func_3.o
+}
+
+Ltdautoload LTDMAIN
+{
+	# If there is a shared overlay for NITRO/TWL, must put it after that
+	After		main_overlay_3
+	Object		* (.ltdmain)
+	Object		$(OBJS_LTDAUTOLOAD)
+	Library		$(LLIBS_EX) $(GLIBS_EX)
+}

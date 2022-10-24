@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 8.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>MIC_StartAutoSamplingAsync</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">MIC_StartAutoSamplingAsync <img src="../../image/NTR.gif"><img src="../../image/TWL.gif"></h1>
+
+<h2>Syntax</h2>
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/spi.h&gt;</CODE><BR>
+  <PRE><CODE><A href="MICResult.html">MICResult</A> MIC_StartAutoSamplingAsync(
+            const <CODE><A href="MICAutoParam.html">MICAutoParam</A></CODE>*    param,
+            <A href="MICCallback.html">MICCallback</A>            callback,
+            void*                  arg );</CODE></PRE>
+  </dd>
+</dl>
+
+<h2>Arguments</h2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="300"><SPAN class="argument">param</SPAN></TD>
+<TD width="700">Pointer to a <A href="MICAutoParam.html"><CODE>MICAutoParam</CODE></A>-type auto-sampling settings structure.</TD>
+    </TR>
+    <TR>
+<TD><SPAN class="argument">callback</SPAN></TD>
+<TD>Pointer to the callback function. This callback is called from inside the interrupt handler.</TD>
+    </TR>
+    <TR>
+<TD><SPAN class="argument">arg</SPAN></TD>
+<TD>Argument passed to the callback function.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<h2>Return Values</h2>
+<P>
+Returns the processing result as a <A href="MICResult.html"><CODE>MICResult</CODE></A> enumerated type. Returns <CODE>MIC_RESULT_SUCCESS</CODE> if the asynchronous process started normally; returns some other value if the process failed.
+</P>
+
+<H2>Description</H2>
+<P>
+Asynchronously starts microphone auto-sampling. Use the <A href="../pm/PM_SetAmp.html"><CODE>PM_SetAmp*</CODE></A> function to turn on the programmable gain amp before sampling.<BR>This function issues a request to the ARM7 to start auto-sampling and returns control to the caller without waiting for a response. You must use the <SPAN class="argument">result</SPAN> argument passed by the user callback function to get the ARM7 processing result. If this function fails, the asynchronous operation is not performed and the user callback function is not called.<BR>Where the input volume exceeds the minimum or maximum value, the output data will be clamped. It is possible to use the <A href="../pm/PM_SetAmpGain.html"><CODE>PM_SetAmpGain*</CODE></A> functions to adjust the input volume that can be sampled.
+</P>
+<P>
+This function returns <CODE>MIC_RESULT_INVALID_COMMAND</CODE> when the CODEC is running in CODEC-TWL mode because auto-sampling cannot be run at an arbitrary frequency in CODEC-TWL mode. In other words, this function can only be used when the CODEC is running in CODEC-DS mode.
+</P>
+
+<H2>Note</H2>
+<P>
+<FONT color=red>It is possible to operate other ARM7 processor peripherals (SPI device) during microphone auto-sampling. However, note that if another SPI device had taken over the access for a long time, the microphone would keep returning a certain value during that time.<BR></FONT>
+</P>
+
+<H2>See Also</H2>
+<P>
+<a href="MIC_StartAutoSampling.html"><code>MIC_StartAutoSampling</code></a><BR> <a href="MIC_StopAutoSampling.html"><code>MIC_StopAutoSampling</code></a><BR> <a href="MIC_StopAutoSamplingAsync.html"><code>MIC_StopAutoSamplingAsync</code></a><BR> <a href="../pm/PM_SetAmpGain.html"><code>PM_SetAmpGain</code></a>
+</P>
+
+<H2>Revision History</H2>
+<P>
+2009/06/25 Added description about using the <CODE>PM_SetAmp*</CODE> function.<BR> 2009/05/14 Added the TWL icon and a description related to CODEC.<BR> 2008/01/09 Revised a description of differences in behavior due to the CODEC mode.<br> 2007/11/17 Added a description of operations on the TWL platform.<BR> 2005/06/27 Added text indicating that the callback is called from the interrupt handler.<BR> 2005/06/27 Standardized the Japanese notation of the term for &quot;interrupt.&quot;<br> 2005/01/11 Revised return values, revised the description and added reference functions.<BR> 2004/09/17 Changed the type of the <CODE>param</CODE> argument.<BR> 2004/08/10 Added explanations related to input volume and touch panel sampling during microphone auto-sampling.<BR> 2004/06/01 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

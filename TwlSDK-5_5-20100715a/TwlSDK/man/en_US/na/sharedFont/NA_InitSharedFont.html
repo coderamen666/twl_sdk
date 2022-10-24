@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>NA_InitSharedFont</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+
+<H1 align="left">NA_InitSharedFont <IMG src="../../image/BPT.gif" align=middle><IMG src="../../image/TWL.gif" align=middle></H1>
+
+<H2>Syntax</H2>
+<DL>
+  <DD>
+  <PRE><CODE>#include &lt;twl/na.h&gt;</CODE></PRE>
+  <PRE><CODE>BOOL NA_InitSharedFont( void );</CODE></PRE>
+</DL>
+
+<H2>Arguments</H2>
+<P>
+None.
+</P>
+
+<H2>Return Values</H2>
+<P>
+Returns <CODE>TRUE</CODE> if processing completed successfully.<BR>The following are possible reasons for the function to fail.
+</P>
+<ul>
+<li>The application is not a NAND application.
+<li>There are no available file handles because they are all in use.
+<li>It is running on the Nintendo DS.
+</ul>
+
+<H2>Description</H2>
+<P>
+Makes preparations to use internal fonts. You must call this once before other functions related to internal fonts.
+</P>
+<P>
+This function is exclusive to NAND applications. It cannot be used by card applications.
+</P>
+
+<H2>See Also</H2>
+<P>
+</P>
+
+<H2>Revision History</H2>
+<P>
+2008/09/16 Initial version.
+</P>
+
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

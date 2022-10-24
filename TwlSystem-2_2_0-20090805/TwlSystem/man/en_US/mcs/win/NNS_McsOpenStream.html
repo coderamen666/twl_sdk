@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 Trial for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>NNS_McsOpenStream</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">NNS_McsOpenStream</h1>
+<h2>Syntax</h2>
+
+<dl> 
+ <dd> 
+  <pre><CODE>#include &lt;nnsys/mcs.h&gt;
+
+HANDLE NNS_McsOpenStream(
+           USHORT  channel,
+           DWORD   flags);</CODE></pre>
+ </dd>
+</dl>
+<h2>Arguments</h2>
+
+<table border="1" width="100%">
+  <tr>
+<td width="13%"><CODE>channel</CODE></td>
+    
+<td width="87%">Value for identifying a stream. Specify in the range of 0 to <CODE>0x3FFF</CODE>. The range of <CODE>0x4000</CODE> to <CODE>0x7FFF</CODE> is reserved for TWL-System applications. The range of <CODE>0x8000</CODE> to <CODE>0xFFFF</CODE> is reserved for the MCS system.</td>
+  </tr>
+  <tr>
+<td width="13%"><CODE>flags</CODE></td>
+    
+<td width="87%">Flags specified when stream is opened. (For details, see <B>Description</B>.)</td>
+  </tr>
+</table>
+<h2>Return Values</h2>
+<p>If the stream is successfully opened, the function returns the stream's handle. If the process fails, the function returns <code>INVALID_HANDLE_VALUE</code>. Use the <code>GetLastError</code> function to get details about the error.</p>
+<H2>Description</H2>
+<p>Opens a stream for Multiple Channel Stream. Streams are actually pipes that have attached message type names in the Win32 system, and the return value is a handle for one of these name-attached pipes. The <code>NNS_McsOpenStream</code> function opens a pipe with an attached message type name, and registers the value identifying the stream specified by the <CODE>channel</CODE> argument to the MCS server.</P>
+<p>To read and write to the stream, use the Win32 API's <code>ReadFile(Ex)</code> and <code>WriteFile(Ex)</code> functions.</P>
+<p>For the <CODE>flag</CODE> argument, specify 0 or the values shown below. This value is passed to the sixth argument (<code>dwFlagsAndAttributes</code>) in the Win32 API's <code>CreateFile</code> function.</p>
+<table border="1">
+  <tbody>
+    <tr>
+<td><CODE>FILE_FLAG_OVERLAPPED</CODE></td>
+<td>Inputs/outputs asynchronously (overlapped I/O). For details, see the explanation of <code>CreateFile</code> in the Win32 API.</td>
+    </tr>
+  </tbody>
+</table>
+<h2>See Also</h2>
+<p><a href="NNS_McsOpenStreamEx.html"><code>NNS_McsOpenStreamEx</code></a></p>
+<H2>Revision History</H2>
+<P>
+2008/06/20 Changed NITRO-System to TWL-System.<br>2005/01/11 Added <B>Description</B>.<br>2004/10/08 Added a description of the <CODE>channel</CODE> argument.<br>2004/07/20 Added references. 2004/06/01 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

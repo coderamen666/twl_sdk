@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>OS_GetCpsrIrq</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">OS_GetCpsrIrq <img src="../../image/NTR.gif" align="middle"><img src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+<DL>
+<DD><CODE>#include &lt;nitro/os.h&gt;</CODE><BR> <BR> <CODE>OSIntrMode OS_GetCpsrIrq( void );</CODE>
+</DL>
+<H2>Arguments</H2>
+<P>None.</P>
+<H2>Return Values</H2>
+<p>Returns a value that indicates the current IRQ interrupt status.</p>
+<p>The type of the return value is <CODE>OSIntrMode</CODE> (a <CODE>u32</CODE> typedef), but the values that can be returned will be one of the <CODE>OSIntrMode_Irq</CODE> enumerated type values below.<BR>
+</p>
+<TABLE cellspacing="2">
+  <TBODY>
+    <TR>
+<TH>Value</TH>
+<TH>Current state</TH>
+    </TR>
+    <TR>
+<TD><CODE>OS_INTRMODE_IRQ_DISABLE</CODE></TD>
+<TD>IRQ Disable (prohibited)</TD>
+    </TR>
+    <TR>
+<TD><CODE>OS_INTRMODE_IRQ_ENABLE</CODE></TD>
+<TD>IRQ Enable (permitted)</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<H2>Description</H2>
+<P>Gets the current IRQ interrupt status.</P>
+<H2>Internal Operation</H2>
+<P>Reads the control bit of the IRQ interrupt from CPSR (current program status register).</P>
+<H2>See Also</H2>
+<P><A href="OS_EnableInterrupts.html"><CODE>OS_EnableInterrupts</CODE></A><BR> <A href="OS_DisableInterrupts.html"><CODE>OS_DisableInterrupts</CODE></A></P>
+<H2>Revision History</H2>
+<P>
+2005/03/08 Standardized Japanese term for &quot;interrupt.&quot;<br> 2004/01/14 Changed function name from <CODE>OS_GetInterrupts</CODE>.<BR> 2003/12/01 Initial version</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

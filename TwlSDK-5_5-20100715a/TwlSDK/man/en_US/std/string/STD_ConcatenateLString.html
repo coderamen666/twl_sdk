@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 8.0.2.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>STD_ConcatenateLString</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">STD_ConcatenateLString<img src="../../image/NTR.gif"align="middle"><img src="../../image/TWL.gif" align="middle"></h1>
+<h2>Syntax</h2>
+<dl>
+  <dd><PRE><CODE>#include &lt;nitro/std.h&gt;
+
+int STD_ConcatenateLString( char* str1, const char* str2, int size );
+
+int STD_StrLCat( char* str1, const char* str2, int size );
+</CODE></PRE></dd>
+</dl>
+
+<h2>Arguments</h2>
+<table border="1" width="100%">
+  <tbody>
+    <TR>
+      <TD width="200"><EM><STRONG><FONT face="Courier New">str1</FONT></STRONG></EM></TD>
+      <TD width="800">Specifies the pointer to the concatenation string destination.</TD>
+    </TR>
+    <TR>
+      <TD width="200"><EM><STRONG><FONT face="Courier New">str2</FONT></STRONG></EM></TD>
+      <TD width="800">Specifies the pointer to the concatenation string source.</TD>
+    </TR>
+    <TR>
+      <TD width="200"><EM><STRONG><FONT face="Courier New">size</FONT></STRONG></EM></TD>
+      <TD width="800">Specifies the size of the buffer indicated by str1.</TD>
+    </TR>
+  </tbody>
+</table>
+
+<h2>Return Values</h2>
+<p>
+Returns the sum of the string lengths of str1 and str2. The return value will not be affected by the actual size that was copied.
+</p>
+
+<H2>Description</H2>
+<P>
+Adds a maximum of (size - <a href="STD_GetStringLength.html"><code>STD_GetStringLength</code></a>(str1) - 1) bytes from str2 to the end of str1, and terminates the result with the NUL character. It carries out the same operation as the C standard function <CODE>strlcat()</CODE>.</P>
+<p><CODE>STD_StrLCat()</CODE> is defined as another name for <CODE>STD_ConcatenateLString()</CODE>.</p>
+
+<h2>See Also</h2>
+
+<H2>Revision History</H2>
+<P>2007/12/10 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

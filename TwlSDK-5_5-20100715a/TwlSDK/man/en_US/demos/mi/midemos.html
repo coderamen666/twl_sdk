@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<LINK rel="stylesheet" type="text/css" href="../../css/nitro.css">
+<TITLE>MI Demos</TITLE>
+</HEAD>
+<BODY>
+<H1>Memory Interface (MI) Sample Demos</H1>
+<H2>Location</H2>
+<P><CODE>$TwlSDK/build/demos/mi<BR> $TwlSDK/build/demos.TWL/mi</CODE></P>
+<H2>Compilation</H2>
+<P>Move to the <CODE>$TwlSDK/build/demos/mi</CODE> (or <CODE>$TwlSDK/build/demos.TWL/mi</CODE>) directory, and enter</P>
+<BLOCKQUOTE><CODE>% make</CODE></BLOCKQUOTE>
+<P>&nbsp;The SRL executable file and the NEF or TEF files with binary information are created in <CODE>$TwlSDK/build/demos/mi/(sample name)/bin/(platform)/(target)/</CODE><BR> <CODE>$TwlSDK/build/demos.TWL/mi/(sample name)/bin/(platform)/(target)/</CODE>.</P>
+<BLOCKQUOTE></BLOCKQUOTE>
+<P>&nbsp;For example:</P>
+<BLOCKQUOTE><CODE>$TwlSDK/build/demos/mi/dmaCallback-1/bin/ARM9-TS/Release/main.srl</CODE></BLOCKQUOTE>
+<P>will be the executable file for the <CODE>dmaCallback-1</CODE> demo.</P>
+
+<H2>Execution</H2>
+<H3>For NITRO ROMs:</H3>
+<P>If using the Ensata emulator:</P>
+<UL>
+<LI>Execute NEF and SRL files with ensata.
+</UL>
+<P>If using IS-NITRO-DEBUGGER:</P>
+<UL>
+<LI>Load and execute an NLF file with IS-NITRO-DEBUGGER.
+<LI>Execute an SRL file with IS-NITRO-DEBUGGER
+<LI>Execute an SRL file with IS-NITRO-DEBUGGER using the <CODE>loadrun.exe</CODE> tool from a command line.
+</UL>
+<P>If using IS-TWL-DEBUGGER:</P>
+<UL>
+<LI>Load and execute an NLF file with IS-TWL-DEBUGGER.
+<LI>Execute an SRL file with IS-TWL-DEBUGGER.
+<LI>Execute an SRL file with IS-TWL-DEBUGGER using the <CODE>loadrun.TWL.exe</CODE> tool from a command line.
+</UL>
+<H3>For TWL/NITRO HYBRID ROMs:</H3>
+<P>If using IS-NITRO-DEBUGGER:</P>
+<UL>
+<LI>Execute an SRL file with IS-NITRO-DEBUGGER
+<LI>Execute an SRL file with IS-NITRO-DEBUGGER using the <CODE>loadrun.exe</CODE> tool from a command line.
+</UL>
+<P>If using IS-TWL-DEBUGGER:</P>
+<UL>
+<LI>Load and execute a TLF file with IS-TWL-DEBUGGER.
+<LI>Execute an SRL file with IS-TWL-DEBUGGER.
+<LI>Execute an SRL file with IS-TWL-DEBUGGER using the <CODE>loadrun.TWL.exe</CODE> tool from a command line.
+</UL>
+<H3>For TWL LIMITED ROMs:</H3>
+<P>If using IS-TWL-DEBUGGER:</P>
+<UL>
+<LI>Load and execute a TLF file with IS-TWL-DEBUGGER.
+<LI>Execute an SRL file with IS-TWL-DEBUGGER.
+<LI>Execute an SRL file with IS-TWL-DEBUGGER using the <CODE>loadrun.TWL.exe</CODE> tool from a command line.
+</UL>
+
+<H2>Description</H2>
+<TABLE width="720">
+  <TBODY>
+    <TR>
+<TH>Name</TH>
+<TH>Directories</TH>
+<TH>Operation</TH>
+    </TR>
+    <TR>
+<TD width="187"><EM><STRONG><CODE>dmaCallback-1</CODE></STRONG></EM></TD>
+<TD><CODE>demos</CODE></TD>
+<TD width="525">Uses DMA callback during V-Blank.</TD>
+    </TR>
+    <TR>
+<TD width="187"><EM><STRONG><CODE>uncompressStream-1</CODE></STRONG></EM></TD>
+<TD><CODE>demos</CODE></TD>
+<TD width="525">Reads and extracts compressed image data from a stream.</TD>
+    </TR>
+    <TR>
+<TD width="187"><EM><STRONG><CODE>uncompressBLZ</CODE></STRONG></EM></TD>
+<TD><CODE>demos</CODE></TD>
+<TD width="525">This sample extracts BLZ-compressed data.</TD>
+    </TR>
+    <TR>
+<TD><CODE><EM><STRONG><B>ndma-1</B></STRONG></EM></CODE></TD>
+<TD><CODE>demos.TWL</CODE></TD>
+<TD>Uses the new DMA.</TD>
+    </TR>
+    <TR>
+<TD><CODE><EM><STRONG><B>wramManager-1</B></STRONG></EM></CODE></TD>
+<TD><CODE>demos.TWL</CODE></TD>
+<TD>Uses the WRAM manager on WRAM-A/B/C.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>Operation</H2>
+<P>Operates normally in all operating environments.</P>
+<H2>See Also</H2>
+<P><A href="../../mi/list_mi.html"><CODE>MI Function List</CODE></A></P>
+<H2>Revision History</H2>
+<P>2008/06/23 Added a description of the <CODE>uncompressBLZ</CODE> sample demo.<BR> 2008/05/22 Changed <CODE>UnComp_Stream_BmpBG</CODE> to <CODE>uncompressStream-1</CODE>.<BR> 2008/04/25 Cleaned up the table. Changed the lists for TWL.<BR>2005/05/10 Added description of <code>UnComp_Stream_BmpBG</code> demo.<br /> 2005/03/08 Standardized the Japanese word for &quot;interrupt.&quot;<br /> 2005/03/02 Revised descriptions to reflect current support environment conditions.<br />2005/03/08 Standardized the Japanese term for &quot;interrupt.&quot;<br /> 2005/03/02 Revised descriptions to reflect current support environment conditions.<br />2004/08/17 Standardized the notation of the IS-NITRO-EMULATOR.<br /> 2004/07/10 Changed from <code>.bin</code> to <code>.srl.</code><br />2004/01/18 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

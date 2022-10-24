@@ -1,0 +1,149 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!--==========================================================================   Copyright 2008 Nintendo.  All rights reserved.    These coded instructions, statements, and computer programs contain   proprietary information of Nintendo of America Inc. and/or Nintendo   Company Ltd., and are protected by Federal copyright law.  They may   not be disclosed to third parties or copied or duplicated in any form,   in whole or in part, without the prior written consent of Nintendo.  ==========================================================================-->
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>aesconv</TITLE>
+<LINK rel="stylesheet" href="../css/nitro.css" type="text/css">
+<STYLE type="text/css">
+<!--
+.sample_source{
+  background-color : #e8e8e8;
+}
+H3{
+  color : teal;
+}
+pre
+{
+  display: compact;
+  font-family	: "Courier New", monospace;
+  font-weight	: normal;
+  font-size     : normal;
+  width: 90%;
+
+  padding		: 2pt 8pt 2pt 8pt;
+  background-color	: #eee;
+
+  border-style		: solid;
+  border-width		: 1px;
+}
+TD,TH{
+  border-color  : #c0d8d8;
+  padding       : 1pt 4pt 1pt 4pt;
+  border-width  : 1px;
+  border-style  : solid;
+}
+.arg{
+    font-style: italic;
+}
+-->
+</STYLE>
+</HEAD>
+<BODY>
+<H1 align="left">aesconv <IMG src="../image/NTR.gif" align="middle"><IMG src="../image/TWL.gif" align="middle"></H1>
+<H2>Description</H2>
+<P> <CODE>aesconv</CODE> is a tool for encrypting and decrypting using the AES encryption algorithm.</P>
+<H2>Using the Tool</H2>
+<H3>Start Command</H3>
+<P>
+<CODE>% aesconv -m ctr         -k <span class="arg">key</span> -c <span class="arg">counter</span> [-r] [-p <span class="arg">inputFile</span>] [-o <span class="arg">outputFile</span>]</CODE><BR> <CODE>% aesconv -m cbc_encrypt -k <span class="arg">key</span> -i <span class="arg">iv</span>      [-r] [-p <span class="arg">inputFile</span>] [-o <span class="arg">outputFile</span>]</CODE><BR> <CODE>% aesconv -m cbc_decrypt -k <span class="arg">key</span> -i <span class="arg">iv</span>      [-r] [-p <span class="arg">inputFile</span>] [-o <span class="arg">outputFile</span>]</CODE><BR> <CODE>% aesconv -m ccm_encrypt -k <span class="arg">key</span> -n <span class="arg">nonce</span>   [-r] [-p <span class="arg">inputFile</span>] [-o <span class="arg">outputFile</span>] [-a <span class="arg">Adata</span>] -t <span class="arg">taglen</span></CODE><BR> <CODE>% aesconv -m ccm_decrypt -k <span class="arg">key</span> -n <span class="arg">nonce</span>   [-r] [-p <span class="arg">inputFile</span>] [-o <span class="arg">outputFile</span>] [-a <span class="arg">Adata</span>] -t <span class="arg">tag</span></CODE><BR>
+</P>
+
+<P>
+Use the <CODE>-m</code> option to specify the cipher mode and whether to encrypt or decrypt. The five values shown below can be specified.
+</P>
+<table>
+<tr><th>Specified Value<th>Description
+<tr><td>ctr<td>CTR Mode
+<tr><td>cbc_encrypt<td>Encryption in CBC Mode
+<tr><td>cbc_decrypt<td>Decryption in CBC Mode
+<tr><td>ccm_encrypt<td>Encryption in CCM Mode
+<tr><td>ccm_decrypt<td>Decryption in CCM Mode
+</table>
+
+<P>
+<CODE><span class="arg">key</span></code> specifies the key to use for encryption or decryption. Keys can be specified in two ways. The first is to specify the key with <CODE>hex:</CODE> followed by a 32-digit hexadecimal value. For example, if the key is 0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88, 0x99, 0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xFF in hexadecimal, specify the following option.
+</P>
+<pre>
+    -k hex:00112233445566778899AABBCCDDEEFF
+</pre>
+<P>
+ The other way is to specify the path to a binary key file.
+</P>
+<pre>
+    -k key.bin
+</pre>
+<P>
+Specifying this option will use the first 16 bytes in the file <CODE>key.bin</CODE> as the key.
+</P>
+
+<P>
+<CODE><span class="arg">counter</span></code> specifies the initial counter value in CTR mode. This is specified in the same ways as <CODE><span class="arg">key</span></code> is.
+</P>
+
+<P>
+<CODE><span class="arg">iv</span></code> specifies the initial vector in CBC mode. This is specified in the same ways as <CODE>key</code>.
+</P>
+
+<P>
+<CODE><span class="arg">nonce</span></code> specifies the nonce in CCM mode. This is specified in the same ways as <CODE>key</code>. However, the <CODE>aesconv</CODE> tool only supports 96-bit nonces. If specifying this value in hex format, be sure to specify 24 hexadecimal digits; if specifying this value using a file, the first 12 bytes will be used.
+</P>
+
+<P>
+Use the <CODE>-r</code> option to perform encryption or decryption in a format that is compatible with the TWL's AES module.
+</P>
+
+<P>
+In <CODE><span class="arg">inputFile</span></code>, specify the file where the input data to encrypt or decrypt is stored. If the <CODE>-p</code> option is not specified, the tool will accept input from standard input.
+</P>
+
+<P>
+In <CODE><span class="arg">outputFile</span></code>, specify the the output file for the encryption or decryption process. If the <CODE>-o</code> option is not specified, the tool will output to standard output.
+</P>
+
+<P>
+<CODE><span class="arg">Adata</span></code> specifies the Adata in CCM mode. Adata can be specified in two ways. The first is to enter Adata from standard input. Specify <CODE>stdin:</CODE> followed by the size of Adata in decimal format. If providing the input data from standard input as well without using the <CODE>-p</CODE> option, specify Adata first, and then the input data. For example, if the size of Adata is 12345 bytes, enter the following.
+</P>
+<pre>
+    -a stdin:12345
+</pre>
+<P>
+ The other way is to specify the path to a binary Adata file.
+</P>
+<pre>
+    -a adata.bin
+</pre>
+<P>
+Specifying this option will use the entire contents of the <CODE>adata.bin</CODE> file as the Adata.<br>If the <CODE>-a</CODE> option is not specified, the tool will consider the size of Adata to be 0.
+</P>
+
+<P>
+In <CODE><span class="arg">taglen</span></code>, specify the length of the MAC for encryption in CCM mode. The values that can be specified are 4, 6, 8, 10, 12, 14, and 16.
+</P>
+
+<P>
+<CODE><span class="arg">tag</span></code> specifies the MAC for decryption in CCM mode. The MAC can be specified in two ways. The first is to specify <CODE>hex:</CODE> followed by the MAC in hexadecimal format. This will be 8, 12, 16, 20, 24, 28, or 32 digits, depending on the MAC length. For example, specify the following if the MAC is 12 bytes in length, and is represented in hex as 0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88, 0x99, 0xAA, 0xBB, 0xCC.
+</P>
+<pre>
+    -t hex:00112233445566778899AABBCC
+</pre>
+<P>
+ The other way is to specify the MAC length and then enter the MAC from standard input.
+</P>
+<pre>
+    -t 12
+</pre>
+<P>
+Specifying this option will read 12 bytes from standard input and use this data as the MAC. The MAC lengths that can be specified are the same as those for encryption, ( 4, 6, 8, 10, 12, 14, or 16). If providing the input data from standard input as well without using the <CODE>-p</CODE> option, specify the input data first, and then the MAC.
+</P>
+
+<H2>Location</H2>
+<P><CODE>$TwlSDK/tools/bin/aesconv.exe</CODE></P>
+<H2>See Also</H2>
+<P><CODE><A href="../aes/list_aes.html">AES Library Function List</A></CODE></P>
+<H2>Revision History</H2>
+<P>2008/08/22 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

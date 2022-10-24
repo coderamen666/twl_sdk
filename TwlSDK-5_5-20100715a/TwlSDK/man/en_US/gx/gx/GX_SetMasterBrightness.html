@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>GX_SetMasterBrightness</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">GX_SetMasterBrightness <img src="../../image/NTR.gif"align="middle"><img src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+
+<dl>
+  <dd>
+<PRE><CODE>#include &lt;nitro/gx/gx.h&gt;
+
+void GX_SetMasterBrightness(int brightness);<BR></CODE></PRE>
+  </dd>
+</dl><h2>Arguments</h2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="224"><CODE>brightness</CODE></TD>
+<TD width="622">A value for adjusting brightness (equal to or greater than -16, equal to or less than 16)</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<h2>Return Values</h2>
+<p>None.</p>
+<H2>Description</H2>
+<P>Adjusts brightness in image output. Integers from -16 to 16 can be specified. Positive numbers increase brightness; negative numbers decrease it.</P>
+<H2>Notes</H2>
+<P>In the LCD OFF state, some of the circuitry clocks in the GX are stopped, so the settings of this function are ignored.</P>
+<h2>See Also</h2>
+<P><A href="../g2/G2_SetBlendBrightness.html"><CODE>G2_SetBlendBrightness</CODE></A><BR> <A href="GX_GetMasterBrightness.html"><CODE>GX_GetMasterBrightness</CODE></A></P>
+<H2>Revision History</H2>
+<P>
+2009/02/25 Noted that the settings are ignored when state is LCD OFF. <br /> 2004/01/19 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

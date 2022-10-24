@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>cmptad</TITLE>
+<LINK rel="stylesheet" href="../css/nitro.css" type="text/css">
+<STYLE type="text/css">
+<!--
+.sample_source{
+  background-color : #e8e8e8;
+}
+H3{
+  color : teal;
+}
+.command_list{
+  margin-bottom : 16pt;
+}
+.command_desc{
+  }
+.command_item{
+  margin-top : 16pt;
+  background-color : #e8e8e8;
+}
+.blockquoted_table {
+  border : 1px;
+  width : 80%;
+}
+TD,TH{
+  border-color	: #c0d8d8;
+  padding       : 1pt 4pt 1pt 4pt;
+  border-width  : 1px;
+  border-style  : solid;
+}
+-->
+</STYLE>
+</HEAD>
+<BODY>
+<H1 align="left">cmptad</H1>
+<H2>Description</H2>
+
+<P>The <CODE>cmptad</CODE> Windows tool checks the SRL identity of two specified files. Specifically, a check is made of the following combination.</P>
+<ul>
+<li>The SRL identity included in two specified TAD files
+<li>The identity of the SRL included in a specified TAD file and a specified SRL
+</ul>
+<P>
+Because different data is output each time a TAD file is created using <CODE>maketad.exe</CODE>, it is impossible to compare the SRL without this tool.
+</P>
+
+<H2>Using the Tool</H2>
+<H3>Start Command</H3>
+<P>
+<CODE>% cmptad [-s] &lt;tad1&gt;|&lt;srl1&gt; &lt;tad2&gt;|&lt;srl2&gt;</CODE>
+</P>
+
+<P>
+For <CODE>&lt;tad1&gt;|&lt;srl1&gt;</CODE> and <CODE>&lt;tad2&gt;|&lt;srl2&gt;</CODE>, specify the path to the target TAD or SRL file to be compared.
+</P>
+<P>
+Specifying the <CODE><B>-s</B></CODE> option prevents any output to standard out.
+</P>
+
+<H3>Return Values</H3>
+<ul>
+<li>Return value = 0: Returned when there is no error and the two files are the same.
+<li>Return value = 1: Returned when there is no error and the two files are different.
+<li>Return value = 2: Returned when there is an error with a command line argument.
+<li>Return value = 3: Returned when there is an error with a specified file.
+</ul>
+
+<H2>Location</H2>
+<P><CODE>$TwlSDK/tools/bin/cmptad.exe</CODE></P>
+
+<H2>See Also</H2>
+<P>None.</P>
+
+<H2>Revision History</H2>
+<P>
+2008/12/04 Added a description of how to compare between TAD and SRL files.<BR> 2008/10/06 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

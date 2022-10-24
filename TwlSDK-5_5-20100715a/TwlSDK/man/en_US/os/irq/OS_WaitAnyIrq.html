@@ -1,0 +1,38 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>OS_WaitAnyIrq</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">OS_WaitAnyIrq <IMG src="../../image/NTR.gif" align="middle"><IMG src="../../image/TWL.gif" align="middle"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/os.h&gt;</CODE><BR> <BR> <CODE>void OS_WaitAnyIrq( void );</CODE></dd>
+</dl><h2>Arguments</h2>
+<P>None.</P>
+<h2>Return Values</h2>
+<p>None.</p>
+<H2>Description</H2>
+<P>This function waits for any IRQ interrupt.</P>
+<P>It waits for IRQ interrupts to be generated, regardless of type. It does not look for interrupt check flags and therefore returns when an interrupt is actually generated.</P>
+<H3><BR> <BR> Example of Multiple Threads Waiting for an Interrupt</H3>
+<P>To illustrate the use of the <A href="OS_WaitIrq.html"><CODE>OS_WaitIrq</CODE></A> function, consider the case of multiple threads waiting for the same interrupt event. By replacing the <A href="OS_WaitIrq.html"><CODE>OS_WaitIrq</CODE></A> function in that example with <CODE>OS_WaitAnyIrq</CODE>, thread 1 and thread 2 will be run once per each interrupt (in the example, they will be run per each V-Blank).(If the code is left as <A href="OS_WaitIrq.html">OS_WaitIrq</A>, only thread 1 was run.)</P>
+<P>Below is the program that's been changed to <CODE>OS_WaitAnyIrq</CODE>.</P>
+<BLOCKQUOTE style="background-color:#ffffcc;"><CODE>void TwlMain(void)<BR> {<BR> :<BR>OS_CreateThread( &amp;thread1, proc1, ..., 10 );<BR> OS_CreateThread( &amp;thread2, proc2, ..., 11 );<BR> :<BR>}<BR> <BR> //---- Thread1<BR> void proc1(void* arg)<BR> {<BR> while(1)<BR> {<BR> <FONT color="#ff0000"><B>OS_WaitAnyIrq();</B></FONT><BR> OS_Printf(&quot;proc1\n&quot;);<BR> }<BR> }<BR> <BR> //---- Thread2<BR> void proc2(void* arg)<BR> {<BR> while(1)<BR> {<BR> <B><FONT color="#ff0000">OS_WaitAnyIrq();</FONT></B><BR> OS_Printf(&quot;proc2\n&quot;);<BR> }<BR> }<BR> <BR> //---- V-Blank interrupt handler<BR> void VBlankHandler( void )<BR> {<BR> OS_SetIrqCheckFlag( OS_IE_V_BLANK );<BR> }</CODE></BLOCKQUOTE>
+<P>Thread 1 and thread 2 wait for some kind of interrupt. At this time the two threads are registered in the IRQ thread queue. Once the V-Blank occurs and control exits the handler, the threads registered in the IRQ thread queue will enter the <EM>runnable</EM> state. This mechanism is unrelated to the interrupt check flag. When some sort of interrupt occurs, the threads that were stopped with <CODE>OS_WaitAnyIrq</CODE> will be run. This program will continually display <CODE>proc1</CODE> and <CODE>proc2</CODE> alternately.</P>
+
+<h2>See Also</h2>
+<p><A href="OS_WaitIrq.html"><CODE>OS_WaitIrq</CODE></A><br></p>
+<H2>Revision History</H2>
+<P>2008/07/01 Gave an example of multiple threads waiting for an interrupt.<BR> 2005/03/08 Standardized how the term &quot;Interrupt&quot; is written in Japanese.<br> 2004/05/01 Initial value.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

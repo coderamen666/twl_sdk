@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>CAMERAOutput</TITLE>
+<LINK rel="stylesheet" href="../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">CAMERAOutput <IMG src="../image/TWL.gif" align="middle"></H1>
+<H2>Definition</H2>
+<DL>
+  <DD>
+  <CODE>#include &lt;twl/camera.h&gt;</CODE><BR>
+  <BR>
+  <PRE><CODE>
+typedef enum {
+    CAMERA_OUTPUT_YUV,
+    CAMERA_OUTPUT_RGB
+} CAMERAOutput;
+</CODE></PRE>
+</DL>
+
+<H2>Elements</H2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+      <TD width="13%"><EM><STRONG>CAMERA_OUTPUT_YUV</STRONG></EM></TD>
+      <TD width="87%">Sets the format to YUV4:2:2 (YCbCr).</TD>
+    </TR>
+    <TR>
+      <TD width="13%"><EM><STRONG>CAMERA_OUTPUT_RGB</STRONG></EM></TD>
+      <TD width="87%">Sets the format to RGB5:5:5.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<H2>Description</H2>
+<P>
+This is an enumerated type that is used to specify the camera's output data format.<BR> Each of these data formats are output as follows.<BR> <BR> <B>YUV4:2:2(YCbCr)</B>
+<table>
+<tr>
+<td>Bits 31&ndash;24</td><td>Bits 23&ndash;16</td><td>Bits 15&ndash;8</td><td>Bits 7&ndash;0</td>
+</tr>
+<tr>
+<td>V (Cr)</td><td>Y [n+1 pixel]</td><td>U (Cb)</td><td>Y [n pixel]</td>
+</tr>
+</table>
+<BR> <B>RGB5:5:5</B>
+<table>
+<tr>
+<td>Bit 31</td><td>Bits 30&ndash;26</td><td>Bits 25&ndash;21</td><td>Bits 20&ndash;16</td><td>Bit 15</td><td>Bits 14&ndash;10</td><td>Bits 9&ndash;5</td><td>Bits 4&ndash;0</td>
+</tr>
+<tr>
+<td>Always 1.</td><td>Blue [n+1 pixel]</td><td>Green [n+1 pixel]</td><td>Red [n+1 pixel]</td><td>Always 1.</td><td>Blue [n pixel]</td><td>Green [n pixel]</td><td>Red [n pixel]</td>
+</tr>
+</table>
+</P>
+
+<H2>Revision History</H2>
+<P>2007/11/14 Added descriptions of the data formats. <BR>2007/11/09 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

@@ -1,0 +1,272 @@
+#! make -f
+#----------------------------------------------------------------------------
+# Project:  TwlSDK
+# File:     modulerules
+#
+# Copyright 2007-2008 Nintendo. All rights reserved.
+#
+# These coded instructions, statements, and computer programs contain
+# proprietary information of Nintendo of America Inc. and/or Nintendo
+# Company Ltd., and are protected by Federal copyright law. They may
+# not be disclosed to third parties or copied or duplicated in any form,
+# in whole or in part, without the prior written consent of Nintendo.
+#
+# $Date:: 2009-08-28#$
+# $Rev: 11023 $
+# $Author: okubata_ryoma $
+#----------------------------------------------------------------------------
+ifndef NITROSDK_MODULERULES_
+
+ifneq	($(FORCE_BUILD),)
+
+ifeq	($(filter clean clobber,$(MAKECMDGOALS)),)
+include $(BUILDTOOLSDIR)/modulerules.cctype.$(NITRO_CCTYPE)
+include $(NITRO_BUILDTOOLSDIR)/modulerules.cctype.$(NITRO_CCTYPE)
+endif
+
+# Common Rules
+
+# .bin .srl
+ifdef	NITRO_MAKEROM
+#
+# MAKEROM
+#
+
+ROM_SPEC				?= $(DEFAULT_ROM_SPEC)
+MAKEROM_ARM9			?= $(DEFAULT_MAKEROM_ARM9)
+MAKEROM_ARM7			?= $(DEFAULT_MAKEROM_ARM7)
+MAKEROM_ROMROOT			?= $(DEFAULT_MAKEROM_ROMROOT)
+MAKEROM_ROMFILES		?= $(DEFAULT_MAKEROM_ROMFILES)
+MAKEROM_ROMSPEED		?= $(DEFAULT_MAKEROM_ROMSPEED)
+MAKEROM_FLAGS			?=
+MAKEROM_FLAGS			+= $(if $(NITRO_FINALROM),,-F)
+
+# Convert Unix and Windows format paths
+ROOT_M					:= $(call empath,$(ROOT))
+MAKEROM_ROMROOT_M		:= $(call empath,$(MAKEROM_ROMROOT))
+NITRO_COMPONENTSDIR_M	:= $(ROOT_M)/components
+
+MAKEROM_ARM7_M			:= $(call empath,$(basename $(MAKEROM_ARM7)))
+MAKEROM_ARM9_M			:= $(call empath,$(basename $(MAKEROM_ARM9)))
+ROM_SPEC_M				:= $(call empath,$(ROM_SPEC))
+
+MAKEROM_DEFS			 = -DNITROSDK_ROOT='$(ROOT_M)'				\
+						   -DTARGET_NAME='$(TARGET_NAME)'			\
+						   -DMAKEROM_ROMROOT='$(MAKEROM_ROMROOT_M)'	\
+						   -DMAKEROM_ROMFILES='$(MAKEROM_ROMFILES)'	\
+						   -DMAKEROM_ROMSPEED='$(MAKEROM_ROMSPEED)'	\
+						   -DBINDIR='$(BINDIR)'						\
+						   -DCOMPDIR='$(NITRO_COMPONENTSDIR_M)'		\
+						   -DCOMPTYPE9='$(NITRO_BUILDTYPE_ARM9)'	\
+						   -DCOMPTYPE7='$(NITRO_BUILDTYPE_ARM7)'	\
+						   -DPROC='$(CODEGEN_PROC)'					\
+						   -DPLATFORM='$(NITRO_PLATFORM)'			\
+						   -DCODEGEN='$(NITRO_LIBSUFFIX)'			\
+						   -DBUILD='$(NITRO_BUILD_DIR)'				\
+						   -DCOMPSUFFIX9='$(COMPSUFFIX)'			\
+						   -DCOMPSUFFIX7=''
+
+TARGET_ROM		 = $(strip $(findstring .srl,$(TARGET_BIN))			\
+				   $(findstring .bin,$(TARGET_BIN)))
+
+ifneq	($(strip $(OBJS) $(LLIBRARIES)),)	# Any object?
+ifeq	($(CODEGEN_PROC),ARM9)
+SDEPENDS_BIN	 = $(BINDIR)/%.$(NITRO_ELF_EXT) $(MAKEROM_ARM7)
+MAKEROM_DEFS	+= -DMAKEROM_ARM9='$(BINDIR)/$(TARGET_NAME)'	\
+			-DMAKEROM_ARM7='$(MAKEROM_ARM7_M)'
+else	# !ARM9
+SDEPENDS_BIN	 = $(BINDIR)/%.$(NITRO_ELF_EXT) $(MAKEROM_ARM9)
+MAKEROM_DEFS	+= -DMAKEROM_ARM9='$(MAKEROM_ARM9_M)'				\
+			-DMAKEROM_ARM7='$(call empath,$(basename $@))'
+endif	# -ARM9
+else	# !OBJS !LLIBRARIES
+SDEPENDS_BIN	 = $(MAKEROM_ARM9) $(MAKEROM_ARM7)
+MAKEROM_DEFS	+= -DMAKEROM_ARM9='$(MAKEROM_ARM9_M)'				\
+				   -DMAKEROM_ARM7='$(MAKEROM_ARM7_M)'
+endif	# -OBJS -LLIBRARIES
+
+# Unnecessary during clean or clobber (supports make 3.80)
+ifneq	($(filter clean clobber,$(MAKECMDGOALS)),)
+else
+ifndef	USE_MY_RULE_BIN
+$(BINDIR)/%.bin $(BINDIR)/%.srl: $(SDEPENDS_BIN) $(ROM_SPEC) $(LDEPENDS_BIN) $(EDEPENDS_BIN)
+ifdef SILENT
+	echo $(TWLSDK_MSG_MAKE_SRL) $(notdir $@)
+endif
+	$(MAKEROM) $(MAKEROM_FLAGS) $(MAKEROM_DEFS) $(ROM_SPEC_M) $(call empath,$@)
+endif	# -USE_MY_RULE_BIN
+endif	# not clean/clobber
+
+#$(BINDIR)/$(TARGET_SIGN_BIN): $(BINDIR)/$(TARGET_BIN)
+#	$(TWLSDK_ROOT)/tools/bin/attachsign.exe -D $(addprefix $(BINDIR)/,$(TARGET_BIN))
+
+else	# !NITRO_MAKEROM
+#
+# ELFTOBIN
+#
+ifndef	USE_MY_RULE_BIN
+ifeq	($(CODEGEN_PROC),ARM9)
+$(BINDIR)/%.bin $(BINDIR)/%.srl: $(BINDIR)/%.$(NITRO_ELF_EXT) $(LDEPENDS_BIN) $(EDEPENDS_BIN)
+	$(ELFTOBIN) $< $(ELFTOBIN_ARM7) $(ELFTOBIN_ROMHEADER) -o $@
+else	# !ARM9
+$(BINDIR)/%.bin $(BINDIR)/%.srl: $(BINDIR)/%.$(NITRO_ELF_EXT) $(LDEPENDS_BIN) $(EDEPENDS_BIN)
+	$(ELFTOBIN) $(ELFTOBIN_ARM9) $< $(ELFTOBIN_ROMHEADER) -o $@
+endif	# -ARM9
+endif	# -USE_MY_RULE_BIN
+endif	# -NITRO_MAKEROM
+
+endif	# -FORCE_BUILD
+
+# .bnr .bsf
+%.bnr:		%.bsf
+ifdef SILENT
+	echo $(TWLSDK_MSG_MAKE_BNR) $(notdir $@)
+endif
+		$(MAKEBANNER) $(MAKEBANNER_FLAGS) $< $@
+
+%.nbfs %.nbfc %.nbfp:	%.bmp
+		$(NTEXCONV) -no -bg -bgb -bgnc $(NTEXCONV_FLAGS) $< >/dev/null
+
+# .sbin
+# The SBIN files are created by the linker at the same time as the NEF files
+%.sbin:			%.$(NITRO_ELF_EXT);
+%_defs.sbin:	%.$(NITRO_ELF_EXT);
+%_table.sbin:	%.$(NITRO_ELF_EXT);
+
+#----------------------------------------------------------------------------
+#  MAKE TARGETS
+#----------------------------------------------------------------------------
+
+%_for_arm:   CODEGEN_ARCH=
+%_for_arm:   BUILD_CODEGEN=ARM
+%_for_thumb: CODEGEN_ARCH=.thumb
+%_for_thumb: BUILD_CODEGEN=THUMB
+
+#----------------------------------------------------------------------------
+#  Make build
+#----------------------------------------------------------------------------
+.PHONY: do-build build_and_install
+.PHONY: build_for_% build_platform
+
+ifeq	($(PARALLEL_BUILD),TRUE)
+build_platform:  build_for_thumb build_for_arm
+else
+build_platform:  build_for_thumb
+build_for_thumb: build_for_arm
+endif
+
+build_for_%: 
+	+$(if $(filter $(BUILD_CODEGEN),$(TARGET_CODEGEN_LIST)),		\
+		@$(ECHO_CURDIR)												\
+		$(DO_MAKEDIR)												\
+		$(REMAKE) TARGET_CODEGEN=$(BUILD_CODEGEN) SKIP_SUBDIR=TRUE INSTALL_DEPENDS=do-build INSTALL_FOR=$* build_and_install)
+
+build_and_install: install_for_$(INSTALL_FOR)
+
+#----------------------------------------------------------------------------
+#  Make install
+#----------------------------------------------------------------------------
+
+.PHONY: install_for_% install_platform
+
+ifeq	($(PARALLEL_BUILD),TRUE)
+install_platform:  install_for_thumb install_for_arm
+else
+install_platform:  install_for_thumb
+install_for_thumb: install_for_arm
+endif
+
+install_for_%: $(INSTALL_DEPENDS)
+	$(if $(filter $(BUILD_CODEGEN),$(TARGET_CODEGEN_LIST)),	\
+		$(if $(INSTALL_TARGETS),							\
+			@$(ECHO_CURDIR)									\
+			$(DO_INSTALL) ))
+
+#----------------------------------------------------------------------------
+#  Autotest using IS-NITRO-EMULATOR
+#----------------------------------------------------------------------------
+ifdef	IS_NITRO_DIR
+
+AUTOTESTLOG	:= $(ROOT)/autotest.log
+
+.PHONY: 	autotest do-autotest do-autotest-test
+
+autotest:
+	@+$(REMAKE) clobber
+	@+$(REMAKE) build NITRO_AUTOTEST=TRUE
+	@$(RM) $(AUTOTESTLOG)
+	@+$(REMAKE) do-autotest
+	@$(SED) -e 's/\r//g;s/$$/\r/g;' $(AUTOTESTLOG) > $(AUTOTESTLOG).tmp
+	@$(MV)  $(AUTOTESTLOG).tmp $(AUTOTESTLOG)
+
+do-autotest: make-sub
+	@$(ECHO_CURDIR)
+ifneq	($(TARGET_ROM),)
+	@+$(REMAKE) test-run
+endif
+endif
+
+
+#----------------------------------------------------------------------------
+#  Make clobber & clean
+#----------------------------------------------------------------------------
+.PHONY: 	clobber-installed
+.PHONY:		clobber_for_%
+
+clobber-installed: clobber_for_thumb
+clobber_for_thumb: clobber_for_arm
+
+clobber_for_%:
+	+-$(if $(filter $(BUILD_CODEGEN),$(TARGET_CODEGEN_LIST)),		\
+		$(RM) $(GDIRT_INSTALLED))
+
+#----------------------------------------------------------------------------
+#  Source file dependencies
+#----------------------------------------------------------------------------
+
+#
+# Dynamic dependency generation
+#   Like as $(OBJDIR)/main.o: main.c
+#
+DEP_SRCS_ALL = $(SRCS) $(SRCS_AUTOLOAD) $(SRCS_OVERLAY)
+
+define RuleCtoObj
+$$(OBJDIR)/$$(notdir $$(basename $(1))).o: $(1)
+
+endef
+endif	# NITROSDK_MODULERULES_
+
+# Put this sentence out of include-guard to avoid $(eval xxx) limitation
+$(foreach FILE,$(DEP_SRCS_ALL),$(eval $(call RuleCtoObj,$(FILE))))
+
+
+ifndef	NITROSDK_MODULERULES_
+#
+# Include dependencies file
+#
+ifneq	($(filter build_and_install,$(MAKECMDGOALS)),)
+ifdef	SRCS
+-include $(DEPENDDIR)/*.d
+endif
+endif
+
+#----------------------------------------------------------------------------
+#  For IS-NITRO-EMULATOR
+#----------------------------------------------------------------------------
+ifdef	IS_TWL_DIR
+-include $(NITRO_BUILDTOOLSDIR)/modulerules.emtype.IS
+else
+ifdef	IS_NITRO_DIR
+-include $(NITRO_BUILDTOOLSDIR)/modulerules.emtype.IS
+endif
+endif
+
+#----------------------------------------------------------------------------
+#  Load add-ins' modulerules
+#----------------------------------------------------------------------------
+-include $(NITRO_BUILDTOOLSDIR)/modulerules.add-ins.*
+
+#----------------------------------------------------------------------------
+NITROSDK_MODULERULES_ = TRUE
+endif	# NITROSDK_MODULERULES_
+#----- End of modulerules -----

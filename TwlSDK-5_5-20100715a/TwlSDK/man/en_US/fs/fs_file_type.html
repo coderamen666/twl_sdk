@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>FSFile</title>
+<LINK rel="stylesheet" href="../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">FSFile <img src="../image/NTR.gif"align="middle"><img src="../image/TWL.gif" align="middle"></h1>
+<h2>Definition</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/fs.h&gt;</CODE><BR>
+  <BR>
+  <CODE><pre>
+<font color="#008000">/* file and directory structure */</font>
+typedef  struct  FSFile
+{
+<font color="#008000">// private:</font>
+    struct FSFile              *next;
+    void                       *userdata;
+    struct <A href="fs_archive_type.html">FSArchive</a>           *arc;
+    u32                         stat;
+    void                       *argument;
+    <A href="fs_result_const.html">FSResult</a>                    error;
+    OSThreadQueue               queue[1];
+    union
+    {
+        u8                      reserved1[16];
+        FSROMFATProperty        prop;
+    };
+    union
+    {
+        u8                      reserved2[24];
+        FSROMFATCommandInfo     arg;
+    };
+} FSFile;
+  <br></pre></code>
+  </dd>
+</dl>
+
+<H2>Description</H2>
+<P>This structure is used by file and directory access functions.<BR>All members are used only in internal processing. Direct operation of these is prohibited. <BR>
+</P>
+
+<H2>Note</H2>
+<ul style='color:Red;'>
+<li>The internal expression of this structure may change in future enhancements. Avoid programming that depends upon sizes and members in the current package.</li>
+<li>This structure internally maintains bidirectional pointers to list elements and system resources, so you cannot move or duplicate it simply by copying the values per structure. There is no guarantee for such object behavior.
+<div><pre style='color:Black;border:1px solid Black;'><code>
+<span style='color:#008000'>// Example: The behavior of file2 is not guaranteed when it has been copied in this way.</span>
+FSFile file1, file2;
+<a href="file/FS_InitFile.html">FS_InitFile</a>(&amp;file1);
+<a href="file/FS_OpenFileEx.html">FS_OpenFileEx</a>(&amp;file1, &quot;rom/file1.bin&quot;, FS_FILEMODE_R);
+file2 = file1;
+</code></pre></div>
+</li>
+</ul>
+
+<h2>See Also</h2>
+<p><A href="file/FS_OpenFileEx.html"><CODE>FS_OpenFileEx</CODE></A><BR> <A href="file/FS_OpenFileFast.html"><CODE>FS_OpenFileFast</CODE></A><BR> <A href="file/FS_CloseFile.html"><CODE>FS_CloseFile</CODE></A><BR> <A href="file/FS_GetFileLength.html"><CODE>FS_GetFileLength</CODE></A><BR> <A href="file/FS_ReadFile.html"><CODE>FS_ReadFile</CODE></A><BR> <A href="file/FS_SeekFile.html"><CODE>FS_SeekFile</CODE></A><BR> <A href="file/FS_SeekFileToBegin.html"><CODE>FS_SeekFileToBegin</CODE></A><BR> <A href="file/FS_SeekFileToEnd.html"><CODE>FS_SeekFileToEnd</CODE></A><BR> <A href="file/FS_FindDir.html"><CODE>FS_FindDir</CODE></A><BR> <A href="file/FS_ReadDir.html"><CODE>FS_ReadDir</CODE></A><BR> <A href="file/FS_TellDir.html"><CODE>FS_TellDir</CODE></A><BR> <A href="file/FS_SeekDir.html"><CODE>FS_SeekDir</CODE></A><BR> <A href="file/FS_RewindDir.html"><CODE>FS_RewindDir</CODE></A></p>
+
+<H2>Revision History</H2>
+<P>
+2009/07/14 Added mention that copying structure values was not guaranteed.<br /> 2009/01/14 Corrected structure definition to match the header file.<br /> 2008/10/02 Updated part of <B>See Also</B>.<br /> 2004/11/02 Corrected structure definition to match the header file.<BR> 2004/05/20 Revised description due to changes in <CODE>FSFile</CODE>.<br /> 2004/05/14 Revised description due to changes in <CODE>FSFile</CODE>.<br /> 2004/04/13 Revised description due to changes in <CODE>FSFile</CODE>.<br /> 2004/04/08 Revised <B>Description</B> due to the integration of <CODE>FSDir</CODE> and <CODE>FSFile</CODE>.<br /> 2004/04/01Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

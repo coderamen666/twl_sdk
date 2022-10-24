@@ -1,0 +1,39 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>DC_WaitWriteBufferEmpty</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">DC_WaitWriteBufferEmpty <IMG src="../../image/NTR.gif" align="middle"><IMG src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+<DL>
+  <DD>
+  <PRE><CODE>#include &lt;nitro/os.h&gt;</CODE></PRE>
+  <PRE><CODE>void DC_WaitWriteBufferEmpty( void );</CODE>
+</PRE>
+</DL>
+
+<H2>Arguments</H2>
+<P>None.</P>
+
+<H2>Return Values</H2>
+<P>None.</P>
+
+<H2>Description</H2>
+<P>Waits for the write buffer to empty.</P>
+<P>It is possible for this function to stall the ARM9 until the entire contents of the write buffer are written into memory.</P>
+<P>Because the contents of the write buffer are written out before writing to a cache-disabled or buffer-disabled area, when writing to an I/O register after flushing a cache or performing similar operations, there is no need to explicitly wait for the write buffer to empty.</P>
+<P>Note that when loading from the I/O registers, the write buffer is not written out.</P>
+<h2>Internal Operation</h2>
+<P>Operates register 7 of the system control coprocessor.</P>
+<H2>See Also</H2>
+<P><CODE><A href="DC_StoreAll.html">DC_StoreAll</A><BR></CODE></P>
+
+<H2>Revision History</H2>
+<P>2003/12/22 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

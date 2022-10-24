@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>MATH_CountLeadingZeros</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">MATH_CountLeadingZeros<img src="../../image/NTR.gif"align="middle"><img src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+<DL>
+  <DD>
+  <PRE><CODE>#include &lt;nitro/math.h&gt;</CODE></PRE>
+  <PRE><CODE>u32 MATH_CountLeadingZeros( u32 x );
+u32 MATH_CLZ( u32 x );
+ 
+  </CODE></PRE>
+</DL>
+<H2>Arguments</H2>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+<TD><B><I>x</I></B></TD>
+<TD>Numeric value to evaluate</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>Return Values</H2>
+<P>The number of sequential 0 bits, starting from the highest-order bit.</P>
+<H2>Description</H2>
+<P>Scans the data of a 32-bit quantity and reports the number of sequential bits that are set to 0 beginning at the highest-order bit. For example, a value of <CODE>0x80000000</CODE> returns 0, and a value of 0 returns 32. The internal implementation is such that the function is an inline function wrapping a <code>CLZ</code> command that can be used with ARM9 ARM code. It is expanded as one instruction by the compiler. In ARM7 and ARM9 THUMB code, the standard function is called.<br>For this reason, if your program internally switches between ARM and THUMB code, do not use <code>#pragma thumb on</code>. Instead use <code>#include &lt;twl/code16.h&gt;</code>.<br>See the <a href="../../information/headerfiles.html">Description of Header Files</a> page for a description of <CODE>code16.h</CODE>.
+</P>
+<P><CODE>MATH_CLZ</CODE> is another name for the <CODE>MATH_CountLeadingZeros</CODE> function.</P>
+<P>To count the number of consecutive 0's from the end, use the <A href="../bit/MATH_CountTrailingZeros.html"><CODE>MATH_CountTrailingZeros</CODE></A> function.</P>
+<H2>See Also</H2>
+<P><A href="../bit/MATH_CountTrailingZeros.html"><CODE>MATH_CountTrailingZeros</CODE></A><BR> <A href="../int/MATH_ILog2.html"><CODE>MATH_ILog2</CODE></A></P>
+<H2>Revision History</H2>
+<P>
+2009/04/28 Described the method for switching to THUMB mode.<br>
+ 2006/01/10 Added missing links.<br> 2005/12/22 Added a link to the <CODE>MATH_CountTrailingZeros</CODE> function.<br> 2005/06/02 Corrected &quot;&amp;&quot; notation.<BR> 2004/12/14 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

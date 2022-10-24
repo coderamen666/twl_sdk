@@ -1,0 +1,36 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>Battery: Overview</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">Battery: Overview <IMG src="../../image/NTR.gif" align="middle"><IMG src="../../image/TWL.gif" align="middle"></H1>
+
+<H2>Description</H2>
+<P>The TWL system runs on a rechargeable battery. This document explains how to get the remaining battery life and describes the callback that is invoked when the remaining battery life drops.</P>
+<H2>Getting the Remaining Battery Life</H2>
+<P>You can find the remaining battery life with the <CODE><A href="PM_GetBattery.html">PM_GetBattery</A></CODE> and <CODE><A href="PM_GetBatteryLevel.html">PM_GetBatteryLevel</A></CODE> functions.</P>
+<P>The <CODE><A href="PM_GetBattery.html">PM_GetBattery</A></CODE> function can get one of two levels: <CODE>PM_BATTERY_HIGH</CODE> and <CODE>PM_BATTERY_LOW</CODE>. This function has existed since the NITRO system. On the TWL hardware, it will split the six obtainable levels at a fixed boundary and return one of the two resulting levels.</P>
+<P>The <CODE><A href="PM_GetBatteryLevel.html">PM_GetBatteryLevel</A></CODE> function can get one of six levels (0&ndash;5). This is a new function that has been created for the TWL system. It cannot be used on NITRO hardware.</P>
+
+<P>You do not need to display a message when low battery is detected. The callback described by <B>Battery LOW Callback</B> below can be called automatically when low battery is detected on the TWL system, so the application does not need to poll the remaining battery life to know when the battery is low.</P>
+<H2>Shutdown Caused by Low Battery</H2>
+<P>If there is no remaining battery life, games obviously cannot continue. However, it is not desirable for the power supply to drop when this is not intended by the system; for example, data may be lost if the power is cut off during NAND memory access. As a result, applications that access NAND memory and SD Memory Cards automatically shut down when the remaining battery becomes extremely low, but is not yet depleted, in order to preserve the file system in NAND memory and on the SD Card. Strictly speaking, therefore, the battery cannot be completely used to 0.</P>
+<P>On the other hand, applications that only access a DS Game Card and backup memory on the DS Game Card will not lose data if the power supply is suddenly cut off. Automatic shutdown processing is therefore not required for low battery in this case. In other words, you can play until the battery is entirely depleted, as on the Nintendo DS. The battery LOW callback described below can be used to find out when the remaining battery life has become extremely low.</P>
+<BLOCKQUOTE><IMG src="battery_Pict1.gif" width="542" height="431" border="0"></BLOCKQUOTE>
+<H2>Battery LOW Callback</H2>
+<P>The battery LOW callback is issued when the battery voltage has dropped to a set level. The callback is set by the <CODE><A href="PM_SetBatteryLowCallback.html">PM_SetBatteryLowCallback</A></CODE> function.</P>
+<P>The battery LOW callback is invoked when the remaining battery life is indicated by a value of 1 (roughly 1%) from the <CODE><A href="PM_GetBatteryLevel.html">PM_GetBatteryLevel</A></CODE> function, but with applications not requiring exit processing <FONT color="#ff0000">on rare occasions the callback will not be issued.</FONT>(See <B>Getting Values Internally</B> and <B>Callback</B> in the <CODE><A href="PM_GetBatteryLevel.html">PM_GetBatteryLevel</A></CODE> function.)</P>
+<P>This callback is configured to be invoked at a remaining battery level that is slightly higher than the level at which applications that access NAND memory and SD Cards are automatically shut down.</P>
+<P>The battery LOW callback can be used both by applications that shut down automatically and by those that do not.</P>
+<H2>Detecting the AC Adapter</H2>
+<P>The <CODE><A href="PM_GetACAdapter.html">PM_GetACAdapter</A></CODE> function is used to determine whether power is being supplied through the AC adapter. It actually determines whether the AC adapter is plugged into the DC connector and electricity is flowing. It only determines whether electricity is currently flowing; it is not possible to determine whether the battery is being charged.</P>
+
+<H2>Revision History</H2>
+<P>2008/09/13 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

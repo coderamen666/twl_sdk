@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>OS_Free[To*]</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">OS_Free[To*] <IMG src="../../image/NTR.gif" align="middle"><IMG src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+<DL>
+  <DD>
+<PRE><CODE>#include &lt;nitro/os.h&gt;</CODE></PRE>
+  <PRE><CODE>void OS_FreeToHeap( OSArenaId id, OSHeapHandle heap, void* ptr );
+
+void OS_FreeToMain( void* ptr );
+void OS_FreeToSubPriv( void* ptr );
+void OS_FreeToMainEx( void* ptr );
+void OS_FreeToITCM( void* ptr );
+void OS_FreeToDTCM( void* ptr );
+void OS_FreeToShared( void* ptr );
+void OS_FreeToWramMain( void* ptr );
+void OS_FreeToWramSub( void* ptr );
+void OS_FreeToSubPrivWram( void* ptr );
+
+void OS_Free( void* ptr );</code></PRE>
+</DL>
+<H2>Arguments</H2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="13%"><EM><STRONG>id</STRONG></EM></TD>
+<TD width="87%">Arena ID of the arena that is associated with the heap for which a memory block is to be freed</TD>
+    </TR>
+    <TR>
+<TD><B><I>heap</I></B></TD>
+<TD>Handle of the heap for which a memory block is to be freed</TD>
+    </TR>
+    <TR>
+<TD><B><I>ptr</I></B></TD>
+<TD>Pointer to the memory block that is to be freed</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>Return Values</H2>
+<P>None.</P>
+
+<H2>Description</H2>
+<P>Frees a memory block <code>ptr</code> and returns the memory block <code>ptr</code> to the heap.</P>
+<P>You must specify an arena that has a heap. The arena is specified with the arena ID (<CODE>id</CODE>). To read more about this value, see the <a  href="../arena/OS_InitArena.html"><code>OS_InitArena</code></a> function.</P>
+<P>Specifying <CODE>OS_CURRENT_HEAP_HANDLE</CODE> for <CODE>heap</CODE> is treated the same as if the arena's current heap had been specified.</P>
+<P><code>OS_FreeToMain</code> is the inline function for <code>OS_FreeToHeap( OS_ARENA_MAIN, OS_CURRENT_HEAP_HANDLE, ...</CODE><code>OS_FreeToSubPriv</code> is the inline function for <code>OS_FreeToHeap( OS_ARENA_MAIN_SUBPRIV, OS_CURRENT_HEAP_HANDLE, ...</code><code>OS_FreeToMainEx</code> is the inline function for <code>OS_FreeToHeap( OS_ARENA_MAINEX, OS_CURRENT_HEAP_HANDLE, ...</code><code>OS_FreeToICTM</code> is the inline function for <code>OS_FreeToHeap( OS_ARENA_ITCM, OS_CURRENT_HEAP_HANDLE, ...</code><code>OS_FreeToDTCM</code> is the inline function for <code>OS_FreeToHeap( OS_ARENA_DTCM, OS_CURRENT_HEAP_HANDLE, ...</code><code>OS_FreeToShared</code> is the inline function for <code>OS_FreeToHeap( OS_ARENA_SHARED, OS_CURRENT_HEAP_HANDLE, ...</code><code>OS_FreeToWramMain</code> is the inline function for <code>OS_FreeToHeap( OS_ARENA_WRAM, OS_CURRENT_HEAP_HANDLE, ...</code><code>OS_FreeToWramSub</code> is the inline function for <code>OS_ARENA_WRAM_SUB, OS_CURRENT_HEAP_HANDLE, ...</code><code>OS_FreeToSubPrivWram</code> is the inline function for <code>OS_FreeToHeap( OS_ARENA_WRAM_SUBPRIV, OS_CURRENT_HEAP_HANDLE, ...</code></P>
+<P>For ARM9, <code>OS_Free</code> is the inline for <code>OS_FreeToHeap( OS_ARENA_MAIN, OS_CURRENT_HEAP_HANDLE, ... </code>.<br />For ARM7, <code>OS_Free</code> is the inline version of <code>OS_FreeToHeap( OS_ARENA_MAIN_SUBPRIV, OS_CURRENT_HEA_HANDLE, ...</code></P>
+<P><B>Caution:</B> When a value of <CODE>NULL</CODE> is specified for <CODE>ptr</CODE>, the <CODE>DEBUG</CODE> build stops at <CODE>ASSERT</CODE>. In other builds, the behavior is uncertain and unpredictable.<br /> However, in most cases a data abort exception will occur.
+</P>
+<H2>See Also</H2>
+<P><A href="../arena/OS_InitArena.html"><CODE>OS_InitArena</CODE></A><BR> <A href="OS_AllocFromHeap.html"><CODE>OS_AllocFromHeap</CODE></A><BR> <A href="OS_FreeAllToHeap.html"><CODE>OS_FreeAllToHeap</CODE></A></P>
+<H2>Revision History</H2>
+<P>2004/07/07 Added caution when <CODE>ptr</CODE> is set to <CODE>NULL</CODE>.<BR> 2004/03/08 Take into consideration the differences between ARM7 and ARM9.<BR> 2004/02/25 Changed the number of arena from 6 to 9.<BR> 2004/01/06 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title>FSDirectoryEntryInfo, FSDirectoryEntryInfo</title>
+<link rel="stylesheet" href="../css/nitro.css" type="text/css" />
+</head>
+<body>
+
+<h1>FSDirectoryEntryInfo(W) <img src="../image/NTR.gif"align="middle"><img src="../image/TWL.gif" align="middle"></h1>
+<h2>Definition</h2>
+<pre><code>
+#define	FS_ENTRY_SHORTNAME_MAX      16
+#define	FS_ENTRY_LONGNAME_MAX	    260
+
+typedef struct FSDirectoryEntryInfo
+{
+    char        shortname[FS_ENTRY_SHORTNAME_MAX];
+    u32         shortname_length;
+    char        longname[FS_ENTRY_LONGNAME_MAX];
+    u32         longname_length;
+    u32         <a href="FSPathInfo.html">attributes</a>;
+    <a href="FSDateTime.html">FSDateTime</a>  atime;
+    <a href="FSDateTime.html">FSDateTime</a>  mtime;
+    <a href="FSDateTime.html">FSDateTime</a>  ctime;
+    u32         filesize;
+    u32         id;
+}
+FSDirectoryEntryInfo;
+
+typedef struct FSDirectoryEntryInfoW
+{
+    u32         <a href="FSPathInfo.html">attributes</a>;
+    <a href="FSDateTime.html">FSDateTime</a>  atime;
+    <a href="FSDateTime.html">FSDateTime</a>  mtime;
+    <a href="FSDateTime.html">FSDateTime</a>  ctime;
+    u32         filesize;
+    u32         id;
+    u32         shortname_length;
+    u32         longname_length;
+    char        shortname[FS_ENTRY_SHORTNAME_MAX];
+    u16         longname[FS_ENTRY_LONGNAME_MAX];
+}
+FSDirectoryEntryInfoW;
+
+</code></pre>
+
+<h2>Description</h2>
+<p>This structure indicates the entry information that can be obtained with the <code><a href="directory/FS_ReadDirectory.html">FS_ReadDirectory</a></code> or <code><a href="directory/FS_ReadDirectory.html">FS_ReadDirectoryW</a></code> function. The details of each member are as follows.</p>
+<table>
+<tr><td>shortname</td><td>The entry name in so-called &quot;FAT format&quot; (8.3 format). An entry name will only be stored here if there was originally a longer name that has been shortened. Otherwise, this will be an empty string. This field's character code depends upon the file creation environment. It will be <CODE>Shift_JIS</CODE> for files created on the TWL system.</td></tr>
+<tr><td>shortname_length</td><td>The effective length of <CODE>shortname</CODE>. The <CODE>shortname</CODE> member will always be terminated with &quot;\0.&quot; This is provided for convenience.</td></tr>
+<tr><td>longname</td><td>The entry name. This is stored using <CODE>Shift_JIS</CODE> in a <CODE>FSDirectoryEntryInfo</CODE> structure and <CODE>UTF16-LE</CODE> in a <CODE>FSDirectoryEntryInfoW</CODE> structure.</td></tr>
+<tr><td>longname_length</td><td>The effective length of <CODE>longname</CODE>. The <CODE>longname</CODE> member will always be terminated with &quot;\0.&quot; This is provided for convenience.</td></tr>
+<tr><td>attributes</td><td>The attributes of the entry. The meaning of each flag is the same as the <CODE>attributes</CODE> member of <a href="FSPathInfo.html">FSPathInfo</a>.</td></tr>
+<tr><td>mtime</td><td>The last date/time modified for an entry, expressed as an <a href="FSDateTime.html">FSDateTime</a> type. If the date/time information is invalid, all members will be 0.</td></tr>
+<tr><td>filesize</td><td>Size of the file. Only valid if the entry is a file.</td></tr>
+<tr><td>id</td><td>The ID of the file or directory. The value that is obtained can be used with functions such as <code><a href="file/FS_OpenFileFast.html">FS_OpenFileFast()</a></code>. In cases where file IDs or directory IDs are not supported, such as with <a href="archive_nand_spec.html">NAND archives</a>, FS_INVALID_FILE_ID will always result.</td></tr>
+</table>
+
+<h2>See Also</h2>
+<p><code><a href="directory/FS_CreateFile.html">FS_CreateFile</a> <a href="directory/FS_CreateDirectory.html">FS_CreateDirectory</a></code></p>
+
+<h2>Revision History</h2>
+<p>
+2008/09/02 Added notes concerning Unicode versions of the structures.<br />2008/06/13 Combined the description of the <CODE>attributes</CODE> flag with <CODE>FSPathInfo</CODE>, and added a link. <br />2007/09/18 Initial version.<br />
+</p>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

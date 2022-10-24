@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 8.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>MATH_CalcSHA256</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">MATH_CalcSHA256<img src="../../image/NTR.gif"align="middle"><img src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+
+<dl>
+  <dd>
+  <PRE><CODE>#include &lt;nitro/math/dgt.h&gt;
+
+static inline void MATH_CalcSHA256( void* digest, const void* data, u32 dataLength );
+</CODE></PRE>
+  </dd>
+</dl><h2>Arguments</h2>
+
+<table border="1" width="100%">
+    <TR>
+<TD width="176"><em><strong><font face="Courier New">digest</font></strong></em></TD>
+<TD width="670">Pointer to the memory location that holds the calculated SHA-256 value.</TD>
+    </TR>
+    <TR>
+<TD width="176"><em><strong><font face="Courier New">data</font></strong></em></TD>
+<TD width="670">Pointer to the input data.</TD>
+    </TR>
+    <TR>
+<TD width="176"><em><strong><font face="Courier New">dataLength</font></strong></em></TD>
+<TD width="670">Size of the input data.</TD>
+    </TR>
+  </table>
+<h2>Return Values</h2>
+<p>None.</p>
+<H2>Description</H2>
+<P>This function calculates SHA-256. The length of the generated SHA-256 value is 256 bits or <CODE>MATH_SHA256_DIGEST_SIZE</CODE> (32) bytes. Use the &quot;digest&quot; argument to pass an area that can store a value of this size. Any size and alignment position can be used for the input data.<BR> This is a utility function that successively calls the <CODE><A href="MATH_SHA256Init.html">MATH_SHA256Init</A></CODE>, <CODE><A href="MATH_SHA256Update.html">MATH_SHA256Update</A></CODE>, and <CODE><A href="MATH_SHA256GetHash.html">MATH_SHA256GetHash</A></CODE> functions. Internally, the <CODE><A href="MATHSHA256Context.html">MATHSHA256Context</A></CODE> structure is allocated to the stack, so make sure that you have sufficient stack when calling the function. SHA-256 is an algorithm to find the message digest value. For details, refer to the Federal Information Processing Standard, FIPS PUB 180-2.
+</P>
+<h2>See Also</h2>
+<P><CODE></CODE></P>
+<H2>Revision History</H2>
+<P>
+2008/05/23 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

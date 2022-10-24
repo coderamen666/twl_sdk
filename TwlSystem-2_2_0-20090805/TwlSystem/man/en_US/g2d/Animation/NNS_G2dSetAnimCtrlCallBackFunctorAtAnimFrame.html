@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>NNS_G2dSetAnimCtrlCallBackFunctorAtAnimFrame</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+<h1 align="left">NNS_G2dSetAnimCtrlCallBackFunctorAtAnimFrame</h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+		<pre><CODE>#include &lt;nnsys/g2d/g2d_Animation.h&gt;</CODE></pre>
+  <pre><CODE>void NNS_G2dSetAnimCtrlCallBackFunctorAtAnimFrame( 
+                      NNSG2dAnimController*   pAnimCtrl, 
+                      u32                     param, 
+                      NNSG2dAnmCallBackPtr    pFunc 
+                      u16                     frameIdx );</CODE></pre>
+  </dd>
+</dl><h2>Arguments</h2>
+
+<table border="1" width="100%">
+  <tr>
+<td width="13%"><CODE>pAnimCtrl</CODE></td>
+<td width="87%">[OUT] <CODE>NNSG2dAnimController</CODE> entity</td>
+  </tr>
+  
+  <tr>
+<td width="13%"><CODE>param</CODE></td>
+<td width="87%">[IN] u32 data used as a callback function argument</td>
+  </tr>
+
+  <tr>
+<td width="13%"><CODE>pFunc</CODE></td>
+<td width="87%">[IN] Pointer to callback function</td>
+  </tr>
+  <tr>
+<td width="13%"><CODE>frameIdx</CODE></td>
+<td width="87%">[IN] Index of AnimFrame that calls the callback</td>
+  </tr>
+
+    </table>
+<h2>Return Values</h2>
+<p>None.</p>
+<H2>Description</H2>
+<P>Sets the callback to the animation controller. The callback can register only one type to each controller entity. Each time the playback frame changes, the index of the new playback frame is compared with <CODE>frameIdx</CODE>. If they are identical, the callback is called.<BR>
+</p>
+
+<P>This is the renamed version of <code>NNS_G2dSetCallBackFunctorAtAnimFrame</code>. The previous function name remains as a separate name.</p>
+<h2>See Also</h2>
+<p>
+<a href="NNS_G2dSetCallBackFunctorAtAnimFrame.html"><code>NNS_G2dSetCallBackFunctorAtAnimFrame</code></a><BR> <a href="NNS_G2dSetAnimCtrlCallBackFunctor.html"><code>NNS_G2dSetAnimCtrlCallBackFunctor</code></a></p>
+<H2>Revision History</H2>
+<P>2004/08/02 Renamed function.<BR></P><P>2004/05/28 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

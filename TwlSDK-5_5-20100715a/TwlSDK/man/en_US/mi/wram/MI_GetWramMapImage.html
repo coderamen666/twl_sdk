@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>MI_GetWramMapImage</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">MI_GetWramMapImage <IMG src="../../image/TWL.gif" align="middle"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;twl/mi.h&gt;</CODE><BR>
+  <BR>
+  <CODE>MIWramImage MI_GetWramMapImage_A( void )</CODE><br>
+  <CODE>MIWramImage MI_GetWramMapImage_B( void )</CODE><br>
+  <CODE>MIWramImage MI_GetWramMapImage_C( void )</CODE><br>
+  </dd>
+</dl>
+<h2>Arguments</h2>
+<P>None.</P>
+<h2>Return Values</h2>
+<p>The image occurrence setting of the specified WRAM region.<BR>This will be of the form <CODE>MI_WRAM_IMAGE_xxxKB</CODE>. For WRAM-A, the &quot;xxx&quot; portion will be 64, 128 or 256. For WRAM-B or WRAM-C, the &quot;xxx&quot; portion will be 32, 64, 128, or 256.</p>
+<P>For WRAM-A:</P>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+      <TH>Return Values</TH>
+      <TH>Description</TH>
+    </TR>
+    <TR>
+      <TD><CODE><B>MI_WRAM_IMAGE_64KB</B></CODE></TD>
+      <TD>Repeat the WRAM-A slot 0 image in 64-KB units</TD>
+    </TR>
+    <TR>
+      <TD><CODE><B>MI_WRAM_IMAGE_128KB</B></CODE></TD>
+      <TD>Repeat the WRAM-A slot 0-1 images in 128-KB units</TD>
+    </TR>
+    <TR>
+      <TD><CODE><B>MI_WRAM_IMAGE_256KB</B></CODE></TD>
+      <TD>Repeat the WRAM-A slot 0-3 images in 256-KB units</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P><BR> <BR> For WRAM-B and WRAM-C:</P>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+      <TH>Return Values</TH>
+      <TH>Description</TH>
+    </TR>
+    <TR>
+      <TD><CODE><B>MI_WRAM_IMAGE_32KB</B></CODE></TD>
+      <TD>Repeat the WRAM-B (or WRAM-C) slot 0 image in 32-KB units</TD>
+    </TR>
+    <TR>
+      <TD><CODE><B>MI_WRAM_IMAGE_64KB</B></CODE></TD>
+      <TD>Repeat the WRAM-B (or WRAM-C) slot 0-1 images in 64-KB units</TD>
+    </TR>
+    <TR>
+      <TD><CODE><B>MI_WRAM_IMAGE_128KB</B></CODE></TD>
+      <TD>Repeat the WRAM-B (or WRAM-C) slot 0-3 images in 128-KB units</TD>
+    </TR>
+    <TR>
+      <TD><CODE><B>MI_WRAM_IMAGE_256KB</B></CODE></TD>
+      <TD>Repeat the WRAM-B (or WRAM-C) slot 0-7 images in 256-KB units</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>Description</H2>
+<P>Gets the image occurrence setting of the specified WRAM region.</P>
+<P><CODE>MI_GetWramMapImage_A()</CODE> gets information about WRAM-A.<BR><CODE>MI_GetWramMapImage_B()</CODE> gets information about WRAM-B.<BR><CODE>MI_GetWramMapImage_C()</CODE> gets information about WRAM-C.<BR></P>
+
+<h2>Internal Operation</h2>
+<p>Accesses I/O registers MBK6-MBK8.</p>
+
+<h2>See Also</h2>
+<P><A href="about_Wram.html">Overview (Work RAM)</A>, <A href="../mi_constant.html">MI-Related Constants</A></P>
+
+<H2>Revision History</H2>
+<P>2007/08/22 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

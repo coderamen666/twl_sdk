@@ -1,0 +1,258 @@
+<html>
+<head>
+<title>TWL-System Foundation Library Revision History</title>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="content-style-type" content="text/css" />
+<style type="text/css">
+<!--
+    
+H1
+{
+    font-weight         : bold;
+    font-size           : 250%;
+    text-align          : left;
+    color               : #46f;
+    margin              : 0em 0em 0.5em 0em;
+}
+
+H2
+{
+    font-weight         : bold;
+    font-size           : 150%;
+    text-align          : left;
+    margin              : 2em 0em 0.5em 0em;
+    padding-top         : 8pt;
+    border-top-style    : double;
+    border-top-width    : 3px;
+}
+
+H3
+{
+    font-weight         : bold;
+    font-size           : 120%;
+    margin              : 1em 0em 0.5em 0em;
+    padding-top         : 8pt;
+    border-top-style    : solid;
+    border-top-width    : 1px;
+}
+
+H4
+{
+    font-weight         : normal;
+    font-size           : 100%;
+    margin              : 0em 0em 0em 0.5em;
+}
+
+DIV.date
+{
+    font-size           : normal;
+    text-align          : right;
+    margin              : 0pt 0pt 12pt 0pt;
+}
+
+DIV.licence
+{
+    margin: 0em;
+    border-style : solid;
+    border-width : 1px;
+}
+
+P
+{
+    font-size           : normal;
+    margin              : 0em 1em 0.5em 1em;
+    line-height         : 150%;
+}
+
+PRE
+{
+    font-size           : normal;
+    margin              : 0em 0em 1em 2em;
+    line-height         : 120%;
+}
+
+DT
+{
+    margin              : 1em 0em 0em 1em;
+}
+DD
+{
+    margin-left         : 3em;
+}
+UL
+{
+    margin-top         : 0em;
+}
+
+-->
+</style>
+</head>
+<body>
+
+<h1>TWL-System Foundation Library Revision History</h1>
+
+<h2>Index</h2>
+
+<h3><a href="#version_2_2_0">2.2.0</a></h3>
+<h4>Bug Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_84-F01">Note 84-F01: (Converter) Rolled back an archiver revision</a></li>
+</ul>
+<h3><a href="#version_2_2_0_0">2.2.0 PR</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_83-F01">Note 83-F01: (Converter) Revised the archiver</a></li>
+</ul>
+<h3><a href="#version_2_0_0_0">2.0.0 RC</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_78-F01">Note 78-F01:  (Library) Added an API for getting the number of elements in list</a></li>
+<li><a href="#note_78-F02">Note 78-F02:   (Library) Added the const modifier to the arguments for getting list elements</a></li>
+</ul>
+<h3><a href="#version_20080408">2008/04/08 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_76-F01">Note 76-F01:  (Manual) Changed the format of the Revision History and made revisions to the SDK</a></li>
+</ul>
+<h3><a href="#version_20071126">2007/11/26 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_71-F01">Note 71-F01:  (Converter) Changed the archiver</a></li>
+</ul>
+<h3><a href="#version_20050901">2005/09/01 Version</a></h3>
+<h4>Problem Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_50-F01">Note 50-F01:  (Library) Revised the memory allocator</a></li>
+</ul>
+<h3><a href="#version_20041110">2004/11/10 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_31-F01">Note 31-F01:  (Library) Revised the expanded heap manager</a></li>
+</ul>
+<h4>Problem Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_31-F02">Note 31-F02:   (Converter) Changed the archiver</a></li>
+</ul>
+<h3><a href="#version_20040902">2004/09/02 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_20-F01">Note 20-F01:  (Library) Added a memory block check feature to the expanded heap manager</a></li>
+</ul>
+<h3><a href="#version_20040802">2004/08/02 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_15-F01">Note 15-F01:  (Library) Added a memory block size change feature to the frame heap manager</a></li>
+<li><a href="#note_15-F02">Note 15-F02:   (Library) Added a memory block size get feature to the unit heap manager</a></li>
+<li><a href="#note_15-F03">Note 15-F03:  (Library) Added the memory allocator</a></li>
+</ul>
+<h3><a href="#version_20040720">2004/07/20 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_13-F01">Note 13-F01:  (Library) Added a necesary unit heap size get feature to the unit heap manager</a></li>
+<li><a href="#note_13-F02">Note 13-F02:   (Library) Invalidated the dump feature at the final ROM version of the heap</a></li>
+</ul>
+<h3><a href="#version_20040610">2004/06/10 Version</a></h3>
+<h4>Added and Changed Features</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_09-F01">Note 09-F01:  (Library) Added the archive memory</a></li>
+</ul>
+<h3><a href="#version_20040528">2004/05/28 Version</a></h3>
+<h4>Problem Fixes</h4>
+<ul style="list-style-type:none;">
+<li><a href="#note_08-F01">Note 08-F01:  (Library) Fixed a problem in the list object insertion feature</a></li>
+</ul>
+
+
+<h2 id="version_2_2_0">Changes in 2.2.0</h2>
+<h3 id="note_84-F01">Note 84-F01: (Converter) Rolled back an archiver revision</h3>
+<p>The archiver <CODE>nnsarc</CODE> was updated to version 1.1.2 in TWL-System version 2.2.0 PR. However, because this change would have caused major conflicts through loss of compatibility, we rolled back this change and returned to version 1.1.1.
+</p>
+<h2 id="version_2_2_0_0">Changes in 2.2.0 PR</h2>
+<h3 id="note_83-F01">Note 83-F01: (Converter) Revised the archiver</h3>
+<p>The archiver <CODE>nnsarc</CODE> is now version 1.1.2. Changes in version 1.1.2 are shown below.
+</p>
+<ul><li> The byte order mark stored in the header was incorrect. That was corrected.
+</li>
+</ul>
+<h2 id="version_2_0_0_0">Changes in 2.0.0 RC</h2>
+<h3 id="note_78-F01">Note 78-F01:  (Library) Added an API for getting the number of elements in list</h3>
+<p>The <CODE>NNS_FndGetListSizse</CODE> function has been added as an API to get the number of elements that are registered in the list structure.
+</p>
+<h3 id="note_78-F02">Note 78-F02:   (Library) Added the const modifier to the arguments for getting list elements</h3>
+<p>The <CODE>const</CODE> modifier has been added to the arguments of the <CODE>NNS_FndGetNextListObject</CODE>, <CODE>NNS_FndGetPrevListObject</CODE>, and <CODE>NNS_FndGetNthListObject</CODE> functions.
+</p>
+<h2 id="version_20080408">Changes in Version 2008/04/08</h2>
+<h3 id="note_76-F01">Note 76-F01:  (Manual) Changed the format of the Revision History and made revisions to the SDK</h3>
+<p>The format of the Revision History has been changed in the following PDF manuals. Corrected the description relating to the SDK from NITRO-SDK to TWL-SDK.
+</p>
+<ul><li><CODE>Allocator.pdf</CODE>
+</li>
+<li><CODE>ArchiveFormat.pdf</CODE>
+</li>
+<li><CODE>ArchiveManager.pdf</CODE>
+</li>
+<li><CODE>Archiver.pdf</CODE>
+</li>
+<li><CODE>MemoryManager.pdf</CODE>
+</li>
+</ul>
+<h2 id="version_20071126">Changes in Version 2007/11/26</h2>
+<h3 id="note_71-F01">Note 71-F01:  (Converter) Updated the archiver</h3>
+<p>The archiver <CODE>nnsarc</CODE> is now version 1.1.0. Changes in version 1.1.0 are as follows.
+</p>
+<ul><li> By specifying the <CODE>-A</CODE> (<CODE>--align</CODE>) option, the alignment of the files in the archive can now be specified. If the option is not specified, the files are conventionally arranged to the 4-byte boundary.
+</li>
+</ul>
+<h2 id="version_20050901">Changes in Version 2005/09/01</h2>
+<h3 id="note_50-F01">Note 50-F01:  (Library) Revised the memory allocator</h3>
+<p>The <CODE>FndInitAllocatorForSDKHeap</CODE> function was accidentally called <CODE>FndInitAllocatorForOSHeap</CODE>. This has been corrected.
+</p>
+<h2 id="version_20041110">Changes in Version 2004/11/10</h2>
+<h3 id="note_31-F01">Note 31-F01:  (Library) Revised the extended heap manager</h3>
+<p>In previous versions, the <CODE>NNS_FndCheckExpHeap</CODE> and <CODE>NNS_FndCheckForMBlockExpHeap</CODE> functions always returned <CODE>FALSE</CODE> in the final ROM (FinalROM) version library, indicating that an error was found.
+</p>
+<p>The functions have been changed so that they now always return <CODE>TRUE</CODE> to indicate that no error was found.
+</p>
+<h3 id="note_31-F02">Note 31-F02:   (Converter) Updated the archiver</h3>
+<p>The archiver <CODE>nnsarc</CODE> is now version 1.0.0. Changes in version 1.0.0 are as follows.
+</p>
+<ul><li> When specifying <CODE>-x</CODE> (<CODE>--extract</CODE>) mode and getting files in the archive, error processing did not occur correctly when the specified directory could not be created. We have fixed this bug.
+</li>
+</ul>
+<ul><li> When specifying the <CODE>-i</CODE> (<CODE>--index</CODE>) option and outputting the C-language file ID definition header file, two consecutive underscores were inserted after the symbol prefix when the beginning of the filename was a number. We have fixed this bug.
+</li>
+</ul>
+<h2 id="version_20040902">Changes in Version 2004/09/02</h2>
+<h3 id="note_20-F01">Note 20-F01:  (Library) Added a memory block check feature to the extended heap manager</h3>
+<p>Added the <CODE>NNS_FndCheckExpHeap</CODE> and <CODE>NNS_FndCheckForMBlockExpHeap</CODE> functions. These functions allow you to check if the extended heap and the memory block that are allocated from the extended heap are destroyed.
+</p>
+<h2 id="version_20040802">Changes in Version 2004/08/02</h2>
+<h3 id="note_15-F01">Note 15-F01:  (Library) Added a memory block size change feature to the frame heap manager</h3>
+<p>Added the <CODE>NNS_FndResizeForMBlockFrmHeap</CODE> function. You can use this function to change the size of the memory block allocated from the frame heap.
+</p>
+<h3 id="note_15-F02">Note 15-F02:   (Library) Added a memory block size get feature to the unit heap manager</h3>
+<p>Added the <CODE>NNS_FndGetMemBlockSizeForUnitHeap</CODE> function. Use this function to get the size of each memory block set in the unit heap.
+</p>
+<h3 id="note_15-F03">Note 15-F03:  (Library) Added the memory allocator</h3>
+<p>Added the initial version of Memory Allocator.
+</p>
+<h2 id="version_20040720">Changes in Version 2004/07/20</h2>
+<h3 id="note_13-F01">Note 13-F01:  (Library) Added a necesary unit heap size get feature to the unit heap manager</h3>
+<p>Added the <CODE>NNS_FndCalcHeapSizeForUnitHeap</CODE> function. Use this function to get the necessary unit heap size from the memory block size and number.
+</p>
+<h3 id="note_13-F02">Note 13-F02:   (Library) Invalidated the dump feature at the final ROM version of the heap</h3>
+<p>Corrected the <CODE>NNS_FndDumpHeap</CODE> function so that it performs no processing in the last ROM (FinalROM) version library.
+</p>
+<h2 id="version_20040610">Changes in Version 2004/06/10</h2>
+<h3 id="note_09-F01">Note 09-F01:  (Library) Added the archive manager</h3>
+<p>Added the initial version of the Archive Manager.
+</p>
+<h2 id="version_20040528">Changes in Version 2004/05/28</h2>
+<h3 id="note_08-F01">Note 08-F01:  (Library) Fixed a problem in the list object insertion feature</h3>
+<p>Fixed a bug with <CODE>NNS_FndInsertListObject</CODE> where the object was not inserted correctly.
+</p>
+
+
+
+<hr><p>CONFIDENTIAL</p></body>
+</html>

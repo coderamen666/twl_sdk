@@ -1,0 +1,2018 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META http-equiv="Content-Style-Type" content="text/css">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<BASE target="main">
+<TITLE>List of Operations System Functions</TITLE>
+<LINK rel="stylesheet" href="../css/apilist.css">
+</HEAD>
+<BODY>
+<H1>Operating System (OS) Function List</H1>
+<H3><A name="Init">Initialization</A></H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TH width="25%"><A href="init/OS_Init.html" target="_self">OS_Init</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Initializes the system.</TD>
+    </TR>
+    <TR>
+<TH><A href="init/OS_InitChina.html" target="_self">OS_InitChina</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Initializes the system for applications designed for China.</TD>
+    </TR>
+    <TR>
+<TH><A href="init/NitroStartUp.html" target="_self">NitroStartUp</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Describes initialization processes to be run before static constructor calls.</TD>
+    </TR>
+    <TR>
+<TH><A href="init/NitroStaticInit.html" target="_self">NitroStaticInit</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Describes the static initializer.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H3><A name="Reset">Reset</A></H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TH width="25%"><A href="reset/OS_InitReset.html" target="_self">OS_InitReset</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Initializes the software reset system.                       </TD>
+    </TR>
+    <TR>
+<TH><A href="reset/OS_ResetSystem.html" target="_self">OS_ResetSystem</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Resets the software and reruns the program.</TD>
+    </TR>
+    <TR>
+<TH><A href="reset/OS_GetResetParameter.html" target="_self">OS_GetResetParameter</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets the reset parameter value.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H3><A name="AppJump">Jumping to the System Menu or NAND Applications</A></H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TH width="25%"><A href="appJump/OS_JumpToSystemMenu.html" target="_self">OS_JumpToSystemMenu</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Performs a hardware reset and returns to the System Menu.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="appJump/OS_RebootSystem.html" target="_self">OS_RebootSystem</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Performs a hardware reset and then restarts the calling application.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="appJump/OS_JumpToWirelessSetting.html" target="_self">OS_JumpToWirelessSetting</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Performs a hardware reset and jumps to the <B>Internet</B> &rarr; <B>Wireless Communications</B> item in the System Settings.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="appJump/OS_JumpToInternetSetting.html" target="_self">OS_JumpToInternetSetting</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Performs a hardware reset and jumps to the <B>Internet</B> item in the System Settings.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="appJump/OS_JumpToEULAViewer.html" target="_self">OS_JumpToEULAViewer</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Performs a hardware reset and jumps to the <B>Internet</B> &rarr; <B>User Agreement</B> item in the System Settings.</TD>
+    </TR>
+ <TR><TD class="separator" colspan=3></TD></TR>
+    <TR>
+<TH width="25%"><A href="appJump/OS_IsRebooted.html" target="_self">OS_IsRebooted</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Determines whether the active application has been restarted by <a href="appJump/OS_RebootSystem.html"><CODE>OS_RebootSystem</CODE></a>.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="appJump/OS_IsBootFromSystemMenu.html" target="_self">OS_IsBootFromSystemMenu</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Checks whether the active application was started from the System Menu.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H3><A name="Cpsr">System State</A></H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TH width="25%"><A href="system/OS_EnableInterrupts.html" target="_self">OS_EnableInterrupts</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Enables CPSR IRQ interrupts.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="system/OS_DisableInterrupts.html" target="_self">OS_DisableInterrupts</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Disables CPSR IRQ interrupts.</TD>
+    </TR>
+    <TR>
+<TH><A href="system/OS_RestoreInterrupts.html" target="_self">OS_RestoreInterrupts</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Puts CPSR IRQ interrupts into the specified state.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="system/OS_EnableInterrupts_IrqAndFiq.html" target="_self">OS_EnableInterrupts_IrqAndFiq</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Enables IRQ and FIQ interrupts in CPSR.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="system/OS_DisableInterrupts_IrqAndFiq.html" target="_self">OS_DisableInterrupts_IrqAndFiq</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Prohibits IRQ and FIQ interrupts in CPSR.</TD>
+    </TR>
+    <TR>
+<TH><A href="system/OS_RestoreInterrupts_IrqAndFiq.html" target="_self">OS_RestoreInterrupts_IrqAndFiq</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Sets IRQ and FIQ interrupts in CPSR to a specified status.</TD>
+    </TR>
+    <TR>
+<TH><A href="system/OS_GetCpsrIrq.html" target="_self">OS_GetCpsrIrq</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets current CPSR IRQ and FIQ interrupts.</TD>
+    </TR>
+    <TR>
+<TH><A href="system/OS_GetProcMode.html" target="_self">OS_GetProcMode</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets current processor mode.</TD>
+    </TR>
+ <TR><TD class="separator" colspan=3></TD></TR>
+    <TR>
+<TH><A href="system/OS_Halt.html" target="_self">OS_Halt</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Sets the processor to HALT status.</TD>
+    </TR>
+    <TR>
+<TH><A href="system/OS_Terminate.html" target="_self">OS_Terminate</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Sets the processor to HALT status and loops.</TD>
+    </TR>
+    <TR>
+<TH><A href="system/OS_Exit.html" target="_self">OS_Exit</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Displays the exit status and calls the <A href="system/OS_Terminate.html" target="_self"><CODE>OS_Terminate</CODE></A> function.</TD>
+    </TR>
+    <TR>
+<TH><A href="system/OS_FExit.html" target="_self">OS_FExit</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Displays the exit status and calls the <A href="system/OS_Terminate.html" target="_self"><CODE>OS_Terminate</CODE></A> function. (Output is specified.)</TD>
+    </TR>
+ <TR><TD class="separator" colspan=3></TD></TR>
+    <TR>
+<TH><A href="system/OS_SpinWait.html" target="_self">OS_SpinWait</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Sets the processor to idle. (Based on the 2x multiplier of the base cycle.)</TD>
+    </TR>
+    <TR>
+<TH><A href="system/OS_SpinWait.html" target="_self">OS_SpinWaitCpuCycles</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Sets the processor to idle. (Based on CPU cycles.)</TD>
+    </TR>
+    <TR>
+<TH><A href="system/OS_SpinWait.html" target="_self">OS_SpinWaitSysCycles</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Sets the processor to idle. (Based on the base cycle.)</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H3><A name="Tcm">TCM</A></H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TH><A href="tcm/OS_EnableITCM.html" target="_self">OS_EnableITCM</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Enables the Instruction TCM.</TD>
+    </TR>
+    <TR>
+<TH><A href="tcm/OS_DisableITCM.html" target="_self">OS_DisableITCM</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Disables the Instruction TCM.</TD>
+    </TR>
+    <TR>
+<TH><A href="tcm/OS_GetITCMAddress.html" target="_self">OS_GetITCMAddress</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets ITCM address.</TD>
+    </TR>
+    <TR>
+<TH><A href="tcm/OS_EnableDTCM.html" target="_self">OS_EnableDTCM</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Enables data TCM.</TD>
+    </TR>
+    <TR>
+<TH><A href="tcm/OS_DisableDTCM.html" target="_self">OS_DisableDTCM</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Disables data TCM.</TD>
+    </TR>
+    <TR>
+<TH><A href="tcm/OS_SetITCMParam.html" target="_self">OS_SetITCMParam</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Sets instruction TCM parameters.</TD>
+    </TR>
+    <TR>
+<TH><A href="tcm/OS_GetITCMParam.html" target="_self">OS_GetITCMParam</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets instruction TCM parameters.</TD>
+    </TR>
+    <TR>
+<TH><A href="tcm/OS_SetDTCMParam.html" target="_self">OS_SetDTCMParam</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Sets data TCM parameters.</TD>
+    </TR>
+    <TR>
+<TH><A href="tcm/OS_GetDTCMParam.html" target="_self">OS_GetDTCMParam</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets data TCM parameters.</TD>
+    </TR>
+    <TR>
+<TH><A href="tcm/OS_SetDTCMAddress.html" target="_self">OS_SetDTCMAddress</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Sets the data TCM address.</TD>
+    </TR>
+    <TR>
+<TH><A href="tcm/OS_GetDTCMAddress.html" target="_self">OS_GetDTCMAddress</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets the data TCM address.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H3><A name="ProtectionUnit">Protection Unit</A></H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TH><A href="protectionUnit/OS_EnableProtectionUnit.html" target="_self">OS_EnableProtectionUnit</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Enables the protection unit.</TD>
+    </TR>
+    <TR>
+<TH><A href="protectionUnit/OS_DisableProtectionUnit.html" target="_self">OS_DisableProtectionUnit</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Disables the protection unit.</TD>
+    </TR>
+    <TR>
+<TH><A href="protectionUnit/OS_SetProtectionRegion.html" target="_self">OS_SetProtectionRegion</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Sets the protection region.</TD>
+    </TR>
+    <TR>
+<TH><A href="protectionUnit/OS_SetProtectionRegion.html" target="_self">OS_SetProtectionRegionParam</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Sets the protection region  parameters.</TD>
+    </TR>
+    <TR>
+<TH><A href="protectionUnit/OS_GetProtectionRegion.html" target="_self">OS_GetProtectionRegionAddress</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets the base address of the protection region.</TD>
+    </TR>
+    <TR>
+<TH><A href="protectionUnit/OS_GetProtectionRegion.html" target="_self">OS_GetProtectionRegionSize</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets the size of the protection region.</TD>
+    </TR>
+    <TR>
+<TH><A href="protectionUnit/OS_GetProtectionRegion.html" target="_self">OS_GetProtectionRegionParam</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets the parameters of the protection region.</TD>
+    </TR>
+ <TR><TD class="separator" colspan=3></TD></TR>
+    <TR>
+<TH><A href="protectionUnit/OS_DumpProtectionRegion.html" target="_self">OS_DumpProtectionRegion</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Displays the status of the protection region settings. (Used in debugging.)</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H3><A name="Exception">Exceptions</A></H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TH nowrap width="25%"><A href="exception/OS_InitException.html" target="_self">OS_InitException</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Initializes the exception display system.</TD>
+    </TR>
+    <TR>
+<TH><A href="exception/OS_SetUserExceptionHandler.html" target="_self">OS_SetUserExceptionHandler</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Sets the user handler to be used when an exception is generated.</TD>
+    </TR>
+    <TR>
+<TH><A href="exception/OS_SetExceptionVectorLower.html" target="_self">OS_SetExceptionVectorLower</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Sets the exception vector position as a normalized address.</TD>
+    </TR>
+    <TR>
+<TH><A href="exception/OS_SetExceptionVectorUpper.html" target="_self">OS_SetExceptionVectorUpper</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Sets the exception vector position as a high vector.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H3><A name="Irq">Interrupts</A></H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TH nowrap width="25%"><A href="irq/interrupts_list.html" target="_self">Types of Interrupts</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Lists the NITRO and TWL interrupt types.</TD>
+    </TR>
+ <TR><TD class="separator" colspan=3></TD></TR>
+    <TR>
+<TH nowrap width="25%"><A href="irq/OS_GetIrq.html" target="_self">OS_GetIrq</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets the current IRQ interrupt permission status.</TD>
+    </TR>
+    <TR>
+<TH nowrap width="25%"><A href="irq/OS_EnableIrq.html" target="_self">OS_EnableIrq</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Enables all IRQ interrupts.</TD>
+    </TR>
+    <TR>
+<TH nowrap width="25%"><A href="irq/OS_DisableIrq.html" target="_self">OS_DisableIrq</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Disables all IRQ interrupts.</TD>
+    </TR>
+    <TR>
+<TH><A href="irq/OS_RestoreIrq.html" target="_self">OS_RestoreIrq</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Puts all interrupts into a specified state.</TD>
+    </TR>
+ <TR><TD class="separator" colspan=3></TD></TR>
+    <TR>
+<TH><A href="irq/OS_SetIrqMask.html" target="_self">OS_SetIrqMask</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Sets IRQ interrupt parameters.</TD>
+    </TR>
+    <TR>
+<TH><A href="irq/OS_GetIrqMask.html" target="_self">OS_GetIrqMask</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets currently established IRQ interrupt parameters.</TD>
+    </TR>
+    <TR>
+<TH><A href="irq/OS_EnableIrqMask.html" target="_self">OS_EnableIrqMask</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Enables IRQ of the specified interrupt parameters.</TD>
+    </TR>
+    <TR>
+<TH><A href="irq/OS_DisableIrqMask.html" target="_self">OS_DisableIrqMask</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Disables IRQ of the specified interrupt parameters.</TD>
+    </TR>
+ <TR><TD class="separator" colspan=3></TD></TR>
+    <TR>
+<TH><A href="irq/OS_ResetRequestIrqMask.html" target="_self">OS_ResetRequestIrqMask</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Releases the specified interrupt cause parameters.</TD>
+    </TR>
+    <TR>
+<TH><A href="irq/OS_GetRequestIrqMask.html" target="_self">OS_GetRequestIrqMask</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets current interrupt request.</TD>
+    </TR>
+ <TR><TD class="separator" colspan=3></TD></TR>
+    <TR>
+<TH><A href="irq/OS_InitIrqTable.html" target="_self">OS_InitIrqTable</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Initializes IRQ handler table.</TD>
+    </TR>
+    <TR>
+<TH><A href="irq/OS_SetIrqFunction.html" target="_self">OS_SetIrqFunction</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Sets handler corresponding to the specified IRQ.</TD>
+    </TR>
+    <TR>
+<TH><A href="irq/OS_GetIrqFunction.html" target="_self">OS_GetIrqFunction</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets a handler corresponding to the specified IRQ.</TD>
+    </TR>
+ <TR><TD class="separator" colspan=3></TD></TR>
+    <TR>
+<TH><A href="irq/OS_SetIrqCheckFlag.html">OS_SetIrqCheckFlag</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Sets the interrupt check flag.</TD>
+    </TR>
+    <TR>
+<TH><A href="irq/OS_ClearIrqCheckFlag.html">OS_ClearIrqCheckFlag</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Clears the interrupt check flag.</TD>
+    </TR>
+    <TR>
+<TH><A href="irq/OS_GetIrqCheckFlag.html">OS_GetIrqCheckFlag</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets the interrupt check flag.</TD>
+    </TR>
+ <TR><TD class="separator" colspan=3></TD></TR>
+    <TR>
+<TH><A href="irq/OS_WaitIrq.html">OS_WaitIrq</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Waits for the specified IRQ.</TD>
+    </TR>
+    <TR>
+<TH><A href="irq/OS_WaitAnyIrq.html">OS_WaitAnyIrq</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Waits for all IRQs.</TD>
+    </TR>
+    <TR>
+<TH><A href="system/OS_WaitInterrupt.html">OS_WaitInterrupt</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Waits for the specified IRQ. (A thread switch is not performed.)</TD>
+    </TR>
+    <TR>
+<TH><A href="system/OS_WaitVBlankIntr.html">OS_WaitVBlankIntr</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Waits for V-Blank. (A thread switch is performed.)</TD>
+    </TR>
+    <TR>
+<TH><A href="irq/OS_GetVBlankCount.html">OS_GetVBlankCount</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets the value of the V-Blank counter.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H3><A name="Timer">Timer</A></H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TH width="25%"><A href="timer/OS_StartTimer.html" target="_self">OS_StartTimer</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Starts the  timer. The counter value is 16-bit.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="timer/OS_StartTimer.html" target="_self">OS_StartTimer32</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>When two timers are used, starts the 32-bit long timer.</TD>
+    </TR>
+    <TR>
+<TH><A href="timer/OS_StartTimer.html" target="_self">OS_StartTimer48</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>When three timers are used, starts the 48-bit long timer.</TD>
+    </TR>
+    <TR>
+<TH><A href="timer/OS_StartTimer.html" target="_self">OS_StartTimer64</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>When four timers are used, starts the 64-bit long timer.</TD>
+    </TR>
+    <TR>
+<TH><A href="timer/OS_StopTimer.html" target="_self">OS_StopTimer</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Stops the timer. The counter value is 16-bit.</TD>
+    </TR>
+    <TR>
+<TH><A href="timer/OS_StopTimer.html" target="_self">OS_StopTimer32</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Stops both timers. Used when there is a 32-bit timer.</TD>
+    </TR>
+    <TR>
+<TH><A href="timer/OS_StopTimer.html" target="_self">OS_StopTimer48</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Stops all three timers. Used when there is a 48-bit timer.</TD>
+    </TR>
+    <TR>
+<TH><A href="timer/OS_StopTimer.html" target="_self">OS_StopTimer64</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Stops all four timers. Used when there is a 64-bit timer.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H3><A name="Alarm">Alarms</A></H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TH width="25%"><A href="alarm/OS_InitAlarm.html" target="_self">OS_InitAlarm</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Allocates a timer for an alarm system and initializes it.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="alarm/OS_EndAlarm.html" target="_self">OS_EndAlarm</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Frees a timer that was allocated to an alarm system.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="alarm/OS_IsAlarmAvailable.html" target="_self">OS_IsAlarmAvailable</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Checks whether an alarm system is initialized and available.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="alarm/OS_CreateAlarm.html" target="_self">OS_CreateAlarm</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Initializes the alarm structure.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="alarm/OS_SetAlarm.html" target="_self">OS_SetAlarm</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Sets an alarm.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="alarm/OS_SetPeriodicAlarm.html" target="_self">OS_SetPeriodicAlarm</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Sets a periodic alarm.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="alarm/OS_SetAlarmTag.html" target="_self">OS_SetAlarmTag</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Sets a tag to an alarm.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="alarm/OS_CancelAlarm.html" target="_self">OS_CancelAlarm</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Cancels an alarm.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="alarm/OS_CancelAlarms.html" target="_self">OS_CancelAlarms</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Cancels alarms that have a specified tag.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="alarm/OS_CancelAllAlarms.html" target="_self">OS_CancelAllAlarms</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Cancels all alarms.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H3><A name="VAlarm">V-Count Alarms</A></H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TH width="25%"><A href="valarm/OS_InitVAlarm.html" target="_self">OS_InitVAlarm</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Initializes a V-Count alarm system.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="valarm/OS_EndVAlarm.html" target="_self">OS_EndVAlarm</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Ends a V-Count alarm system.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="valarm/OS_IsVAlarmAvailable.html" target="_self">OS_IsVAlarmAvailable</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Checks whether a V-Count alarm system is initialized and available.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="valarm/OS_CreateVAlarm.html" target="_self">OS_CreateVAlarm</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Initializes a V-Count alarm structure.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="valarm/OS_SetVAlarm.html" target="_self">OS_SetVAlarm</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Sets a V-Count alarm.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="valarm/OS_SetOneTimeVAlarm.html" target="_self">OS_SetOneTimeVAlarm</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Sets a V-Count alarm. (Function added to maintain backward compatibility.)</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="valarm/OS_SetPeriodicVAlarm.html" target="_self">OS_SetPeriodicVAlarm</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Sets a periodic V-Count alarm.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="valarm/OS_SetVAlarmTag.html" target="_self">OS_SetVAlarmTag</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Sets a tag to a V-Count alarm.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="valarm/OS_CancelVAlarm.html" target="_self">OS_CancelVAlarm</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Cancels a V-Count alarm.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="valarm/OS_CancelVAlarms.html" target="_self">OS_CancelVAlarms</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Cancels V-Count alarms that have a specified tag.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="valarm/OS_CancelAllVAlarms.html" target="_self">OS_CancelAllVAlarms</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Cancels all V-Count alarms.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H3><A name="Time">Time</A></H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TH width="25%"><A href="time/OS_InitTick.html" target="_self">OS_InitTick</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Allocates a timer for ticks.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="time/OS_IsTickAvailable.html" target="_self">OS_IsTickAvailable</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Checks whether a tick is initialized and available.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="time/OS_GetTick.html" target="_self">OS_GetTick</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets a tick value.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="time/OS_GetTickLo.html" target="_self">OS_GetTickLo</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets the low-order 16-bit value of a tick.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="time/OS_SetTick.html" target="_self">OS_SetTick</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Sets a tick value.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="time/OS_SecondsToTicks.html" target="_self">OS_MicroSecondsToTicks*</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Converts from microseconds to a tick value.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="time/OS_SecondsToTicks.html" target="_self">OS_MilliSecondsToTicks*</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Converts from milliseconds to a tick value.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="time/OS_SecondsToTicks.html" target="_self">OS_SecondsToTicks*</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Converts from seconds to a tick value.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="time/OS_TicksToSeconds.html" target="_self">OS_TicksToMicroSeconds*</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Converts from a tick value to microseconds.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="time/OS_TicksToSeconds.html" target="_self">OS_TicksToMilliSeconds*</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Converts from a tick value to milliseconds.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="time/OS_TicksToSeconds.html" target="_self">OS_TicksToSeconds*</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Converts from a tick value to seconds.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H3><A name="Thread">Thread</A></H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TH width="25%"><A href="thread/OS_InitThread.html" target="_self">OS_InitThread</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Initializes a thread.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="thread/OS_IsThreadAvailable.html" target="_self">OS_IsThreadAvailable</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Checks whether a thread is initialized and available.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="thread/OS_CreateThread.html" target="_self">OS_CreateThread</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Creates threads.</TD>
+    </TR>
+    <TR>
+<TH><A href="thread/OS_InitThreadQueue.html" target="_self">OS_InitThreadQueue</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Creates a thread queue.</TD>
+    </TR>
+    <TR>
+<TH><A href="thread/OS_ExitThread.html" target="_self">OS_ExitThread</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Exits the current thread. Calls the destructor thread.</TD>
+    </TR>
+    <TR>
+<TH><A href="thread/OS_KillThread.html" target="_self">OS_KillThread</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Ends the specified thread. Calls the destructor thread.</TD>
+    </TR>
+    <TR>
+<TH><A href="thread/OS_KillThread.html" target="_self">OS_KillThreadWithPriority</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Sets the priority for the specified thread, and then exits. Calls the destructor thread.</TD>
+    </TR>
+    <TR>
+<TH><A href="thread/OS_DestroyThread.html" target="_self">OS_DestroyThread</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Ends the specified thread. The thread destructor is not called.</TD>
+    </TR>
+    <TR>
+<TH><A href="thread/OS_JoinThread.html">OS_JoinThread</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Joins a thread and waits for it to terminate.</TD>
+    </TR>
+    <TR>
+<TH><A href="thread/OS_IsThreadTerminated.html">OS_IsThreadTerminated</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Determines whether the thread has completed.</TD>
+    </TR>
+    <TR>
+<TH><A href="thread/OS_SelectThread.html" target="_self">OS_SelectThread</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Specifies the next thread to be run.</TD>
+    </TR>
+    <TR>
+<TH><A href="thread/OS_SetSwitchThreadCallback.html" target="_self">OS_SetSwitchThreadCallback</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Sets the callback during thread-switching.</TD>
+    </TR>
+    <TR>
+<TH><A href="thread/OS_RescheduleThread.html" target="_self">OS_RescheduleThread</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Schedules threads.</TD>
+    </TR>
+    <TR>
+<TH><A href="thread/OS_YieldThread.html" target="_self">OS_YieldThread</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Allows threads with the same priority level to run and performs thread scheduling.</TD>
+    </TR>
+    <TR>
+<TH><A href="thread/OS_SleepThread.html" target="_self">OS_SleepThread</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Puts the current thread into a sleep state.</TD>
+    </TR>
+    <TR>
+<TH><A href="thread/OS_SleepThreadDirect.html" target="_self">OS_SleepThreadDirect</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Puts the specified thread into a sleep state.</TD>
+    </TR>
+    <TR>
+<TH><A href="thread/OS_Sleep.html" target="_self">OS_Sleep</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Puts threads into a sleep state for a specified time.</TD>
+    </TR>
+    <TR>
+<TH><A href="thread/OS_WakeupThread.html" target="_self">OS_WakeupThread</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Puts all threads registered in the queue into an operable state.</TD>
+    </TR>
+    <TR>
+<TH><A href="thread/OS_WakeupThreadDirect.html" target="_self">OS_WakeupThreadDirect</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Puts the specified thread into an operable state.</TD>
+    </TR>
+    <TR>
+<TH><A href="thread/OS_SetThreadPriority.html" target="_self">OS_SetThreadPriority</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Sets thread priority.</TD>
+    </TR>
+    <TR>
+<TH><A href="thread/OS_GetThreadPriority.html" target="_self">OS_GetThreadPriority</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets thread priority.</TD>
+    </TR>
+    <TR>
+<TH><A href="thread/OS_GetCurrentThread.html" target="_self">OS_GetCurrentThread</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets the current thread.</TD>
+    </TR>
+    <TR>
+<TH><A href="thread/OS_GetNumberOfThread.html" target="_self">OS_GetNumberOfThread</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets the number of existing threads.</TD>
+    </TR>
+    <TR>
+<TH><A href="thread/OS_DisableScheduler.html" target="_self">OS_DisableScheduler</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Stops thread rescheduling temporarily.</TD>
+    </TR>
+    <TR>
+<TH><A href="thread/OS_EnableScheduler.html" target="_self">OS_EnableScheduler</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Restarts thread rescheduling.</TD>
+    </TR>
+    <TR>
+<TH><A href="thread/OS_SetThreadParameter.html" target="_self">OS_SetThreadParameter</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Sets user parameters.</TD>
+    </TR>
+    <TR>
+<TH><A href="thread/OS_GetThreadParameter.html" target="_self">OS_GetThreadParameter</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets user parameters.</TD>
+    </TR>
+    <TR>
+<TH><A href="thread/OS_SetThreadDestructor.html" target="_self">OS_SetThreadDestructor</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Sets the thread destructor.</TD>
+    </TR>
+    <TR>
+<TH><A href="thread/OS_GetThreadDestructor.html" target="_self">OS_GetThreadDestructor</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets the thread destructor.</TD>
+    </TR>
+    <TR>
+<TH><A href="thread/OS_SetThreadDestructorStack.html" target="_self">OS_SetThreadDestructorStack</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Sets the stack to run the thread destructor.</TD>
+    </TR>
+    <TR>
+<TH><A href="thread/OS_DumpThreadList.html" target="_self">OS_DumpThreadList</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Displays all threads (for debugging).</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H3><A name="Mutex">Exclusion Control</A></H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TH width="25%"><A href="mutex/OS_InitMutex.html" target="_self">OS_InitMutex</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Initializes the mutex structure used for exclusive control.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="mutex/OS_LockMutex.html" target="_self">OS_LockMutex</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Locks a thread using mutex.</TD>
+    </TR>
+    <TR>
+<TH><A href="mutex/OS_UnlockMutex.html" target="_self">OS_UnlockMutex</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Releases a lock set on a thread by mutex.</TD>
+    </TR>
+    <TR>
+<TH><A href="mutex/OS_TryLockMutex.html" target="_self">OS_TryLockMutex</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Tries to lock the thread using mutex.</TD>
+    </TR>
+ <TR><TD class="separator" colspan=3></TD></TR>
+    <TR>
+<TH><A href="mutex/OS_LockMutexRW.html" target="_self">OS_LockMutexR</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Locks a thread using mutex. (read lock)</TD>
+    </TR>
+    <TR>
+<TH><A href="mutex/OS_LockMutexRW.html">OS_LockMutexW</A></TH>
+      <TD><IMG src="../image/NTR.gif"><IMG src="../image/TWL.gif"></TD>
+<TD>Locks a thread using mutex. (write lock)</TD>
+    </TR>
+    <TR>
+<TH><A href="mutex/OS_UnlockMutexRW.html">OS_UnlockMutexR</A></TH>
+      <TD><IMG src="../image/NTR.gif"><IMG src="../image/TWL.gif"></TD>
+<TD>Releases a lock set on a thread by mutex. (read lock)</TD>
+    </TR>
+    <TR>
+<TH><A href="mutex/OS_UnlockMutexRW.html">OS_UnlockMutexW</A></TH>
+      <TD><IMG src="../image/NTR.gif"><IMG src="../image/TWL.gif"></TD>
+<TD>Releases a lock set on a thread by mutex. (write lock)</TD>
+    </TR>
+    <TR>
+<TH><A href="mutex/OS_UnlockMutexRW.html">OS_UnlockMutexRW</A></TH>
+      <TD><IMG src="../image/NTR.gif"><IMG src="../image/TWL.gif"></TD>
+<TD>Releases a lock set on a thread by mutex. (read/write lock)</TD>
+    </TR>
+    <TR>
+<TH><A href="mutex/OS_TryLockMutexRW.html">OS_TryLockMutexR</A></TH>
+      <TD><IMG src="../image/NTR.gif"><IMG src="../image/TWL.gif"></TD>
+<TD>Tries to lock the thread using mutex. (read lock)</TD>
+    </TR>
+    <TR>
+<TH><A href="mutex/OS_TryLockMutexRW.html">OS_TryLockMutexW</A></TH>
+      <TD><IMG src="../image/NTR.gif"><IMG src="../image/TWL.gif"></TD>
+<TD>Tries to lock the thread using mutex. (write lock)</TD>
+    </TR>
+    <TR>
+<TH><A href="mutex/OS_LockMutexFromToRW.html">OS_LockMutexFromRToW</A></TH>
+      <TD><IMG src="../image/NTR.gif"><IMG src="../image/TWL.gif"></TD>
+<TD>Changes a <CODE>read lock</CODE> mutex to <CODE>write lock</CODE>.</TD>
+    </TR>
+    <TR>
+<TH><A href="mutex/OS_LockMutexFromToRW.html">OS_LockMutexFromWToR</A></TH>
+      <TD><IMG src="../image/NTR.gif"><IMG src="../image/TWL.gif"></TD>
+<TD>Changes a <CODE>write lock</CODE> mutex to <CODE>read lock</CODE>.</TD>
+    </TR>
+    <TR>
+<TH><A href="mutex/OS_TryLockMutexFromToRW.html">OS_TryLockMutexFromRToW</A></TH>
+      <TD><IMG src="../image/NTR.gif"><IMG src="../image/TWL.gif"></TD>
+<TD>Tries to change the <CODE>read lock</CODE> mutex to <CODE>write lock</CODE>.</TD>
+    </TR>
+    <TR>
+<TH><A href="mutex/OS_TryLockMutexFromToRW.html">OS_TryLockMutexFromWToR</A></TH>
+      <TD><IMG src="../image/NTR.gif"><IMG src="../image/TWL.gif"></TD>
+<TD>Tries to change the  <CODE>write lock</CODE> mutex to <CODE>read lock</CODE>.</TD>
+    </TR>
+    <TR><TD class="separator" colspan=3></TD></TR>
+    <TR>
+<TH width="25%"><A href="spinLock/OS_InitLock.html" target="_self">OS_InitLock</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Performs exclusive-control initialization.</TD>
+    </TR>
+    <TR>
+<TH><A href="spinLock/OS_LockCard.html" target="_self">OS_LockCard</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Spin-locks the card for exclusive control.</TD>
+    </TR>
+    <TR>
+<TH><A href="spinLock/OS_LockCartridge.html" target="_self">OS_LockCartridge</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Spin-locks the Game Pak for exclusive control.</TD>
+    </TR>
+    <TR>
+<TH><A href="spinLock/OS_UnlockCard.html" target="_self">OS_UnlockCard</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Releases a spin lock for a card.</TD>
+    </TR>
+    <TR>
+<TH><A href="spinLock/OS_UnlockCartridge.html" target="_self">OS_UnlockCartridge</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Releases a spin lock for a Game Pak.</TD>
+    </TR>
+    <TR>
+<TH><A href="spinLock/OS_TryLockCard.html" target="_self">OS_TryLockCard</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Attempts to spin-lock a card for exclusive control.</TD>
+    </TR>
+    <TR>
+<TH><A href="spinLock/OS_TryLockCartridge.html" target="_self">OS_TryLockCartridge</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Attempts to spin-lock a Game Pak for exclusive control.</TD>
+    </TR>
+    <TR>
+<TH><A href="spinLock/OS_GetLockID.html" target="_self">OS_GetLockID</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets the lock ID for a spin lock.</TD>
+    </TR>
+    <TR>
+<TH><A href="spinLock/OS_ReleaseLockID.html" target="_self">OS_ReleaseLockID</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Releases the lock ID for a spin lock.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H3><A name="Context">Context</A></H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TH width="25%"><A href="context/OS_InitContext.html" target="_self">OS_InitContext</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Initializes context.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="context/OS_SaveContext.html" target="_self">OS_SaveContext</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Saves current context.</TD>
+    </TR>
+    <TR>
+<TH><A href="context/OS_LoadContext.html" target="_self">OS_LoadContext</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Loads current context.</TD>
+    </TR>
+    <TR>
+<TH><A href="context/OS_DumpContext.html" target="_self">OS_DumpContext</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Displays contents of the context structure (for debugging).  </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H3><A name="Message">Messages</A></H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TH width="25%"><A href="message/OS_InitMessageQueue.html" target="_self">OS_InitMessageQueue</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Initializes the message queue structure.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="message/OS_SendMessage.html" target="_self">OS_SendMessage</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Inserts a message at the end of the message queue.</TD>
+    </TR>
+    <TR>
+<TH><A href="message/OS_JamMessage.html" target="_self">OS_JamMessage</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Inserts a message at the beginning of the message queue.</TD>
+    </TR>
+    <TR>
+<TH><A href="message/OS_ReceiveMessage.html" target="_self">OS_ReceiveMessage</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Extracts a message from the message queue.</TD>
+    </TR>
+    <TR>
+<TH><A href="message/OS_ReadMessage.html" target="_self">OS_ReadMessage</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Copies the message that is first in the message queue.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H3><A name="Event">Events</A></H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TH width="25%"><A href="event/OS_InitEvent.html" target="_self">OS_InitEvent</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Initializes the event structure.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="event/OS_WaitEvent.html" target="_self">OS_WaitEvent*</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Waits for an event.</TD>
+    </TR>
+    <TR>
+<TH><A href="event/OS_SignalEvent.html" target="_self">OS_SignalEvent</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Signals a thread that is waiting for an event.</TD>
+    </TR>
+    <TR>
+<TH><A href="event/OS_PollEvent.html" target="_self">OS_PollEvent*</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Finds out whether the completion conditions have been met to stop waiting for an event.</TD>
+    </TR>
+    <TR>
+<TH><A href="event/OS_ClearEvent.html" target="_self">OS_ClearEvent</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Clears the specified event flag.</TD>
+    </TR>
+    <TR>
+<TH><A href="event/OS_ClearEvent.html" target="_self">OS_ClearAllEvent</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Clears all event flags.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H3><A name="Cache">Cache</A></H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TH width="25%"><A href="cache/DC_Enable.html" target="_self">DC_Enable</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Allows all data caches to be used.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="cache/DC_Disable.html" target="_self">DC_Disable</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Prohibits all data caches from being used.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="cache/DC_Restore.html" target="_self">DC_Restore</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Specifies whether to allow use of all data caches.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="cache/DC_InvalidateAll.html" target="_self">DC_InvalidateAll</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Invalidates the data in the entire data cache region.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="cache/DC_StoreAll.html" target="_self">DC_StoreAll</A><BR> <A href="cache/DC_StoreAll.html">(DC_CleanAll)</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Stores all data from data cache regions to memory.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="cache/DC_FlushAll.html" target="_self">DC_FlushAll</A><BR> <A href="cache/DC_FlushAll.html">(DC_CleanAndInvalidateAll)</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Flushes all data in all data caches.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="cache/DC_InvalidateRange.html" target="_self">DC_InvalidateRange</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Invalidates data in the specified data cache region.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="cache/DC_StoreRange.html" target="_self">DC_StoreRange</A><BR> <A href="cache/DC_StoreRange.html">(DC_CleanRange)</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Stores data in the specified region of data cache to memory.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="cache/DC_FlushRange.html" target="_self">DC_FlushRange</A><BR> <A href="cache/DC_FlushRange.html">(DC_CleanAndInvalidateRange)</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Flushes the data cache in the specified region.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="cache/DC_TouchRange.html" target="_self"><font color="#808080">DC_TouchRange</font></A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD><font color="#808080">Does nothing.</font></TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="cache/DC_LockdownRange.html" target="_self">DC_LockdownRange</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Locks the specified range of data cache.</TD>
+    </TR>
+    <TR>
+<TH><A href="cache/DC_Unlockdown.html" target="_self">DC_Unlockdown</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Releases the data cache in block-sized units.</TD>
+    </TR>
+    <TR>
+<TH><A href="cache/DC_UnlockdownAll.html" target="_self">DC_UnlockdownAll</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Releases the entire data cache.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="cache/DC_WaitWriteBufferEmpty.html" target="_self">DC_WaitWriteBufferEmpty</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Waits for the write buffer to empty.</TD>
+    </TR>
+ <TR><TD class="separator" colspan=3></TD></TR>
+    <TR>
+<TH width="25%"><A href="cache/IC_Enable.html" target="_self">IC_Enable</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Allows the use of all instruction caches.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="cache/IC_Disable.html" target="_self">IC_Disable</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Prohibits the use of all instruction caches.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="cache/IC_Restore.html" target="_self">IC_Restore</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Specifies whether to permit use of all instruction caches.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="cache/IC_InvalidateAll.html" target="_self">IC_InvalidateAll</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Invalidates instruction code in the entire instruction cache region.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="cache/IC_InvalidateRange.html" target="_self">IC_InvalidateRange</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Disables the specified range of instruction cache.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="cache/IC_PrefetchRange.html" target="_self">IC_PrefetchRange</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Pre-fetches the specified range of instruction cache.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="cache/IC_LockdownRange.html" target="_self">IC_LockdownRange</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Locks down the specified range of instruction cache.</TD>
+    </TR>
+    <TR>
+<TH><A href="cache/IC_Unlockdown.html" target="_self">IC_Unlockdown</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Releases the instruction cache in block-sized units.</TD>
+    </TR>
+    <TR>
+<TH><A href="cache/IC_UnlockdownAll.html" target="_self">IC_UnlockdownAll</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Releases the entire instruction cache.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H3><A name="Arena">Arena</A></H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TH width="25%"><A href="arena/OS_InitArena.html" target="_self">OS_InitArena</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Initializes the arena.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="arena/OS_EnableMainExArena.html" target="_self">OS_EnableMainExArena</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Enables use of the main memory extended arena.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="arena/OS_DisableMainExArena.html" target="_self">OS_DisableMainExArena</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Disables the main memory extended arena.</TD>
+    </TR>
+ <TR><TD class="separator" colspan=3></TD></TR>
+    <TR>
+<TH width="25%"><A href="arena/OS_SetArenaHi.html" target="_self">OS_SetArenaHi</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Sets the upper boundary of the arena.</TD>
+    </TR>
+    <TR>
+<TH><A href="arena/OS_SetArenaHi.html" target="_self">OS_Set*ArenaHi</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Sets the upper boundary of the arena. (Arena specification)</TD>
+    </TR>
+    <TR>
+<TH><A href="arena/OS_SetArenaLo.html" target="_self">OS_SetArenaLo</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Sets the lower boundary of the arena.</TD>
+    </TR>
+    <TR>
+<TH><A href="arena/OS_SetArenaLo.html" target="_self">OS_Set*ArenaLo</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Sets the lower boundary of the arena. (Arena specification)</TD>
+    </TR>
+    <TR>
+<TH><A href="arena/OS_GetArenaHi.html" target="_self">OS_GetArenaHi</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Obtains the upper boundary of the arena.</TD>
+    </TR>
+    <TR>
+<TH><A href="arena/OS_GetArenaHi.html" target="_self">OS_Get*ArenaHi</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets the upper boundary of the arena. (Arena specification)</TD>
+    </TR>
+    <TR>
+<TH><A href="arena/OS_GetArenaLo.html" target="_self">OS_GetArenaLo</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Obtains the lower boundary of the arena.</TD>
+    </TR>
+    <TR>
+<TH><A href="arena/OS_GetArenaLo.html" target="_self">OS_Get*ArenaLo</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets the lower boundary of the arena. (Arena specification)</TD>
+    </TR>
+ <TR><TD class="separator" colspan=3></TD></TR>
+    <TR>
+<TH><A href="arena/OS_AllocFromArenaHi.html" target="_self">OS_AllocFromArenaHi</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Allocates a region of the specified size from the upper arena.</TD>
+    </TR>
+    <TR>
+<TH><A href="arena/OS_AllocFromArenaHi.html" target="_self">OS_AllocFrom*ArenaHi</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Allocates a region of the specified size from the upper arena. (Arena specification)</TD>
+    </TR>
+    <TR>
+<TH><A href="arena/OS_AllocFromArenaLo.html" target="_self">OS_AllocFromArenaLo</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Allocates a region of the specified size from the lower arena.</TD>
+    </TR>
+    <TR>
+<TH><A href="arena/OS_AllocFromArenaLo.html" target="_self">OS_AllocFrom*ArenaLo</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Allocates a region of the specified size from the lower arena. (Arena specification)</TD>
+    </TR>
+ <TR><TD class="separator" colspan=3></TD></TR>
+    <TR>
+<TH><A href="arena/OS_DumpArenaInfo.html" target="_self">OS_DumpArenaInfo</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Displays the arena information. (Used in debugging.)</TD>
+    </TR>
+    <TR>
+<TH><A href="arena/OS_DumpAllArenaInfo.html" target="_self">OS_DumpAllArenaInfo</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Displays information for all arenas. (Used in debugging.)</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H3><A name="Alloc">Memory Allocation</A></H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TH width="25%"><A href="alloc/OS_InitAlloc.html" target="_self">OS_InitAlloc</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Initializes memory allocation.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="alloc/OS_ClearAlloc.html" target="_self">OS_ClearAlloc</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Clears memory allocation.</TD>
+    </TR>
+ <TR><TD class="separator" colspan=3></TD></TR>
+    <TR>
+<TH width="25%"><A href="alloc/OS_CreateHeap.html" target="_self">OS_CreateHeap</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Creates a heap.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="alloc/OS_CreateExtraHeap.html" target="_self">OS_CreateExtraHeap</A></TH>
+      <TD><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Creates a heap. (Special use: Top of main memory 16 KB)</TD>
+    </TR>
+    <TR>
+<TH><A href="alloc/OS_DestroyHeap.html" target="_self">OS_DestroyHeap</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Destroys a heap.</TD>
+    </TR>
+    <TR>
+<TH><A href="alloc/OS_ClearHeap.html" target="_self">OS_ClearHeap</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Initializes a heap</TD>
+    </TR>
+    <TR>
+<TH><A href="alloc/OS_ClearExtraHeap.html" target="_self">OS_ClearExtraHeap</A></TH>
+      <TD><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Initializes a heap. (Special use: Top of main memory 16 KB)</TD>
+    </TR>
+    <TR>
+<TH><A href="alloc/OS_AddToHeap.html" target="_self">OS_AddToHeap</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Adds the specified memory block to the heap.</TD>
+    </TR>
+    <TR>
+<TH><A href="alloc/OS_AddExtraAreaToHeap.html" target="_self">OS_AddExtraAreaToHeap</A></TH>
+      <TD><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Adds a memory block to a heap region. (Special use: Top of main memory 16 KB)</TD>
+    </TR>
+    <TR>
+<TH><A href="alloc/OS_SetCurrentHeap.html">OS_SetCurrentHeap</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Sets the current heap.</TD>
+    </TR>
+ <TR><TD class="separator" colspan=3></TD></TR>
+    <TR>
+<TH><A href="alloc/OS_AllocFromHeap.html">OS_AllocFromHeap</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Allocates memory from the heap.</TD>
+    </TR>
+    <TR>
+<TH><A href="alloc/OS_AllocFromHeap.html">OS_AllocFrom*</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Allocates memory from the heap. (Arena specification)</TD>
+    </TR>
+    <TR>
+<TH><A href="alloc/OS_AllocFromHeap.html">OS_Alloc</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Allocates memory from the heap. (Main memory arena)</TD>
+    </TR>
+    <TR>
+<TH><A href="alloc/OS_AllocFixed.html">OS_AllocFixed</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Allocates the specified region.</TD>
+    </TR>
+ <TR><TD class="separator" colspan=3></TD></TR>
+    <TR>
+<TH><A href="alloc/OS_FreeToHeap.html">OS_FreeToHeap</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Frees memory to the heap.</TD>
+    </TR>
+    <TR>
+<TH><A href="alloc/OS_FreeToHeap.html">OS_FreeTo*</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Deallocates memory to the heap. (Arena specification)</TD>
+    </TR>
+    <TR>
+<TH><A href="alloc/OS_FreeToHeap.html">OS_Free</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Deallocates memory to the heap. (Main memory arena)</TD>
+    </TR>
+    <TR>
+<TH><A href="alloc/OS_FreeAllToHeap.html">OS_FreeAllToHeap</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Frees all allocated memory to the heap.</TD>
+    </TR>
+    <TR>
+<TH><A href="alloc/OS_FreeAllToHeap.html">OS_FreeAllTo*</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Deallocates all allocated memory to the heap. (Arena specification)</TD>
+    </TR>
+    <TR>
+<TH><A href="alloc/OS_FreeAllToHeap.html">OS_FreeAll</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Deallocates all allocated memory to the heap. (Main memory arena)</TD>
+    </TR>
+ <TR><TD class="separator" colspan=3></TD></TR>
+    <TR>
+<TH><A href="alloc/OS_CheckHeap.html">OS_CheckHeap</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Checks the heap.</TD>
+    </TR>
+    <TR>
+<TH><A href="alloc/OS_DumpHeap.html">OS_DumpHeap</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Displays heap contents (for debugging).  </TD>
+    </TR>
+ <TR><TD class="separator" colspan=3></TD></TR>
+    <TR>
+<TH><A href="alloc/OS_ReferentSize.html">OS_ReferentSize</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets the size of the memory block (excluding the header).</TD>
+    </TR>
+    <TR>
+<TH><A href="alloc/OS_VisitAllocated.html">OS_VisitAllocated</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Applies the specified function to all memory blocks.</TD>
+    </TR>
+    <TR>
+<TH><A href="alloc/OS_GetTotalAllocSize.html">OS_GetTotalAllocSize</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets the total size of the memory blocks allocated to the heap. The header is not included.</TD>
+    </TR>
+    <TR>
+<TH><A href="alloc/OS_GetTotalOccupiedSize.html">OS_GetTotalOccupiedSize</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets the total size of the memory blocks (including the header) allocated to the heap.</TD>
+    </TR>
+    <TR>
+<TH><A href="alloc/OS_GetTotalFreeSize.html">OS_GetTotalFreeSize</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets the total size of free blocks in heaps.</TD>
+    </TR>
+    <TR>
+<TH><A href="alloc/OS_GetMaxFreeSize.html">OS_GetMaxFreeSize</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets the size of the largest free block in heaps.</TD>
+    </TR>
+ <TR><TD class="separator" colspan=3></TD></TR>
+    <TR>
+<TH><A href="alloc/OS_IsOnMemory.html">OS_IsOnMainMemory</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Checks whether the memory address specified by the pointer exists on the main memory.</TD>
+    </TR>
+    <TR>
+<TH><A href="alloc/OS_IsOnMemory.html">OS_IsOnExtendedMainMemory</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Checks whether the memory address specified by the pointer exists on the extended main memory.</TD>
+    </TR>
+    <TR>
+<TH><A href="alloc/OS_IsOnMemory.html">OS_IsOnWramA</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Checks whether the memory address indicated by the pointer exists in WRAM-A.</TD>
+    </TR>
+    <TR>
+<TH><A href="alloc/OS_IsOnMemory.html">OS_IsOnWramB</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Checks whether the memory address specified by the pointer exists on the WRAM B.</TD>
+    </TR>
+    <TR>
+<TH><A href="alloc/OS_IsOnMemory.html">OS_IsOnWramC</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Checks whether the memory address specified by the pointer exists on the WRAM C.</TD>
+    </TR>
+    <TR>
+<TH><A href="alloc/OS_IsOnMemory.html">OS_IsOnWram0</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Checks whether the memory address specified by the pointer exists on the WRAM 0.</TD>
+    </TR>
+    <TR>
+<TH><A href="alloc/OS_IsOnMemory.html">OS_IsOnWram1</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Checks whether the memory address specified by the pointer exists on the WRAM 1.</TD>
+    </TR>
+    <TR>
+<TH><A href="alloc/OS_IsOnMemory.html">OS_IsOnWram</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Checks whether the memory address specified by the pointer exists on the WRAM.</TD>
+    </TR>
+    <TR>
+<TH><A href="alloc/OS_IsOnMemory.html">OS_IsOnVram</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Checks whether the memory address specified by the pointer exists on the VRAM.</TD>
+    </TR>
+    <TR>
+<TH><A href="alloc/OS_IsOnMemory.html">OS_IsOnItcm</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Checks whether the memory address indicated by the pointer exists in ITCM.</TD>
+    </TR>
+    <TR>
+<TH><A href="alloc/OS_IsOnMemory.html">OS_IsOnDtcm</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Checks whether the memory address indicated by the pointer exists in DTCM.</TD>
+    </TR>
+    <TR>
+<TH><A href="alloc/OS_IsOnMemory.html">OS_IsOnArm7PrvWram</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Checks whether the memory address indicated by the pointer exists in ARM7-dedicated WRAM.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H3><A name="Owner">System Information</A></H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TH width="25%"><A href="ownerInfo/OS_GetOwnerInfo.html">OS_GetOwnerInfo</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/BPT.gif"></TD>
+<TD>Gets owner information.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="ownerInfo/OS_GetOwnerInfo.html">OS_GetOwnerInfoEx</A></TH>
+      <TD width="48"><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets owner information.</TD>
+    </TR>
+ <TR><TD class="separator" colspan=3></TD></TR>
+    <TR>
+<TH><A href="ownerInfo/OSOwnerInfo.html">OSOwnerInfo</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/BPT.gif"></TD>
+<TD>Structure that specifies owner information.</TD>
+    </TR>
+    <TR>
+<TH><A href="ownerInfo/OSOwnerInfo.html">OSOwnerInfoEx</A></TH>
+      <TD><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Structure that specifies owner information.</TD>
+    </TR>
+ <TR><TD class="separator" colspan=3></TD></TR>
+    <TR>
+<TH><A href="ownerInfo/OS_GetOwnerRtcOffset.html">OS_GetOwnerRtcOffset</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets RTC modification offset information.</TD>
+    </TR>
+    <TR>
+<TH><A href="ownerInfo/OS_GetMacAddress.html">OS_GetMacAddress</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets the unique MAC address for the Nintendo DS system.</TD>
+    </TR>
+    <TR>
+<TH><A href="ownerInfo/OS_GetFavoriteColorTable.html">OS_GetFavoriteColorTable</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets a pointer to an array containing the RGBA color values that correspond to the IPL favorite color menu.</TD>
+    </TR>
+    <TR>
+<TH><A href="ownerInfo/OS_GetFavoriteColor.html">OS_GetFavoriteColor</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets the color value of the "favorite color" from the owner information. </TD>
+    </TR>
+    <TR>
+<TH><A href="ownerInfo/os_favorite_color_const.html">OS_FAVORITE_COLOR_*</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Definition value of the "favorite color" from the owner information. </TD>
+    </TR>
+    <TR>
+<TH><A href="ownerInfo/OS_IsAvailableWireless.html">OS_IsAvailableWireless</A></TH>
+      <TD><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Determine whether wireless communications features configured in the TWL console settings are available.</TD>
+    </TR>
+    <TR>
+<TH><A href="ownerInfo/OS_IsAgreeEULA.html">OS_IsAgreeEULA</A></TH>
+      <TD><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Determines whether the EULA has been agreed to on this system.</TD>
+    </TR>
+    <TR>
+<TH><A href="ownerInfo/OS_GetAgreedEULAVersion.html">OS_GetAgreedEULAVersion</A></TH>
+      <TD><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets the EULA version that the end user of this system has agreed to.</TD>
+    </TR>
+    <TR>
+<TH><A href="ownerInfo/OS_IsParentalControledApp.html">OS_IsParentalControledApp</A></TH>
+      <TD><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Determines whether Parental Controls should be applied when an application is started up.</TD>
+    </TR>
+     <TR>
+<TH><A href="ownerInfo/OS_IsRestrictPictoChatBoot.html">OS_IsRestrictPictoChatBoot</A></TH>
+      <TD><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Determines whether there is a restriction on starting PictoChat.</TD>
+    </TR>
+     <TR>
+<TH><A href="ownerInfo/OS_IsRestrictBrowserBoot.html">OS_IsRestrictBrowserBoot</A></TH>
+      <TD><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Determines whether there is a restriction on starting the Nintendo DSi browser.</TD>
+    </TR>
+     <TR>
+<TH><A href="ownerInfo/OS_IsRestrictPrepaidPoint.html">OS_IsRestrictPrepaidPoint</A></TH>
+      <TD><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Determines whether there is a restriction on using Nintendo DSi Points.</TD>
+    </TR>
+     <TR>
+<TH><A href="ownerInfo/OS_IsRestrictPhotoExchange.html">OS_IsRestrictPhotoExchange</A></TH>
+      <TD><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Determines whether there is a restriction on exchanging photo data.</TD>
+    </TR>
+     <TR>
+<TH><A href="ownerInfo/OS_IsRestrictUGC.html">OS_IsRestrictUGC</A></TH>
+      <TD><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Determines whether there is a restriction on exchanging user-generated content.</TD>
+    </TR>
+    <TR>
+<TH><A href="ownerInfo/OS_IsForceDisableWireless.html">OS_IsForceDisableWireless</A></TH>
+      <TD><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Determines whether use of wireless communications was prohibited when a TWL version was produced.</TD>
+    </TR>
+    <TR>
+<TH><A href="ownerInfo/OS_GetRegion.html">OS_GetRegion</A></TH>
+      <TD><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets the region information.</TD>
+    </TR>
+    <TR>
+<TH><A href="ownerInfo/OS_GetRegionCodeA3.html">OS_GetRegionCodeA3</A></TH>
+      <TD><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets a string that corresponds to the region code.</TD>
+    </TR>
+    <TR>
+<TH><A href="ownerInfo/OS_GetRegionCodeA2.html">OS_GetRegionCodeA2</A></TH>
+      <TD><img src="../image/BPT.gif"><img src="../image/TWL.gif"></TD>
+<TD>Converts the TWL's proprietary country and region code numbers into <CODE>ISO 3166-1 alpha-2</CODE> format.</TD>
+    </TR>
+ <TR><TD class="separator" colspan=3></TD></TR>
+    <TR>
+<TH><A href="entropy/OS_GetLowEntropyData.html">OS_GetLowEntropyData</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Different values are generated from system status each time it is run, and these values are returned.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H3><A name="BootInfo">Boot Information</A></H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TH width="25%"><A href="bootInfo/OS_GetBootType.html">OS_GetBootType</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets the current boot type.</TD>
+    </TR>
+    <TR>
+<TH><A href="bootInfo/OS_GetBootInfo.html">OS_GetBootInfo</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets information about the current boot.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H3><A name="Environment">Operating Environment</A></H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TH><A href="consoleType/OS_IsRunOnEmulator.html" target="_self">OS_IsRunOnEmulator</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Checks whether the application is running on the ensata emulator. (Used in debugging)</TD>
+    </TR>
+    <TR>
+<TH><A href="consoleType/OS_IsRunOnDebugger.html" target="_self">OS_IsRunOnDebugger</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Checks whether the application is running on the debugger. (Used in debugging)</TD>
+    </TR>
+    <TR>
+<TH><A href="consoleType/OS_IsRunOnTwl.html" target="_self">OS_IsRunOnTwl</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Checks whether the application is running in TWL mode.</TD>
+    </TR>
+    <TR>
+<TH><A href="consoleType/OS_GetConsoleType.html">OS_GetConsoleType</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Checks the operation environment of the application. Returns a constant value for FINALROM builds.</TD>
+    </TR>
+    <TR>
+<TH><A href="consoleType/OS_GetRunningConsoleType.html">OS_GetRunningConsoleType</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Checks the operation environment of the application.</TD>
+    </TR>
+    <TR>
+<TH><A href="system/OS_IsCodecTwlMode.html">OS_IsCodecTwlMode</A></TH>
+      <TD><IMG src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets the operating mode of the CODEC.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<H3><A name="Debug-Print">Debug (String Display)</A></H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TH width="25%"><A href="debug/OS_PutString.html" target="_self">OS_PutString</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Outputs a string.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="debug/OS_FPutString.html" target="_self">OS_FPutString</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Outputs a string. (Output is specified.)</TD>
+    </TR>
+ <TR><TD class="separator" colspan=3></TD></TR>
+    <TR>
+<TH width="25%"><A href="debug/OS_Printf.html" target="_self">OS_Printf</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Displays the string with formatting.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="debug/OS_FPrintf.html" target="_self">OS_FPrintf</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Displays the string with formatting. (Output is specified.)</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="debug/OS_TPrintf.html" target="_self">OS_TPrintf</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Displays the string with formatting. This is a simplified version of <code>OS_Printf</code>.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="debug/OS_TFPrintf.html" target="_self">OS_TFPrintf</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Displays the string with formatting. This is a simplified version of <code>OS_Printf</code>. (Output is specified.)</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="debug/OS_VPrintf.html" target="_self">OS_VPrintf</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Displays the string with formatting. Uses the list of arguments.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="debug/OS_VFPrintf.html" target="_self">OS_VFPrintf</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Displays the string with formatting. Uses the list of arguments. (Output is specified.)</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="debug/OS_TVPrintf.html" target="_self">OS_TVPrintf</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Displays the string with formatting. This is a simplified version of <code>OS_VPrintf</code>.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="debug/OS_TVFPrintf.html" target="_self">OS_TVFPrintf</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Displays the string with formatting. This is a simplified version of <code>OS_VPrintf</code>. (Output is specified.)</TD>
+    </TR>
+ <TR><TD class="separator" colspan=3></TD></TR>
+    <TR>
+<TH width="25%"><A href="debug/OS_SPrintf.html" target="_self">OS_SPrintf</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD><font color="gray">This function has been replaced with the <a href="../std/string/STD_TSPrintf.html"><code>STD_TSPrintf</code></a> function.</font></TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="debug/OS_VSPrintf.html" target="_self">OS_VSPrintf</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD><font color="gray">This function has been replaced with the <a href="../std/string/STD_TVSPrintf.html"><code>STD_TVSPrintf</code></a> function.</font></TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="debug/OS_SNPrintf.html" target="_self">OS_SNPrintf</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD><font color="gray">This function has been replaced with the <a href="../std/string/STD_TSNPrintf.html"><code>STD_TSNPrintf</code></a> function.</font></TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="debug/OS_VSNPrintf.html" target="_self">OS_VSNPrintf</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD><font color="gray">This function has been replaced with the <a href="../std/string/STD_TVSNPrintf.html"><code>STD_TVSNPrintf</code></a> function.</font></TD>
+    </TR>
+ <TR><TD class="separator" colspan=3></TD></TR>
+    <TR>
+<TH width="25%"><A href="debug/OS_TPrintfEx.html" target="_self">OS_TPrintfEx</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Displays the string with formatting. This is an extended version of <CODE>OS_TPrintf</CODE>.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="debug/OS_TFPrintfEx.html" target="_self">OS_TFPrintfEx</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Displays the string with formatting. This is an extended version of <CODE>OS_TPrintf</CODE>. (Output is specified.)</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="debug/OS_TVPrintfEx.html" target="_self">OS_TVPrintfEx</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Displays the string with formatting. This is an extended version of <CODE>OS_TVPrintf</CODE>.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="debug/OS_TVFPrintfEx.html" target="_self">OS_TVFPrintfEx</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Displays the string with formatting. This is an extended version of <CODE>OS_TVPrintf</CODE>. (Output is specified.)</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="debug/OS_VSNPrintfEx.html" target="_self">OS_VSNPrintfEx</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Outputs the formatted string to the memory with the argument list. (The size is specified.)</TD>
+    </TR>
+ <TR><TD class="separator" colspan=3></TD></TR>
+    <TR>
+<TH><A href="debug/OS_Warning.html" target="_self">OS_Warning</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Displays a warning.</TD>
+    </TR>
+    <TR>
+<TH><A href="debug/OS_FWarning.html" target="_self">OS_FWarning</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Displays a warning. (Output is specified.)</TD>
+    </TR>
+    <TR>
+<TH><A href="debug/OS_TWarning.html" target="_self">OS_TWarning</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Displays a warning. This is the simple version of <CODE>OS_Warning</CODE>.</TD>
+    </TR>
+    <TR>
+<TH><A href="debug/OS_TFWarning.html" target="_self">OS_TFWarning</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Displays a warning. This is the simple version of <CODE>OS_Warning</CODE>. (Output is specified.)</TD>
+    </TR>
+ <TR><TD class="separator" colspan=3></TD></TR>
+    <TR>
+<TH><A href="debug/OS_SetPrintOutput.html" target="_self">OS_SetPrintOutput</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Specifies the output destination for output functions.</TD>
+    </TR>
+    <TR>
+<TH><A href="debug/OS_SetPrintBlockingMode.html" target="_self">OS_SetPrintBlockingMode</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Sets the output blocking mode.</TD>
+    </TR>
+    <TR>
+<TH><A href="debug/OS_GetPrintBlockingMode.html" target="_self">OS_GetPrintBlockingMode</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets the output blocking mode settings.</TD>
+    </TR>
+ <TR><TD class="separator" colspan=3></TD></TR>
+    <TR>
+<TH width="25%"><A href="debug/OS_InitPrintServer.html" target="_self"><font color="#808080">OS_InitPrintServer</font></A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD><font color="#808080">Initializes for display of debug message from ARM7. There is normally no need for this.</font></TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="debug/OS_PrintServer.html" target="_self"><font color="#808080">OS_PrintServer</font></A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD><font color="#808080">Displays debug messages from ARM7. There is normally no need for this.</font></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H3><A name="Debug-Assert">Debug (Assert)</A></H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TH width="25%"><A href="debug/SDK_ASSERT.html">SDK_ASSERT*</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Checks the requirements, displays a warning, and stops the application.</TD>
+    </TR>
+    <TR>
+<TH><A href="debug/SDK_WARNING.html">SDK_WARNING</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Checks the conditions and displays a warning.</TD>
+    </TR>
+    <TR>
+<TH><A href="debug/OS_Panic.html" target="_self">OS_Panic</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Stops the application.</TD>
+    </TR>
+    <TR>
+<TH><A href="debug/OS_FPanic.html" target="_self">OS_FPanic</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Stops the application. (Output is specified.)</TD>
+    </TR>
+    <TR>
+<TH><A href="debug/OS_TPanic.html" target="_self">OS_TPanic</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Stops the application. This is a simplified version of <code>OS_Panic</code>.</TD>
+    </TR>
+    <TR>
+<TH><A href="debug/OS_TFPanic.html" target="_self">OS_TFPanic</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Stops the application. This is a simplified version of <code>OS_Panic</code>. (Output is specified.)</TD>
+    </TR>
+    <TR>
+<TH><A href="debug/SDK_COMPILER_ASSERT.html" target="_self">SDK_COMPILER_ASSERT</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Conditions are inspected when compiling, and if conditions are not met, a compile error is raised.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H3><A name="Debug-CallTrace">Debug (Function Call Trace)</A></H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TH width="25%"><A href="callTrace/OS_InitCallTrace.html" target="_self">OS_InitCallTrace</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Sets the buffer of the function call trace.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="callTrace/OS_DumpCallTrace.html" target="_self">OS_DumpCallTrace</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Displays the contents of the function call trace buffer.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="callTrace/OS_DumpThreadCallTrace.html" target="_self">OS_DumpThreadCallTrace</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Displays the contents of the function call trace buffer for the specified thread.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="callTrace/OS_CalcCallTraceLines.html" target="_self">OS_CalcCallTraceLines</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Calculates the number of lines for the function call trace from the buffer size.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="callTrace/OS_CalcCallTraceBufferSize.html" target="_self">OS_CalcCallTraceBufferSize</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Calculates the buffer size for the function call trace from the number of lines.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="callTrace/OS_ClearCallTraceBuffer.html" target="_self">OS_ClearCallTraceBuffer</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Clears the contents of the function call trace buffer.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="callTrace/OS_EnableCallTrace.html" target="_self">OS_EnableCallTrace</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Enables the function call trace.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="callTrace/OS_DisableCallTrace.html" target="_self">OS_DisableCallTrace</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Disables the function call trace.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="callTrace/OS_RestoreCallTrace.html" target="_self">OS_RestoreCallTrace</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Sets the function call trace to enabled or disabled.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H3><A name="Debug-FunctionCost">Debug (Function Cost Measurement)</A></H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TH width="25%"><A href="functionCost/OS_InitFunctionCost.html" target="_self">OS_InitFunctionCost</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Sets the function cost measurement buffer.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="functionCost/OS_CalcFunctionCostLines.html" target="_self">OS_CalcFunctionCostLines</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Calculates the amount of information for the function cost measurement from the buffer size.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="functionCost/OS_CalcFunctionCostBufferSize.html" target="_self">OS_CalcFunctionCostBufferSize</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Calculates the buffer size for the function cost measurement from the number of lines.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="functionCost/OS_ClearFunctionCostBuffer.html" target="_self">OS_ClearFunctionCostBuffer</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Clears the contents of the function cost measurement buffer.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="functionCost/OS_CheckFunctionCostBuffer.html" target="_self">OS_CheckFunctionCostBuffer</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Checks whether the high-order position of the function cost calculation buffer was overwritten.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="functionCost/OS_EnableFunctionCost.html" target="_self">OS_EnableFunctionCost</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Enables function cost calculation.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="functionCost/OS_DisableFunctionCost.html" target="_self">OS_DisableFunctionCost</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Disables function cost calculation.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="functionCost/OS_RestoreFunctionCost.html" target="_self">OS_RestoreFunctionCost</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Sets function cost measurement to enabled or disabled.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="functionCost/OS_InitStatistics.html" target="_self">OS_InitStatistics</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Initializes the function cost calculation buffer.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="functionCost/OS_CheckStatisticsBuffer.html" target="_self">OS_CheckStatisticsBuffer</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Checks whether the high-order position of the function cost statistics buffer was overwritten.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="functionCost/OS_CalcStatistics.html" target="_self">OS_CalcStatistics</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets the contents of the measurement buffer, and writes them to the function cost calculation buffer.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="functionCost/OS_CalcThreadStatistics.html" target="_self">OS_CalcThreadStatistics</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets the contents of the measurement buffer and writes them to the function cost calculation buffer with a thread specification.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="functionCost/OS_DumpStatistics.html" target="_self">OS_DumpStatistics</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Outputs the contents of the function cost calculation buffer.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H3><A name="Debug-Stack">Debug</A> (Stack Check)</H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TH width="25%"><A href="stack/OS_SetThreadStackWarningOffset.html" target="_self">OS_SetThreadStackWarningOffset</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Sets the warning level for the thread stack overflow check.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="stack/OS_CheckStack.html" target="_self">OS_CheckStack</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Checks the thread stack overflow.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="stack/OS_GetStackStatus.html" target="_self">OS_GetStackStatus</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets the stack overflow status of the thread.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="stack/OS_SetIrqStackChecker.html" target="_self">OS_SetIrqStackChecker</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Sets the magic number to check whether the stack used for IRQ mode has overflowed.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="stack/OS_SetIrqStackWarningOffset.html" target="_self">OS_SetIrqStackWarningOffset</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Sets the warning level to check whether the stack used for IRQ mode has overflowed.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="stack/OS_CheckIrqStack.html" target="_self">OS_CheckIrqStack</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Checks whether the stack used for IRQ mode has overflowed.</TD>
+    </TR>
+    <TR>
+<TH width="25%"><A href="stack/OS_GetIrqStackStatus.html" target="_self">OS_GetIrqStackStatus</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets the overflow status of the stack used for IRQ mode.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H3><A name="Debug-Argument">Debug (Argument)</A></H3>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TH width="25%"><A href="argument/OS_GetArgc.html">OS_GetArgc</A></TH>
+      <TD width="48"><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets the number of arguments.</TD>
+    </TR>
+    <TR>
+<TH><A href="argument/OS_GetArgv.html">OS_GetArgv</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets the string position of arguments.</TD>
+    </TR>
+    <TR>
+<TH><A href="argument/OS_GetOpt.html">OS_GetOpt*</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets information for the argument options for the command line.</TD>
+    </TR>
+    <TR>
+<TH><A href="argument/OS_ConvertToArguments.html">OS_ConvertToArguments</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Converts strings to argument data.</TD>
+    </TR>
+    <TR>
+<TH><A href="argument/OS_SetArgumentBuffer.html">OS_SetArgumentBuffer</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Sets argument data.</TD>
+    </TR>
+    <TR>
+<TH><A href="argument/OS_GetArgumentBuffer.html">OS_GetArgumentBuffer</A></TH>
+      <TD><img src="../image/NTR.gif"><img src="../image/TWL.gif"></TD>
+<TD>Gets argument data.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<table border="0" height="100%"><tr><td style="background-color : white;"></td></tr></table>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

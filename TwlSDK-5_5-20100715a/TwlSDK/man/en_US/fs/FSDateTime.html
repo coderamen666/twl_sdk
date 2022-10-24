@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title>FSDateTime</title>
+<link rel="stylesheet" href="../css/nitro.css" type="text/css" />
+</head>
+<body>
+
+<h1>FSDateTime <img src="../image/NTR.gif"align="middle"><img src="../image/TWL.gif" align="middle"></h1>
+<h2>Definition</h2>
+<pre><code>
+typedef struct FSDateTime
+{
+    u32     year;    // 0-
+    u32     month;   // 1-12
+    u32     day;     // 1-31
+    u32     hour;    // 0-23
+    u32     minute;  // 0-59
+    u32     second;  // 0-60
+}
+FSDateTime;
+
+</code></pre>
+
+<h2>Description</h2>
+<p>A structure that indicates the date and time information handled by the FS library. The details of each member are as follows.</p>
+<table>
+<tr><td>year</td><td>A value 0 or higher that indicates the year.</td></tr>
+<tr><td>month</td><td>A value between 1 and 12 that indicates the month.</td></tr>
+<tr><td>day</td><td>A value between 1 and 31 that indicates the date.</td></tr>
+<tr><td>hour</td><td>A value between 0 and 23 that indicates the hour.</td></tr>
+<tr><td>minute</td><td>A value between 0 and 59 that indicates the minute.</td></tr>
+<tr><td>second</td><td>A value between 0 and 60 that indicates the second.</td></tr>
+</table>
+
+<h2>See Also</h2>
+<p><code><a href="FSDirectoryEntryInfo.html">FSDirectoryEntryInfo</a> <br /> <a href="directory/FS_ReadDirectory.html">FS_ReadDirectory</a></code></p>
+
+<h2>Revision History</h2>
+<p>
+2007/09/18 Initial version.
+</p>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

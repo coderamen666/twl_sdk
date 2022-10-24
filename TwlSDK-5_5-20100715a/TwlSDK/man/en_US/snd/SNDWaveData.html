@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"><html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>SNDWaveData</title>
+<link rel="stylesheet" href="../css/nitro.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.65.1">
+</head>
+<body>
+<div class="refentry" lang="ja"><a name="IDAKKWT"></a><div class="titlepage">
+<div></div>
+<div></div>
+</div>
+<h1>SNDWaveData <IMG src="../image/NTR.gif" width="24" height="12" border="0" align=middle><IMG src="../image/TWL.gif" width="24" height="12" border="0" align=middle></h1>
+<h2>Definition</h2>
+<dl>
+<dd><pre class="funcsynopsisinfo"><code>#include &lt;nitro/snd.h&gt;</code></pre></dd>
+<dd><pre class="funcsynopsisinfo"><code>typedef struct SNDWaveParam
+{
+u8  format;
+u8  loopflag;
+u16 rate;
+u16 timer;
+u16 loopstart;
+u32 looplen;
+} SNDWaveParam;
+</code></pre></dd>
+<dd><pre class="funcsynopsisinfo"><code>typedef struct SNDWaveData
+{
+struct SNDWaveParam param;
+u8 samples[0];
+} SNDWaveData;
+</code></pre></dd>
+<dd><pre class="funcprototype"></pre></dd>
+</dl>
+<div class="refsection" lang="ja"><a name="IDARLWT"></a>
+<h2>Elements</h2>
+      
+      <div class="variablelist">
+<table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><code>format</code></td>
+<td>Sample format.</td>
+</tr>
+<tr>
+<td><code>loopflag</code></td>
+<td>Loop flag. If zero, there is no loop. If non-zero, a loop exists.</td>
+</tr>
+<tr>
+<td><code>rate</code></td>
+<td>Sampling rate. It is expressed in MHz.</td>
+</tr>
+<tr>
+<td><code>timer</code></td>
+<td>Description. It corresponds to SND_TIMER_CLOCK / rate.</td>
+</tr>
+<tr>
+<td><code>loopstart</code></td>
+<td>Starting point of the loop. It is expressed in words (32-bit).</td>
+</tr>
+<tr>
+<td><code>looplen</code></td>
+<td>Length of the loop. If there is no loop, this corresponds to the length of the waveform. It is expressed in words (32-bit).</td>
+</tr>
+<tr>
+<td><code>samples</code></td>
+<td>Array of the sample data. The size of the array, in words, is <CODE>loopstart</CODE> + <CODE>looplen</CODE>.
+          </td>
+</tr>
+</tbody>
+</table>
+</div>
+    </div>
+<div class="refsection" lang="ja"><a name="IDAPNWT"></a>
+<h2>Description</h2>
+      <p>
+Waveform data structure. It holds the header information and the sample data for the waveform data.
+</p>
+      <p>
+The sample format <code>format</code> takes one of the following values.
+</p>
+<div class="table"><a name="IDA0NWT"></a><p class="title"><b><b>Table. SNDWaveFormat</b></b></p>
+<table summary="SNDWaveFormat" border="1">
+<colgroup><col><col></colgroup>
+<thead>
+<tr>
+<th>Label</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SND_WAVE_FORMAT_PCM8</code></td>
+<td>8-bit PCM</td>
+</tr>
+<tr>
+<td><code>SND_WAVE_FORMAT_PCM16</code></td>
+<td>16-bit PCM</td>
+</tr>
+<tr>
+<td><code>SND_WAVE_FORMAT_ADPCM</code></td>
+<td>IMA-ADPCM</td>
+</tr>
+</tbody>
+</table>
+</div>
+      <p>
+If the sample format is <code>SND_WAVE_FORMAT_ADPCM</code>, ADPCM header information similar to the following is stored in the first word of the sample data <code>samples</code>.
+</p>
+      <pre class="programlisting">
+struct {
+s16 prevsample; // Previous sample value
+u8  previndex;  // Previous index value
+u8  padding;    // Padding (always 0)
+};
+</pre>
+      
+    </div>
+<h2>See Also</h2>
+<p>None.</p>
+<h2>Revision History</h2>
+<p>2005/01/19 Initial version.</p>
+</div>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

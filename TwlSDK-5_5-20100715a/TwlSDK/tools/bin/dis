@@ -1,0 +1,30 @@
+#! /bin/bash -f
+#---------------------------------------------------------------------------
+#  Project:  TwlSDK - tools
+#  File:     dis
+#
+#  Copyright 2007,2008 Nintendo.  All rights reserved.
+#
+#  These coded instructions, statements, and computer programs contain
+#  proprietary information of Nintendo of America Inc. and/or Nintendo
+#  Company Ltd., and are protected by Federal copyright law.  They may
+#  not be disclosed to third parties or copied or duplicated in any form,
+#  in whole or in part, without the prior written consent of Nintendo.
+#
+#  $Date:: 2008-05-13#$
+#  $Rev: 5965 $
+#  $Author: okubata_ryoma $
+#---------------------------------------------------------------------------
+
+# WRAPPER for CodeWarrior Disassember
+
+(shopt -s igncr) 2>/dev/null && eval 'shopt -s igncr';#
+
+if [ -z "$CWFOLDER_TWL" ]; then
+	export CWFOLDER_TWL=C:/Program\ Files/Freescale/CW\ for\ NINTENDO\ DS\ V2.0
+fi
+
+export PATH=`cygpath "$CWFOLDER_TWL/ARM_Tools/Command_Line_Tools"`
+
+mwldarm.exe -w off -dis -nostdlib -show only,comments,code,source,names,hex -proc arm9tdmi $1
+

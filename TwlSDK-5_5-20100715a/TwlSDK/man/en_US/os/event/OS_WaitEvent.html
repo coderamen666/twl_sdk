@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>OS_WaitEvent</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">OS_WaitEvent* <IMG src="../../image/NTR.gif" align=middle><IMG src="../../image/TWL.gif" align=middle></H1>
+<H2>Syntax</H2>
+<DL>
+  <DD>
+<PRE><CODE>#include &lt;nitro/os.h&gt;</CODE></PRE>
+  <PRE><CODE>u32 OS_WaitEvent( OSEvent* event,
+                      u32 pattern,
+                      OSEventMode mode );
+
+u32 OS_WaitEventEx( OSEvent* event,
+                      u32 pattern,
+                      OSEventMode mode,
+                      u32 clearBit );
+
+(Inline functions)
+static inline
+u32 OS_WaitEvent_And( OSEvent* event,
+                         u32 pattern );
+
+static inline
+u32 OS_WaitEvent_Or( OSEvent* event,
+                         u32 pattern );
+
+static inline
+u32 OS_WaitEventEx_And( OSEvent* event,
+                         u32 pattern,
+                         u32 clearBit );
+
+static inline
+u32 OS_WaitEventEx_Or( OSEvent* event,
+                         u32 pattern,
+                         u32 clearBit );
+    </CODE></PRE>
+</DL>
+<H2>Arguments</H2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="13%"><CODE>event</CODE></TD>
+<TD width="87%">Pointer to an event structure.</TD>
+    </TR>
+    <TR>
+<TD><CODE>pattern</CODE></TD>
+<TD>Event flag bit pattern. Pattern for moving from the <I>waiting for event</I> state to the <I>runnable</I> state.</TD>
+    </TR>
+    <TR>
+<TD><CODE>mode</CODE></TD>
+<TD>Matching mode. Event flag bit pattern's conditions for conformance.</TD>
+    </TR>
+    <TR>
+<TD><CODE>clearBit</CODE></TD>
+<TD>Bits to clear from the event flag after the conditions are fulfilled.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>Return Values</H2>
+<P>Returns the value of the event flag when the conditions have been fulfilled and the waiting has finished.<BR>If <CODE>clearBit</CODE> is specified, the function will return the value before the bits were cleared.</P>
+<H2>Description</H2>
+<P>Waits for an event.<BR>To begin waiting, you can make a thread transition itself to the waiting state using the <A href="../thread/OS_SleepThread.html"><CODE>OS_SleepThread</CODE></A> function.</P>
+<P>The <CODE>event</CODE> argument is a pointer to an event structure and must have been initialized in advance using the <A href="OS_InitEvent.html"><CODE>OS_InitEvent</CODE></A> function.</P>
+<P>There is a <CODE>u32</CODE>-type event flag within <CODE>event</CODE>, and waiting for an event will end when that value is a certain bit pattern. That bit pattern is specified using <CODE>pattern</CODE> and <CODE>mode</CODE>. Waiting will end when the flag bits indicated by <CODE>pattern</CODE> match the conditions expressed in <CODE>mode</CODE>. The meaning of <CODE>mode</CODE> is shown in the following table. (If <CODE>pattern</CODE> contains only a single bit set to 1, there is no difference between them.)<BR>
+</P>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+<TH>Value of <CODE>mode</CODE> in the <CODE>OSEvent</CODE> Structure</TH>
+<TH>Completion Conditions</TH>
+    </TR>
+    <TR>
+<TD><CODE>OS_EVENT_MODE_AND</CODE></TD>
+<TD>Stop waiting when all bits become 1</TD>
+    </TR>
+    <TR>
+<TD><CODE>OS_EVENT_MODE_OR</CODE></TD>
+<TD>Stop waiting when any bits become 1</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P><BR> If the conditions have already been fulfilled, control will leave the function immediately without switching threads.</P>
+<P>When the event flag member of <CODE>event</CODE> fulfills the conditions and control leaves the function, <CODE>OS_WaitEventEx()</CODE> will clear the bits indicated by <CODE>clearBit</CODE>. The bits will still be cleared even if the conditions are already fulfilled when the function is called, because <CODE>clearBit</CODE> is enabled. If the <CODE>OS_WaitEvent</CODE> function is used, they will not be cleared .</P>
+<P>The function's return value will be the value of the event flag when the conditions are fulfilled. However, with the <CODE>OS_WaitEventEx</CODE> function, the function will return the value before the bits are cleared.</P>
+<P><B>y</B></P>
+<P><CODE>OS_WaitEvent<FONT color="#ff0000">_And</FONT>( event, pattern )</CODE> is the same as <CODE>OS_WaitEvent( event, pattern, <FONT color="#ff0000">OS_EVENT_MODE_AND</FONT> )</CODE>.</P>
+<P><CODE>OS_WaitEvent<FONT color="#ff0000">_Or</FONT>( event, pattern )</CODE> is the same as <CODE>OS_WaitEvent( event, pattern, <FONT color="#ff0000">OS_EVENT_MODE_OR</FONT> )</CODE>.</P>
+<P><CODE>OS_WaitEventEx<FONT color="#ff0000">_And</FONT>( event, pattern, clearBit )</CODE> is the same as <CODE>OS_WaitEventEx( event, pattern, <FONT color="#ff0000">OS_EVENT_MODE_AND</FONT>, clearBit )</CODE>.</P>
+<P><CODE>OS_WaitEventEx<FONT color="#ff0000">_Or</FONT>( event, pattern, clearBit )</CODE> is the same as <CODE>OS_WaitEventEx( event, pattern, <FONT color="#ff0000">OS_EVENT_MODE_OR</FONT>, clearBit )</CODE>.</P>
+<H2>See Also</H2>
+<P><A href="OS_InitEvent.html"><CODE>OS_InitEvent</CODE></A><BR> <A href="OS_SignalEvent.html"><CODE>OS_SignalEvent</CODE></A><BR> <A href="OS_ClearEvent.html"><CODE>OS_Clear*Event</CODE></A><BR> <A href="OS_PollEvent.html"><CODE>OS_PollEvent*</CODE></A><BR> <A href="about_Event.html">OS Overview (Events)</A></P>
+<H2>Revision History</H2>
+<P>2007/12/04 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

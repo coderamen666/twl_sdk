@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<LINK rel="stylesheet" type="text/css" href="../../css/nitro.css">
+<TITLE>RTC Demos</TITLE>
+</HEAD>
+<BODY>
+<H1>Real-Time Clock Sample Demo</H1>
+
+<H2>Location</H2>
+<P><CODE>$TwlSDK/build/demos/rtc</CODE></P>
+
+<H2>Compilation</H2>
+<P>Move to the <CODE>$TwlSDK/build/demos/rtc</CODE> (or <CODE>$TwlSDK/build/demos.TWL/rtc</CODE>) directory, and enter</P>
+<BLOCKQUOTE><CODE>% make</CODE></BLOCKQUOTE>
+<P> Compiling will begin, and the SRL executable file and the NEF or TEF files having binary information will be generated in <CODE>$TwlSDK/build/demos/rtc/(sample name)/bin/(platform)/(target)/</CODE><BR> <CODE>$TwlSDK/build/demos.TWL/rtc/(sample name)/bin/(platform/(target)/</CODE>.</P>
+<BLOCKQUOTE></BLOCKQUOTE>
+<P> For example:</P>
+<BLOCKQUOTE><CODE>$TwlSDK/build/demos/rtc/rtc-1/bin/ARM9-TS/Release/main.srl</CODE></BLOCKQUOTE>
+<P>will be the executable file for the <CODE>rtc-1</CODE> demo.</P>
+
+<H2>Execution</H2>
+<H3>For NITRO ROMs</H3>
+
+<P>If using the Ensata emulator:</P>
+<UL>
+<LI>Execute NEF and SRL files with <CODE>ensata</CODE>
+</UL>
+<P>If using IS-NITRO-DEBUGGER:</P>
+<UL>
+<LI>Load and execute an NLF file with IS-NITRO-DEBUGGER
+<LI>Execute an SRL file with IS-NITRO-DEBUGGER
+<LI>Execute an SRL file with IS-NITRO-DEBUGGER using the <CODE>loadrun.exe</CODE> tool from a command line
+</UL>
+<P>If using IS-TWL-DEBUGGER:</P>
+<UL>
+<LI>Load and execute an NLF file with IS-TWL-DEBUGGER
+<LI>Execute an SRL file with IS-TWL-DEBUGGER
+<LI>Execute an SRL file with IS-TWL-DEBUGGER using the <CODE>loadrun.TWL.exe</CODE> tool from a command line
+</UL>
+<H3>For TWL/NITRO Hybrid ROMs</H3>
+<P>If using IS-NITRO-DEBUGGER:</P>
+<UL>
+<LI>Execute an SRL file with IS-NITRO-DEBUGGER
+<LI>Execute an SRL file with IS-NITRO-DEBUGGER using the <CODE>loadrun.exe</CODE> tool from a command line
+</UL>
+<P>If using IS-TWL-DEBUGGER:</P>
+<UL>
+<LI>Load and execute a TLF file with IS-TWL-DEBUGGER
+<LI>Execute an SRL file with IS-TWL-DEBUGGER
+<LI>Execute an SRL file with IS-TWL-DEBUGGER using the <CODE>loadrun.TWL.exe</CODE> tool from a command line
+</UL>
+<H3>For TWL Limited ROMs</H3>
+<P>If using IS-TWL-DEBUGGER:</P>
+<UL>
+<LI>Load and execute a TLF file with IS-TWL-DEBUGGER
+<LI>Execute an SRL file with IS-TWL-DEBUGGER
+<LI>Execute an SRL file with IS-TWL-DEBUGGER using the <CODE>loadrun.TWL.exe</CODE> tool from a command line
+</UL>
+
+<H2>Description</H2>
+
+<TABLE width="720">
+  <TBODY>
+    <TR>
+<TH>Name</TH>
+<TH>Directory</TH>
+<TH>Operation</TH>
+    </TR>
+    <TR>
+<TD width="187"><CODE>rtc-1</CODE></TD>
+<TD><CODE>demos</CODE></TD>
+<TD width="525">Tests the real-time clock operation features:<BR> -Read and change date and time<BR>-Read and change alarm setting values<BR>-Interrupt functions when alarms are generated
+      </TD>
+    </TR>
+    <TR>
+<TD><CODE>convert-1</CODE></TD>
+<TD><CODE>demos</CODE></TD>
+<TD>Tests the conversion function for date and time. It outputs the result to debug output.
+      </TD>
+    </TR>
+    <TR>
+<TD><CODE>swclock-1</CODE></TD>
+<TD><CODE>demos</CODE></TD>
+<TD>Tests the synchronization features of the software clock:<BR>-Software clock and RTC date/time comparison<BR>-Synchronization with RTC <BR>-Automatic synchronization when recovering from sleep mode<BR>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<H2>Operation</H2>
+<P>The <CODE>rtc-1</CODE> demo does not work properly with <CODE>ensata</CODE>.</P>
+
+<H2>See Also</H2>
+<P><A href="../../rtc/list_rtc.html">RTC Function List</A></P>
+
+<H2>Revision History</H2>
+<P>
+2008/07/11 Added the <CODE>swclock-1</CODE> demo.<BR> 2008/07/11 Changed the description corresponding to TWL.<BR> 2005/05/17 Added the <CODE>convert-1</CODE> demo.<BR> 2005/03/08 Standardized the Japanese term for &quot;interrupt&quot;.<br /> 2005/03/02 Revised descriptions to reflect current support environment conditions.<br /> 2004/10/06 Changed description regarding the alarm interrupt feature of the <code>rtc-1</code> demo.<br /> 2004/09/16 Added description on the alarm interrupt feature of <code>rtc-1</code> demo.<br /> 2004/08/17 Standardized the notation of IS-NITRO-EMULATOR.<br /> 2004/07/10 Changed from <code>.bin</code> to <code>.srl</code>. 2004/06/18 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

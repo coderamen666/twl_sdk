@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 8.0.2.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>WM_IsValidGameBeacon</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">WM_IsValidGameBeacon&nbsp;<img src="../../image/NTR.gif"><img src="../../image/TWL.gif"></H1>
+<h2>Syntax</h2>
+<dl>
+  <dd><PRE><CODE>#include &lt;nitro/wm.h&gt;
+
+static inline BOOL WM_IsValidGameBeacon( const <A href="WMBssDesc.html">WMBssDesc</A>* bssDesc );
+
+</CODE></PRE></dd>
+</dl>
+
+<h2>Arguments</h2>
+<table border="1" width="100%">
+  <tbody>
+    <TR>
+      <TD width="200"><EM><STRONG><FONT face="Courier New">bssDesc</FONT></STRONG></EM></TD>
+      <TD width="800">Pointer to beacon information.
+      </TD>
+    </TR>
+  </tbody>
+</table>
+
+<h2>Return Values</h2>
+<p>
+Returns <CODE>TRUE</CODE> if the beacon information stored in the <CODE>WMBssDesc</CODE> structure is from the parent connected for DS Multi-Card Play.
+</p>
+
+<H2>Description</H2>
+<P>
+Checks if the beacon information obtained using <A href="WM_StartScan.html"><CODE>WM_StartScan</CODE></A> or <A href="WM_StartScanEx.html"><CODE>WM_StartScanEx</CODE></A> is from a DS Multi-Card Play parent. <A href="WM_IsValidGameInfo.html"><CODE>WM_IsValidGameInfo</CODE></A> is called internally.
+</P>
+
+<h2>See Also</h2>
+<p><A href="WM_IsValidGameInfo.html"><CODE>WM_IsValidGameInfo</CODE></A><BR> <A href="WM_StartScan.html"><CODE>WM_StartScan</CODE></A><BR> <A href="WM_StartScanEx.html"><CODE>WM_StartScanEx</CODE></A></p>
+
+<H2>Revision History</H2>
+<P>
+2009/03/04 Revised an explanation related to internal processing. <BR>2006/02/20 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

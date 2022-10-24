@@ -1,0 +1,32 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title>FS_DIRMODE_*</title>
+<link rel="stylesheet" href="../css/nitro.css" type="text/css" />
+</head>
+<body>
+
+<h1>FS_DIRMODE_* <img src="../image/NTR.gif"align="middle"><img src="../image/TWL.gif" align="middle"></h1>
+<h2>Definition</h2>
+<pre><code>
+#define FS_DIRMODE_SHORTNAME_ONLY   0x00001000UL
+</code></pre>
+
+<h2>Description</h2>
+<p>Constants used if specifying the access mode when opening a directory using the file system API.</p>
+
+<table>
+<tr><td>FS_DIRMODE_SHORTNAME_ONLY</td><td>Indicates to handle only short file names. This will cause the <CODE>longname</CODE> and <CODE>longname_length</CODE> members of the <a href="FSDirectoryEntryInfo.html"><CODE>FSDirectoryEntryInfo</CODE></a> structure that can be obtained with <code><a href="directory/FS_ReadDirectory.html">FS_ReadDirectory()</a></code> to be ignored and treated as empty strings. This setting is useful for speeding up the listing of directories in FAT-based archives such as <a href="archive_nand_spec.html">NAND archives</a> and <a href="archive_sdmc_spec.html">SD Card archives</a>, but ignores all directories when used with for archives like <a href="archive_rom_spec.html">ROM archives</a> that only contain long file names.</td></tr>
+</table>
+
+<h2>See Also</h2>
+<p><code><a href="FSDirectoryEntryInfo.html">FSDirectoryEntryInfo</a> <br /> <a href="directory/FS_OpenDirectory.html">FS_OpenDirectory</a> <a href="directory/FS_ReadDirectory.html">FS_ReadDirectory</a></code></p>
+
+<h2>Revision History</h2>
+<p>
+2008/07/09 Initial version.
+</p>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

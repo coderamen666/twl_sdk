@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>OS_SetThreadDestructor</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">OS_SetThreadDestructor <IMG src="../../image/NTR.gif" align="middle"><IMG src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+<DL>
+  <DD>
+  <PRE><CODE>#include &lt;nitro/os.h&gt;</CODE></PRE>
+  <PRE><CODE>void OS_SetThreadDestructor( OSThread* thread, OSThreadDestructor dtor );</CODE></PRE>
+</DL>
+<H2>Arguments</H2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+      <TD width="13%"><EM><STRONG>thread</STRONG></EM></TD>
+      <TD width="87%">Pointer to the thread structure used to set the destructor.</TD>
+    </TR>
+    <TR>
+      <TD width="13%"><EM><STRONG>dtor</STRONG></EM></TD>
+      <TD width="87%">Destructor function.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>Return Values</H2>
+<P>None.</P>
+<H2>Description</H2>
+<P>This function sets the destructor function to be called when a thread ends.</P>
+<P>The thread is specified by <EM><B>thread</B></EM>. <STRONG><B><EM>dtor</EM></B></STRONG> is a pointer to a function of type <CODE>OSThreadDestructor</CODE>. The <CODE>OSThreadDestructor</CODE> type is defined as:</P>
+<P>    <CODE>typedef void (*OSThreadDestructor)( void* );</CODE></P>
+<P> </P>
+<P>The destructor function is called when a thread ends under the following conditions:</P>
+<BLOCKQUOTE>- When the thread finishes executing its task <BR> - When it ended with <CODE><A href="OS_ExitThread.html">OS_ExitThread()</A></CODE><BR>- When it was terminated from another thread with <CODE><A href="OS_KillThread.html">OS_KillThread*()</A></CODE><BR>- When it terminated itself with <CODE><A href="OS_KillThread.html">OS_KillThread*()</A></CODE></BLOCKQUOTE>
+<P>A destructor function is not called in the following situations.</P>
+<BLOCKQUOTE>- When the thread was terminated by another thread using <CODE><A href="OS_DestroyThread.html">OS_DestroyThread()</A></CODE> <BR> - When the thread terminated itself using <CODE><A href="OS_DestroyThread.html">OS_DestroyThread()</A></CODE></BLOCKQUOTE>
+<P>When the destructor function is run, execution switches to the context of the thread that ends. The stack pointer is then updated (described later). The destructor is called while the thread is in interrupt-prohibited state, before internal thread information is changed.</P>
+<P>At the time the destructor function is executed, the stack is shifted to highest priority by default (excluding the code used for checking). You can change it to the specified stack using <CODE><A href="OS_SetThreadDestructorStack.html">OS_SetThreadDestructorStack()</A></CODE>.</P>
+<P><FONT color="#ff0033">Do not release the prohibition on interrupts inside the destructor function or call any functions that generate thread scheduling, because this may cause mismatching to arise in the thread list.</FONT></P>
+<H2>See Also</H2>
+<P><A href="OS_InitThread.html"><CODE>OS_InitThread</CODE></A>, <A href="OS_ExitThread.html"><CODE>OS_ExitThread</CODE></A>, <A href="OS_DestroyThread.html"><CODE>OS_DestroyThread</CODE></A>, <A href="OS_KillThread.html"><CODE>OS_KillThread*</CODE></A>, <A href="OS_GetThreadDestructor.html"><CODE>OS_GetThreadDestructor</CODE></A>, <A href="OS_SetThreadDestructorStack.html"><CODE>OS_SetThreadDestructorStack</CODE></A></P>
+<H2>Revision History</H2>
+<P>2007/08/20 Added notes about operations inside the destructor function.<BR>2005/08/09 Added text about <CODE><A href="OS_SetThreadDestructorStack.html">OS_SetThreadDestructorStack</A></CODE>.<BR>2005/07/07 Added text about conditions under which destructor function is called.<BR>2005/06/30 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

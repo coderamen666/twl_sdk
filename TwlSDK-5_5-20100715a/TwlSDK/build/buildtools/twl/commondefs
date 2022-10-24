@@ -1,0 +1,444 @@
+#! make -f
+#----------------------------------------------------------------------------
+# Project:  TwlSDK
+# File:     commondefs
+#
+#  Copyright 2007-2009 Nintendo.  All rights reserved.
+#
+# These coded instructions, statements, and computer programs contain
+# proprietary information of Nintendo of America Inc. and/or Nintendo
+# Company Ltd., and are protected by Federal copyright law.  They may
+# not be disclosed to third parties or copied or duplicated in any form,
+# in whole or in part, without the prior written consent of Nintendo.
+#
+# $Date:: 2009-12-25#$
+# $Rev: 11268 $
+# $Author: kitase_hirotake $
+#----------------------------------------------------------------------------
+ifndef TWLSDK_TWL_COMMONDEFS_
+TWLSDK_TWL_COMMONDEFS_	 = TRUE
+
+#
+# SDK Major Version
+#
+
+TWLSDK_VERSION_MAJOR	?= 5
+
+#
+# CodeGen Target
+#
+#	TWL_PLATFORM  = [BB/TEG/TS]
+#	TWL_MEMSIZE   = [16M/32M]
+#	TWL_CODEGEN   = [ARM/THUMB]
+#	TWL_PROC      = [ARM9/ARM7]
+#
+TWL_PLATFORM			?= TS
+TWL_MEMSIZE				?= 16M
+TWL_PROC				?= ARM9
+
+CODEGEN_PROC			 = $(strip $(TWL_PROC))
+
+
+#
+# ArchGen Target
+#
+#	TWL_ARCHGEN = [LIMITED/HYBRID/ALL]
+#
+DEFAULT_ARCHGEN			 = HYBRID
+TWL_ARCHGEN				?= $(DEFAULT_ARCHGEN)
+
+ARCHGEN_TYPE			 = $(if $(filter LIMITED,$(TWL_ARCHGEN)),.LTD,$(if $(filter LIMITED_ferret,$(TWL_ARCHGEN)),.LTD,.HYB))
+COMP_TYPE				 = $(if $(filter LIMITED_ferret,$(TWL_ARCHGEN)),.ferret)
+
+#
+# C Compiler type
+#
+#	TWL_CCTYPE = [CW]
+#
+
+TWL_CCTYPE		?= CW
+
+
+#
+# Binary build tool switch
+#
+TWL_MAKEROM		?= TRUE
+
+#
+# RomSpeedType for makerom.exe
+#
+#	one of [MROM/1TROM/UNDEFINED]
+#
+
+TWL_ROMSPEED	?= UNDEFINED
+
+#
+# SDK build type
+#
+#	one of [TWL_DEBUG/TWL_RELEASE/TWL_FINALROM]
+#
+
+#
+# Codec Mode
+#
+#	CODEC_MODE = [TWL/NTR]
+#
+DEFAULT_CODEC_MODE		= TWL
+MAKEROM_CODEC_MODE		?= $(DEFAULT_CODEC_MODE)
+
+
+ifneq	($(TARGET_DEBUG),)
+TWL_BUILD_TYPE		?= DEBUG
+TWL_BUILD_DIR		?= Debug
+
+else
+ifneq	($(TARGET_FINALROM),)
+TWL_BUILD_TYPE		?= FINALROM
+TWL_BUILD_DIR		?= Rom
+
+else	#TWL_RELEASE(default)
+TWL_BUILD_TYPE		?= RELEASE
+TWL_BUILD_DIR		?= Release
+
+endif
+endif
+
+
+#----------------------------------------------------------------------------
+#  TWL-SDK path settings
+#
+
+TWL_INCDIR			:= $(ROOT)/include
+TWL_TOOLSDIR		:= $(TOOLSDIR)
+TWL_COMPONENTSDIR	:= $(COMPONENTSDIR)
+TWL_ADDINS			?= $(ADDINSDIR)
+
+TWL_BUILDARCH		?= $(CODEGEN_PROC)-$(TWL_PLATFORM)$(ARCHGEN_TYPE)$(COMP_TYPE)$(CODEGEN_ARCH)
+TWL_BUILDARCH_ARM9	 = ARM9-$(TWL_PLATFORM)$(ARCHGEN_TYPE)$(CODEGEN_ARCH)
+ifeq ($(DEMO_CHECK_BUILD),)
+TWL_BUILDARCH_ARM7	?= ARM7-$(TWL_PLATFORM)$(ARCHGEN_TYPE)$(CODEGEN_ARCH)
+else
+TWL_BUILDARCH_ARM7	?= ARM7-$(TWL_PLATFORM)$(ARCHGEN_TYPE)$(CODEGEN_ARCH_ARM7)
+endif
+
+TWL_BUILDTYPE		?= $(TWL_BUILDARCH)/$(TWL_BUILD_DIR)
+TWL_BUILDTYPE_ARM9	 = $(TWL_BUILDARCH_ARM9)/$(TWL_BUILD_DIR)
+TWL_BUILDTYPE_ARM7	 = $(TWL_BUILDARCH_ARM7)/$(TWL_BUILD_DIR)
+
+TWL_LIBARCH			 = $(CODEGEN_PROC)-$(TWL_PLATFORM)
+TWL_LIBTYPE			 = $(TWL_LIBARCH)/$(TWL_BUILD_DIR)
+TWL_LIBDIR			 = $(ROOT)/lib/$(TWL_LIBTYPE)
+TWL_LIBSYSCALLDIR	 = $(ROOT)/lib/$(TWL_LIBARCH)/etc
+TWL_LIBSUFFIX	 	?= .TWL$(ARCHGEN_TYPE)$(CODEGEN_ARCH)
+
+
+#----------------------------------------------------------------------------
+#  TWL-SYSTEM path settings
+#
+
+ifdef	TWLSYSTEM_ROOT
+TWLSYSTEM_ROOT_		:= $(subst $(SPACE),\ ,$(subst \,/,$(TWLSYSTEM_ROOT)))
+-include $(TWLSYSTEM_ROOT_)/build/buildtools/nnslibdefs
+endif
+
+#----------------------------------------------------------------------------
+#  TWL-WIRELESS path settings
+#
+#	libraries should be in
+#		$(ROOT)/lib/TwlWireless
+#
+#	includes should be in
+#		$(ROOT)/include/twl_wl/ARM7/*.h
+#
+#		access by #include <twl_wl/ARM7/*.h>
+#
+#	SDK_VERSION_WL is defined in <twl_wl/ARM7/version_wl.h>
+#
+
+TWLWIRELESS_VERSION		?=	080602
+TWLWIRELESS_PACKAGE 	?=	TianShan_$(TWLWIRELESS_VERSION)
+TWLWIRELESS_ROOT		 = $(subst $(SPACE),\ ,$(subst \,/,$(TWLSDK_ROOT)))/add-ins/TwlWireless/$(TWLWIRELESS_PACKAGE)
+TWLWIRELESS_LIBDIR		 = $(subst $(SPACE),\ ,$(subst \,/,$(TWLSDK_ROOT)))/lib/TwlWireless/$(TWL_LIBTYPE)
+
+#----------------------------------------------------------------------------
+#  Compiler settings
+#
+
+ifneq	($(FORCE_BUILD),)
+
+### module subdir src/ obj/ lib/ include/
+
+TWL_SPECDIR				 = $(TWL_INCDIR)/twl/specfiles
+
+ifneq	($(filter TWL,$(TARGET_PLATFORM_LIST)),)
+DEFAULT_LCFILE			 = $(TWL_SPECDIR)/$(TWL_LIBARCH).lcf
+DEFAULT_LCFILE_TEMPLATE	 = $(TWL_SPECDIR)/$(TWL_LIBARCH).lcf.template
+DEFAULT_LCFILE_SPEC		 = $(TWL_SPECDIR)/$(TWL_LIBARCH).lsf
+DEFAULT_ROM_SPEC		 = $(TWL_SPECDIR)/ROM-$(TWL_PLATFORM).rsf
+endif
+
+SRCDIR					?= $(DEFAULT_SRCDIR)
+INCDIR					?= $(DEFAULT_INCDIR)
+ETCDIR					?= $(DEFAULT_ETCDIR)
+OBJDIR					?= ./obj/$(TWL_BUILDTYPE)
+BINDIR					?= ./bin/$(TWL_BUILDTYPE)
+LIBDIR					?= ./lib/$(TWL_BUILDTYPE)
+
+ifdef	MSYSTEM
+DEPENDDIR				?= ./depend.MinGW/$(TWL_BUILDTYPE)
+else
+DEPENDDIR				?= ./depend/$(TWL_BUILDTYPE)
+endif
+
+ifeq        ($(CODEGEN_PROC),ARM9)
+LIBSYSCALL_				 = $(if $(LIBSYSCALL),$(LIBSYSCALL),$(TWL_LIBSYSCALLDIR)/libsyscall.a)
+LIBSYSCALL_TWL_			 = $(if $(LIBSYSCALL_TWL),$(LIBSYSCALL_TWL),$(TWL_LIBSYSCALLDIR)/libsyscall.twl.a)
+else #ifeq  ($(CODEGEN_PROC),ARM7)
+LIBSYSCALL_				 = $(if $(LIBSYSCALL),$(LIBSYSCALL),$(TWL_LIBSYSCALLDIR)/libsubpsyscall.a)
+LIBSYSCALL_TWL_			 = $(if $(LIBSYSCALL_TWL),$(LIBSYSCALL_TWL),$(TWL_LIBSYSCALLDIR)/libsyscall_sp.twl.a)
+endif
+
+### Compiler & Linker settings
+
+-include $(TWL_BUILDTOOLSDIR)/commondefs.cctype.$(TWL_CCTYPE)
+
+ifneq	($(TWL_MAKEROM),)
+LCFILE_TEMPLATE			?= $(DEFAULT_LCFILE_TEMPLATE)
+LCFILE_SPEC				?= $(DEFAULT_LCFILE_SPEC)
+LCFILE_AUTOGEN			?= $(BINDIR)/$(notdir $(LCFILE_SPEC:.lsf=.autogen.lcf))
+LCFILE					?= $(LCFILE_AUTOGEN)
+DEFAULT_LDRES_TEMPLATE	:= $(TWL_SPECDIR)/$(basename $(word $(words $(subst /, ,$(LD))),$(subst /, ,$(LD)))).response.template
+LDRES_TEMPLATE			?= $(DEFAULT_LDRES_TEMPLATE)
+LDRES_AUTOGEN			?= $(BINDIR)/$(notdir $(LCFILE_SPEC:.lsf=.autogen.response))
+LDRES_FILE				?= $(LDRES_AUTOGEN)
+else
+LCFILE					?= $(DEFAULT_LCFILE)
+endif
+
+TARGETS					?= $(addprefix $(BINDIR)/,$(TARGET_BIN) $(TARGET_ELF) $(TARGET_SIGN_BIN))	\
+						   $(addprefix $(OBJDIR)/,$(TARGET_OBJ)) 									\
+						   $(addprefix $(LIBDIR)/,$(TARGET_LIB))
+
+TARGET_BIN_BASENAME		 = $(patsubst %.TWL,%,$(notdir $(basename $(firstword $(TARGET_BIN) $(TARGET_ELF)))))
+TARGET_NAME				?= $(TARGET_BIN_BASENAME)
+
+### Debugger settings
+
+-include $(TWL_BUILDTOOLSDIR)/commondefs.emtype.IS
+
+
+### SDK Library settings
+
+ifeq	($(CODEGEN_PROC),ARM9)
+CRT0_O			?=  crt0$(ARCHGEN_TYPE).TWL.o
+endif
+
+ifeq	($(CODEGEN_PROC),ARM9)
+
+TWL_LIBS		?= 								\
+				   libcard$(TWL_LIBSUFFIX).a	\
+				   libcp$(TWL_LIBSUFFIX).a		\
+				   libel$(TWL_LIBSUFFIX).a		\
+				   libenv$(TWL_LIBSUFFIX).a		\
+				   libext$(TWL_LIBSUFFIX).a		\
+				   libfs$(TWL_LIBSUFFIX).a		\
+				   libfx$(TWL_LIBSUFFIX).a		\
+				   libgx$(TWL_LIBSUFFIX).a		\
+				   libmath$(TWL_LIBSUFFIX).a	\
+				   libmb$(TWL_LIBSUFFIX).a		\
+				   libmi$(TWL_LIBSUFFIX).a		\
+				   libnvram$(TWL_LIBSUFFIX).a	\
+				   libos$(TWL_LIBSUFFIX).a		\
+				   libprc$(TWL_LIBSUFFIX).a		\
+				   libpxi$(TWL_LIBSUFFIX).a		\
+				   librtc$(TWL_LIBSUFFIX).a		\
+				   libscfg$(TWL_LIBSUFFIX).a	\
+				   libsnd$(TWL_LIBSUFFIX).a		\
+				   libspi$(TWL_LIBSUFFIX).a		\
+				   libstd$(TWL_LIBSUFFIX).a		\
+				   libwbt$(TWL_LIBSUFFIX).a		\
+				   libwfs$(TWL_LIBSUFFIX).a		\
+				   libwm$(TWL_LIBSUFFIX).a		\
+				   libctrdg$(TWL_LIBSUFFIX).a	\
+				   libcrypto$(TWL_LIBSUFFIX).a	\
+			       libcht$(TWL_LIBSUFFIX).a		\
+				   libssp$(TWL_LIBSUFFIX).a		\
+				   libwxc$(TWL_LIBSUFFIX).a		\
+				   $(notdir $(LIBSYSCALL_))		\
+				   $(notdir $(LIBSYSCALL_TWL_))	\
+				   $(CRT0_O)
+
+TWL_LIBS_EX		?= librtcex$(TWL_LIBSUFFIX).a			\
+				   libcamera$(TWL_LIBSUFFIX).a			\
+				   libnwm$(TWL_LIBSUFFIX).a				\
+				   libmicex$(TWL_LIBSUFFIX).a			\
+				   libfatfs$(TWL_LIBSUFFIX).a			\
+				   libsndex$(TWL_LIBSUFFIX).a			\
+				   libdsp$(TWL_LIBSUFFIX).a				\
+				   libdsp_g711$(TWL_LIBSUFFIX).a		\
+				   libdsp_graphics$(TWL_LIBSUFFIX).a	\
+				   libaes$(TWL_LIBSUFFIX).a             \
+				   libtcl$(TWL_LIBSUFFIX).a
+
+TWL_LIBS		+= $(if $(TWL_PROFILE_TYPE),libos.$(TWL_PROFILE_TYPE)$(TWL_LIBSUFFIX).a)
+TWL_LIBS		+= $(if $(filter TRUE,$(TWL_NANDAPP)),libna$(TWL_LIBSUFFIX).a)
+TWL_LIBS		+= $(if $(filter TRUE,$(TWLSDK_IRC_PRIVATE)),libirc$(TWL_LIBSUFFIX).a)
+
+else #	($(CODEGEN_PROC),ARM7)
+
+TWL_LIBS		?= 									\
+				   libcamera_sp$(TWL_LIBSUFFIX).a	\
+				   libcard_sp$(TWL_LIBSUFFIX).a		\
+				   libcdc_sp$(TWL_LIBSUFFIX).a		\
+				   libel_sp$(TWL_LIBSUFFIX).a		\
+				   libexi_sp$(TWL_LIBSUFFIX).a		\
+				   libfatfs_sp$(TWL_LIBSUFFIX).a	\
+				   libfs_sp$(TWL_LIBSUFFIX).a		\
+				   libi2c_sp$(TWL_LIBSUFFIX).a		\
+				   libmath_sp$(TWL_LIBSUFFIX).a		\
+				   libmi_sp$(TWL_LIBSUFFIX).a		\
+				   libnvram_sp$(TWL_LIBSUFFIX).a	\
+				   libnwm_sp$(TWL_LIBSUFFIX).a		\
+				   libos_sp$(TWL_LIBSUFFIX).a		\
+				   libpad_sp$(TWL_LIBSUFFIX).a		\
+				   libpm_sp$(TWL_LIBSUFFIX).a		\
+				   libpxi_sp$(TWL_LIBSUFFIX).a		\
+				   librtc_sp$(TWL_LIBSUFFIX).a		\
+				   libscfg_sp$(TWL_LIBSUFFIX).a		\
+				   libsnd_sp$(TWL_LIBSUFFIX).a		\
+				   libsndex_sp$(TWL_LIBSUFFIX).a	\
+				   libspi_sp$(TWL_LIBSUFFIX).a		\
+				   libmcu_sp$(TWL_LIBSUFFIX).a		\
+				   libstd_sp$(TWL_LIBSUFFIX).a		\
+				   libwm_sp$(TWL_LIBSUFFIX).a		\
+				   libwvr_sp$(TWL_LIBSUFFIX).a		\
+				   libtp_sp$(TWL_LIBSUFFIX).a		\
+				   libtpex_sp$(TWL_LIBSUFFIX).a		\
+				   libmic_sp$(TWL_LIBSUFFIX).a		\
+				   libmicex_sp$(TWL_LIBSUFFIX).a	\
+				   libaes_sp$(TWL_LIBSUFFIX).a		\
+				   $(notdir $(LIBSYSCALL_))			\
+				   $(notdir $(LIBSYSCALL_TWL_))		\
+				   $(CRT0_O)
+
+TWL_LIBS		+= $(if $(filter HYBRID,$(TWL_ARCHGEN)),libctrdg_sp$(TWL_LIBSUFFIX).a)
+TWL_LIBS		+= $(if $(TWL_PROFILE_TYPE),libos_sp.$(TWL_PROFILE_TYPE)$(TWL_LIBSUFFIX).a)
+
+endif
+
+### Global Library settings
+
+SYSTEM_GINCLUDES		 = $(TWLWIRELESS_INCDIR)							\
+						   $(TWL_INCDIR) $(ISDBG_INCDIRS)
+
+DEFAULT_GINCLUDES		 = $(INCDIR) $(SRCDIR)								\
+						   $(NITROSYSTEM_INCDIR) $(SYSTEM_GINCLUDES)
+
+DEFAULT_GLIBRARY_DIRS	 = $(LIBDIR) $(dir $(LIBSYSCALL_)) $(dir $(LIBSYSCALL_TWL_))			\
+						   $(NITROSYSTEM_LIBDIR) $(TWLWIRELESS_LIBDIR) $(NITROWIRELESS_LIBDIR)	\
+						   $(TWL_LIBDIR) $(ISDBG_LIBDIRS)
+
+DEFAULT_GLIBRARIES		 = $(NITROSYSTEM_LIBS) $(TWL_LIBS) $(TWL_LIBS_EX) $(STUBS_LIBS) $(ISDBG_LIBS)
+
+GINCLUDES		?= $(DEFAULT_GINCLUDES)
+GLIBRARY_DIRS	?= $(DEFAULT_GLIBRARY_DIRS)
+GLIBRARIES		?= $(DEFAULT_GLIBRARIES)
+GLIBRARIES_EX	?= $(TWL_LIBS_EX)
+
+LINCLUDES		?=
+LLIBRARY_DIRS	?=
+LLIBRARIES		?=
+LNEWDIRS		?=
+
+NEWDIRS			?= $(strip $(if $(SRCS),$(OBJDIR) $(DEPENDDIR))			\
+				   $(if $(TARGET_LIB),$(LIBDIR))				\
+				   $(if $(TARGET_BIN)$(TARGET_ELF),$(BINDIR))	\
+				   $(LNEWDIRS))
+
+GDIRT_CLEAN_DIRS	:= ./obj ./bin ./lib ./depend
+GDIRT_CLOBBER_DIRS	:=
+
+### NAND APP settings
+ifeq	($(TWL_NANDAPP),TRUE)
+ifeq	($(CODEGEN_PROC),ARM9)
+DEFAULT_ROM_SPEC	 = $(TWL_SPECDIR)/ROM-$(TWL_PLATFORM)_nand.rsf
+
+INT_ROM_EXT			:=	nand.srl
+TMP_NAND_SRL		?= $(addprefix $(BINDIR)/,$(TARGET_BIN_BASENAME).$(INT_ROM_EXT))
+TITLE_VERSION_LO	?=	0
+endif
+endif
+
+endif
+
+
+#----------------------------------------------------------------------------
+#  MY BUILD TOOLS
+#
+
+MAKELCF			:= $(TWL_TOOLSDIR)/bin/makelcf.TWL.exe
+MAKEBANNER		:= $(TWL_TOOLSDIR)/bin/makebanner.TWL.exe
+ADDBANNER		:= $(TWL_TOOLSDIR)/bin/addbanner.exe
+NTEXCONV		:= $(TWL_TOOLSDIR)/bin/ntexconv.exe
+BANNERCVTR		:= $(TWL_TOOLSDIR)/bin/bannercvtr.exe
+COMPSTATIC		:= $(TWL_TOOLSDIR)/bin/compstatic.TWL.exe
+MAKEROM			:= $(TWL_TOOLSDIR)/bin/makerom.TWL.exe
+EMUCHILD		:= $(TWL_TOOLSDIR)/bin/emuchild.exe
+ATTACHSIGN		:= $(TWL_TOOLSDIR)/bin/attachsign.exe
+BIN2OBJ			:= $(TWL_TOOLSDIR)/bin/bin2obj.exe
+MAKELST			:= $(TWL_TOOLSDIR)/bin/makelst.exe
+STRIPDEBUG		:= $(TWL_TOOLSDIR)/bin/stripdebug.exe
+MAKERSF			:= $(TWL_TOOLSDIR)/bin/makersf.pl
+LOADRUN			:= $(TWL_TOOLSDIR)/bin/loadrun.TWL.exe
+MAKETAD			:= $(TWL_TOOLSDIR)/bin/maketad.exe
+
+MAKELCF_FLAGS	 			?=
+MAKEBANNER_FLAGS			?=
+MAKEROM_FLAGS	 			?=
+COMPSTATIC_FLAGS			?=
+LOADRUN_FLAGS				?=
+DEFAULT_COMP_ARM7			?= $(if $(filter LIMITED,$(TWL_ARCHGEN)),racoon,$(if $(filter LIMITED_ferret,$(TWL_ARCHGEN)),ferret,mongoose))
+# boot information set by TWL-IPL (16kB)
+DEFAULT_ADDRESS_STATIC		?=	0x02004000
+DEFAULT_ADDRESS_ITCM		?=	0x01FF8000
+DEFAULT_ADDRESS_DTCM		?=	0x2fe0000
+DEFAULT_COMPSUFFIX			?= _LZ
+DEFAULT_MAKEROM_ARM9		= $(TWL_COMPONENTSDIR)/printserver/$(TWL_BUILDTYPE_ARM9)/printserver.$(TWL_ELF_EXT)
+DEFAULT_MAKEROM_ARM7_BASE	= $(TWL_COMPONENTSDIR)/$(DEFAULT_COMP_ARM7)/$(TWL_BUILDTYPE_ARM7)/$(DEFAULT_COMP_ARM7)
+DEFAULT_MAKEROM_ARM7		= $(DEFAULT_MAKEROM_ARM7_BASE).$(TWL_ELF_EXT)
+
+DEFAULT_MAKEROM_ROMROOT		:= ./files
+DEFAULT_MAKEROM_ROMFILES	:=
+DEFAULT_MAKEROM_ROMSPEED	?= $(TWL_ROMSPEED)
+DEFAULT_MAKEROM_CERT_PRIV	:= $(TWL_SPECDIR)/default.der
+
+
+#----------------------------------------------------------------------------
+#  LIST OF JUNKS for "make 
+#
+
+GDIRT_CLEAN		 = a.out core *~ *.bak \\\#*\\\# $(GDIRT_CLEAN_DIRS)
+
+GDIRT_CLOBBER	 = $(GDIRT_CLOBBER_DIRS)
+
+GDIRT_INSTALLED	 = $(addprefix $(INSTALL_DIR)/,$(notdir $(INSTALL_TARGETS)))
+
+
+#----------------------------------------------------------------------------
+#  Load add-ins' commondefs
+#
+-include $(TWL_BUILDTOOLSDIR)/commondefs.add-ins.*
+
+
+#----------------------------------------------------------------------------
+#  DEFAULT TARGET
+#
+ifdef TWL_UTEST
+default all:	utest
+else
+default all:	build
+endif
+
+#----------------------------------------------------------------------------
+endif	# TWLSDK_TWL_COMMONDEFS_
+#----- End of commondefs -----

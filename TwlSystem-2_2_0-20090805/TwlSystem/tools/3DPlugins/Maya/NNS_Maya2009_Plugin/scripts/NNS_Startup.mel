@@ -1,0 +1,47 @@
+/******************************************************************************
+	NINTENDO NITRO-System Maya Plugin
+
+	File:         NNS_Startup.mel
+	Description:  startup procedure
+	Date:         2007/04/16
+	Author:       Takashi Endo
+
+	Copyright 2003-2009 Nintendo. All rights reserved.
+******************************************************************************/
+
+/******************************************************************************
+	main
+******************************************************************************/
+global proc NNS_Startup()
+{
+	//-----------------------------------------------------------------------------
+	// decode mel
+	if (!`pluginInfo -q -l "NNS_MelDecode.mll"`)
+	{
+		loadPlugin("NNS_MelDecode.mll");
+	}
+	eval("NNS_MelDecodeCmd");
+
+	//-----------------------------------------------------------------------------
+	// source scripts
+	source NNS_CommonProc;
+	source NNS_ExpDialog;
+
+	//-----------------------------------------------------------------------------
+	// load plugin
+	if (!`pluginInfo -q -l "NNS_Export.mll"`)
+	{
+		loadPlugin("NNS_Export.mll");
+	}
+
+	//-----------------------------------------------------------------------------
+	// set callback
+	if (`exists nnsExpDialog_SetConsistentCallback`)
+	{
+		nnsExpDialog_SetConsistentCallback;
+	}
+
+	//-----------------------------------------------------------------------------
+	// create menu
+	NNS_CreateMenu;
+}

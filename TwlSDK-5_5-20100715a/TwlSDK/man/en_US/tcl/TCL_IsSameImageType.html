@@ -1,0 +1,44 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title>TCL_IsSameImageType</title>
+<link rel="stylesheet" href="../css/nitro.css" type="text/css">
+</head>
+<body>
+<h1 align="left">TCL_IsSameImageType <img src="../image/TWL.gif" align="middle"></h1>
+
+<h2>Definition</h2>
+<dl>
+	<dd>
+	<code>#include &lt;twl/tcl.h&gt;</code><br/> <br/>
+	<pre><code>
+BOOL TCL_IsSameImageType( const TCLPictureInfo* pPicInfo , const TCLMakerNote* pMakerNote );
+	</code></pre>
+</dl>
+
+<h2>Arguments</h2>
+<p>
+<table>
+<tr><td>pPicInfo<td><a href="TCLPictureInfo.html">Photo information</a>
+<tr><td>pMakerNote<td><a href="TCLMakerNote.html">Manufacturer's notes structure</a>
+</table>
+</p>
+
+<h2>Return Values</h2>
+<p><CODE>TRUE</CODE> if photos are determined to be the same image type.</p>
+
+<h2>Description</h2>
+<p>Determines whether the image type in the Management file is the same as the image type recorded in the image's EXIF information. (The manufacturer's notes in an EXIF tag are converted to the <a href="TCLMakerNote.html"><code>TCL_MakerNote</code></a> type for this comparison.)</p>
+<p>See the <a href="overview_tcl.html">Overview</a> for processes used for comparison.
+<p>Photos and composite photos cannot be differentiated in the management file, so they are treated as the same image type.</p>
+
+<h2>See Also</h2>
+
+<h2>Revision History</h2>
+<p>
+2009/03/04 Corrected errors.<br/> 2008/10/20 Initial version.
+</p>
+
+<hr><p>CONFIDENTIAL</p></body>
+</html>

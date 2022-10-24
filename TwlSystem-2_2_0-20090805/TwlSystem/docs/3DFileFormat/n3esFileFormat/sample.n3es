@@ -1,0 +1,50 @@
+# NNS_Export settings
+settings_version="1.1"
+generator_name="Maya 2008 Service Pack 1 NNS_Export"
+generator_version="1.6.0.20090304"
+date="2009-02-04T16:45:08"
+
+# Output Options
+export="all"
+output_file_name="test"
+process_mode="intermediate_file"
+output_folder="c:/tmp"
+merge_imd="on"
+merge_imd_path="c:/nitro_model/test.imd"
+
+# General Options
+magnify="1.0"
+compress_node="none"
+compress_material="off"
+frame_range="all"
+start_frame="1"
+end_frame="9999"
+remove_namespace="off"
+
+# Output File Selection
+output_imd="on"
+output_ica="on"
+output_iva="off"
+output_ima="off"
+output_itp="off"
+output_ita="off"
+
+# Imd Options
+vertex_style="direct"
+output_texture="used"
+force_full_weight="on"
+use_primitive_strip="on"
+
+# Animation Options
+interpolation="frame"
+interp_end_to_start="off"
+frame_step_mode="1"
+
+# Tolerance Options
+tolerance_scale="0.1"
+tolerance_rotate="0.1"
+tolerance_translate="0.01"
+tolerance_tex_scale="0.1"
+tolerance_tex_rotate="0.1"
+tolerance_tex_translate="0.01"
+tolerance_color="2"

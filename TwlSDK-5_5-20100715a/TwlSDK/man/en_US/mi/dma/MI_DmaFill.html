@@ -1,0 +1,70 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>MI_DmaFill*</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">MI_DmaFill* <IMG src="../../image/NTR.gif" align="middle"><IMG src="../../image/TWL.gif" align="middle"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/mi.h&gt;</CODE><BR> <BR> <CODE>void MI_DmaFill32( u32 dmaNo,<BR> void* dest,<BR> u32 data,<BR> u32 size );</CODE><BR> <BR> <CODE>void MI_DmaFill32_SetUp( u32 dmaNo,<BR> void* dest,<BR> u32 data,<BR> u32 size );</CODE><BR> <BR> <CODE>void MI_DmaFill16( u32 dmaNo,<BR> void* dest,<BR> u16 data,<BR> u32 size );</CODE><BR> <BR> <CODE>void MI_DmaFill16_SetUp( u32 dmaNo,<BR> void* dest,<BR> u16 data,<BR> u32 size );</CODE><BR> <BR> <CODE>void MI_DmaFill32Async( u32 dmaNo,<BR> void* dest,<BR> u32 data,<BR> u32 size,<BR> MIDmaCallback callback,<BR> void* arg );</CODE><BR> <BR> <CODE>void MI_DmaFill32Async_SetUp( u32 dmaNo,<BR> void* dest,<BR> u32 data,<BR> u32 size,<BR> MIDmaCallback callback,<BR> void* arg );</CODE><BR> <BR> <CODE>void MI_DmaFill16Async( u32 dmaNo,<BR> void* dest,<BR> u16 data,<BR> u32 size,<BR> MIDmaCallback callback,<BR> void* arg );</CODE><BR> <BR> <CODE>void MI_DmaFill16Async_SetUp( u32 dmaNo,<BR> void* dest,<BR> u16 data,<BR> u32 size,<BR> MIDmaCallback callback,<BR> void* arg );</CODE>
+</dl>
+
+<h2>Arguments</h2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="13%"><EM><STRONG>dmaNo</STRONG></EM></TD>
+<TD width="87%">DMA channel used.</TD>
+    </TR>
+    <TR>
+<TD width="13%"><EM><STRONG>dest</STRONG></EM></TD>
+<TD width="87%">The transfer destination address.</TD>
+    </TR>
+    <TR>
+<TD width="13%"><EM><STRONG>data</STRONG></EM></TD>
+<TD width="87%">The data that will be transferred</TD>
+    </TR>
+    <TR>
+<TD><EM><STRONG>size</STRONG></EM></TD>
+<TD>Transfer size.
+      </TD>
+    </TR>
+    <TR>
+<TD><EM><STRONG>callback</STRONG></EM></TD>
+<TD>Callback when DMA ends.</TD>
+    </TR>
+    <TR>
+<TD><EM><STRONG>arg</STRONG></EM></TD>
+<TD>Callback argument when DMA ends.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<h2>Return Values</h2>
+<p>None.</p>
+
+<H2>Description</H2>
+<P>Uses DMA to fill memory with the specified data.</P>
+<P>The <CODE>*_SetUp</CODE> functions only configure the given settings without actually performing DMA. To actually start DMA, call the <CODE><A href="MI_DmaRestart.html">MI_DmaRestart</A></CODE> function.</P>
+<P>The <CODE>MI_DmaFill16*</CODE> functions fill memory with the specified data in 16-bit units. You must 2-byte align the transfer destination address. The <CODE>MI_DmaFill32*</CODE> functions fill memory with the specified data in 32-bit units. The transfer destination address must be 4-byte aligned.</P>
+<P><code>MI_DmaFill16()</code> and <code>MI_DmaFill32()</code> wait within the function until DMA completes. <CODE>MI_DmaFill16Async*()</CODE> and <CODE>MI_DmaFill32Async*()</CODE> call the <B><I>callback</I></B> function when DMA ends. The callback, <em><strong><code>callback</code></strong></em>, is a <code>MIDmaCallback</code> type (a <code>void</code> type function that takes one <code>void*</code> argument). <code>callback</code> is called from the system DMA interrupt handler and therefore is called while interrupts are prohibited.</P>
+<H3><br> DMA Controller Bugs</H3>
+<P>See the section titled &quot;DMA Controller Bugs&quot; in the reference for the <CODE><A href="MI_DmaCopy.html">MI_DmaCopy</A></CODE> function.</P>
+<h2>Internal Operation</h2>
+<P>Uses the following IO registers: DMA<i>n</i> source register (0x40000B0 + 12<i>n</i>), DMA<i>n</i> destination register (0x40000B4 + 12<i>n</i>), and DMA<i>n</i> control register (0x40000B8 + 12<i>n</i>). (<i>n</i> is the DMA channel used.))In addition, the <code>HW_DMA_CLEAR_DATA_BUF</code> region is used for fill. This region is occupied by shared memory for the TEG board but is mapped to the IO registers for TS.</P>
+<h2>See Also</h2>
+<p><CODE><A href="MI_DmaCopy.html">MI_DmaCopy*</A><BR> <A href="MI_DmaClear.html">MI_DmaClear*</A><BR> <A href="MI_DmaSend.html">MI_DmaSend*</A><BR><A href="../memory/MI_CpuFill.html">MI_CpuFill*</A><BR> <A href="MI_DmaRestart.html">MI_DmaRestart</A><br></CODE></p>
+<H2>Revision History</H2>
+<P>2009/11/30 Changed the data argument used with functions for handling 16-bit data from u32 to u16.<BR>2009/11/20 Added a description of bugs in the DMA controller.<BR>2007/10/31 Added <CODE>_SetUp()</CODE>.<BR>2005/03/08 Standardized the notation used for the term &quot;interrupt&quot; in Japanese.<BR>2004/12/22 Added a description of calling the callback.<BR>2003/12/01 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

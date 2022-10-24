@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>NNS_McsRegisterRecvCallback</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">NNS_McsRegisterRecvCallback</h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+		
+  <pre><CODE>#include &lt;nnsys/mcs.h&gt;</CODE></pre>
+	  
+  <pre><CODE>void NNS_McsRegisterRecvCallback(
+         NNSMcsRecvCBInfo*   pInfo,
+         u16                 channel,
+         NNSMcsRecvCallback  cbFunc,
+         u32                 userData);</CODE></pre>
+	</dd>
+</dl><h2>Arguments</h2>
+
+<table border="1" width="100%">
+ <tr> 
+<td width="13%"><CODE>pInfo</CODE></td>
+<td width="87%">Pointer to the structure holding the callback function's information.</td>
+ </tr>
+ <tr>
+<td width="13%"><CODE>channel</CODE></td>
+<td width="87%">Value for identifying a stream. Specify in the range of 0 to <CODE>0x3FFF</CODE>. The range of <CODE>0x4000</CODE> to <CODE>0x7FFF</CODE> is reserved for TWL-System applications. The range of <CODE>0x8000</CODE> to <CODE>0xFFFF</CODE> is reserved for the MCS system.</td>
+ </tr>
+ <tr>
+<td width="13%"><CODE>cbFunc</CODE></td>
+<td width="87%">Callback function to register.</td>
+ </tr>
+ <tr>
+<td width="13%"><CODE>userData</CODE></td>
+<td width="87%">Arbitrary user-specified value.</td>
+ </tr>
+</table>
+<h2>Return Values</h2>
+<p>None.</p>
+<H2>Description</H2>
+<p>Registers the function to be called back when data is received</p>
+<p>Type <code>NNSMcsRecvCallback</code> of <code>cbFunc</code> is defined as the following. The definition of the function to register is shown below.</p>
+<blockquote>
+<pre>typedef void (*NNSMcsRecvCallback)(
+                   const void* recv,
+                   u32         recvSize,
+                   u32         userData,
+                   u32         offset,
+u32         totalSize);</pre>
+</blockquote>
+<table>
+	<tr>
+		<td><CODE>recv</CODE></td>
+		<td>Pointer to the buffer that stores either a portion of the received data or all of it.</td>
+	</tr>
+	<tr>
+		<td><CODE>recvSize</CODE></td>
+		
+<td>Size of the data that is stored in the buffer indicated by <code>recv</code>.</td>
+	</tr>
+    <tr>
+<td><CODE>userData</CODE></td>
+<td>Value specified with the argument <code>userData</code> of the <code>NNS_McsRegisterRecvCallback</code> function.</td>
+    </tr>
+    <tr>
+<td><CODE>offset</CODE></td>
+<td>If all of the received data is stored in the buffer that is indicated by <code>recv</code>, this argument is 0.<br />If only a portion of the received data is stored, this argument is its offset location, with 0 (corresponding to the entirety of the received data) taken as the baseline.</td>
+    </tr>
+    <tr>
+<td><CODE>totalSize</CODE></td>
+<td>Total size of the received data.</td>
+    </tr>
+  </table>
+<p>If the received data is large, it is broken into portions, and the callback function is called multiple times. In this situation, the buffer indicated by <CODE>recv</CODE> stores a portion of the data, and <CODE>offset</CODE> holds the offset value of the stored portion from the entirety of the data. The total size of the entire received data is always held in <code>totalSize</code>.</p>
+<p><font color="#ff0000">Do not send or receive data from inside the callback function to register. In addition, do not perform a wait-for-interrupt loop because interrupts are sometimes prohibited.</font></p>
+<h2>See Also</h2>
+<p><a href="NNS_McsRegisterStreamRecvBuffer.html"><CODE>NNS_McsRegisterStreamRecvBuffer</CODE></a><BR> <a href="NNS_McsUnregisterRecvResource.html"><CODE>NNS_McsUnregisterRecvResource</CODE></a></p>
+<H2>Revision History</H2>
+<P>
+2006/08/20 Changed NITRO-System to TWL-System.<br>2004/11/29 Added the description of the callback function.<br />2004/10/08 Added a description of the <CODE>channel</CODE> argument. Added <code>NNS_McsUnregisterRecvResource</code> in <B>See Also</B>.<br />2004/08/26 Changed the type of the <CODE>channel</CODE> argument.<br>2004/06/01 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

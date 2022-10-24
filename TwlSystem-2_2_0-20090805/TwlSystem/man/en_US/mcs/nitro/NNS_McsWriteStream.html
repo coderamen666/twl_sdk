@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>NNS_McsWriteStream</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">NNS_McsWriteStream</h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+		
+  <pre><CODE>#include &lt;nnsys/mcs.h&gt;</CODE></pre>
+	  
+  <pre><CODE>BOOL NNS_McsWriteStream(
+         u16         channel,
+         const void* data,
+         u32         size);</CODE></pre>
+	</dd>
+</dl><h2>Arguments</h2>
+
+<table border="1" width="100%">
+ <tr> 
+<td width="13%"><CODE>channel</CODE></td>
+<td width="87%">Value for identifying a stream. Specify in the range 0 to <CODE>0x3FFF</CODE>. The range of <CODE>0x4000</CODE> to <CODE>0x7FFF</CODE> is reserved for TWL-System applications. The range of <CODE>0x8000</CODE> to <CODE>0xFFFF</CODE> is reserved for the MCS system.</td>
+ </tr>
+ <tr> 
+<td width="13%"><CODE>data</CODE></td>
+<td width="87%">Pointer to the buffer storing the data being transmitted.</td>
+ </tr>
+ <tr> 
+<td width="13%"><CODE>size</CODE></td>
+<td width="87%">Size of the data being transmitted.</td>
+ </tr>
+</table>
+<h2>Return Values</h2>
+<p><CODE>TRUE</CODE> if the function operates successfully. <CODE>FALSE</CODE> if it fails.</p>
+<H2>Description</H2>
+<p>Transmits data. When writing data that exceeds the transmittable size gotten by the <code>NNS_McsGetStreamWritableLength</code> function, function calls are blocked, and control is not returned until the written data is read on the PC side.</p>
+<p><font color="#ff0000">If the device opened with the <a href="NNS_McsOpen.html"><CODE>NNS_McsOpen</CODE></a> function is IS-NITRO-UIC, and the MCS server is not connected to the Nintendo DS hardware, this function call does not return control until the MCS server connects to the Nintendo DS hardware.</font>Use the function <code>NNS_McsIsServerConnect</code> to determine whether the MCS server is connected to the Nintendo DS hardware.</p>
+<h2>See Also</h2>
+<p><a href="NNS_McsReadStream.html"><CODE>NNS_McsReadStream</CODE></a><BR> <a href="NNS_McsGetStreamWritableLength.html"><CODE>NNS_McsGetStreamWritableLength</CODE></a><BR> <a href="NNS_McsIsServerConnect.html"><CODE>NNS_McsIsServerConnect</CODE></a></p>
+<H2>Revision History</H2>
+<P>
+2008/06/20 Changed NITRO-System to TWL-System.<br>2005/01/24 Added <B>Description</B>.<br>2004/11/30 Added <B>Description</B>.<br>2004/10/08 Added a description of the <CODE>channel</CODE> argument.<br>2004/08/26 Changed the type of the <CODE>channel</CODE> argument.<br>2004/06/01 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

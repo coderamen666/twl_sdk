@@ -1,0 +1,72 @@
+#! make -f
+#----------------------------------------------------------------------------
+# Project:  TWL-System - buildtools
+# File:     nnslibdefs
+#
+# Copyright 2004-2009 Nintendo.  All rights reserved.
+#
+# These coded instructions, statements, and computer programs contain
+# proprietary information of Nintendo of America Inc. and/or Nintendo
+# Company Ltd., and are protected by Federal copyright law. They may
+# not be disclosed to third parties or copied or duplicated in any form,
+# in whole or in part, without the prior written consent of Nintendo.
+#
+# $Revision: $
+#----------------------------------------------------------------------------
+
+#----------------------------------------------------------------------------
+#
+# This file (nnslibdefs) is included from the SDK's commondefs file.
+#
+# The following MAKE variables, configured within this file, are referenced from the SDK's commondefs file.
+# * TWLSYSTEM_INCDIR
+# * TWLSYSTEM_LIBDIR
+# * TWLSYSTEM_LIBS
+#
+
+NITRO_LIBTYPE ?= $(TWL_LIBTYPE)
+NITRO_LIBSUFFIX ?= $(TWL_LIBSUFFIX)
+
+
+ifdef TWLSYSTEM_ROOT
+
+TWLSYSTEM_ROOT_ 		:= $(subst $(SPACE),\ ,$(subst \,/,$(TWLSYSTEM_ROOT)))
+
+-include $(TWLSYSTEM_ROOT_)/build/buildtools/private/nnslibdefs
+
+
+#----------------------------------------------------------------------------
+#
+# TWL-System Library Settings
+#
+# The settings for using the TWL-System library are made when the TWL-System commondefs file is used.
+# 
+#
+
+ifdef TWLSYSTEM_COMMONDEFS_
+
+TWLSYSTEM_INCDIR ?= $(TWLSYSTEM_ROOT_)/include
+TWLSYSTEM_LIBDIR ?= $(TWLSYSTEM_ROOT_)/lib/$(NITRO_LIBTYPE)
+
+NNS_USELIBS ?= $(NNS_ALLLIBS)
+
+ifeq ($(CODEGEN_PROC),ARM9)
+TWLSYSTEM_LIBS := $(foreach lib,$(NNS_USELIBS),libnns$(lib)$(NITRO_LIBSUFFIX).a)
+else # ($(CODEGEN_PROC),ARM7)
+TWLSYSTEM_LIBS := 
+endif
+
+
+NITROSYSTEM_INCDIR = $(TWLSYSTEM_INCDIR)
+NITROSYSTEM_LIBDIR = $(TWLSYSTEM_LIBDIR)
+NITROSYSTEM_LIBS = $(TWLSYSTEM_LIBS)
+
+
+# TWLSYSTEM_COMMONDEFS_
+endif
+
+# TWLSYSTEM_ROOT
+endif
+
+
+#----- End of nnslibdefs -----

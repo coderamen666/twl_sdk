@@ -1,0 +1,118 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>NNS_G2dGetUnpacked*</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">NNS_G2dGetUnpacked*</H1>
+<H2>Syntax</H2>
+<DL>
+<DD><CODE>#include &lt;nnsys/g2d/g2d_load.h&gt;</CODE>
+</DL>
+<DL>
+<DD><CODE>BOOL NNS_G2dGetUnpackedCellBank( void* pNcerFile, NNSG2dCellDataBank** ppCellBank );</CODE>
+<DD><CODE>BOOL NNS_G2dGetUnpackedAnimBank( void* pNanrFile, NNSG2dAnimBankData** ppAnimBank );</CODE>
+<DD><CODE>BOOL NNS_G2dGetUnpackedMCAnimBank( void* pNanrFile, NNSG2dAnimBankData** ppAnimBank );</CODE>
+<DD><CODE>BOOL NNS_G2dGetUnpackedCharacterData( void* pNcgrFile, NNSG2dCharacterData** ppCharData );</CODE>
+<DD><CODE>BOOL NNS_G2dGetUnpackedPaletteData( void* pNclrFile, NNSG2dPaletteData** ppPltData );</CODE>
+<DD><CODE>BOOL NNS_G2dGetUnpackedPaletteCompressInfo( void* pNclrFile, NNSG2dPaletteCompressInfo** ppPltCmpInfo );</CODE>
+<DD><CODE>BOOL NNS_G2dGetUnpackedEntityBank( void* pNenrFile, NNSG2dEntityDataBank** ppEntityBank );</CODE>
+<DD><CODE>BOOL NNS_G2dGetUnpackedMultiCellBank( void* pNmcrFile, NNSG2dMultiCellDataBank** ppMCBank );</CODE>
+<DD><CODE>BOOL NNS_G2dGetUnpackedBGCharacterData( void* pNcgrFile, NNSG2dCharacterData** ppCharData );</CODE>
+<DD><CODE>BOOL NNS_G2dGetUnpackedScreenData( void* pNscrFile, NNSG2dScreenData** ppScrData );</CODE>
+<DD><CODE>BOOL NNS_G2dGetUnpackedCharacterPosInfo( void* pNcgrFile, NNSG2dCharacterPosInfo** ppCharPosInfo );</CODE>
+</DL>
+
+<H2>Arguments</H2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="13%"><CODE>pNcerFile</CODE></TD>
+<TD width="87%">[OUT] NCER file load result</TD>
+    </TR>
+    <TR>
+<TD width="13%"><CODE>pNanrFile</CODE></TD>
+<TD width="87%">[OUT] NANR file load result</TD>
+    </TR>
+    <TR>
+<TD width="13%"><CODE>pNcgrFile</CODE></TD>
+<TD width="87%">[OUT] NCGR file load result</TD>
+    </TR>
+    <TR>
+<TD width="13%"><CODE>pNclrFile</CODE></TD>
+<TD width="87%">[OUT] NCLR file load result</TD>
+    </TR>
+    <TR>
+<TD width="13%"><CODE>pNenrFile</CODE></TD>
+<TD width="87%">[OUT] NENR file load result</TD>
+    </TR>
+    <TR>
+<TD width="13%"><CODE>pNmcrFile</CODE></TD>
+<TD width="87%">[OUT] NMCR file load result</TD>
+    </TR>
+    <TR>
+<TD width="13%"><CODE>pNscrFile</CODE></TD>
+<TD width="87%">[OUT] NSCR file load result</TD>
+    </TR>
+    <TR>
+<TD width="13%"><CODE>ppCellBank</CODE></TD>
+<TD width="87%">[OUT] Cell data bank</TD>
+    </TR>
+    <TR>
+<TD width="13%"><CODE>ppAnimBank</CODE></TD>
+<TD width="87%">[OUT] Animation definition data bank</TD>
+    </TR>
+    <TR>
+<TD width="13%"><CODE>ppCharData</CODE></TD>
+<TD width="87%">[OUT] Character data</TD>
+    </TR>
+    <TR>
+<TD width="13%"><CODE>ppPltData</CODE></TD>
+<TD width="87%">[OUT] Palette data</TD>
+    </TR>
+    <TR>
+<TD width="13%"><CODE>ppPltCmpInfo</CODE></TD>
+<TD width="87%">[OUT] Palette compression data</TD>
+    </TR>
+    <TR>
+<TD width="13%"><CODE>ppEntityBank</CODE></TD>
+<TD width="87%">[OUT] Entity definition data bank</TD>
+    </TR>
+    <TR>
+<TD width="13%"><CODE>ppMCBank</CODE></TD>
+<TD width="87%">[OUT] Multicell data bank</TD>
+    </TR>
+    <TR>
+<TD width="13%"><CODE>ppScrData</CODE></TD>
+<TD width="87%">[OUT] Screen data</TD>
+    </TR>
+    <TR>
+<TD width="13%"><CODE>ppCharPosInfo</CODE></TD>
+<TD width="87%">[OUT] Character region position data</TD>
+    </TR>
+    
+  </TBODY>
+</TABLE>
+<H2>Return Values</H2>
+<P>Indicates if the data is successfully obtained.
+</P>
+<H2>Description</H2>
+<P>These functions get the associated type of unpacked data from the binary file. If it cannot be obtained, these functions return <CODE>FALSE</CODE>, and <CODE>NULL</CODE> is set in the pointer to the expanded data returned by <CODE>ppXXXX</CODE>.<BR>These functions must be executed before the various types of binary data are used.<BR>Execute these functions only once on any particular set of data. Internally, these functions extract the data to the memory offset value's pointer value.
+<H2>Note</H2>
+<H4>Differentiating between NNS_G2dGetUnpackedCharacterData and NNS_G2dGetUnpackedBGCharacterData</H4>
+There are two functions that can be used to expand character data: <CODE>NNS_G2dGetUnpackedCharacterData</CODE> and <CODE>NNS_G2dGetUnpackedBGCharacterData</CODE>. The <CODE>NNS_G2dGetUnpackedCharacterData</CODE> function processes OBJ character data. The <CODE>NNS_G2dGetUnpackedBGCharacterData</CODE> function processes BG character data. The two functions carry out nearly identical processing, but the conditions set for the ASSERT statements that check for invalid data differ. Therefore, using the wrong function may cause the processes to not operate correctly during a debug build. <BR>
+
+</P>
+<H2>See Also</H2>
+<P>None.<BR>
+</P>
+<H2>Revision History</H2>
+<P>
+2009/03/31 Added mention that <CODE>NULL</CODE> is set for the expanded data pointer.<BR>
+ 2005/09/01 Added <CODE>NNS_G2dGetUnpackedCharacterPosInfo</CODE> and <B>Note</B>.<BR> 2004/10/04 Added <CODE>NNS_G2dGetUnpackedPaletteCompressInfo</CODE>. <BR>2004/09/02 Added <CODE>NNS_G2dGetUnpackedBGCharacterData</CODE> and <CODE>NNS_G2dGetUnpackedScreenData</CODE>. <BR>2004/05/28 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

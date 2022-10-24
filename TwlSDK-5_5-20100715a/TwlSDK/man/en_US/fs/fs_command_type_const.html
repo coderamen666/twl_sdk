@@ -1,0 +1,474 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 8.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>FSCommandType</title>
+<LINK rel="stylesheet" href="../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">FSCommandType <img src="../image/NTR.gif"align="middle"><img src="../image/TWL.gif" align="middle"></h1>
+<h2>Definition</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/fs.h&gt;</CODE><BR> <BR> <CODE>
+<pre>
+typedef	enum {
+	FS_COMMAND_ASYNC_BEGIN = 0,
+	FS_COMMAND_READFILE = FS_COMMAND_ASYNC_BEGIN,
+	FS_COMMAND_WRITEFILE,
+	FS_COMMAND_ASYNC_END,
+
+	FS_COMMAND_SYNC_BEGIN = FS_COMMAND_ASYNC_END,
+	FS_COMMAND_SEEKDIR = FS_COMMAND_SYNC_BEGIN,
+	FS_COMMAND_READDIR,
+	FS_COMMAND_FINDPATH,
+	FS_COMMAND_GETPATH,
+	FS_COMMAND_OPENFILEFAST,
+	FS_COMMAND_OPENFILEDIRECT,
+	FS_COMMAND_CLOSEFILE,
+	FS_COMMAND_SYNC_END,
+
+	FS_COMMAND_STATUS_BEGIN = FS_COMMAND_SYNC_END,
+	FS_COMMAND_ACTIVATE = FS_COMMAND_STATUS_BEGIN,
+	FS_COMMAND_IDLE,
+	FS_COMMAND_STATUS_END,
+
+	FS_COMMAND_INVALID
+
+} FSCommandType;
+</pre>
+<br></CODE><br> <br>
+  </dd>
+</dl>
+
+<H2>Description</H2>
+<P>This enumerated type represents commands sent by the file system to an archive. They are defined as follows.<BR> <BR>
+
+<TABLE border="0" height="310">
+  <TBODY>
+    <TR>
+<TD colspan="2"><CODE>FS_COMMAND_STATUS_BEGIN</CODE></TD>
+<TD>The first message command ID in a sequence of message commands related to archive state changes.</TD>
+    </TR>
+    <TR>
+<TD colspan="2"><CODE>FS_COMMAND_STATUS_END</CODE></TD>
+<TD>The final message command ID in a sequence of message commands related to archive state changes, plus 1.</TD>
+    </TR>
+    <TR>
+<TD colspan="3" style="background-color : white;" height="17"><br />The following message commands occur between <code>FS_COMMAND_STATUS_BEGIN</code> and <code>FS_COMMAND_STATUS_END</code>.</TD>
+    </TR>
+    <TR>
+      <TD width="33" height="10" rowspan="2" style="background-color : white;"></TD>
+<TD width="207" height="10"><A href="command/fs_command_activate_spec.html"><code>FS_COMMAND_ACTIVATE</code></A></TD>
+<TD height="10">Occurs before an archive in the idle state begins its first operation.</TD>
+    </TR>
+    <TR>
+<TD width="207" height="3"><A href="command/fs_command_idle_spec.html"><code>FS_COMMAND_IDLE</code></A></TD>
+<TD height="3">Occurs after an archive completes its final operation and becomes idle.</TD>
+    </TR>
+    <TR>
+      <TD colspan="3" style="background-color : white;" height="17"></TD>
+    </TR>
+    <TR>
+<TD colspan="2" height="5"><CODE>FS_COMMAND_SYNC_BEGIN</CODE></TD>
+<TD height="5">The first command ID in a sequence of synchronous commands.</TD>
+    </TR>
+    <TR>
+<TD colspan="2" height="13"><CODE>FS_COMMAND_SYNC_END</CODE></TD>
+<TD height="13">The final command ID in a sequence of synchronous commands, plus 1.</TD>
+    </TR>
+    <TR>
+<TD colspan="3" style="background-color : white;" height="17"><br />The following message commands occur between <code>FS_COMMAND_SYNC_BEGIN</code> and <code>FS_COMMAND_SYNC_END</code>.</TD>
+    </TR>
+    <TR>
+      <TD width="33" height="15" rowspan="7" style="background-color : white;"></TD>
+<TD width="207" height="15"><A href="command/fs_command_seekdir_spec.html"><code>FS_COMMAND_SEEKDIR</code></A></TD>
+<TD height="15">Command issued by functions that need to search directory locations.</TD>
+    </TR>
+    <TR>
+<TD width="207" height="5"><A href="command/fs_command_readdir_spec.html"><code>FS_COMMAND_READDIR</code></A></TD>
+<TD height="5">Command issued by functions that need to read directory entries.</TD>
+    </TR>
+    <TR>
+<TD width="207" height="0"><A href="command/fs_command_openfiledirect_spec.html"><code>FS_COMMAND_OPENFILEDIRECT</code></A></TD>
+<TD height="0">Command issued by functions that need to open files by directly specifying the file region.</TD>
+    </TR>
+    <TR>
+<TD><A href="command/fs_command_openfilefast_spec.html"><code>FS_COMMAND_OPENFILEFAST</code></A></TD>
+<TD>Command issued by functions that need to open files by using their file IDs.</TD>
+    </TR>
+    <TR>
+<TD><A href="command/fs_command_closefile_spec.html"><code>FS_COMMAND_CLOSEFILE</code></A></TD>
+<TD>Command issued by functions that need to close files.</TD>
+    </TR>
+    <TR>
+<TD width="207" height="0"><A href="command/fs_command_findpath_spec.html"><code>FS_COMMAND_FINDPATH</code></A></TD>
+<TD height="0">Command issued by functions that need to determine a file or directory from a path name.</TD>
+    </TR>
+    <TR>
+<TD width="207" height="4"><A href="command/fs_command_getpath_spec.html"><code>FS_COMMAND_GETPATH</code></A></TD>
+<TD height="4">Command issued by functions that need either full path names or the length of full path names.</TD>
+    </TR>
+    <TR>
+      <TD colspan="3" style="background-color : white;" height="17"></TD>
+    </TR>
+    <TR>
+<TD colspan="2" height="5"><CODE>FS_COMMAND_ASYNC_BEGIN</CODE></TD>
+<TD height="5">The first command ID in a sequence of asynchronous commands.</TD>
+    </TR>
+    <TR>
+<TD colspan="2" height="13"><CODE>FS_COMMAND_ASYNC_END</CODE></TD>
+<TD height="13">The final command ID in a sequence of asynchronous commands, plus 1.</TD>
+    </TR>
+    <TR>
+<TD colspan="3" style="background-color : white;" height="17"><br />The following message commands occur between <code>FS_COMMAND_ASYNC_BEGIN</code> and <code>FS_COMMAND_ASYNC_END</code>.</TD>
+    </TR>
+    <TR>
+      <TD width="33" height="15" rowspan="2" style="background-color : white;"></TD>
+<TD width="207" height="15"><A href="command/fs_command_readfile_spec.html"><code>FS_COMMAND_READFILE</code></A></TD>
+<TD height="15">Command issued by functions that need read access to files.</TD>
+    </TR>
+    <TR>
+<TD width="207" height="5"><A href="command/fs_command_writefile_spec.html"><code>FS_COMMAND_WRITEFILE</code></A></TD>
+<TD height="5">Command issued by functions that need write access to files.</TD>
+    </TR>
+    <TR>
+      <TD colspan="3" style="background-color : white;" height="17"></TD>
+    </TR>
+    <TR>
+<TD colspan="2" height="0"><CODE>FS_COMMAND_INVALID</CODE></TD>
+<TD height="0">Provided as an internal constant that represents invalid commands.</TD>
+    </TR>
+
+  </TBODY>
+</TABLE>
+<BR>
+<P>Asynchronous commands complete by simply invoking the archive callback function once.<br />Synchronous commands require some processing in addition to invoking a callback function.<BR><BR> The default implementation of synchronous commands has dependencies. Some commands use low-level commands internally.<BR> The main inter-command dependencies are shown in the following table.<BR>
+</P>
+<TABLE border="1" width="768">
+  <TBODY>
+    <TR>
+<TD valign="middle" align="center" rowspan="2" style="text-align : center;" width="25">No.</TD>
+<TD rowspan="2" style="text-align : center;" width="464">Commands</TD>
+<TD colspan="15" style="text-align : center;">Command or Archive Information to Use</TD>
+    </TR>
+    <TR>
+      <TD align="center">1</TD>
+      <TD align="center">2</TD>
+      <TD align="center">3</TD>
+      <TD align="center">4</TD>
+      <TD align="center">5</TD>
+      <TD align="center">6</TD>
+      <TD align="center">7</TD>
+      <TD align="center">8</TD>
+      <TD align="center">9</TD>
+      <TD align="center">10</TD>
+      <TD align="center">11</TD>
+      <TD align="center">12</TD>
+      <TD align="center">13</TD>
+      <TD align="center">14</TD>
+      <TD align="center">15</TD>
+    </TR>
+    <TR>
+      <TD width="25">1</TD>
+<TD width="464">(<code>FS_ARCHIVE_READ_FUNC</code>)</TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+    </TR>
+    <TR>
+      <TD width="25">2</TD>
+<TD width="464">(<code>FS_ARCHIVE_WRITE_FUNC</code>)</TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+    </TR>
+    <TR>
+      <TD width="25">3</TD>
+<TD width="464">( FAT Information )</TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+    </TR>
+    <TR>
+      <TD width="25">4</TD>
+<TD width="464">( FNT Information )</TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+    </TR>
+    <TR>
+      <TD width="25">5</TD>
+<TD width="464"><A href="command/fs_command_activate_spec.html"><code>FS_COMMAND_ACTIVATE</code></A></TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+    </TR>
+    <TR>
+      <TD width="25">6</TD>
+<TD width="464"><A href="command/fs_command_idle_spec.html"><code>FS_COMMAND_IDLE</code></A></TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+    </TR>
+    <TR>
+      <TD width="25">7</TD>
+<TD width="464"><A href="command/fs_command_seekdir_spec.html"><code>FS_COMMAND_SEEKDIR</code></A></TD>
+<TD align="center">Yes</TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+<TD align="center">Yes</TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+    </TR>
+    <TR>
+      <TD width="25">8</TD>
+<TD width="464"><A href="command/fs_command_readdir_spec.html"><code>FS_COMMAND_READDIR</code></A></TD>
+<TD align="center">Yes</TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+<TD align="center">Yes</TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+    </TR>
+    <TR>
+      <TD width="25">9</TD>
+<TD width="464"><A href="command/fs_command_openfiledirect_spec.html"><code>FS_COMMAND_OPENFILEDIRECT</code></A></TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+    </TR>
+    <TR>
+      <TD width="25">10</TD>
+<TD width="464"><A href="command/fs_command_openfilefast_spec.html"><code>FS_COMMAND_OPENFILEFAST</code></A></TD>
+<TD align="center">Yes</TD>
+      <TD align="center"> </TD>
+<TD align="center">Yes</TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+<TD align="center">Yes</TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+    </TR>
+    <TR>
+      <TD>11</TD>
+<TD><A href="command/fs_command_closefile_spec.html"><code>FS_COMMAND_CLOSEFILE</code></A></TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+    </TR>
+    <TR>
+      <TD>12</TD>
+<TD><A href="command/fs_command_findpath_spec.html"><code>FS_COMMAND_FINDPATH</code></A></TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+<TD align="center">Yes</TD>
+<TD align="center">Yes</TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+    </TR>
+    <TR>
+      <TD>13</TD>
+<TD><A href="command/fs_command_getpath_spec.html"><code>FS_COMMAND_GETPATH</code></A></TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+<TD align="center">Yes</TD>
+<TD align="center">Yes</TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+    </TR>
+    <TR>
+      <TD>14</TD>
+<TD><A href="command/fs_command_readfile_spec.html"><code>FS_COMMAND_READFILE</code></A></TD>
+<TD align="center">Yes</TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+    </TR>
+    <TR>
+      <TD>15</TD>
+<TD><A href="command/fs_command_writefile_spec.html"><code>FS_COMMAND_WRITEFILE</code></A></TD>
+      <TD align="center"> </TD>
+<TD align="center">Yes</TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+      <TD align="center"> </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P><BR>
+</P>
+<h2>See Also</h2>
+<p><A href="fs_archive_type.html"><CODE>FSArchive</CODE></A><BR> <A href="fs_archive_proc_func_type.html"><CODE>FS_ARCHIVE_PROC_FUNC</CODE></A> <BR> <A href="archive/FS_SetArchiveProc.html"><CODE>FS_SetArchiveProc</CODE></A></p>
+
+<H2>Revision History</H2>
+<P>
+2009/04/10 Replaced symbols used in the tables with standard notation.<br />2004/07/12 Corrected all command descriptions.<br /> 2004/06/30 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

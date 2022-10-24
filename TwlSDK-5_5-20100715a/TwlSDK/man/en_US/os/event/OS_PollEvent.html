@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>OS_PollEvent</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">OS_PollEvent* <IMG src="../../image/NTR.gif" align=middle><IMG src="../../image/TWL.gif" align=middle></H1>
+<H2>Syntax</H2>
+<DL>
+  <DD>
+  <PRE><CODE>#include &lt;nitro/os.h&gt;</CODE></PRE>
+  <PRE><CODE>u32 OS_PollEvent( OSEvent* event,
+                      u32 pattern,
+                      OSEventMode mode );
+
+u32 OS_PollEventEx( OSEvent* event,
+                      u32 pattern,
+                      OSEventMode mode,
+                      u32 clearBit );
+
+(Inline functions)
+static inline
+u32 OS_PollEvent_And( OSEvent* event,
+                         u32 pattern );
+
+static inline
+u32 OS_PollEvent_Or( OSEvent* event,
+                         u32 pattern );
+
+static inline
+u32 OS_PollEventEx_And( OSEvent* event,
+                         u32 pattern,
+                         u32 clearBit );
+
+static inline
+u32 OS_PollEventEx_Or( OSEvent* event,
+                         u32 pattern,
+                         u32 clearBit );</CODE></PRE>
+</DL>
+<H2>Arguments</H2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+      <TD width="13%"><EM><STRONG>event</STRONG></EM></TD>
+      <TD width="87%">Pointer to an event structure.</TD>
+    </TR>
+    <TR>
+      <TD><EM><STRONG>pattern</STRONG></EM></TD>
+      <TD>Event flag bit pattern. Takes the form of the pattern that ends waiting for events.</TD>
+    </TR>
+    <TR>
+      <TD><EM><STRONG>mode</STRONG></EM></TD>
+      <TD>Matching mode. Indicates the event flag bit pattern's conditions for conformance.</TD>
+    </TR>
+    <TR>
+      <TD width="13%"><EM><STRONG>clearBit</STRONG></EM></TD>
+      <TD width="87%">Bits to clear from the event flag after the conditions are fulfilled.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>Return Values</H2>
+<P>If 0, indicates that the conditions have not been met.<BR>A nonzero value indicates that the conditions are met, and it will be the value of the event flag. If <B><I>clearBit</I></B> is specified, this function will return the value of the event flag before the bits were cleared.</P>
+<H2>Description</H2>
+<P>Finds out whether the event structure meets the completion conditions that have been set for waiting for events.</P>
+<P><EM><B>event</B></EM> is a pointer to an event structure. This <B><I>event</I></B> argument is is initialized by <CODE><A href="OS_InitEvent.html">OS_InitEvent()</A></CODE> and is used to have threads wait for events. In the <CODE>OS_PollEvent*</CODE> functions, it is also used to find out whether the event completion conditions have been met.</P>
+<P>Unlike the function to wait for events (<CODE><A href="OS_WaitEvent.html">OS_WaitEvent*()</A></CODE>), control will return from this function immediately regardless of whether the event completion conditions are met. Thread functions are not called, so the system will not switch threads.</P>
+<P>The completion conditions are indicated by <B><I>pattern</I></B> and <B><I>mode</I></B>. For more information, see <CODE><A href="OS_WaitEvent.html">OS_WaitEvent*()</A></CODE>.</P>
+<P>Returns a nonzero event flag value if the completion conditions have been met, and returns 0 if the conditions have not been met.</P>
+<P>In <CODE>OS_PollEventEx()</CODE>, when the completion conditions have been met, the bits indicated in <B><I>clearBit</I></B> will be cleared from the event flag. The return value will be the value of the event flag before it is cleared.</P>
+<P><CODE>OS_PollEvent<FONT color="#ff0000">_And</FONT>( event, pattern )</CODE> is the same as <CODE>OS_PollEvent( event, pattern, <FONT color="#ff0000">OS_EVENT_MODE_AND</FONT> )</CODE>.</P>
+<P><CODE>OS_PollEvent<FONT color="#ff0000">_Or</FONT>( event, pattern )</CODE> is the same as <CODE>OS_PollEvent( event, pattern, <FONT color="#ff0000">OS_EVENT_MODE_OR</FONT> )</CODE>.</P>
+<P><CODE>OS_PollEventEx<FONT color="#ff0000">_And</FONT>( event, pattern, clearBit )</CODE> is the same as <CODE>OS_PollEventEx( event, pattern, <FONT color="#ff0000">OS_EVENT_MODE_AND</FONT>, clearBit )</CODE>.</P>
+<P><CODE>OS_PollEventEx<FONT color="#ff0000">_Or</FONT>( event, pattern, clearBit )</CODE> is the same as <CODE>OS_PollEventEx( event, pattern, <FONT color="#ff0000">OS_EVENT_MODE_OR</FONT>, clearBit )</CODE>.</P>
+<H2>See Also</H2>
+<P><CODE><A href="OS_InitEvent.html">OS_InitEvent</A>, <A href="OS_WaitEvent.html">OS_WaitEvent*</A>, <A href="OS_SignalEvent.html">OS_SignalEvent</A>, <A href="OS_ClearEvent.html">OS_Clear*Event</A>, <A href="about_Event.html">OS Overview (Events)</A><BR></CODE></P>
+<H2>Revision History</H2>
+<P>2007/12/04 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

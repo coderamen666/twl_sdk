@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>WBT: Overview</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">WBT: Overview</H1>
+<H2>Description</H2>
+<P>
+WM block transfer protocol (WBT) is a buffer control library specifically for transferring data to be used under MP communications. Data is distributed efficiently to multiple children without worrying about the data size. Transfer from children to the parent is also possible.
+</P>
+<HR>
+<P><B>Using WBT</B></P>
+<P>
+The WBT library only functions as a protocol for splitting data into block units and is not used to perform any actual wireless transmissions. For this reason, it is necessary to use the WM library when exchanging data and to implement MP communications ahead of time using the application. The WBT library is implemented using all or part of the send/receive buffer used for MP communications.<BR> In order to link WBT to MP communications, it is necessary to accept a send buffer from the WBT and notify the WBT of the receive buffer either before or after sending or receiving MP communications, separately from the flow of a series of WBT library function calls. Specifically, call the following WBT functions inside the WM callback 1) when an MP communication connection is established (when calling a <a href="../../wm/wm/WM_StartMP.html">WM_StartMP</a> completion callback), 2) when MP data has been sent (when calling the <a href="../../wm/wm/WM_SetMPData.html">WM_SetMPData</a> completion callback), and 3) when MP data has been received (when calling the callback specified by <a href="../../wm/wm/WM_SetPortCallback.html">WM_SetPortCallback</a>).
+
+</P>
+<UL>
+<LI><a href="../parent/WBT_MpParentSendHook.html">WBT_MpParentSendHook</a>  (when calling a <a href="../../wm/wm/WM_StartMP.html">WM_StartMP</a> or <a href="../../wm/wm/WM_SetMPData.html">WM_SetMPData</a> completion callback in the case of a parent)
+<LI><a href="../child/WBT_MpChildSendHook.html">WBT_MpChildSendHook</a>  (when calling a <a href="../../wm/wm/WM_StartMP.html">WM_StartMP</a> or <a href="../../wm/wm/WM_SetMPData.html">WM_SetMPData</a> completion callback in the case of a child)
+<LI><a href="../parent/WBT_MpParentRecvHook.html">WBT_MpParentRecvHook</a>  (when calling the callback specified by <a href="../../wm/wm/WM_SetPortCallback.html">WM_SetPortCallback</a> in the case of a parent)
+<LI><a href="../child/WBT_MpChildRecvHook.html">WBT_MpChildRecvHook</a>  (when calling the callback specified by <a href="../../wm/wm/WM_SetPortCallback.html">WM_SetPortCallback</a> in the case of a child)
+</UL>
+<P>
+For example, for the MP communications parent, the completion callback of the <a href="../../wm/wm/WM_SetMPData.html"><CODE>WM_SetMPData</CODE></a> function calls the <a href="../parent/WBT_MpParentSendHook.html"><CODE>WBT_MpParentSendHook</CODE></a> function with the buffer for the next MP communication as an argument, and then the buffer is set with the <a href="../../wm/wm/WM_SetMPData.html"><CODE>WM_SetMPData</CODE></a> function. <CODE>data_size = <a href="../parent/WBT_MpParentSendHook.html">WBT_MpParentSendHook</A>(SendBuf, DATA_SIZE_MAX);</CODE><BR><CODE><a href="../../wm/wm/WM_SetMPData.html">WM_SetMPData</a>(callback, SendBuf, data_size, 0, 0xffff);</CODE> <BR> <FONT color="red">Because these functions only read and write data to an send/receive buffer used for MP communication, they do not strictly need to be called in the situations specified here, but rather may be called sometime before the next MP communication occurs.</FONT> <BR>
+</P>
+<P>
+Furthermore, since the length of the WBT command wait receive queue is only one, only one WBT command can be registered at a time.((<a href="../command/WBT_RequestSync.html">WBT_RequestSync</a>, <a href="../command/WBT_GetBlockInfo.html">WBT_GetBlockInfo</a>, <a href="../command/WBT_GetBlock.html">WBT_GetBlock</a>, and <a href="../command/WBT_PutUserData.html">WBT_PutUserData</a> functions) <BR>Care must be taken because if the next WBT command is issued before the currently executing WBT command terminates, that new command cannot be registered.
+</P>
+<HR>
+<P><B>Basic Flow of WBT API Calls</B></P>
+<P>
+The following figure illustrates the process flow for a series of API calls from startup to termination when using WBT.
+</P>
+<BLOCKQUOTE><IMG src="image_WBT_API.GIF" border="0"></BLOCKQUOTE>
+<P>
+As described in the section on how to use WBT, WBT really only provides a protocol. Functions such as <a href="../../wm/wm/WM_SetMPData.html">WM_SetMPData</a> must actually be called for parts with arrows connecting parent and child devices in the figure above. In addition, it is necessary to get a send buffer by calling <a href="../parent/WBT_MpParentSendHook.html">WBT_MpParentSendHook</a> or <a href="../child/WBT_MpChildSendHook.html">WBT_MpChildSendHook</a> before sending MP data, and also to notify WBT of the contents of the received buffer by calling <a href="../parent/WBT_MpParentRecvHook.html">WBT_MpParentRecvHook</a> or <a href="../child/WBT_MpChildRecvHook.html">WBT_MpChildRecvHook</a> after MP data has been received.
+</P>
+<HR>
+<P>
+<B>Parent Device Process Flow</B>
+<OL>
+<LI>Call <a href="../init/WBT_InitParent.html">WBT_InitParent</a> and specify the packet size for the parent and child device and a callback.
+<LI>Call <a href="../common/WBT_RegisterBlock.html">WBT_RegisterBlock</a> and register a block of data.
+<LI>Starts MP communications.((Carried out until <a href="../../wm/wm/WM_StartMP.html">WM_StartMP</a> completes.)
+<LI>The following processes are performed each send cycle.
+<OL>
+<LI>Call <a href="../parent/WBT_MpParentSendHook.html">WBT_MpParentSendHook</a> and get the send buffer for data transfer.
+<LI>Set the buffer previously obtained by <a href="../../wm/wm/WM_SetMPData.html">WM_SetMPData</a>.
+</OL>
+<LI>Once the MP receive callback has been called, software calls <a href="../parent/WBT_MpParentRecvHook.html">WBT_MpParentRecvHook</a> and the receive buffer is sent to WBT. Depending on the contents of the receive buffer and the status of WBT, this function is called along with command information received by the callback set by <a href="../init/WBT_InitParent.html">WBT_InitParent</a>. However, there is no processing that needs to be performed during this callback in the case of a parent device (the side with data to be downloaded). If the callback has been called by <CODE>WBT_CMD_REQ_GET_BLOCK_DONE</CODE>, it indicates that one block transfer has completed.
+<LI>Processing proceeds by repeating steps 4 and 5.
+</OL>
+</P>
+<HR>
+<P>
+<B>Child Device Process Flow</B>
+<OL>
+<LI>Call <a href="../init/WBT_InitChild.html">WBT_InitChild</a> and specify a callback.
+<LI>Starts MP communications. (Connect to the parent and continue until <a href="../../wm/wm/WM_StartMP.html">WM_StartMP</a> completes.)
+<LI>Call <a href="../child/WBT_SetOwnAid.html">WBT_SetOwnAid</a> and send the child's AID number to WBT.
+<LI>Call <a href="../command/WBT_RequestSync.html">WBT_RequestSync</a> and specify a callback.
+<LI>The following processes are performed each send cycle.
+<OL>
+<LI>Call <a href="../child/WBT_MpChildSendHook.html">WBT_MpChildSendHook</a> and get the send buffer for data transfer.
+<LI>Set the buffer previously obtained by <a href="../../wm/wm/WM_SetMPData.html">WM_SetMPData</a>.
+</OL>
+<LI>Once the MP receive callback has been called, software calls <a href="../child/WBT_MpChildRecvHook.html">WBT_MpChildRecvHook</a> and the receive buffer is sent to WBT. Depending on the contents of the receive buffer and the status of WBT, this function is called along with command information received by the callback set by <a href="../init/WBT_InitChild.html">WBT_InitChild</a>. However, in the case of a child device (downloading side), processing proceeds inside callbacks specified by various WBT functions such as <a href="../command/WBT_RequestSync.html">WBT_RequestSync</a> rather than within this callback.
+<LI>The next WBT function is called when a callback specified by any of a variety of WBT functions has been called.
+<OL>
+<LI>In the case of the <a href="../command/WBT_RequestSync.html">WBT_RequestSync</a> completion callback, <a href="../command/WBT_GetBlockInfo.html">WBT_GetBlockInfo</a> is called and the block information number wanted by the child is specified.
+<LI>In the case of the <a href="../command/WBT_GetBlockInfo.html">WBT_GetBlockInfo</a> completion callback, <a href="../command/WBT_GetBlock.html">WBT_GetBlock</a> is called and the block ID obtained using <a href="../command/WBT_GetBlockInfo.html">WBT_GetBlockInfo</a> is specified.
+<LI>In the case of a <a href="../command/WBT_GetBlock.html">WBT_GetBlock</a> completion callback, block transfer has completed.
+</OL>
+<LI>Processing proceeds by repeating steps 5, 6, and 7.
+</OL>
+
+</P>
+<H2>See Also</H2>
+<P><A href="../list_wbt.html">WBT Function List</A><BR></P>
+<H2>Revision History</H2>
+<P>
+2006/03/13 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

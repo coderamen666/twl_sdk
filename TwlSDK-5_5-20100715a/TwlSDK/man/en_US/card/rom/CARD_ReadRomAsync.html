@@ -1,0 +1,93 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>CARD_ReadRomAsync</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">CARD_ReadRomAsync <img src="../../image/NTR.gif"align="middle"><img src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/card.h&gt;</CODE><BR> <BR> <CODE>void	CARD_ReadRomAsync(u32 dma, const void *src, void *dst, u32 len, MIDmaCallback callback, void *arg);</CODE><br> <br>
+  </dd>
+</dl>
+<h2>Arguments</h2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="13%"><EM><STRONG>dma</STRONG></EM></TD>
+<TD width="87%">DMA channel to use for the transfer between 0 and <CODE>MI_DMA_MAX_NUM</CODE>.<br />If the program is running in TWL mode, the parent DMA channel can be specified in the range of <CODE>(MI_DMA_USING_NEW+0)</CODE> to <CODE>(MI_DMA_USING_NEW+MI_DMA_MAX_NUM)</CODE>.<br />The CPU processes the transfer directly without using DMA transfer if an out-of-range channel has been specified or if <CODE>MI_DMA_NOT_USE</CODE> has been explicitly specified.</TD>
+    </TR>
+    <TR>
+<TD width="13%"><EM><STRONG>src</STRONG></EM></TD>
+<TD width="87%">Transfer source CARD ROM address.</TD>
+    </TR>
+    <TR>
+<TD width="13%"><EM><STRONG>dst</STRONG></EM></TD>
+<TD width="87%">Memory address of the transfer destination.</TD>
+    </TR>
+    <TR>
+<TD width="13%"><EM><STRONG>len</STRONG></EM></TD>
+<TD width="87%">Length of data to read, in bytes.</TD>
+    </TR>
+    <TR>
+<TD width="13%"><EM><STRONG>callback</STRONG></EM></TD>
+<TD width="87%">Completion callback function.<br /> Specify <CODE>NULL</CODE> when not needed.<br>This callback will be invoked from the DMA interrupt handler when a valid DMA channel is specified.</TD>
+    </TR>
+    <TR>
+<TD width="13%"><EM><STRONG>arg</STRONG></EM></TD>
+<TD width="87%">Argument passed to the callback function. If <CODE>NULL</CODE> has been specified for <SPAN class="argument">callback</SPAN>, this value is ignored.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<h2>Return Values</h2>
+<p>None.</p>
+
+<H2>Description</H2>
+<P>Asynchronously loads data from a device that has ROM. If a valid DMA channel has been specified, this function uses that channel after explicitly stopping it with the <A href="../../mi/dma/MI_StopDma.html"><CODE>MI_StopDma</CODE></A> function. If ROM access is in progress, this function is blocked until the previous access completes.<BR><BR> If a CPU transfer is explicitly specified, this function behaves identically to the synchronous version (<A href="CARD_ReadRom.html"><CODE>CARD_ReadRom</CODE></A>). <BR>
+</P>
+
+<h2>Note</h2>
+<ul style='color:red;'>
+<li>To use this function, you must first lock the access bus with the <a href="CARD_LockRom.html"><CODE>CARD_LockRom</CODE></A> function.</li>
+<li>If a valid DMA channel is specified by this function, that DMA channel will not be available until transfer is complete.</li>
+<li>The transfer source for Card access is an IO register, so you cannot specify DMA channel 0 unless the program is running in TWL mode and the <a href="../../scfg/scfg/SCFG_IsDmacFixed.html"><code>SCFG_IsDmacFixed</code></a> function has returned <CODE>TRUE</CODE>.</li>
+<li>Note that this function uses interrupts internally, so processing will not complete if it continues to wait while interrupts are prohibited.</li>
+</ul>
+<h2>Internal Operation</h2>
+<p>The conditions for a DMA transfer to occur vary depending on the operating mode and the executable ROM file format. This transfer depends on whether hash checking is used when reading data from ROM.</p>
+<p><BR> <B>(1)</B> When operating in NITRO mode, or if running a TLF file in TWL mode, see the following explanation.</p>
+<p>This function operates asynchronously using DMA transfers and the IRQ handler only if the following conditions are satisfied:<BR> In that case, transfers of card data can be done in parallel with CPU processing.</p>
+<ul>
+<li>The destination range of the transfer is DMA-accessible and 32-byte aligned.<br>
+<li>The source range of the transfer is aligned to <A href="../card_rom_page_size_const.html"><CODE>CARD_ROM_PAGE_SIZE</CODE></A> bytes.
+<li>The transfer size is aligned to <A href="../card_rom_page_size_const.html"><CODE>CARD_ROM_PAGE_SIZE</CODE></A> bytes.
+</ul>
+<p>If these conditions are not all met, the process is executed asynchronously by a CPU process using a CARD library internal thread regardless of whether DMA transfer has been specified or not.<br>For more information on this thread, see the description for the <A href="../common/CARD_GetThreadPriority.html"><CODE>CARD_GetThreadPriority</CODE></A> function.<br><br></p>
+<p>To ensure that the conditions for DMA transfer are satisfied, keep the following points in mind as you design your application. </p>
+<ul>
+<li>Do not specify an automatic variable as the transfer destination (the stack is allocated from DTCM by default, so DMA access is not possible). 
+<li>Specify <CODE>Align</CODE> or <CODE>AlignAll</CODE> in the <CODE>RomSpec</CODE> section of the RSF file and place the file so that it is 512-byte aligned.
+<li>If the file size is not an integer multiple of 512 bytes, divide the file so that it is read in segments that are integer multiples of 512 bytes.
+</ul>
+<P><BR> <B>(2)</B> Note the following if you are running SRL or TAD files in TWL mode.</P>
+<P>This also applies when running a retail Nintendo DSi in TWL mode. </P>
+<P>In these cases, the function first performs a DMA transfer to a temporary buffer prepared by the library to perform a hash check on the transfer data. Then it performs a CPU transfer from the temporary buffer to the transfer destination, regardless of the destination's alignment. This temporary buffer is maintained for a short time, so when the function is reading the same address without a break, DMA transfers to the temporary buffer may not occur. In such cases, only CPU transfers will occur.</P>
+<P>CPU transfers use a thread in the CARD library. Therefore, depending on the priority level of the thread, it is possible that this function will not return until reading completes. For more information on this thread, see the description of the <A href="../common/CARD_GetThreadPriority.html"><CODE>CARD_GetThreadPriority</CODE></A> function.<br><br></P>
+<h2>See Also</h2>
+<p><A href="../card_rom_page_size_const.html"><CODE>CARD_ROM_PAGE_SIZE</CODE></A><BR> <A href="CARD_LockRom.html"><CODE>CARD_LockRom</CODE></A><BR> <A href="CARD_ReadRom.html"><CODE>CARD_ReadRom</CODE></A><BR> <A href="CARD_TryWaitRomAsync.html"><CODE>CARD_TryWaitRomAsync</CODE></A><BR> <A href="CARD_WaitRomAsync.html"><CODE>CARD_WaitRomAsync</CODE></A><BR> <A href="../common/CARD_GetThreadPriority.html"><CODE>CARD_GetThreadPriority</CODE></A></p>
+
+<H2>Revision History</H2>
+<P>2010/05/04 Added an explanation that DMA and CPU transfers depend upon the operating mode and ROM format.<BR> 2008/11/19 Added information about the relationship between the DMA channel range and the operating mode.<BR> 2008/01/24 Added a note on the range specified for DMA channels.<BR> 2006/05/10 Changed specifications so that DMA transfers are not performed unless the transfer destination range is aligned at 32-byte boundaries.<BR> 2005/08/22 Made substantial corrections to <B>Internal Operation</B>.<BR> 2005/06/01 Explained that the callback is invoked from the interrupt handler. <BR>2005/04/28 Noted that DMA channel 0 cannot be specified.<BR> 2004/12/09 Changed &quot;IO processor&quot; to &quot;ARM7 processor.&quot;<BR> 2004/11/02 Corrected argument names to match the header file.<BR> 2004/07/28 Corrected the callback type.<br /> 2004/07/19 Changed the explanation of internal operations.<br /> 2004/07/09 Corrected syntax due to function format changes and added <B>Internal Operation</B>.<br /> 2004/07/05 Initial version.<br />
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

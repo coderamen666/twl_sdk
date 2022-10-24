@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+<meta name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 8.0.0.0 for Windows" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<link rel="stylesheet" type="text/css" href="../../css/nitro.css" />
+<title>WFS Demos</title>
+</head>
+<body>
+
+<h1>Wireless File System (WFS) Library Sample Demos</h1>
+
+<h2>Compilation</h2>
+<p>
+Open a directory containing a sample demo and enter the following.
+</p>
+<blockquote><code>% make</code></blockquote>
+<p>&nbsp;The compilation begins, and the SRL executable file and the NEF or TEF files with binary information are generated in the following directory.</p>
+<blockquote><code>$TwlSDK/(sample_demo_directory)/bin/(platform)/(target)/</code></blockquote>
+<p>
+&nbsp;&nbsp;&nbsp;For example:
+</p>
+<blockquote><code>$TwlSDK/build/demos/mb/multiboot-wfs/bin/ARM9-TS/Release/main.srl</code></blockquote>
+<p>is the executable file for the <code>multiboot-wfs</code> demo.</p>
+
+<H2>Execution</H2>
+<H3>For NITRO ROMs</H3>
+
+<P>If using IS-NITRO-DEBUGGER:</P>
+<UL>
+<LI>Load and execute an NLF file with IS-NITRO-DEBUGGER
+<LI>Execute an SRL file with IS-NITRO-DEBUGGER
+<LI>Execute an SRL file with IS-NITRO-DEBUGGER using the <CODE>loadrun.exe</CODE> tool from a command line
+</UL>
+<P>If using IS-TWL-DEBUGGER:</P>
+<UL>
+<LI>Load and execute an NLF file with IS-TWL-DEBUGGER
+<LI>Execute an SRL file with IS-TWL-DEBUGGER
+<LI>Execute an SRL file with IS-TWL-DEBUGGER using the <CODE>loadrun.TWL.exe</CODE> tool from a command line
+</UL>
+<H3>For TWL/NITRO Hybrid ROMs</H3>
+<P>If using IS-NITRO-DEBUGGER:</P>
+<UL>
+<LI>Execute an SRL file with IS-NITRO-DEBUGGER
+<LI>Execute an SRL file with IS-NITRO-DEBUGGER using the <CODE>loadrun.exe</CODE> tool from a command line
+</UL>
+<P>If using IS-TWL-DEBUGGER:</P>
+<UL>
+<LI>Load and execute a TLF file with IS-TWL-DEBUGGER
+<LI>Execute an SRL file with IS-TWL-DEBUGGER
+<LI>Execute an SRL file with IS-TWL-DEBUGGER using the <CODE>loadrun.TWL.exe</CODE> tool from a command line
+</UL>
+<H3>For TWL Limited ROMs</H3>
+<P>If using IS-TWL-DEBUGGER:</P>
+<UL>
+<LI>Load and execute a TLF file with IS-TWL-DEBUGGER
+<LI>Execute an SRL file with IS-TWL-DEBUGGER
+<LI>Execute an SRL file with IS-TWL-DEBUGGER using the <CODE>loadrun.TWL.exe</CODE> tool from a command line
+</UL>
+
+<p style="color:Red">Because many of the WFS library sample demos use DS Download Play, you need a number of development machines, all with the same communications environment (wireless or wired). <br /><CODE>$TwlSDK/bin/ARM9-TS/Rom/mb_child_NITRO.srl</CODE> and <CODE>mb_child_TWL.srl</CODE> are samples providing the same functionality as the DS Download Play on the Nintendo DS system, so load the programs into the other machines and execute them together.<BR>Depending on the options set for IS-NITRO-DEBUGGER, a dialog box containing the message &quot;The transfer destination address on the ARM9 Processor is incorrect&quot; appears when the program is loaded. Select <B>NO</B> to proceed with loading.</p>
+
+<h2>Description</h2>
+<table style="width:90%">
+  <tbody>
+    <TR>
+<TH>Name</TH>
+<TH>Directory</TH>
+<TH>Operation</TH>
+    </TR>
+    <tr>
+<td><code>$TwlSDK/build/demos/wireless_shared/wfs</code></td>
+<TD><CODE>demos</CODE></TD>
+<td>This sample code demonstrates a simple procedure for hooking the WFS library to MP communications.<BR>Several sample demos to be described later access this code as a shared process.</td>
+    </tr>
+
+    <tr>
+<td><code>$TwlSDK/build/demos/mb/multiboot-wfs</code></td>
+<TD><CODE>demos</CODE></TD>
+<td>This sample uses the MB library to download a program to the Nintendo DS and then reconnect to that program to provide a wireless file system to the child device program.<BR>The <CODE>$TwlSDK/build/demos/wireless_shared/wc</CODE> sample code is used as the framework for MP communications.<br />The sample code in <CODE>$TwlSDK/build/demos/wireless_shared/wfs</CODE> is used for hooking operations for MP communications.</td>
+    </tr>
+
+    <tr>
+<td><code>$TwlSDK/build/demos/wm/wireless-all</code></td>
+<TD><CODE>demos</CODE></TD>
+<td>This is a comprehensive sample of DS Multi-Card Play.<br />Performing DS Download Play using the clone boot functionality of the MB library, this sample program provides a wireless file system by reconnecting to the downloaded child program and performing data sharing communications.<BR>The sample code contained in <CODE>$TwlSDK/build/demos/wireless_shared/wh</CODE> is used as the framework for MP communications.<br />The sample code in <CODE>$TwlSDK/build/demos/wireless_shared/wfs</CODE> is used for hooking operations for MP communications.<br /></td>
+    </tr>
+
+  </tbody>
+</table>
+
+<h2>Operation</h2>
+<p>
+The WFS library demo does not work properly on <CODE>ensata</CODE>.
+</p>
+<p>
+The <CODE>wireless-all</CODE> demo works only in NTR mode.
+</p>
+
+<h2>See Also</h2>
+<p>
+<A href="../../wfs/list_wfs.html">WFS Function List</A>
+</p>
+
+<h2>Revision History</h2>
+<p>
+2008/07/11 Changed descriptions to support TWL.<BR> 2007/06/15 Initial version.
+</p>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

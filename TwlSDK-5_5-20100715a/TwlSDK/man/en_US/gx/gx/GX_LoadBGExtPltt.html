@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>GX_LoadBGExtPltt</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">GX_LoadBGExtPltt <img src="../../image/NTR.gif"align="middle"><img src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+
+<dl>
+  <dd>
+<PRE>
+<CODE>#include &lt;nitro/gx/gx_load.h&gt;</CODE><BR>
+<CODE>void GX_LoadBGExtPltt(const void *pSrc, u32 destSlotAddr, u32 szByte);</CODE></PRE></dd>
+</dl><h2>Arguments</h2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="190"><em><strong><font face="Courier New">pSrc</font></strong></em></TD>
+<TD width="512">Pointer to transfer origin</TD>
+    </TR>
+    <TR>
+<TD width="190"><em><strong><font face="Courier New">destSlotAddr</font></strong></em></TD>
+<TD width="512">Address to inside of the transfer source BG expanded palette slot</TD>
+    </TR>
+    <TR>
+<TD width="190"><em><strong><font face="Courier New">szByte</font></strong></em></TD>
+<TD width="512">Transfer size (in bytes)</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<h2>Return Values</h2>
+<p>None.</p>
+<H2>Description</H2>
+<P>Uses DMA to transfer BG palette data to the Main 2D Engine BG Extended palette. The transfer destination address (in the BG Extended palette) can be specified. The DMA channel to use here is <code>GX_DMAID</code> (defined in <code>gxcommon.h</code>). Both <SPAN class="argument">destSlotAddr</SPAN> and <SPAN class="argument">szByte</SPAN> must be 4-byte aligned. Call this function between the <a href="GX_BeginLoadBGExtPltt.html"><CODE>GX_BeginLoadBGExtPltt</CODE></A> and <a href="GX_EndLoadBGExtPltt.html"><CODE>GX_EndLoadBGExtPltt</CODE></A> functions.<BR><BR><BR> <B>Note 1:</B> Because the DMA transfer is carried out internally, the transfer source data must be written to main memory in advance using a function such as <A href="../../os/cache/DC_FlushRange.html" target="_self"><CODE>DC_FlushRange</CODE></A>.<BR><B>Note 2:</B> If the regions for transfer source and transfer destination overlap, the operation result is undefined.<BR><B>Note 3:</B> Do not call the <A href="GX_SetBankForSubBGExtPltt.html"><CODE>GX_SetBankForSubBGExtPltt</CODE></A>, <A href="GX_ResetBankForSubBGExtPltt.html"><CODE>GX_ResetBankForSubBGExtPltt</CODE></A>, or <A href="GX_DisableBankForSubBGExtPltt.html"><CODE>GX_DisableBankForSubBGExtPltt</CODE></A> function between <A href="GXS_BeginLoadBGExtPltt.html"><CODE>GXS_BeginLoadBGExtPltt</CODE></A> and <A href="GXS_EndLoadBGExtPltt.html"><CODE>GXS_EndLoadBGExtPltt</CODE></A>.<BR><B>Note 4:</B> The memory space available to use for palettes varies according to the BG surface. For a BG2 palette, you must place palette data in <CODE>0x4000-0x5FFF</CODE> (slot 2). For a BG3 palette, you must place palette data in <CODE>0x6000-0x7FFF</CODE> (slot 3). You can use the <A href="../g2/G2S_SetBG0Control.html"><CODE>G2S_SetBG0Control</CODE></A> function to select either <CODE>0x0000-0x1FFF</CODE> (slot 0) or <CODE>0x4000-0x5FFF</CODE> (slot 2) for BG0, and the <A href="../g2/G2S_SetBG1Control.html"><CODE>G2S_SetBG1Control</CODE></A> function to select either <CODE>0x2000-0x3FFF</CODE> (slot 1) or <CODE>0x6000-0x7FFF</CODE> (slot 3) for BG1.</P>
+
+<h2>See Also</h2>
+<P><A href="GX_BeginLoadBGExtPltt.html"><CODE>GX_BeginLoadBGExtPltt</CODE></A><BR> <A href="GX_EndLoadBGExtPltt.html"><CODE>GX_EndLoadBGExtPltt</CODE></A></P>
+<H2>Revision History</H2>
+<P>2009/07/24
+
+Revised description of palette data placement restrictions.
+</P>
+<P>2004/03/01
+
+Added note about restrictions on placing palette data.
+</P>
+<P>2004/02/09
+Revised and expanded <B>Description</B>.
+</P>
+<P>2004/01/19 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

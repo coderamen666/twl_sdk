@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 8.0.2.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>WM_SetLifeTime</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">WM_SetLifeTime&nbsp;<img src="../../image/NTR.gif"><img src="../../image/TWL.gif"></H1>
+<h2>Syntax</h2>
+<dl>
+  <dd><PRE><CODE>#include &lt;nitro/wm.h&gt;
+
+<A href="WMErrCode.html">WMErrCode</A> WM_SetLifeTime(
+        <A href="WMCallbackFunc.html">WMCallbackFunc</A>  callback
+        u16             tableNumber ,
+        u16             camLifeTime ,
+        u16             frameLifeTime ,
+        u16             mpLifeTime
+);
+</CODE></PRE></dd>
+</dl>
+
+<h2>Arguments</h2>
+<table border="1" width="100%">
+  <tbody>
+    <TR>
+<TD width="200"><CODE>callback</CODE></TD>
+<TD width="800">Designates the callback function to call when the asynchronous process completes. This callback is called from within the interrupt handler.</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>tableNumber</CODE></TD>
+<TD width="800">The CAM table number that sets the lifetime.<br />The state of the CAM table is controlled by each communication terminal.<br />In general, specify <code>0xFFFF</code> to batch-set the time-out period for every CAM table.</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>camLifeTime</CODE></TD>
+<TD width="800">The lifetime of the CAM table with 100 ms resolution. Assigning <code>0xFFFF</code> invalidates the lifetime. Initial value is 40 (4 seconds).</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>frameLifeTime</CODE></TD>
+<TD width="800">The lifetime of data communications during infrastructure mode and administrative communications related to connecting/disconnecting are specified in terms of the number of beacon intervals. Use a value from 1 through 63, or 0xFFF.<br />Assigning <code>0xFFFF</code> invalidates the lifetime. Default value is 5.</TD>
+    </TR>
+    <TR>
+<TD width="200"><CODE>mpLifeTime</CODE></TD>
+<TD width="800">The time a parent allows when a child returns <CODE>NULL</CODE> continuously during MP communication (in 100-ms units). Or, the time a child is allowed to remain in a state unable to receive MP frames from the parent (in 100-ms units). Assigning <code>0xFFFF</code> invalidates the lifetime. Initial value is 40 (4 seconds).</TD>
+    </TR>
+   </tbody>
+</table>
+
+<h2>Return Values</h2>
+<p>Returns the results of the <CODE><A href="WMErrCode.html">WMErrCode</A></CODE> enumerated type process.</p>
+
+<H2>Description</H2>
+<P>
+Sets the communication lifetime (the time until timeout). The function is only executable when the WM is in the <A href="wm_state_diagram.html"><code>IDLE</code> state</A>. If the return value is <code>WM_ERRCODE_OPERATING</code>, a callback is generated after the lifetime setting process is complete. If this function is not called, the default values are 4 seconds for CAM lifetime, 5 beacons for frame lifetime, and 4 seconds for MP communication lifetime.
+</P>
+<P>
+The CAM lifetime is the permissible time during which communications can be interrupted due to deteriorating communication conditions. If the CAM lifetime receives any kind of communication, there is no disconnection.<BR>Basically, the MP communication lifetime displays the value permissible for MP communication interrupt time. The lifetime is updated when a meaningful MP communication is received from a communications partner.<BR>Either way, communications are cut off when the lifetime expires.
+</P>
+<P>
+If the CPU hangs up while the wireless communications hardware is running MP communications, the CAM lifetime is not adequate to properly disconnect. For example, there are cases when the parent continues to send a beacon, or when the child automatically returns a NULL response in the parent MP frame. The MP communications lifetime was prepared to disconnect properly in these situations.
+</P>
+<P>
+The frame lifetime acts differently than the other two lifetimes. It only affects communications during connection and disconnection when running MP communications. In infrastructure mode, the default values affect all frame lifetimes. Do not change them unless there is good reason. In particular, if the frame lifetime is made invalid, conditions could result where the disconnect callback is not called.
+</P>
+
+<H2>Revision History</H2>
+<P>
+2006/01/13 Rewrote the explanation and added a note not to set the frame lifetime to <CODE>0xFFFF</CODE>.<br> 2005/06/12 Added a description of the frame lifetime.<br> 2005/10/03 Corrected the description of the default frame lifetime.<br> 2005/06/08 Added a statement about callback being called from the interrupt handler.<br> 2005/03/02 Added a statement about the range that can be specified with the <CODE>frameLifeTime</CODE> argument.<BR> 2004/11/19 Changed the description for <CODE>mpLifeTime</CODE>.<BR> 2004/11/09 Added <CODE>mpLifeTime</CODE> to arguments.<BR> 2004/10/22 Changed the return value type.<BR> 2004/08/11 Initial version.<BR>
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

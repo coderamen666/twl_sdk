@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>FS_OpenFile</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">FS_OpenFile<img src="../../image/NTR.gif"align="middle"><img src="../../image/TWL.gif" align="middle"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/fs.h&gt;</CODE><BR>
+  <BR>
+  <CODE>BOOL FS_OpenFile(FSFile *file, const char *path);</CODE><br>
+  <br>
+  </dd>
+</dl>
+<h2>Arguments</h2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="13%"><SPAN class="argument">file</SPAN></TD>
+<TD width="87%">Address of the <a href="../fs_file_type.html"><CODE>FSFile</CODE></a> structure.</TD>
+    </TR>
+    <TR>
+<TD width="13%"><SPAN class="argument">path</SPAN></TD>
+<TD width="87%">Path name of file.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<h2>Return Values</h2>
+<p>Returns <CODE>TRUE</CODE> if the file opens properly; <CODE>FALSE</CODE> otherwise.</p>
+
+<H2>Description</H2>
+<P>This function is the same as <CODE><a href="FS_OpenFileEx.html">FS_OpenFileEx</a>(file, path, <a href="../FS_FILEMODE.html">FS_FILEMODE_R</a>)</CODE>.<br />It was created for the sake of compatibility, but now we recommend that you use <a href="FS_OpenFileEx.html"><CODE>FS_OpenFileEx</CODE></a>.
+</P>
+
+<h2>Note</h2>
+<p style='color:Red;'>The structures of opened files are associated with system resources so you cannot move or duplicate information even by copying them to other structures as they are. For details, see <a href="../fs_file_type.html"><CODE>FSFile</CODE> structure</a>.</p>
+
+<h2>See Also</h2>
+<p><a href="FS_OpenFileEx.html"><CODE>FS_OpenFileEx</CODE></a></p>
+
+<H2>Revision History</H2>
+<P>
+2009/07/14 Added mention that copying the values of the structure is not guaranteed.<br /> 2007/09/18 Changed the description so that use of <CODE>FS_OpenFileEx</CODE> is recommended.<br /> 2004/09/24 Added description in <B>Note</B> regarding the conditions for calling this function.<br /> 2004/04/02 Revised <B>Description</B> due to elimination of path length restriction.<br /> 2004/04/01 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

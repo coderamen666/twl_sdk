@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title>SSP_SetJpegEncoderMakerNote</title>
+<link rel="stylesheet" href="../../css/nitro.css" type="text/css" />
+</head>
+<body>
+
+<h1>SSP_SetJpegEncoderMakerNote <img src="../../image/NTR.gif" align="middle"><img src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+
+<pre><code>
+static inline void SSP_SetJpegEncoderMakerNote(u8 *buffer, u16 size);
+</code></pre>
+
+<h2>Arguments</h2>
+<table style="width:100%">
+<tbody>
+<tr>
+<td style="width:13%"><SPAN class="argument">buffer</SPAN></td>
+<td style="width:87%">Data for the Nintendo DSi camera to be embedded in the image at time of encoding.</td>
+</tr>
+<tr>
+<td style="width:13%"><SPAN class="argument">size</SPAN></td>
+<td style="width:87%">Size of data for the Nintendo DSi camera to be embedded in the image at time of encoding.</td>
+</tr>
+</tbody>
+</table>
+
+
+<h2>Return Values</h2>
+<p>None.</p>
+
+<h2>Description</h2>
+<p>Registers data for the Nintendo DSi camera to be embedded in the maker note section of the JPEG file.<BR>This function operates the same as calling <a href="SSP_SetJpegEncoderMakerNoteEx.html"><CODE>SSP_SetJpegEncoderMakerNoteEx</CODE></a> with the <CODE>SSP_MAKERNOTE_PHOTO</CODE> tag. When you want to embed data unique to the user application, use <a href="SSP_SetJpegEncoderMakerNoteEx.html"><CODE>SSP_SetJpegEncoderMakerNoteEx</CODE></a> with <CODE>SSP_MAKERNOTE_USER</CODE>.<br> <font color="red"><B>Note:</B></font><br> After the <a href="SSP_StartJpegEncoder.html"><CODE>SSP_StartJpegEncoder</CODE></a> function completes, data set by this function is cleared, regardless of whether encoding succeeds or fails.<br>If multiple images are to be encoded, note that the data must be registered before each encoding.
+</p>
+
+<h2>See Also</h2>
+<p><a href="SSP_StartJpegEncoder.html"><CODE>SSP_StartJpegEncoder</CODE></a><BR> <a href="SSP_SetJpegEncoderMakerNoteEx.html"><CODE>SSP_SetJpegEncoderMakerNoteEx</CODE></a></p>
+
+<h2>Revision History</h2>
+<p>
+2008/11/04 Added a description of conditions under which set values are cleared.<br> 2008/09/15 Initial version.
+</p>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

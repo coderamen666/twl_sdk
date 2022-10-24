@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>NNS_G2dUnPack*</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+<h1 align="left">NNS_G2dUnPack*</h1>
+<h2>Syntax</h2>
+
+<dl>
+<dd><CODE>#include &lt;nnsys/g2d/fmt/g2d_NAN_load.h&gt;</CODE></dd>
+<dd><CODE>#include &lt;nnsys/g2d/fmt/g2d_NCE_load.h&gt;</CODE></dd>
+<dd><CODE>#include &lt;nnsys/g2d/fmt/g2d_NEN_load.h&gt;</CODE></dd>
+<dd><CODE>#include &lt;nnsys/g2d/fmt/g2d_NMC_load.h&gt;</CODE></dd>
+<dd><CODE>#include &lt;nnsys/g2d/fmt/g2d_NCL_load.h&gt;</CODE></dd>
+<dd><CODE>#include &lt;nnsys/g2d/fmt/g2d_NCG_load.h&gt;</CODE></dd>
+</dl>
+
+<dl>
+<dd><CODE>void NNS_G2dUnpackNAN( NNSG2dAnimBankData* pData );</CODE></dd>
+<dd><CODE>void NNS_G2dUnpackNCE( NNSG2dCellDataBank* pCellData );</CODE></dd>
+<dd><CODE>void NNS_G2dUnpackNEN( NNSG2dEntityDataBank* pDataBank );</CODE></dd>
+<dd><CODE>void NNS_G2dUnpackNMC( NNSG2dMultiCellDataBank* pMCellData );</CODE></dd>
+<dd><CODE>void NNS_G2dUnpackNCL( NNSG2dPaletteData* pPlttData );</CODE></dd>
+<dd><CODE>void NNS_G2dUnpackNCG( NNSG2dCharacterData* pCharData );</CODE></dd>
+<dd><CODE>void NNS_G2dUnpackBGNCG( NNSG2dCharacterData* pCharData );</CODE></dd>
+</dl>
+
+<h2>Arguments</h2>
+
+<table border="1" width="100%">
+  <tr>
+<td width="13%"><CODE>pData</CODE></td>
+<td width="87%">[IN, OUT] Animation bank data</td>
+  </tr>
+<tr>
+<td width="13%"><CODE>pCellData</CODE></td>
+<td width="87%">[IN, OUT] Cell bank data</td>
+  </tr>
+<tr>
+<td width="13%"><CODE>pDataBank</CODE></td>
+<td width="87%">[IN, OUT] Entity bank data</td>
+  </tr>
+  <tr>
+<td width="13%"><CODE>pMCellData</CODE></td>
+<td width="87%">[IN, OUT] Multicell sequence data</td>
+  </tr>
+  <tr>
+<td width="13%"><CODE>pPlttData</CODE></td>
+<td width="87%">[IN, OUT] Palette data</td>
+  </tr>
+  <tr>
+<td width="13%"><CODE>pCharData</CODE></td>
+<td width="87%">[IN, OUT] Character data</td>
+  </tr>
+  <tr>
+<td width="13%"><CODE>pCharData</CODE></td>
+<td width="87%">[IN, OUT] BG character data</td>
+  </tr>
+  </table>
+<h2>Return Values</h2>
+<p>None.<BR>
+</p>
+<H2>Description</H2>
+<P>Unpacks binary data loaded from a file to a usable state. This function must be executed before any type of binary data is used.<BR>Execute this function only once on any particular set of data.<BR><BR> Internally, this function restores the memory offset value to its pointer value.<BR> <BR>
+<h2>See Also</h2>
+<p>
+<A href="NNS_G2dPrintXXX.html"><CODE>NNS_G2dPrint*</CODE></A>
+</p>
+
+<H2>Revision History</H2>
+<P>2009/04/01 Added description of <CODE>NNS_G2dUnpackNCL</CODE> and similar functions.</P>
+<P>2004/05/28 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

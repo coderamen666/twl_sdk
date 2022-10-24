@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<LINK rel="stylesheet" type="text/css" href="../../css/nitro.css">
+<TITLE>CARD Demos</TITLE>
+</HEAD>
+<BODY>
+<H1>CARD Library (CARD) Sample Demos</H1>
+<H2>Location</H2>
+<P><CODE>$TwlSDK/build/demos/card</CODE></P>
+<H2>Compilation</H2>
+<P>Move to the <CODE>$TwlSDK/build/demos/card</CODE> directory and enter the following.</P>
+<BLOCKQUOTE><CODE>% make</CODE></BLOCKQUOTE>
+<P>&nbsp;The compilation begins, and the SRL executable file and the NEF or TEF files with binary information are generated in the following directory.</P>
+<BLOCKQUOTE><CODE>$TwlSDK/build/demos/card/sample_name/bin/platform/target/</CODE></BLOCKQUOTE>
+<P>&nbsp;&nbsp;&nbsp;For example:</P>
+<BLOCKQUOTE><CODE>$TwlSDK/build/demos/card/backup/bin/ARM9-TS/Release/main.srl</CODE></BLOCKQUOTE>
+<P>The above path shows the executable file for the <CODE>backup</CODE> demo.</P>
+
+<H2>Execution</H2>
+<H3>For NITRO ROMs</H3>
+
+<P>If using the ensata emulator:</P>
+<UL>
+<LI>Execute NEF and SRL files with ensata
+</UL>
+<P>If using IS-NITRO-DEBUGGER:</P>
+<UL>
+<LI>Load and execute an NLF file with IS-NITRO-DEBUGGER
+<LI>Execute an SRL file with IS-NITRO-DEBUGGER
+<LI>Execute an SRL file with IS-NITRO-DEBUGGER using the <CODE>loadrun.exe</CODE> tool from the command line
+</UL>
+<P>If using IS-TWL-DEBUGGER:</P>
+<UL>
+<LI>Load and execute an NLF file with IS-TWL-DEBUGGER
+<LI>Execute an SRL file with IS-TWL-DEBUGGER
+<LI>Execute an SRL file with IS-TWL-DEBUGGER using the <CODE>loadrun.TWL.exe</CODE> tool from the command line
+</UL>
+<H3>For TWL/NITRO Hybrid ROMs</H3>
+<P>If using IS-NITRO-DEBUGGER:</P>
+<UL>
+<LI>Execute an SRL file with IS-NITRO-DEBUGGER
+<LI>Execute an SRL file with IS-NITRO-DEBUGGER using the <CODE>loadrun.exe</CODE> tool from the command line
+</UL>
+<P>If using IS-TWL-DEBUGGER:</P>
+<UL>
+<LI>Load and execute a TLF file with IS-TWL-DEBUGGER
+<LI>Execute an SRL file with IS-TWL-DEBUGGER
+<LI>Execute an SRL file with IS-TWL-DEBUGGER using the <CODE>loadrun.TWL.exe</CODE> tool from the command line
+</UL>
+<H3>For TWL Limited ROMs</H3>
+<P>If using IS-TWL-DEBUGGER:</P>
+<UL>
+<LI>Load and execute a TLF file with IS-TWL-DEBUGGER
+<LI>Execute an SRL file with IS-TWL-DEBUGGER
+<LI>Execute an SRL file with IS-TWL-DEBUGGER using the <CODE>loadrun.TWL.exe</CODE> tool from the command line
+</UL>
+
+<H2>Description</H2>
+<TABLE width="720">
+  <TBODY>
+    <TR>
+<TH>Name</TH>
+<TH>Directory</TH>
+<TH>Operation</TH>
+    </TR>
+    <TR>
+<TD width="187"><EM><STRONG><CODE>backup</CODE></STRONG></EM></TD>
+<TD><CODE>demos</CODE></TD>
+<TD width="525">This simple sample shows how to use the CARD library to access a backup device.</TD>
+    </TR>
+    <TR>
+<TD width="187"><EM><STRONG><CODE>card-1trom</CODE></STRONG></EM></TD>
+<TD><CODE>demos</CODE></TD>
+<TD width="525">This demo uses one-time PROM as the ROM type and outputs the transfer speed to the debugger.</TD>
+    </TR>
+    <TR>
+<TD width="187"><EM><STRONG><CODE>card-mrom</CODE></STRONG></EM></TD>
+<TD><CODE>demos</CODE></TD>
+<TD width="525">This demo uses mask ROM as the ROM type and outputs the transfer speed to the debugger.</TD>
+    </TR>
+    <TR>
+<TD><CODE>ctrdg/pullout-1</CODE><br /> (included in the Game Pak demo)</TD>
+<TD><CODE>demos</CODE></TD>
+<TD>This sample is included in the Game Pak demo (<code>$TwlSDK/build/demos/ctrdg</code>). Detects removal of card and cartridge.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+
+<H2>Operation</H2>
+<P><CODE>The <CODE>card-mrom</CODE> demo works properly only in NTR mode.</CODE></P>
+<H2>See Also</H2>
+<P><A href="../../card/list_card.html"><CODE>CARD Function List</CODE></A></P>
+<H2>Revision History</H2>
+<P>
+2008/12/12 Renamed the card-1 demo to the <CODE>backup</CODE> demo.<BR> 2008/07/11 Changed the notation corresponding to TWL.<br> 2005/04/26 Changed term from &quot;1-time ROM&quot; to &quot;one-time PROM.&quot;<br /> 2005/04/06 Added descriptions of <code>card-1trom</code> and <code>card-mrom</code> demos.<br /> 2005/03/02 Revised descriptions to reflect current support environment conditions.<br /> 2004/10/06 Added description regarding <code>ctrdg/pullout-1</code> demo.<br /> 2004/09/10 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

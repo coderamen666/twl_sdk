@@ -1,0 +1,128 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!--==========================================================================
+  Copyright 2008 Nintendo.  All rights reserved.
+
+  These coded instructions, statements, and computer programs contain
+  proprietary information of Nintendo of America Inc. and/or Nintendo
+  Company Ltd., and are protected by Federal copyright law.  They may
+  not be disclosed to third parties or copied or duplicated in any form,
+  in whole or in part, without the prior written consent of Nintendo.
+ ==========================================================================-->
+<HTML>
+<HEAD>
+	<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+	<META http-equiv="Content-Style-Type" content="text/css">
+	<TITLE>Encryption Using the RSA Algorithm: Overview</TITLE>
+	<LINK rel="stylesheet" href="../../css/nitro.css">
+	<BASE target="main">
+</HEAD>
+<BODY>
+<H1>Encryption Using the RSA Algorithm: Overview</H1>
+
+<H2>Description</H2>
+<H3>About RSA Encryption</H3>
+<P>
+	The encryption functions that use the RSA algorithm were prepared for encryption using public keys.
+</P>
+<P>
+	The RSA algorithm has the following characteristics.
+</P>
+<ul>
+	<li>A type of public-key encryption</li>
+	<li>Extremely slow processing for encryption and decryption</li>
+</ul>
+<P>
+	One advantage of public-key cryptography is that, compared to shared-key cryptography, the risk associated with key transmission is low. A disadvantage is that the processing speed is slow relative to other cryptographic methods. A solution, therefore, is to encrypt the <I>data</I> using a non-RSA algorithm and to encrypt the <I>key</I> using RSA.
+</P>
+<H3>Precautions Regarding the Use of RSA Encryption</H3>
+<P>
+	The RSA encryption algorithm has the following properties.
+</P>
+<ol>
+	<li>The encryption is completely circumvented if the private key is compromised
+	<li>Decryption is possible if one can identify the private exponent (brute-force attack)
+	<li>It is possible to spoof data if one were to abuse the key transmission (man-in-the-middle attack)
+</ol>
+<P>
+	If the private key is compromised, it is possible both to defeat the encryption and to falsify signatures, and the safety provided by the encryption is lost. You must be duly careful about how you manage your private keys.<BR>Increasing the key length makes it easy to defend against brute-force attacks, but the longer you make your keys, the slower the encryption will become.<BR>Verification (signatures) of public keys is useful for preventing man-in-the-middle attacks.
+</P>
+<P>
+	For more information, refer to any basic text on encryption technology.
+</P>
+<H3>Key Format and Encryption/Decryption Strings</H3>
+<P>
+	The DER format is used for both public and private keys. The key format should be as follows.
+</P>
+<ol>
+	<li>The data format for keys conforms to ASN.1 format and is DER encoded.</li>
+	<li>The public exponent of the public key is 65537.</li>
+</ol>
+<P>
+	Although there is no restriction on the key length, operations have been confirmed for key lengths of 1024, 2048, and 4096 bits.
+</P>
+<P>
+	Encrypted strings take the following format.
+</P>
+<ol>
+	<li>Encrypted using RSA encryption</li>
+	<li>Padding in the PKCS#1 version 1.5 format</li>
+</ol>
+<P>
+	To be encrypted, strings must be at least 11 bytes shorter than the key length. (For example, if the key length is 1024 bits, the string being encrypted must be no longer than 117 bytes.)<BR>Strings that have been encrypted using some other method can be decrypted by the CRYPTO library, providing the encrypted string conforms to the above-described format.
+</P>
+<H3>Limitations</H3>
+<P>
+	Due to licensing issues, this library works only with TWL. It does not work with NITRO.
+</P>
+<a name="make_key"><H3>Key Creation Example</H3></a>
+<P>
+	The following example shows how to create a public key and private key using encryption by OpenSSL, which is part of the open source SSL toolkit.
+</P>
+<P><B>1. Create an RSA private key</B></P>
+<P>
+	Input the following commands in a command line on a system on which OpenSSL has been installed. This will generate a 1024-bit-long RSA private key file in PEM format, <CODE>privkey.pem</CODE>.
+</P>
+<PRE><CODE> &gt; openssl genrsa -out privkey.pem</CODE></PRE>
+<P>
+	In the event that <CODE>privkey.pem</CODE> were to be leaked or compromised, anyone would be able to break or falsify the encryption. The private key file therefore needs to be maintained with the strictest care.
+</P>
+<P>
+	Once the private key has been created in PEM format, convert it to DER format.
+</P>
+<PRE><CODE> &gt; openssl rsa -outform DER -in privkey.pem -out privkey.der</CODE></PRE>
+<P>
+	When specifying a private key with the CRYPTO library, convert the content of this <CODE>privkey.der</CODE> file to a C-language <CODE>u8</CODE> array. The <CODE>privkey.der</CODE> file is a private key just like <CODE>privkey.pem</CODE>, so it should be handled in an equally strict manner.
+</P>
+<P><B>2. Create an RSA public key</B></P>
+<P>
+	Create a public key in DER format with the following command.
+</P>
+<PRE><CODE> &gt; openssl rsa -pubout -inform DER -in privkey.der -outform DER -out pubkey.der</CODE></PRE>
+<P>
+	When specifying a public key with the CRYPTO library, convert the content of this <CODE>pubkey.der</CODE> file to a C-language <CODE>u8</CODE> array.
+</P>
+<P><B>3. Check the functionality of the keys</B></P>
+<P>
+	Make sure the pair of private and public keys you generated is functioning properly.<BR>First, prepare a text file (<CODE>test.txt</CODE>) that contains a string that is shorter than the key and encrypt it using the public key, converting it to <CODE>test.txt.enc</CODE>.
+</P>
+<PRE><CODE> &gt; openssl rsautl -encrypt -in test.txt -out test.txt.enc -pubin -keyform DER -inkey pubkey.der</CODE></PRE>
+<P>
+	Make sure the pair of private and public keys you generated is functioning properly.<BR>Next, decode <CODE>test.txt.enc</CODE> using the private key, converting it to <CODE>test.txt.dec</CODE>.
+</P>
+<PRE><CODE> &gt; openssl rsautl -decrypt -in test.txt.enc -out test.txt.dec -keyform DER -inkey privkey.der</CODE></PRE>
+<P>
+	If the content of <CODE>test.txt</CODE> matches that of <CODE>test.txt.dec</CODE>, you have confirmed that the keys are functioning properly.
+</P>
+
+<H2>See Also</H2>
+<P>
+	<A href="../list_crypto.html#rsa">List of CRYPTO Functions</A>
+</P>
+
+<H2>Revision History</H2>
+<P>
+	2008/10/30 Revised the description of the format of encrypted strings.<BR> 2008/10/02 Revised the description of the key format.<BR> 2008/09/18 Made revisions concerning HTML tags.<BR> 2008/09/16 Revised some parts.<BR> 2008/03/27 Initial version.
+</P>
+
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

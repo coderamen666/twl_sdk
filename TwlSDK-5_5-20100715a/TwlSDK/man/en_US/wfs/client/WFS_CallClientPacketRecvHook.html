@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title>WFS_CallClientPacketRecvHook</title>
+<link rel="stylesheet" href="../../css/nitro.css" type="text/css" />
+</head>
+
+<body>
+
+<h1>WFS_CallClientPacketRecvHook <img src="../../image/NTR.gif"><img src="../../image/TWL.gif"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<code>#include &lt;nitro/wfs.h&gt;</code><br />
+  <br />
+  <code>void WFS_CallClientPacketRecvHook(WFSClientContext *context, const <a href="../WFSPacketBuffer.html">WFSPacketBuffer</a> *packet);</code><br />
+  <br />
+  </dd>
+</dl>
+
+<h2>Arguments</h2>
+<table border="1" width="100%">
+  <tbody>
+    <tr>
+      <td style="width:13%"><em><strong>context</strong></em></td>
+      <td style="width:87%">Pointer to the <CODE>WFSClientContext</CODE> structure.</td>
+    </tr>
+    <tr>
+      <td style="width:13%"><em><strong>packet</strong></em></td>
+      <td style="width:87%">Pointer to the <a href="../WFSPacketBuffer.html"><code>WFSPacketBuffer</code></a> structure where the received packet data is stored.<br />
+	  The following data must be provided for each member.<br />
+      <table border="1" width="100%">
+        <tbody>
+          <tr>
+            <td style="width:13%"><em><strong>buffer</strong></em></td>
+            <td style="width:87%">Specifies the buffer for received packet data.</td>
+          </tr>
+          <tr>
+            <td style="width:13%"><em><strong>length</strong></em></td>
+            <td style="width:87%">Specifies the amount of data received.</td>
+          </tr>
+          <tr>
+            <td style="width:13%"><em><strong>bitmap</strong></em></td>
+            <td style="width:87%">Specifies an AID bitmap indicating which clients sent packets.<BR>
+			It is acceptable to always use 0x0001 (from parent/server), since this is data received from the parent (server) by a child (client).</td>
+          </tr>
+        </tbody>
+      </table>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Return Values</h2>
+<p>None.</p>
+
+<h2>Description</h2>
+<p>Converts the packet data received from a parent (server) during a single session of MP communication into the internal protocol used by the WFS library. WFS status is updated between parents and children by using this function to analyze the packet data received by MP communications.<BR>Applications must call this function and perform MP communications repeatedly at an appropriate frequency.<BR>
+</p>
+
+<h2>See Also</h2>
+<p>
+<a href="WFS_CallClientConnectHook.html">WFS_CallClientConnectHook</a>, <a href="WFS_CallClientDisconnectHook.html">WFS_CallClientDisconnectHook</a>, <a href="WFS_CallClientPacketSendHook.html">WFS_CallClientPacketSendHook</a>
+</p>
+
+<h2>Revision History</h2>
+<p>
+2007/06/06 Initial version.
+</p>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"><html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>NNS_SndArcInitOnMemory</title>
+<link rel="stylesheet" href="../css/nitro.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.65.1">
+</head>
+<body>
+<div class="refentry" lang="ja"><a name="IDAKKYT"></a><div class="titlepage">
+<div></div>
+<div></div>
+</div>
+<h1>NNS_SndArcInitOnMemory</h1>
+<h2>Syntax</h2>
+<dl>
+<dd><pre class="funcsynopsisinfo"><code>#include &lt;nnsys/snd.h&gt;</code></pre></dd>
+<dd><pre class="funcprototype"><code class="funcprototype">void NNS_SndArcInitOnMemory( NNSSndArc* <var>arc</var>, void* <var>data</var> );</code><br></pre></dd>
+</dl>
+<div class="refsection" lang="ja"><a name="IDAMMYT"></a>
+<h2>Arguments</h2>
+      
+      <div class="variablelist">
+<table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><code>arc</code></td>
+<td>The pointer to the <code>NNSSndArc</code> structure that manages the sound archive.</td>
+</tr>
+<tr>
+<td><code>data</code></td>
+<td>The pointer to the sound archive data. Must have 32-byte alignment.</td>
+</tr>
+</tbody>
+</table>
+</div>
+    </div>
+<div class="refsection" lang="ja"><a name="IDACNYT"></a>
+<h2>Return Values</h2>
+
+<p>None.</p>
+    </div>
+<div class="refsection" lang="ja"><a name="IDAJNYT"></a>
+<h2>Description</h2>
+      <p>
+Initializes the sound archive structure using the sound archive data in memory. We recommend that you allocate the sound archive structure statically. If you choose to allocate dynamically, be aware of the cautionary note below.
+</p>
+      <p>
+Use either this function or the <a href="NNS_SndArcInit.html"><CODE>NNS_SndArcInit</CODE></a> function to initialize the sound archive.
+
+If this function initializes the sound archive, there is no need for memory management or loading of the sound data. Also, there is no need for the file system to be valid. However, more memory is required.
+</p>
+     <p>
+The initialized sound archive is automatically configured as the current sound archive. Use <a href="NNS_SndArcSetCurrent.html"><CODE>NNS_SndArcSetCurrent</CODE></a> to modify the current sound archive.
+</p>      
+      <div class="note">
+<h3 class="title">Note</h3>
+<p>
+The sound archive structure can be discarded after the sound archive is no longer necessary. However, be aware that the pointer to the discarded sound archive structure may still be set as the current sound archive.
+</p>
+<p>
+Also, if you intend to destroy a sound archive and then expand a different Sound archive in the same address, before you destroy the first sound archive, be sure to invalidate the data by doing something like the following.
+</p>
+<pre><code>
+SND_InvalidateSeqData(data, (u8*)data + dataSize);
+SND_InvalidateBankData(data, (u8*)data + dataSize);
+SND_InvalidateWaveData(data, (u8*)data + dataSize);
+u32 tag = SND_GetCurrentCommandTag();
+(void)SND_FlushCommand( SND_COMMAND_BLOCK );
+SND_WaitForCommandProc(tag);
+</code></pre>
+<p>
+That invalidates the different data types used. 
+</p>
+</div>
+    </div>
+<h2>See Also</h2>
+<p><a href="NNS_SndArcInit.html"><CODE>NNS_SndArcInit</CODE></a><BR> <a href="NNS_SndArcSetCurrent.html"><CODE>NNS_SndArcSetCurrent</CODE></a></p>
+<h2>Revision History</h2>
+<p>
+2009/02/19 Added note about using the same address for a different sound archive.<br> 2005/10/18 Corrected the alignment value.<br> 2004/09/06 Added a note about dynamically allocating the <CODE>NNS_SndArc</CODE> structure.<br> 2004/06/01 Initial version.
+</p>
+</div>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

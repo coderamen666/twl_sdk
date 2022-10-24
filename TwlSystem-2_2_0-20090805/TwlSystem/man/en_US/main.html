@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>Function Reference Top Page</TITLE>
+<LINK rel="stylesheet" href="css/main.css">
+</HEAD>
+<BODY>
+
+<DIV class="logo">
+	<IMG src="img/twl_system_logo.gif" alt="TWL-System" width="128" height="128">
+</DIV>
+<DIV class="title">
+	TWL-System<BR> Function Reference Manual<BR>(English version)
+</DIV>
+<DIV class="version">
+	Supports TWL-System 2.2.0
+</DIV>
+
+<P class="confidential">
+	Confidential
+</P>
+<P class="caution-en">
+	<FONT size="-1">This document contains confidential and proprietary information of Nintendo and is also protected under the copyright laws of the United States and foreign countries. No part of this document may be released, distributed, transmitted or reproduced in any form or by any electronic or mechanical means, including information storage and retrieval systems, without permission in writing from Nintendo.</FONT>
+</P>
+
+<P class="caution-jp">
+	<B>Caution: This document contains proprietary information. Please take strict measures to keep this information secret.</B>
+</P>
+
+<P class="copyright">
+	<B>&copy;2004-2009 Nintendo All rights reserved.<br>TWL-06-0102-001-C
+</P>
+<P class="browser">
+	Microsoft Internet Explorer 5.0 or later recommended
+</P>
+
+
+<HR>
+<H1 class="caution">Notes</H1>
+<H2 class="caution">Multithread Operation</H2>
+<P class="caution">
+	The TWL-System library is not designed to be fundamentally thread-safe (in a form that supports multi-threading). Consequently, calling a function from the TWL-System library from an interrupt handler or a different thread might not work properly.
+</P>
+
+<H2 class="caution">Using Dividers</H2>
+<P class="caution">
+	The G2D and G3D libraries of TWL-System use dividers. When using TWL-System without backing up or restoring the calculator used for internal processing, there is a chance that the calculation result of the interrupt source will be destroyed.
+</P>
+<P class="caution">
+	When using TWL-System for interrupt processing, be sure to back up or restore the status of any divider used inside an interrupt with the <CODE>CP_SaveContext</CODE> and <CODE>CP_RestoreContext</CODE> functions from the TWL-SDK.
+</P>
+
+
+<HR>
+<H1>Additions and Updates to Function References</H1>
+
+<H2>Additions</H2>
+<TABLE>
+	<TBODY>
+		<TR><TD><A href="mcs/nitro/NNS_McsFinalize.html">NNS_McsFinalize</A></TD></TR>
+		<TR><TD><A href="mcs/nitro/NNS_McsFinalizeFileIO.html">NNS_McsFinalizeFileIO</A></TD></TR>
+		<TR><TD><A href="mcs/nitro/NNS_McsFinalizePrint.html">NNS_McsFinalizePrint</A></TD></TR>
+	</TBODY>
+</TABLE>
+
+<H2>Updates</H2>
+<TABLE>
+	<TBODY>
+		<TR><TD><A href="fnd/heap/NNS_FndDumpHeap.html">NNS_FndDumpHeap</A></TD></TR>
+		<TR><TD><A href="g2d/Load/NNS_G2dGetUnpackedXXX.html">NNS_G2dGetUnpacked*</A></TD></TR>
+		<TR><TD><A href="g2d/Load/NNS_G2dUnPackXXX.html">NNS_G2dUnPack*</A></TD></TR>
+		<TR><TD><A href="g2d/Renderer/NNS_G2dGetRendererOverwriteXXX.html">NNS_G2dGetRendererOverwrite*</A></TD></TR>
+		<TR><TD><A href="g2d/Renderer/NNS_G2dSetRendererOverwriteXXX.html">NNS_G2dSetRendererOverwrite*</A></TD></TR>
+		<TR><TD><A href="mcs/nitro/NNS_McsInit.html">NNS_McsInit</A></TD></TR>
+		<TR><TD><A href="mcs/nitro/NNS_McsInitFileIO.html">NNS_McsInitFileIO</A></TD></TR>
+		<TR><TD><A href="mcs/nitro/NNS_McsInitPrint.html">NNS_McsInitPrint</A></TD></TR>
+		<TR><TD><A href="snd/NNS_SndArcLoadWaveArc.html">NNS_SndArcLoadWaveArc</A></TD></TR>
+	</TBODY>
+</TABLE>
+
+<BR>
+<BR>
+</BODY>
+</HTML>

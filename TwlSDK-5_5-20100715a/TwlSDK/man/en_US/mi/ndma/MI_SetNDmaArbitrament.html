@@ -1,0 +1,131 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>MI_SetNDmaArbitrament</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">MI_SetNDmaArbitrament <IMG src="../../image/TWL.gif" width="24" height="12" border="0" align=middle></H1>
+<H2>Syntax</H2>
+<DL>
+  <DD><CODE>#include &lt;twl/mi.h&gt;</CODE><BR>
+  <BR>
+  <CODE>void MI_SetNDmaArbitrament( u32 mode, u32 cycle );</CODE>
+  </DL>
+<H2>Arguments</H2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+      <TD><EM><STRONG>mode</STRONG></EM></TD>
+      <TD>The arbitration method of new DMA.</TD>
+    </TR>
+    <TR>
+      <TD><EM><STRONG>cycle</STRONG></EM></TD>
+      <TD>The number of cycles (only valid when the arbitration method of the new DMA is round-robin).</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>Return Values</H2>
+<P>None.</P>
+<H2>Description</H2>
+<P>Specifies the DMA arbitration method for the TWL's new DMA.</P>
+<P>In <B><I>mode</I></B>, specify the arbitration method.</P>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+      <TD><CODE>MI_NDMA_ARBITRAMENT_FIX</CODE></TD>
+      <TD>Fixed method</TD>
+    </TR>
+    <TR>
+      <TD><CODE>MI_NDMA_ARBITRAMENT_ROUND</CODE></TD>
+      <TD>Round-robin method          </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P><BR>
+</P>
+<P><B><I>cycle</I></B> is meaningful when the round-robin method is specified as the <B><I>mode</I></B>. When using the fixed method, it has no meaning regardless of the value.<BR>
+</P>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+      <TD><CODE>MI_NDMA_RCYCLE_0</CODE></TD>
+      <TD>0 cycles             </TD>
+    </TR>
+    <TR>
+      <TD><CODE>MI_NDMA_RCYCLE_1</CODE></TD>
+      <TD>1 cycle</TD>
+    </TR>
+    <TR>
+      <TD><CODE>MI_NDMA_RCYCLE_2</CODE></TD>
+      <TD>2 cycles</TD>
+    </TR>
+    <TR>
+      <TD><CODE>MI_NDMA_RCYCLE_4</CODE></TD>
+      <TD>4 cycles</TD>
+    </TR>
+    <TR>
+      <TD><CODE>MI_NDMA_RCYCLE_8</CODE></TD>
+      <TD>8 cycles</TD>
+    </TR>
+    <TR>
+      <TD><CODE>MI_NDMA_RCYCLE_16</CODE></TD>
+      <TD>16 cycles</TD>
+    </TR>
+    <TR>
+      <TD><CODE>MI_NDMA_RCYCLE_32</CODE></TD>
+      <TD>32 cycles</TD>
+    </TR>
+    <TR>
+      <TD><CODE>MI_NDMA_RCYCLE_64</CODE></TD>
+      <TD>64 cycles</TD>
+    </TR>
+    <TR>
+      <TD><CODE>MI_NDMA_RCYCLE_128</CODE></TD>
+      <TD>128 cycles</TD>
+    </TR>
+    <TR>
+      <TD><CODE>MI_NDMA_RCYCLE_256</CODE></TD>
+      <TD>256 cycles</TD>
+    </TR>
+    <TR>
+      <TD><CODE>MI_NDMA_RCYCLE_512</CODE></TD>
+      <TD>512 cycles</TD>
+    </TR>
+    <TR>
+      <TD><CODE>MI_NDMA_RCYCLE_1024</CODE></TD>
+      <TD>1024 cycles</TD>
+    </TR>
+    <TR>
+      <TD><CODE>MI_NDMA_RCYCLE_2048</CODE></TD>
+      <TD>2048 cycles</TD>
+    </TR>
+    <TR>
+      <TD><CODE>MI_NDMA_RCYCLE_4096</CODE></TD>
+      <TD>4096 cycles</TD>
+    </TR>
+    <TR>
+      <TD><CODE>MI_NDMA_RCYCLE_8192</CODE></TD>
+      <TD>8192 cycles</TD>
+    </TR>
+    <TR>
+      <TD><CODE>MI_NDMA_RCYCLE_16384</CODE></TD>
+      <TD>16384 cycles</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P><BR> <B><I>cycle</I></B> will be reflected in the actual setting at the point in time when there are no DMA startup requests for any of the DMA channels.</P>
+<BLOCKQUOTE style="background-color:#ffffcc;">
+<P>Example:<BR> <BR> <CODE>//---- Fixed method<BR> MI_SetNDmaArbitrament(MI_NDMA_ARBITRAMENT_FIX, 0/*dummy*/);<BR> <BR> //---- Round-robin method<BR> MI_SetNDmaArbitrament(MI_NDMA_ARBITRAMENT_ROUND, MI_NDMA_RCYCLE_32);</CODE></P>
+</BLOCKQUOTE>
+<H2>Internal Operation</H2>
+<P>Accesses the DMA_GCNT register.</P>
+<H2>See Also</H2>
+<P><CODE><A href="MI_GetNDmaArbitrament.html">MI_GetNDmaArbitrament</A>, <A href="MI_GetNDmaArbitramentRoundRobinCycle.html">MI_GetNDmaArbitramentRoundRobinCycle</A><BR></CODE></P>
+<H2>Revision History</H2>
+<P>2007/09/07 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

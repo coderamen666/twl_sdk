@@ -1,0 +1,268 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>New DMA: Overview</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">New DMA: Overview&nbsp;<IMG src="../../image/TWL.gif" width="24" height="12" border="0" align=middle></H1>
+<P>In addition to the four DMA channels that were available with NITRO, the TWL hardware has four new DMA channels. The new DMA allows more precise configuration than was possible with the legacy DMA. This section describes the new DMA.</P>
+<H2>MINDmaConfig Structure</H2>
+<P>The new DMA uses the members of the <A href="MINDmaConfig.html"><CODE>MINDmaConfig</CODE> structure</A> as parameters when it is running. This structure contains information that is not likely to change for each DMA operation. It does not contain values that will change on a case-by-case basis, such as the overall transfer size or the source/destination addresses for the transfer.</P>
+<P>Specifically, the structure contains the following values.
+</P>
+
+<TABLE border="1">
+  <TBODY>
+    <TR>
+<TH>Member Name</TH>
+<TH>Description</TH>
+<TH>Related Register</TH>
+<TH>Initial Value</TH>
+    </TR>
+    <TR>
+<TD><CODE>intervalTimer</CODE></TD>
+<TD>Interval timer for block transfers.</TD>
+<TD>d15-0 in DMAxBCNT</TD>
+<TD><CODE>MI_NDMA_NO_INTERVAL</CODE></TD>
+    </TR>
+    <TR>
+<TD><CODE>prescaler</CODE></TD>
+<TD>Prescaler of interval timer for block transfers.</TD>
+<TD>d17-16 in DMAxBCNT</TD>
+<TD><CODE>MI_NDMA_INTERVAL_PS_1</CODE></TD>
+    </TR>
+    <TR>
+<TD><CODE>blockWord</CODE></TD>
+<TD>Number of words in the block transfer.</TD>
+<TD>d19-16 in DMAx_CNT</TD>
+<TD><CODE>MI_NDMA_BWORD_1</CODE></TD>
+    </TR>
+    <TR>
+<TD><CODE>wordCount</CODE></TD>
+<TD>Number of words in the transfer.</TD>
+<TD>DMAxWCNT</TD>
+<TD><CODE>MI_NDMA_AT_A_TIME</CODE></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P><BR>
+</P>
+<P>Separate structures are provided for each of the four new DMA channels within the library, so DMA transfers can be performed using different settings for each channel.</P>
+<P><IMG src="image_ndma-eachConfig.gif" width="517" height="192" border="0"></P>
+<P>Call the <A href="MI_InitNDmaConfig.html"><CODE>MI_InitNDmaConfig</CODE></A> function to initialize the <A href="MINDmaConfig.html"><CODE>MINDmaConfig</CODE> structure</A> members for all NDMA channels. You do not have to call this function directly because it is called from the <CODE>MI_InitNDma</CODE> function (which in turn is called from the <A href="../../os/init/OS_Init.html"><CODE>OS_Init</CODE></A> function).</P>
+<P><IMG src="image_ndma-init.gif" width="549" height="260" border="0"></P>
+<P>Call the <A href="MI_GetNDmaConfig.html"><CODE>MI_GetNDmaConfig</CODE></A> function to copy the <A href="MINDmaConfig.html"><CODE>MINDmaConfig</CODE> structure</A> set for the current new DMA channel to a <A href="MINDmaConfig.html"><CODE>MINDmaConfig</CODE> structure</A> prepared by the user (developer). Call the <A href="MI_GetNDmaConfig.html"><CODE>MI_SetNDmaConfig</CODE></A> function to copy a <A href="MINDmaConfig.html"><CODE>MINDmaConfig</CODE> structure</A> prepared by the user (developer) to the <A href="MINDmaConfig.html"><CODE>MINDmaConfig</CODE> structure</A> set for the new DMA channel.</P>
+<P><IMG src="image_ndma-getput.gif" width="557" height="352" border="0"></P>
+<P>The <A href="MI_SetNDmaInterval.html"><CODE>MI_SetNDmaInterval</CODE></A>, <A href="MI_GetNDmaIntervalTimer.html"><CODE>MI_GetNDmaIntervalTimer</CODE></A>, <A href="MI_GetNDmaIntervalPrescaler.html"><CODE>MI_GetNDmaIntervalPrescaler</CODE></A>, <A href="MI_SetNDmaBlockWord.html"><CODE>MI_SetNDmaBlockWord</CODE></A>, <A href="MI_GetNDmaBlockWord.html"><CODE>MI_GetNDmaBlockWord</CODE></A>, <A href="MI_SetNDmaWordCount.html">MI_SetNDmaWordCount</A>, and <A href="MI_GetNDmaWordCount.html"><CODE>MI_GetNDmaWordCount</CODE></A> functions overwrite or get some of the members of the <A href="MINDmaConfig.html"><CODE>MINDmaConfig</CODE> structure</A> set for the new DMA.</P>
+<P><IMG src="image_ndma-rewritePartial.gif" width="546" height="347" border="0"></P>
+<P>To initialize settings that have been overwritten, use the <A href="MI_InitNDmaConfig.html"><CODE>MI_InitNDmaConfig</CODE></A> function described earlier.</P>
+<H2>DMA Operation Instructions</H2>
+<P>The following instructions exist for the new DMA.</P>
+<P><A href="MI_NDmaCopy.html"><CODE>MI_NDmaCopy*</CODE></A>&nbsp;&nbsp;&nbsp;&nbsp;Uses the new DMA to copy.<BR><A href="MI_NDmaFill.html"><CODE>MI_NDmaFill*</CODE></A>&nbsp;&nbsp;&nbsp;&nbsp;Uses the new DMA to fill with the specified data.<BR><A href="MI_NDmaClear.html"><CODE>MI_NDmaClear*</CODE></A>&nbsp;&nbsp;Uses the new DMA to fill with 0s.<BR><A href="MI_NDmaSend.html"><CODE>MI_NDmaSend*</CODE></A></CODE>&nbsp;&nbsp;&nbsp;&nbsp;Uses the new DMA to send data to a fixed address.<BR><A href="MI_NDmaRecv.html"><CODE>MI_NDmaRecv*</CODE></A>&nbsp;&nbsp;&nbsp;&nbsp;Uses the new DMA to reads data from a fixed address.<BR><A href="MI_NDmaPipe.html"><CODE>MI_NDmaPipe*</CODE></A>&nbsp;&nbsp;&nbsp;&nbsp;Uses the new DMA to send data from a fixed address to another fixed address.</P>
+<P>Reading or writing data from a fixed address makes frequent use of operations on the I/O registers.</P>
+<BLOCKQUOTE><IMG src="image_ndma-functions.gif" width="356" height="184" border="0"></BLOCKQUOTE>
+<P>For each of these, there are derivative functions that have minor differences in terms of their operation. Below is an example that explains the <A href="MI_NDmaCopy.html"><CODE>MI_NDmaCopy*</CODE></A> functions, but the naming conventions shown below apply to other functions as well.</P>
+<H3>(1) MI_NDmaCopy&nbsp;and&nbsp;MI_NDmaCopyAsync</H3>
+<P>Functions that end in <CODE>Async</CODE> are asynchronous functions. Conversely, functions that do not are synchronous functions. Synchronous functions are guaranteed to wait for new DMA operations to complete, but control leaves asynchronous functions without waiting for completion. Asynchronous functions can find out that a DMA operation has completed, either by setting a callback function that is called when the operation completes, or by using the <A href="MI_IsNDmaBusy.html"><CODE>MI_IsNDmaBusy</CODE></A> function, which determines whether the given new DMA channel is in use. The <A href="MI_WaitNDma.html"><CODE>MI_WaitNDma</CODE></A> function waits until the given new DMA channel becomes usable.</P>
+<H3>(2) MI_NDmaCopy&nbsp;and&nbsp;MI_NDmaCopyEx</H3>
+<P>Functions that include <CODE>Ex</CODE> are provided with an external <CODE>MINDmaConfig</CODE> structure. Conversely, functions without &quot;<CODE>Ex</CODE>&quot; use the <CODE>MINDmaConfig</CODE> structures that are maintained by the library and already configured. Functions with <CODE>Ex</CODE> are effective for initiating temporary DMA operations using different parameters from those that are normally used.</P>
+<H3>(3) MI_NDmaCopy&nbsp;and&nbsp;MI_NDmaCopy_Dev</H3>
+<P>Functions that end in <CODE>_Dev</CODE> synchronize the start of DMA operations with an interrupt from a peripheral device. Conversely, functions without &quot;<CODE>_Dev</CODE>&quot; start operations immediately. See <B>DMA Start Timing</B> for the values that can be set as peripheral devices.</P>
+<H3>(4) MI_NDmaCopy&nbsp;and&nbsp;MI_NDmaCopy_SetUp</H3>
+<P>Functions that end in <CODE>_SetUp</CODE> only perform configuration, and do not start DMA operations. The actual DMA operations start after <A href="MI_NDmaRestart.html"><CODE>MI_NDmaRestart</CODE></A> is called.</P>
+<P><BR> These four specifiers yield a total of 16 variants of the <CODE><A href="MI_NDmaCopy.html">MI_NDmaCopy*</A></CODE> function.
+</P>
+<TABLE border=1>
+<TBODY>
+<TR>
+<TH>Functions</TH>
+<TH>Synchronous/Asynchronous</TH>
+<TH>MINDmaConfig</TH>
+<TH>Start DMA</TH>
+    </TR>
+<TR>
+<TD colspan="4" style="background-color:#e0d0f0;">No <CODE>_SetUp</CODE> (Run DMA)</TD>
+    </TR>
+<TR>
+<TD><CODE>MI_NDmaCopy</CODE></TD>
+<TD>Synchronous</TD>
+<TD>Stored in the library</TD>
+<TD>Immediately</TD>
+    </TR>
+<TR>
+<TD><CODE>MI_NDmaCopyAsync</CODE></TD>
+<TD>Asynchronous</TD>
+<TD>Stored in the library</TD>
+<TD>Immediately</TD>
+    </TR>
+<TR>
+<TD><CODE>MI_NDmaCopyEx</CODE></TD>
+<TD>Synchronous</TD>
+<TD>User-defined</TD>
+<TD>Immediately</TD>
+    </TR>
+<TR>
+<TD><CODE>MI_NDmaCopyExAsync</CODE></TD>
+<TD>Asynchronous</TD>
+<TD>User-defined</TD>
+<TD>Immediately</TD>
+    </TR>
+<TR>
+<TD><CODE>MI_NDmaCopy_Dev</CODE></TD>
+<TD>Synchronous</TD>
+<TD>Stored in the library</TD>
+<TD>Interrupt from peripheral device</TD>
+    </TR>
+<TR>
+<TD><CODE>MI_NDmaCopyAsync_Dev</CODE></TD>
+<TD>Asynchronous</TD>
+<TD>Stored in the library</TD>
+<TD>Interrupt from peripheral device</TD>
+    </TR>
+<TR>
+<TD><CODE>MI_NDmaCopyEx_Dev</CODE></TD>
+<TD>Synchronous</TD>
+<TD>User-defined</TD>
+<TD>Interrupt from peripheral device</TD>
+    </TR>
+<TR>
+<TD><CODE>MI_NDmaCopyExAsync_Dev</CODE></TD>
+<TD>Asynchronous</TD>
+<TD>User-defined</TD>
+<TD>Interrupt from peripheral device</TD>
+    </TR>
+<TR>
+<TD colspan="4" style="background-color:#e0d0f0;">With <CODE>_SetUp</CODE> (Only perform configuration for running DMA)</TD>
+    </TR>
+    <TR>
+<TD><CODE>MI_NDmaCopy_SetUp</CODE></TD>
+<TD>Synchronous</TD>
+<TD>Stored in the library</TD>
+<TD>Immediately</TD>
+    </TR>
+    <TR>
+<TD><CODE>MI_NDmaCopyAsync_SetUp</CODE></TD>
+<TD>Asynchronous</TD>
+<TD>Stored in the library</TD>
+<TD>Immediately</TD>
+    </TR>
+    <TR>
+<TD><CODE>MI_NDmaCopyEx_SetUp</CODE></TD>
+<TD>Synchronous</TD>
+<TD>User-defined</TD>
+<TD>Immediately</TD>
+    </TR>
+    <TR>
+<TD><CODE>MI_NDmaCopyExAsync_SetUp</CODE></TD>
+<TD>Asynchronous</TD>
+<TD>User-defined</TD>
+<TD>Immediately</TD>
+    </TR>
+    <TR>
+<TD><CODE>MI_NDmaCopy_Dev_SetUp</CODE></TD>
+<TD>Synchronous</TD>
+<TD>Stored in the library</TD>
+<TD>Interrupt from peripheral device</TD>
+    </TR>
+    <TR>
+<TD><CODE>MI_NDmaCopyAsync_Dev_SetUp</CODE></TD>
+<TD>Asynchronous</TD>
+<TD>Stored in the library</TD>
+<TD>Interrupt from peripheral device</TD>
+    </TR>
+    <TR>
+<TD><CODE>MI_NDmaCopyEx_Dev_SetUp</CODE></TD>
+<TD>Synchronous</TD>
+<TD>User-defined</TD>
+<TD>Interrupt from peripheral device</TD>
+    </TR>
+    <TR>
+<TD><CODE>MI_NDmaCopyExAsync_Dev_SetUp</CODE></TD>
+<TD>Asynchronous</TD>
+<TD>User-defined</TD>
+<TD>Interrupt from peripheral device</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>Stopping New DMA</H2>
+<P>Call <A href="MI_StopNDma.html"><CODE>MI_StopNDma</CODE></A> to stop the specified new DMA channel.</P>
+<P>Call <A href="MI_StopAllNDma.html"><CODE>MI_StopAllNDma</CODE></A> to stop all new DMA channels. This function calls <A href="MI_StopNDma.html"><CODE>MI_StopNDma</CODE></A> for the new DMA channels 0-3 in order.</P>
+<H2>Arbitration Method</H2>
+<P>You can select the the arbitration method used between the new DMA channels. Two options are available: the fixed method and the round-robin method.</P>
+<P>With the fixed method, fixed priorities are set. If a request for a DMA channel is issued whose priority is higher than the DMA channel that is currently running, the current request is paused once the block transfer has completed for the number of words specified in <CODE>WORDCNT</CODE>, and the DMA transfer for the higher-priority DMA channel is run. Conversely, if a request is issued for a DMA channel that is lower in priority than the one currently running, the incoming request is put on hold.</P>
+<P>With the round-robin method, the MI library looks up the DMA channel during the startup request, and once the block transfer has completed for <CODE>WORDCNT</CODE> words (this number is specified for each general-purpose DMA channel), the ownership rights to the AHB bus alternates in round-robin fashion in the order <EM>DMA0, DMA1, DMA2, DMA3, DSP or ARM9, DMA0, DMA1, DMA2, ...</EM> (including all DMA channels for which there are DMA transfer requests).</P>
+<P>When using the round-robin method, you can set the number of cycles for which access is possible during requests for the AHB bus of the DSP or ARM9.</P>
+<P>The following function is used to configure the arbitration method and the number of cycles that are accessible when the round-robin method is used. <A href="MI_SetNDmaArbitrament.html"><CODE>MI_SetNDmaArbitrament</CODE></A></P>
+<P>The following functions are used to get the values that are currently set.<BR><A href="MI_GetNDmaArbitrament.html"><CODE>MI_GetNDmaArbitrament</CODE></A><BR> <A href="MI_GetNDmaArbitramentRoundRobinCycle.html"><CODE>MI_GetNDmaArbitramentRoundRobinCycle</CODE></A></P>
+<H2>Priority</H2>
+<P>The priorities for the AHB bus are shown below.</P>
+<P><B>If using the fixed method for DMA arbitration:</B></P>
+<P>  Old DMAC0 &gt; Old DMAC1 &gt; Old DMAC2 > Old DMAC3 &gt; New DMAC0 &gt; New DMAC1 &gt; New DMAC2 &gt; New DMA3 &gt; DSP &gt; ARM9</P>
+<P><B>If using the round-robin method for DMA arbitration:</B></P>
+<P>The new DMA priorities are removed, and the bus ownership is passed around in the following order:<BR><BR>Old DMAC0 &gt; Old DMAC1 &gt; Old DMAC2 > Old DMAC3 &gt; (New DMAC0 = New DMAC1 = New DMAC2 = New DMA3) &gt; DSP &gt; ARM9</P>
+
+<A NAME="MINDmaDevice"></a>
+<H2>DMA Start Timing</H2>
+<P>Among the new DMA functions, functions that end in <CODE>_Dev</CODE>, such as <A href="MI_NDmaCopy.html"><CODE>MI_NDmaCopy_Dev</CODE></A>, can make the timing of starting DMA dependent on a startup request based on an interrupt from a peripheral device. Functions that do not end in <CODE>_Dev</CODE> start immediately.</P>
+<P>You can specify this by passing the <CODE>MINDmaDevice</CODE> type value (<CODE>u32 typedef</CODE>) as an argument of a function. The following table shows the values and start timings.<BR>
+</P>
+<TABLE border=1>
+  <TBODY>
+    <TR>
+<TH><CODE>MINDmaDevice</CODE> Type Value</TH>
+<TH>New DMA Start Timing</TH>
+    </TR>
+    <TR>
+<TD><CODE>MI_NDMA_TIMING_TIMER0</CODE></TD>
+<TD>DMA startup request from Timer 0</TD>
+    </TR>
+    <TR>
+<TD><CODE>MI_NDMA_TIMING_TIMER1</CODE></TD>
+<TD>DMA startup request from Timer 1</TD>
+    </TR>
+    <TR>
+<TD><CODE>MI_NDMA_TIMING_TIMER2</CODE></TD>
+<TD>DMA startup request from Timer 2</TD>
+    </TR>
+    <TR>
+<TD><CODE>MI_NDMA_TIMING_TIMER3</CODE></TD>
+<TD>DMA startup request from Timer 3</TD>
+    </TR>
+    <TR>
+<TD><CODE>MI_NDMA_TIMING_CARD</CODE></TD>
+<TD>DMA startup request from Card</TD>
+    </TR>
+    <TR>
+<TD><CODE>MI_NDMA_TIMING_V_BLANK</CODE></TD>
+<TD>DMA startup request from V-Blank</TD>
+    </TR>
+    <TR>
+<TD><CODE>MI_NDMA_TIMING_H_BLANK</CODE></TD>
+<TD>DMA startup request from H-Blank</TD>
+    </TR>
+    <TR>
+<TD><CODE>MI_NDMA_TIMING_DISP</CODE></TD>
+<TD>DMA startup request synchronized with display</TD>
+    </TR>
+    <TR>
+<TD><CODE>MI_NDMA_TIMING_DISP_MMEM</CODE></TD>
+<TD>DMA startup request synchronized with the work RAM display</TD>
+    </TR>
+    <TR>
+<TD><CODE>MI_NDMA_TIMING_GXFIFO</CODE></TD>
+<TD>DMA startup request from the geometry command FIFO</TD>
+    </TR>
+    <TR>
+<TD><CODE>MI_NDMA_TIMING_CAMERA</CODE></TD>
+<TD>DMA startup request from camera transfer</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>Revision History</H2>
+<P>2008/11/19 Added startup timing information. <BR> 2008/09/11 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

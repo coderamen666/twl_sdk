@@ -1,0 +1,32 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>OS_GetPrintBlockingMode</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">OS_GetPrintBlockingMode <IMG src="../../image/NTR.gif" align="middle"><IMG src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+<DL>
+<DD><CODE>#include &lt;nitro/os.h&gt;</CODE><BR> <BR> <CODE>BOOL OS_GetPrintBlockingMode( void );</CODE>
+</DL>
+<H2>Arguments</H2>
+<P>None.</P>
+<H2>Return Values</H2>
+<P>Returns the current setting values.</P>
+<P>If <CODE>TRUE</CODE>, blocking mode; if <CODE>FALSE</CODE>, non-blocking mode.</P>
+<H2>Description</H2>
+<P>Gets the blocking mode setting for IS-TWL-DEBUGGER or IS-NITRO-DEBUGGER debugger output. </P>
+<P>See <A href="OS_SetPrintBlockingMode.html"><CODE>OS_SetPrintBlockingMode</CODE></A>, the function that sets the blocking mode, for a description of the blocking mode.</P>
+<P>This function is used for debugging. This function always returns <CODE>FALSE</CODE> with the FINALROM library.</P>
+<P>The blocking mode switching feature is sometimes not implemented depending on the version of IS-TWL-DEBUGGER and IS-NITRO-DEBUGGER. Check the debugging software update history. You can call this function even when the feature is unsupported. If the feature is unsupported, <CODE>OS_GetPrintBlockingMode</CODE> always returns <CODE>FALSE</CODE>.</P>
+<P>If no settings have been configured, the initial value depends on the implementation of the debugger software.</P>
+<H2>See Also</H2>
+<P><CODE><A href="OS_SetPrintBlockingMode.html">OS_SetPrintBlockingMode</A><BR></CODE></P>
+<H2>Revision History</H2>
+<P>2009/04/21 Corrected the value in effect when blocking mode is unsupported.<BR> 2009/04/02 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

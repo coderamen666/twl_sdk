@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+	<HEAD>
+		<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+		<title>SNDEXCallback</title>
+		<link rel="stylesheet" href="../../css/nitro.css" type="text/css">
+	</HEAD>
+	<BODY>
+		<H1>SNDEXCallback <IMG src="../../image/TWL.gif" width="24" height="12" border="0" align=middle></H1>
+
+		<H2>Definition</H2>
+		<DL>
+			<DD><CODE>#include &lt;twl/snd.h&gt;</CODE></DD>
+			<DD><PRE><CODE>typedef void ( *SNDEXCallback ) ( SNDEXResult result, void* arg );</CODE></PRE></DD>
+		</DL>
+
+		<H2>Arguments</H2>
+		<TABLE>
+			<TBODY>
+				<TR>
+					<TH width="25%">result</TH>
+					<TD width="75%">This is a <CODE>SNDEXResult</CODE> enumerated type value showing the results of asynchronous processing.
+					The different notification values vary for different processes causing the callback, so see the individual descriptions for each asynchronous function.</TD>
+				</TR>
+				<TR>
+					<TH width="25%">arg</TH>
+					<TD width="75%">This is the argument designated when an asynchronous function is called.</TD>
+				</TR>
+			</TBODY>
+		</TABLE>
+
+		<H2>Return Values</H2>
+		<P>
+			None.
+		</P>
+
+		<H2>Description</H2>
+		<P>
+			This is the type for user callback functions invoked at the completion of asynchronous processing started by functions that asynchronously control extended sound features.
+			The processing result will be passed to the <SPAN class="argument">result</SPAN> argument as a <CODE>SNDEXResult</CODE> enumerated type, and the argument that was specified when calling the asynchronous function will be passed to the <SPAN class="argument">arg</SPAN> argument.
+		</P>
+
+		<H2>See Also</H2>
+		<P>
+			<CODE>
+				<A href="SNDEX_GetMuteAsync.html">SNDEX_GetMuteAsync</A>, <A href="SNDEX_GetI2SFrequencyAsync.html">SNDEX_GetI2SFrequencyAsync</A>, <A href="SNDEX_GetDSPMixRateAsync.html">SNDEX_GetDSPMixRateAsync</A>, <A href="SNDEX_GetVolumeAsync.html">SNDEX_GetVolumeAsync</A>,
+				<A href="SNDEX_SetMuteAsync.html">SNDEX_SetMuteAsync</A>, <A href="SNDEX_SetI2SFrequencyAsync.html">SNDEX_SetI2SFrequencyAsync</A>, <A href="SNDEX_SetDSPMixRateAsync.html">SNDEX_SetDSPMixRateAsync</A>, <A href="SNDEX_SetVolumeAsync.html">SNDEX_SetVolumeAsync</A>
+			</CODE>
+		</P>
+
+		<H2>Revision History</H2>
+		<P>
+			2008/02/15 Initial version.
+		</P>
+	<hr><p>CONFIDENTIAL</p></body>
+</HTML>

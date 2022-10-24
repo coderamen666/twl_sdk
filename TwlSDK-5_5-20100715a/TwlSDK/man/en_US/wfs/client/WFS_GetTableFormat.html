@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title>WFS_GetTableFormat</title>
+<link rel="stylesheet" href="../../css/nitro.css" type="text/css" />
+</head>
+<body>
+
+<h1>WFS_GetTableFormat <img src="../../image/NTR.gif"><img src="../../image/TWL.gif"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<code>#include &lt;nitro/wfs.h&gt;</code><br />
+  <br />
+  <code>const <a href="../WFSTableFormat.html">WFSTableFormat</a> *WFS_GetTableFormat(const WFSClientContext *context);</code><br />
+  <br />
+  </dd>
+</dl>
+<h2>Arguments</h2>
+<table border="1" width="100%">
+  <tbody>
+    <tr>
+      <td style="width:13%"><em><strong>context</strong></em></td>
+      <td style="width:87%">Pointer to the <CODE>WFSClientContext</CODE> structure.</td>
+    </tr>
+  </tbody>
+</table>
+<h2>Return Values</h2>
+<p>Returns a pointer to the <code><a href="../WFSTableFormat.html">WFSTableFormat</a></code> structure extracted from which file table information about the ROM image is extracted, or returns NULL.</p>
+
+<h2>Description</h2>
+<p>References the file table information of the ROM image that was automatically retrieved from the parent (server). This information is referenced in the format of a <a href="../WFSTableFormat.html"><CODE>WFSTableFormat</CODE></a> structure. This information can be used to mount file systems using the FS library. The data referenced by the pointer obtained here is guaranteed to be unchanged until <a href="WFS_EndClient.html"><CODE>WFS_EndClient</CODE></a> is called.</p>
+<p>This function also returns NULL if called before notification of a <a href="../WFSEventType.html"><CODE>WFS_EVENT_CLIENT_READY</CODE></a> event.</p>
+
+<h2>See Also</h2>
+<p><code><a href="../WFSEventType.html">WFSEventType</a>, <a href="../WFSTableFormat.html">WFSTableFormat</a></code></p>
+
+<h2>Revision History</h2>
+<p>
+2007/06/06 Initial version.
+</p>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

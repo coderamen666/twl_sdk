@@ -1,0 +1,126 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.1.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>PM_GetLEDPattern*</TITLE>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">PM_GetLEDPattern* <IMG src="../../image/NTR.gif" width="24" height="12" border="0" align="middle"><IMG src="../../image/TWL.gif" width="24" height="12" border="0" align="middle"></H1>
+<H2>Syntax</H2>
+<DL>
+  <DD>
+  <PRE><CODE>#include &lt;nitro/spi.h&gt;</CODE></PRE>
+  <PRE><CODE>u32 PM_GetLEDPattern( PMLEDPattern* patternBuf );
+
+u32 PM_GetLEDPatternAsync( PMLEDStatus* patternBuf, PMCallback callback, void* arg );
+  </CODE></PRE>
+</DL>
+<H2>Arguments</H2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+<TD width="13%"><EM><STRONG>patternBuf</STRONG></EM></TD>
+<TD width="87%">Buffer that stores the value of the LED pattern to be obtained.</TD>
+    </TR>
+    <TR>
+<TD><EM><STRONG>callback</STRONG></EM></TD>
+<TD>Callback that is called when the command finishes.</TD>
+    </TR>
+    <TR>
+<TD><EM><STRONG>arg</STRONG></EM></TD>
+<TD>Argument that is used when calling the callback.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<H2>Return Values</H2>
+<P>If <code>PM_RESULT_SUCCESS</code>, the command execution has succeeded (for synchronous functions), or the command was successfully sent to the ARM7 processor (for asynchronous functions).</P>
+<P>If <CODE>PM_RESULT_BUSY</CODE>, the SPI was occupied by other processing and unable to process this function.</P>
+<H2>Description</H2>
+<P>Gets the LED state of the console.</P>
+<P>The <SPAN class="argument">patternBuf</SPAN> argument is a buffer that stores the <CODE>PMLEDPattern</CODE> list type values. It takes a value that indicates the state of the LED when it is not <CODE>NULL</CODE>. It will take one of the following values.
+</P>
+<TABLE border="1">
+  <TBODY>
+    <TR>
+<TH><CODE>Value Stored in <SPAN class="argument">patternBuf</SPAN></CODE></TH>
+<TH>LED State</TH>
+    </TR>
+    <TR>
+<TD><CODE>PM_LED_PATTERN_ON</CODE></TD>
+<TD>The LED is illuminated.</TD>
+    </TR>
+    <TR>
+<TD><CODE>PM_LED_PATTERN_BLINK_LOW</CODE></TD>
+<TD>The LED is blinking at a high speed.</TD>
+    </TR>
+    <TR>
+<TD><CODE>PM_LED_PATTERN_BLINK_HIGH</CODE></TD>
+<TD>The LED is blinking at a low speed.            </TD>
+    </TR>
+    <TR>
+<TD><CODE>PM_LED_PATTERN_BLINK1</CODE></TD>
+<TD>The LED is repeating a lit/unlit pattern every 1 frame.            </TD>
+    </TR>
+    <TR>
+<TD><CODE>PM_LED_PATTERN_BLINK2</CODE></TD>
+<TD>The LED is repeating a lit/unlit pattern every 2 frames.            </TD>
+    </TR>
+    <TR>
+<TD><CODE>PM_LED_PATTERN_BLINK3</CODE></TD>
+<TD>The LED is repeating a lit/unlit pattern every 3 frames.            </TD>
+    </TR>
+    <TR>
+<TD><CODE>PM_LED_PATTERN_BLINK4</CODE></TD>
+<TD>The LED is repeating a lit/unlit pattern every 4 frames.            </TD>
+    </TR>
+    <TR>
+<TD><CODE>PM_LED_PATTERN_BLINK5</CODE></TD>
+<TD>The LED is repeating a lit/unlit pattern every 5 frames.            </TD>
+    </TR>
+    <TR>
+<TD><CODE>PM_LED_PATTERN_BLINK6</CODE></TD>
+<TD>The LED is repeating a lit/unlit pattern every 8 frames.            </TD>
+    </TR>
+    <TR>
+<TD><CODE>PM_LED_PATTERN_BLINK8</CODE></TD>
+<TD>The LED is repeating a lit/unlit pattern every 8 frames.            </TD>
+    </TR>
+    <TR>
+<TD><CODE>PM_LED_PATTERN_BLINK10</CODE></TD>
+<TD>The LED is repeating a lit/unlit pattern every 10 frames.            </TD>
+    </TR>
+    <TR>
+<TD><CODE>PM_LED_PATTERN_PATTERN1</CODE></TD>
+<TD>The LED is blinking in a predetermined pattern.            </TD>
+    </TR>
+    <TR>
+<TD><CODE>PM_LED_PATTERN_PATTERN2</CODE></TD>
+<TD>The LED is blinking in a predetermined pattern.            </TD>
+    </TR>
+    <TR>
+<TD><CODE>PM_LED_PATTERN_PATTERN3</CODE></TD>
+<TD>The LED is blinking in a predetermined pattern.            </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<P>The &quot;high-speed blink&quot; and &quot;low-speed blink&quot; are blink features that are implemented on the hardware. Although the term &quot;high-speed&quot; is used, the blinking speed is actually slower than the blinking speed that is caused by the software that repeats the lit/unlit pattern in a fixed number of frames.)</P>
+<P>This function uses PXI to send a command to execute the operation in question on the ARM7 processor. Once it receives that command, the ARM7 executes it by manipulating the PMIC. Therefore, this function may not operate instantly after you call it. A synchronous function that waits for the operation to finish, as well as an asynchronous function that only sends commands to the ARM7, are provided. Use either of the functions depending on your operational requirements. (The asynchronous function has &quot;Async&quot; appended to the function name.)</P>
+<P>When an asynchronous function is called, the specified <SPAN class="argument">callback</SPAN> is called when processing on the ARM7 side finishes. The callback type <CODE>PMCallback</CODE> is defined by:</P>
+<BLOCKQUOTE> <CODE><code>typedef void ( *PMCallback )( u32 result, void* arg )</code>;</CODE></BLOCKQUOTE>
+<P> This callback is called from inside the PXI interrupt handler.</P>
+<P>The callback's first argument, <SPAN class="argument">result</SPAN>, indicates the result of the command. This is either <code>PM_RESULT_SUCCESS</code> or <code>PM_RESULT_ERROR</code>. The second argument in the callback returns the value <SPAN class="argument">arg</SPAN>.</P>
+
+<P><FONT color="#ff0000">This function can be used from an interrupt handler. This function cannot be used in interrupt-prohibited states other than interrupt handlers.</FONT></P>
+<P><BR> <BR> <B>About <CODE>PM_RESULT_BUSY</CODE></B></P>
+<P>The SPI is used for various other processes besides power management. If you call this function while another process is using it, this function sends a command to the ARM7. There, the SPI is determined to be BUSY, and <CODE>PM_RESULT_BUSY</CODE> is notified to the ARM9 without actually processing this function. Likewise, if you call this function while another PM process is running, that fact is determined on the ARM9 side, and this function returns <CODE>PM_RESULT_BUSY</CODE>. (In this case, the determination is made before notification is sent to the ARM7.)</P>
+<P>Accordingly, if you want to ensure that this function succeeds, make it loop until it succeeds as shown below. (This example does not take into account mistakes such as wrong arguments.)</P>
+<BLOCKQUOTE style="background-color:#ffffcc"><B>Example</B><BR> <CODE>while( PM_GetLEDPattern( ... ) != PM_RESULT_SUCCESS )<BR> {<BR> }</CODE></BLOCKQUOTE>
+<H2>See Also</H2>
+<P><CODE><A href="PM_Init.html">PM_Init</A></CODE></P>
+<H2>Revision History</H2>
+<P>2009/06/03 Removed a description of the <CODE>PM_Init</CODE> function (because <CODE>OS_Init</CODE> is now required). <BR>2008/12/05 Added a note concerning use when interrupts are prohibited. <BR>2008/08/23 Discontinued use of <CODE>PM_RESULT_ERROR</CODE> and mentioned <CODE>PM_RESULT_BUSY</CODE>. <BR>2005/07/07 Mentioned the <CODE>PM_RESULT_ERROR</CODE> return value. <BR>2005/06/02 Clearly stated where the callback is invoked. <BR>2004/08/26 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

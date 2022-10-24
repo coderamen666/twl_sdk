@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>mb_child</TITLE>
+<LINK rel="stylesheet" href="../css/nitro.css" type="text/css">
+<STYLE type="text/css">
+
+</STYLE>
+</HEAD>
+<BODY>
+<H1 align="left">mb_child</H1>
+<H2>Overview</H2>
+<P><CODE>mb_child</CODE> is an extracted program of DS Download Play only.<br>Since the program downloads programs without checking authentication codes, you can use this for testing during the development process.</P>
+<P><CODE>mb_child_NITRO.srl</CODE> is based on the DS Download Play that is in the Nintendo DS and the Nintendo DS Lite. <FONT color=red>Use this in a NITRO environment, as with IS-NITRO-EMULATOR.</FONT>Note that this is the same as the <CODE>mb_child.srl</CODE> included in the Nitro-SDK.<br><CODE>mb_child_TWL.srl</CODE> is based on the DS Download Play that is in the Nintendo DSi Menu. <FONT color=red>Use this in a TWL environment, such as IS-TWL-DEBUGGER.</FONT>
+</P>
+<H2>Using the Tool</H2>
+<P>When this program is started, the phrase &quot;Searching for downloadable software&quot; appears. &nbsp;After that, one set of icon, game name, and other information is added every time a DS Download Play parent is found.<br>Conversely, information is removed if a given parent device is lost for longer than a certain duration.</P>
+<P>Select a game with the Up and Down buttons on the +Control Pad, and begin the download with the A Button.</P>
+<P>The phrase [ Downloading... ] will be displayed after the download completes and until the restart request from the parent device is received. &nbsp;<br>Pressing the B Button at this time cancels the download and returns to the initial selection screen.</P>
+<P>There will be a restart in accordance with the request from the parent device, and then the downloaded game will start.</P>
+<H2>Location</H2>
+<P><CODE>$TwlSDK/bin/ARM9-TS/Rom/mb_child_NITRO.srl<br> $TwlSDK/bin/ARM9-TS/Rom/mb_child_TWL.srl</CODE></P>
+
+<H2>Supplemental Information</H2>
+<P>The operating environments of <CODE>mb_child_NITRO.srl</CODE> and <CODE>mb_child_TWL.srl</CODE> differ in the following ways.</P>
+<P>- <CODE>mb_child_NITRO.srl</CODE><br> With IS-NITRO-EMULATOR, etc., in a NITRO environment: Operates without any issues.<br>With IS-TWL-DEBUGGER, etc., in a TWL environment: During execution, will stop due to data access exception in ARM9.</P>
+
+<P>- <CODE>mb_child_TWL.srl</CODE><br> With IS-NITRO-EMULATOR, etc., in a NITRO environment: Capable of child boot without problem, but after booting the IS-NITRO-DEBUGGER abort is not effective. Also, if the B Button is pressed to return to the IPL during scanning, the process will white out.<br>With IS-TWL-DEBUGGER, etc., in a TWL environment: Operates without any issues.</P>
+
+<P>As this suggests, you need to use the <CODE>mb_child</CODE> that corresponds to your development environment.</P>
+
+<H2>See Also</H2>
+
+<H2>Revision History</H2>
+<P>
+2009/01/28 With addition of mb_child, made public again and added explanation of differences between NITRO and TWL.<br>2005/03/08 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

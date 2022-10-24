@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>showversion</TITLE>
+<LINK rel="stylesheet" href="../css/nitro.css" type="text/css">
+<STYLE type="text/css">
+<!--
+.sample_source{
+  background-color : #e8e8e8;
+}
+H3{
+  color : teal;
+}
+.command_list{
+  margin-bottom : 16pt;
+}
+.command_desc{
+  }
+.command_item{
+  margin-top : 16pt;
+  background-color : #e8e8e8;
+}
+.blockquoted_table {
+  border : 1px;
+  width : 80%;
+}
+TD,TH{
+  border-color	: #c0d8d8;
+  padding       : 1pt 4pt 1pt 4pt;
+  border-width  : 1px;
+  border-style  : solid;
+}
+-->
+</STYLE>
+</HEAD>
+<BODY>
+<H1 align="left">showversion <IMG src="../image/NTR.gif" align="middle"><IMG src="../image/TWL.gif" align="middle"></H1>
+<H2>Description</H2>
+<P> <CODE>showversion</CODE> is a tool for displaying the TWL-DSK version and build mode being linked by the ROM file.</P>
+<H2>Using the Tool</H2>
+<H3>Start Command</H3>
+<PRE><CODE>% showversion ROMFILE</CODE></PRE>
+<P> The TWL version information and build mode information defined in the <CODE>crt0.o</CODE> region of ARM9 resident module inside the ROM file given by <CODE>ROMFILE</CODE> is read and output.</P>
+<P> Version information can be read for ROM files that link the TWK-SDK 2.0FC or later libraries, and the build mode can be read for ROM files that link the TWL-SDK 5.1 PR or later libraries.<br>Information cannot be read for ROM files that link to an SDK earlier than this or for ROM files for which <CODE>crt0.o</CODE> has been created independently and for which no version information exists.</P>
+<H2>Location</H2>
+<P><CODE>$TwlSDK/tools/bin/showversion.exe</CODE></P>
+<H2>See Also</H2>
+<P>None.</P>
+<H2>Revision History</H2>
+<P>
+2008/12/05 Added information about reading the build mode.<br> 2004/10/03 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

@@ -1,0 +1,33 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<TITLE>CTRDG_IsOptionCartridge</TITLE>
+<LINK rel="stylesheet" href="../css/nitro.css" type="text/css">
+</HEAD>
+<BODY>
+<H1 align="left">CTRDG_IsOptionCartridge <IMG src="../image/NTR.gif" align="middle"></H1>
+<H2>Syntax</H2>
+<DL>
+  <DD>
+  <PRE><CODE>#include &lt;nitro/ctrdg.h&gt;</CODE></PRE>
+  <PRE><CODE>BOOL CTRDG_IsOptionCartridge( void );
+  </CODE></PRE>
+</DL>
+<H2>Arguments</H2>
+<P>None.</P>
+<H2>Return Values</H2>
+<P>Returns a value of TRUE if an Option Pak with peripherals is loaded; otherwise, returns a value of FALSE. Also, always returns <code>FALSE</code> after the Game Pak has been removed once.</P>
+<H2>Description</H2>
+<P>This function returns a BOOLEAN value to indicate if an Option Pak with peripherals is installed.</P>
+<P>However, this function will always return a value of FALSE after it detects the initial removal of an Option Pak. (This behavior is not limited to the Option Pak.) <br> This function can be called when the cartridge bus is locked with the <a href="../os/spinLock/OS_LockCartridge.html"><CODE>OS_LockCartridge</CODE></a> function. However, while the bus is locked, the ARM7 does not detect removal automatically, so call the <A href="CTRDG_IsExisting.html"><CODE>CTRDG_IsExisting</CODE></A> function at regular intervals, such as each game frame, during which the player cannot perform a re-insert operation. (This function internally calls the <A href="CTRDG_IsExisting.html"><CODE>CTRDG_IsExisting</CODE></A> function.)
+</P>
+
+<H2>See Also</H2>
+<P><A href="CTRDG_Init.html"><code>CTRDG_Init</code></A>, <A href="CTRDG_IsExisting.html"><code>CTRDG_IsExisting</code></A>, <A href="CTRDG_IsAgbCartridge.html"><code>CTRDG_IsAgbCartridge</code></A></P>
+<H2>Revision History</H2>
+<P>2005/04/12 Added description of cartridge bus lock.<br /> 2004/09/17 Initial version.                             </P>
+<hr><p>CONFIDENTIAL</p></body>
+</HTML>

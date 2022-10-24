@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 7.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>CARD_IsEnabled</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+<body>
+<h1 align="left">CARD_Enable <img src="../../image/NTR.gif"align="middle"><img src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/card.h&gt;</CODE><BR>
+  <BR>
+  <CODE>void CARD_Enable( BOOL enable );</CODE><br>
+  <br>
+  </dd>
+</dl>
+<h2>Arguments</h2>
+<p>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+      <TD width="13%"><EM><STRONG>enable</STRONG></EM></TD>
+      <TD width="87%">Setting that permits Game Card access.<br>
+	  It will be permitted for a value of <CODE>TRUE</CODE> and prohibited for a value of <CODE>FALSE</CODE>.</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</p>
+<h2>Return Values</h2>
+<p>None.</p>
+<H2>Description</H2>
+<P>Changes the state that permits Game Card access. The program will be forced to halt if the Game Card is accessed when prohibited by the current state. Access is prohibited in the initial state of a child program that has started from a wireless download.<br> <br>
+</p>
+<H2>Note</H2>
+<P>
+If you are going to use this function to enable access, be sure to follow the stipulations in the Programming Guidelines. Confirm that the procedure is correct before calling the function. <br>
+</p>
+<BR>
+<h2>See Also</h2>
+<p>
+<A href="CARD_Init.html">CARD_Init</A><BR> <A href="CARD_IsEnabled.html">CARD_IsEnabled</A> <BR>
+</P>
+<H2>Revision History</H2>
+<P>
+2004/12/15 Initial version.
+</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

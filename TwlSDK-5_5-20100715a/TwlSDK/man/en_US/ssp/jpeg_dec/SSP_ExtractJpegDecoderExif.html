@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title>SSP_ExtractJpegDecoderExif</title>
+<link rel="stylesheet" href="../../css/nitro.css" type="text/css" />
+</head>
+<body>
+
+<h1>SSP_ExtractJpegDecoderExif <img src="../../image/NTR.gif" align="middle"><img src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+
+<pre><code>
+inline BOOL SSP_ExtractJpegDecoderExif(u8* data, u32 size);
+</code></pre>
+
+<h2>Arguments</h2>
+<table style="width:100%">
+<tbody>
+<tr>
+<td style="width:13%"><SPAN class="argument">data</SPAN></td>
+<td style="width:87%">The JPEG file from which EXIF information is to be extracted</td>
+</tr>
+<tr>
+<td style="width:13%"><SPAN class="argument">size</SPAN></td>
+<td style="width:87%">The size of the JPEG file from which EXIF information is to be extracted</td>
+</tr>
+</tbody>
+</table>
+
+
+<h2>Return Values</h2>
+<p>Returns <CODE>TRUE</CODE> if successful.</p>
+
+<h2>Description</h2>
+<p>
+Extracts EXIF information only from a JPEG file.<br> Because this function does not perform decoding, information can be obtained more quickly than by calling the <a href="SSP_StartJpegDecoder.html"><CODE>SSP_StartJpegDecoder</CODE></a> function.<br> <br>To get information actually included in EXIF, call this function first and then use any of the get functions as necessary.
+</p>
+
+<h2>Revision History</h2>
+<p>
+2009/01/09 Initial version.
+</p>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

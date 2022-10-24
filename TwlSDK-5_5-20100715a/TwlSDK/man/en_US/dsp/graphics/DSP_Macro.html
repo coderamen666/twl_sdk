@@ -1,0 +1,41 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title>DSP_UnloadGraphics</title>
+<link rel="stylesheet" href="../../css/nitro.css" type="text/css" />
+</head>
+<body>
+
+<h1>DSP Graphics Component Macros <IMG src="../../image/TWL.gif" align="middle"></H1>
+<H2>Definition</H2>
+
+<pre><code>
+#define DSP_CALC_SCALING_SIZE(value, ratio) ((u32)(value * (u32)(ratio * 1000) / 1000))
+#define DSP_CALC_SCALING_SIZE_FX(value, ratio) ((u32)( value * (u32)(ratio * 1000 / 4096.0f) / 1000))
+</code></pre>
+
+<h2>Description</h2>
+<table style="width:100%">
+<tbody>
+<tr>
+<td style="width:13%"><em><strong>DSP_CALC_SCALING_SIZE(value, ratio)</strong></em></td>
+<td style="width:87%">Uses the <code><a href="DSP_Scaling.html">DSP_Scaling*</a></code> functions to calculate the results of scaling an image with width or height of size <SPAN class="argument">value</SPAN> by a factor of <SPAN class="argument">ratio</SPAN> (<CODE>f32</CODE> value).</td>
+</tr>
+<tr>
+<td style="width:13%"><em><strong>DSP_CALC_SCALING_SIZE_FX(value, ratio)</strong></em></td>
+<td style="width:87%">Uses the <code><a href="DSP_Scaling.html">DSP_ScalingFx*</a></code> functions to calculate the results of scaling an image with width or height of size <SPAN class="argument">value</SPAN> by a factor of <SPAN class="argument">ratio</SPAN> (<CODE>fx32</CODE> value).</td>
+</tr>
+</tbody>
+</table>
+
+<h2>See Also</h2>
+<p><code><a href="DSP_Scaling.html">DSP_Scaling*</a>, <a href="DSP_ScalingFx.html">DSP_ScalingFx*</a></code></p>
+
+<h2>Revision History</h2>
+<p>
+2008/08/28 Added the <CODE>fx32</CODE> versions and revised <B>See Also</B>. <BR>2008/05/22 Initial version.
+</p>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

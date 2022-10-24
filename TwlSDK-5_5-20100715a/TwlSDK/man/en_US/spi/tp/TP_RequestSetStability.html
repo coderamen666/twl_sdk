@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META name="GENERATOR" content="IBM WebSphere Studio Homepage Builder Version 8.0.0.0 for Windows">
+<META http-equiv="Content-Style-Type" content="text/css">
+<title>TP_RequestSetStability</title>
+<LINK rel="stylesheet" href="../../css/nitro.css" type="text/css">
+</head>
+
+<body>
+
+<h1 align="left">TP_RequestSetStability <img src="../../image/NTR.gif"><img src="../../image/TWL.gif"></h1>
+<h2>Syntax</h2>
+
+<dl>
+  <dd>
+<CODE>#include &lt;nitro/spi.h&gt;</CODE><BR>
+  <PRE><CODE>u32 TP_RequestSetStability( u16 retry, u16 range );</CODE></PRE>
+  </dd>
+</dl><h2>Arguments</h2>
+<TABLE border="1" width="100%">
+  <TBODY>
+    <TR>
+      <TD><em><strong><font face="Courier New">retry</font></strong></em></TD>
+      <TD><FONT color="#ff0000">This argument was kept to maintain backward-compatibility. It is not used internally.</FONT></TD>
+    </TR>
+    <TR>
+      <TD><em><strong><font face="Courier New">range</font></strong></em></TD>
+      <TD>Threshold value for determining whether the value has stabilized (0 &ndash; 255, default: 20).</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+<h2>Return Values</h2>
+<p>Returns 0 if the request succeeds; returns non-zero value if it fails.</p>
+<H2>Description</H2>
+<P>Sets the amplitude for determining if the coordinate value for touch panel chattering parameter is stable.<br />The range up to 255 in reference units that can be obtained from touch panel (0 to 4095) can be set.<BR> After this function executes, all of the values that are obtained will have chattering measures applied using the parameters that have been set.<BR> If the coordinate value did not converge within the set range, it indicates that the valid value could not be obtained because the touch panel value that can be obtained with <a href="TPData.html"><code>TPData</code></a> had the validity flag on.<BR> When creating an application, we recommended that you take precautionary measures such as using the coordinate data of VALID value that was most recently obtained so that the abnormal operation would not occur even a value with the touch value is ON and validity value is INVALID was stored.<BR> The chattering parameter is set to the recommended parameter (threshold value: 20) by default. If there is no need to change the setting, this function does not need to be called.</P>
+<P>
+After sending a request to the ARM7, this function waits internally for the process to complete. <BR>
+</P>
+<H2>Note</H2>
+<P>This function uses an interrupt to wait for a completion response from ARM7. Notice that if it is called while FIFO receive interrupts from ARM7 are prohibited, it will not be possible to return from wait.</P>
+<h2>See Also</h2>
+<P><CODE><A href="TPData.html">TPData</A></CODE><BR></P>
+<H2>Revision History</H2>
+<P>2004/12/29 Added the description that retry argument is no longer used. <BR>2004/04/21 Created an asynchronous version, and made it synchronous. <BR>2004/04/16 Initial version.</P>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title>FS_SetCurrentDirectory</title>
+<link rel="stylesheet" href="../../css/nitro.css" type="text/css" />
+</head>
+<body>
+
+<h1>FS_SetCurrentDirectory <img src="../../image/NTR.gif"align="middle"><img src="../../image/TWL.gif" align="middle"></h1>
+<h2>Syntax</h2>
+
+<pre><code>
+#include &lt;nitro/fs.h&gt;
+
+BOOL FS_SetCurrentDirectory(const char *path);
+</code></pre>
+
+<h2>Arguments</h2>
+<table style="width:100%">
+<tbody>
+<tr>
+<td style="width:13%"><em><strong>path</strong></em></td>
+<td style="width:87%">Path that specifies the current directory.</td>
+</tr>
+</tbody>
+</table>
+
+<h2>Return Values</h2>
+<p>Returns TRUE if the current directory was set properly; FALSE otherwise. In case of failure, use <code><a href="../file/FS_GetResultCode.html">FS_GetResultCode()</a></code> to get the error details.</p>
+
+<h2>Description</h2>
+<p>Sets the current directory. The system will reference the current directory that was specified with this function when a relative path is specified in calls to FS library functions.
+</p>
+<p>This function returns <CODE>TRUE</CODE> if the archive exists, even if the specified directory does not currently exist.</p>
+
+<h2>Note</h2>
+<ul>
+<li>This function cannot be called from the interrupt handler (IRQ mode). Also, in some cases processing may not end if interrupts are left prohibited.</li>
+</ul>
+
+<h2>See Also</h2>
+<p><code><a href="../file/FS_OpenFileEx.html">FS_OpenFileEx</a> <a href="../directory/FS_OpenDirectory.html">FS_OpenDirectory</a> <a href="../directory/FS_CreateFile.html">FS_CreateFile</a> <a href="../directory/FS_DeleteFile.html">FS_DeleteFile</a> <a href="../directory/FS_RenameFile.html">FS_RenameFile</a> <a href="../directory/FS_CreateDirectory.html">FS_CreateDirectory</a> <a href="../directory/FS_DeleteDirectory.html">FS_DeleteDirectory</a> <a href="../directory/FS_RenameDirectory.html">FS_RenameDirectory</a></code></p>
+
+<h2>Revision History</h2>
+<p>
+2008/09/08 Explained that directories that do not exist can be specified. <br />2007/11/01 Fixed a typo in the arguments. <br />2007/09/18 Initial version.<br />
+</p>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

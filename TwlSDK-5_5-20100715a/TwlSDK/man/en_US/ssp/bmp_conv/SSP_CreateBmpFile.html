@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title>SSP_CreateBmpFile</title>
+<link rel="stylesheet" href="../../css/nitro.css" type="text/css" />
+</head>
+<body>
+
+<h1>SSP_CreateBmpFile <img src="../../image/NTR.gif" align="middle"><img src="../../image/TWL.gif" align="middle"></H1>
+<H2>Syntax</H2>
+
+<pre><code>
+u32 SSP_CreateBmpFile(const void* src, void* dst, u16 width, u16 height, SSPConvertBmpType type);
+</code></pre>
+
+<h2>Arguments</h2>
+<table style="width:100%">
+<tbody>
+<tr>
+<td style="width:13%"><em><strong>src</strong></em></td>
+<td style="width:87%">Input data (YUV422 or RGB555 format).</td>
+</tr>
+<tr>
+<td style="width:13%"><em><strong>dst</strong></em></td>
+<td style="width:87%">Buffer to store the created BMP file.</td>
+</tr>
+<tr>
+<td style="width:13%"><em><strong>width</strong></em></td>
+<td style="width:87%">Image width. This must be a multiple of 2.</td>
+</tr>
+<tr>
+<td style="width:13%"><em><strong>height</strong></em></td>
+<td style="width:87%">Image height.</td>
+</tr>
+<tr>
+<td style="width:13%"><em><strong>type</strong></em></td>
+<td style="width:87%">Input data type (<CODE>SSP_BMP_YUV422</CODE> or <CODE>SSP_BMP_RGB555</CODE>).</td>
+</tr>
+</tbody>
+</table>
+
+
+<h2>Return Values</h2>
+<p>Returns the size of the created BMP file.</p>
+
+<h2>Description</h2>
+<p>
+Creates a BMP file from YUV422- or RGB555-format image data. The created BMP file is a Windows bitmap. The image width must be a multiple of 2.
+</p>
+
+<h2>Revision History</h2>
+<p>
+2009/04/23 Initial version.
+</p>
+<hr><p>CONFIDENTIAL</p></body>
+</html>

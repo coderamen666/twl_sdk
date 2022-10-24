@@ -1,0 +1,1174 @@
+/******************************************************************************
+	NINTENDO NITRO-System Maya Plugin
+
+	File:         NNS_SetRenderPriority.mel
+	Description:  set render priority
+	Date:         2007/03/06
+	Author:       Takashi Endo
+
+	Copyright 2003-2010 Nintendo. All rights reserved.
+******************************************************************************/
+
+// UpdateWindow DoSearch
+// UpdateList SortList ListButtonCB ListDropCB SetListColor
+
+/******************************************************************************
+	variables
+******************************************************************************/
+global int $nnsSetRenderPriority_SortKind  = 0; // 0:priority, 1:name
+global int $nnsSetRenderPriority_SortOrder = 0; // 0:ascend, 1:descend
+global int $nnsSetRenderPriority_KeepOrder = 0;
+
+/******************************************************************************
+	get selected SG
+
+		return SG size
+******************************************************************************/
+proc int GetSelectedSG(string $sgs[])
+{
+	$sgs = `ls -sl -typ shadingEngine`;
+	if (size($sgs) == 0)
+	{
+		// get SG from selected material
+		string $mats[] = `ls -sl -mat`;
+		for ($mat in $mats)
+		{
+			string $connectedSgs[] = `listConnections -type shadingEngine $mat`;
+			for ($sg in $connectedSgs)
+			{
+				if ($sg != "initialParticleSE" &&
+					$sg != "swatchShadingGroup")
+				{
+					$sgs[size($sgs)] = $sg;
+				}
+			}
+		}
+	}
+	return size($sgs);
+}
+
+/******************************************************************************
+	use render priority
+******************************************************************************/
+global proc int nnsSetRenderPriority_Get_UseRenderPriority(string $node)
+{
+	return (`attributeQuery -n $node -ex "nns_use_render_priority"`) ?
+		`getAttr ($node + ".nns_use_render_priority")` : 0;
+}
+
+proc Set_UseRenderPriority(string $node, int $val)
+{
+	if (!`attributeQuery -n $node -ex "nns_use_render_priority"`)
+	{
+		addAttr -ln "nns_use_render_priority" -at "bool" -dv 0 -h 0 $node;
+	}
+	setAttr ($node + ".nns_use_render_priority") $val;
+}
+
+proc SetJob_UseRenderPriority(string $node)
+{
+	if (!`attributeQuery -n $node -ex "nns_use_render_priority"`)
+	{
+		return;
+	}
+	scriptJob -p nnsSetRenderPriority_UseRenderPriority -rp -ac ($node + ".nns_use_render_priority")
+		("if (`nnsSetRenderPriority_Get_UseRenderPriority " + $node +
+		 "`) radioButtonGrp -e -sl 1 nnsSetRenderPriority_UseRenderPriority;" +
+		 "else radioButtonGrp -e -sl 1 nnsSetRenderPriority_DontCare;" +
+		 "control -e -en `nnsSetRenderPriority_Get_UseRenderPriority " + $node + "` nnsSetRenderPriority_RenderPriority;");
+}
+
+global proc nnsSetRenderPriority_UseRenderPriorityCB(string $mainNode)
+{
+	string $sgs[];
+	GetSelectedSG($sgs);
+
+	int $val = `radioButtonGrp -q -sl nnsSetRenderPriority_UseRenderPriority`;
+	control -e -en $val nnsSetRenderPriority_RenderPriority;
+
+	for ($node in $sgs)
+	{
+		Set_UseRenderPriority($node, $val);
+	}
+
+	SetJob_UseRenderPriority($mainNode);
+}
+
+/******************************************************************************
+	render priority
+******************************************************************************/
+global proc int nnsSetRenderPriority_Get_RenderPriority(string $node)
+{
+	return (`attributeQuery -n $node -ex "nns_render_priority"`) ?
+		`getAttr ($node + ".nns_render_priority")` : 1;
+}
+
+proc Set_RenderPriority(string $node, int $val)
+{
+	if (!`attributeQuery -n $node -ex "nns_render_priority"`)
+	{
+		addAttr -ln "nns_render_priority" -at "short" -min 1 -max 255 -dv 1 -h 0 $node;
+	}
+	setAttr ($node + ".nns_render_priority") $val;
+}
+
+proc SetJob_RenderPriority(string $node)
+{
+	if (!`attributeQuery -n $node -ex "nns_render_priority"`)
+	{
+		return;
+	}
+	scriptJob -p nnsSetRenderPriority_RenderPriority -rp -ac ($node + ".nns_render_priority")
+		("intField -e -v `nnsSetRenderPriority_Get_RenderPriority "
+			+ $node + "` nnsSetRenderPriority_RenderPriority");
+}
+
+global proc nnsSetRenderPriority_RenderPriorityCB(string $mainNode)
+{
+	string $sgs[];
+	GetSelectedSG($sgs);
+
+	int $val = `intField -q -v nnsSetRenderPriority_RenderPriority`;
+	if ($val < 1)
+	{
+		$val = 1;
+		intField -e -v $val nnsSetRenderPriority_RenderPriority;
+	}
+	else if ($val > 255)
+	{
+		$val = 255;
+		intField -e -v $val nnsSetRenderPriority_RenderPriority;
+	}
+
+	for ($node in $sgs)
+	{
+		Set_RenderPriority($node, $val);
+	}
+
+	SetJob_RenderPriority($mainNode);
+}
+
+/******************************************************************************
+	get priority for list
+******************************************************************************/
+proc int GetPriorityForList(string $sg)
+{
+	int $priority = 0;
+	if (objExists($sg))
+	{
+		if (nnsSetRenderPriority_Get_UseRenderPriority($sg))
+		{
+			$priority = nnsSetRenderPriority_Get_RenderPriority($sg);
+		}
+	}
+	return $priority;
+}
+
+/******************************************************************************
+	set priority for list
+******************************************************************************/
+proc SetPriorityForList(string $sg, int $val)
+{
+	if (objExists($sg))
+	{
+		Set_UseRenderPriority($sg, ($val != 0));
+		if ($val != 0)
+		{
+			Set_RenderPriority($sg, $val);	
+		}
+	}
+}
+
+/******************************************************************************
+	find list field for button
+******************************************************************************/
+proc string FindListFieldForButton(string $childs[], string $btn)
+{
+	string $btnS = match("[^|]+$", $btn);
+	int $sgSize = size($childs) / 2;
+	int $isg;
+	for ($isg = 0; $isg < $sgSize; ++$isg)
+	{
+		string $child = $childs[$isg];
+		if ($child == $btn || $child == $btnS)
+		{
+			return $childs[$sgSize + $isg];
+		}
+	}
+	return "";
+}
+
+/******************************************************************************
+	set list color
+******************************************************************************/
+proc SetListColor()
+{
+	//return;
+	string $childs[] = `layout -q -ca nnsSetRenderPriority_SGList`;
+	int $sgSize = size($childs) / 2;
+	int $isg;
+	for ($isg = 0; $isg < $sgSize; ++$isg)
+	{
+		string $btn = $childs[$isg];
+		string $label = `button -q -l $btn`;
+		string $sg = match("[^ ]+", $label);
+		int $selFlag = false;
+		if (size(`ls -sl $sg`))
+		{
+			$selFlag = true;
+		}
+		else if (objExists($sg))
+		{
+			string $ins[] = `listConnections -s 1 -d 0 ($sg + ".ss")`;
+			if (size($ins) && size(`ls -sl $ins[0]`))
+			{
+				string $mat = $ins[0];
+				if (`attributeQuery -n $mat -ex "oc"`)
+				{
+					string $ots[] = `listConnections -s 0 -d 1 ($mat + ".oc")`;
+					if (size($ots) && size(`ls -sl $ots`) == 0)
+					{
+						$selFlag = true;
+					}
+				}
+			}
+		}
+		if ($selFlag)
+		{
+			button -e -bgc 0.9 0.9 0.0 $btn;
+		}
+		else
+		{
+			button -e -bgc 1 1 1 $btn;
+		}
+		control -e -en false $btn; // for update bgc
+		control -e -en true  $btn;
+	}
+}
+
+/******************************************************************************
+	list button CB
+******************************************************************************/
+global proc nnsSetRenderPriority_ListButtonCB(string $btn, string $sg)
+{
+	int $mod = `getModifiers`;
+	int $shift = ($mod == 1 || $mod == 5 || $mod == 9);
+
+	//-----------------------------------------------------------------------------
+	// select SG & material & polygon
+	if (!$shift)
+	{
+		select -cl;
+	}
+	if (objExists($sg))
+	{
+		select -add -ne $sg; // shadingEngine
+		string $ins[] = `listConnections -s 1 -d 0 ($sg + ".ss")`;
+		if (size($ins))
+		{
+			select -add $ins[0]; // material
+		}
+		select -add $sg; // shape object & face
+
+		// frame objects
+		if (`checkBox -q -v nnsSetRenderPriority_FrameObjects`)
+		{
+			if (size(`sets -q $sg`))
+			{
+				fitAllPanels -selected;
+			}
+		}
+	}
+
+	//-----------------------------------------------------------------------------
+	// set list color
+	SetListColor();
+
+	//-----------------------------------------------------------------------------
+	// set focus
+	//setFocus $btn;
+	string $childs[] = `layout -q -ca nnsSetRenderPriority_SGList`;
+	string $field = FindListFieldForButton($childs, $btn);
+	if (size($field))
+	{
+		setFocus $field;
+	}
+}
+
+/******************************************************************************
+	list priority CB
+******************************************************************************/
+global proc nnsSetRenderPriority_ListPriorityCB(string $sg, int $val)
+{
+	global int $nnsSetRenderPriority_SortKind;
+	global int $nnsSetRenderPriority_KeepOrder;
+
+	SetPriorityForList($sg, $val);
+
+	// keep priority sort order
+	if ($nnsSetRenderPriority_SortKind == 0)
+	{
+		$nnsSetRenderPriority_KeepOrder = 1;
+	}
+}
+
+/******************************************************************************
+	list drag CB
+******************************************************************************/
+global proc string[] nnsSetRenderPriority_ListDragCB(
+	string $dragControl, int $x, int $y, int $mods)
+{
+	string $msgs[];
+	//trace ("drag: " + match("[^|]+$", $dragControl) + ": " + $x + ", " + $y + ": " + $mods);
+	$msgs[0] = "dummy"; // set something to enable drop CB
+	return $msgs;
+}
+
+/******************************************************************************
+	list drop CB
+******************************************************************************/
+global proc nnsSetRenderPriority_ListDropCB(
+	string $dragControl, string $dropControl, string $msgs[],
+	int $x, int $y, int $type) // type is always 2 ?
+{
+	global int $nnsSetRenderPriority_KeepOrder;
+
+	//-----------------------------------------------------------------------------
+	// check control
+	if ($dragControl == $dropControl)
+	{
+		return;
+	}
+	//trace ("drop: " + match("[^|]+$", $dragControl) + " -> " + match("[^|]+$", $dropControl) + ": " + $x + ", " + $y + ": " + $type + ": " + size($msgs));
+
+	//-----------------------------------------------------------------------------
+	// swap priority
+	string $name0 = `button -q -l $dragControl`;
+	string $name1 = `button -q -l $dropControl`;
+	string $sg0 = match("[^ ]+", $name0);
+	string $sg1 = match("[^ ]+", $name1);
+	string $pri0 = GetPriorityForList($sg0);
+	string $pri1 = GetPriorityForList($sg1);
+	SetPriorityForList($sg0, $pri1);
+	SetPriorityForList($sg1, $pri0);
+
+	//-----------------------------------------------------------------------------
+	// swap button name & command
+	button -e -l $name1
+		-c ("nnsSetRenderPriority_ListButtonCB " + $dragControl + " " + $sg1)
+		$dragControl;
+	button -e -l $name0
+		-c ("nnsSetRenderPriority_ListButtonCB " + $dropControl + " " + $sg0)
+		$dropControl;
+
+	//-----------------------------------------------------------------------------
+	// swap field command
+	// [notice] can't query intField changeCommand
+	string $childs[] = `layout -q -ca nnsSetRenderPriority_SGList`;
+	string $field0 = FindListFieldForButton($childs, $dragControl);
+	string $field1 = FindListFieldForButton($childs, $dropControl);
+	//trace ("drop: " + $sg0 + " -> " + $sg1 + " (" + $field0 + " -> " + $field1 + ")");
+	if (size($field0) && size($field1))
+	{
+		string $parentBak = `setParent -q`;
+		setParent nnsSetRenderPriority_SGList;
+		intField -e -cc ("nnsSetRenderPriority_ListPriorityCB " + $sg1 + " #1")
+			$field0;
+		intField -e -cc ("nnsSetRenderPriority_ListPriorityCB " + $sg0 + " #1")
+			$field1;
+		setParent $parentBak;
+	}
+
+	//-----------------------------------------------------------------------------
+	// keep sort order
+	$nnsSetRenderPriority_KeepOrder = 1;
+
+	//-----------------------------------------------------------------------------
+	// set list color
+	SetListColor();
+}
+
+/******************************************************************************
+	sort list
+******************************************************************************/
+proc SortList(string $sgs[], string $mats[], int $pris[])
+{
+	global int $nnsSetRenderPriority_SortKind;
+	global int $nnsSetRenderPriority_SortOrder;
+
+	int $sgSize = size($sgs);
+	for ($isg = 0; $isg < $sgSize - 1; ++$isg)
+	{
+		for ($jsg = $isg + 1; $jsg < $sgSize; ++$jsg)
+		{
+			string $sg0  = $sgs[$isg];
+			string $mat0 = $mats[$isg];
+			int $pri0    = $pris[$isg];
+			string $sg1  = $sgs[$jsg];
+			string $mat1 = $mats[$jsg];
+			int $pri1    = $pris[$jsg];
+			int $cond = 0;
+			if ($nnsSetRenderPriority_SortKind == 0)	// priority
+			{
+				if ($pri0 == $pri1)
+				{
+					$cond = (strcmp($mat0, $mat1) > 0);
+				}
+				else if ($nnsSetRenderPriority_SortOrder == 0)
+				{
+					$cond = ($pri0 > $pri1);
+				}
+				else
+				{
+					$cond = ($pri0 < $pri1);
+				}
+			}
+			else										// name
+			{
+				if ($nnsSetRenderPriority_SortOrder == 0)
+				{
+					$cond = (strcmp($mat0, $mat1) > 0);
+				}
+				else
+				{
+					$cond = (strcmp($mat0, $mat1) < 0);
+				}
+			}
+			if ($cond)
+			{
+				$sgs[$isg]  = $sg1;			
+				$mats[$isg] = $mat1;			
+				$pris[$isg] = $pri1;			
+				$sgs[$jsg]  = $sg0;			
+				$mats[$jsg] = $mat0;			
+				$pris[$jsg] = $pri0;			
+			}
+		}
+	}
+}
+
+/******************************************************************************
+	update sort icon
+******************************************************************************/
+proc UpdateSortIcon()
+{
+	global int $nnsSetRenderPriority_SortKind;
+	global int $nnsSetRenderPriority_SortOrder;
+
+	string $img = ($nnsSetRenderPriority_SortOrder) ?
+		"arrowDown.xpm" : "arrowUp.xpm";
+	
+	iconTextStaticLabel -e -vis ($nnsSetRenderPriority_SortKind == 1)
+		-i1 $img	
+		nnsSetRenderPriority_NameSortIcon;
+	iconTextStaticLabel -e -vis ($nnsSetRenderPriority_SortKind == 0)
+		-i1 $img	
+		nnsSetRenderPriority_PrioritySortIcon;
+}
+
+/******************************************************************************
+	is SG size changed
+******************************************************************************/
+proc int IsSGSizeChanged()
+{
+	int $sgSize = 0;
+	string $allSgs[] = `ls -typ shadingEngine`;
+	for ($sg in $allSgs)
+	{
+		if ($sg == "initialParticleSE")
+		{
+			continue;
+		}
+		string $ins[] = `listConnections -s 1 -d 0 ($sg + ".ss")`;
+		if (!size($ins))
+		{
+			continue;
+		}
+		++$sgSize;
+	}
+	string $childs[] = `layout -q -ca nnsSetRenderPriority_SGList`;
+	return ((size($childs) / 2) != $sgSize);
+}
+
+/******************************************************************************
+	update list
+******************************************************************************/
+proc UpdateList()
+{
+	//trace "update list";
+
+	//-----------------------------------------------------------------------------
+	// create list
+	string $sgs[], $mats[];
+	int $pris[];
+	int $isg = 0;
+	string $allSgs[] = `ls -typ shadingEngine`;
+	for ($sg in $allSgs)
+	{
+		if ($sg == "initialParticleSE")
+		{
+			continue;
+		}
+		string $ins[] = `listConnections -s 1 -d 0 ($sg + ".ss")`;
+		if (!size($ins))
+		{
+			continue;
+		}
+		string $mat = $ins[0];
+		$sgs[$isg]  = $sg;
+		$mats[$isg] = $mat;
+		$pris[$isg] = GetPriorityForList($sg);
+		++$isg;
+	}
+	
+	//-----------------------------------------------------------------------------
+	// sort list
+	UpdateSortIcon();
+	SortList($sgs, $mats, $pris);
+
+	//-----------------------------------------------------------------------------
+	// resize UI
+	int $sgSize = size($sgs);
+	string $parentBak = `setParent -q`;
+	setParent nnsSetRenderPriority_SGList;
+	string $childs[] = `layout -q -ca nnsSetRenderPriority_SGList`;
+	int $rowSize = size($childs) / 2;
+	if ($rowSize != $sgSize)
+	{
+		if (size($childs))
+		{
+			deleteUI $childs;
+		}
+		for ($isg = 0; $isg < $sgSize; ++$isg)
+		{
+			button -w 220 -h 22 -al "left" -rs 0 -bgc 1 1 1; // -rs 0 fix width
+		}
+		for ($isg = 0; $isg < $sgSize; ++$isg)
+		{
+			intField -w 66 -h 22 -min 0 -max 255;
+		}
+		$childs = `layout -q -ca nnsSetRenderPriority_SGList`;
+		string $lastBtn;
+		for ($isg = 0; $isg < $sgSize; ++$isg)
+		{
+			string $btn = $childs[$isg];
+			string $field  = $childs[$sgSize + $isg];
+			if ($isg == 0)
+			{
+				formLayout -e
+					-af $btn "top" 4
+					-af $btn "left" 4
+					-an $btn "bottom"
+					-ap $btn "right" 0 79
+					-af $field "top" 4
+					-ac $field "left" 4 $btn
+					-an $field "bottom"
+					-an $field "right"
+					nnsSetRenderPriority_SGList;
+			}
+			else
+			{
+				formLayout -e
+					-ac $btn "top" 2 $lastBtn
+					-af $btn "left" 4
+					-an $btn "bottom"
+					-ap $btn "right" 0 79
+					-ac $field "top" 2 $lastBtn
+					-ac $field "left" 4 $btn
+					-an $field "bottom"
+					-an $field "right"
+					nnsSetRenderPriority_SGList;
+			}
+			$lastBtn = $btn;
+		}
+		formLayout -e -w 299 nnsSetRenderPriority_SGList;
+
+		// update button visibility to display button (for -rs 0)
+		for ($isg = 0; $isg < $sgSize; ++$isg)
+		{
+			string $btn = $childs[$isg];
+			control -e -vis false $btn;
+			control -e -vis true  $btn;
+		}
+	}
+
+	//-----------------------------------------------------------------------------
+	// set UI
+	$isg = 0;
+	for ($sg in $sgs)
+	{
+		//trace ("ui: " + $isg + " " + $childs[$isg] + " " + $childs[$sgSize + $isg]); 
+		string $btn = $childs[$isg];
+		button -e -l ($sg + " ( " + $mats[$isg] + " ) ")
+			-c ("nnsSetRenderPriority_ListButtonCB " + $btn + " " + $sg)
+			-dgc ("nnsSetRenderPriority_ListDragCB")
+			-dpc ("nnsSetRenderPriority_ListDropCB")
+			$btn;
+		intField -e -v $pris[$isg]
+			-cc ("nnsSetRenderPriority_ListPriorityCB " + $sg + " #1")
+			$childs[$sgSize + $isg];
+		++$isg;
+	}
+	setParent $parentBak;
+	SetListColor();
+}
+
+/******************************************************************************
+	list priority sort CB
+******************************************************************************/
+global proc nnsSetRenderPriority_ListPrioritySortCB()
+{
+	global int $nnsSetRenderPriority_SortKind;
+	global int $nnsSetRenderPriority_SortOrder;
+	global int $nnsSetRenderPriority_KeepOrder;
+
+	if ($nnsSetRenderPriority_KeepOrder)
+	{
+		$nnsSetRenderPriority_KeepOrder = 0;
+	}
+	else if ($nnsSetRenderPriority_SortKind == 0)
+	{
+		$nnsSetRenderPriority_SortOrder = !$nnsSetRenderPriority_SortOrder;
+	}
+	else
+	{
+		$nnsSetRenderPriority_SortOrder = 0;
+	}
+	$nnsSetRenderPriority_SortKind = 0;
+
+	UpdateList();
+}
+
+/******************************************************************************
+	list name sort CB
+******************************************************************************/
+global proc nnsSetRenderPriority_ListNameSortCB()
+{
+	global int $nnsSetRenderPriority_SortKind;
+	global int $nnsSetRenderPriority_SortOrder;
+	global int $nnsSetRenderPriority_KeepOrder;
+
+	if ($nnsSetRenderPriority_KeepOrder)
+	{
+		$nnsSetRenderPriority_KeepOrder = 0;
+	}
+	else if ($nnsSetRenderPriority_SortKind == 1)
+	{
+		$nnsSetRenderPriority_SortOrder = !$nnsSetRenderPriority_SortOrder;
+	}
+	else
+	{
+		$nnsSetRenderPriority_SortOrder = 0;
+	}
+	$nnsSetRenderPriority_SortKind = 1;
+
+	UpdateList();
+}
+
+/******************************************************************************
+	get SG name with material
+******************************************************************************/
+proc string GetSGNameWithMat(string $sg)
+{
+	string $ins[] = `listConnections -s 1 -d 0 ($sg + ".ss")`;
+	if (size($ins))
+	{
+		$sg += " ( " + $ins[0] + " )";
+	}
+	return $sg;
+}
+
+/******************************************************************************
+	update window
+******************************************************************************/
+global proc nnsSetRenderPriority_UpdateWindow()
+{
+	//-----------------------------------------------------------------------------
+	// get selection
+	string $sgs[];
+	int $enableFlag = (GetSelectedSG($sgs) > 0);
+
+	//-----------------------------------------------------------------------------
+	// set node name
+	string $nodesName;
+	if ($enableFlag)
+	{
+		$nodesName = GetSGNameWithMat($sgs[0]);
+		int $nodeSize = size($sgs);
+		for ($inode = 1; $inode < $nodeSize; ++$inode)
+		{
+			if ($inode == 3)
+			{
+				$nodesName += ", ...";
+				break;
+			}
+			$nodesName += ",  " + GetSGNameWithMat($sgs[$inode]);
+		}
+	}
+	else
+	{
+		$nodesName = "(None)";
+	}
+	text -e -l $nodesName nnsSetRenderPriority_NodeName;
+
+	//-----------------------------------------------------------------------------
+	// set current attr & change command
+	int $useRenderPriority = 0;
+	if ($enableFlag)
+	{
+		string $node = $sgs[0];
+
+		$useRenderPriority =
+			`nnsSetRenderPriority_Get_UseRenderPriority $node`;
+		radioButtonGrp -e -sl (!$useRenderPriority)
+			-on1 ("nnsSetRenderPriority_UseRenderPriorityCB " + $node)
+			nnsSetRenderPriority_DontCare;
+		radioButtonGrp -e -sl $useRenderPriority
+			-on1 ("nnsSetRenderPriority_UseRenderPriorityCB " + $node)
+			nnsSetRenderPriority_UseRenderPriority;
+
+		intField -e -v `nnsSetRenderPriority_Get_RenderPriority $node`
+			-cc ("nnsSetRenderPriority_RenderPriorityCB " + $node)
+			nnsSetRenderPriority_RenderPriority;
+
+		// setAttr などで変更された場合に、
+		// コントロールの値を更新するため
+		SetJob_UseRenderPriority($node);
+		SetJob_RenderPriority($node);
+	}
+
+	//-----------------------------------------------------------------------------
+	// set enable state
+	control -e -en $enableFlag nnsSetRenderPriority_DontCare;
+	control -e -en $enableFlag nnsSetRenderPriority_UseRenderPriority;
+	control -e -en ($enableFlag && $useRenderPriority) nnsSetRenderPriority_RenderPriority;
+	control -e -en $enableFlag nnsSetRenderPriority_Description;
+
+	//-----------------------------------------------------------------------------
+	// update list
+	if (`tabLayout -q -sti nnsSetRenderPriority_Mode` == 2)
+	{
+		if (IsSGSizeChanged())
+		{
+			//trace "SG size changed";
+			UpdateList();
+		}
+		else
+		{
+			SetListColor();
+		}
+	}
+}
+
+/******************************************************************************
+	search mode callback
+******************************************************************************/
+global proc nnsSetRenderPriority_SearchModeCB()
+{
+	int $dontCare =
+		(`radioButtonGrp -q -sl nnsSetRenderPriority_SearchDontCare` == 1);
+	int $useRenderPriority =
+		(`radioButtonGrp -q -sl nnsSetRenderPriority_SearchUseRenderPriority` == 1);
+
+	control -e -en $useRenderPriority nnsSetRenderPriority_SearchCompare;
+	control -e -en $useRenderPriority nnsSetRenderPriority_SearchRenderPriority;
+	control -e -en ($dontCare || $useRenderPriority) nnsSetRenderPriority_SearchBtn;
+}
+
+/******************************************************************************
+	search value callback
+******************************************************************************/
+global proc nnsSetRenderPriority_SearchValueCB()
+{
+	int $val = `intField -q -v nnsSetRenderPriority_SearchRenderPriority`;
+	if ($val < 1)
+	{
+		intField -e -v 1 nnsSetRenderPriority_SearchRenderPriority;
+	}
+	else if ($val > 255)
+	{
+		intField -e -v 255 nnsSetRenderPriority_SearchRenderPriority;
+	}
+}
+
+/******************************************************************************
+	do search
+******************************************************************************/
+global proc nnsSetRenderPriority_DoSearch()
+{
+	int $searchUse =
+		(`radioButtonGrp -q -sl nnsSetRenderPriority_SearchUseRenderPriority` == 1);
+	int $compare = `optionMenu -q -sl nnsSetRenderPriority_SearchCompare` - 1;
+	nnsSetRenderPriority_SearchValueCB(); // clamp value
+	int $searchVal = `intField -q -v nnsSetRenderPriority_SearchRenderPriority`;
+
+	int $nodeCount = 0;
+	select -cl;
+	string $sgs[] = `ls -typ shadingEngine`;
+	for ($node in $sgs)
+	{
+		if ($node == "initialParticleSE" || $node == "swatchShadingGroup")
+		{
+			continue;
+		}
+		int $useRenderPriority = nnsSetRenderPriority_Get_UseRenderPriority($node);
+		int $renderPriority = nnsSetRenderPriority_Get_RenderPriority($node);
+		int $match = 0;
+		if (!$searchUse)
+		{
+			$match = !$useRenderPriority;
+		}
+		else
+		{
+			if (!$useRenderPriority)
+			{
+				$match = 0;			
+			}
+			else if ($compare == 0)
+			{
+				$match = ($renderPriority < $searchVal);
+			}
+			else if ($compare == 1)
+			{
+				$match = ($renderPriority <= $searchVal);
+			}
+			else if ($compare == 2)
+			{
+				$match = ($renderPriority == $searchVal);
+			}
+			else if ($compare == 3)
+			{
+				$match = ($renderPriority >= $searchVal);
+			}
+			else
+			{
+				$match = ($renderPriority > $searchVal);
+			}
+		}
+		if ($match)
+		{
+			select -add -ne $node; // shadingEngine
+			string $ins[] = `listConnections -s 1 -d 0 ($node + ".ss")`;
+			if (size($ins))
+			{
+				select -add $ins[0]; // material
+			}
+			select -add $node; // shape object & face
+			++$nodeCount;
+		}
+	}
+
+	if ($nodeCount == 0)
+	{
+		print "Not found\n";
+	}
+	else
+	{
+		string $msg = "Found: " + $nodeCount + " shadingEngine node";
+		if ($nodeCount >= 2)
+		{
+			$msg += "s";
+		}
+		print ($msg + "\n");
+	}
+}
+
+/******************************************************************************
+	tab change CB
+******************************************************************************/
+global proc nnsSetRenderPriority_TabChangeCB()
+{
+	if (`tabLayout -q -sti nnsSetRenderPriority_Mode` == 2)
+	{
+		UpdateList();
+	}
+	else
+	{
+		if (`control -q -en nnsSetRenderPriority_RenderPriority`)
+		{
+			setFocus nnsSetRenderPriority_RenderPriority;
+		}
+	}
+}
+
+/******************************************************************************
+	undo CB
+******************************************************************************/
+global proc nnsSetRenderPriority_UndoCB()
+{
+	if (`tabLayout -q -sti nnsSetRenderPriority_Mode` == 2)
+	{
+		UpdateList();
+	}
+}
+
+/******************************************************************************
+	main
+******************************************************************************/
+global proc NNS_SetRenderPriority()
+{
+	global int $nnsSetRenderPriority_SortKind;
+	global int $nnsSetRenderPriority_SortOrder;
+	global int $nnsSetRenderPriority_KeepOrder;
+
+	//-----------------------------------------------------------------------------
+	// create window
+	int $wd = 400;
+	int $ht = 372;
+	if (!`window -ex nnsSetRenderPriority_Win`)
+	{
+		window -t "NITRO Set Render Priority" -wh $wd $ht -mxb 0 -mb 0
+			nnsSetRenderPriority_Win;
+		//menu -l "Help";
+		//menuItem -l ("Help on " + `window -q -t nnsSetRenderPriority_Win` + "...")
+		//	-c "NNS_ShowHelp \"html/data_plugins.html\" \"render_priority\"";
+
+		string $form1 = `formLayout -nd 100`;
+
+		//-----------------------------------------------------------------------------
+		// tab
+		tabLayout -imh 0
+			-cc "nnsSetRenderPriority_TabChangeCB" // reload at change
+			nnsSetRenderPriority_Mode;
+
+			//-----------------------------------------------------------------------------
+			// set & search
+			//-----------------------------------------------------------------------------
+			columnLayout -adj 1 -cat "both" 4 -rs 4
+				nnsSetRenderPriority_SetLayout;
+
+			//-----------------------------------------------------------------------------
+			// node name
+			frameLayout -l "Selected Shading Group ( Material )" -cll 0 -cl 0 -bv 1 -bs "etchedIn";
+				columnLayout -adj 1 -cal "center" -rs 8;
+				
+				text -l "" nnsSetRenderPriority_NodeName;
+
+				setParent ..; // columnLayout
+			setParent ..; // formLayout
+
+			//-----------------------------------------------------------------------------
+			// set
+			frameLayout -l "Set" -cll 0 -cl 0 -bv 1 -bs "etchedIn";
+				string $form2 = `formLayout -nd 400`;
+					radioButtonGrp -l "Render Priority" -nrb 1 -cw2 110 80
+						-l1 "Don't care"
+						nnsSetRenderPriority_DontCare;
+
+					radioButtonGrp -l "" -nrb 1 -cw2 110 18
+						-l1 ""
+						-scl nnsSetRenderPriority_DontCare
+						nnsSetRenderPriority_UseRenderPriority;
+
+					intField -w 50 -v 1
+						nnsSetRenderPriority_RenderPriority;
+
+					text -l "1 (High Priority) - 255 (Low Priority)"
+						nnsSetRenderPriority_Description;
+				setParent ..; // formLayout
+				formLayout -e
+					-af nnsSetRenderPriority_DontCare "top" 8
+					-af nnsSetRenderPriority_DontCare "left" 0
+					-an nnsSetRenderPriority_DontCare "bottom"
+					-an nnsSetRenderPriority_DontCare "right"
+
+					-ac nnsSetRenderPriority_UseRenderPriority "top" 8 nnsSetRenderPriority_DontCare
+					-af nnsSetRenderPriority_UseRenderPriority "left" 0
+					-an nnsSetRenderPriority_UseRenderPriority "bottom"
+					-an nnsSetRenderPriority_UseRenderPriority "right"
+
+					-ac nnsSetRenderPriority_RenderPriority "top" 4 nnsSetRenderPriority_DontCare
+					-ac nnsSetRenderPriority_RenderPriority "left" 0 nnsSetRenderPriority_UseRenderPriority
+					-an nnsSetRenderPriority_RenderPriority "bottom"
+					-an nnsSetRenderPriority_RenderPriority "right"
+
+					-ac nnsSetRenderPriority_Description "top" 4 nnsSetRenderPriority_RenderPriority
+					-ac nnsSetRenderPriority_Description "left" 4 nnsSetRenderPriority_UseRenderPriority
+					-af nnsSetRenderPriority_Description "bottom" 8
+					-an nnsSetRenderPriority_Description "right"
+					$form2;
+			setParent ..; // frameLayout
+
+			//-----------------------------------------------------------------------------
+			// search
+			frameLayout -l "Search" -cll 0 -cl 0 -bv 1 -bs "etchedIn";
+				columnLayout -adj 1 -cal "center" -rs 0;
+				string $form3 = `formLayout -nd 400`;
+					radioButtonGrp -l "" -nrb 1 -cw2 110 80
+						-l1 "Don't care"
+						-on1 "nnsSetRenderPriority_SearchModeCB"
+						nnsSetRenderPriority_SearchDontCare;
+
+					radioButtonGrp -l "" -nrb 1 -cw2 110 18
+						-l1 ""
+						-scl nnsSetRenderPriority_SearchDontCare
+						-on1 "nnsSetRenderPriority_SearchModeCB"
+						nnsSetRenderPriority_SearchUseRenderPriority;
+
+					optionMenu -w 100
+						nnsSetRenderPriority_SearchCompare;
+						menuItem -l "<  : ( under )";
+						menuItem -l "<= : ( below )";
+						menuItem -l "=  : ( exactly )";
+						menuItem -l ">= : ( above )";
+						menuItem -l ">  : ( over )";
+
+					intField -w 50 -h 26 -v 1
+						-cc "nnsSetRenderPriority_SearchValueCB"
+						nnsSetRenderPriority_SearchRenderPriority;
+				setParent ..; // formLayout
+				formLayout -e
+					-af nnsSetRenderPriority_SearchDontCare "top" 8
+					-af nnsSetRenderPriority_SearchDontCare "left" 0
+					-an nnsSetRenderPriority_SearchDontCare "bottom"
+					-an nnsSetRenderPriority_SearchDontCare "right"
+
+					-ac nnsSetRenderPriority_SearchUseRenderPriority "top" 10 nnsSetRenderPriority_SearchDontCare
+					-af nnsSetRenderPriority_SearchUseRenderPriority "left" 0
+					-an nnsSetRenderPriority_SearchUseRenderPriority "bottom"
+					-an nnsSetRenderPriority_SearchUseRenderPriority "right"
+
+					-ac nnsSetRenderPriority_SearchCompare "top" 4 nnsSetRenderPriority_SearchDontCare
+					-ac nnsSetRenderPriority_SearchCompare "left" 0 nnsSetRenderPriority_SearchUseRenderPriority
+					-an nnsSetRenderPriority_SearchCompare "bottom"
+					-an nnsSetRenderPriority_SearchCompare "right"
+
+					-ac nnsSetRenderPriority_SearchRenderPriority "top" 4 nnsSetRenderPriority_SearchDontCare
+					-ac nnsSetRenderPriority_SearchRenderPriority "left" 4 nnsSetRenderPriority_SearchCompare
+					-af nnsSetRenderPriority_SearchRenderPriority "bottom" 8
+					-an nnsSetRenderPriority_SearchRenderPriority "right"
+					$form3;
+				rowColumnLayout -nc 2 -cw 1 200 -cw 2 150;
+					text -l ""; // dummy
+					button -l "Search"
+						-c "nnsSetRenderPriority_DoSearch"
+						nnsSetRenderPriority_SearchBtn;
+				setParent ..; // rowColumnLayout
+				separator -h 8 -st "none";
+
+				setParent ..; // columnLayout
+			setParent ..; // formLayout
+			optionMenu -e -sl 3 nnsSetRenderPriority_SearchCompare;
+
+			setParent ..; // columnLayout
+
+			//-----------------------------------------------------------------------------
+			// list
+			//-----------------------------------------------------------------------------
+			formLayout -nd 100 nnsSetRenderPriority_ListLayout;
+
+			//-----------------------------------------------------------------------------
+			string $labelRow = `rowColumnLayout -nc 4
+				-cw 1 240 -cw 2 16 -cw 3 49 -cw 4 16
+				-cs 1 7 -cs 3 5`;
+				//iconTextButton -h 24 -l "Shading Group ( Material )"
+				//	-st "iconAndTextHorizontal" -i1 "arrowUp.xpm"
+				//	-c "nnsSetRenderPriority_ListNameSortCB";
+				button -l "Shading Group ( Material )" -al "left"
+					-c "nnsSetRenderPriority_ListNameSortCB";
+				iconTextStaticLabel -h 24 -st "iconOnly" -i1 "arrowUp.xpm" -vis 0
+					nnsSetRenderPriority_NameSortIcon;
+				button -l "Priority" -al "left"
+					-c "nnsSetRenderPriority_ListPrioritySortCB";
+				iconTextStaticLabel -h 24 -st "iconOnly" -i1 "arrowDown.xpm" -vis 0
+					nnsSetRenderPriority_PrioritySortIcon;
+			setParent ..; // rowColumnLayout;
+
+			string $scroll = `scrollLayout -hst 0`;
+				formLayout -nd 100 nnsSetRenderPriority_SGList;
+				setParent ..; // formLayout;
+			setParent ..; // scrollLayout
+
+			checkBox -l "Frame Objects" -v 0
+				nnsSetRenderPriority_FrameObjects;
+
+			formLayout -e
+				-af $labelRow "top" 4
+				-af $labelRow "left" 4
+				-an $labelRow "bottom"
+				-af $labelRow "right" 4
+
+				-ac $scroll "top" 4 $labelRow
+				-af $scroll "left" 4
+				-ac $scroll "bottom" 4 nnsSetRenderPriority_FrameObjects
+				-af $scroll "right" 4
+
+				-an nnsSetRenderPriority_FrameObjects "top"
+				-af nnsSetRenderPriority_FrameObjects "left" 10
+				-af nnsSetRenderPriority_FrameObjects "bottom" 4
+				-af nnsSetRenderPriority_FrameObjects "right" 4
+
+				nnsSetRenderPriority_ListLayout;
+			setParent ..; // formLayout
+
+		setParent ..; // tabLayout
+		tabLayout -e -tl nnsSetRenderPriority_SetLayout "Set and Search"
+			nnsSetRenderPriority_Mode;
+		tabLayout -e -tl nnsSetRenderPriority_ListLayout "List"
+			nnsSetRenderPriority_Mode;
+		//tabLayout -e -st nnsSetRenderPriority_ListLayout
+		//	nnsSetRenderPriority_Mode; // select List default
+
+		//-----------------------------------------------------------------------------
+		// close button
+		string $closeCmd = "deleteUI nnsSetRenderPriority_Win";
+		string $closeBtn = `button -h 26 -l "Close" -c $closeCmd`;
+
+		formLayout -e
+			-af nnsSetRenderPriority_Mode "top" 4
+			-af nnsSetRenderPriority_Mode "left" 4
+			-ac nnsSetRenderPriority_Mode "bottom" 4 $closeBtn
+			-af nnsSetRenderPriority_Mode "right" 4
+
+			-an $closeBtn "top"
+			-af $closeBtn "left" 4
+			-af $closeBtn "bottom" 4
+			-af $closeBtn "right" 4
+			$form1;
+		setParent ..; // formLayout
+
+		setFocus $closeBtn;
+
+		//-----------------------------------------------------------------------------
+		// set selection change job
+		scriptJob -p nnsSetRenderPriority_Win
+			-e "SelectionChanged" "nnsSetRenderPriority_UpdateWindow";
+
+		//-----------------------------------------------------------------------------
+		// set undo / redo job
+		scriptJob -p nnsSetRenderPriority_Win
+			-e "Undo" "nnsSetRenderPriority_UndoCB";
+		scriptJob -p nnsSetRenderPriority_Win
+			-e "Redo" "nnsSetRenderPriority_UndoCB";
+
+		//-----------------------------------------------------------------------------
+		// set name change job
+		scriptJob -p nnsSetRenderPriority_Win
+			-e "NameChanged" "nnsSetRenderPriority_UndoCB";
+
+		//-----------------------------------------------------------------------------
+		// init sort state
+		$nnsSetRenderPriority_SortKind = 0;
+		$nnsSetRenderPriority_SortOrder = 0;
+		$nnsSetRenderPriority_KeepOrder = 0;
+	}
+	if (`window -q -w nnsSetRenderPriority_Win` < $wd)
+	{
+		window -e -w $wd nnsSetRenderPriority_Win;
+	}
+	if (`window -q -h nnsSetRenderPriority_Win` < $ht)
+	{
+		window -e -h $ht nnsSetRenderPriority_Win;
+	}
+	//window -e -wh $wd $ht nnsSetRenderPriority_Win;
+
+	//-----------------------------------------------------------------------------
+	// update window
+	nnsSetRenderPriority_UpdateWindow();
+	nnsSetRenderPriority_SearchModeCB();
+	nnsSetRenderPriority_TabChangeCB();
+
+	//-----------------------------------------------------------------------------
+	// show window
+	showWindow nnsSetRenderPriority_Win;
+}
